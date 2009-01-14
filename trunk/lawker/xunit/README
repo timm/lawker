@@ -1,0 +1,64 @@
+XUNIT is a simple unit test framework for eXecutable files by
+tim@menzies.us (http://menzies.us) .  
+
+XUNIT was inspired by the ultra simplicity of John Brewer's MinUnit
+http://www.jera.com/techinfo/jtns/jtn002.html who writes:
+ 
+  "People think that writing a unit testing framework has to be
+  complex. In fact, you can write one in just a few lines of code, as
+  this tech note shows. Of course, if you have access to a
+  full-featured testing framework like JUnit, by all means use it. But
+  if you don't, you can still use a simple framework like MinUnit, or
+  whip up your own in a few hours. 
+
+  THERE'S NO EXCUSE FOR NOT UNIT TESTING."
+
+Xunit assumes that there exists a directory called "eg" containing
+executables called
+
+     eg/setup <== optional
+     eg/1
+     eg/2
+     eg/3
+     eg/teardown <== optional
+
+(Note: to make something executable in UNIX, use "chmod +x FILENAME".)
+
+For each file there is also a ".want" file
+
+    eg/1.want
+    eg/2.want
+    eg/3.want
+
+XUNIT  compares (e.g.)  the  output  of running  (e.g.)  "1" with  the
+contents  of "1.want"  and prints  PASSED/FAILED if  the  contents are
+same/different.
+
+If "setup" and "teardown" exist, they are called once before and after
+running a string of tests.
+
+The main commands are
+
+    make
+
+which (a) calls "setup" if it exists; then (b) runs all the tests;
+then (c) runs "teardown" if it exists; then (d) prints out the number
+of passes, fails.
+
+If you see any failures, run
+
+    make watch
+
+to get the details.
+
+To run just one test, use
+
+   make do=N test
+
+where N is the name of some file eg/N.
+
+To create a new eg/N.want file,  write eg/N then issue the command
+
+   make do=N cache
+
+That's it!

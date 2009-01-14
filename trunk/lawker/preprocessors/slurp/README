@@ -1,0 +1,46 @@
+SLURP is a simple module system for gawk based on uses gawk/make by
+tim@menzies.us (http://menzies.us).
+
+Modules to include are denoted with a 
+
+#use "file name"
+
+Note that "file name" will be included before including the file
+containing the above "#use".
+
+By default, SLURP assumes that there is a file main.awk that is your top level driver
+of everything else. This can be changed using
+
+      make it=otherName 
+
+i.e. you main file is otherName.awk.
+
+The main call is
+
+      make args="..."
+
+that finds all the included files "f1" "f2" then runs
+
+     gawk -f f1 -f f2 -f main.awk args
+
+A call to
+
+       make profile args="..."
+
+will do the run and print out that profile.out report showing how many
+times lines were called (this is handy for checking for dead code or functions
+that are candidates for optimization). By default, this profile is written
+to $HOME/tmp/profile.out. You can change this default by
+
+       make tmp=dir profile args="..."
+
+A call to
+
+       make build
+
+will combine all the files into one file and adds the #!`which gawk` -f
+shebang string at the top of the file.  Note: i find "build" very
+useful for shipping one file to a client. By default, it writes
+a file called "main" main but you can change that using
+
+      make it=otherName build

@@ -1,0 +1,33 @@
+This directory uses XUNIT to define the unit tests for AWK-LIBRARY.
+
+These test suite is a work in progress. Feel free to add in!
+
+To write new tests, add an executable "eg/N". Then, cache the output
+of that test using
+
+   make do=N cache
+
+In future, to run just that new test, use
+
+   make do=N test
+
+To run all tests,
+
+   cd tests
+   make
+
+To debug failed tests,
+
+   cd tests
+   make watch
+
+The file "eg/setup" contains all initializiations you require before
+running any test.
+
+The file "eg/teardown" contains all clean code to run after you run tests.
+
+Please note the following convention. Use some temp directory for any
+files written by the test cases. This reduces the clutter in the
+directory containing the test cases.
+
+

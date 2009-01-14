@@ -1,0 +1,6 @@
+Dirs=`find . ../.. -depth 1 -type d`
+for d in $Dirs; do
+    AWKPATH="$AWKPATH:$d"
+done
+export AWKPATH
+chmod +x use

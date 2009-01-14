@@ -1,0 +1,23 @@
+Awk programmers know that "less, but better" is the way to write
+software.
+
+"Less, but better" was the mantra of Dieter Rams who offered the
+following 10 Commandments of Design:
+
+1. Good design is innovative
+2. Good design makes a product useful
+3. Good design is esthetic
+4. Good design helps a product to be understood
+5. Good design is unobtrusive
+6. Good design is honest
+7. Good design is durable
+8. Good design is consistent to the last detail
+9. Good design is concerned with the environment
+10. Good design is a s little design as possible
+
+Rams changed the face of modern design by creating a revolutionary
+look and feel to the products of the Germany manufacturer Braun. His
+impact on 20th and 21st century design cannot not be over-stated. Look
+at any Apple product and Rams will be starting back at you. 
+
+As you type your gawk, feel free to chant the 10 commandments.

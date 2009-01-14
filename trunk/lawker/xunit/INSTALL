@@ -1,0 +1,18 @@
+Place Makefile into a directory. Create a sub-directory called "eg".  
+
+To test the install, write a file "eg/1"
+
+    echo "hello world"
+
+and make it executable
+
+    chmod +x eg/1
+
+then cache the rest
+
+    make do=1 cache
+
+This creates the file eg/1.want. The following call should now print
+"1 PASS".
+
+   make

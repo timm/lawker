@@ -1,0 +1,5 @@
+# This tests a shorthand for doing things like test 2.
+# If it works, it will be etremely useful in future work (it may
+# even become the main driver of much gawk code.
+
+./use 2

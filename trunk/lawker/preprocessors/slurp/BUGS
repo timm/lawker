@@ -1,0 +1,10 @@
+SLURP was written very fast from some stuff I did about 2 years
+ago. So buyer beware.
+
+Also, I don't like the way SLURP users have to pass in the command
+line args using
+
+   make args="..."
+
+I'd be open to alternate proposals.
+

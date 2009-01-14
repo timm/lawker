@@ -1,0 +1,4 @@
+VPATH="$VPATH:$AWKPATH"
+It=$1
+shift 1
+make -f ../../use/Makefile it=$It args="$*"
