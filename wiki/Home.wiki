@@ -10,3 +10,12 @@ Instead of the usual 'trunk', 'tags', 'branches' organization, we structured the
      * lawker/block (instead of branches), where code gets "hacked up"
      * lawker/freezer (instead of tags), where good code is frozen
      * lawker/fridge (instead of trunk), where the code is fresh and ready to serve
+
+
+
+---
+Project administrators
+
+JimHart
+
+[http://code.google.com/p/lawker/wiki/Timm Tim Menzies]
