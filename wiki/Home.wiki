@@ -1,5 +1,3 @@
-#summary AWK code locker home page.
-
 == Welcome ==
 to 'lawker', a place to get tested AWK code that you can use rather than re-invent the wheel.
 
