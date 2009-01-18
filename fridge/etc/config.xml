@@ -55,7 +55,9 @@ Reading<br>
 ]]>
     </string>
     <string id="nav2">
-      <![CDATA[<h3>News</h3>
+      <![CDATA[
+<img src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
+<h3>News</h3>
 <p><b>Jan 17 '08:</b> 
 New web site: <a href="http://awk.info">awk.info</a>.
 
