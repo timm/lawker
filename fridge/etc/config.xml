@@ -9,7 +9,14 @@
     <string id="copyright">
       <![CDATA[
            &copy; 2009 <a href="http://menzies.us">Tim Menzies</a> GPL 3.0.
-           Design by <a href="http://raykdesign.net">raykdesign.net</a>]]>
+           Design by <a href="http://raykdesign.net">raykdesign.net</a><br>
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript">var addthis_pub="timmenzies";</script>
+<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-share-en.gif" width="125" height="16" border="0" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+<!-- AddThis Button END -->
+
+
+]]>
     </string>
     <string id="menu1">
       <![CDATA[  <ul>
@@ -75,14 +82,9 @@ Hirofumi Saito and Morimoto Tetsuya present xgawk at OSC'08.<br>
 [<a href="http://gauc.no-ip.org/osc2008/material/osc2008_slide.pdf">slides</a>
 | <a href="http://gauc.no-ip.org/osc2008/material/osc2008_handout.pdf">handouts</a>]
 </p>
-<p><!-- AddThis Button BEGIN -->
-<script type="text/javascript">var addthis_pub="timmenzies";</script>
-<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-share-en.gif" width="125" height="16" border="0" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
-<!-- AddThis Button END -->
-
 
 <center><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/AlleAlle_2.jpg/250px-AlleAlle_2.jpg"
- width=100 broder=1></center>
+ width=100 border=1></center>
 
 ]]>
     </string>
