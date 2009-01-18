@@ -44,9 +44,12 @@ About Awk<br>
 Implementations<br>
 &nbsp;&raquo;&nbsp; <a href="http://plan9.bell-labs.com/cm/cs/who/bwk/awk.tar.gz">awk</a> (old)<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">gawk</a> (widely used)<br> 
-&nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">xgawk</a> (gawk+xml)<br>
-Code<br>
+&nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">xgawk</a> (gawk+xml+...)<br>
+Tips<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?oneliners">one-liners</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://awk.info/?debugging">debugging</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://awk.info/?debugging">GUI</a><br>
+Code<br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/fun">functions</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/pkgs">packages</a><br>
 Online doc<br>
