@@ -31,18 +31,29 @@
             ]]>
     </string>
     <string id="nav3">
-      <![CDATA[<h1>Sidebar</h1>
-               <p>You can use this sidebar to post news, quick links, and of course for navigation.
-                  The half-rounded content boxes were inspired by similar ones found at 
-                  <a href="http://www.odeo.com">odeo.com</a>.</p>]]>
+      <![CDATA[<h1>What is Awk?</h1>
+<p> 
+Awk is a stable, cross platform programming language named after its three original authors
+(Al Aho,
+  Brian Kernighan,
+  Peter  Weinberger) who write
+<em> Awk is a convenient and expressive programming language that can be
+  applied to a wide variety of computing and data-manipulation tasks.</em>
+<hr>
+<ul>
+<li>Advocacy
+<li>References
+<ul>
+<li>Tutorials
+<li>Books
+</ul>
+</ul>
+]]>
     </string>
     <string id="nav2">
       <![CDATA[<h3>About this Subject</h3>
-   <P>This subject aims to
-teach the  basic theory and programming concepts of AI. Here, students learn
-the practical issues associated with AI for real-world applications 
-such as gaming; or model-based software engineering.
-</p>]]>
+
+]]>
     </string>
     <string id="join"><![CDATA[/<join>(.*)<\/join>/]]></string> 
     <string id="delimiter">``</string>
