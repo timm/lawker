@@ -23,7 +23,7 @@
     </string>
     <string id="nav1">
       <![CDATA[<center>
-               <img id="logo" alt="Leaves" src="http://lawker.googlecode.com/svn/fridge/etc/themes/slightamnesia/leaves_brown.jpg" />
+               <a href="http://awk.info"><img id="logo" border=0 alt="Leaves" src="http://lawker.googlecode.com/svn/fridge/etc/themes/slightamnesia/leaves_brown.jpg" /></a>
                </center>
                <div id="left_quote">"Because a little
                    <strike>auk</strike> awk goes a long way."</div>
@@ -81,6 +81,8 @@ Hirofumi Saito and Morimoto Tetsuya present xgawk at OSC'08.<br>
 <!-- AddThis Button END -->
 
 
+<center><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/AlleAlle_2.jpg/250px-AlleAlle_2.jpg"
+ width=100 broder=1></center>
 
 ]]>
     </string>
