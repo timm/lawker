@@ -2,7 +2,7 @@
 <things>
  <strings>
     <string id="index">etc/themes/slightamnesia</string>
-    <string id="source">http://lawker.googlecode.com/svn/fridge</string>
+    <string id="source">http://lawker.googlecode.com/svn/fridge/</string>
     <string id="site">http://awk.info</string>
     <string id="default">index</string>
     <string id="title">awk.info</string>
