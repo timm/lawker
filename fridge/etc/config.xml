@@ -26,9 +26,9 @@
     </string>
     <string id="nav1">
       <![CDATA[<center>
- 
+<p><b><a href="http://awk.info">awk.info</a></b></p> 
                <a href="http://awk.info"><img id="logo" border=0 alt="Leaves" src="http://lawker.googlecode.com/svn/fridge/etc/themes/slightamnesia/leaves_brown.jpg" /></a><br clear=all>
-<b><a href="http://awk.info">awk.info</a></b><br>
+
                </center>
                <div id="left_quote">"Because a little
                    <strike>auk</strike> awk goes a long way."</div>
