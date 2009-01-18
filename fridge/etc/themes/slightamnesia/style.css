@@ -209,6 +209,7 @@ text-decoration:none;
 
 /* font styles */
 h1 {
+font-size: 20px;
 background-image:url(leafs_brown.jpg);
 background-repeat:no-repeat;
 background-position:.1em .1em;
