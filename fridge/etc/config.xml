@@ -29,13 +29,13 @@
               </center>
             ]]>
     </string>
-    <string id="nav2">
+    <string id="nav3">
       <![CDATA[<h1>Sidebar</h1>
                <p>You can use this sidebar to post news, quick links, and of course for navigation.
                   The half-rounded content boxes were inspired by similar ones found at 
                   <a href="http://www.odeo.com">odeo.com</a>.</p>]]>
     </string>
-    <string id="nav3">
+    <string id="nav2">
       <![CDATA[<h1>About this Subject</h1>
    <P>This subject aims to
 teach the  basic theory and programming concepts of AI. Here, students learn
