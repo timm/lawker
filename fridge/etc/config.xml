@@ -8,17 +8,18 @@
     <string id="title">awk.info</string>
     <string id="copyright">
       <![CDATA[
-         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
-             <img  alt="Creative Commons License" style="margin-top: 10px;border-width:0;" 
-                              src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> 
-         &copy; 2008,2009 Tim Menzies. Design by Keven Cannon]]>
+           &copy; 2009 Tim Menzies GPL 3.0.
+           Design by raykdesign.net]]>
     </string>
     <string id="menu1">
-      <![CDATA[  <a href="?index">Home</a> 
-               | <a href="?syllabus">Syllabus</a> 
-               | <a href="?lectures">Lectures</a> 
-               | <a href="?projects">Projects</a> 
-               | <a href="?contact">Contact</a>]]>
+      <![CDATA[  <ul>
+                 <li><a href="?index">Home</a>        </li>
+                 <li><a href="?syllabus">Syllabus</a> </li> 
+                 <li><a href="?lectures">Lectures</a> </li>
+                 <li><a href="?projects">Projects</a> </li>
+                 <li><a href="?contact">Contact</a>   </li>
+                 </ul>
+              ]]>
     </string>
     <string id="nav1">
       <![CDATA[<center>
@@ -27,6 +28,7 @@
                <div id="left_quote">"Because a little
                    <strike>auk</strike> awk goes a long way."</div>
               </center>
+          <p>Sitemap:</p>
             ]]>
     </string>
     <string id="nav3">
