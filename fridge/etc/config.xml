@@ -31,7 +31,7 @@
             ]]>
     </string>
     <string id="nav3">
-      <![CDATA[<h1>What is Awk?</h1>
+      <![CDATA[<h2>What is Awk?</h2>
 <p> 
 Awk is a stable, cross platform programming language named after its three original authors
 (Alfred Aho,
