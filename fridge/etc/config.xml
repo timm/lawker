@@ -41,19 +41,23 @@ Awk is a stable, cross platform programming language named after its three origi
   applied to a wide variety of computing and data-manipulation tasks".
 <hr><nobr>
 About Awk<br>
-  advocacy<br>
-  learn<br>
-  history<br>
-  downloads<br>
-Libraries<br>
-  on-line<br>
+&nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
+&nbsp;&raquo;&nbsp;  learn<br>
+&nbsp;&raquo;&nbsp;  history<br>
+Implementations<hr>
+&nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">gawk</a><br>
+&nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">xgawk</a><br>
+Libraries<br
+&nbsp;&raquo;&nbsp;  <a href="http://awk.info/?oneliners">one-liners</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/fun">functions</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/pkgs">packages</a><br>
 Online doc<br>
-  manual pages<br>
-  FAQ<br>
-  discussion group<br>
+&nbsp;&raquo;&nbsp;  <a href="http://www.nrl.navy.mil/code5595/online-software/manpages/gawk-manpage.html">manual pages</a><br>
+&nbsp;&raquo;&nbsp;  FAQ<br>
+&nbsp;&raquo;&nbsp;  <a href="http://groups.google.com/group/comp.lang.awk/topics">discussion group>/a><br>
 Reading<br>
-  books<br>
-  artciles
+&nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
+&nbsp;&raquo;&nbsp;  artciles
 ]]>
     </string>
     <string id="nav2">
