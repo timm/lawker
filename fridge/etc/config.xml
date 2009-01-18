@@ -31,14 +31,7 @@
             ]]>
     </string>
     <string id="nav3">
-      <![CDATA[<h2>What is Awk?</h2>
-<p> 
-Awk is a stable, cross platform programming language named after its three original authors
-(Alfred Aho,
-  Brian Kernighan,
-  Peter  Weinberger) who write
-"Awk is a convenient and expressive programming language that can be
-  applied to a wide variety of computing and data-manipulation tasks".
+      <![CDATA[
 <hr><nobr>
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
