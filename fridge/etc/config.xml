@@ -58,7 +58,23 @@ Reading<br>
     </string>
     <string id="nav2">
       <![CDATA[<h3>News</h3>
-<p>Gawk 3.1 
+<p><b>Jan 17'08:</b> 
+New web site: <a href="http://awk.info">awk.info</a>.
+
+<p><b>Jan 3'08:</b> 
+Robbins propoes an 
+API for C/C++ extensions to Awk:
+[<a href="http://www.skeeve.com/awk_api.pdf">read</a>
+| 
+<a 
+href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1a4ab1b05a26b206#">
+discuss</a>]
+
+<p>
+<b>Mar 3'08:</b>  
+Hirofumi Saito and Morimoto Tetsuya present xgawk at OSC'08:
+[<a href="http://gauc.no-ip.org/osc2008/material/osc2008_slide.pdf">slides</a>
+| <a href="http://gauc.no-ip.org/osc2008/material/osc2008_handout.pdf">handouts</a>]
 
 ]]>
     </string>
