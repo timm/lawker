@@ -43,6 +43,7 @@ text-align:center;
 }
 
 hr { 
+    border: none;
     color: #DFD8D2;
     height: 1px;
 }
