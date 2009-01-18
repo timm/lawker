@@ -34,12 +34,17 @@ xwidth:9.65em;
 margin:0 0 0 0;
 padding:.5em 5% .5em 5%;
 background:#EDE9E6;
-border-top:1px solid #DFD8D2;
+border-top:    1px solid #DFD8D2;
 border-bottom:1px solid #DFD8D2;
 font-size: 20px;
 font-style:italic;
 color:#AC9C90;
 text-align:center;
+}
+
+hr { 
+    color: $DFD8D2;
+    height: 1px;
 }
 
 #left_text {
