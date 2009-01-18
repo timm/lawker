@@ -11,7 +11,7 @@ font-size:.8em;
 color:#000000;
 margin:0 0 0 0;
 padding:0 0 0 0;
-background:#ffffff url(img/body_bg.jpg) repeat-y;
+background:#ffffff url(body_bg.jpg) repeat-y;
 text-align:center;
 }
 
@@ -62,7 +62,7 @@ width:42em;
 height:100%;
 margin:0 0 0 0;
 padding:0 0 0 0;
-background:#ffffff url(img/navbar_fade.jpg) top repeat-x;
+background:#ffffff url(navbar_fade.jpg) top repeat-x;
 }
 
 .navbar {
@@ -84,7 +84,7 @@ width:42em;
 height:3em;
 margin:0 0 0 0;
 padding:0 0 0 0;
-background:#ffffff url(img/navbar_fade.jpg) top repeat-x;
+background:#ffffff url(navbar_fade.jpg) top repeat-x;
 border-left:1px solid #DFD8D2;
 border-right:1px solid #DFD8D2;
 }
@@ -139,7 +139,7 @@ padding:0 0 0 0;
 
 #footer {
 position:relative;
-width:48.9em;
+#width:48.9em;
 height:2.5em;
 margin:0 0 0 0;
 padding:.3em .5em 0 0;
@@ -148,7 +148,7 @@ border-top:1px solid #DFD8D2;
 font-size:.85em;
 font-family:Arial, Helvetica, sans-serif;
 color:#cccccc;
-text-align:right;
+text-align:center;
 }
 
 /* top navigation bar */
@@ -208,7 +208,7 @@ margin:0 0 -.3em 0;
 padding:.8em 0 .5em 3.3em;
 font-size:1.9em;
 color:#8E1F0D;
-background-image:url(img/leafs_brown.jpg);
+background-image:url(leafs_brown.jpg);
 background-repeat:no-repeat;
 background-position:.1em .1em;
 }
@@ -270,7 +270,7 @@ border:none;
 blockquote {
 margin:.3em .6em .7em .6em;
 padding:.05em .5em .05em .5em;
-background:#ffffff url(img/navbar_fade.jpg) top repeat-x;
+background:#ffffff url(navbar_fade.jpg) top repeat-x;
 border-top:1px solid #CABEB5;
 border-bottom:1px solid #EEEAE7;
 border-left:1px solid #D7CDC6;
