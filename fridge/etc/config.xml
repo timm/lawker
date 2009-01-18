@@ -41,23 +41,27 @@ About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
 &nbsp;&raquo;&nbsp;  learn<br>
 &nbsp;&raquo;&nbsp;  history<br>
+<hr>
 Implementations<br>
 &nbsp;&raquo;&nbsp; <a href="http://plan9.bell-labs.com/cm/cs/who/bwk/awk.tar.gz">awk</a> (old)<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">gawk</a> (widely used)<br> 
 &nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">xgawk</a> (gawk + xml + ...)<br>
+<hr>
 Tips<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?oneliners">one-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?debugging">debugging</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?debugging">GUI</a><br>
+<hr>
 Code<br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/fun">functions</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/pkgs">packages</a><br>
+<hr>
 Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.cs.pdx.edu/~timm/dm/gawkcard.pdf">reference card</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.nrl.navy.mil/code5595/online-software/manpages/gawk-manpage.html">manual pages</a><br>
 &nbsp;&raquo;&nbsp;  FAQ<br>
 &nbsp;&raquo;&nbsp;  <a href="http://groups.google.com/group/comp.lang.awk/topics">discussion group</a><br>
-Reading<br>
+<hr>Reading<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
 &nbsp;&raquo;&nbsp;  articles
 ]]>
