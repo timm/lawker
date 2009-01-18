@@ -46,6 +46,7 @@ Implementations<br>
 &nbsp;&raquo;&nbsp; <a href="http://plan9.bell-labs.com/cm/cs/who/bwk/awk.tar.gz">awk</a> (old)<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">gawk</a> (widely used)<br> 
 &nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">xgawk</a> (gawk + xml + ...)<br>
+&nbsp;&raquo:&nbsp; <a href="http://www.shelldorado.com/articles/awkcompat.html">platform support</a>
 <hr>
 Tips<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?oneliners">one-liners</a><br>
