@@ -44,10 +44,10 @@ About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
 &nbsp;&raquo;&nbsp;  learn<br>
 &nbsp;&raquo;&nbsp;  history<br>
-Implementations<hr>
+Implementations<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">gawk</a><br>
 &nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">xgawk</a><br>
-Libraries<br
+Libraries<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?oneliners">one-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/fun">functions</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/pkgs">packages</a><br>
