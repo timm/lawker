@@ -64,7 +64,8 @@ Reading<br>
     <string id="nav2">
       <![CDATA[
 
-<img align=center src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif"><br clear=all>
+<center>
+<img  src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif"></center>
 <p><b>Jan 17 '09:</b> 
 New web site: <a href="http://awk.info">awk.info</a>.
 
