@@ -48,7 +48,7 @@ gawk/   # (e.g.)
     share/ 
         fun/              # stuff that is stand alone files (see "fun" notes, below)
            doc/           # notes on the functions
-           test/          # test suite
+           test/          # test suite (see "test" notes, below)
         pkg/              # stuff where one file depends on another (see "pkg" notes, below)
         prep/             # pre-processor stuff
           awk++           # e.g.
@@ -57,14 +57,10 @@ gawk/   # (e.g.)
 ---| INSIDE "pkg" |-----------------------------------------
 
 pkg/
-    fun/         # standalone functions, no dependancies on other files
-       doc/      # documentation. html recommended.
-       test/     # test suote
-    pkg/         # stuff that depends on other stuff
-       pkg1/     # example package. repeats the following structure
-          src/   # code
-          doc/   # notes
-          test/  # test suite
+   pkg1/      # example package. repeats the following structure
+       src/   # code
+       doc/   # notes
+       test/  # test suite
 
 --| INSIDE "test" |----------------------------------------
  
