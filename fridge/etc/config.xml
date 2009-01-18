@@ -34,19 +34,17 @@
       <![CDATA[<h1>What is Awk?</h1>
 <p> 
 Awk is a stable, cross platform programming language named after its three original authors
-(Al Aho,
+(Alfred Aho,
   Brian Kernighan,
   Peter  Weinberger) who write
-<em> Awk is a convenient and expressive programming language that can be
-  applied to a wide variety of computing and data-manipulation tasks.</em>
+"Awk is a convenient and expressive programming language that can be
+  applied to a wide variety of computing and data-manipulation tasks".
 <hr>
-<ul>
-<li>Advocacy
-<li>References
+<p>Advocacy<br>
+References
 <ul>
 <li>Tutorials
 <li>Books
-</ul>
 </ul>
 ]]>
     </string>
