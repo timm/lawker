@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<things>
+ <strings>
+    <string id="index">etc/themes/slightanameic</string>
+    <string id="source">http://lawker.googlecode.com/svn/fridge</string>
+    <string id="site">http://awk.info</string>
+    <string id="default">index</string>
+    <string id="title">awk.info</string>
+    <string id="copyright">
+      <![CDATA[
+         <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">
+             <img  alt="Creative Commons License" style="margin-top: 10px;border-width:0;" 
+                              src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> 
+         &copy; 2008,2009 Tim Menzies. Design by Keven Cannon]]>
+    </string>
+    <string id="menu1">
+      <![CDATA[  <a href="?index">Home</a> 
+               | <a href="?syllabus">Syllabus</a> 
+               | <a href="?lectures">Lectures</a> 
+               | <a href="?projects">Projects</a> 
+               | <a href="?contact">Contact</a>]]>
+    </string>
+    <string id="nav1">
+      <![CDATA[<center>
+               <img id="logo" alt="Leaves" src="``source``/etc/themes/slightamnesia/leaves_brown.jpg" />
+               </center>
+               <div id="left_quote">"Because a little
+                   <strike>auk</strike> awk goes a long way."</div>
+              </center>
+            ]]>
+    </string>
+    <string id="nav2">
+      <![CDATA[<h1>Sidebar</h1>
+               <p>You can use this sidebar to post news, quick links, and of course for navigation.
+                  The half-rounded content boxes were inspired by similar ones found at 
+                  <a href="http://www.odeo.com">odeo.com</a>.</p>]]>
+    </string>
+    <string id="nav3">
+      <![CDATA[<h1>About this Subject</h1>
+   <P>This subject aims to
+teach the  basic theory and programming concepts of AI. Here, students learn
+the practical issues associated with AI for real-world applications 
+such as gaming; or model-based software engineering.
+</p>]]>
+    </string>
+    <string id="join"><![CDATA[/<join>(.*)<\/join>/]]></string> 
+    <string id="delimiter">``</string>
+    <string id="lisp"><![CDATA[/(^\#\||\|\#|^;)/]]> </string>
+    <string id="awk"><![CDATA[/^;/]]> </string>
+    <string id="htxml"></string>
+  </strings>
+  <files>
+     <file where="doc/wvn2.html">
+      <title>Wvn2</title>
+      <what>Tools</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+     <file where="doc/know101.html">
+      <title>What is Knowledge?</title>
+      <what>Lectures</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+     <file where="doc/ai101.html">
+      <title>What is AI?</title>
+      <what>Lectures</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+     <file where="doc/index.html">
+      <title>Weclome to AI</title>
+      <what>Misc</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+    <file where="doc/syllabus.html">
+      <title>Syllabus</title>
+      <what>Admin</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+    <file where="doc/projects.html">
+      <title>Projects</title>
+      <what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+    <file where="doc/groups.html">
+      <title>Groups</title>
+      <what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+    <file where="doc/lectures.html">
+      <title>Lectures</title>
+      <what>Lectures</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/proj1.html">
+      <title>Project 1</title>
+      <what>Cs472</what><what>Cs572</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+   <file where="doc/gameland.html">
+      <title>Gameland</title>
+      <what>Cs472</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/proj2a.html">
+      <title>Project 2a</title>
+      <what>Cs472</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/proj3a.html">
+      <title>Project 3a</title>
+      <what>Cs472</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+   <file where="doc/agile.html">
+      <title>Modern software</title>
+      <what>Cs572</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/proj2b.html">
+      <title>Project 2b</title>
+      <what>Cs572</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/proj3b.html">
+      <title>Project 3b</title>
+      <what>Cs572</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/proj4b.html">
+      <title>Project 4b</title>
+      <what>Cs572</what><what>Projects</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/slime.html">
+      <title>SLIME</title>
+      <what>LISP</what>
+      <what>Emacs</what>
+       <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/emacs101.html">
+      <title>Better EMACS Interface</title>
+      <what>Emacs</what>
+       <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/emacscolor.html">
+      <title>Color Themes in EMACS</title>
+      <what>Emacs</what>
+       <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+
+    <file where="doc/timetable.html">
+      <title>Timetable</title>
+      <what>Admin</what> <what>Timm</what><what>Jan</what><what>2009</what>
+    </file>
+    <file where="lib/lisp101/random.lisp">
+      <title>Random Numbers</title>
+      <what>Lisp</what><what>Timm</what><what>Nov</what><what>2008</what>
+    </file>
+
+    <file where="doc/localglobal.html">
+      <title>Local globals</title>
+      <what>Tips</what>
+      <what>Timm</what>
+      <what>Lisp</what>
+      <what>Nov</what>
+      <what>2008</what>
+    </file>
+    <file where="doc/watch.html">
+      <title>Profiling Lisp</title>
+      <what>Tips</what>
+      <what>Timm</what>
+      <what>Lisp</what>
+      <what>Nov</what>
+      <what>2008</what>
+    </file>
+  </files>
+</things>

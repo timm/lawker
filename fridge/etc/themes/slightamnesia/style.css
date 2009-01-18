@@ -1,0 +1,296 @@
+/* culture shock: slight amnesia v1.0 by pogy366: http://www.raykdesign.net - Dec. 2005 */
+
+/* general page structure and layout */
+html, body {
+height:100%;
+}
+
+body {
+font-family:Georgia, "Times New Roman", Times, serif;
+font-size:.8em; 
+color:#000000;
+margin:0 0 0 0;
+padding:0 0 0 0;
+background:#ffffff url(img/body_bg.jpg) repeat-y;
+text-align:center;
+}
+
+#left_container {
+position:absolute;
+left:0;
+top:0;
+width:15em;
+height:100%;
+margin:0 0 0 0;
+padding:0 0 0 0;
+background:#EDE9E6;
+border-right:1px solid #DFD8D2;
+}
+
+#left_quote {
+position:relative;
+left:0;
+width:9.65em;
+margin:0 0 0 0;
+padding:.5em 5% .5em 5%;
+background:#EDE9E6;
+border-top:1px solid #DFD8D2;
+border-bottom:1px solid #DFD8D2;
+font-size: 18px;
+font-style:italic;
+color:#AC9C90;
+text-align:center;
+}
+
+#left_text {
+position:relative;
+width:16.7em;
+margin:0 0 0 0;
+padding:.5em 5% .5em 5%;
+background:#EDE9E6;
+font-family:Arial, Helvetica, sans-serif;
+font-size:.8em;
+color:#000000;
+text-align:left;
+}
+
+#right_container_outer {
+position:absolute;
+left:16.3em;
+top:1em;
+width:42em;
+height:100%;
+margin:0 0 0 0;
+padding:0 0 0 0;
+background:#ffffff url(img/navbar_fade.jpg) top repeat-x;
+}
+
+.navbar {
+position:relative;
+left:0;
+top:0;
+width:42em;
+height:2em;
+margin:0 0 0 0;
+padding:0 0 0 0;
+background:#ffffff;
+}
+
+#navbar_fade {
+position:relative;
+left:0;
+top:0;
+width:42em;
+height:3em;
+margin:0 0 0 0;
+padding:0 0 0 0;
+background:#ffffff url(img/navbar_fade.jpg) top repeat-x;
+border-left:1px solid #DFD8D2;
+border-right:1px solid #DFD8D2;
+}
+
+#right_container_inner {
+position:relative;
+left:0;
+top:0;
+width:42em;
+margin:0 0 0 0;
+padding:0 0 .2em 0;
+background:#ffffff;
+border-left:1px solid #DFD8D2;
+border-right:1px solid #DFD8D2;
+}
+
+#rci_left_column {
+position:relative;
+width:31em;
+margin:-1em 0 0 .2em;
+padding:0 1em 0 1em;
+background:transparent;
+font-size:.9em;
+color:#000000;
+text-align:left;
+}
+
+#rci_right_column {
+position:relative;
+float:right;
+clear:both;
+width:12.5em;
+margin:0 1em 0 0;
+padding:0 0 0 0;
+background:#ffffff;
+font-size:.8em;
+color:#9D958E;
+text-align:left;
+}
+
+#rci_right_column ul {
+margin:.9em 0 0 1.4em !important;
+margin:.9em 0 0 1.6em;
+padding:0 0 0 0;
+list-style-type:circle;
+}
+
+#rci_right_column li {
+margin:0 0 .3em 0;
+padding:0 0 0 0;
+}
+
+#footer {
+position:relative;
+width:48.9em;
+height:2.5em;
+margin:0 0 0 0;
+padding:.3em .5em 0 0;
+background:#ffffff;
+border-top:1px solid #DFD8D2;
+font-size:.85em;
+font-family:Arial, Helvetica, sans-serif;
+color:#cccccc;
+text-align:right;
+}
+
+/* top navigation bar */
+#nav ul{
+padding:0 0 0 0;
+margin: 0 0 0 0;
+white-space: nowrap;
+font-size:1em;
+color:#000000;
+float:left;
+width:100%;
+height:2em;
+background:transparent;
+list-style:none;
+}
+
+#nav ul li{
+display:inline;
+list-style:none;
+}
+
+#nav ul li a{
+margin: 0 .4em 0 0;
+padding: .4em 1em .46em 1em;
+color:#8E1F0D;
+font-weight:bold;
+text-decoration:none;
+float: left;
+background:#ffffff;
+border-left:1px solid #DFD8D2;
+border-top:1px solid #DFD8D2;
+border-right:1px solid #DFD8D2;
+}
+
+#nav ul li a:hover{
+color:#8E1F0D;
+background:#EDE9E6;
+font-weight:bold;
+text-decoration:none;
+}
+
+#nav #current li {
+color:#000000;
+background:#EDE9E6;
+}
+
+#nav #current a {
+color:#7A6D62;
+background:#EDE9E6;
+text-decoration:none;
+}
+
+/* font styles */
+h2 {
+font-family:Georgia, "Times New Roman", Times, serif;
+margin:0 0 -.3em 0;
+padding:.8em 0 .5em 3.3em;
+font-size:1.9em;
+color:#8E1F0D;
+background-image:url(img/leafs_brown.jpg);
+background-repeat:no-repeat;
+background-position:.1em .1em;
+}
+
+h3 {
+font-family:Georgia, "Times New Roman", Times, serif;
+margin:0 0 -.8em;
+padding:0 0 0 0;
+font-size:1em;
+color:#8E1F0D;
+}
+
+#rci_right_column h3 {
+font-family:Georgia, "Times New Roman", Times, serif;
+margin:0 0 -.8em;
+padding:0 0 0 0;
+font-size:.9em;
+color:#8E1F0D;
+}
+
+#left_text h3 {
+font-family:Arial, Helvetica, sans-serif;
+margin:0 0 -.7em;
+padding:0 0 0 0;
+font-size:1.2em;
+color:#8E1F0D;
+}
+
+.small {
+font-family:"Courier New", Courier, mono;
+font-size:.85em;
+text-transform:uppercase;
+}
+
+/* link styles */
+#right_container_inner a {
+color:#D96107;
+text-decoration:underline;
+}
+
+#right_container_inner a:hover {
+color:#999999;
+text-decoration:none;
+}
+
+/* images */
+#logo {
+margin:.5em 0 0 0;
+Xwidth:15em;
+width: 180px;
+xheight:14em;
+}
+
+img {
+border:none;
+}
+
+/* misc styles */
+blockquote {
+margin:.3em .6em .7em .6em;
+padding:.05em .5em .05em .5em;
+background:#ffffff url(img/navbar_fade.jpg) top repeat-x;
+border-top:1px solid #CABEB5;
+border-bottom:1px solid #EEEAE7;
+border-left:1px solid #D7CDC6;
+border-right:1px solid #EEEAE7;
+font-family:Arial, Helvetica, sans-serif;
+color:#7C6C61;
+}
+
+/* workarounds and hacks */
+.clearfix:after {
+content: "."; 
+display: block; 
+height: 0; 
+clear: both; 
+visibility: hidden;
+}
+
+.clearfix {display: inline-table;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */

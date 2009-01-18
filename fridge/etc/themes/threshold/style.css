@@ -1,0 +1,250 @@
+body {
+	xbackground:#fff url(http://unbox.org/wisp/var/timm/09/ai/etc/themes/threshold/back.gif) repeat-y top center;
+	padding:0;
+	background-color: Maroon;
+	margin:0;
+	font-family:Verdana, Sans-serif;
+	font-size:74%;
+	text-align:center;
+	margin-top: 0px;
+	padding-top: 0px;
+}	
+
+p.meta { text-align: left; font-size: xsmall;  font-style: italic; } 
+abbr {
+	cursor:help;
+}	
+/********************   LINK STYLES  *********/
+a {
+	color:#FC6289;
+	font-size:1em;
+	text-decoration:none;
+}
+
+#image {
+	position:absolute;
+	top:50px;
+	left:0;
+	width:160px;
+	height:300px;
+	background:url(http://unbox.org/wisp/var/timm/09/ai/etc/themes/threshold/about.gif) no-repeat;
+}	
+
+a:hover {
+	color:#41B4F2;
+	text-decoration:underline;
+}
+
+#toplinks a {
+	margin-right:6px;
+}	
+
+span a {
+	color:#429EDB;
+	margin-left:6px;
+}
+
+span a:hover {
+	color:#FC6289;
+}
+/****************   HEADER STYLES  ************/
+h1 {
+	color:#FF3366;
+	font-family:tahoma, verdana, sans-serif;
+	font-weight:normal;
+	xpadding-left:10px;
+	font-size:2.1em;
+}
+
+#header h1 {
+	color:#333;
+}
+
+#sidebar h1 {
+	font-size:1.4em;
+	margin:0 0 0 5px;
+	padding-top:5px;
+	width:160px;
+	color:#333;
+}	
+
+#leftcolumn h1 {
+	xpadding-top:20px;
+}	
+
+h2 {
+	xcolor:#999;
+	xpadding-left:10px;
+	xfont-size:0.9em;
+	font-weight:bold;
+	xmargin-top:-18px;
+	xtext-transform:uppercase;
+}	
+
+h2 a {
+	text-transform:none;
+}
+/********************    PARAGRAPH STYLES    **********/
+p {
+	font-size:1em;
+	color:#222;
+	
+	margin-top:-1px;
+	line-height:1.3em;
+	xpadding-left: 10px;
+}	
+
+#sidebar p {
+	background:#E9F1F5 url(http://unbox.org/wisp/var/timm/09/ai/etc/themes/threshold/sidebottom.gif) no-repeat bottom right;
+	padding:4px;
+	text-indent:1em;
+}	
+/*********************     LIST STYLES    *************/
+#sidebar ul {
+	list-style:none;
+	margin-bottom:0;
+	padding-top:0;
+}
+
+#sidebar li {
+	list-style-image:url(http://unbox.org/wisp/var/timm/09/ai/etc/themes/threshold/bullet.gif);
+}
+/**********************      IMAGE STYLES     ************/
+#header img {
+	margin-left:10px;
+	margin-top:-10px;
+	padding:3px;
+	margin-bottom:0;
+	border:1px solid #ccc;
+}	
+/********************    INDEPENDANT DIV IDS AND CLASSES   *******/
+/***********************     MAIN CONTAINER  *******************/
+#container {
+        background-color: #FFF;
+	border: 1px white solid;
+	width:690px;
+	margin:0 auto;
+	padding-top:0 !important;
+	xpadding-top:20px;
+	text-align:left;
+	position:relative;
+	margin-top: 0px;
+	padding-top: 0px;
+}	
+/*************************     TOP RIGHT HAND LINKS   *********/
+#toplinks {
+	position:absolute;
+	top:12px;
+	right:30px;
+}
+/*************************    LEFT COLUMN  ************/
+#leftcolumn {
+	float:left;
+	width:470px;
+	padding-left: 10px;
+}	
+/*********************      RIGHT SIDEBAR COLUMN   ********/
+#sidebar {
+	float:right;
+	width:200px;
+	margin:10px 10px 0 0;
+}	
+/************************   FOOTER     ***********/
+#footer {
+	clear:both;
+	margin-left:0;
+	width:677px;
+	text-align:center;
+	border-top:1px solid #ccc;
+	color:#888;
+}	
+/**********************      LINKS BELOW EACH POST    ***********/
+span {
+	float:right;
+	margin-right:30px;
+}
+/***********************      RIGHT HAND SIDE CONTENT BOXES    *******/
+.sidebox {
+	width:185px;
+	background:#E9F1F5 url(http://unbox.org/wisp/var/timm/09/ai/etc/themes/threshold/sidetop.gif) no-repeat top left;
+	margin-bottom:15px;
+}
+
+pre {
+    width: 90%;
+    margin-left: 10px;
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: DarkBlue;
+    background-color: #f9f9f9;
+    line-height: 1.1em;
+}
+
+img.boxed {
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.mthumb {
+	float: center
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.lthumb {
+	float: left;
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+
+img.rthumbu {
+	float: right;
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+	  }
+
+
+img.rthumb {
+	float: right;
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.mthumb250 {
+	float: center
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+img.mthumb250 {
+	float: center
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+
+img.rthumb250 {
+	float: right;
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.rthumb250nb {
+	float: right;
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+	  }

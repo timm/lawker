@@ -1,0 +1,143 @@
+body {
+	font-family:times, serif;
+	font-size:12pt;
+}	
+p.meta { text-align: left; font-size: small;  font-style: italic; } 
+
+#toplinks, #sidebar, img.header, .postlinks {
+	display:none;
+}
+#header div {
+    width: 100%;
+	color:#333;
+}
+#container {
+	width:750px;
+	margin:0 auto;
+	padding-top:0 !important;
+	padding-top:20px;
+}	
+
+h1, h1 a{
+	color:#000;
+	text-decoration:none;
+	xfont-family:tahoma;
+	font-weight:bold;
+	xpadding-left:10px;
+	font-size:30px;
+	display:block;
+}
+
+h2, h2 a {
+	color:#999;
+	xpadding-left:10px;
+	xfont-family:verdana;
+	xfont-size:10pt;
+	font-weight:bold;
+	xmargin-top:-18px;
+	xtext-transform:uppercase;
+}	
+
+h2 a {
+	text-transform:none;
+}	
+
+a {
+	color:blue;
+}
+
+h1 a {
+	color:#333;
+}	
+
+#leftcolumn {
+	float:left;
+	width:570px;
+	
+}
+
+
+#footer {
+	clear:both;
+	width:670px;
+	margin:0 auto;
+	text-align:center;
+	border-top:1px dotted #ccc;
+	padding:3px;
+	color:#888;
+}	
+pre {
+    border-left: 1px solid DarkBlue;
+    padding-left: 3px;
+    margin-left: 20px;
+    color: DarkBlue;
+    background-color: #CCC;
+    font-family: monospace;
+}
+
+img.boxed {
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.mthumb {
+	float: center
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.lthumb {
+	float: left;
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.rthumb {
+	float: right;
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.rthumbu {
+	float: right;
+	width: 150px;
+  margin-right: 5px;
+  padding:4px;
+	  }
+
+img.mthumb250 {
+	float: center
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+img.mthumb250 {
+	float: center
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+
+img.rthumb250 {
+	float: right;
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+    border:1px solid #446688;
+	  }
+
+img.rthumb250nb {
+	float: right;
+	width: 250px;
+  margin-right: 5px;
+  padding:4px;
+	  }
