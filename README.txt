@@ -23,7 +23,7 @@ freezer/
 --| INSDE "fridge" |-----------------------------------------------
 
 fridge/
-     doc/               # awk.info stuff
+     doc/               # awk.info stuff (see "doc" below)
      etc/               # config files
      lib/
         gawk/           # stuff for posix standard awk
@@ -47,7 +47,7 @@ gawk/   # (e.g.)
     sh/                   # code that combined gawk scripts with bash
     share/ 
         fun/              # stuff that is stand alone files (see "fun" notes, below)
-           doc/           # notes on the functions
+           doc/           # notes on the functions (see "doc" below)
            test/          # test suite (see "test" notes, below)
         pkg/              # stuff where one file depends on another (see "pkg" notes, below)
         prep/             # pre-processor stuff
@@ -59,7 +59,7 @@ gawk/   # (e.g.)
 pkg/
    pkg1/      # example package. repeats the following structure
        src/   # code
-       doc/   # notes
+       doc/   # notes (see "doc" below)
        test/  # test suite
 
 --| INSIDE "test" |----------------------------------------
@@ -72,4 +72,15 @@ test/
    3
    3.want
    etc
+
+--| INSIDE "doc" |-----------------------------------------
  
+The doc files contain .html files where source code is marked up with
+"<pre></pre>". 
+
+Files start with "<h1><join>Title</join></h1>".
+
+If useful, images can be stored in
+http://code.google.com/p/lawker/source/browse/fridge/share/img/*.
+
+Avoid tables and use of "style=" tags.
