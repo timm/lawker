@@ -14,9 +14,8 @@
     <string id="menu1">
       <![CDATA[  <ul>
                  <li><a href="?index">Home</a>        </li>
-                 <li><a href="?syllabus">Syllabus</a> </li> 
-                 <li><a href="?lectures">Lectures</a> </li>
-                 <li><a href="?projects">Projects</a> </li>
+                 <li><a href="?advocacy">Why Awk?</a> </li> 
+                 <li><a href="http://code.google.com/p/lawker/source/browse/">Code</a> </li>
                  <li><a href="?contact">Contact</a>   </li>
                  </ul>
               ]]>

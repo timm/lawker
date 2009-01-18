@@ -1,0 +1,91 @@
+<h1><join>Why Gawk?</join></h1>
+
+<em>
+"The Enlightened Ones say that....
+<ul>
+<li>You should never use C if you can do it with a script;
+<li> You should never use a script if you can do it with awk;
+
+<li> Never use awk if you can do it with sed;
+<li>   Never use sed if you can do it with grep."
+</ul>
+</em>
+<p>Awk is a good old-fashioned UNIX filtering tool invented in the
+1970s. The language is simple and Awk programs are generally very
+short. Awk is useful when the overheads of more sophisticated
+approaches is not worth the bother. 
+
+<p>The cost of learning Awk is very low.
+
+<p>But aren't there better scripting languages? 
+Faster? Well, maybe <a href="http://www.cs.columbia.edu/~sedwards/classes/2002/w4115/scripting.9up.pdf" title="Scripting languages (2002) by Stephen A. Edwards; Department of Computer Science; Columbia University;">maybe yes</a> and <a href="http://cm.bell-labs.com/cm/cs/who/bwk/interps/pap.html" title="Timing Trials, or, the Trials of Timing: Experiments with Scripting and User-Interface Languages  by Brian W. Kernighan and Christopher J. Van Wyk; ">maybe no</a>. </p>
+
+<p>And GAWK is old (mid-70s). Aren't modern languages more productive? 
+Well
+again, maybe yes and maybe no. One measure of the productivity of a
+language is how lines of code are required to code up one business level
+`function point'. 
+Compared to many
+popular languages, GAWK scores very highly:</p>
+
+<pre><code>loc/fp   language
+------   --------
+
+    6,   excel 5
+   13,   sql
+   21,   awk       &lt;================
+   21,   perl
+   21,   eiffel
+   21,   clos
+   21,   smalltalk
+   29,   delphi
+   29,   visual basic 5
+   49,   ada 95
+   49,   ai shells
+   53,   c++
+   53,   java
+   64,   lisp
+   71,   ada 83
+   71,   fortran 95
+   80,   3rd generation default
+   91,   ansi cobol 85
+   91,   pascal
+  107,   2nd generation default
+  107,   algol 68
+  107,   cobol
+  107,   fortran
+  128,   c
+  320,   1st generation default
+  640,   machine language
+ 3200,   natural language
+</code></pre>
+
+<p>Anyway, there are other considerations. GAWK is real succinct, simple
+enough to teach, and easy enough to recode in C (if you want raw speed).
+For examples,  here's the complete listing of someone's Awk spell-checking program.</p>
+
+<pre><code>BEGIN { 
+    while (getline &lt; "Usr.Dict.Words") 
+        dict[$0] = 1
+}
+{   if (!dict[$1]) print $1
+}
+</code></pre>
+
+<p>Sure, there's about a gazillion enhancements you'd like to make on this one but you gotta say, this is real succinct.</p>
+
+<p>Awk is the cure for  late execution
+of software syndrome (a.k.a. LESS). The symptoms of LESS are a huge time
+delay before a new idea is executable. Awk programmers can hack up usuable 
+systems in the time it takes other programemrs to boot their IDE.
+
+<p>Sure, we can drool over the language features offered by more advanced
+languages like pointers, generic iterators, continuations, etc etc. And
+Awk's lack of data structures (except num, string, and array) requires
+some discpline to handle properly.
+But   experienced Awk programmers know that  have showed me that the cleverer
+the program, the
+smaller the audience gets. 
+ If it is possible for to explain something
+succinctly in a simple language like Awk, then it is also possible that
+more folks will read that code.
