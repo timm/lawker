@@ -63,6 +63,10 @@ Reading<br>
     </string>
     <string id="nav2">
       <![CDATA[
+
+<center><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/AlleAlle_2.jpg/250px-AlleAlle_2.jpg"
+ width=100 style="border: 1px solid black;"></center>
+
 <img src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
 <p><b>Jan 17 '09:</b> 
 New web site: <a href="http://awk.info">awk.info</a>.
@@ -82,9 +86,6 @@ Hirofumi Saito and Morimoto Tetsuya present xgawk at OSC'08.<br>
 [<a href="http://gauc.no-ip.org/osc2008/material/osc2008_slide.pdf">slides</a>
 | <a href="http://gauc.no-ip.org/osc2008/material/osc2008_handout.pdf">handouts</a>]
 </p>
-
-<center><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/AlleAlle_2.jpg/250px-AlleAlle_2.jpg"
- width=100 style="border: 1px solid black;"></center>
 
 ]]>
     </string>
