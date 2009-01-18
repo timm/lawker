@@ -22,7 +22,7 @@
     </string>
     <string id="nav1">
       <![CDATA[<center>
-               <img id="logo" alt="Leaves" src="``source``/etc/themes/slightamnesia/leaves_brown.jpg" />
+               <img id="logo" alt="Leaves" src="http://code.google.com/p/lawker/fridge/etc/themes/slightamnesia/leaves_brown.jpg" />
                </center>
                <div id="left_quote">"Because a little
                    <strike>auk</strike> awk goes a long way."</div>
