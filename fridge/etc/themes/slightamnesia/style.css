@@ -209,12 +209,12 @@ text-decoration:none;
 
 /* font styles */
 h1 {
-font-size: 18px;
+font-size: 20px;
 background-image:url(leafs_brown.jpg);
 background-repeat:no-repeat;
 background-position:.1em .1em;
 margin:0 0 -.3em 0;
-padding:.8em 0 .5em 3.3em;
+padding:.12em 0 .5em 3.3em;
 }
 
 h2 {
