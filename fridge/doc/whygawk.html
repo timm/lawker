@@ -67,8 +67,7 @@ For examples,  here's the complete listing of someone's Awk spell-checking progr
     while (getline &lt; "Usr.Dict.Words") 
         dict[$0] = 1
 }
-{   if (!dict[$1]) print $1
-}
+!dict[$1] {  print $1 }
 </code></pre>
 
 <p>Sure, there's about a gazillion enhancements you'd like to make on this one but you gotta say, this is real succinct.</p>
