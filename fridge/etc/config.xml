@@ -8,7 +8,7 @@
     <string id="title">awk.info</string>
     <string id="copyright">
       <![CDATA[
-           &copy; 2009 Tim Menzies GPL 3.0.
+           &copy; 2009 <b>Tim Menzies</b> GPL 3.0.
            Design by raykdesign.net]]>
     </string>
     <string id="menu1">
@@ -28,7 +28,6 @@
                <div id="left_quote">"Because a little
                    <strike>auk</strike> awk goes a long way."</div>
               </center>
-          <p>Sitemap:</p>
             ]]>
     </string>
     <string id="nav3">
