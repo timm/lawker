@@ -202,15 +202,19 @@ text-decoration:none;
 }
 
 /* font styles */
-h2 {
-font-family:Georgia, "Times New Roman", Times, serif;
-margin:0 0 -.3em 0;
-padding:.8em 0 .5em 3.3em;
-font-size:1.9em;
-color:#8E1F0D;
+h1 {
 background-image:url(leafs_brown.jpg);
 background-repeat:no-repeat;
 background-position:.1em .1em;
+margin:0 0 -.3em 0;
+padding:.8em 0 .5em 3.3em;
+}
+
+h2 {
+font-family:Georgia, "Times New Roman", Times, serif;
+font-size:1.9em;
+color:#8E1F0D;
+
 }
 
 h3 {
