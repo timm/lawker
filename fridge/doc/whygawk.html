@@ -1,7 +1,7 @@
 <h1><join>Why Gawk?</join></h1>
 
 <p>by T. Menzies
-<em>
+<p><em>
 "The Enlightened Ones say that....
 <ul>
 <li>You should never use C if you can do it with a script;
@@ -64,12 +64,10 @@ popular languages, GAWK scores very highly:</p>
 enough to teach, and easy enough to recode in C (if you want raw speed).
 For example,  here's the complete listing of someone's Awk spell-checking program.</p>
 
-<pre><code>BEGIN { 
-    while (getline &lt; "Usr.Dict.Words") 
-        dict[$0] = 1
-}
-!dict[$1] {  print $1 }
-</code></pre>
+<pre>
+BEGIN     { while (getline &lt; "Usr.Dict.Words") dict[$0] = 1 }
+!dict[$1] { print $1 }
+</pre>
 
 <p>Sure, there's about a gazillion enhancements you'd like to make on this one but you gotta say, this is real succinct.</p>
 
