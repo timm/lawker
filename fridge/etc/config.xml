@@ -35,8 +35,8 @@
                <div id="left_quote">"Because a little
                    <strike>auk</strike> awk can go a long way."</div>
 <form action="http://www.google.com/cse" id="cse-search-box">
-  <div><center>
-    <input type="hidden" name="cx" value="015406670773682269893:eass5lh8s-w" />
+  <div>
+    <p><input type="hidden" name="cx" value="015406670773682269893:eass5lh8s-w" />
     <input type="hidden" name="ie" value="UTF-8" />
     <input type="text" name="q" size="15" /><input type="submit" name="sa" value="Find" />
   </div>
