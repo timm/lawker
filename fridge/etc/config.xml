@@ -37,7 +37,7 @@
     </string>
     <string id="nav3">
       <![CDATA[
-<p>
+<p style="margin-left: 10px;">
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
 &nbsp;&raquo;&nbsp;  learn<br>
