@@ -52,7 +52,15 @@ hr {
     border-top: 1px solid #DFD8D2;
     height: 1px;
 }
-
+pre {
+    margin-left: 7px;
+    padding: 1em;
+    border: 1px dashed #2f6fab;
+    color: DarkBlue;
+    background-color: #f9f9f9;
+	background-color:#EDE9E6;
+    xline-height: 1.1em;
+}
 #left_text {
 position:relative;
 xwidth:16.7em;
