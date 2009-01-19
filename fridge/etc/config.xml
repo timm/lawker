@@ -35,10 +35,6 @@
                <div id="left_quote">"Because a little
                    <strike>auk</strike> awk can go a long way."</div>
               </center>
-            ]]>
-    </string>
-    <string id="nav3">
-      <![CDATA[
 <form action="http://www.google.com/cse" id="cse-search-box">
   <div><center>
     <input type="hidden" name="cx" value="015406670773682269893:eass5lh8s-w" />
@@ -50,6 +46,10 @@
 </form>
 <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
 
+            ]]>
+    </string>
+    <string id="nav3">
+      <![CDATA[
 <p id="in">
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
