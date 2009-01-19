@@ -37,6 +37,7 @@
     </string>
     <string id="nav3">
       <![CDATA[
+<ul>
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
 &nbsp;&raquo;&nbsp;  learn<br>
@@ -66,6 +67,7 @@ Online doc<br>
 <hr>Reading<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
 &nbsp;&raquo;&nbsp;  articles
+</ul>
 ]]>
     </string>
     <string id="nav2">
