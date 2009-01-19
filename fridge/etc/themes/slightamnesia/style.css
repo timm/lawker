@@ -42,6 +42,9 @@ color:#AC9C90;
 text-align:center;
 }
 
+#id {
+margin-left: 10px;
+}
 hr { 
     border: none;
     border-top: 1px solid #DFD8D2;
