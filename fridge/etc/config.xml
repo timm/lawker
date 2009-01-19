@@ -34,7 +34,7 @@
 <form action="http://www.google.com/cse" id="cse-search-box">
     <p><input type="hidden" name="cx" value="015406670773682269893:eass5lh8s-w" />
     <input type="hidden" name="ie" value="UTF-8" />
-    <input type="submit" name="sa" value="/Find/" /><input type="text" name="q" value="{print $0}" size="15" />
+    <input type="submit" name="sa" value="/Find/" /><input type="text" name="q" value="{print FILENAME,$0}" size="15" />
 </form>
 <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
 <hr>
