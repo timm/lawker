@@ -28,7 +28,8 @@ Auk paintings &copy; 2009 by <a href="http://www.mikelangman.co.uk/">Mike Langma
     <string id="nav1">
       <![CDATA[<center>
 <p><b><a href="http://awk.info">awk.info</a></b></p>
-               <a href="http://awk.info"><img id="logo" border=0 alt="Leaves" src="http://lawker.googlecode.com/svn/fridge/etc/themes/slightamnesia/leaves_brown.jpg" /></a><br clear=all>
+               <a href="http://www.mikelangman.co.uk/">
+		 <img id="logo" border=0 alt="Little Auk painting from mikelangman.co.uk" src="http://lawker.googlecode.com/svn/fridge/etc/themes/slightamnesia/leaves_brown.jpg" /></a><br clear=all>
 
                </center>
                <div id="left_quote">"Because a little
@@ -97,7 +98,8 @@ Hirofumi Saito and Morimoto Tetsuya present xgawk at OSC'08.<br>
 <hr>
 <p>Fact #27: Little Auks  eat
 polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology">leftovers</a>.<center>
-<img src="http://lawker.googlecode.com/svn/fridge/share/img/littleauk2.jpg" width=90 >
+<a href="http://www.mikelangman.co.uk/"><img alt="Little Auk painting from mikelangman.co.uk" 
+              src="http://lawker.googlecode.com/svn/fridge/share/img/littleauk2.jpg" width=90 ></a>
 </center>
 <!--   Button BEGIN -->
 <script type="text/javascript">var addthis_pub="timmenzies";</script>
