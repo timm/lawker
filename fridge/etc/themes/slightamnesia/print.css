@@ -1,12 +1,9 @@
 @import url("http://lawker.googlecode.com/svn/fringe/etc/themes/slightamnesia/style.css");
 
-div #right_container_outer {
-	display: none;
-}
-div #ci_right_column {
-	display: none;
-}
-div #left_container {
-	display: none;
+div { 
+	display: none; 
 }
 
+div #rci_left_column {	
+	display: block;
+}
