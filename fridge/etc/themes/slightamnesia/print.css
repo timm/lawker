@@ -6,6 +6,6 @@ div #left_container { display: none; }
 div #left_text { display: none; }
 div #rci_right_column {	display: none; }
 div #rci_right_container_outer {	display: none; }
-div #rci_right_container_inner {	display: block; }
+div #rci_right_container_inner {	display: none; }
 div #rci_left_column {	display: block; }
 
