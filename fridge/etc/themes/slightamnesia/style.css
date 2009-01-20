@@ -62,6 +62,7 @@ pre {
 	font-size: x-small;
     xline-height: 1.1em;
 	font-family: "Courier New", "Courier", "Sans Serif"; 
+	font-weight: bold;
 }
 #left_text {
 position:relative;
