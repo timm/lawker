@@ -19,7 +19,7 @@
       <![CDATA[  <ul>
                  <li><a href="?index">Home</a>        </li>
                  <li><a href="?advocacy">Why Awk?</a> </li> 
-		 <li><a href="http://groups.google.com/group/comp.lang.awk/topics">Community</a> </li>
+		 <li><a href="?community">>Community</a> </li>
                  <li><a href="http://code.google.com/p/lawker/source/browse/">Code</a> </li>
                  <li><a href="?contact">Contact</a>   </li>
                  </ul>
@@ -78,6 +78,11 @@ Online doc<br>
     <string id="nav2">
       <![CDATA[
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
+<p><b>Jan 20 '09:</b> 
+New feature- auto-report generation from  comp.lang.awk: top 10 
+<a href="http://awk.info/?var/top10subjects">subjects</a> and
+<a href="http://awk.info/?var/top10posters">posters</a>.
+
 <p><b>Jan 17 '09:</b> 
 New web site: <a href="http://awk.info">awk.info</a>.
 
