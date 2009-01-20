@@ -1,0 +1,45 @@
+
+Getting started
+What is Tcl?
+What is Tk?
+Getting Tcl/Tk
+Getting help
+Learning Tcl
+The Tcl Dev Xchange
+About the Wiki
+
+Community
+Advocacy
+Conferences
+Chat, news, lists
+History
+Humor
+People
+Tcl websites
+i
+Reference
+Companies
+Getting help
+Online books
+Online tutorials
+Manual pages
+Tcl roadmap
+Acronyms
+
+Tcl software
+Applications
+The Tcl core
+Development tools
+Documentation
+Extensions
+Toys and games
+
+Tcl in the wild
+Major applications
+Businesses
+Education
+Engineering
+Government
+Medical
+Other
+
