@@ -1,6 +1,10 @@
 @import url("http://lawker.googlecode.com/svn/fringe/etc/themes/slightamnesia/style.css");
 
-div { 
+div #left_container { 
+	display: none; 
+}
+
+div #left_text {
 	display: none; 
 }
 
