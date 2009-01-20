@@ -1,3 +1,14 @@
+my email to a jpg
+
+remove emails from posters
+
+write an egg
+
+gui:
+	- the tcl trick
+	- the cgi trick
+
+add a news page
 
 Getting started
 What is Tcl?
