@@ -59,7 +59,8 @@ pre {
     color: DarkBlue;
     background-color: #f9f9f9;
 	xbackground-color:#EDE9E6;
-    line-height: 1.1em;
+	font-size: x-small;
+    xline-height: 1.1em;
 	font-family: "Courier New", "Courier", "Sans Serif"; 
 }
 #left_text {
