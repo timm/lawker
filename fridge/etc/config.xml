@@ -117,7 +117,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="join"><![CDATA[/<join>(.*)<\/join>/]]></string> 
     <string id="delimiter">``</string>
     <string id="lisp"><![CDATA[/(^\#\||\|\#|^;)/]]> </string>
-    <string id="awk"><![CDATA[/^;/]]> </string>
+    <string id="awk"><![CDATA[/^#/]]> </string>
     <string id="htxml"></string>
   </strings>
   <files>
