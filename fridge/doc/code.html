@@ -14,11 +14,15 @@ in-line html comments described below.</dd>
 someone there finds bugs, it will be grabbed and added to LAWKER.
 <h2> Pretty Print Code</h2>
 The code that renders the awk.info web site can "pretty print" awk code stored
-in lawker.  For example, 
+in lawker.  For example:
+<ul>
+<li>
 <a href="http://awk.info/?gawk/array/join.awk">http://awk.info/?gawk/array/join.awk</a>
 is a pretty
-print of 
+print of ...
+<li> the Awk code found in
 <a href="http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk">http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk</a>.
+</ul>
 <p>
 To enable that pretty print, add some html syntax inside your
 code and apply the following convetions:
@@ -28,7 +32,7 @@ for copyright notices or comments about down-in-the weeds trivia. Note: the
 first para ends with one blank line.
 
 <li>The next paragraph should start with 
-<pre>#<h1><join>Title</join></h1></pre>
+<pre>#&lt;h1>&lt;join>Title&lt;/join>&lt;/h1>&lt;/pre>
 
 <li> The code could should be topped and tailed as follows:
 <pre>
