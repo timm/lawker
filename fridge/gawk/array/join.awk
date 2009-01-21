@@ -25,8 +25,8 @@
 #<dd>Indexes for where to start/stop in the array.
 #<dt>sep
 #<dd>what to write between each item. Defaults to blank space. If set to the magic value
-#<tt>SUBSEP</tt>
-#then internally, <tt>join</tt> adds nothing between the items. 
+#<em>SUBSEP</em>
+#then internally, <em>join</em> adds nothing between the items. 
 #</dl>
 #<h2>Code</h2>
 #<pre>
