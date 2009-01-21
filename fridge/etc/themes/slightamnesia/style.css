@@ -117,8 +117,9 @@ border-left:1px solid #DFD8D2;
 border-right:1px solid #DFD8D2;
 }
 
-p  #rci_left_column   {     width: 450px; }
-ul  #rci_left_column   {     width: 450px; }
+#rci_left_column  p  {     width: 450px; }
+#rci_left_column ul  {     width: 450px; }
+
 #right_container_inner {
 position:relative;
 left:0;
