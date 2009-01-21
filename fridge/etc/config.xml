@@ -80,9 +80,8 @@ Online doc<br>
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
 <p><b>Jan 21 '09:</b> 
 New feature- pretty print of awk code enabled
-on this site. E.g. <a hreg="http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk">this code</a>
-can be viewed as <a href="http://awk.info/?gawk/array/join.awk">that</a>. 
-<a href="?code#prettyPrint">[More...]</a>
+on this site. 
+<a href="?code#prettyPrint">More...</a>
 
 <p><b>Jan 20 '09:</b> 
 New feature- auto-report generation from  comp.lang.awk: top 10 
