@@ -42,3 +42,5 @@ function join(array,start,end,sep,    result,i)
     return result
 }
 #</pre>
+#<h2>Author</h2>
+#<p>Arnold Robbins.
