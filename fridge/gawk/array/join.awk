@@ -16,8 +16,8 @@
 
 
 # <h1><join>Join.awk</join></h1>
-#<p> Returns a string containing all contents of an array.
-#<p>Arguments:
+#<h2>Returns</h2><p>A string containing all contents of an array.
+#<h2>Arguments</h2>
 #<dl>
 #<dt>array</dt>
 #<dd>Input array.
@@ -28,6 +28,7 @@
 #<tt>SUBSEP</tt>
 #then internally, <tt>join</tt> adds nothing between the items. 
 #</dl>
+#<h2>Code</h2>
 #<pre>
 function join(array,start,end,sep,    result,i)
 {
