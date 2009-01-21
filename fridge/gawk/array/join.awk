@@ -22,7 +22,7 @@
 #<dt> start,end <dd> Indexes for where to start/stop in the array.
 #<dt> sep       <dd> (OPTIONAL) What to write between each item. Defaults to blank space. </dl>
 
-#<p>  If set to the magic value <em>SUBSEP</em> 
+#<p>  If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
 #then internally, <em>join</em> adds nothing between the items. </dl>
 
 # <h2>Code</h2><pre>
