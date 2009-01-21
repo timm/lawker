@@ -10,8 +10,10 @@ wiki    # google wiki pages
 --| INSIDE "block" |-----------------------------------------------
 
 block/
-   timm  # playpen sub-directory for person "timm"
-   todo  # stuff to be imported into the "fridge" structure
+   timm  # play pen sub-directory for person "timm"
+   fred   # etc
+   your name 
+   ...
 
 --| INSIDE "freezer" |-----------------------------------------------
 
@@ -20,67 +22,44 @@ freezer/
          thing.awk  # one combined file for "thing"
          doc/       # documentation of v1.1 of thing
  
---| INSDE "fridge" |-----------------------------------------------
+--| INSIDE "fridge" |-----------------------------------------------
 
 fridge/
      doc/               # awk.info stuff (see "doc" below)
      etc/               # config files
-     lib/
-        gawk/           # stuff for posix standard awk
-        lawker/         # lawker utlities
-            builder/    # software to build packages ??? (name TBD)
-            interface/  # software that provides the search, download and install interface to the
-                        # repository, similar to 'dpkg', CPAN, PEAR, etc. (name TBD)
-        xgawk           # code for the xgawk branch 
-        otherawk        # code for other gawk variants
+     gawk/               # gawk code
+     xgawk/            # xgawk code
      share/
         img/
      var/               # long live temporaries
         share/          # auto generated stuff
 
---| INSIDE "gawk", "xgawk", "other gawk" |-----------------
-
-(Note: all the .awk files in this sub-directory must have unique names)
-
-gawk/   # (e.g.)
-    c/
-    sh/                   # code that combined gawk scripts with bash
-    share/ 
-        fun/              # stuff that is stand alone files (see "fun" notes, below)
-           doc/           # notes on the functions (see "doc" below)
-           test/          # test suite (see "test" notes, below)
-        pkg/              # stuff where one file depends on another (see "pkg" notes, below)
-        prep/             # pre-processor stuff
-          awk++           # e.g.
-          runkawk++       # e.g.
+--| INSIDE ".awk" files |-----------------------------------------
  
----| INSIDE "pkg" |-----------------------------------------
+The following standard is optional. 
 
-pkg/
-   pkg1/      # example package. repeats the following structure
-       src/   # code
-       doc/   # notes (see "doc" below)
-       test/  # test suite
+The code that renders the awk.info web site can "pretty print" awk code stored
+in lawker. To enable that pretty print, use html syntax inside your
+code and the following conventions:
 
---| INSIDE "test" |----------------------------------------
- 
-test/
-   1         # test 1
-   1.want    # expected output from test 1
-   2
-   2.want
-   3
-   3.want
-   etc
 
---| INSIDE "doc" |-----------------------------------------
- 
-The doc files contain .html files where source code is marked up with
-"<pre></pre>". 
+1) The first paragraph of the file will be ignored. Use this first para
+for copyright notices or comments about down-in-the weeds trivia. Note: the
+first para ends with one blank line.
 
-Files start with "<h1><join>Title</join></h1>".
+2) The next paragraph should start with "#<h1><join>Title</join></h1>".
 
-If useful, images can be stored in
-http://code.google.com/p/lawker/source/browse/fridge/share/img/*.
+3) The code could should be topped and tailed as follows:
 
-Avoid tables and use of "style=" tags.
+#<pre>
+code
+#</pre>
+
+4) All other comment lines should start with a single "#" at front-of-line.
+These comment characters will be stripped away by the awk.info renderer.
+
+That's it. Now you can pretty print your code on the web just be adding
+a little html in the comments. This imposes a few constraints on your code;
+e.g. try and keep the line widths to less than 60 lines and favor lots of
+short functions with comments in between them, rather than larger ones- it
+will be easier on the eye.
