@@ -29,7 +29,7 @@
 #then internally, <tt>join</tt> adds nothing between the items. 
 #</dl>
 #<pre>
-function join(array, start, end, sep,    result, i)
+function join(array,start,end,sep,    result,i)
 {
     if (sep == "")
        sep = " "
