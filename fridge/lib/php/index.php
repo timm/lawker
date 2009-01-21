@@ -1,5 +1,11 @@
 <? 
-include("config.php");
+include("config.php");  
+
+/*the include file looks like this:
+<? 
+	$slurping =  "http://lawker.googlecode.com/svn/fridge/etc/config.xml";
+?>
+*/
 
 function s($string) { 
 	 global $magic;
