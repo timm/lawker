@@ -237,7 +237,7 @@ padding:.8em 0 .5em 3.3em;
 
 h2 {
 font-family:Georgia, "Times New Roman", Times, serif;
-font-size:1.9em;
+Xfont-size:1.9em;
 color:#8E1F0D;
 
 }
@@ -319,7 +319,11 @@ visibility: hidden;
 
 .clearfix {display: inline-table;}
 
+dt { 
+   font-weight: bold;
+}
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
 .clearfix {display: block;}
 /* End hide from IE-mac */
+
