@@ -78,13 +78,16 @@ Online doc<br>
     <string id="nav2">
       <![CDATA[
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
+<p><b>Jan 21 '09:</b> 
+New feature- pretty print of awk code enabled
+on this site. E.g. <a hreg="http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk">this code</a>
+can be viewed as <a href="http://awk.info/?gawk/array/join.awk">that</a>. 
+<a href="?code#prettyPrint">[More...]</a>
+
 <p><b>Jan 20 '09:</b> 
 New feature- auto-report generation from  comp.lang.awk: top 10 
 <a href="http://awk.info/?var/top10subjects">subjects</a> and
 <a href="http://awk.info/?var/top10posters">posters</a>.
-
-<p><b>Jan 17 '09:</b> 
-New web site: <a href="http://awk.info">awk.info</a>.
 
 <p><b>Jan 03 '09:</b> 
 Robbins proposes an 
