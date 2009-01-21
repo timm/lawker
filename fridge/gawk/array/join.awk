@@ -16,7 +16,7 @@
 
 
 # <h1><join>Join.awk</join></h1>
-#<h2>Returns</h2><p>A string containing all contents of an array.
+#<h2>Synopsis</h2><p>A string containing all contents of an array.
 #<h2>Arguments</h2>
 #<dl>
 #<dt>array</dt>
