@@ -61,8 +61,8 @@ Tips<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?debugging">GUI</a><br>
 <hr>
 Code<br>
-&nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/fun">functions</a><br>
-&nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk/lib/pkgs">packages</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/gawk">gawk</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/xgawk">xgawk</a><br>
 <hr>
 Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.cs.pdx.edu/~timm/dm/gawkcard.pdf">reference card</a><br>
