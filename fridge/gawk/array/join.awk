@@ -14,16 +14,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses/.
 
-# <h1><join>                      Join.awk 
+#<h1><join>                      Join.awk 
 #</join></h1><h2>Synopsis</h2><p> Joins an array into a string.
 # <h2> Arguments </h2><dl>
 
-#  <dt> array     <dd> Input array.
-#  <dt> start,end <dd> Indexes for where to start/stop in the array.
-#  <dt> sep       <dd> (OPTIONAL) What to write between each item. Defaults to blank space. 
+#<dt> array     <dd> Input array.
+#<dt> start,end <dd> Indexes for where to start/stop in the array.
+#<dt> sep       <dd> (OPTIONAL) What to write between each item. Defaults to blank space. </dl>
 
-#                       <p>  If set to the magic value <em>SUBSEP</em> 
-#                            then internally, <em>join</em> adds nothing between the items. </dl>
+#<p>  If set to the magic value <em>SUBSEP</em> 
+#then internally, <em>join</em> adds nothing between the items. </dl>
 
 # <h2>Code</h2><pre>
 function join(array,start,end,sep,    result,i)
