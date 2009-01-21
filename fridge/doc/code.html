@@ -1,0 +1,53 @@
+<h1><join>Code</join></h1>
+<p>LAWKER is a repository of  Awk code divided into:
+<dl>
+<dt>fridge</dt><dd> Fresh code (for the current trunk).  Best place to start.
+<dt>block</dt><dd>Place to chop up and experiment with code. Usually, avoid this one.
+<dt>freezer</dt><dd>Frozen code. place to store tags. Currently, empty. But we plan to
+grow this one.
+<dt>wiki</dt><dd>Wiki pages. Useful for documentation but, where possible, use the
+in-line html comments described below.</dd>
+</dl>
+</ul>
+<h2>How to contribute to LAWKER</h2>
+<p>Post code to comp.lang.awk with the subject line "LAWKER contrib:". Unless
+someone there finds bugs, it will be grabbed and added to LAWKER.
+<h2> Pretty Print Code</h2>
+The code that renders the awk.info web site can "pretty print" awk code stored
+in lawker.  For example, 
+<a href="http://awk.info/?gawk/array/join.awk">http://awk.info/?gawk/array/join.awk</a>
+is a pretty
+print of 
+<a href="http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk">http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk</a>.
+<p>
+To enable that pretty print, add some html syntax inside your
+code and apply the following convetions:
+<ul>
+<li> The first paragraph of the file will be ignored. Use this first para
+for copyright notices or comments about down-in-the weeds trivia. Note: the
+first para ends with one blank line.
+
+<li>The next paragraph should start with 
+<pre>#<h1><join>Title</join></h1></pre>
+
+<li> The code could should be topped and tailed as follows:
+<pre>
+#&lt;pre>
+code
+#&lt;/pre>
+</pre>
+<li> All other comment lines should start with a single "#" at front-of-line.
+These comment characters will be stripped away by the awk.info renderer.
+</ul>
+<p>
+That's it. Now you can pretty print your code on the web just be adding
+a little html in the comments. 
+<p>
+Note that this imposes a few constraints on your code:
+<ul>
+<li>Try and
+keep the line widths to less than 60 characters.
+<li>Favor lots of short
+functions with comments in between them, rather than larger ones- it
+will be easier on the eye.
+</ul>
