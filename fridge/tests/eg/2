@@ -1,2 +1,0 @@
-Use="../../use"
-AWKPATH="$AWKPATH:$Use" make -f $Use/Makefile it="2"
