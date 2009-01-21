@@ -38,7 +38,7 @@ fridge/
  
 The following standard is optional. 
 
-The code that renders the awk.info web site can "pretty print" awk code stored
+ The code that renders the awk.info web site can "pretty print" awk code stored
 in lawker.  For example, http://awk.info/?gawk/array/join.awk is a pretty
 print of http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk.
 
@@ -64,6 +64,6 @@ That's it. Now you can pretty print your code on the web just be adding
 a little html in the comments. 
 
 Note that this imposes a few constraints on your code; e.g. try and
-keep the line widths to less than 60 lines and favor lots of short
+keep the line widths to less than 60 characters and favor lots of short
 functions with comments in between them, rather than larger ones- it
 will be easier on the eye.
