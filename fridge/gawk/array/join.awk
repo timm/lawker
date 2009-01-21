@@ -1,10 +1,10 @@
-# This code is part of LAWKER: the AWK code locker
-# Copyright (C) 2009 Arnold Robbins arnold@gnu.org, Public Domain
+#This code is part of LAWKER: the AWK code locker
+#Copyright (C) 2009 Arnold Robbins arnold@gnu.org, Public Domain
 #
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+#This program is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -28,6 +28,7 @@
 #<tt>SUBSEP</tt>
 #then internally, <tt>join</tt> adds nothing between the items. 
 #</dl>
+#<pre>
 function join(array, start, end, sep,    result, i)
 {
     if (sep == "")
@@ -39,3 +40,4 @@ function join(array, start, end, sep,    result, i)
         result = result sep array[i]
     return result
 }
+#</pre>
