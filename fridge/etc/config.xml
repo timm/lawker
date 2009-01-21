@@ -80,6 +80,11 @@ Online doc<br>
       <![CDATA[
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
 <p><b>Jan 21 '09:</b> 
+Robbins' latest Gawk devel patch
+includes support for indirect functions.
+<a href="CVS tree now includes code for indirect function calls:">More...</a>
+
+<p><b>Jan 21 '09:</b> 
 New feature- pretty print of awk code enabled
 on this site. 
 <a href="?code#prettyPrint">More...</a>
