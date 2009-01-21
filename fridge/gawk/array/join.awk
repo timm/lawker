@@ -36,5 +36,4 @@ function join(array,start,end,sep,    result,i)
     for (i = start + 1; i <= end; i++)
         result = result sep array[i]
     return result
-}
-# </pre><h2> Author </h2> <p> Arnold Robbins
+}# </pre><h2> Author </h2> <p> Arnold Robbins
