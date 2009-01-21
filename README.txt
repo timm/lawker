@@ -39,9 +39,11 @@ fridge/
 The following standard is optional. 
 
 The code that renders the awk.info web site can "pretty print" awk code stored
-in lawker. To enable that pretty print, use html syntax inside your
-code and the following conventions:
+in lawker.  For example, http://awk.info/?gawk/array/join.awk is a pretty
+print of http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk.
 
+To enable that pretty print, add some html syntax inside your
+code and apply the following convetions:
 
 1) The first paragraph of the file will be ignored. Use this first para
 for copyright notices or comments about down-in-the weeds trivia. Note: the
@@ -59,7 +61,9 @@ code
 These comment characters will be stripped away by the awk.info renderer.
 
 That's it. Now you can pretty print your code on the web just be adding
-a little html in the comments. This imposes a few constraints on your code;
-e.g. try and keep the line widths to less than 60 lines and favor lots of
-short functions with comments in between them, rather than larger ones- it
+a little html in the comments. 
+
+Note that this imposes a few constraints on your code; e.g. try and
+keep the line widths to less than 60 lines and favor lots of short
+functions with comments in between them, rather than larger ones- it
 will be easier on the eye.
