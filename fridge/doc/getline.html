@@ -1,0 +1,406 @@
+<h1><join>Use (and Abuse) of Getline</join></h1>
+
+<p>by Ed Morton
+
+<p>The following summary, composed by Ed Morton to address the recurring 
+issue of getline (mis)use, was based primarily on information from the 
+book "Effective Awk Programming", Third Edition By Arnold Robbins; 
+(<a href="(http://www.oreilly.com/catalog/awkprog3">http://www.oreilly.com/catalog/awkprog3</a>) with review and additional 
+input from many of the comp.lang.awk regulars, including Steve Calfee, 
+Martin Cohen, Manuel Collado, Jürgen Kahrs, Kenny McCormack, Janis 
+Papanagnou, Anton Treuenfels, Thomas Weidenfeller, John LaBadie and 
+Edward Rosten. 
+
+<h2>Getline</h2>
+<p> 
+getline is fine when used correctly (see below for a list of those 
+cases), but it's best avoided by default because: 
+<ol type="a">
+<li> It allows people to stick to their preconceived ideas of how to 
+program rather than learning the easier way that awk was designed to 
+read input. It's like C programmers continuing to do procedural 
+programming in C++ rather than learning the new paradigm and the 
+supporting language constructs. 
+<li> It has many insidious caveats that come back to bite you either 
+immediately or in future. The succeeding discussion captures some of 
+those and explains when getline IS appropriate. 
+
+<p>As the book "Effective Awk Programming", Third Edition By Arnold 
+Robbins; <a href="(http://www.oreilly.com/catalog/awkprog3">http://www.oreilly.com/catalog/awkprog3</a>) which provides much 
+of the source for this discussion says: 
+
+<ul><em>"The getline command is used in several different ways and should not be 
+used by beginners. ... come back and study the getline command after you 
+have reviewed the rest ... and have a good knowledge of how awk works." 
+</em></ul>
+<h2>Variants</h2> 
+The following summarises the eight variants of getline applications, 
+listing which variables are set by each one: 
+<pre>
+    Variant                 Variables Set 
+    getline                 $0, ${1...NF}, NF, FNR, NR, FILENAME 
+    getline var             var, FNR, NR, FILENAME 
+    getline &lt; file          $0, ${1...NF}, NF 
+    getline var &lt; file      var 
+    command | getline       $0, ${1...NF}, NF 
+    command | getline var   var 
+    command |& getline      $0, ${1...NF}, NF 
+    command |& getline var  var 
+</pre?
+The "command |& ..." variants are GNU awk (gawk) extensions. gawk also 
+populates the ERRNO builtin variable if getline fails. 
+<p>
+Although calling getline is very rarely the right approach (see 
+below), if you need to do it the safest ways to invoke getline are: 
+<pre>
+    if/while ( (getline var &lt; file) > 0) 
+    if/while ( (command | getline var) > 0) 
+    if/while ( (command |& getline var) > 0) 
+</pre>
+since those do not affect any of the builtin variables and they allow 
+you to correctly test for getline succeeding or failing. If you 
+need the input record split into separate fields, just call "split()" 
+to do that. 
+<h2>Caveats</h2>
+<p>Users of getline have to be aware of the following non-obvious effects 
+of using it: 
+<ol type="a">
+<li>Normally FILENAME is not set within a BEGIN section, but a 
+non-redirected call to getline will set it. 
+<li>Calling "getline &lt; FILENAME" is NOT the same as calling "getline". 
+The second form will read the next record from FILENAME while 
+the first form will read the first record again. 
+<li> Calling getline without a var to be set will update $0 and $NF so 
+they will have a different value for subsequent processing than they 
+had for prior processing in the same condition/action block. 
+<li> Many of the getline variants above set some but not all of the 
+builtin variables, so you need to be very careful that it's 
+setting the ones you need/expect it to. 
+<li> According to POSIX, `getline &lt; expression' is ambiguous if 
+expression contains unparenthesized operators other than `$'; for 
+example, `getline &lt; dir "/" file' is ambiguous because the 
+concatenation operator is not parenthesized. You should write it 
+as `getline &lt; (dir "/" file)' if you want your program to be 
+portable to other awk implementations. 
+<li> In POSIX-compliant awks (e.g. gawk --posix) a failure of getline 
+(e.g. trying to read from a non-readable file) will be fatal to 
+the program, otherwise it won't. 
+<li> Unredirected getline can defeat the simple and usual rule to handle 
+input file transitions: 
+<pre>   FNR==1 { ... start of file actions ... } </pre>
+File transitions can occur at getlines, so FNR==1 needs to also be 
+checked after each unredirected (from a specific file name) getline. 
+e.g. if you want to print the first line of each of these files: 
+<pre>
+$ cat file1 
+a 
+b 
+$ cat file2 
+c 
+d 
+</pre>
+you'd normally do: 
+<pre>
+$ awk 'FNR==1{print}' file1 file2 
+a 
+c 
+</pre>
+but if a "getline" snuck in, it could have the unexpected consequence of 
+skipping the test for FNR==1 and so not printing the first line of the 
+second file. 
+<pre>
+$ awk 'FNR==1{print}/b/{getline}' file1 file2 
+a 
+</pre>
+h) Using getline in the BEGIN section to skip lines makes your program 
+difficult to apply to multiple files. e.g. with data like... 
+<pre>
+   some header line 
+   ---------------- 
+   data line 1 
+   data line 2 
+   ... 
+   data line 10000 
+</pre>
+you may consider using... 
+<pre>
+   BEGIN { getline header; getline } 
+   { whatever_using_header_and_data_on_the_line() } 
+</pre>
+instead of... 
+<pre>
+   FNR == 1 { header = $0 } 
+   FNR &lt; 3 { next } 
+   { whatever_using_header_and_data_on_the_line() } 
+</pre>
+but the getline version would not work on multiple files since the BEGIN 
+section would only be executed once, before the first file is processed, 
+whereas the non-getline version would work as-is. This is one example of 
+the common case where the getline command itself isn't directly causing 
+the problem, but the type of design you can end up with if you select a 
+getline approach is not ideal. 
+</ol>
+<h2>Applications </h2>
+<p>
+getline is an appropriate solution for the following: 
+<ol type="a">
+<li> Reading from a pipe, e.g.:
+<pre> 
+         command = "ls" 
+         while ( (command | getline var) > 0) { 
+            print var 
+         } 
+         close(command) 
+</pre>
+<li> Reading from a coprocess, e.g.: 
+<pre>
+         command = "LC_ALL=C sort" 
+         n = split("abcdefghijklmnopqrstuvwxyz", a, "") 
+         for (i = n; i > 0; i--) 
+            print a[i] |& command 
+         close(command, "to") 
+         while ((command |& getline var) > 0) 
+            print "got", var 
+         close(command) 
+</pre>
+<li>In the BEGIN section, reading some initial data that's referenced 
+during processing multiple subsequent input files, e.g.: 
+<pre>
+         BEGIN { 
+            while ( (getline var &lt; ARGV[1]) > 0) { 
+               data[var]++ 
+            } 
+            close(ARGV[1]) 
+            ARGV[1]="" 
+         } 
+         $0 in data 
+</pre>
+<li> Recursive-descent parsing of an input file or files, e.g.: 
+<pre>
+     awk 'function read(file) { 
+            while ( (getline &lt; file) > 0) { 
+                if ($1 == "include") { 
+                     read($2) 
+                } else { 
+                     print > ARGV[2] 
+                } 
+            } 
+            close(file) 
+        } 
+        BEGIN{ 
+           read(ARGV[1]) 
+           ARGV[1]="" 
+           close(ARGV[2]) 
+        }1' file1 tmp 
+</pre>
+</ul>
+<p>
+In all other cases, it's clearest, simplest, less error-prone, and 
+easiest to maintain to let awks normal text-processing read the records. 
+In the case of "c", whether to use the BEGIN+getline approach or just 
+collect the data within the awk condition/action part after 
+testing for the first file is largely a style choice. 
+<p>
+"a" above calls the UNIX command "ls" to list the current directory 
+contents, then prints the result one line at a time. 
+<p>"b" above writes the letters of the alphabet in reverse order, one per 
+line, down the two-way pipe to the UNIX "sort" command. It then closes 
+the write end of the pipe, so that sort receives an end-of-file 
+indication. This causes sort to sort the data and write the sorted 
+data back to the gawk program. Once all of the data has been read, 
+gawk terminates the coprocess and exits. This is particularly necessary 
+in order to use the UNIX "sort" utility as part of a coprocess since 
+sort must read all of its input data before it can produce any output. 
+The sort program does not receive an end-of-file indication until gawk 
+closes the write end of the pipe. Other programs can be invoked as just: 
+<pre>
+      command = "program" 
+      do { 
+          print data |& command 
+          command |& getline var 
+      } while (data left to process) 
+      close(command) 
+</pre>
+<p>Not that calling close() with a second argument is also gawk-specific. 
+<p>"c" above reads every record of the first file passed as an argument to 
+awk into an array and then for every subsequent file passed as an 
+argument will print every record from that file that matches any of 
+the records that appeared in the first file (and so are stored in the 
+"data" array). This could alternatively have been implemented as:
+<pre> 
+     # fails if first file is empty 
+     NR==FNR{ data[$0]++; next } 
+     $0 in data 
+</pre>
+or: 
+<pre>
+     FILENAME==ARGV[1] { data[$0]++; next } 
+     $0 in data 
+</pre>
+or: 
+<pre>
+     FILENAME=="specificFileName" { data[$0]++; next } 
+     $0 in data 
+</pre>
+or (gawk only): 
+<pre>
+     ARGIND==1 { data[$0]++; next } 
+     $0 in data 
+</pre>
+<p>"d" above not only expands all the lines that say "include subfile", but 
+by writing the result to a tmp file, resetting ARGV[1] (the highest 
+level input file) and not resetting ARGV[2] (the tmp file), it then lets 
+awk do any normal record parsing on the result of the expansion since 
+that's now stored in the tmp file. If you don't need that, just do the 
+"print" to stdout and remove any other references to a tmp file or 
+ARGV[2]. In this case, since it's convenient to use $1 and $2, and no 
+other part of the program references any builtin variables, getline was 
+used without populating an explicit variable. This method is limited in 
+its recursion depth to the total number of open files the OS permits at 
+one time. 
+<h2>Tips</h2> 
+<p>
+The following tips may help if, after reading the above, you discover 
+you have an appropriate application for getline or if you're looking for 
+an alternative solution to using getline: 
+<ol type="a">
+<li> If you need to distinguish between a normal EOF or some read or 
+opening error, you have to use gawks ERRNO variable or code it as: 
+         if/while ( (e = (getline var &lt; file)) > 0) { ... } 
+         close(file) 
+         if(e &lt; 0) some_error_handling 
+b) Don't forget to close() any file you open for reading. The 
+common idiom for getline and other methods of opening files/streams is: 
+<pre>
+         cmd="some command" 
+         do something with cmd 
+         close(cmd) 
+</pre>
+<li>A common misapplication of getline is to just skip a few lines of an 
+input file. The following discusses how to do that without using getline 
+with all that implies as discussed above. This discussion builds on the 
+common awk idiom to "decrement a variable to zero" by putting the 
+decrement of the variable as the second term in an "and" clause with the 
+first part being the variable itself, so the decrement only occurs if 
+the variable is non-zero: 
+<ul>
+<li>
+ Print the Nth record after some pattern: 
+<pre>    awk 'c&&!--c;/pattern/{c=N}' file </pre>
+<li> Print every record except the Nth record after some pattern: 
+<pre>    awk 'c&&!--c{next}/pattern/{c=N}' file </pre>
+<li>Print the N records after some pattern: 
+<pre>    awk 'c&&c--;/pattern/{c=N}' file </pre>
+<li>Print every record except the N records after some pattern: 
+<pre>    awk 'c&&c--{next}/pattern/{c=N}' file </pre>
+</ul>
+</ol>
+<p>
+In this example there are no blank lines and the output is all aligned 
+with the left hand column and you want to print $0 for the second record 
+following the record that contains some pattern, e.g. the number 3: 
+<pre>
+$ cat file 
+line 1 
+line 2 
+line 3 
+line 4 
+line 5 
+line 6 
+line 7 
+line 8 
+$ awk '/3/{getline;getline;print}' file 
+line 5 
+</pre>
+That works Just fine. Now let's see the concise way to do it without 
+getline: 
+<pre>$ awk 'c&&!--c;/3/{c=2}' file 
+line 5 </pre>
+<p>It's not quite so obvious at a glance what that does, but it uses an 
+idiom that most awk programmers could do well to learn and it is briefer 
+and avoids all those getline caveats. 
+<p>Now let's say we want to print the 5th line after the pattern instead of 
+the 2nd line. Then we'd have: 
+<pre>$ awk '/3/{getline;getline;getline;getline;getline;print}' file 
+line 8 
+$ awk 'c&&!--c;/3/{c=5}' file 
+line 8
+</pre>
+<p> 
+i.e. we have to add a whole series of additional getline calls to the 
+getline version, as opposed to just changing the counter from 2 to 5 for 
+the non-getline version. In reality, you'd probably completely rewrite 
+the getline version to use a loop: 
+<pre>$ awk '/3/{for (c=1;c&lt;=5;c++) getline; print}' file 
+line 8 </pre>
+<p>
+Still not as concise as the non-getline version, has all the getline 
+caveats and required a redesign of the code just to change a counter. 
+<p>
+Now let's say we also have to print the word "Eureka" if the number 4 
+appears in the input file. With the getline verion, you now have to do 
+something like: 
+<pre>$ awk '/3/{for (c=1;c&lt;=5;c++) { getline; if ($0 ~ /4/) print "Eureka!" } 
+print}' file 
+Eureka! 
+line 8 </pre>
+<p>
+whereas with the non-getline version you just have to do: 
+<pre>$ awk 'c&&!--c;/3/{c=5}/4/{print "Eureka!"}' file 
+Eureka! 
+line 8 </pre>
+<p>
+i.e. with the getline version, you have to work around the fact that 
+you're now processing records outside of the normal awk work-loop, 
+whereas with the non-getline version you just have to drop your test for 
+"4" into the normal place and let awks normal record processing deal 
+with it like it always does. 
+Actually, if you look closely a
+<p>t the above you'll notice we just 
+unintentionally introduced a bug in the getline version. Consider what 
+would happen in both versions if 3 and 4 appear on the same line. The 
+non-getline version would behave correctly, but to fix the getline 
+version, you'd need to duplicate the condition somewhere, e.g. perhaps 
+something like this: 
+<pre>
+$ awk '/3/{for (c=1;c&lt;=5;c++) { if ($0 ~ /4/) print "Eureka!"; getline } 
+if ($0 ~ /4/) print "Eureka!"; print}' file 
+Eureka! 
+line 8 
+</pre>
+<p>
+Now consider how the above would behave when there aren't 5 lines left 
+in the input file or when the last line of the file contains both a 3 
+and a 4. i.e. there are still design questions to be answered and bugs 
+that will appear at the limits of the input space. 
+<p>Ignoring those bugs since this is not intended as a discussion on 
+debugging getline programs, let's say you no longer need to print the 
+5th record after the number 3 but still have to do the Eureka on 4. With 
+the getline version, you'd strip out the test for 3 and the getline 
+stuff to be left with: 
+<pre>
+$ awk '{if ($0 ~ /4/) print "Eureka!"}' file 
+Eureka!
+</pre>
+<p> 
+which you'd then presumably rewrite as: 
+<pre>
+$ awk '/4/{print "Eureka!"}' file 
+Eureka! 
+</pre>
+<p>which is what you get just by removing everything involving the test for 
+3 and counter in the non-getline version (i.e. "c&&!--c;/3/{c=5}"}: 
+<pre>
+$ awk '/4/{print "Eureka!"}' file 
+Eureka! 
+</pre>
+<p>i.e. again, one small requirement change required a complete redesign of 
+the getline code, but just the absolute minimum necessary tweak to the 
+non-getline version. 
+<p>So, what you see above in the getline case was significant redesign 
+required for every tiny requirement change, much larger amounts of 
+handwritten code required, insidious bugs introduced during development 
+and challenging design questions at the limits of your input space, 
+whereas the non-getline version always had less code, was much easier to 
+modify as requirements changed, and was much more obvious, predictable, 
+and correct in how it would behave at the limits of the input space. 
