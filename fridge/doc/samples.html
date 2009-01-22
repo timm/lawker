@@ -260,12 +260,11 @@
    ($user, $tty, $login, $junk) = split(/ +/, $line, 4);
    print "$user $login ",substr($line,49)
  }
-
 </code></pre>
 
 <p>GAWK</p>
 
-<pre>#!/pkg/gnu/bin/gawk -f
+<pre><code>#!/pkg/gnu/bin/gawk -f
  # this is a comment
  #
  BEGIN {
@@ -274,7 +273,7 @@
      print user, login, substr($0,49)
    }
  }
-</pre>
+</code></pre>
 
 <p><strong>Web Slurping</strong></p>
 
