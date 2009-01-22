@@ -52,6 +52,7 @@ About Awk<br>
 Implementations<br>
 &nbsp;&raquo;&nbsp; <a href="http://plan9.bell-labs.com/cm/cs/who/bwk/awk.tar.gz">awk</a> (old)<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">gawk</a> (widely used)<br> 
+&nbsp;&raquo;&nbsp; <a href="http://freshmeat.net/projects/mawk/">mawk</a> <br>
 &nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">xgawk</a> (gawk + xml + ...)<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.shelldorado.com/articles/awkcompat.html">platform support</a>
 <hr>
@@ -68,7 +69,7 @@ Code<br>
 Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.cs.pdx.edu/~timm/dm/gawkcard.pdf">reference card</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.nrl.navy.mil/code5595/online-software/manpages/gawk-manpage.html">manual pages</a><br>
-&nbsp;&raquo;&nbsp;  FAQ<br>
+&nbsp;&raquo;&nbsp;  <a href="http://www.faqs.org/faqs/computer-lang/awk/faq/">FAQ</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://groups.google.com/group/comp.lang.awk/topics">discussion group</a><br>
 <hr>Reading<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
