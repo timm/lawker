@@ -1,0 +1,73 @@
+if the tag has all white space after it, just write <it>
+else replace "^#([/]?[A-Z].*) (Y)$" with "<X>Y</X>"
+ 
+and repalce #NAME with <h1><join>x</t></join>
+and #ALSO xxx
+
+Add a #H1 FILE next 
+
+need a list of all names
+
+replace ^# with //
+ 
+NAME           Name section, the name of the function or command.
+SYNOPSIS       Usage.
+DESCRIPTION    General description
+OPTIONS        Flags for command-line, or argument calls.
+RETURNS        Sections two and three function calls.
+FILES          Files associated with the subject.
+GLOBALS	       Globals used by this file.
+EXAMPLES       Examples and suggestions.
+ERRORS         Sections two and three error and signal handling.
+SEE ALSO       Cross references and citations.
+BUGS           Gotchas and caveats.
+SOURCE	       add url
+AUTHOR	       who wrote this
+FILE	       where this comes from
+
+#h1 is FUN or COM
+
+#FUN   join
+#H1    SYNOPSIS
+#P	  join(array,[start,end,sep])
+#H1    DESCRIPTION
+#P	  Joins at array into a string
+#H1    OPTIONS
+#DL
+#DT	  array
+#DD		input array
+#DT	  start,end
+#DD		Indexes for where to start/stop in the array.
+#DT	  sep
+#DD		(OPTIONAL) What to write between each item. Defaults to blank space.
+#/DT
+#P		
+#         If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
+#         then internally, <em>join</em> adds nothing between the items. 
+#H1    RETURNS
+#P	  A string of <b>array</b>'s contents.
+#H1    EXAMPLES
+#PRE
+#% gawk -f join.awk --source 'BEGIN { 
+#         split("name,age",A,",")
+#         print join(A,1,2)
+# }'
+# name age
+#/PRE
+#H1 SOURCE
+#PRE
+function join(array,start,end,sep,    result,i)
+{
+    if (sep == "")
+       sep = " "
+    else if (sep == SUBSEP) # magic value
+       sep = ""
+    result = array[start]
+    for (i = start + 1; i <= end; i++)
+        result = result sep array[i]
+    return result
+}
+#/PRE
+#ALSO     saya
+#H1 AUTHOR 
+#P        Arnold Robbins
