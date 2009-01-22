@@ -2,7 +2,7 @@
 
 <p>by Ed Morton
 
-<p>The following summary, composed by Ed Morton to address the recurring 
+<p>The following summary, composed to address the recurring 
 issue of getline (mis)use, was based primarily on information from the 
 book "Effective Awk Programming", Third Edition By Arnold Robbins; 
 (<a href="(http://www.oreilly.com/catalog/awkprog3">http://www.oreilly.com/catalog/awkprog3</a>) with review and additional 
@@ -34,7 +34,7 @@ used by beginners. ... come back and study the getline command after you
 have reviewed the rest ... and have a good knowledge of how awk works." 
 </em></ul>
 <h2>Variants</h2> 
-The following summarises the eight variants of getline applications, 
+<p>The following summarises the eight variants of getline applications, 
 listing which variables are set by each one: 
 <pre><code>
     Variant                 Variables Set 
@@ -47,7 +47,7 @@ listing which variables are set by each one:
     command |& getline      $0, ${1...NF}, NF 
     command |& getline var  var 
 </code></pre>
-The "command |& ..." variants are GNU awk (gawk) extensions. gawk also 
+<p>The "command |& ..." variants are GNU awk (gawk) extensions. gawk also 
 populates the ERRNO builtin variable if getline fails. 
 <p>
 Although calling getline is very rarely the right approach (see 
@@ -57,7 +57,7 @@ below), if you need to do it the safest ways to invoke getline are:
     if/while ( (command | getline var) > 0) 
     if/while ( (command |& getline var) > 0) 
 </code></pre>
-since those do not affect any of the builtin variables and they allow 
+<p>since those do not affect any of the builtin variables and they allow 
 you to correctly test for getline succeeding or failing. If you 
 need the input record split into separate fields, just call "split()" 
 to do that. 
