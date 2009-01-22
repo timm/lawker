@@ -10,7 +10,7 @@ need a list of all names
 
 replace ^# with //
  
-NAME           Name section, the name of the function or command.
+(FUN|COM)      Name section, the name of the function or command.
 SYNOPSIS       Usage.
 DESCRIPTION    General description
 OPTIONS        Flags for command-line, or argument calls.
