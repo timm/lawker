@@ -1,11 +1,11 @@
 # copyright 2009 Arnold Robbins, GPL 3.0
 
 #.H1   <join> join </join>
-#.H2    SYNOPSIS
+#.H2    Synopsis
 #.P       join(array,[start,end,sep])
-#.H2    DESCRIPTION
+#.H2    Description
 #.P       Joins at array into a string
-#.H2    OPTIONS
+#.H2    Options
 #.DL
 #.DT     a
 #.DD            input array
@@ -19,12 +19,12 @@
 #.P
 #         If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
 #         then internally, <em>join</em> adds nothing between the items. 
-#.H2    RETURNS
+#.H2    Returns
 #.P       A string of <b>array</b>'s contents.
-#.H2    EXAMPLES
+#.H2    Example
 #.CODE gawk/array/eg/join
 #.CODE gawk/array/eg/join.out
-#.H2 SOURCE
+#.H2 Source
 #.PRE
 function join(a,start,end,sep,    result,i) {
     sep   = sep   ? start :  " "
@@ -38,21 +38,21 @@ function join(a,start,end,sep,    result,i) {
     return result
 }
 #./PRE
-#.H3 HELPERS
+#.H3 Helper
 #.PRE
 function sizeof(a,   i,n) {
     # in earlier gawks, length(a) did not work in functions
-    for(i in a) {print  i " " a[i] " " n; n++}
+    for(i in a) n++
     return n
 }
 #./PRE
-#.H2 SEE ALSO     
+#.H2 See Also   
 #.P saya
-#.H2 HISTORy
+#.H2 Change Log
 #.P
 #.UL
 #.LI Jan 24'08: defaults extended to include <em>start,stop</em>
 #.LI Jan 24'08: <em>Sizeof</em> added to handle old gawk bug
 #.\LI
-#.H2 AUTHOR 
+#.H2 Author
 #.P        Arnold Robbins, then Tim Menzies
