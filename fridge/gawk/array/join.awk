@@ -22,18 +22,18 @@
 #.H2    EXAMPLES
 #.PRE
 #% gawk -f join.awk --source 'BEGIN { 
-#         split("name,age",A,",")
-#         print join(A,1,2)
-# }'
-# name age
+#       split("tim tom tam", array)
+#       print join(array,2) '}
+#
+# tom tam
 #./PRE
 #.H2 SOURCE
 #.PRE
-function join(array,start,end,sep,    result,i)
-{
-    if (sep == "")
-       sep = " "
-    else if (sep == SUBSEP) # magic value
+function join(array,start,end,sep,    result,i) {
+    sep   = sep   || " "
+    start = start || 1
+    end   = end   || length(array)
+    if (sep == SUBSEP) # magic value
        sep = ""
     result = array[start]
     for (i = start + 1; i <= end; i++)
@@ -42,7 +42,6 @@ function join(array,start,end,sep,    result,i)
 }
 #./PRE
 #.H2 SEE ALSO     
-#.P 
-saya
+#.P saya
 #.H2 AUTHOR 
 #.P        Arnold Robbins
