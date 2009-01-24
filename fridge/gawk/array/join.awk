@@ -25,7 +25,7 @@
 #<p>  If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
 #then internally, <em>join</em> adds nothing between the items. </dl>
 
-# <h2>Code</h2><pre><code>
+# <h2>Code</h2><code>
 function join(array,start,end,sep,    result,i)
 {
     if (sep == "")
@@ -37,4 +37,4 @@ function join(array,start,end,sep,    result,i)
         result = result sep array[i]
     return result
 }
-#</code></pre><h2> Author </h2> <p> Arnold Robbins
+#</code><h2> Author </h2> <p> Arnold Robbins
