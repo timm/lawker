@@ -7,7 +7,7 @@
 #.P       Joins at array into a string
 #.H2    OPTIONS
 #.DL
-#.DT      array
+#.DT     array
 #.DD            input array
 #.DT      start,end
 #.DD            Indexes for where to start/stop in the array.
@@ -45,4 +45,4 @@ function join(array,start,end,sep,    result,i)
 #.P 
 saya
 #.H2 AUTHOR 
-#/P        Arnold Robbins
+#.P        Arnold Robbins
