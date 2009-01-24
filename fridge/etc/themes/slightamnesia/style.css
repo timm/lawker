@@ -330,8 +330,10 @@ dt {
    font-weight: bold;
 }
 
-#awk  p { margin-left: 10px; padding-left: 10px; }
-#awk  dl { margin-left: 10px; padding-left: 10px; }
+#awk  p { margin-left: 15px; padding-left: 15px; }
+#awk  ol { margin-left: 15px; padding-left: 15px; }
+#awk  ul { margin-left: 15px; padding-left: 15px; }
+#awk  dt { margin-left: 15px; padding-left: 15px; }
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
