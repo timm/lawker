@@ -22,16 +22,8 @@
 #.H2    RETURNS
 #.P       A string of <b>array</b>'s contents.
 #.H2    EXAMPLES
-#.H3 eg/join
-#.PRE
-#gawk -f join.awk --source 'BEGIN { 
-#       split("tim tom tam", array)
-#       print join(array,2) '}
-#./PRE
-#.H3 join.out
-#.PRE
-#tom tam
-#./PRE
+#.IN 3 gawk/array/eg/join
+#.IN 3 gawk/array/eg/join.out
 #.H2 SOURCE
 #.PRE
 function join(a,start,end,sep,    result,i) {
