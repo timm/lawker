@@ -330,10 +330,11 @@ dt {
    font-weight: bold;
 }
 
-#awk  p { margin-left: 15px; padding-left: 15px; }
-#awk  ol { margin-left: 15px; padding-left: 15px; }
-#awk  ul { margin-left: 15px; padding-left: 15px; }
-#awk  dt { margin-left: 15px; padding-left: 15px; }
+#awk p   { margin-left: 15px; padding-left: 15px; }
+#awk ol  { margin-left: 15px; padding-left: 15px; }
+#awk ul  { margin-left: 15px; padding-left: 15px; }
+#awk dl  { margin-left: 15px; padding-left: 15px; }
+#awk pre { margin-left: 15px; padding-left: 15px; }
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}

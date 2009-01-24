@@ -22,13 +22,13 @@
 #.H2    RETURNS
 #.P       A string of <b>array</b>'s contents.
 #.H2    EXAMPLES
-#.H3 array/join
+#.H3 eg/join
 #.PRE
-#cd .. ; gawk -f join.awk --source 'BEGIN { 
+#gawk -f join.awk --source 'BEGIN { 
 #       split("tim tom tam", array)
 #       print join(array,2) '}
 #./PRE
-#.H3 array/join.expect
+#.H3 join.out
 #.PRE
 #tom tam
 #./PRE
