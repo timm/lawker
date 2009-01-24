@@ -52,18 +52,18 @@ hr {
     border-top: 1px solid #DFD8D2;
     height: 1px;
 }
-/*<!-- pre {
+ pre {
     margin-right: 10px;
     padding: 1em;
     border: 1px dashed #2f6fab;
     color: DarkBlue;
     background-color: #f9f9f9;
 	xbackground-color:#EDE9E6;
-	font-size: x-small;
+	xfont-size: x-small;
     xline-height: 90%;
-	font-family: "Monaco","Courier New", "Courier", "Sans Serif"; 
+	xfont-family: "Monaco","Courier New", "Courier", "Sans Serif"; 
 	xfont-weight: bold;
-} ----> */
+} */
 #left_text {
 position:relative;
 xwidth:16.7em;
