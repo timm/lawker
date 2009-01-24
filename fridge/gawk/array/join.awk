@@ -2,7 +2,7 @@
 
 #.H1   <join> join </join>
 #.H2    Synopsis
-#.P       join(array,[start,end,sep])
+#.P       join(array [,start,end,sep])
 #.H2    Description
 #.P       Joins at array into a string
 #.H2    Options
