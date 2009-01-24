@@ -1,3 +1,5 @@
+# copyright 2009 Arnold Robbins, GPL 3.0
+
 #.H1   <join> join </join>
 #.H1    SYNOPSIS
 #.P       join(array,[start,end,sep])
