@@ -53,6 +53,6 @@ function sizeof(a,   i,n) {
 #.UL
 #.LI Jan 24'08: defaults extended to include <em>start,stop</em>
 #.LI Jan 24'08: <em>Sizeof</em> added to handle old gawk bug
-#.\LI
+#.\UL
 #.H2 Author
-#.P        Arnold Robbins, then Tim Menzies
+#.P  Arnold Robbins, then Tim Menzies
