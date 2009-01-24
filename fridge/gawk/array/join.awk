@@ -13,13 +13,13 @@
 #.DD            Indexes for where to start/stop in the array.
 #.DT      sep
 #.DD            (OPTIONAL) What to write between each item. Defaults to blank space.
-#./DT
+#./Dl
 #.P
 #         If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
 #         then internally, <em>join</em> adds nothing between the items. 
 #.H2    RETURNS
 #.P       A string of <b>array</b>'s contents.
-#.H1    EXAMPLES
+#.H2    EXAMPLES
 #.PRE
 #% gawk -f join.awk --source 'BEGIN { 
 #         split("name,age",A,",")
