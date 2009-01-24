@@ -330,7 +330,7 @@ dt {
    font-weight: bold;
 }
 
-#awk p { 
+#awk dt p { 
     margin-left: 10px;
     padding-left: 10px;
 }
