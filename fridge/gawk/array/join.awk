@@ -22,8 +22,8 @@
 #.H2    RETURNS
 #.P       A string of <b>array</b>'s contents.
 #.H2    EXAMPLES
-#.IN 3 gawk/array/eg/join
-#.IN 3 gawk/array/eg/join.out
+#.CODE gawk/array/eg/join
+#.CODE gawk/array/eg/join.out
 #.H2 SOURCE
 #.PRE
 function join(a,start,end,sep,    result,i) {
