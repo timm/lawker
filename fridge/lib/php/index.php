@@ -27,13 +27,19 @@ function slurp($url) {
 	curl_close($ch);
 	return $contents;
 }
-function filter_lines($lines,$zap) {	
+function filter_lines($lines,$what,$zap) {	
 	$use = 0;
 	$out  = "";
 	foreach(split("\n",$lines) as $line) {
-	     if ($use) { $out .= preg_replace($zap,"",$line) . "\n"; }
+	     if ($use) { $out .= filter_line($line,$zap) . "\n"; }
              else      { if (empty($line)) { $use=1 ; }}}
-	return $out;
+	return "<div id=\"$what\">$out</div>";
+}
+function filter_line($line,$zap) {
+	$tmp= preg_replace($zap,"",$line);
+	$tmp= preg_replace("/^\.(\S+)\s+(\S.*)$/","<$1>$2</$1>",$tmp);
+	$tmp= preg_replace("/^\.(\S+)\s*$/","<$1>",$tmp);
+	return $tmp;
 }
 function thefiles() {
 	 global $config;
@@ -62,20 +68,14 @@ function contents() {
 	 global $config;
 	 $out="";
 	 foreach ($files as $file) {
-	        // print $file;
 		 $splits  = preg_split("/[_\.]/",$file);
 		 if ($splits[1] ) {        $fname = $splits[0] . "." . $splits[1];
 		                  } else { $fname = "doc/" . $file . ".html" ; }
 		$path  = s("source")."/".$fname;
-		//print "path $path fname $fname file $file<br>";
 		$tmp   = slurp($path) ;
-		
 		if ($splits[1]) {
-		   if (s($splits[1])) { 
-			
-			   $tmp=filter_lines($tmp, s($splits[1]));
-			
-			    }}
+		   if (s($splits[1])) { 			
+			   $tmp=filter_lines($tmp, $splits[1],s($splits[1]));}}
 		$meta  = "<p class=\"meta\">";
 		$sep   = " categories: ";
 	        $cats  = $config-> xpath("//files/file[@where='".$fname."']/what");
