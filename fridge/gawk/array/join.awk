@@ -20,7 +20,7 @@
 #         If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
 #         then internally, <em>join</em> adds nothing between the items. 
 #.H2    Returns
-#.P       A string of <b>array</b>'s contents.
+#.P       A string of <b>a</b>'s contents.
 #.H2    Example
 #.CODE gawk/array/eg/join
 #.CODE gawk/array/eg/join.out
