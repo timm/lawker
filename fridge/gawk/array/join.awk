@@ -39,7 +39,7 @@ function join(a,start,end,sep,    result,i) {
 }
 #./PRE
 #.H3 Helper
-#.P In earlier gawks, length(a) did not work in functions. Hence, this tool:
+#.P In earlier gawks, <em>length(a)</em> did not work in functions. Hence....
 #.PRE
 function sizeof(a,   i,n) { for(i in a) n++ ; return n }
 #./PRE
