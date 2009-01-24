@@ -47,6 +47,9 @@ p #in {
 	padding-top: 0px;
 }
 
+p #awk { 
+    margin-right: 10px;
+}
 hr { 
     border: none;
     border-top: 1px solid #DFD8D2;
