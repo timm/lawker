@@ -334,7 +334,7 @@ dt {
 #awk ol  { margin-left: 15px; padding-left: 15px; }
 #awk ul  { margin-left: 15px; padding-left: 15px; }
 #awk dl  { margin-left: 15px; padding-left: 15px; }
-#awk pre { margin-left: 15px; padding-left: 15px; }
+#awk pre { margin-left: 25px; padding-left: 25px; }
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
