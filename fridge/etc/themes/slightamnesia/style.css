@@ -59,11 +59,6 @@ hr {
     color: DarkBlue;
     font-size: x-small;
     background-color: #f9f9f9;
-	xbackground-color:#EDE9E6;
-	xfont-size: x-small;
-    xline-height: 90%;
-	xfont-family: "Monaco","Courier New", "Courier", "Sans Serif"; 
-	xfont-weight: bold;
 } 
 #left_text {
 position:relative;
