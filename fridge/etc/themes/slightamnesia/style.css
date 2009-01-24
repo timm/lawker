@@ -47,9 +47,7 @@ p #in {
 	padding-top: 0px;
 }
 
-p #awk { 
-    margin-right: 10px;
-}
+
 hr { 
     border: none;
     border-top: 1px solid #DFD8D2;
@@ -331,6 +329,11 @@ visibility: hidden;
 dt { 
    font-weight: bold;
 }
+
+#awk p { 
+    margin-right: 10px;
+}
+
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
 .clearfix {display: block;}
