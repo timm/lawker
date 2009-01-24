@@ -1,31 +1,32 @@
-#This code is part of LAWKER: the AWK code locker
-#Copyright (C) 2009 Arnold Robbins arnold@gnu.org, Public Domain
-#
-#This program is free software: you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation, either version 3 of the License, or
-#(at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses/.
-
-#<h1><join> Join.awk </join></h1>
-#<h2>Synopsis</h2><p> Joins an array into a string.
-# <h2> Arguments </h2><dl>
-
-#<dt> array     <dd> Input array.
-#<dt> start,end <dd> Indexes for where to start/stop in the array.
-#<dt> sep       <dd> (OPTIONAL) What to write between each item. Defaults to blank space. </dl>
-
-#<p>  If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
-#then internally, <em>join</em> adds nothing between the items. </dl>
-
-# <h2>Code</h2><pre>
+#.H1   <join> join </join>
+#.H1    SYNOPSIS
+#.P       join(array,[start,end,sep])
+#.H1    DESCRIPTION
+#.P       Joins at array into a string
+#.H1    OPTIONS
+#.DL
+#.DT      array
+#.DD            input array
+#.DT      start,end
+#.DD            Indexes for where to start/stop in the array.
+#.DT      sep
+#.DD            (OPTIONAL) What to write between each item. Defaults to blank space.
+#./DT
+#.P
+#         If <em>sep</em> is set to the magic value <em>SUBSEP</em> 
+#         then internally, <em>join</em> adds nothing between the items. 
+#.H1    RETURNS
+#.P       A string of <b>array</b>'s contents.
+#.H1    EXAMPLES
+#.PRE
+#% gawk -f join.awk --source 'BEGIN { 
+#         split("name,age",A,",")
+#         print join(A,1,2)
+# }'
+# name age
+#./PRE
+#.H1 SOURCE
+#.PRE
 function join(array,start,end,sep,    result,i)
 {
     if (sep == "")
@@ -37,4 +38,9 @@ function join(array,start,end,sep,    result,i)
         result = result sep array[i]
     return result
 }
-#</pre><h2> Author </h2> <p> Arnold Robbins
+#./PRE
+#.H1 SEE ALSO     
+#.P 
+saya
+#.H1 AUTHOR 
+#/P        Arnold Robbins
