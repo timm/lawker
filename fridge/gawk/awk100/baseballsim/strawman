@@ -1,0 +1,4 @@
+#! /pkg/gnu/bin/gawk -f
+BEGIN {
+ while (getline < "straw.dat") print
+}

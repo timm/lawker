@@ -1,0 +1,98 @@
+BEGIN {
+ srand()
+ # getline rlp
+ FS = "\t"
+ #1       l       ab=154  b1=51   b2=17   b3=0    b4=6    bb=8    sf=     sb= k=25    sb=
+
+ # restart from file if you can
+ if (getline < "holdbest.dat" > 0) {
+   holdbest[++i]=$1
+   seen[$1] = 1
+   while (getline < "holdbest.dat") {
+         if (seen[$1]) { badlineup = 1; break }
+     holdbest[++i]=$1
+     seen[$1] = 1
+   }
+   # if (!badlineup) print "restoring file" > "/dev/stderr"
+ }
+ if (i<15 || badlineup) {
+   for (i=1; i<=15; i++) holdbest[i] = i
+       # print "initializing lineup"
+ }
+
+ for (iter=1; iter<=30; iter++) {
+
+   randwalk = 0
+   if (rand() > .5 + iter/50) {
+         randwalk = 1
+     for (k=1; k<=15; k++) nextholdbest[k] = holdbest[k]
+     besti = bestj = 0
+     while (besti == bestj) {
+           besti = int(1+15*rand())
+           bestj = int(1+15*rand())
+     }
+     nextholdbest[besti] = holdbest[bestj]
+     nextholdbest[bestj] = holdbest[besti]
+       } else {
+
+     # bestscore = 0
+
+     besti = 1; bestj = 1
+         # may be extra work, but needed when restarting from file
+     bestscore = score(holdbest)
+   }
+
+   if (!randwalk) for (i=1; i<=9; i++) {
+     for (j=i+1; j<=15; j++) {
+       for (k=1; k<=15; k++) bats[k] = holdbest[k]
+       hold = bats[i]
+       bats[i] = bats[j]
+       bats[j] = hold
+
+               scorethis = score(bats)
+       if (scorethis+0 > bestscore+0) {
+         bestscore = scorethis
+         for (k=1; k<=15; k++) nextholdbest[k] = bats[k]
+                 besti = i
+                 bestj = j
+       }
+
+     }
+   }
+
+       # print "...swapping "besti" with "bestj > "/dev/stderr"
+       # if (!randwalk) {
+         # print "score="bestscore > "/dev/stderr"
+       # } else print "...randomwalk" > "/dev/stderr"
+   # for (k=1; k<=15; k++) print nextholdbest[k] > "/dev/stderr"
+
+   system("rm -f holdbest.dat")
+   for (k=1; k<=15; k++) print nextholdbest[k] > "holdbest.dat"
+   close("holdbest.dat")
+
+   for (k=1; k<=15; k++) holdbest[k] = nextholdbest[k]
+
+   if (besti == bestj && !randwalk) break
+       # reached a local maximum
+
+ }
+
+ for (i=1; i<=9; i++) print holdbest[i]
+
+}
+
+function score(bats) {
+ # printf " ... " > "/dev/stderr"
+ system("rm -f straw.dat")
+ for (k=1; k<=9; k++) print bats[k] > "straw.dat"
+ close("straw.dat")
+
+ # now score this order
+ com = "sim3 -v iters="200+10*iter" -v output=0 -v remake=0 -v prog=strawman | grep 'chasings total'"
+ com | getline
+ thisscore = $1
+ # printf "..."thisscore > "/dev/stderr"
+ # print "\twith "bats[1]" leading off" > "/dev/stderr"
+ close(com)
+ return thisscore
+}

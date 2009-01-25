@@ -1,0 +1,31 @@
+#! /pkg/gnu/bin/gawk -f
+BEGIN {
+ getline rlpitcher
+ FS = "\t"
+ #1       l       ab=154  b1=51   b2=17   b3=0    b4=6    bb=8    sf=     sb= k=25    sb=
+ while (getline < "batters") {
+   n = $1; lr = $2
+   for (i=3; i<=NF; i++) {
+     split($i,temp,"=")
+     what = temp[1]
+     count = temp[2]
+     store[n,lr,what] = count
+   }
+ }
+ close("batters")
+ system("rm -f mytemp")
+ for (i=1; i<=15; i++) {
+   hits = store[i,"l","b1"]+store[i,"l","b2"]+store[i,"l","b3"]+store[i,"l","b4"]
+   hits += store[i,"r","b1"]+store[i,"r","b2"]+store[i,"r","b3"]+store[i,"r","b4"]
+   printf "%3.3f",hits/(store[i,"r","ab"]+store[i,"l","ab"]) > "mytemp"
+   print "\t"i > "mytemp"
+ }
+ close("mytemp")
+ com = "sort -nr mytemp"
+ while (com | getline) {
+   ++nplayers
+   print $2
+   # print "\t"$1 > "/dev/stderr"
+   if (nplayers >= 9) exit
+ }
+}

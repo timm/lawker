@@ -1,0 +1,52 @@
+#! /pkg/gnu/bin/gawk -f
+BEGIN {
+ getline rlp
+ FS = "\t"
+ #1       l       ab=154  b1=51   b2=17   b3=0    b4=6    bb=8    sf=     sb= k=25    sb=
+ while (getline < "batters") {
+   n = $1; lr = $2
+   for (i=3; i<=NF; i++) {
+     split($i,temp,"=")
+     what = temp[1]
+     count = temp[2]
+     store[n,lr,what] = count
+   }
+ }
+ close("batters")
+ system("rm -f mytemp")
+ for (i=1; i<=15; i++) {
+   hits = store[i,"l","b1"]+store[i,"l","b2"]+store[i,"l","b3"]+store[i,"l","b4"]
+   hits += store[i,"r","b1"]+store[i,"r","b2"]+store[i,"r","b3"]+store[i,"r","b4"]
+   printf "%3.3f",hits/(store[i,"r","ab"]+store[i,"l","ab"]) > "mytemp"
+   oba[i] = (hits+store[i,"r","bb"]+store[i,"l","bb"])/(store[i,"r","ab"]+store[i,"l","ab"]+store[i,"r","bb"]+store[i,"l","bb"])
+   slg[i] = (store[i,"l","b1"]+store[i,"r","b1"])/(store[i,"r","ab"]+store[i,"l","ab"])
+   slg[i] += 2*(store[i,"l","b2"]+store[i,"r","b2"])/(store[i,"r","ab"]+store[i,"l","ab"])
+   slg[i] += 3*(store[i,"l","b3"]+store[i,"r","b3"])/(store[i,"r","ab"]+store[i,"l","ab"])
+   slg[i] += 4*(store[i,"l","b4"]+store[i,"r","b4"])/(store[i,"r","ab"]+store[i,"l","ab"])
+   print "\t"i > "mytemp"
+ }
+ for (i=1; i<=15; i++) {
+   if (slg[i] > bestslg) {
+         ibestslg = i
+         bestslg = slg[i]
+         print "new best slg is "bestslg,ibestslg > "/dev/stderr"
+       }
+ }
+ for (i=1; i<=15; i++) {
+   if (i == ibestslg) continue
+   if (oba[i] > bestoba) {
+         ibestoba = i
+         bestoba = oba[i]
+         print "new best oba is "bestoba,ibestoba > "/dev/stderr"
+       }
+ }
+ close("mytemp")
+ com = "sort -nr mytemp"
+ while (com | getline) {
+   if (nplayers == 3) { print ibestslg; ++nplayers }
+   if (nplayers == 0) { print ibestoba; ++nplayers }
+   if ($2 != ibestoba && $2 != ibestslg) { print $2; ++nplayers }
+   # print "\t"$1 > "/dev/stderr"
+   if (nplayers >= 9) exit
+ }
+}
