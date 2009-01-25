@@ -22,7 +22,7 @@
 #.H2    Returns
 #.P       A string of <b>a</b>'s contents.
 #.H2    Example
-#.BODY gawk/array/eg/join
+#.BODY gawk/array/eg/join1
 #.CODE gawk/array/eg/join.out
 #.H2 Source
 #.PRE
