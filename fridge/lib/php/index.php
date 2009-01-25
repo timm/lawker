@@ -2,11 +2,8 @@
 include("config.php");  
 
 /*the include file looks like this:
-<? 
-	$slurping =  "http://lawker.googlecode.com/svn/fridge/etc/config.xml";
-?>
+<? $slurping =  "http://lawker.googlecode.com/svn/fridge/etc/config.xml"; ?>
 */
-
 function s($string) { 
 	 global $magic;
 	 if ( $magic[$string] ) {
@@ -33,10 +30,31 @@ function filter_lines($lines,$what,$zap) {
 	foreach(split("\n",$lines) as $line) {
 	     if ($use) { $out .= filter_line($line,$zap) . "\n"; }
              else      { if (empty($line)) { $use=1 ; }}}
-	return "<div id=\"$what\">$out</div>";
+	if (empty($what)) {
+		return $out; 
+	} else { return "<div id=\"$what\">$out</div>"; }
 }
 function filter_line($line,$zap) {
-	$tmp= preg_replace($zap,"",$line);
+	if (empty($zap)) {
+		$tmp=$line; 
+        } else { $tmp= preg_replace($zap,"",$line); }
+	if(preg_match("/^.BODY/i",$tmp)) {
+	    $words = explode(" ",$tmp);
+	    $url= s("source") . "/" . $words[1];
+	    $contents = slurp($url);
+	    return "<p><a href=\"$url\">${words[1]}</a> &raquo; </p><pre>". filter_lines($contents,"","") . "</pre>\n" ;
+	}
+	if(preg_match("/^.CODE/i",$tmp)) {
+	    $words = explode(" ",$tmp);
+	    $url= s("source") . "/" . $words[1];
+	    $contents = slurp($url);
+	    return "<p><a href=\"$url\">${words[1]}</a> &raquo; </p><pre>". $contents . "</pre>\n" ;
+	}
+	if(preg_match("/^.IN/i",$tmp)) {
+	    $words = explode(" ",$tmp);
+	    $url= s("source") . "/" . $words[1];
+	    return slurp($url) . "\n";
+	}
 	$tmp= preg_replace("/^\.(\S+)\s+(\S.*)$/","<$1>$2</$1>",$tmp);
 	$tmp= preg_replace("/^\.(\S+)\s*$/","<$1>",$tmp);
 	return $tmp;
@@ -44,6 +62,7 @@ function filter_line($line,$zap) {
 function thefiles() {
 	 global $config;
 	 foreach ( $_GET as $key=>$val ) { 
+	        
 		 if ( preg_match('/^[a-z]/',$key) ) {
 		      $files[]= $key;
 		 } else { $wheres[] = $key ; 
@@ -63,19 +82,30 @@ function thefiles() {
          }}}}
 	 return $files;
 }
+function foriegnContents($file,$type) {
+	$path  = preg_replace("/_/",".",$file);
+	$path  = preg_replace("/$type:/","http://",$path);
+        $tmp   = slurp($path) ;
+	return filter_lines($tmp, "$type",s($type));      
+}
 function contents() { 
 	 global $files;
 	 global $config;
 	 $out="";
 	 foreach ($files as $file) {
-		 $splits  = preg_split("/[_\.]/",$file);
-		 if ($splits[1] ) {        $fname = $splits[0] . "." . $splits[1];
-		                  } else { $fname = "doc/" . $file . ".html" ; }
-		$path  = s("source")."/".$fname;
-		$tmp   = slurp($path) ;
-		if ($splits[1]) {
-		   if (s($splits[1])) { 			
-			   $tmp=filter_lines($tmp, $splits[1],s($splits[1]));}}
+	         if (preg_match("/^awk:/",$file)) {
+			$tmp=foriegnContents($file,"awk");
+		 } else {
+ 		    $splits = preg_split("/[_\.]/",$file);
+	 	    if ($splits[1] ) {        $fname = $splits[0] . "." . $splits[1];
+		                     } else { $fname = "doc/" . $file . ".html" ; }
+		    $path  = s("source")."/".$fname;
+                
+	            $tmp   = slurp($path) ;
+		    if ($splits[1]) {
+		       if (s($splits[1])) { 			
+			    $tmp=filter_lines($tmp, $splits[1],s($splits[1]));}}
+	        }
 		$meta  = "<p class=\"meta\">";
 		$sep   = " categories: ";
 	        $cats  = $config-> xpath("//files/file[@where='".$fname."']/what");
@@ -95,15 +125,6 @@ function title() {
 	 if (sizeof($files) == 1) { 
 	     return " " . query("//files/file[@where='" . preg_replace("/_\./",".",$files[0]) ."']/title");
 	 } else { return $files[1] . "..."; }
-}
-function titles() {
-	 global $files;
-	 print "<h1>On this page..</h1>";
-	 print "<ul>";
-	  foreach ($files as $file) {
-	     print "<li><a href=\"#$file\">". query("//files/file[@where='" . $file ."']/title") . "</a>";
-	}
-	print "</ul>";
 }
 $config = simplexml_load_string(slurp($slurping));
 $files=thefiles();
