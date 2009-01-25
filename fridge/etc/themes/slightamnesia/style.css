@@ -333,6 +333,7 @@ dt {
 #rci_left_column p   { margin-left: 15px; padding-left: 15px; }
 #rci_left_column ol  { margin-left: 15px; padding-left: 15px; }
 #rci_left_column ul  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column li  { margin-left: 15px; padding-left: 15px; }
 #rci_left_column dl  { margin-left: 15px; padding-left: 15px; }
 #rci_left_column pre { margin-left: 25px; padding-left: 10px; }
 
