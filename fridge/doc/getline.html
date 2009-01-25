@@ -37,28 +37,28 @@ have reviewed the rest ... and have a good knowledge of how awk works."
 <h2>Variants</h2> 
 <p>The following summarises the eight variants of getline applications, 
 listing which variables are set by each one: 
-<pre><code>
-    Variant                 Variables Set 
-    -------                 -------------
-    getline                 $0, ${1...NF}, NF, FNR, NR, FILENAME 
-    getline var             var, FNR, NR, FILENAME 
-    getline &lt; file          $0, ${1...NF}, NF 
-    getline var &lt; file      var 
-    command | getline       $0, ${1...NF}, NF 
-    command | getline var   var 
-    command |& getline      $0, ${1...NF}, NF 
-    command |& getline var  var 
-</code></pre>
+<pre>
+Variant                 Variables Set 
+-------                 -------------
+getline                 $0, ${1...NF}, NF, FNR, NR, FILENAME 
+getline var             var, FNR, NR, FILENAME 
+getline &lt; file          $0, ${1...NF}, NF 
+getline var &lt; file      var 
+command | getline       $0, ${1...NF}, NF 
+command | getline var   var 
+command |& getline      $0, ${1...NF}, NF 
+command |& getline var  var 
+</pre>
 <p>The "command |& ..." variants are GNU awk (gawk) extensions. gawk also 
 populates the ERRNO builtin variable if getline fails. 
 <p>
 Although calling getline is very rarely the right approach (see 
 below), if you need to do it the safest ways to invoke getline are: 
-<pre><code>
-    if/while ( (getline var &lt; file) > 0) 
-    if/while ( (command | getline var) > 0) 
-    if/while ( (command |& getline var) > 0) 
-</code></pre>
+<pre>
+if/while ( (getline var &lt; file) > 0) 
+if/while ( (command | getline var) > 0) 
+if/while ( (command |& getline var) > 0) 
+</pre>
 <p>since those do not affect any of the builtin variables and they allow 
 you to correctly test for getline succeeding or failing. If you 
 need the input record split into separate fields, just call "split()" 
@@ -89,52 +89,54 @@ portable to other awk implementations.
 the program, otherwise it won't. 
 <li> Unredirected getline can defeat the simple and usual rule to handle 
 input file transitions: 
-<pre><code>   FNR==1 { ... start of file actions ... } </code></pre>
+<pre>
+FNR==1 { ... start of file actions ... }
+</pre>
 File transitions can occur at getlines, so FNR==1 needs to also be 
 checked after each unredirected (from a specific file name) getline. 
 e.g. if you want to print the first line of each of these files: 
-<pre><code>
+<pre>
 $ cat file1 
 a 
 b 
 $ cat file2 
 c 
 d 
-</code></pre>
+</pre>
 you'd normally do: 
-<pre><code>
+<pre>
 $ awk 'FNR==1{print}' file1 file2 
 a 
 c 
-</code></pre>
+</pre>
 but if a "getline" snuck in, it could have the unexpected consequence of 
 skipping the test for FNR==1 and so not printing the first line of the 
 second file. 
-<pre><code>
+<pre>
 $ awk 'FNR==1{print}/b/{getline}' file1 file2 
 a 
-</code></pre>
+</pre>
 <li> Using getline in the BEGIN section to skip lines makes your program 
 difficult to apply to multiple files. e.g. with data like... 
-<pre><code>
-   some header line 
-   ---------------- 
-   data line 1 
-   data line 2 
-   ... 
-   data line 10000 
-</code></pre>
+<pre>
+some header line 
+---------------- 
+data line 1 
+data line 2 
+... 
+data line 10000 
+</pre>
 you may consider using... 
-<pre><code>
-   BEGIN { getline header; getline } 
-   { whatever_using_header_and_data_on_the_line() } 
-</code></pre>
+<pre>
+BEGIN { getline header; getline } 
+{ whatever_using_header_and_data_on_the_line() } 
+</pre>
 instead of... 
-<pre><code>
-   FNR == 1 { header = $0 } 
-   FNR &lt; 3 { next } 
-   { whatever_using_header_and_data_on_the_line() } 
-</code></pre>
+<pre>
+FNR == 1 { header = $0 } 
+FNR &lt; 3 { next } 
+{ whatever_using_header_and_data_on_the_line() } 
+</pre>
 but the getline version would not work on multiple files since the BEGIN 
 section would only be executed once, before the first file is processed, 
 whereas the non-getline version would work as-is. This is one example of 
@@ -147,39 +149,39 @@ getline approach is not ideal.
 getline is an appropriate solution for the following: 
 <ol type="a">
 <li> Reading from a pipe, e.g.:
-<pre><code>
-         command = "ls" 
-         while ( (command | getline var) > 0) { 
-            print var 
-         } 
-         close(command) 
-</code></pre>
+<pre>
+command = "ls" 
+while ( (command | getline var) > 0) { 
+    print var 
+} 
+close(command) 
+</pre>
 <li> Reading from a coprocess, e.g.: 
-<pre><code>
-         command = "LC_ALL=C sort" 
-         n = split("abcdefghijklmnopqrstuvwxyz", a, "") 
-         for (i = n; i > 0; i--) 
-            print a[i] |& command 
-         close(command, "to") 
-         while ((command |& getline var) > 0) 
-            print "got", var 
-         close(command) 
-</code></pre>
+<pre>
+command = "LC_ALL=C sort" 
+n = split("abcdefghijklmnopqrstuvwxyz", a, "") 
+for (i = n; i > 0; i--) 
+     print a[i] |& command 
+close(command, "to") 
+while ((command |& getline var) > 0) 
+    print "got", var 
+close(command) 
+</pre>
 <li>In the BEGIN section, reading some initial data that's referenced 
 during processing multiple subsequent input files, e.g.: 
-<pre><code>
-         BEGIN { 
-            while ( (getline var &lt; ARGV[1]) > 0) { 
-               data[var]++ 
-            } 
-            close(ARGV[1]) 
-            ARGV[1]="" 
-         } 
-         $0 in data 
-</code></pre>
+<pre>
+BEGIN { 
+   while ( (getline var &lt; ARGV[1]) > 0) { 
+          data[var]++ 
+   } 
+   close(ARGV[1]) 
+   ARGV[1]="" 
+ } 
+ $0 in data 
+</pre>
 <li> Recursive-descent parsing of an input file or files, e.g.: 
-<pre><code>
-     awk 'function read(file) { 
+<pre>
+awk 'function read(file) { 
             while ( (getline &lt; file) > 0) { 
                 if ($1 == "include") { 
                      read($2) 
@@ -188,13 +190,13 @@ during processing multiple subsequent input files, e.g.:
                 } 
             } 
             close(file) 
-        } 
-        BEGIN{ 
-           read(ARGV[1]) 
-           ARGV[1]="" 
-           close(ARGV[2]) 
-        }1' file1 tmp 
-</code></pre>
+      } 
+      BEGIN{ 
+         read(ARGV[1]) 
+         ARGV[1]="" 
+         close(ARGV[2]) 
+     }1' file1 tmp 
+</pre>
 </ol>
 <p>
 In all other cases, it's clearest, simplest, less error-prone, and 
@@ -215,40 +217,40 @@ in order to use the UNIX "sort" utility as part of a coprocess since
 sort must read all of its input data before it can produce any output. 
 The sort program does not receive an end-of-file indication until gawk 
 closes the write end of the pipe. Other programs can be invoked as just: 
-<pre><code>
-      command = "program" 
-      do { 
-          print data |& command 
-          command |& getline var 
-      } while (data left to process) 
-      close(command) 
-</code></pre>
+<pre>
+command = "program" 
+do { 
+      print data |& command 
+      command |& getline var 
+} while (data left to process) 
+close(command) 
+</pre>
 <p>Not that calling close() with a second argument is also gawk-specific. 
 <p>"c" above reads every record of the first file passed as an argument to 
 awk into an array and then for every subsequent file passed as an 
 argument will print every record from that file that matches any of 
 the records that appeared in the first file (and so are stored in the 
 "data" array). This could alternatively have been implemented as:
-<pre><code>
-     # fails if first file is empty 
-     NR==FNR{ data[$0]++; next } 
-     $0 in data 
-</code></pre>
+<pre>
+# fails if first file is empty 
+NR==FNR{ data[$0]++; next } 
+$0 in data 
+</pre>
 or: 
-<pre><code>
-     FILENAME==ARGV[1] { data[$0]++; next } 
-     $0 in data 
-</code></pre>
+<pre>
+FILENAME==ARGV[1] { data[$0]++; next } 
+$0 in data 
+</pre>
 or: 
-<pre><code>
-     FILENAME=="specificFileName" { data[$0]++; next } 
-     $0 in data 
-</code></pre>
+<pre>
+FILENAME=="specificFileName" { data[$0]++; next } 
+$0 in data 
+</pre>
 or (gawk only): 
-<pre><code>
-     ARGIND==1 { data[$0]++; next } 
-     $0 in data 
-</code></pre>
+<pre>
+ARGIND==1 { data[$0]++; next } 
+$0 in data 
+</pre>
 <p>"d" above not only expands all the lines that say "include subfile", but 
 by writing the result to a tmp file, resetting ARGV[1] (the highest 
 level input file) and not resetting ARGV[2] (the tmp file), it then lets 
@@ -273,11 +275,11 @@ opening error, you have to use gawks ERRNO variable or code it as:
          if(e &lt; 0) some_error_handling 
 <li> Don't forget to close() any file you open for reading. The 
 common idiom for getline and other methods of opening files/streams is: 
-<pre><code>
-         cmd="some command" 
-         do something with cmd 
-         close(cmd) 
-</code></pre>
+<pre>
+cmd="some command" 
+do something with cmd 
+close(cmd) 
+</pre>
 <li>A common misapplication of getline is to just skip a few lines of an 
 input file. The following discusses how to do that without using getline 
 with all that implies as discussed above. This discussion builds on the 
@@ -288,20 +290,20 @@ the variable is non-zero:
 <ul>
 <li>
  Print the Nth record after some pattern: 
-<pre><code>    awk 'c&&!--c;/pattern/{c=N}' file </code></pre>
+<pre>awk 'c&&!--c;/pattern/{c=N}' file </pre>
 <li> Print every record except the Nth record after some pattern: 
-<pre><code>    awk 'c&&!--c{next}/pattern/{c=N}' file </code></pre>
+<pre>awk 'c&&!--c{next}/pattern/{c=N}' file </pre>
 <li>Print the N records after some pattern: 
-<pre><code>    awk 'c&&c--;/pattern/{c=N}' file </code></pre>
+<pre>awk 'c&&c--;/pattern/{c=N}' file </pre>
 <li>Print every record except the N records after some pattern: 
-<pre><code>    awk 'c&&c--{next}/pattern/{c=N}' file </code></pre>
+<pre>awk 'c&&c--{next}/pattern/{c=N}' file</pre>
 </ul>
 </ol>
 <p>
 In this example there are no blank lines and the output is all aligned 
 with the left hand column and you want to print $0 for the second record 
 following the record that contains some pattern, e.g. the number 3: 
-<pre><code>
+<pre>
 $ cat file 
 line 1 
 line 2 
@@ -313,28 +315,28 @@ line 7
 line 8 
 $ awk '/3/{getline;getline;print}' file 
 line 5 
-</code></pre>
+</pre>
 That works Just fine. Now let's see the concise way to do it without 
 getline: 
 <pre><code>$ awk 'c&&!--c;/3/{c=2}' file 
-line 5 </code></pre>
+line 5</code></pre>
 <p>It's not quite so obvious at a glance what that does, but it uses an 
 idiom that most awk programmers could do well to learn and it is briefer 
 and avoids all those getline caveats. 
 <p>Now let's say we want to print the 5th line after the pattern instead of 
 the 2nd line. Then we'd have: 
-<pre><code>$ awk '/3/{getline;getline;getline;getline;getline;print}' file 
+<pre>$ awk '/3/{getline;getline;getline;getline;getline;print}' file 
 line 8 
 $ awk 'c&&!--c;/3/{c=5}' file 
 line 8
-</code></pre>
+</pre>
 <p> 
 i.e. we have to add a whole series of additional getline calls to the 
 getline version, as opposed to just changing the counter from 2 to 5 for 
 the non-getline version. In reality, you'd probably completely rewrite 
 the getline version to use a loop: 
-<pre><code>$ awk '/3/{for (c=1;c&lt;=5;c++) getline; print}' file 
-line 8 </code></pre>
+<pre>$ awk '/3/{for (c=1;c&lt;=5;c++) getline; print}' file 
+line 8</pre>
 <p>
 Still not as concise as the non-getline version, has all the getline 
 caveats and required a redesign of the code just to change a counter. 
@@ -342,15 +344,15 @@ caveats and required a redesign of the code just to change a counter.
 Now let's say we also have to print the word "Eureka" if the number 4 
 appears in the input file. With the getline verion, you now have to do 
 something like: 
-<pre><code>$ awk '/3/{for (c=1;c&lt;=5;c++) { getline; if ($0 ~ /4/) print "Eureka!" } 
+<pre>$ awk '/3/{for (c=1;c&lt;=5;c++) { getline; if ($0 ~ /4/) print "Eureka!" } 
 print}' file 
 Eureka! 
-line 8 </code></pre>
+line 8</pre>
 <p>
 whereas with the non-getline version you just have to do: 
-<pre><code>$ awk 'c&&!--c;/3/{c=5}/4/{print "Eureka!"}' file 
+<pre>$ awk 'c&&!--c;/3/{c=5}/4/{print "Eureka!"}' file 
 Eureka! 
-line 8 </code></pre>
+line 8</pre>
 <p>
 i.e. with the getline version, you have to work around the fact that 
 you're now processing records outside of the normal awk work-loop, 
@@ -364,12 +366,12 @@ would happen in both versions if 3 and 4 appear on the same line. The
 non-getline version would behave correctly, but to fix the getline 
 version, you'd need to duplicate the condition somewhere, e.g. perhaps 
 something like this: 
-<pre><code>
+<pre>
 $ awk '/3/{for (c=1;c&lt;=5;c++) { if ($0 ~ /4/) print "Eureka!"; getline } 
 if ($0 ~ /4/) print "Eureka!"; print}' file 
 Eureka! 
 line 8 
-</code></pre>
+</pre>
 <p>
 Now consider how the above would behave when there aren't 5 lines left 
 in the input file or when the last line of the file contains both a 3 
@@ -380,22 +382,22 @@ debugging getline programs, let's say you no longer need to print the
 5th record after the number 3 but still have to do the Eureka on 4. With 
 the getline version, you'd strip out the test for 3 and the getline 
 stuff to be left with: 
-<pre><code>
+<pre>
 $ awk '{if ($0 ~ /4/) print "Eureka!"}' file 
 Eureka!
-</code></pre>
+</pre>
 <p> 
 which you'd then presumably rewrite as: 
-<pre><code>
+<pre>
 $ awk '/4/{print "Eureka!"}' file 
 Eureka! 
-</code></pre>
+</pre>
 <p>which is what you get just by removing everything involving the test for 
 3 and counter in the non-getline version (i.e. "c&&!--c;/3/{c=5}"}: 
-<pre><code>
+<pre>
 $ awk '/4/{print "Eureka!"}' file 
 Eureka! 
-</code></pre>
+</pre>
 <p>i.e. again, one small requirement change required a complete redesign of 
 the getline code, but just the absolute minimum necessary tweak to the 
 non-getline version. 
