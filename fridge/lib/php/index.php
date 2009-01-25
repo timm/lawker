@@ -61,8 +61,7 @@ function filter_line($line,$zap) {
 }
 function thefiles() {
 	 global $config;
-	 foreach ( $_GET as $key=>$val ) { 
-	        
+	 foreach ( $_GET as $key=>$val ) { 	        
 		 if ( preg_match('/^[a-z]/',$key) ) {
 		      $files[]= $key;
 		 } else { $wheres[] = $key ; 
@@ -102,9 +101,8 @@ function contents() {
 		    $path  = s("source")."/".$fname;
                 
 	            $tmp   = slurp($path) ;
-		    if ($splits[1]) {
-		       if (s($splits[1])) { 			
-			    $tmp=filter_lines($tmp, $splits[1],s($splits[1]));}}
+		    if ($splits[1] && s($splits[1])) { 			
+			    $tmp=filter_lines($tmp, $splits[1],s($splits[1])); }
 	        }
 		$meta  = "<p class=\"meta\">";
 		$sep   = " categories: ";
