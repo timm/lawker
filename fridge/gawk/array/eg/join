@@ -1,3 +1,6 @@
+# assumes
+# - the LAWKER trunk has been checked out and
+# - .bash_profile contains: export Lawker="$HOME/svns/lawker/fridge"
 . $Lawker/lib/bash/setup
 
 gawk -f join.awk --source '

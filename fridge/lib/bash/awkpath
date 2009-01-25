@@ -1,0 +1,21 @@
+#!/usr/bin/env bash 
+gawkDirs() {
+  [ -n "$AWKPATH" ] && echo $AWKPATH  | gawk -F: '{print $1}' 
+  find . -type d | gawk -F/ '
+        BEGIN       { OFS="/"
+                      Here="'$PWD'" }
+        NF<2        { next  }
+        /(.svn|eg)/ { next  } 
+                    { str = Here 
+                      for(i=2;i<=NF;i++) str = str OFS $i
+                      print  str }' 
+}
+uniques() {
+  cat - |
+  gawk ' ++Seen[$1] == 1 { Out=Out Sep $1; Sep=":"  }
+         END             { print Out }'
+}
+Here=`pwd`
+cd $Lawker/gawk
+export AWKPATH="`gawkDirs | uniques`"
+cd $Here
