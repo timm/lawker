@@ -330,11 +330,11 @@ dt {
    font-weight: bold;
 }
 
-#awk p   { margin-left: 15px; padding-left: 15px; }
-#awk ol  { margin-left: 15px; padding-left: 15px; }
-#awk ul  { margin-left: 15px; padding-left: 15px; }
-#awk dl  { margin-left: 15px; padding-left: 15px; }
-#awk pre { margin-left: 25px; padding-left: 10px; }
+#rci_left_column p   { margin-left: 15px; padding-left: 15px; }
+#rci_left_column ol  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column ul  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column dl  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column pre { margin-left: 25px; padding-left: 10px; }
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
