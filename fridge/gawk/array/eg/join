@@ -1,4 +1,4 @@
-cd .. 
+. $Lawker/lib/bash/setup
 
 gawk -f join.awk --source '
 BEGIN { split("tim tom tam",a)
