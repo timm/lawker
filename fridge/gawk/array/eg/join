@@ -1,4 +1,6 @@
-cd .. ; gawk -f join.awk --source '
+cd ..  #HiDE
+
+gawk -f join.awk --source '
 
 BEGIN { split("tim tom tam",a)
         print join(a,2)
