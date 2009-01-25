@@ -5,7 +5,7 @@
 #.P       join(array [,start,end,sep])
 #.H2    Description
 #.P       Joins at array into a string
-#.H2    Options
+#.H2    Arguments
 #.DL
 #.DT     a
 #.DD            input array
@@ -22,9 +22,9 @@
 #.H2    Returns
 #.P       A string of <b>a</b>'s contents.
 #.H2    Example
-#.BODY gawk/array/eg/join1
-#.CODE gawk/array/eg/join.out
-#.H2 Source
+#.BODY      gawk/array/eg/join1
+#.CODE      gawk/array/eg/join.out
+#.H2    Source
 #.PRE
 function join(a,start,end,sep,    result,i) {
     sep   = sep   ? start :  " "
@@ -43,13 +43,11 @@ function join(a,start,end,sep,    result,i) {
 #.PRE
 function sizeof(a,   i,n) { for(i in a) n++ ; return n }
 #./PRE
-#.H2 See Also   
-#.P saya
 #.H2 Change Log
 #.P
 #.UL
-#.LI Jan 24'08: defaults extended to include <em>start,stop</em>
-#.LI Jan 24'08: <em>Sizeof</em> added to handle old gawk bug
+#.LI  Jan 24'08: defaults extended to include <em>start,stop</em>
+#.LI   Jan 24'08: <em>Sizeof</em> added to handle old gawk bug
 #./UL
 #.H2 Author 
 #.P  Arnold Robbins, then Tim Menzies
