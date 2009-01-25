@@ -1,0 +1,1 @@
+For more on this software, see http://awk.info/?awk100/003negotiate.html
