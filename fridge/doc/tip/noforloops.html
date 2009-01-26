@@ -1,0 +1,30 @@
+<h1><join>Never write a for loop again?</join></h1>
+<p>by Jim Hart
+<p>I've written this kind of thing
+<pre>
+n = split(something,arr,/re/)
+for(i=1;i<=n;i++) {
+   print arr[i]
+}
+</pre>
+<p>so often, it's tedious. I like this better:
+<pre>
+n = split(something,arr,/re/)
+while(n--) {
+   print arr[i++]
+}
+</pre>
+<p>Easier to type. And, in cases where front-to-back or back-to-front
+doesn't matter, it's even simpler:
+<pre>
+# copy a number indexed array, assuming n contains the number of
+# elements
+
+while(n--) arr2[n] = arr1[n]
+</pre>
+<P>The <em>n--</em> trick is not recommended if you need to use <em>n</em> again, but otherwise it should be fine.
+<p>And, yes,
+<pre>
+for(i in arr1) arr2[i] = arr1[i]
+</pre>
+<p>works, too. But, some loops don't involve arrays. :-)
