@@ -1,4 +1,4 @@
-<h1><join>Never write a for loop again?</join></h1>
+<h1><join>Never write for(i=1;i<=n;i++)..  again?</join></h1>
 <p>by Jim Hart
 <p>I've written this kind of thing
 <pre>
@@ -22,9 +22,11 @@ doesn't matter, it's even simpler:
 
 while(n--) arr2[n] = arr1[n]
 </pre>
-<P>The <em>n--</em> trick is not recommended if you need to use <em>n</em> again, but otherwise it should be fine.
 <p>And, yes,
 <pre>
 for(i in arr1) arr2[i] = arr1[i]
 </pre>
 <p>works, too. But, some loops don't involve arrays. :-)
+<hr>
+<p>This tip has been 
+<a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/41ab815df9df07bd#">discussed on comp.lang.awk</a>.
