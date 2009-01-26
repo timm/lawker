@@ -236,17 +236,17 @@ the records that appeared in the first file (and so are stored in the
 NR==FNR{ data[$0]++; next } 
 $0 in data 
 </pre>
-or: 
+<p>or: 
 <pre>
 FILENAME==ARGV[1] { data[$0]++; next } 
 $0 in data 
 </pre>
-or: 
+<p>or: 
 <pre>
 FILENAME=="specificFileName" { data[$0]++; next } 
 $0 in data 
 </pre>
-or (gawk only): 
+<p>or (gawk only): 
 <pre>
 ARGIND==1 { data[$0]++; next } 
 $0 in data 
@@ -316,7 +316,7 @@ line 8
 $ awk '/3/{getline;getline;print}' file 
 line 5 
 </pre>
-That works Just fine. Now let's see the concise way to do it without 
+<p>That works Just fine. Now let's see the concise way to do it without 
 getline: 
 <pre><code>$ awk 'c&&!--c;/3/{c=2}' file 
 line 5</code></pre>
