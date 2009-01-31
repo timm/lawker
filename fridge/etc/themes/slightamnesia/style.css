@@ -79,8 +79,7 @@ text-align:left;
 #right_container_outer {
 position:absolute;
 left:16.3em;
-top:1em;
-width:42em;
+top:1em; 
 width:750px;
 height:100%;
 margin:0 0 0 0;
@@ -134,7 +133,6 @@ border-right:1px solid #DFD8D2;
 
 #rci_left_column {
 position:relative;
-width:31em;
 width:580px;
 margin:-1em 0 0 .2em;
 padding:0 1em 0 1em;
@@ -148,7 +146,7 @@ text-align:left;
 position:relative;
 float:right;
 clear:both;
-width:12.5em;
+width: 170px;
 margin:0 1em 0 0;
 padding:0 0 0 0;
 background:#ffffff;
