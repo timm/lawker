@@ -5,8 +5,11 @@ html, body {
 height:100%;
 }
 
+div {border: 1px solid black; }
 body {
-font-family: Verdana,Georgia, "Times New Roman", Times, serif;
+
+h2 {
+font-family: Verdana, Georgia, "Times New Roman", Times, serif;
 font-size:.8em; 
 color:#000000;
 margin:0 0 0 0;
@@ -236,40 +239,32 @@ margin:0 0 -.3em 0;
 padding:.8em 0 .5em 3.3em;
 }
 
-h2 {
-font-family:Georgia, "Times New Roman", Times, serif;
+h2 { 
 Xfont-size:1.9em;
 color:#8E1F0D;
 
 }
 
-h3 {
-font-family:Georgia, "Times New Roman", Times, serif;
+h3 { 
 margin:0 0 -.8em;
 padding:0 0 0 0;
 font-size:1em;
 color:#8E1F0D;
 }
 
-#rci_right_column h3 {
-font-family:Georgia, "Times New Roman", Times, serif;
-margin:0 0 -.8em;
+#rci_right_column h3 { 
 padding:0 0 0 0;
-font-size:.9em;
 color:#8E1F0D;
 }
 
-#left_text h3 {
-font-family:Arial, Helvetica, sans-serif;
+#left_text h3 { 
 margin:0 0 -.7em;
 padding:0 0 0 0;
-font-size:1.2em;
 color:#8E1F0D;
 }
 
 .small {
 font-family:"Courier New", Courier, mono;
-font-size:.85em;
 text-transform:uppercase;
 }
 
@@ -286,10 +281,8 @@ text-decoration:none;
 
 /* images */
 #logo {
-margin:.5em 0 0 0;
-Xwidth:15em;
-width: 180px;
-xheight:14em;
+margin:1px 0 0 0;
+width: 180px; 
 }
 
 img {
@@ -298,8 +291,8 @@ border:none;
 
 /* misc styles */
 blockquote {
-margin:.3em .6em .7em .6em;
-padding:.05em .5em .05em .5em;
+margin:.5px 1px 1px 1px
+padding:1px 10px 1px 10px;
 background:#ffffff url(navbar_fade.jpg) top repeat-x;
 border-top:1px solid #CABEB5;
 border-bottom:1px solid #EEEAE7;
