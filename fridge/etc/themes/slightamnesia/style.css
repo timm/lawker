@@ -6,9 +6,7 @@ height:100%;
 }
 
 body {
-
-h2 {
-font-family: Verdana, Georgia, "Times New Roman", Times, serif;
+font-family:Georgia, "Times New Roman", Times, serif;
 font-size:.8em; 
 color:#000000;
 margin:0 0 0 0;
@@ -21,7 +19,7 @@ text-align:center;
 position:absolute;
 left:0;
 top:0;
-width:260px;
+width:15em;
 height:100%;
 margin:0 0 0 0;
 padding:0 0 0 0;
@@ -32,7 +30,7 @@ border-right:1px solid #DFD8D2;
 #left_quote {
 position:relative;
 left:0;
-xwidth: 170em;
+xwidth:9.65em;
 margin:0 0 0 0;
 padding:.5em 5% .5em 5%;
 padding-top:0px;
@@ -65,6 +63,7 @@ hr {
 } 
 #left_text {
 position:relative;
+xwidth:16.7em;
 margin:0 0 0 0;
 padding:.5em 5% .5em 5%;
 background:#EDE9E6;
@@ -79,8 +78,9 @@ text-align:left;
 
 #right_container_outer {
 position:absolute;
-left: 287px;
-top:1em; 
+left:16.3em;
+top:1em;
+width:42em;
 width:750px;
 height:100%;
 margin:0 0 0 0;
@@ -92,6 +92,7 @@ background:#ffffff url(navbar_fade.jpg) top repeat-x;
 position:relative;
 left:0;
 top:0;
+width:42em;
 width: 750px;
 height:2em;
 margin:0 0 0 0;
@@ -103,6 +104,7 @@ background:#ffffff;
 position:relative;
 left:0;
 top:0;
+width:42em;
 width: 750px;
 height:3em;
 margin:0 0 0 0;
@@ -121,7 +123,8 @@ border-right:1px solid #DFD8D2;
 position:relative;
 left:0;
 top:0;
-width:740px;
+width:42em;
+width:750px;
 margin:0 0 0 0;
 padding:0 0 .2em 0;
 background:#ffffff;
@@ -131,7 +134,8 @@ border-right:1px solid #DFD8D2;
 
 #rci_left_column {
 position:relative;
-width:580px;
+width:31em;
+width:590px;
 margin:-1em 0 0 .2em;
 padding:0 1em 0 1em;
 background:transparent;
@@ -144,7 +148,7 @@ text-align:left;
 position:relative;
 float:right;
 clear:both;
-width: 170px;
+width:12.5em;
 margin:0 1em 0 0;
 padding:0 0 0 0;
 background:#ffffff;
@@ -238,32 +242,40 @@ margin:0 0 -.3em 0;
 padding:.8em 0 .5em 3.3em;
 }
 
-h2 { 
+h2 {
+font-family:Georgia, "Times New Roman", Times, serif;
 Xfont-size:1.9em;
 color:#8E1F0D;
 
 }
 
-h3 { 
+h3 {
+font-family:Georgia, "Times New Roman", Times, serif;
 margin:0 0 -.8em;
 padding:0 0 0 0;
 font-size:1em;
 color:#8E1F0D;
 }
 
-#rci_right_column h3 { 
+#rci_right_column h3 {
+font-family:Georgia, "Times New Roman", Times, serif;
+margin:0 0 -.8em;
 padding:0 0 0 0;
+font-size:.9em;
 color:#8E1F0D;
 }
 
-#left_text h3 { 
+#left_text h3 {
+font-family:Arial, Helvetica, sans-serif;
 margin:0 0 -.7em;
 padding:0 0 0 0;
+font-size:1.2em;
 color:#8E1F0D;
 }
 
 .small {
 font-family:"Courier New", Courier, mono;
+font-size:.85em;
 text-transform:uppercase;
 }
 
@@ -280,8 +292,10 @@ text-decoration:none;
 
 /* images */
 #logo {
-margin:1px 0 0 0;
-width: 180px; 
+margin:.5em 0 0 0;
+Xwidth:15em;
+width: 180px;
+xheight:14em;
 }
 
 img {
@@ -290,8 +304,8 @@ border:none;
 
 /* misc styles */
 blockquote {
-margin:.5px 1px 1px 1px
-padding:1px 10px 1px 10px;
+margin:.3em .6em .7em .6em;
+padding:.05em .5em .05em .5em;
 background:#ffffff url(navbar_fade.jpg) top repeat-x;
 border-top:1px solid #CABEB5;
 border-bottom:1px solid #EEEAE7;
@@ -302,7 +316,7 @@ color:#7C6C61;
 }
 
 /* workarounds and hacks */
-.clearfix:after { 
+.clearfix:after {
 content: "."; 
 display: block; 
 height: 0; 
@@ -316,6 +330,12 @@ dt {
    font-weight: bold;
 }
 
+#rci_left_column p   { margin-left: 15px; padding-left: 15px; }
+#rci_left_column ol  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column ul  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column li  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column dl  { margin-left: 15px; padding-left: 15px; }
+#rci_left_column pre { margin-left: 25px; padding-left: 10px; }
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
