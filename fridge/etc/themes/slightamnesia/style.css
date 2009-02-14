@@ -19,7 +19,7 @@ xtext-align:center;
 position:absolute;
 left:0;
 top:0;
-width:15em;
+width:15em; 
 height:100%;
 margin:0 0 0 0;
 padding:0 0 0 0;
@@ -65,7 +65,7 @@ hr {
 position:relative;
 xwidth:16.7em;
 margin:0 0 0 0;
-padding:.5em 5% .5em 5%;
+padding:5px 5px 5px 5px;
 background:#EDE9E6;
 margin-top:0px;
 padding-top:0px;
