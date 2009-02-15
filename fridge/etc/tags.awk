@@ -9,7 +9,7 @@ NF < 2 {next}
 		if (sub(/^[ \t]*\|/,"",$i) )
 			print "\t\t<title>"$i"</title>"
 		else
-			print "\t\t<what>"sub(/\r/,"",$i)"</what>"
+			print "\t\t<what>"$i"</what>"
   print "\t</file>"
 }
 END {
