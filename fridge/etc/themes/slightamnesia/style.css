@@ -330,14 +330,14 @@ visibility: hidden;
 dt { 
    font-weight: bold;
 }
-
+/*
 #rci_left_column p   { padding-left: 8px; }
 #rci_left_column ol  { padding-left: 12px; }
 #rci_left_column ul  {   padding-left: 12px; }
 #rci_left_column li  {  padding-left: 12px; }
 #rci_left_column dl  {   padding-left: 12px; }
 #rci_left_column pre { margin-left: 16px; padding-left: 16px; }
-
+*/
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
