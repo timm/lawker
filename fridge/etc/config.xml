@@ -48,7 +48,7 @@
 <p id="in">
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?learning">learning</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Learn">learning</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?history">history</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://en.wikipedia.org/wiki/Awk">Wikipedia</a> entry<br>
 &nbsp;&raquo;&nbsp;  <a href="?mascot">mascot</a>  
@@ -135,6 +135,10 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="awk"><![CDATA[/^#/]]> </string>
     <string id="htxml"></string>
   </strings>
+
+
+
+
 
 
 
@@ -336,6 +340,13 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Learn</what>
 		<title>Learning Awk</title>
 	</file>
+	<file where="doc/teachingawk.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn</what>
+		<title>Teaching Awk</title>
+	</file>
 	<file where="doc/keys2awk.html">
 		<what>Timm</what>
 		<what>2009</what>
@@ -356,13 +367,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Jan</what>
 		<what>Learn </what>
 		<title>Samples of AWK</title>
-	</file>
-	<file where="doc/teachingawk.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
-		<title>Teaching Awk</title>
 	</file>
 	<file where="doc/tip/getline.html">
 		<what>Ed</what>
