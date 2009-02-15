@@ -152,6 +152,10 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 
 
 
+
+
+
+
  <files>
 	<file where="doc/credits.html">
 		<what>Timm</what>
@@ -329,19 +333,19 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Contribute</what>
 		<title>Unit tests</title>
 	</file>
-	<file where="doc/keys2awk.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
-		<title>Four Keys to Awk</title>
-	</file>
 	<file where="doc/learning.html">
 		<what>Timm</what>
 		<what>2009</what>
 		<what>Jan</what>
 		<what>Learn</what>
 		<title>Learning Awk</title>
+	</file>
+	<file where="doc/keys2awk.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn</what>
+		<title>Four Keys to Awk</title>
 	</file>
 	<file where="doc/oneliners.html">
 		<what>Timm</what>
@@ -409,9 +413,10 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<title>Top 10 subjects last year</title>
 	</file>
 	<file where="gawk/array/join.awk">
-		<what>ArnoldR 2009</what>
+		<what>Arnoldr 2009</what>
 		<what>Feb</what>
 		<what>Arrays</what>
+		<what>Timm</what>
 		<title>join.awk</title>
 	</file>
   </files>
