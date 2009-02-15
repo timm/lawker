@@ -134,15 +134,22 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="awk"><![CDATA[/^#/]]> </string>
     <string id="htxml"></string>
   </strings>
-
   <files>
+	<file where="doc/credits.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<what> </what>
+		<title>Credits</title>
+	</file>
 	<file where="doc/timm.html">
 		<what>Timm</what>
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
 		<what>Timm</what>
-		<title>Jim Hart</title>
+		<title>Tim Menzies</title>
 	</file>
 	<file where="doc/jimh.html">
 		<what>Jimh</what>
@@ -166,7 +173,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Feb</what>
 		<what>Who</what>
 		<what>Ed</what>
-		<title>Ed Mortin</title>
+		<title>Ed Morten</title>
 	</file>
 	<file where="doc/steffen.html">
 		<what>Steffen</what>
@@ -174,7 +181,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Feb</what>
 		<what>Who</what>
 		<what>Steffen</what>
-		<title>Ed Mortin</title>
+		<title>Steffen Schuler</title>
 	</file>
 	<file where="doc/advocacy.html">
 		<what>Timm</what>
