@@ -56,8 +56,7 @@ hr {
  pre {
     padding: 1em;
 	font-family: Monaco, Comic-Sans-Ms, Courier;
-	overflow: scroll;
-    border: 1px dashed #2f6fab;
+	border: 1px dashed #2f6fab;
     color: DarkBlue;
     font-size: 8px;
     background-color: #f9f9f9;
