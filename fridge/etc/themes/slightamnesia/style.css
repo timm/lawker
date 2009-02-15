@@ -56,7 +56,8 @@ hr {
  pre {
     padding: 1em;
 		font-family: Comic-Sans-Ms, Courier;
-	xwidth: 500px;
+	width: 500px;
+	overflow: scroll;
     border: 1px dashed #2f6fab;
     color: DarkBlue;
     font-size: x-small;
