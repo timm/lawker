@@ -39,19 +39,20 @@ function filter_line($line,$zap) {
 		$tmp=$line; 
         } else { $tmp= preg_replace($zap,"",$line); }
 	if(preg_match("/^.BODY/i",$tmp)) {
-	    $words = explode(" ",$tmp);
+	    $words = preg_split('/\s+/', $tmp);
+#	    $words = explode(" ",$tmp);
 	    $url= s("source") . "/" . $words[1];
 	    $contents = slurp($url);
 	    return "<p><a href=\"$url\">${words[1]}</a> &raquo; </p><pre>". filter_lines($contents,"","") . "</pre>\n" ;
 	}
 	if(preg_match("/^.CODE/i",$tmp)) {
-	    $words = explode(" ",$tmp);
+	       $words = preg_split('/\s+/', $tmp);
 	    $url= s("source") . "/" . $words[1];
 	    $contents = slurp($url);
 	    return "<p><a href=\"$url\">${words[1]}</a> &raquo; </p><pre>". $contents . "</pre>\n" ;
 	}
 	if(preg_match("/^.IN/i",$tmp)) {
-	    $words = explode(" ",$tmp);
+		    $words = preg_split('/\s+/', $tmp);
 	    $url= s("source") . "/" . $words[1];
 	    return slurp($url) . "\n";
 	}
@@ -90,9 +91,10 @@ function foriegnContents($file,$type) {
 function contents() { 
 	 global $files;
 	 global $config;
+	 $between="";
 	 $out="";
 	 foreach ($files as $file) {
-	         if (preg_match("/^awk:/",$file)) {
+	     if (preg_match("/^awk:/",$file)) {
 			$tmp=foriegnContents($file,"awk");
 		 } else {
  		    $splits = preg_split("/[_\.]/",$file);
@@ -110,11 +112,12 @@ function contents() {
                 if(sizeof($cats)> 1) {  
                   foreach($cats as $key=>$val) {	 
                      $meta .= $sep . "<a href=\"?" . $val . "\">" . $val . "</a>" ;
-		     $sep = ", ";
+		     $sep = ",";
                 }}
-		$out  .= "<a name=$file></a>" . 
+		$out  .= $between . "<a name=\"$file\"></a>" . $meta . "</p>" .
                          preg_replace(s("join"),"<a href=\"" . s("site") . 
-                         "/?$fname\">$1</a>",$tmp) . $meta . "</p>";
+                         "/?$fname\">$1</a>",$tmp) ;
+		$between = "<hr>";
 	}
 	return $out;
 }
