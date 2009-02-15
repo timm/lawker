@@ -55,6 +55,7 @@ hr {
 }
  pre {
     padding: 1em;
+		font-family: Monaco, Comic-Sans-Ms, Courier;
 	xwidth: 500px;
     border: 1px dashed #2f6fab;
     color: DarkBlue;
