@@ -1,4 +1,4 @@
-<h1> Pretty Print AWK Code</h1>
+<h1> <join>Pretty Print AWK Code</join></h1>
 <p>The code that renders the awk.info web site can "pretty print" awk code.  For example:
 <ul>
 <li>
@@ -7,9 +7,24 @@ pretty
 prints the Awk code found in
 <a href="http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk">join.awk</a>.
 </ul>
-<p>
-To enable that pretty print, add some html syntax inside your
-code and apply the following conventions:
+<p>To enable that pretty print, add some html syntax inside your
+code and apply the following conventions.
+<h2>Preview Engine</h2>
+<p>Note that if you want to see your "looking pretty", then you could
+could see how it looks using our preview tool:
+<pre>
+http://awk.info/?awk:urlWithoutHTTPprefix
+</pre>
+<p>For exmaple, the file <a href="http://menzies.us/tmp/xx.awk">http://menzies.us/tmp/xx.awk</a> 
+can be previewed using
+<a href="http://awk.info/?awk:menzies.us/tmp/xx.awk">http://awk.info/?awk:menzies.us/tmp/xx.awk</a> 
+
+<h3>Contributing Pretty Code</h3>
+<p>Once you've got it "looking pretty", please consider contributing that code to awk.info,
+so our code library can grow. To do so, either email <a href="mailto:mail@awk.info">mail@awk.info</a>
+with the URL of your pretty code or zip up the files and email them across.
+
+<h2>HTML-based Commenting Conventions</h2>
 <ul>
 <li> The first paragraph of the file will be ignored. Use this first para
 for copyright notices or comments about down-in-the weeds trivia. Note: the
@@ -48,11 +63,4 @@ you want to hite from the user).
 </ul>
 <p>
 That's it. Now you can pretty print your code on the web just be adding
-a little html in the comments.  If you want to preview how your page looks if it was renfered by awk.info,
-use the preview url:
-<pre>
-http://awk.info/?awk:urlWithoutHTTPprefix
-</pre>
-<p>For exmaple, the file <a href="http://menzies.us/tmp/xx.awk">http://menzies.us/tmp/xx.awk</a> 
-can be previewed using
-<a href="http://awk.info/?awk:menzies.us/tmp/xx.awk">http://awk.info/?awk:menzies.us/tmp/xx.awk</a> 
+a little html in the comments.  
