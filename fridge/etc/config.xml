@@ -135,6 +135,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="htxml"></string>
   </strings>
 
+
   <files>
 	<file where="doc/advocacy.html">
 		<what>Timm</what>
@@ -142,6 +143,13 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Jan</what>
 		<what>Misc</what>
 		<title>Advocay</title>
+	</file>
+	<file where="doc/awk100.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<title>Awk100</title>
 	</file>
 	<file where="doc/awk100/001argcol.html">
 		<what>Ronl</what>
@@ -174,13 +182,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Awk100</what>
 		<what>Sudoku</what>
 		<title>Sudoku</title>
-	</file>
-	<file where="doc/awk100.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<title>Awk100</title>
 	</file>
 	<file where="doc/awk4ai.html">
 		<what>Ronl</what>
