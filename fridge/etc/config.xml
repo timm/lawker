@@ -24,7 +24,6 @@
                  <li><a href="?contribute">Contribute</a> </li>
                  <li><a href="?awk100">AWK 100</a> </li>
                  <li><a href="?Who">Credits</a> </li>
-                 <li><a href="?contact">Contact</a>   </li>
                  </ul>
               ]]>
     </string>
@@ -88,6 +87,7 @@ Online doc<br>
     <string id="nav2">
       <![CDATA[
 <p>Contact us: <a href="mailto:mail@awk.info">mail@awk.info</a>
+<p>
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
 <p><b>Jan 21 '09:</b> 
 Robbins' latest Gawk devel patch
