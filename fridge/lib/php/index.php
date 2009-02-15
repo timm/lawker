@@ -124,8 +124,19 @@ function contents() {
 function title() {
 	 global $files;
 	 if (sizeof($files) == 1) { 
-	     return " " . query("//files/file[@where='" . preg_replace("/_\./",".",$files[0]) ."']/title");
-	 } else { return $files[1] . "..."; }
+	 	 $thing = $files[0];
+	 	 if (!preg_match("/\_html/",$thing)) {
+		 	$thing = "doc/" . $thing . ".html";
+		 };
+	 	 $thing =  preg_replace("/_/",".",$thing) ;
+	     return " " . query("//files/file[@where='" .  $thing  ."']/title");
+	 } else { $str = "";
+	 		  $sep = "";
+	 		  foreach ( $_GET as $key=>$val ) { 	        
+	 		  	$str .= $sep . $key;
+				$sep = " and ";
+			  } 
+	 	    return $str; }
 }
 $config = simplexml_load_string(slurp($slurping));
 $files=thefiles();
