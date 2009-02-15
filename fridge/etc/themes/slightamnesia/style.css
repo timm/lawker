@@ -334,7 +334,7 @@ dt {
    font-weight: bold;
 }
 
-p   .meta {
+p.meta {
 	text-align: right;
 	font-size: x-small;
 	color: #CCC;
