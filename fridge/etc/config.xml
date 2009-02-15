@@ -20,9 +20,9 @@
       <![CDATA[  <ul>
                  <li><a href="?index">Home</a>        </li>
                  <li><a href="?advocacy">Why Awk?</a> </li> 
-                 <li><a href="?contribute">Contribute</a> </li>
                  <li><a href="?code">Code</a> </li>
-                 <li><a href="?awk100">The AWK 100</a> </li>
+                 <li><a href="?contribute">Contribute</a> </li>
+                 <li><a href="?awk100">AWK 100</a> </li>
                  <li><a href="?Who">Credits</a> </li>
                  <li><a href="?contact">Contact</a>   </li>
                  </ul>
