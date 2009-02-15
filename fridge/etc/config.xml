@@ -87,6 +87,7 @@ Online doc<br>
     </string>
     <string id="nav2">
       <![CDATA[
+<p>Contact us: <a href="mailto:mail@awk.info">mail@awk.info</a>
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
 <p><b>Jan 21 '09:</b> 
 Robbins' latest Gawk devel patch
