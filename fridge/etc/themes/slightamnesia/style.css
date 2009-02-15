@@ -336,7 +336,7 @@ dt {
 #rci_left_column ul  {   padding-left: 12px; }
 #rci_left_column li  {  padding-left: 12px; }
 #rci_left_column dl  {   padding-left: 12px; }
-#rci_left_column pre { padding-left: 16px; }
+#rci_left_column pre { margin-left: 16px; padding-left: 16px; }
 
 
 /* Hides from IE-mac \*/
