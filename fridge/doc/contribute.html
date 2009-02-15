@@ -29,49 +29,17 @@ so there are many ways you can contribute:
 </ul>
 <li>Contribute new code:
 <ul>
-<li><a href="?oneliners">Add some one-liners</a>;
-<li><a href="?tenliners">Add some ten-liners</a>;
-<li><a href="#lib">Add library functions</a>;
-<li><a href="#package">Add larger programs</a>;
-<li><a href="?awk100">Contribute to the AWK 100</a>;
+<li><a href="http://awk.info/?oneliners">Add some one-liners</a>;
+<li><a href="http://awk.info/?TenLiners">Add some ten-liners</a>;
+<li><a href="#functions">Add library function files</a>;
+<li><a href="#package">Add a package</a>;
+<li><a href="http://awk.info/?awk100">Contribute to the AWK 100</a>;
 </ul>
 <li>Help edit this site?
 <ul>
 <li><a href="#greatauk">Because a great auk</a>
 </ul>
 </ul>
-------------------------------------------------
-
-<li><a href="#link">Link to this site from your home page.</a>
-<li><a href="#mascot">Design a mascot</a>
-</ul>
-<li>Improve  a page:
-<ul>
-<li><a href="#typo">Found Typos? Want to clarify something?</a>
-<li><a href="#links">Want to add some links?</a>
-</ul>
-<li>Add page(s):
-<ul>
-<li><a href="#html">How to write pages for this site</a>
-</ul>
-<h2>Improve the code in the repository</h2>
-
-<a name="comment"></a><h3>Write comments  on that code</h3>
-<a name="testsuite"></a><h3>Add a test suite</h3>
-<a name="bug"></a><h3>Report a bug</h3>
-<li><a href="#enhance">Propose an enhancement</a>
-</ul>
-
-<h2>Contribute new code</h2>
-
-<a name="oneline"></a><h3>Add some one-liners</h3>
-<a name="lib"></a><h3>Add library functions</h3>
-<a name="package"></a><h3>Add larger programs</h3>
-<a name="awk100"></a><h3>The AWK 100</h3>
-
-<a name="greatauk"></a><h2>Become a great auk andedit this site</h2>
-
-----------------------------------------------------
 
 <a name="link"></a><h2>Link to this site from your home page</h2>
 <p>Using this logo, link to http://awk.info:
@@ -116,19 +84,34 @@ gets ugly after about 75 characters:
 012345678901234567890123456789012345678901234567890123456789012345678901234567890
 </pre>
 
-<h2>Contribute AWK Code</h2>
-XXX gawk100
+<h2>Contributing Code </h2>
+<p>To contribute code, zip up the directory and mail it to
+<h3>Coding Standards</h3>
+<p>All function and file names are global to 
+<a href="http://code.google.com/p/lawker/source/browse/">our code</a> so please ensure your new function/file
+name does not clobber an old one.
+<p>Optionally, you might considering adding:
 <ul>
-<li>Zip the code up and email it to <a href="mailto:mail@awk.info">mail@awk.info</a>. 
-<li>Optionally, you can:
-<ul>
-<li>Add html into the code comments so it renders pretty on this site
-(for more details on that, see <a href="?prettyprint">here</a>).
-<li>Add a test suite to your code and, when this site renders your code,
-it include the test inputs/outputs.
+<li>  <a href="http://awk.info/?prettyprint">html comments to pretty print</a> that function or 
+<li> a 
+<a href="http://awk.info/?unittests">test suite</a> for that function.
 </ul>
+<a href="mailto:mail@awk.info">mail@awk.info</a>. 
+<a name="functions"></a><h3>Add a Library Function Files</h3>
+<p>In the language of this site, a <em>function file</em> is a 100% standalone file containing one or more
+functions with no dependancies on other files.
+Note that if your function file depends on other files, then it becomes a package (see below).
+<p>Functions are stored in a file caled <em>myfunc.awk</em>. 
+<a name="package"></a><h3>Add a Package</h3>
+<p>In the language of this site, a <em>package</em> is a file that depends on other files
+(and  the other files may depend on yet others, recursively).
+<p>Following a recent discussion in comp.lang.awk, we say that these dependancies are commented with
+<pre>
+#use file.awk 
+</pre>
+<p>where <em>file.awk</em> is some
+<a href="http://code.google.com/p/lawker/source/browse/">file</a> (e.g. a file in the current directory).
+<p>Note that :
+<em>file.awk</em> will be loaded before the file containing the reference to <em>#use file.awk</em>.
 
 
-<li>E.g. if the page is <a href="http://yoursite.org/yourpage.html">http://menzies.us/tmp/xx.awk</a>
-<li>Then try rendering it with <a href="http://awk.info/?awk:menzies.us/tmp/xx.awk">http://awk.info/?awk:menzies.us/tmp/xx.awk</a>
-</ul> it with:
