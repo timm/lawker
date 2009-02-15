@@ -134,7 +134,14 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="awk"><![CDATA[/^#/]]> </string>
     <string id="htxml"></string>
   </strings>
-  <files>
+
+
+
+
+
+
+
+ <files>
 	<file where="doc/credits.html">
 		<what>Timm</what>
 		<what>2009</what>
@@ -148,7 +155,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what>Timm</what>
+		<what> </what>
 		<title>Tim Menzies</title>
 	</file>
 	<file where="doc/jimh.html">
@@ -156,7 +163,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what>Jimh</what>
 		<title>Jim Hart</title>
 	</file>
 	<file where="doc/ronl.html">
@@ -164,7 +170,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what>Ronl</what>
 		<title>Ronald Loui</title>
 	</file>
 	<file where="doc/ed.html">
@@ -172,7 +177,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what>Ed</what>
 		<title>Ed Morten</title>
 	</file>
 	<file where="doc/steffen.html">
@@ -180,7 +184,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what>Steffen</what>
 		<title>Steffen Schuler</title>
 	</file>
 	<file where="doc/advocacy.html">
