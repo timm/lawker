@@ -18,17 +18,20 @@ block/
 --| INSIDE "freezer" |-----------------------------------------------
 
 freezer/
-   thing/1.1/       # e.g.
+   thing/
+       /latest        # e.g. copy of the 1.1 directory
+       /1.1          # e.g.
          thing.awk  # one combined file for "thing"
          doc/       # documentation of v1.1 of thing
+	     otherstuff/
  
 --| INSIDE "fridge" |-----------------------------------------------
 
 fridge/
      doc/               # awk.info stuff (see "doc" below)
      etc/               # config files
-     gawk/               # gawk code
-     xgawk/            # xgawk code
+     gawk/              # gawk code
+     xgawk/             # xgawk code
      share/
         img/
      var/               # long live temporaries
