@@ -148,6 +148,10 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 
 
 
+
+
+
+
  <files>
 	<file where="doc/credits.html">
 		<what>Timm</what>
@@ -187,7 +191,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<title>Ed Morten</title>
 	</file>
 	<file where="doc/who/mikelangman.html">
-		<what>Mikkel</what>
+		<what>Mikel</what>
 		<what>2009</what>
 		<what>Jan</what>
 		<what>Who</what>
@@ -412,5 +416,3 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 	</file>
   </files>
 </things>
-
-
