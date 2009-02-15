@@ -352,21 +352,24 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Timm</what>
 		<what>2009</what>
 		<what>Jan</what>
-		<what>Learn OneLiners</what>
+		<what>Learn</what>
+		<what>OneLiners</what>
 		<title>One Liners</title>
 	</file>
 	<file where="doc/tenliners.html">
 		<what>Timm</what>
 		<what>2009</what>
 		<what>Jan</what>
-		<what>Learn TenLiners</what>
+		<what>Learn</what>
+		<what>TenLiners</what>
 		<title>Ten Liners</title>
 	</file>
 	<file where="doc/samples.html">
 		<what>Ronl</what>
 		<what>2009</what>
 		<what>Jan</what>
-		<what>Learn TenLiners</what>
+		<what>Learn</what>
+		<what>TenLiners</what>
 		<title>Samples of AWK</title>
 	</file>
 	<file where="doc/tip/getline.html">
