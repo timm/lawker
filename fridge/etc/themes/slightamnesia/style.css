@@ -158,12 +158,13 @@ color:#9D958E;
 text-align:left;
 }
 
-#rci_right_column ul {
+/* #rci_right_column ul {
 margin:.9em 0 0 1.4em !important;
 margin:.9em 0 0 1.6em;
 padding:0 0 0 0;
 list-style-type:circle;
 }
+*/
 
 #rci_right_column li {
 margin:0 0 .3em 0;
