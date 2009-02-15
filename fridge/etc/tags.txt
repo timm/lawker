@@ -26,8 +26,8 @@ doc/whygawk.html			Timm	2009	Jan	Misc	 		|Why Gawk?
 doc/prettyprint.html			Timm	2009	Jan	Contribute		|Pretty print
 doc/unittests.html			Timm	2009	Jan	Contribute		|Unit tests
 
-doc/keys2awk.html			Timm	2009	Jan	Learn			|Four Keys to Awk
 doc/learning.html			Timm	2009	Jan	Learn			|Learning Awk
+doc/keys2awk.html			Timm	2009	Jan	Learn			|Four Keys to Awk
 doc/oneliners.html			Timm	2009	Jan	Learn OneLiners		|One Liners
 doc/samples.html			Ronl	2009	Jan	Learn 			|Samples of AWK
 doc/teachingawk.html			Ronl	2009	Jan	Learn			|Teaching Awk

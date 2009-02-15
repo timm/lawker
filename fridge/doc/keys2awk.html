@@ -15,21 +15,21 @@
 
 <p>To ensure a number is a number, add zero to it.</p>
 
-<pre><code>x=x+0
-</code></pre>
+<pre>x=x+0
+</pre>
 
 <p>To ensure a string is a string, add an empty string to it.</p>
 
-<pre><code>x= x "" "the string you really want to add"
-</code></pre>
+<pre>x= x "" "the string you really want to add"
+</pre>
 
 <p>To ensure your variables aren't global, use them within a function and add more variables to the call. For example if a function is passed two variables, define it with two PLUS the local variables:</p>
 
-<pre><code> function haslocals(passed1,passed2,         local1,local2,local3) {
+<pre> function haslocals(passed1,passed2,         local1,local2,local3) {
         passed1=passes1+1  # changes externally
         local1=7           # only changed locally
  }
-</code></pre>
+</pre>
 
 <p>Note that its good practice to add white space between passed and local variables.</p>
 
@@ -39,25 +39,25 @@
 
 <p>If the pattern is satisfied, the action is called.</p>
 
-<pre><code> /^\.P1/ { if (p != 0) print ".P1 after .P1, line", NR;
+<pre> /^\.P1/ { if (p != 0) print ".P1 after .P1, line", NR;
            p = 1;
          }
  /^\.P2/ { if (p != 1) print ".P2 with no preceding .P1, line", NR;
            p = 0;
          }
  END     { if (p != 0) print "missing .P2 at end" }
-</code></pre>
+</pre>
 
 <p>Two magic patterns are BEGIN and END. These are true before and after all the input files are read. Use END of end actions (e.g. final reports) and BEGIN for start up actions such as initializing default variables, setting the field separator, resetting the seed of the random number generator:</p>
 
-<pre><code> BEGIN {
+<pre> BEGIN {
         while (getline &lt; "Usr.Dict.Words") #slurp in dictionary 
                 dict[$0] = 1
         FS=",";                            #set field seperator
         srand();                           #reset random seed
         Round=10;                          #always start globals with U.C.
  }
-</code></pre>
+</pre>
 
 <p>The default action is {print $0}; i.e. print the whole line.</p>
 
@@ -72,7 +72,7 @@ Regular expressions are important enough for their own section.</p>
 <p>Ok, so now we know enough to  explain an simple report function.
  How does <b><i>hist.awk</i></b> work
 in the following?
-<pre><code> 
+<pre> 
 % cat /etc/passwd | grep -v \# | cut -d: -f 6|sort |
                     uniq -c | sort -r -n | Gawk -f hist.awk
 
@@ -89,13 +89,13 @@ in the following?
                                        *   1 /var/pcast/agent
                                        *   1 /var/imap
                                        *   1 /Library/WebServer
-</code></pre>
+</pre>
 <p><b><i>hist.awk</i></b> reads
 the maximum width from line one (when <b><i>NR==1</i></b>), then scales it to some maximum width value.
 For each line, it then 
 prints the line (<b><i>$0</i></b>) with some stars at front.
 
-<pre><code>
+<pre>
 NR==1  { Width = Width ? Width : 40 ; sets Width if it is missing
          Scale = $1 > Width ? $1 / Width : 1 
        }
@@ -108,7 +108,7 @@ function str(n,c, tmp) { # returns a string, size "n", of all  "c"
     while((n--) > 0 ) tmp= c tmp 
     return tmp 
 }
-</code></pre>
+</pre>
 <h2>Regular Expressions</h2>
 
 <p>Do you know what these mean?</p>
@@ -121,19 +121,19 @@ function str(n,c, tmp) { # returns a string, size "n", of all  "c"
 
 <p>Well, the first two are leading and trailing blank spaces on a line and the last one is the definition of an IEEE-standard number written as a regular expression. Once we know that, we can do a bunch of common tasks like trimming away white space around a string:</p>
 
-<pre><code>  function trim(s,     t) {
+<pre>  function trim(s,     t) {
     t=s;
     sub(/^[ \t\n]*/,"",t);
     sub(/[ \t\n]*$/,"",t);
     return t
  }
-</code></pre>
+</pre>
 
 <p>or recognize something that isn't a number:</p>
 
-<pre><code>if ( $i !~ /^[+-]?([0-9]+[.]?[0-9]*|[.][0-9]+)([eE][+-]?[0-9]+)?$/ ) 
+<pre>if ( $i !~ /^[+-]?([0-9]+[.]?[0-9]*|[.][0-9]+)([eE][+-]?[0-9]+)?$/ ) 
     {print "ERROR: " $i " not a number}
-</code></pre>
+</pre>
 
 <p>Regular expressions are an astonishingly useful tool supported
 by many languages (e.g. Awk, Perl, Python, Java). The
@@ -213,37 +213,36 @@ and that exponent is a positive or negative bunch of digits.</p>
 
 <p>Gawk has arrays, but they are only indexed by strings. This can be very useful, but it can also be annoying. For example, we can count the frequency of words in a document (ignoring the icky part about printing them out):</p>
 
-<pre><code>Gawk '{for(i=1;i &lt;=NF;i++) freq[$i]++ }' filename
-</code></pre>
+<pre>Gawk '{for(i=1;i &lt;=NF;i++) freq[$i]++ }' filename
+</pre>
 
 <p>The array will hold an integer value for each word that occurred in the file. Unfortunately, this treats foo'',Foo'', and foo,'' as different words. Oh well. How do we print out these frequencies? Gawk has a specialfor'' construct that loops over the values in an array. This script is longer than most command lines, so it will be expressed as an executable script:</p>
 
-<pre><code> #!/usr/bin/awk -f
+<pre> #!/usr/bin/awk -f
   {for(i=1;i &lt;=NF;i++) freq[$i]++ }
   END{for(word in freq) print word, freq[word]  }
-</code></pre>
+</pre>
 
 <p>You can find out if an element exists in an array at a certain index with the expression:</p>
 
-<pre><code>index in array
-</code></pre>
+<pre>index in array
+</pre>
 
 <p>This expression tests whether or not the particular index exists,
     without the side effect of creating that element if it is not present.</p>
 
 <p>You can remove an individual element of an array using the delete statement:</p>
 
-<pre><code>delete array[index]
-</code></pre>
+<pre>delete array[index]
+</pre>
 
 <p>It is not an error to delete an element which does not exist.</p>
 
 <p>Gawk has a special kind of for statement for scanning an array:</p>
 
-<pre><code> for (var in array)
+<pre> for (var in array)
         body
-
-</code></pre>
+</pre>
 
 <p>This loop executes body once for each different value that your program has previously used as an index in array, with the variable var set to that index.</p>
 
@@ -251,25 +250,25 @@ and that exponent is a positive or negative bunch of digits.</p>
 
 <p>To scan an array in some numeric order, you need to use keys 1,2,3,... and store somewhere that the array is N long. Then you can do the Here are some useful array functions. We begin with the usual stack stuff. These stacks have items 1,2,3,.... and position 0 is reserved for the size of the stack</p>
 
-<pre><code> function top(a)        {return a[a[0]]}
+<pre> function top(a)        {return a[a[0]]}
  function push(a,x,  i) {i=++a[0]; a[i]=x; return i}
  function pop(a,   x,i) {
    i=a[0]--;  
    if (!i) {return ""} else {x=a[i]; delete a[i]; return x}}
-</code></pre>
+</pre>
 
 <p>The pop function can be used in the usual way:</p>
 
-<pre><code> BEGIN {push(a,1); push(a,2); push(a,3);
+<pre> BEGIN {push(a,1); push(a,2); push(a,3);
         while(x=pop(a)) print x
  3
  2
  1
-</code></pre>
+</pre>
 
 <p>We can catch everything in an array to a string:</p>
 
-<pre><code> function a2s(a,  i,s) {
+<pre> function a2s(a,  i,s) {
         s=""; 
         for (i in a) {s=s " " i "= [" a[i]"]\n"}; 
         return s}
@@ -280,7 +279,7 @@ and that exponent is a positive or negative bunch of digits.</p>
   1= [1]
   2= [2]
   3= [3]
-</code></pre>
+</pre>
 
 <p>And we can go the other way and convert a string into an array using the built in split function. These pod files were built using a recursive include function that seeks patterns of the form:</p>
 
@@ -288,23 +287,23 @@ and that exponent is a positive or negative bunch of digits.</p>
 
 <p>This function splits likes on space characters into the array `a' then looks for =include in a[1]. If found, it calls itself recursively on a[2]. Otherwise, it just prints the line:</p>
 
-<pre><code> function rinclude (line,    x,a) {
+<pre> function rinclude (line,    x,a) {
    split(line,a,/ /);
    if ( a[1] ~ /^\=include/ ) { 
      while ( ( getline x &lt; a[2] ) &gt; 0) rinclude(x);
      close(a[2])}
    else {print line}
  }
-</code></pre>
+</pre>
 
 <p>Note that the third argument of the split function can be any regular expression.</p>
 
 <p>By the way, here's a nice trick with arrays. To print the lines in a files in a random order:</p>
 
-<pre><code> BEGIN {srand()}
+<pre> BEGIN {srand()}
        {Array[rand()]=$0}
  END   {for(I in Array) print $0}
-</code></pre>
+</pre>
 
 <p>Short, heh? This is not a perfect solution. Gawk can only generate
 1,000,000 different random numbers so the <a href="http://burtleburtle.net/bob/hash/birthday.html">birthday theorem</a> cautions
