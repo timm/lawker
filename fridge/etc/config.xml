@@ -89,6 +89,10 @@ Online doc<br>
 Contact: <a href="mailto:mail@awk.info">mail@awk.info</a>
 <p>
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
+
+<p><b>Feb 15 '09:</b> 
+This site officially launched.
+
 <p><b>Jan 21 '09:</b> 
 Robbins' latest Gawk devel patch
 includes support for indirect functions.
