@@ -71,7 +71,7 @@ background:#EDE9E6;
 margin-top:0px;
 padding-top:0px;
 xmargin-left: 10px;
-font-family:Arial, Helvetica, sans-serif;
+xfont-family:Arial, Helvetica, sans-serif;
 font-size:.8em;
 color:#000000;
 text-align:left;
@@ -179,7 +179,7 @@ padding:.3em .5em 0 0;
 xbackground:#ccc;
 border-top:1px solid #DFD8D2;
 font-size:.85em;
-font-family:Arial, Helvetica, sans-serif;
+xfont-family:Arial, Helvetica, sans-serif;
 color:#808080;
 text-align:center;
 }
@@ -244,14 +244,14 @@ padding:.8em 0 .5em 3.3em;
 }
 
 h2 {
-font-family:Georgia, "Times New Roman", Times, serif;
+xfont-family:Georgia, "Times New Roman", Times, serif;
 Xfont-size:1.9em;
 color:#8E1F0D;
 
 }
 
 h3 {
-font-family:Georgia, "Times New Roman", Times, serif;
+xfont-family:Georgia, "Times New Roman", Times, serif;
 margin:0 0 -.8em;
 padding:0 0 0 0;
 font-size:1em;
@@ -259,7 +259,7 @@ color:#8E1F0D;
 }
 
 #rci_right_column h3 {
-font-family:Georgia, "Times New Roman", Times, serif;
+xfont-family:Georgia, "Times New Roman", Times, serif;
 margin:0 0 -.8em;
 padding:0 0 0 0;
 font-size:.9em;
@@ -267,7 +267,7 @@ color:#8E1F0D;
 }
 
 #left_text h3 {
-font-family:Arial, Helvetica, sans-serif;
+xfont-family:Arial, Helvetica, sans-serif;
 margin:0 0 -.7em;
 padding:0 0 0 0;
 font-size:1.2em;
@@ -312,7 +312,7 @@ border-top:1px solid #CABEB5;
 border-bottom:1px solid #EEEAE7;
 border-left:1px solid #D7CDC6;
 border-right:1px solid #EEEAE7;
-font-family:Arial, Helvetica, sans-serif;
+xfont-family:Arial, Helvetica, sans-serif;
 color:#7C6C61;
 }
 
