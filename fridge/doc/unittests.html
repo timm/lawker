@@ -16,14 +16,28 @@ awk contributions in any form. That is,  including unit tests with code is <em>o
 <ol>
 <li>In the first paragraph of that file, write any tedious set up required to get the system ready for the test.
 <li>In the second, third, etc paragraph, write the code that shows the test
+<li>
+For example, in the following code, the real test comes after some low-level environmental set up:
+<pre>
+# assumes
+# - the LAWKER trunk has been checked out and
+# - .bash_profile contains: export Lawker="$HOME/svns/lawker/fridge"
+. $Lawker/lib/bash/setup
+
+gawk -f join.awk --source '
+BEGIN { split("tim tom tam",a)
+        print join(a,2)
+}'
+</pre>
 </ol>
-For example:
-#.IN array/eg/join
-<li><em>#.IN path</em> includes a file found in the LAWKER repositoriy at some <em>path</em> inside the trunk.
-<li> <em>#.CODE path</em> includes the contents
-of <em>path</em>, wrapped in  &ltpre> tags, and prefixed by the path.
-<li> <em>#.BODY path</em> is the same as  <em>#.CODE</em> but it
-skips the first paragraph (this is useful when the first paragraph includes tedious  details 
-you want to hite from the user). 
-<li>Note that, for <em>#.IN, #.CODE, #.BODY</em>, the <em>path</em> must appear after a single space.
-</ul>
+<li>Write the expected output of that test case in <em>yourcode/eg/yourtest.out</em>
+<li>To show the test case, add the following into your .awk file:
+<pre>
+ #.BODY       yourcode/eg/yourtest
+ #.CODE       yourcode/eg/yourtest.out
+</pre>
+</ol>
+<P>That's it. Now, when awk.info displays that file, the test case trivia is hidden and the users only see the essential details.
+<p>Also, an automatic tool can run over the entire code base and perform a regression test (checking if all the tests generate
+all the <em>*.out</em> files.
+
