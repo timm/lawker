@@ -135,8 +135,47 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="htxml"></string>
   </strings>
 
-
   <files>
+	<file where="doc/timm.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<what>Timm</what>
+		<title>Jim Hart</title>
+	</file>
+	<file where="doc/jimh.html">
+		<what>Jimh</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<what>Jimh</what>
+		<title>Jim Hart</title>
+	</file>
+	<file where="doc/ronl.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<what>Ronl</what>
+		<title>Ronald Loui</title>
+	</file>
+	<file where="doc/ed.html">
+		<what>Ed</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<what>Ed</what>
+		<title>Ed Mortin</title>
+	</file>
+	<file where="doc/steffen.html">
+		<what>Steffen</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<what>Steffen</what>
+		<title>Ed Mortin</title>
+	</file>
 	<file where="doc/advocacy.html">
 		<what>Timm</what>
 		<what>2009</what>
