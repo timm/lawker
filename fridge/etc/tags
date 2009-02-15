@@ -1,6 +1,2 @@
-#usage
-# edit config.xml
-# find "<files>"
-# delete from that line to end of file
-# add in the contents of running this code
-gawk -f tags.awk tags.txt
+gawk -f ./things.awk config.xml
+gawk -f ./tags.awk tags.txt
