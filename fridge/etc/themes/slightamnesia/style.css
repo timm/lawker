@@ -55,11 +55,11 @@ hr {
 }
  pre {
     padding: 1em;
-		font-family: Monaco, Comic-Sans-Ms, Courier;
+		font-family: Comic-Sans-Ms, Courier;
 	xwidth: 500px;
     border: 1px dashed #2f6fab;
     color: DarkBlue;
-    font-size: xx-small;
+    font-size: x-small;
     background-color: #f9f9f9;
 } 
 #left_text {
