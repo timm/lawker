@@ -331,7 +331,7 @@ dt {
    font-weight: bold;
 }
 
-#rci_left_column p   { margin-left: 10px; padding-left: 10px; }
+#rci_left_column p   { padding-left: 7px; }
 #rci_left_column ol  { margin-left: 10px; padding-left: 10px; }
 #rci_left_column ul  { margin-left: 10px; padding-left: 10px; }
 #rci_left_column li  { margin-left: 10px; padding-left: 10px; }
