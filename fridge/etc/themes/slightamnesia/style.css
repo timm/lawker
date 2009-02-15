@@ -333,6 +333,12 @@ visibility: hidden;
 dt { 
    font-weight: bold;
 }
+
+p id="#meta" {
+	text-align: right;
+	font-size: x-small;
+	color: #CCC;
+}
 /*
 #rci_left_column p   { padding-left: 8px; }
 #rci_left_column ol  { padding-left: 12px; }
