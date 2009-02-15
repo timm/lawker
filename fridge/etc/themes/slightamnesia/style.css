@@ -115,10 +115,12 @@ border-left:1px solid #DFD8D2;
 border-right:1px solid #DFD8D2;
 }
 
+/*
 #rci_left_column  p  {     width: 450px; }
 #rci_left_column ul  {     width: 450px; }
 #rci_left_column ol  {     width: 450px; }
 #rci_left_column dl  {     width: 450px; }
+*/
 
 #right_container_inner {
 position:relative;
