@@ -134,7 +134,200 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="awk"><![CDATA[/^#/]]> </string>
     <string id="htxml"></string>
   </strings>
-  <files>
 
+  <files>
+	<file where="doc/advocacy.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>Advocay</title>
+	</file>
+	<file where="doc/awk100/001argcol.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Argcol</what>
+		<title>Argcol</title>
+	</file>
+	<file where="doc/awk100/002baseballsim.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Baseballsim</what>
+		<title>Basebase Sim</title>
+	</file>
+	<file where="doc/awk100/003negotiate.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Negotiate</what>
+		<title>Negotiate</title>
+	</file>
+	<file where="doc/awk100/004sudoku.html">
+		<what>Jimh</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Sudoku</what>
+		<title>Sudoku</title>
+	</file>
+	<file where="doc/awk100.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<title>Awk100</title>
+	</file>
+	<file where="doc/awk4ai.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>Awk for AI</title>
+	</file>
+	<file where="doc/code.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>Coding</title>
+	</file>
+	<file where="doc/community.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>Community</title>
+	</file>
+	<file where="doc/contact.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>Contact</title>
+	</file>
+	<file where="doc/history.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>History</title>
+	</file>
+	<file where="doc/index.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>Awk.info</title>
+	</file>
+	<file where="doc/keys2awk.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn</what>
+		<title>Four Keys to Awk</title>
+	</file>
+	<file where="doc/learning.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn</what>
+		<title>Learning Awk</title>
+	</file>
+	<file where="doc/mascot.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Mascot</what>
+		<title>Mascot</title>
+	</file>
+	<file where="doc/mikelangman.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<title>Mike Langman</title>
+	</file>
+	<file where="doc/oneliners.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn OneLiners</what>
+		<title>One Liners</title>
+	</file>
+	<file where="doc/samples.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn </what>
+		<title>Samples of AWK</title>
+	</file>
+	<file where="doc/teachingawk.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn</what>
+		<title>Teaching Awk</title>
+	</file>
+	<file where="doc/tip/getline.html">
+		<what>Ed</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Tip</what>
+		<what>Getline </what>
+		<title>Getline</title>
+	</file>
+	<file where="doc/tip/noforloops.html">
+		<what>Jimh</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Tip</what>
+		<what>Forloop</what>
+		<title>Forloops</title>
+	</file>
+	<file where="doc/var/top10posters.html">
+		<what>Steffen</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<what>Newsgroup</what>
+		<title>Top 10 posters</title>
+	</file>
+	<file where="doc/var/top10posterslastyear.html">
+		<what>Steffen</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<what>Newsgroup</what>
+		<title>Top 10 posters last year</title>
+	</file>
+	<file where="doc/var/top10subjects.html">
+		<what>Steffen</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<what>Newsgroup</what>
+		<title>Top 10 subjects</title>
+	</file>
+	<file where="doc/var/top10subjectslastyear.html">
+		<what>Steffen</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<what>Newsgroup</what>
+		<title>Top 10 subjects last year</title>
+	</file>
+	<file where="doc/whygawk.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Misc</what>
+		<what>Newsgroup</what>
+		<title>Why Gawk?</title>
+	</file>
   </files>
 </things>
