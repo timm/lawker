@@ -16,62 +16,6 @@ in-line pretty print method, described below.</dd>
 <p>Mail contribitions to <a href="mailto:mail@awk.info?subject=code contribution">mail@awk.info</a> with
 the subject line <em>code contribution</em>.
 <p>Alternatively, members of LAWKER can  just <em>svn commit</em> their code.
-<a name="prettyPrint"></a><h2> Pretty Print Code</h2>
-<p>The code that renders the awk.info web site can "pretty print" awk code stored
-in lawker.  For example,
-<a href="http://awk.info/?gawk/array/join.awk">http://awk.info/?gawk/array/join.awk</a>
-pretty
-prints the Awk code found in
-<a href="http://lawker.googlecode.com/svn/fridge/gawk/array/join.awk">join.awk</a>.
-<p>
-To enable that pretty print, add some html syntax inside your
-code and apply the following conventions:
-<ul>
-<li> The first paragraph of the file will be ignored. Use this first para
-for copyright notices or comments about down-in-the weeds trivia. Note: the
-first para ends with one blank line.
-
-<li>The next paragraph should start with 
-<pre>#.H1 &lt;join>Title&lt;/join></pre>
-
-<li> The code could should be topped and tailed as follows:
-<pre>
-#&lt;pre>
-code
-#&lt;/pre>
-</pre>
-<li> All other comment lines should start with a single "#" at front-of-line.
-These comment characters will be stripped away by the awk.info renderer.
-<li>Awk.info's renderer adopts the following html shorthand. If a line starts with
-<pre>
-#.WORD other words 
-</pre>
-<p>this this is replaced with
-<pre>
-&lt;WORD> other words&lt;/WORD>
-</pre>
-<p>If no <em>other words</em> follow <em>#.WORD</em> then the line becomes just <em>&lt;WORLD></em>
-<li>Awk.info's renderer supports a few HTML extensions:
-<ul>
-<li><em>#.IN path</em> includes a file found in the LAWKER repositoriy at some <em>path</em> inside the trunk.
-<li> <em>#.CODE path</em> includes the contents
-of <em>path</em>, wrapped in  &ltpre> tags, and prefixed by the path.
-<li> <em>#.BODY path</em> is the same as  <em>#.CODE</em> but it
-skips the first paragraph (this is useful when the first paragraph includes tedious  details 
-you want to hite from the user). 
-<li>Note that, for <em>#.IN, #.CODE, #.BODY</em>, the <em>path</em> must appear after a single space.
-</ul>
-</ul>
-<p>
-That's it. Now you can pretty print your code on the web just be adding
-a little html in the comments.  If you want to preview how your page looks if it was renfered by awk.info,
-use the preview url:
-<pre>
-http://awk.info/?awk:urlWithoutHTTPprefix
-</pre>
-<p>For exmaple, the file <a href="http://menzies.us/tmp/xx.awk">http://menzies.us/tmp/xx.awk</a> 
-can be previewed using
-<a href="http://awk.info/?awk:menzies.us/tmp/xx.awk">http://awk.info/?awk:menzies.us/tmp/xx.awk</a> 
 
 <h2>Reporting Bugs</h2>
 <p>Please use the LAWKER
