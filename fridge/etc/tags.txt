@@ -6,6 +6,7 @@ doc/who/ed.html					Ed	2009	Feb	Who						|Ed Morten
 doc/who/mikelangman.html		Mikel	2009	Jan	Who					|Mike Langman
 doc/who/arnoldr.html			ArnoldR	2009	Feb	Who					|Arnold Robbins
 doc/who/steffen.html			Steffen	2009	Feb	Who					|Steffen Schuler 
+doc/who/greatauks.html			Timm	2009	Feb	Who			 		|Great Auks
 
 doc/awk100.html					Timm	2009	Jan	Awk100				|Awk100
 doc/awk100/001argcol.html		Ronl	2009	Jan	Awk100	Argcol		|Argcol
