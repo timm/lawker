@@ -11,7 +11,7 @@
            Content &copy; 2009 <a href="http://awk.info/?timm">Tim Menzies</a>
              under  <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPL 3.0</a>.
            Design by <a href="http://raykdesign.net">raykdesign.net</a>. 
-           Auk images &copy; 2009 <a href="http://awk.info/?mikelangman">Mike Langman</a>.
+           Auk images &copy; 2009 <a href="http://awk.info/?doc/who/mikelangman.html">Mike Langman</a>.
 
 
 ]]>
@@ -147,6 +147,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 
 
 
+
  <files>
 	<file where="doc/credits.html">
 		<what>Timm</what>
@@ -156,7 +157,21 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what> </what>
 		<title>Credits</title>
 	</file>
-	<file where="doc/timm.html">
+	<file where="doc/who/jimh.html">
+		<what>Jimh</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<title>Jim Hart</title>
+	</file>
+	<file where="doc/who/ronl.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<title>Ronald Loui</title>
+	</file>
+	<file where="doc/who/timm.html">
 		<what>Timm</what>
 		<what>2009</what>
 		<what>Feb</what>
@@ -164,35 +179,28 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what> </what>
 		<title>Tim Menzies</title>
 	</file>
-	<file where="doc/arnoldr.html">
-		<what>ArnoldR</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
-		<title>Arnold Robbins</title>
-	</file>
-	<file where="doc/jimh.html">
-		<what>Jimh</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
-		<title>Jim Hart</title>
-	</file>
-	<file where="doc/ronl.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
-		<title>Ronald Loui</title>
-	</file>
-	<file where="doc/ed.html">
+	<file where="doc/who/ed.html">
 		<what>Ed</what>
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
 		<title>Ed Morten</title>
 	</file>
-	<file where="doc/steffen.html">
+	<file where="doc/who/mikelangman.html">
+		<what>Mikkel</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Who</what>
+		<title>Mike Langman</title>
+	</file>
+	<file where="doc/who/arnoldr.html">
+		<what>ArnoldR</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Who</what>
+		<title>Arnold Robbins</title>
+	</file>
+	<file where="doc/who/steffen.html">
 		<what>Steffen</what>
 		<what>2009</what>
 		<what>Feb</what>
@@ -280,13 +288,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Misc Mascot</what>
 		<what> </what>
 		<title>Mascot</title>
-	</file>
-	<file where="doc/mikelangman.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
-		<title>Mike Langman</title>
 	</file>
 	<file where="doc/awk4ai.html">
 		<what>Ronl</what>
@@ -411,3 +412,5 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 	</file>
   </files>
 </things>
+
+
