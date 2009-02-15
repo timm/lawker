@@ -10,9 +10,9 @@ described in this page.
 But before going on, we stress that 
 awk.info  gratefully accepts
 awk contributions in any form. That is,  including unit tests with code is <em>optional</em>. 
-<ul>
-<li>If your code is in directory <em>yourcode</em> then create a sub-directory <em>yourcode/eg</em>
-<li>Write a test in a file <em>yourcode/eg/yourtest</em>. Divide that test into two parts:
+<h2>Files</h2>
+<p>If your code is in directory <em>yourcode</em> then create a sub-directory <em>yourcode/eg</em>
+<p>Write a test in a file <em>yourcode/eg/yourtest</em>. Divide that test into two parts:
 <ol>
 <li>In the first paragraph of that file, write any tedious set up required to get the system ready for the test.
 <li>In the second, third, etc paragraph, write the code that shows the test
@@ -30,14 +30,16 @@ BEGIN { split("tim tom tam",a)
 }'
 </pre>
 </ol>
-<li>Write the expected output of that test case in <em>yourcode/eg/yourtest.out</em>
-<li>To show the test case, add the following into your .awk file:
+<p>Write the expected output of that test case in <em>yourcode/eg/yourtest.out</em>
+<h2>Regression Tests</h2>
+<p>The above file conventions mean that  an automatic tool can run over the entire code base and perform a regression test (checking if all the tests generate
+all the <em>*.out</em> files.
+<h2>Displaying the Tests (and Output)</h2>
+<p>Another advantage of the above scheme is that you can use the tests to document your code.
+<p>To show the test case, add the following into your .awk file:
 <pre>
  #.BODY       yourcode/eg/yourtest
  #.CODE       yourcode/eg/yourtest.out
 </pre>
-</ol>
 <P>That's it. Now, when awk.info displays that file, the test case trivia is hidden and the users only see the essential details.
-<p>Also, an automatic tool can run over the entire code base and perform a regression test (checking if all the tests generate
-all the <em>*.out</em> files.
 
