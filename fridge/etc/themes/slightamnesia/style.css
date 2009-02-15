@@ -55,7 +55,7 @@ hr {
 }
  pre {
     padding: 1em;
-	width: 500px;
+	xwidth: 500px;
     border: 1px dashed #2f6fab;
     color: DarkBlue;
     font-size: small;
