@@ -4,9 +4,10 @@
 . $Lawker/lib/bash/setup
 
 gawk -f stack.awk --source '
-BEGIN { push(1,A)
- 		push(2,A)
-		push(3,A)
-    	while( X = pop(A) ) 
-			print X
+BEGIN { 
+	push(1,A)
+	push(2,A)
+	push(3,A)
+	while( X = pop(A) ) 
+		print X
 }'
