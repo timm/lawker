@@ -18,7 +18,7 @@
 #.DT      after
 #.DD            (OPTIONAL) A string to print after the array. Defaults to new line.
 #.DT      eq
-#.DD            (OPTIONAL) A string to print between each key/value pair.
+#.DD            (OPTIONAL) A string to print between each key/value pair. Defaults to " = ".
 #./DL
 #.H2   Returns
 #.P        		Size of the array
