@@ -9,5 +9,4 @@ BEGIN {
 	push(2,A)
 	push(3,A)
 	while( X = pop(A) ) 
-		print X
-}'
+		print X }'
