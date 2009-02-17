@@ -1,32 +1,35 @@
-# Jim Hart, jhart@mail.avcnet.org, Public Domain
-# Jan 2009
+# copyright 2009 Jim Hart, GPL 3.0
 
 
-# array functions
 
-# Contents:
-#	- ajoin: turns an array into a delimited string
-#	- asize: counts the number of elements in an array
-#	- acopy: copies one array to another
-#================
-
-
-# turn sequential array into string with delimiter
-
-# unlike Arnold's join(), SUBSEP and null aren't special separators
-
-# Input:
-#	- the array to be joined
-#	- separator to be placed between elements in the string
-#	- optional start position in the array, default is element 1
-#	- optional end position in the array, default is the last element
-#
-# Dependencies:
-#	- the asize() function
-#
-# Returns:
-#	- delimited string
-
+#.H1 	<join>Array functions</join>
+#.H2 	Synopsis
+#.P     	ajoin(array, sep [,start,end])
+#.P 		asize(array)
+#.P 		acopy(array, copyOfArray)
+#.H2 	Description
+#.P	 
+# 			<em>ajoin</em>: turns an array into a delimited string.
+# 			Unlike Arnold's <em>join()</em>, SUBSEP and null aren't special separators
+#.P	 		<em>asize</em>: counts the number of elements in an array
+#.P	 		<em>acopy</em>: copies one array to another
+#.H2 	Arguments
+#.DL
+#.DD		array
+#.DT			 	The array to be joined.
+#.DD		sep
+#.DT 				Separator to be placed between elements in the string
+#.DD		start
+#.DT				Optional start position in the array, default is element 1
+#.DD		stop
+#.DT				Optional end position in the array, default is the last element
+#./DL
+#.H2	Returns
+#.P			<em>ajoin</em> returns the 	delimited string.
+#.P		 	<em>asize</em> returns length of an array for awk's which don't support length(arr).
+#.P		 	<em>acopy</em> returns number of elements copied.
+#.H2	Source code
+#.PRE
 function ajoin(array, sep, start, end,   result, i)
 {
 	if(!start) start = 1
@@ -36,31 +39,10 @@ function ajoin(array, sep, start, end,   result, i)
         result = result sep array[i]
     return result
 }
-
-
-
-# returns length of an array for awk's which don't support length(arr)
-# Input:
-#	- an array
-#
-# Returns:
-#	- the number of elements in the array as an unsigned integer
-
 function asize(arr,  i,a) {
   for( i in arr) ++a
   return a
 }
-
-
-
-# copy one array to another
-# Input:
-#	- an array
-#	- name of the array to receive the copy
-#
-# Returns:
-#	- number of elements copied
-
 function acopy(arr1,arr2,  i,n){
 	for(i in arr1) {
 		arr2[i] = arr1[i]
@@ -68,3 +50,11 @@ function acopy(arr1,arr2,  i,n){
 	}
 	return n
 }
+#./PRE
+#.H2 Change Log
+#.P
+#.UL
+#.LI  Jan '09: created
+#./UL
+#.H2 Author 
+#.P  Jim Hart, jhart@mail.avcnet.org, Public Domain
