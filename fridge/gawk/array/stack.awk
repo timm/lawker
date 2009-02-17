@@ -20,9 +20,6 @@
 #.P        		Top returns the top of stack or <em>emptyp</em> if the stack is empty.
 #.P        		Pop returns the popped item or <em>emptyp</em>.
 #.P				Push returns the <em>pushed</em> item.
-#.H2   Example
-#.BODY       gawk/array/eg/stack
-#.CODE       gawk/array/eg/stack.out
 #.H2   Source
 #.PRE
 function top(stack,emptyp) { 
@@ -36,5 +33,8 @@ function pop(stack,emptyp) {
 	return ((stack[0] > 0) ? stack[stack[0]--] : emptyp) 
 } 
 #./PRE
+#.H2   Example
+#.BODY       gawk/array/eg/stack
+#.CODE       gawk/array/eg/stack.out
 #.H2 Author 
 #.P  Tim Menzies
