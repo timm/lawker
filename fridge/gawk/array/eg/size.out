@@ -1,0 +1,2 @@
+empty? 0 unempty? 1
+empty? 1 unempty? 0
