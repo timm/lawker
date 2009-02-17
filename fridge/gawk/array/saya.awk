@@ -25,7 +25,7 @@
 #.H2   Notes
 #.P	   	  The most common usage is to just use the first two arguments; e.g.
 #.PRE
-saya(a,"names") ==>
+saya(a,"name") ==>
 
 name[1] = tim
 name[2] = menzies
