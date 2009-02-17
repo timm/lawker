@@ -4,12 +4,13 @@
 . $Lawker/lib/bash/setup
 
 gawk -f array-util.awk --source '
-BEGIN { A[1]="jim"
-		A[2]="hart"
-		A[3]="writes"
-		A[4]="awk"	
-		print "ajoin: " ajoin(A," ")
-		print "asize "  asize(A)
-		acopy(A,B)
-		print "asize "  asize(B)
+BEGIN { 	
+	A[1]="jim"
+	A[2]="hart"
+	A[3]="writes"
+	A[4]="awk"	
+	print "ajoin: " ajoin(A," ")
+	print "asize "  asize(A)
+	acopy(A,B)
+	print "asize "  asize(B)
 }'
