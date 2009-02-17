@@ -1,0 +1,12 @@
+# assumes
+# - the LAWKER trunk has been checked out and
+# - .bash_profile contains: export Lawker="$HOME/svns/lawker/fridge"
+. $Lawker/lib/bash/setup
+
+gawk -f stack.awk --source '
+BEGIN { push(1,A)
+ 		push(2,A)
+		push(3,A)
+    	while( X = pop(A) ) 
+			print X
+}'
