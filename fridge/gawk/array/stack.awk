@@ -17,9 +17,9 @@
 #.DD            (OPTIONAL) Value to return if, when popping, you hit bottom of stack. Defaults to "".
 #./DL
 #.H2   Returns
-#.P        		Top returns the top of stack or <em>emptyp</em> if the stack is empty.
-#.P        		Pop returns the popped item or <em>emptyp</em>.
-#.P				Push returns the <em>pushed</em> item.
+#.P        		<em>Top</em> returns the top of stack or <em>emptyp</em> if the stack is empty.
+#.P        		<em>Pop</em> returns the popped item or <em>emptyp</em>.
+#.P				<em>Push</em> returns the <em>pushed</em> item.
 #.H2   Source
 #.PRE
 function top(stack,emptyp) { 
