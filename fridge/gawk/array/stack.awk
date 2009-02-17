@@ -21,8 +21,8 @@
 #.P        		Pop returns the popped item or <em>emptyp</em>.
 #.P				Push returns the <em>pushed</em> item.
 #.H2   Example
-#.BODY gawk/array/eg/stack
-#.CODE gawk/array/eg/stack.out
+#.BODY       gawk/array/eg/stack
+#.CODE       gawk/array/eg/stack.out
 #.H2   Source
 #.PRE
 function top(stack,emptyp) { 
