@@ -2,6 +2,7 @@
 # - the LAWKER trunk has been checked out and
 # - .bash_profile contains: export Lawker="$HOME/svns/lawker/fridge"
 . $Lawker/lib/bash/setup
+
 gawk -f array.awk -f size.awk --source '
 BEGIN { 	
 	A[1]="tim"
