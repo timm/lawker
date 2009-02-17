@@ -32,27 +32,27 @@
 #.PRE
 function ajoin(array, sep, start, end,   result, i)
 {
-	if(!start) start = 1
-	if(!end) end = asize(array)
-    result = array[start]
-    for (i = start + 1; i <= end; i++)
+     if(!start) start = 1
+     if(!end) end = asize(array)
+     result = array[start]
+     for (i = start + 1; i <= end; i++)
         result = result sep array[i]
-    return result
+     return result
 }
 #./PRE
 #.PRE
 function asize(arr,  i,a) {
-  for( i in arr) ++a
-  return a
+     for( i in arr) ++a
+     return a
 }
 #./PRE
 #.PRE
 function acopy(arr1,arr2,  i,n){
-	for(i in arr1) {
-		arr2[i] = arr1[i]
-		n++
-	}
-	return n
+     for(i in arr1) {
+          arr2[i] = arr1[i]
+          n++
+     }
+     return n
 }
 #./PRE
 #.H2 Change Log
