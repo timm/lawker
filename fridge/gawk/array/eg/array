@@ -1,0 +1,12 @@
+# assumes
+# - the LAWKER trunk has been checked out and
+# - .bash_profile contains: export Lawker="$HOME/svns/lawker/fridge"
+. $Lawker/lib/bash/setup
+
+gawk -f array.awk --source '
+BEGIN { array(A);
+        A[1]=2;
+	print length(A);
+	array(A);
+	print length(A);
+}'

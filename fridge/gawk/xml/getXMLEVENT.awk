@@ -239,7 +239,7 @@ function getXMLEVENT( file            ,end,p,q,tag,att,accu,mline,mode,S0,ex,dtd
         XMLERROR = file ":" XMLROW": " XMLERROR 
     else if (mode) XMLERROR=file ":" mline ": " "unterminated " mode
     else if (XMLPATH) XMLERROR=file ":" XMLROW": "  "unclosed tag(s) " XMLPATH 
-} # function getXMLEVENT
+} # func. getXMLEVENT
 
 # unescape data and attribute values, used by getXMLEVENT
 function unescapeXML(text) {

@@ -38,7 +38,8 @@ doc/samples.html				Ronl	2009	Jan	Learn	TenLiners	|Samples of AWK
 doc/tip/getline.html			Ed		2009	Jan	Tips	Getline 	|Getline
 doc/tip/noforloops.html			Jimh	2009	Jan	Tips	Forloop		|Forloops
 
-gawk/array/join.awk				Arnoldr	2009	Feb	Arrays	Timm		|join.awk
+gawk/array/join.awk				Arnoldr	2009	Feb	Functionn	Arrays	Timm		|join.awk
+gawk/array/array.awk				Timm	2009	Feb	Functionn	Arrays			|array.awk
 
 doc/var/top10posters.html		Steffen	2009	Jan	Newsgroup			|Top 10 posters
 doc/var/top10subjects.html		Steffen	2009	Jan	Newsgroup			|Top 10 subjects
