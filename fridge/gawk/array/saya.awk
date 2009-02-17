@@ -22,6 +22,15 @@
 #./DL
 #.H2   Returns
 #.P        		Size of the array
+#.H2   Notes
+#.P	   	  The most common usage is to just use the first two arguments; e.g.
+#.PRE
+saya(a,"names") ==>
+
+name[1] = tim
+name[2] = menzies
+#./PRE
+#.P		For other usages, see the examples, below.
 #.H2   Source
 #.PRE
 function saya(a,s, sep0,b4,after,eq,   c,m,n,key,val,i,j,tmp,sep) {
