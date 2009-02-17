@@ -15,14 +15,14 @@
 #.P	 		<em>acopy</em>: copies one array to another
 #.H2 	Arguments
 #.DL
-#.DD		array
-#.DT			 	The array to be joined.
-#.DD		sep
-#.DT 				Separator to be placed between elements in the string
-#.DD		start
-#.DT				Optional start position in the array, default is element 1
-#.DD		stop
-#.DT				Optional end position in the array, default is the last element
+#.DT		array
+#.DD			 	The array to be joined.
+#.DT		sep
+#.DD 				Separator to be placed between elements in the string
+#.DT		start
+#.DD				Optional start position in the array, default is element 1
+#.DR		stop
+#.DD				Optional end position in the array, default is the last element
 #./DL
 #.H2	Returns
 #.P			<em>ajoin</em> returns the 	delimited string.
@@ -39,10 +39,14 @@ function ajoin(array, sep, start, end,   result, i)
         result = result sep array[i]
     return result
 }
+#./PRE
+#.PRE
 function asize(arr,  i,a) {
   for( i in arr) ++a
   return a
 }
+#./PRE
+#.PRE
 function acopy(arr1,arr2,  i,n){
 	for(i in arr1) {
 		arr2[i] = arr1[i]
