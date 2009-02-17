@@ -21,7 +21,7 @@
 #.DD 				Separator to be placed between elements in the string
 #.DT		start
 #.DD				Optional start position in the array, default is element 1
-#.DR		stop
+#.DT		stop
 #.DD				Optional end position in the array, default is the last element
 #./DL
 #.H2	Returns
@@ -61,4 +61,4 @@ function acopy(arr1,arr2,  i,n){
 #.LI  Jan '09: created
 #./UL
 #.H2 Author 
-#.P  Jim Hart, jhart@mail.avcnet.org, Public Domain
+#.P  Jim Hart, jhart@mail.avcnet.org
