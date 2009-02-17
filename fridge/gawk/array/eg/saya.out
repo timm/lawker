@@ -1,0 +1,9 @@
+[address = usa, fname = tim, lname = menzies]
+
+message[address] = usa
+message[fname] = tim
+message[lname] = menzies
+
+b[1,3,10] = 300
+b[10,1,11] = 200
+b[2,3,9] = 100
