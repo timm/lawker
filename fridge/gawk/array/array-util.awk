@@ -55,6 +55,9 @@ function acopy(arr1,arr2,  i,n){
      return n
 }
 #./PRE
+#.H2    Example
+#.BODY       gawk/array/eg/array-util
+#.CODE       gawk/array/eg/array-util.out
 #.H2 Change Log
 #.P
 #.UL
