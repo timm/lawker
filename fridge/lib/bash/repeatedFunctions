@@ -1,0 +1,14 @@
+[ -z "$Lawker" ] && (echo "No \$Lawker variable set"; exit)
+
+grep  function `find $Lawker -name "*.awk"` | 
+gawk 'BEGIN        { FS=":" } 
+      /^[ \t]*#/   { next }
+                   { File=$1; 
+                     sub(/function[ \t]*/,"",$2)
+                     sub(/\(.*/,"",$2)
+		     Fun=$2      
+                     N[Fun]++; A[Fun] = A[Fun] "\n\t" File }
+      END          { for(I in N)
+	               if (N[I] > 1)
+                          print "\nfunction " I " is defined in " A[I]
+                   }'

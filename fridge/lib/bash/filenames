@@ -1,0 +1,21 @@
+if [ -z "$Lawker" ]
+then 
+     echo "No \$Lawker variable set"
+     exit
+fi
+
+cd $Lawker/gawk
+
+listAnyRepeats() {
+   find . -name "*.awk" | 
+   gawk 'BEGIN {FS="/"} {print $NF}' | 
+   sort | uniq -c  | gawk '$1 > 1' 
+}
+
+
+showTheRepeats() {
+   find . -name "$1.awk"
+}
+
+[ -n "$1" ]  && showTheRepeats $1
+[ -z "$1" ]  && listAnyRepeats

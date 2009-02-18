@@ -1,0 +1,32 @@
+Auk=$HOME/opt/gawk/bin/gawk
+
+$Auk -f fun.awk --source 'BEGIN { run() }
+
+function odd(x)    { return (x % 2) == 0 }
+function show(x)   { print "[" x "]" }
+function mult(x,y) { return x * y }
+function halve(x)  { return x/2}
+
+function run(   max,i,a,b,c) {
+	max = split("22,23,24,25,26,27,28",a,/,/)
+	run1(a,"as set")
+	run1(a,"as list",max)
+}
+
+function run1(a,prefix,max,   i,b,c,d) {
+	print "\n" prefix
+	all("show",a,max)
+	print "detected " detect("odd",a,max)
+	print 11
+	select("odd", a,b,max)
+	print 22
+	reject("odd", a,c,max)
+	print 33
+	collect("halve",a,d,max)
+	print 44
+	for(i in b) print prefix " selected " b[i]
+	for(i in c) print prefix " rejected " c[i]
+	for(i in d) print prefix " halved   " d[i]
+	print prefix " injected " inject("mult",a,1,max)
+}
+'

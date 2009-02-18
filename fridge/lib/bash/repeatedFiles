@@ -1,0 +1,9 @@
+[ -z "$Lawker" ] && (echo "No \$Lawker variable set"; exit)
+
+find $Lawker -name "*.awk" | 
+gawk 'BEGIN { FS="/" } 
+            { N[$NF]++; A[$NF] = A[$NF] "\n\t" $0 }
+      END   { for(I in N)
+	       	    if (N[I] > 1)
+                        print "\n" I  A[I]
+            }'
