@@ -25,10 +25,10 @@
 #.H2   Notes
 #.P	   	  The most common usage is to just use the first two arguments; e.g.
 #.PRE
-saya(a,"name") ==>
-
-name[1] = tim
-name[2] = menzies
+#saya(a,"name") ==>
+#
+#name[1] = tim
+#name[2] = menzies
 #./PRE
 #.P		For other usages, see the examples, below.
 #.H2   Source
@@ -64,3 +64,4 @@ function saya(a,s, sep0,b4,after,eq,   c,m,n,key,val,i,j,tmp,sep) {
 #.CODE       gawk/array/eg/saya.out
 #.H2 Author 
 #.P  Tim Menzies
+

@@ -1,0 +1,35 @@
+a
+	1 = a
+	2 = b
+	3 = c
+b
+	1 = m
+	2 = n
+	3 = o
+c
+	1 = x
+	2 = y
+	3 = z
+top c
+tail a
+pop c
+delete a
+insert q
+a popped and deleted and inserted
+	1 = q
+	2 = b
+b followed by a 
+	1 = m
+	2 = n
+	3 = o
+	4 = q
+	5 = b
+c with B in front
+	1 = m
+	2 = n
+	3 = o
+	4 = q
+	5 = b
+	6 = x
+	7 = y
+	8 = z

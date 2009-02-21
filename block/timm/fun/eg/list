@@ -1,0 +1,28 @@
+PATH="$PATH:$Lawker/lib/bash"
+. setup
+. lawker 
+
+lawk -f ../list.awk  --source 'BEGIN { 
+     M=split("a b c",Tmp1)
+     N=split("m n o",Tmp2)	
+     O=split("x y z",Tmp3)	
+     newl(A)
+     newl(B)
+     newl(C)
+     for(I=1;I<=M;I++)	pushl(Tmp1[I],A)
+     for(I=1;I<=N;I++)	pushl(Tmp2[I],B)	
+     for(I=1;I<=O;I++)	pushl(Tmp3[I],C)	
+     sayl(A,"a")
+     sayl(B,"b")		
+     sayl(C,"c")	
+     print "top "   topl(A)
+     print "tail "  taill(A)
+     print "pop "   popl(A)
+     print "delete "  deletel(A)
+     print "insert "  insertl("q",A)
+     sayl(A,"a popped and deleted and inserted")
+     appendl(A,B)
+     sayl(B,"b followed by a ")
+     prependl(B,C)
+     sayl(C,"c with B in front")
+}'

@@ -1,2 +1,3 @@
+[ -f "$HOME/.awkrc" ] && . $HOME/.awkrc
 $Lawker/lib/bash/awkcopies
 . $Lawker/lib/bash/awkpath
