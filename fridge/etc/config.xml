@@ -90,8 +90,8 @@ Online doc<br>
 Contact: <a href="mailto:mail@awk.info">mail@awk.info</a>
 <hr>
 <p align=right>
-       feed: <a href="http://tinyurl.com/rss4awk"><img 
-align=left  src="http://lawker.googlecode.com/svn/fridge/share/img/rssFeed28.png"> tinyurl.com/ rss4awk</a>
+       rss: <a href="http://tinyurl.com/rss4awk"><img 
+align=left  width= 20 src="http://lawker.googlecode.com/svn/fridge/share/img/rssFeed28.png"> tinyurl.com/ rss4awk</a>
          <br clear=all> ]]>
     </string>
     <string id="afterRss">
