@@ -39,7 +39,6 @@
     <input type="hidden" name="ie" value="UTF-8" />
     <input type="submit" name="sa" value="/Find/" /><input type="text" name="q" value="{print FILENAME,$0}" size="16" />
 </form>
-<p>Contact: <a href="mailto:mail@awk.info">mail@awk.info</a></p>
 </center>
 <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
 <hr>
@@ -91,6 +90,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     </string>
     <string id="beforeRss">
       <![CDATA[
+<p>Contact: <a href="mailto:mail@awk.info">mail@awk.info</a><br>
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
  ]]>
     </string>
