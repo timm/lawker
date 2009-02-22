@@ -89,12 +89,11 @@ Online doc<br>
       <![CDATA[
 Contact: <a href="mailto:mail@awk.info">mail@awk.info</a>
 <p>
-<img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
+       <a href="http://lawker.blogspot.com/feeds/posts/default?alt=rss"><img   src="http://lawker.googlecode.com/svn/fridge/share/img/rssFeed28.gif"> RSS feed</a>
           ]]>
     </string>
     <string id="afterRss">
             <![CDATA[
-<hr><p>Browse news <a href="?oldnews">archive</a>.</p>
 <hr>
 <p>Fact #27: Little Auks  eat
 polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology">leftovers</a>.</p>
