@@ -85,35 +85,15 @@ Online doc<br>
 </p>
 ]]>
     </string>
-    <string id="nav2">
+    <string id="beforeRss">
       <![CDATA[
 Contact: <a href="mailto:mail@awk.info">mail@awk.info</a>
 <p>
 <img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
-
-
-<p><b>Feb 21 '09:</b> 
-Next Awk100 entry: Peteris Krumins "Get YouTube Vids" 
-<a href="http://awk.info/?doc/awk100/005getYouTube.html">More...</a>
-
-
-<p><b>Feb 18 '09:</b> 
-Added: Peteris Krumins' next tutorial on Awk one-liners (Part four).
-<a href="http://awk.info/?oneliners">More...</a>
-
-<p><b>Feb 17 '09:</b> 
-Chris Johnson proposes a new awk icon.
-<a href="http://awk.info/?mascot">More...</a>
-
-<p><b>Feb 15 '09:</b> 
-This site officially launched.
-<a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/52cf91f8530b9818#">More...</a>
-
-<p><b>Jan 21 '09:</b> 
-Robbins' latest Gawk devel patch
-includes support for indirect functions.
-<a href="http://groups.google.com:80/group/comp.lang.awk/browse_thread/thread/7a026a902361cbc5#">More...</a>
-
+          ]]>
+    </string>
+    <string id="afterRss">
+            <![CDATA[
 <hr><p>Browse news <a href="?oldnews">archive</a>.</p>
 <hr>
 <p>Fact #27: Little Auks  eat
