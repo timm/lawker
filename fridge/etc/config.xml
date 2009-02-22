@@ -90,8 +90,8 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     </string>
     <string id="beforeRss">
       <![CDATA[
-<p>Contact: <a href="mailto:mail@awk.info">mail@awk.info</a><br>
-<img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
+<p>Contact: <a href="mailto:mail@awk.info">mail@awk.info</a></p>
+<center><img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif"></center>
  ]]>
     </string>
     <string id="afterRss">
