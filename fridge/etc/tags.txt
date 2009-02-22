@@ -2,7 +2,7 @@ doc/credits.html				Timm	2009	Feb	Who			 		|Credits
 doc/who/jimh.html				Jimh	2009	Feb	Who					|Jim Hart
 doc/who/ronl.html				Ronl	2009	Feb	Who					|Ronald Loui
 doc/who/timm.html				Timm	2009	Feb	Who	 				|Tim Menzies
-doc/who/ed.html					Ed	2009	Feb	Who						|Ed Morten
+doc/who/ed.html					Ed		2009	Feb	Who						|Ed Morten
 doc/who/mikelangman.html		Mikel	2009	Jan	Who					|Mike Langman
 doc/who/arnoldr.html			ArnoldR	2009	Feb	Who					|Arnold Robbins
 doc/who/steffen.html			Steffen	2009	Feb	Who					|Steffen Schuler 
@@ -13,6 +13,7 @@ doc/awk100/001argcol.html		Ronl	2009	Jan	Awk100	Argcol		|Argcol
 doc/awk100/002baseballsim.html	Ronl	2009	Jan	Awk100	Baseballsim	|Basebase Sim
 doc/awk100/003negotiate.html	Ronl	2009	Jan	Awk100	Negotiate	|Negotiate
 doc/awk100/004sudoku.html		Jimh	2009	Jan	Awk100	Sudoku		|Sudoku
+doc/awk100/005getYouTube.html	PeterK	2009	Jan	Awk100	WWW			|Get YouTube Vids
  
 doc/advocacy.html				Timm	2009	Jan	Misc				|Advocacy
 doc/community.html				Timm	2009	Jan	Misc				|Community
@@ -23,6 +24,8 @@ doc/mascot.html					Timm	2009	Jan	Misc	Mascot	 	|Mascot
 doc/awk4ai.html					Ronl	2009	Jan	Misc				|Awk for AI
 doc/history.html				Timm	2009	Jan	Misc				|History
 doc/whygawk.html				Timm	2009	Jan	Misc	 			|Why Gawk?
+
+doc/oldnews.html				Timm	2009	Feb	Misc	News		|News Archive
 
 doc/contribute.html				Timm	2009	Jan	Contribute			|How to contribute
 doc/prettyprint.html			Timm	2009	Jan	Contribute			|Pretty print
