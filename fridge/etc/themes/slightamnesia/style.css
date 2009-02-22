@@ -213,15 +213,13 @@ list-style:none;
 }
 
 #nav ul li{
-margin-left: 0px;
-margin-right: 0px;
 display:inline;
 list-style:none;
 }
 
 #nav ul li a{
-margin: 0 .4em 0 0;
-padding: .4em 1em .46em 1em;
+margin: 0 .4 0 0;
+padding: .4em 1px .46em 1px;
 color:#8E1F0D;
 font-weight:bold;
 text-decoration:none;
