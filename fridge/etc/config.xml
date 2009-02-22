@@ -245,6 +245,14 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Sudoku</what>
 		<title>Sudoku</title>
 	</file>
+	<file where="doc/awk100/005getYouTube.html">
+		<what>PeterK</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>WWW</what>
+		<title>Get YouTube Vids</title>
+	</file>
 	<file where="doc/advocacy.html">
 		<what>Timm</what>
 		<what>2009</what>
@@ -310,6 +318,14 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Misc</what>
 		<what> </what>
 		<title>Why Gawk?</title>
+	</file>
+	<file where="doc/oldnews.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Misc</what>
+		<what>News</what>
+		<title>News Archive</title>
 	</file>
 	<file where="doc/contribute.html">
 		<what>Timm</what>
@@ -397,9 +413,18 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what>Arnoldr</what>
 		<what>2009</what>
 		<what>Feb</what>
+		<what>Functionn</what>
 		<what>Arrays</what>
 		<what>Timm</what>
 		<title>join.awk</title>
+	</file>
+	<file where="gawk/array/array.awk">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Functionn</what>
+		<what>Arrays</what>
+		<title>array.awk</title>
 	</file>
 	<file where="doc/var/top10posters.html">
 		<what>Steffen</what>
