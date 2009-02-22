@@ -13,8 +13,8 @@ function rss($feed,$n = 5) {
 	
 		$date = explode(" ",$item[pubDate]);
      		$out = $out .  "<p><b>$date[2] $date[1], $date[3]</b>: " .
-                               "$item[description]" .
-				"<a href=\"" . $item[enclosure][url] ."\">More...</a>";
+                               "$item[description]" . 
+				" <a href=\"" . $item[enclosure][url] ."\">More...</a>";
 		$n   = $n - 1;
 		if ($n == 0) {break; }; 
 	}
