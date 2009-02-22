@@ -25,6 +25,7 @@
                  <li><a href="?contribute">Contribute</a> </li>
                  <li><a href="?awk100">Awk100</a> </li>
                 <li><a href="http://tinyurl.com/rss4awk"><img src="http://lawker.googlecode.com/svn/fridge/share/img/rss.gif"></a> </li>
+                <li><a href="mailto:mail@awk.info">mail@awk.info</a></li>
                  </ul>
               ]]>
     </string>
@@ -90,8 +91,7 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     </string>
     <string id="beforeRss">
       <![CDATA[
-<p>Contact: <a href="mailto:mail@awk.info">mail@awk.info</a></p>
-<center><img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif"></center>
+<img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
  ]]>
     </string>
     <string id="afterRss">
