@@ -40,7 +40,7 @@
     <input type="hidden" name="ie" value="UTF-8" />
     <input type="submit" name="sa" value="/Find/" /><input type="text" name="q" value="{print FILENAME,$0}" size="16" />
 </form>
-Contact: <a href="mailto:mail@awk.info">mail@awk.info</a>
+<p>Contact: <a href="mailto:mail@awk.info">mail@awk.info</a></p>
 </center>
 <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
 <hr>
