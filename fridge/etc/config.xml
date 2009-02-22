@@ -300,14 +300,6 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
 		<what> </what>
 		<title>Why Gawk?</title>
 	</file>
-	<file where="doc/oldnews.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Misc</what>
-		<what>News</what>
-		<title>News Archive</title>
-	</file>
 	<file where="doc/contribute.html">
 		<what>Timm</what>
 		<what>2009</what>

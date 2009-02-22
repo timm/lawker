@@ -25,7 +25,6 @@ doc/awk4ai.html					Ronl	2009	Jan	Misc				|Awk for AI
 doc/history.html				Timm	2009	Jan	Misc				|History
 doc/whygawk.html				Timm	2009	Jan	Misc	 			|Why Gawk?
 
-doc/oldnews.html				Timm	2009	Feb	Misc	News		|News Archive
 
 doc/contribute.html				Timm	2009	Jan	Contribute			|How to contribute
 doc/prettyprint.html			Timm	2009	Jan	Contribute			|Pretty print
