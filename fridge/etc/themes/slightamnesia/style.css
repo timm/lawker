@@ -213,6 +213,8 @@ list-style:none;
 }
 
 #nav ul li{
+margin-left: 0px;
+margin-right: 0px;
 display:inline;
 list-style:none;
 }
