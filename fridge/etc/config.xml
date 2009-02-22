@@ -112,6 +112,20 @@ polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology"
     <string id="lisp"><![CDATA[/(^\#\||\|\#|^;)/]]> </string>
     <string id="awk"><![CDATA[/^#/]]> </string>
     <string id="htxml"></string>
+
+    <string id="googleAnalyticsTrackingCode"><![CDATA[
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-3798687-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+       ]]></string>
+
   </strings>
 
 
