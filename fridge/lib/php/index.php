@@ -1,14 +1,39 @@
 <? 
 include("config.php");  
-
+include("lastRSS.php");
 /*the include file looks like this:
 <? $slurping =  "http://lawker.googlecode.com/svn/fridge/etc/config.xml"; ?>
 */
+function rss($feed,$n = 5) {
+	$rss = new lastRSS;
+	$rss->cache_dir = './cache';
+	$rss->cache_time = 3600; // one hour
+	$rs = $rss->get($feed);
+	foreach ($rs['items'] as $item) {
+	
+		$date = explode(" ",$item[pubDate]);
+     		$out = $out .  "<p><b>$date[2] $date[1], $date[3]</b>: " .
+                               "$item[description]" .
+				"<a href=\"" . $item[enclosure][url] ."\">More...</a>";
+		$n   = $n - 1;
+		if ($n == 0) {break; }; 
+	}
+	return $out;
+}
 function s($string) { 
+	 $list = explode(',',$string);
+	 if (sizeof($list) == 1) {
+		return s0($string); 
+	} else { return specials($string,$list); }
+}
+function s0($string) {
 	 global $magic;
 	 if ( $magic[$string] ) {
 	    return $magic[$string];
 	 } else { return query("//strings/string[@id='" . $string . "']"); }
+}
+function specials($string,$list) {
+	return rss($list[2],$list[1]); 
 }
 function query($path) {
 	global $config;
@@ -24,26 +49,30 @@ function slurp($url) {
 	curl_close($ch);
 	return $contents;
 }
-function filter_lines($lines,$what,$zap) {	
+
+function filter_specials($lines,$what,$zap) {	
 	$use = 0;
 	$out  = "";
 	foreach(split("\n",$lines) as $line) {
-	     if ($use) { $out .= filter_line($line,$zap) . "\n"; }
+	     if ($use) { $out .= filter_special($line,$zap) . "\n"; }
              else      { if (empty($line)) { $use=1 ; }}}
 	if (empty($what)) {
 		return $out; 
 	} else { return "<div id=\"$what\">$out</div>"; }
 }
-function filter_line($line,$zap) {
+function filter_special($line,$zap) {
 	if (empty($zap)) {
 		$tmp=$line; 
         } else { $tmp= preg_replace($zap,"",$line); }
+	if(preg_match("/RSS/",$tmp)) {
+		return "RSS11";
+	}
 	if(preg_match("/^.BODY/i",$tmp)) {
 	    $words = preg_split('/\s+/', $tmp);
 #	    $words = explode(" ",$tmp);
 	    $url= s("source") . "/" . $words[1];
 	    $contents = slurp($url);
-	    return "<p><a href=\"$url\">${words[1]}</a> &raquo; </p><pre>". filter_lines($contents,"","") . "</pre>\n" ;
+	    return "<p><a href=\"$url\">${words[1]}</a> &raquo; </p><pre>". filter_specials($contents,"","") . "</pre>\n" ;
 	}
 	if(preg_match("/^.CODE/i",$tmp)) {
 	       $words = preg_split('/\s+/', $tmp);
@@ -86,7 +115,7 @@ function foriegnContents($file,$type) {
 	$path  = preg_replace("/_/",".",$file);
 	$path  = preg_replace("/$type:/","http://",$path);
         $tmp   = slurp($path) ;
-	return filter_lines($tmp, "$type",s($type));      
+	return filter_specials($tmp, "$type",s($type));      
 }
 function contents() { 
 	 global $files;
@@ -101,10 +130,10 @@ function contents() {
 	 	    if ($splits[1] ) {        $fname = $splits[0] . "." . $splits[1];
 		                     } else { $fname = "doc/" . $file . ".html" ; }
 		    $path  = s("source")."/".$fname;
-                
-	            $tmp   = slurp($path) ;
+	            $tmp   = slurp($path) ;  
 		    if ($splits[1] && s($splits[1])) { 			
-			    $tmp=filter_lines($tmp, $splits[1],s($splits[1])); }
+			    $tmp=filter_specials($tmp, $splits[1],s($splits[1])); 
+		    } 
 	        }
 		$meta  = "<p class=\"meta\">";
 		$sep   = " categories: ";
