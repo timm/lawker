@@ -83,6 +83,9 @@ Online doc<br>
 <hr>Reading<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
 &nbsp;&raquo;&nbsp;  articles
+<hr>
+<p>Fact #27: Little Auks  eat
+polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology">leftovers</a>.</p>
 </p>
 ]]>
     </string>
@@ -92,9 +95,7 @@ Online doc<br>
     </string>
     <string id="afterRss">
             <![CDATA[
-<hr>
-<p>Fact #27: Little Auks  eat
-polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology">leftovers</a>.</p>
+
 <a href="http://www.mikelangman.co.uk/"><img alt="Little Auk painting from mikelangman.co.uk" 
               src="http://lawker.googlecode.com/svn/fridge/share/img/littleauk2.jpg" width=135 ></a>
 <!--   Button BEGIN -->
