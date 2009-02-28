@@ -66,7 +66,7 @@ Implementations<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.shelldorado.com/articles/awkcompat.html">platform support</a>
 <hr>
 Coding<br>
-&nbsp;&raquo;&nbsp;  <a href="http://awk.info/?oneliners">one-liners</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://awk.info/?OneLiners">one-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?TenLiners">ten-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?Tips">tips</a><br>
 &nbsp;&raquo;&nbsp;  the <a href="?awk100">Awk 100</a>
@@ -363,6 +363,22 @@ pageTracker._trackPageview();
 		<what>Learn</what>
 		<what>OneLiners</what>
 		<title>One Liners</title>
+	</file>
+	<file where="doc/awk1line.html">
+		<what>EricP</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn</what>
+		<what>OneLiners</what>
+		<title>Handy One Liners</title>
+	</file>
+	<file where="doc/explain1line.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Learn</what>
+		<what>OneLiners</what>
+		<title>Explaining Awk One Liners</title>
 	</file>
 	<file where="doc/tenliners.html">
 		<what>Timm</what>

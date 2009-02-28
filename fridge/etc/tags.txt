@@ -34,6 +34,8 @@ doc/learning.html				Timm	2009	Jan	Learn				|Learning Awk
 doc/teachingawk.html			Ronl	2009	Jan	Learn				|Teaching Awk
 doc/keys2awk.html				Timm	2009	Jan	Learn				|Four Keys to Awk
 doc/oneliners.html				Timm	2009	Jan	Learn	OneLiners	|One Liners
+doc/awk1line.html				EricP	2009	Jan	Learn	OneLiners	|Handy One Liners
+doc/explain1line.html				Timm	2009	Jan	Learn	OneLiners	|Explaining Awk One Liners
 doc/tenliners.html				Timm	2009	Jan	Learn	TenLiners	|Ten Liners
 doc/samples.html				Ronl	2009	Jan	Learn	TenLiners	|Samples of AWK
 
