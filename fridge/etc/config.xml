@@ -251,10 +251,18 @@ pageTracker._trackPageview();
 	<file where="doc/awk100/006boris.html">
 		<what>Ronl</what>
 		<what>2009</what>
-		<what>Jan</what>
+		<what>Feb</what>
 		<what>Awk100</what>
 		<what>Boris</what>
 		<title>Fast Clustering</title>
+	</file>
+	<file where="doc/awk100/007name.html">
+		<what>BillP</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Awk100</what>
+		<what>Name</what>
+		<title>Tex-to-bilingual Dictionary</title>
 	</file>
 	<file where="doc/advocacy.html">
 		<what>Timm</what>
