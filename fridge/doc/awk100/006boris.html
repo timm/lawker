@@ -1,0 +1,109 @@
+<h1><join>Boris</join></h1><p>
+
+<h2> Purpose</h2> <p>
+<p>Demonstration to DoD of a clustering algorithm suitable for streaming data.
+
+
+<h2> Developers </h2> <p>
+<p>Ronald Loui and a programmer named Boris.
+
+<h2> Organization </h2><p>
+<p>Washington University in St. Louis, CS Dept.
+
+<h2> Country </h2><p>USA
+
+<h2> Domain </h2>
+<p>
+This is an evolutionary algorithm and visualization of a clustering
+algorithm that could be turned from O(n^4) to O(nlogn) with a few
+judicious uses of constants.  Later developments added other
+interactive devices, including progress meters and mouse-and-click
+behavior.
+
+<h2> Contact </h2><p>
+
+<p>Ronald Loui
+
+<h2> Email </h2><p>
+<p>r.p.loui@gmail.com
+
+<h2> Description </h2><p>
+
+<p>The code is an excellent example of the power of Awk as a prototyping
+tool. After getting the code running, with the least development time,
+a quick was observed in the code that allowed a reduction from O(n^4)
+to O(nlogn).
+
+<ul>
+<li>
+ Two of the n's are lost
+(n^2) by noticing that when there is a swap, the delta in the scoring
+function falls off by the squared distance from the point of a swap.
+So if you just set a constant, such as 10 or 20, or 100, based on the
+expected size of your clusters, then you can stop calculating the
+scoring function when you get past that constant. 
+<li>
+ The other n comes
+from either fixing the size of the matrix, and occasionally flushing
+new candidates in and out, or else by sampling over a subset of the n
+when you calculate the score.  
+<li> The nlogn remains
+because there is a sort every now and then. 
+</ul>
+
+
+<h2> Awk </h2><p>
+
+<p>Gawk
+
+<h2> Platform  </h2><p>
+<p>Intended for fast servers, 1+ ghz.
+
+
+<h2> Uses </h2><p>
+
+<p>Html.
+
+<h2> Lines </h2><p>
+
+<p>158.
+
+<h2> Development Effort </h2><p>
+<p>One weekend.
+
+<h2> Maintenance Effort </h2> <p>
+
+<p>None.
+
+<h2> Current</h2> <p>
+
+<p> 2=Evaluation.
+
+<h2>  Use </h2><p>
+ 
+<p> 2=in-House use.
+
+<h2> Users </h2><p>
+
+<p>5
+
+<h2> DateDeployed </h2><p>
+
+<p>2004.
+
+<h2> Dated </h2><p>
+
+<p>Feb 2009.
+
+<h2> References </h2><p>
+
+<p>Streaming Hierarchical Clustering for Concept Mining
+Looks, M.; Levine, A.; Covington, G.A.; Loui, R.P.; Lockwood, J.W.; Cho, Y.H.
+Aerospace Conference, 2007 IEEE
+Volume , Issue , 3-10 March 2007 Page(s):1 - 12
+Digital Object Identifier   10.1109/AERO.2007.352792
+
+<h2> Url</h2><p>
+
+<a href=">http://www.cse.wustl.edu/~loui/boris.cgi">
+http://www.cse.wustl.edu/~loui/boris.cgi</a>.

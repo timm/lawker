@@ -6,7 +6,7 @@
 #
 # For more on this program, see http://awk.info/?awk100/006boris
 #
-# usage gawk -f boris.awk > out.html
+# usage gawk -f boris.awk > borisOut.html
 # also, the following CGI GET params are used
 # n=N        : problem size and m is the cluster target during set-up 
 # m=M        : cluster target during set-up
