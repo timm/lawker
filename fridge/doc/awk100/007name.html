@@ -1,0 +1,109 @@
+<h1><join>Name</join></h1><p>
+
+Not a single program.
+
+<h2> Purpose</h2> <p>
+Generate TeX code for a bilingual dictionary from a flat file database.
+This system has been used to generate multiple editions of dictionaries for
+several dialects of Carrier, the endangered language of a large portion of
+the central interior of British Columbia.
+
+<h2> Developers </h2> <p>
+
+Bill Poser
+
+<h2> Organization </h2><p>
+
+<h2> Country </h2><p>
+
+Canada
+
+<h2> Domain </h2>
+<p>
+
+linguistics - dictionary publishing
+
+<h2> Contact </h2><p>
+
+Bill Poser
+
+<h2> Email </h2><p>
+
+billposer@alum.mit.edu
+
+<h2> Description </h2><p>
+A dictionary database consists of four flat files containing records in which fields
+are identified by tags, in a format isomorphic to Standard Dictionary Format.
+The four files contain: main entries, example sentences with translations, verb roots,
+verb stems. This provides modest degree of relativization. Awk scripts controlled by
+a makefile do the bulk of the work of generating TeX code for printing dictionaries
+containing front matter, a Carrier-English section, an English-Carrier section, a topical
+index, an alphabetical root list, a list of roots sorted by English gloss,
+an alphabetical list of verb stems, a list of verb stems sorted by root,
+an alphabetical list of affixes, a list of affixes sorted by English gloss,
+a list of scientific names , a list of placenames, and credits for illustrations.
+
+<h2>Awk</h2>
+<p>
+gawk
+
+<h2> Shell</h2><p>
+
+The awk scripts are executed from a make file.
+
+<h2> Platform  </h2><p>
+
+GNU/Linux on x86.
+
+<h2> Uses </h2><p>
+
+The awk scripts are executed from a makefile by GNU make.
+The other program used extensively is the sort utility
+<a href="http://billposer.org/Software/msort.html">msort</a>.
+
+<h2> Lines </h2><p>
+
+5500
+
+<h2>DevelopmentEffort</h2><p>
+The first usable version took no more than a day (plus the time to create the
+TeX template into which the generated code is inserted).
+
+<h2> MaintenanceEffort </h2> <p>
+
+Pure maintenance due to changes in environment, bit rot, etc. has been just about nil.
+The effort devoted to adding features very difficult to estimate as it has taken place at
+irregular intervals over a period of 15 years.
+
+<h2> Current</h2> <p>
+
+Status 1=Prototype, 2=Evaluation, 3=Released, 4=No longer supported, 5=Dead
+
+3, I guess. The code is mature but not really released since the author is the
+only one who normally uses it.
+
+<h2>Use</h2><p>
+
+1=Personal use, 2=in-House use, 3=Free/public domain, 4=Licensed, 5=Sold product
+
+1
+
+<h2> Users </h2><p>
+
+1
+
+<h2> DateDeployed </h2><p>
+
+June 1993.
+
+<h2> References </h2><p>
+
+A paper describing these databases and the process for generating dictionaries from them
+is available:
+<a href="http://www.billposer.org/Papers/carlexdb.pdf">Lexical Databases for Carrier</a>
+</p>
+
+<h2>Url</h2>
+<p>
+Some information about the resulting dictionaries: http://www.ydli.org/products/dicts.htm
+</p>
