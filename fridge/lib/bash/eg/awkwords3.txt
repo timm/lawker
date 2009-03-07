@@ -12,4 +12,4 @@ struggled, here, have consecrated it far above our poor power to add
 or detract. The world will little note, nor long remember, what we say
 here, but can never forget what they did here.
 
-#.CODE ../god
+#.CODE ../hashdoc.awk

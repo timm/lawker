@@ -1,0 +1,34 @@
+#.H1  HashDoc : Pretty Prints for Gawk Code 
+#.P   
+#Perl's POD command lets a developer mix up comments and code. POD can generate
+#pretty prints of code, with a table of contents at the top. 
+#!/bin/env gawk -f
+#.P
+#HashDoc does the
+#same, but relies more on CSS and html to format the code. It also allows includes
+#to that many documents can be combined into one.
+
+# note that the outer most document cannot be "Bodied"
+
+# assumes one h1 at the top of all and everything else is h2 or below.
+ 
+toc() { gawk '
+    BEGIN             { IGNORECASE = 1 }
+    /^<h[23456789]>/  { Toc[++T]  = $0; Pre="<a name="T"></a>" }
+                      { Line[++N] = Pre $0; Pre="" }
+    END { print "<div class=htmltoc>"
+          for(I=1;I<=T;I++) print "<a href=\"#"I"\">"Toc[I]"</a>"	
+          print "</div><!--- htmltoc --->"
+          print "<div class=htmlbody>"
+          for(I=1;I<=N;I++) print Line[I]
+          print "</div><!--- htmlbody --->"		
+         }' $1
+}
+#.P turn front of line mark up into 
+
+main() {
+       gawk -f awkwords.awk $1 | toc 
+}
+for i in $*; do
+    main $i
+done

@@ -1,4 +1,4 @@
-#.IN include2.txt
+#.IN awkwords2.txt
 #.H3 More stuff
 #.P 
 Now we are engaged in a great civil war, testing whether that nation,
@@ -7,4 +7,4 @@ met here on a great battlefield of that war. We have come to dedicate
 a portion of it as a final resting place for those who here gave their
 lives that that nation might live. It is altogether fitting and proper
 that we should do this
-#.BODY include3.txt
+#.BODY awkwords3.txt
