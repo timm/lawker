@@ -36,16 +36,16 @@
 
 
 
-<a name="name"></a><h2>NAME</a></h2>
+<a name="name"></a><h2>NAME</h2>
 <p>runawk - wrapper for AWK interpreter</p>
 
-<h2><a name="synopsis">SYNOPSIS</a></h2>
+<a name="synopsis"></a><h2>SYNOPSIS</h2>
 <p><strong>runawk</strong> <em>[options]</em> <em>program_file</em></p>
 <p><strong>runawk</strong> <em>-e</em> <em>program</em></p>
 
 
 
-<h2><a name="description">DESCRIPTION</a></h2>
+<a name="description"></a><h2>DESCRIPTION</h2>
 <p>After years of using AWK for programming I've found that despite of
 its simplicity and limitations AWK is good enough for scripting a wide
 range of different tasks. AWK is not as poweful as their bigger
@@ -131,7 +131,7 @@ to read from stdin, it is necessary to add
 </ol>
 <p><strong>runawk</strong> was created to solve all these problems</p>
 
-<h2><a name="options">OPTIONS</a></h2>
+<a name="options"></a><h2>OPTIONS</h2>
 <dl>
 <dt><strong><a name="h_help" class="item"><strong>-h</strong>|<strong>--help</strong></a></strong></dt>
 
@@ -167,10 +167,9 @@ with which real <strong>awk</strong> interpreter will be run.</p>
 </dd>
 </dl>
 
-<h2><a name="details_internals">DETAILS/INTERNALS</a></h2>
-<p>
-</p>
-<h2><a name="standalone_script">Standalone script</a></h2>
+<a name="details_internals"></a><h2>DETAILS/INTERNALS</h2>
+
+<a name="standalone_script"></a><h3>Standalone script</h3>
 <p>Under UNIX-like OS-es you can use <strong>runawk</strong>
 by beginning your script with</p>
 <pre>
@@ -181,7 +180,7 @@ by beginning your script with</p>
 <p>or similar.</p>
 <p>
 </p>
-<h2><a name="awk_modules">AWK modules</a></h2>
+<a name="awk_modules"></a><h3>AWK modules</h3>
 <p>In order to activate modules you should add them into awk script like this</p>
 <pre>
   #use &quot;module1.awk&quot;
@@ -244,7 +243,7 @@ the earlier module is mentioned, the earlier -f will be generated for it.</p>
   runawk -d prog file1 file2</pre>
 <p>
 </p>
-<h2><a name="module_search_strategy">Module search strategy</a></h2>
+<a name="module_search_strategy"><h3>Module search strategy</h3>
 <p>Modules are first searched in a directory where main
 program (or module in which #use directive is specified) is placed.
 If it is not found there, then
@@ -254,9 +253,8 @@ list of search directories.
 Finally, module is searched in system runawk modules directory,
 by default PREFIX/share/runawk but this can be changed at build time.</p>
 <p>An absolute path of the module can also be specified.</p>
-<p>
-</p>
-<h2><a name="awk_interpreter_and_its_arguments">AWK interpreter and its arguments</a></h2>
+
+<a name="awk_interpreter_and_its_arguments"><h3>AWK interpreter and its arguments</h3>
 <p>In order to pass arguments to AWK script correctly, <strong>runawk</strong>
 treats their arguments beginning with `-' sign (minus) especially.
 The following command</p>
@@ -282,7 +280,7 @@ together with file1 and file2. If all arguments begin with `-' (minus),
   awk -f prog3 -- --value=value /dev/stdin</pre>
 <p>
 </p>
-<h2><a name="program_as_an_argument">Program as an argument</a></h2>
+<a name="program_as_an_argument"></a><h3>Program as an argument</h3>
 <p>Like some other interpreters
 <strong>runawk</strong> can obtain the script from a command line like this</p>
 <pre>
@@ -297,7 +295,7 @@ together with file1 and file2. If all arguments begin with `-' (minus),
  }'</pre>
 <p>
 </p>
-<h2><a name="selecting_a_preferred_awk_interpreter">Selecting a preferred AWK interpreter</a></h2>
+<a name="selecting_a_preferred_awk_interpreter"></a><h3>Selecting a preferred AWK interpreter</h3>
 <p>For some reason you may prefer one AWK interpreter or another with a help of
 <em>#interp</em> command like this</p>
 <pre>
@@ -317,7 +315,7 @@ not standard extensions or enything else.</p>
 no spaces are allowed before it and between <em>#</em> and <em>interp</em>.</p>
 <p>
 </p>
-<h2><a name="setting_environment">Setting environment</a></h2>
+<a name="setting_environment"><h3>Setting environment</h3>
 <p>In some cases you may want to run AWK interpreter with a
 specific environment. For example, your script may be oriented to
 process ASCII text only. In this case you can run AWK with LC_CTYPE=C
