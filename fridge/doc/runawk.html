@@ -224,8 +224,7 @@ the earlier module is mentioned, the earlier -f will be generated for it.</p>
 
      C code
      ...</pre>
-<pre>
-  A.awk and D.awk don't contain #use directive</pre>
+  A.awk and D.awk don't contain #use directive.
 <p>If you run</p>
 <pre>
   runawk prog file1 file2</pre>
@@ -295,13 +294,13 @@ together with file1 and file2. If all arguments begin with `-' (minus),
 <em>#interp</em> command like this</p>
 <pre>
   file prog:
-     #!/usr/local/bin/runawk</pre>
-<pre>
+     #!/usr/local/bin/runawk
+
      #use &quot;A.awk&quot;
-     #use &quot;B.awk&quot;</pre>
-<pre>
-     #interp &quot;/usr/pkg/bin/nbawk&quot;</pre>
-<pre>
+     #use &quot;B.awk&quot;
+
+     #interp &quot;/usr/pkg/bin/nbawk&quot;
+
      # your code here
      ...</pre>
 <p>The reason may be efficiency for a particular task, useful but
