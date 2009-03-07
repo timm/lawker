@@ -1,0 +1,380 @@
+
+<h1><join>runawk - wrapper for AWK interpreter</join></h1>
+
+
+<ul>
+
+	<li><a href="#download">HOME</a></li>
+<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#options">OPTIONS</a></li>
+	<li><a href="#details_internals">DETAILS/INTERNALS</a></li>
+	<ul>
+
+		<li><a href="#standalone_script">Standalone script</a></li>
+		<li><a href="#awk_modules">AWK modules</a></li>
+		<li><a href="#module_search_strategy">Module search strategy</a></li>
+		<li><a href="#awk_interpreter_and_its_arguments">AWK interpreter and its arguments</a></li>
+		<li><a href="#program_as_an_argument">Program as an argument</a></li>
+		<li><a href="#selecting_a_preferred_awk_interpreter">Selecting a preferred AWK interpreter</a></li>
+		<li><a href="#setting_environment">Setting environment</a></li>
+	</ul>
+
+	<li><a href="#exit_status">EXIT STATUS</a></li>
+	<li><a href="#environment">ENVIRONMENT</a></li>
+	<li><a href="#author_license">AUTHOR/LICENSE</a></li>
+	<li><a href="#bugs_feedback">BUGS/FEEDBACK</a></li>
+	
+	<li><a href="#see_also">SEE ALSO</a></li>
+</ul>
+
+<h2><a name="download">Download from...</a></h2>
+<p><a href="http://sourceforge.net/projects/runawk">http://sourceforge.net/projects/runawk</a></p>
+
+
+
+<h2><a name="name">NAME</a></h2>
+<p>runawk - wrapper for AWK interpreter</p>
+
+<h2><a name="synopsis">SYNOPSIS</a></h2>
+<p><strong>runawk</strong> <em>[options]</em> <em>program_file</em></p>
+<p><strong>runawk</strong> <em>-e</em> <em>program</em></p>
+
+
+
+<h2><a name="description">DESCRIPTION</a></h2>
+<p>After years of using AWK for programming I've found that despite of
+its simplicity and limitations AWK is good enough for scripting a wide
+range of different tasks. AWK is not as poweful as their bigger
+counterparts like Perl, Ruby, TCL and others but it has their own
+advantages like compactness, simplicity and availability on almost all
+UNIX-like systems. I personally also like its data-driven nature and
+token orientation, very useful technique for simple text processing
+utilities.</p>
+<p>But! Unfortunately awk interpreters lacks some important features and
+sometimes work not as good as it whould be.</p>
+<p>Problems I see (some of them, of course)</p>
+<ol>
+<li>
+<p>AWK lacks support for modules. Even if I create small programs, I
+often want to use the functions created earlier and already used in
+other scripts. That is, it whould great to orginise functions into
+so called libraries (modules).</p>
+</li>
+<li>
+<p>In order to pass arguments to <code>#!/usr/bin/awk -f</code> script (not to awk
+interpreter), it is necessary to prepand a list of
+arguments with -- (two minus signes). In my view, this looks badly.</p>
+<p>Example:</p>
+<p>awk_program:</p>
+<pre>
+    #!/usr/bin/awk -f</pre>
+<pre>
+    BEGIN {
+       for (i=1; i &lt; ARGC; ++i){
+          printf &quot;ARGV [%d]=%s\n&quot;, i, ARGV [i]
+       }
+    }</pre>
+<p>Shell session:</p>
+<pre>
+    % awk_program --opt1 --opt2
+    /usr/bin/awk: unknown option --opt1 ignored</pre>
+<pre>
+    /usr/bin/awk: unknown option --opt2 ignored</pre>
+<pre>
+    % awk_program -- --opt1 --opt2
+    ARGV [1]=--opt1
+    ARGV [2]=--opt2
+    %</pre>
+<p>In my opinion <em>awk_program</em> script should work like this</p>
+<pre>
+    % awk_program --opt1 --opt2
+    ARGV [1]=--opt1
+    ARGV [2]=--opt2
+    %</pre>
+<p>It is possible using <strong>runawk</strong>.</p>
+</li>
+<li>
+<p>When <code>#!/usr/bin/awk -f</code> script handles arguments (options) and wants
+to read from stdin, it is necessary to add
+/dev/stdin (or `-') as a last argument explicitly.</p>
+<p>Example:</p>
+<p>awk_program:</p>
+<pre>
+    #!/usr/bin/awk -f</pre>
+<pre>
+    BEGIN {
+       if (ARGV [1] == &quot;--flag&quot;){
+          flag = 1
+          ARGV [1] = &quot;&quot; # to not read file named &quot;--flag&quot;
+       }
+    }</pre>
+<pre>
+    {
+       print &quot;flag=&quot; flag &quot; $0=&quot; $0
+    }</pre>
+<p>Shell session:</p>
+<pre>
+    % echo test | awk_program -- --flag
+    % echo test | awk_program -- --flag /dev/stdin
+    flag=1 $0=test
+    %</pre>
+<p>Ideally <em>awk_program</em> should work like this</p>
+<pre>
+    % echo test | awk_program --flag
+    flag=1 $0=test
+    %</pre>
+</li>
+</ol>
+<p><strong>runawk</strong> was created to solve all these problems</p>
+
+<h2><a name="options">OPTIONS</a></h2>
+<dl>
+<dt><strong><a name="h_help" class="item"><strong>-h</strong>|<strong>--help</strong></a></strong></dt>
+
+<dd>
+<p>Display help information.</p>
+</dd>
+<dt><strong><a name="v_version" class="item"><strong>-V</strong>|<strong>--version</strong></a></strong></dt>
+
+<dd>
+<p>Display version information.</p>
+</dd>
+<dt><strong><a name="d_debug" class="item"><strong>-d</strong>|<strong>--debug</strong></a></strong></dt>
+
+<dd>
+<p>Turn on a debugging mode in which <strong>runawk</strong> prints argument list
+with which real <strong>awk</strong> interpreter will be run.</p>
+</dd>
+<dt><strong><a name="i_with_stdin" class="item"><strong>-i</strong>|<strong>--with-stdin</strong></a></strong></dt>
+
+<dd>
+<p>Always add stdin file name to a list of awk arguments</p>
+</dd>
+<dt><strong><a name="i_without_stdin" class="item"><strong>-I</strong>|<strong>--without-stdin</strong></a></strong></dt>
+
+<dd>
+<p>Do not add stdin file name to a list of awk arguments</p>
+</dd>
+<dt><strong><a name="e_execute_program" class="item"><strong>-e</strong>|<strong>--execute</strong> <em>program</em></a></strong></dt>
+
+<dd>
+<p>Specify program. If <em>-e</em> is not specified program is read from
+<em>program_file</em>.</p>
+</dd>
+</dl>
+
+<h2><a name="details_internals">DETAILS/INTERNALS</a></h2>
+<p>
+</p>
+<h2><a name="standalone_script">Standalone script</a></h2>
+<p>Under UNIX-like OS-es you can use <strong>runawk</strong>
+by beginning your script with</p>
+<pre>
+   #!/usr/local/bin/runawk</pre>
+<p>line or something like this instead of</p>
+<pre>
+   #!/usr/bin/awk -f</pre>
+<p>or similar.</p>
+<p>
+</p>
+<h2><a name="awk_modules">AWK modules</a></h2>
+<p>In order to activate modules you should add them into awk script like this</p>
+<pre>
+  #use &quot;module1.awk&quot;
+  #use &quot;module2.awk&quot;</pre>
+<p>that is the line that specifies module name is treated as a comment line
+by normal AWK interpreter but is processed by <strong>runawk</strong> especially.</p>
+<p>Note that <em>#use</em> should begin with column 0,
+no spaces are allowed before it and no spaces are allowed between
+<em>#</em> and <em>use</em>.</p>
+<p>Also note that AWK modules can also &quot;use&quot; another modules and so forth.
+All them are collected in a depth-first order
+and each one is added to the list of
+awk interpreter arguments prepanded with -f option.
+That is <em>#use</em> directive is *NOT* similar to <em>#include</em> in 
+C programming language,
+runawk's module code is not inserted into the place of <em>#use</em>.
+Runawk's modules are closer to Perl's &quot;use&quot; command.
+In case some module is mentioned more than once, only one -f
+will be added for it, i.e duplications are removed automatically.</p>
+<p>Position of <em>#use</em> directive in a source file does matter, i.e.
+the earlier module is mentioned, the earlier -f will be generated for it.</p>
+<p>Example:</p>
+<pre>
+  file prog:
+     #!/usr/local/bin/runawk</pre>
+<pre>
+     #use &quot;A.awk&quot;
+     #use &quot;B.awk&quot;
+     #use &quot;E.awk&quot;</pre>
+<pre>
+     PROG code
+     ...</pre>
+<pre>
+  file B.awk:
+     #use &quot;A.awk&quot;
+     #use &quot;C.awk&quot;
+     B code
+     ...</pre>
+<pre>
+  file C.awk:
+     #use &quot;A.awk&quot;
+     #use &quot;D.awk&quot;</pre>
+<pre>
+     C code
+     ...</pre>
+<pre>
+  A.awk and D.awk don't contain #use directive</pre>
+<p>If you run</p>
+<pre>
+  runawk prog file1 file2</pre>
+<p>or</p>
+<pre>
+  /path/to/prog file1 file2</pre>
+<p>the following command</p>
+<pre>
+  awk -f A.awk -f D.awk -f C.awk -f B.awk -f E.awk -f prog -- file1 file2</pre>
+<p>will actually run.</p>
+<p>You can check this by running</p>
+<pre>
+  runawk -d prog file1 file2</pre>
+<p>
+</p>
+<h2><a name="module_search_strategy">Module search strategy</a></h2>
+<p>Modules are first searched in a directory where main
+program (or module in which #use directive is specified) is placed.
+If it is not found there, then
+AWKPATH environment variable is
+checked. AWKPATH keeps a colon separated
+list of search directories.
+Finally, module is searched in system runawk modules directory,
+by default PREFIX/share/runawk but this can be changed at build time.</p>
+<p>An absolute path of the module can also be specified.</p>
+<p>
+</p>
+<h2><a name="awk_interpreter_and_its_arguments">AWK interpreter and its arguments</a></h2>
+<p>In order to pass arguments to AWK script correctly, <strong>runawk</strong>
+treats their arguments beginning with `-' sign (minus) especially.
+The following command</p>
+<pre>
+  runawk prog2 -x -f=file -o=output file1 file2</pre>
+<p>or</p>
+<pre>
+  /path/to/prog2 -x -f=file -o=output file1 file2</pre>
+<p>will actually run</p>
+<pre>
+  awk -f prog2 -- -x -f=file -o=output file1 file2</pre>
+<p>therefore -s, -f, -o options will be passed to ARGV/ARGC awk's variables
+together with file1 and file2. If all arguments begin with `-' (minus),
+<strong>runawk</strong> will add stdin filename to the end of argument list,
+(unless -I option is specified) i.e. running</p>
+<pre>
+  runawk prog3 --value=value</pre>
+<p>or</p>
+<pre>
+  /path/to/prog3 --value=value</pre>
+<p>will actually run the following</p>
+<pre>
+  awk -f prog3 -- --value=value /dev/stdin</pre>
+<p>
+</p>
+<h2><a name="program_as_an_argument">Program as an argument</a></h2>
+<p>Like some other interpreters
+<strong>runawk</strong> can obtain the script from a command line like this</p>
+<pre>
+ /path/to/runawk -e '
+ #use &quot;alt_assert.awk&quot;</pre>
+<pre>
+ {
+   assert($1 &gt;= 0 &amp;&amp; $1 &lt;= 10, &quot;Bad value: &quot; $1)</pre>
+<pre>
+   # your code below
+   ...
+ }'</pre>
+<p>
+</p>
+<h2><a name="selecting_a_preferred_awk_interpreter">Selecting a preferred AWK interpreter</a></h2>
+<p>For some reason you may prefer one AWK interpreter or another with a help of
+<em>#interp</em> command like this</p>
+<pre>
+  file prog:
+     #!/usr/local/bin/runawk</pre>
+<pre>
+     #use &quot;A.awk&quot;
+     #use &quot;B.awk&quot;</pre>
+<pre>
+     #interp &quot;/usr/pkg/bin/nbawk&quot;</pre>
+<pre>
+     # your code here
+     ...</pre>
+<p>The reason may be efficiency for a particular task, useful but
+not standard extensions or enything else.</p>
+<p>Note that <em>#interp</em> directive should also begin with column 0,
+no spaces are allowed before it and between <em>#</em> and <em>interp</em>.</p>
+<p>
+</p>
+<h2><a name="setting_environment">Setting environment</a></h2>
+<p>In some cases you may want to run AWK interpreter with a
+specific environment. For example, your script may be oriented to
+process ASCII text only. In this case you can run AWK with LC_CTYPE=C
+environment and use regexp ranges.</p>
+<p><strong>runawk</strong> provides <em>#env</em> directive for this. String inside double quotes
+is passed to putenv(3)</em> libc function.</p>
+<p>Example:</p>
+<pre>
+  file prog:
+     #!/usr/local/bin/runawk</pre>
+<pre>
+     #env &quot;LC_ALL=C&quot;</pre>
+<pre>
+     $1 ~ /^[A-Z]+$/ { # A-Z is valid if LC_CTYPE=C
+         print $1
+     }</pre>
+
+<h2><a name="exit_status">EXIT STATUS</a></h2>
+<p>If AWK interpreter exits normally, <strong>runawk</strong> exits with its exit
+status. If AWK interpreter was killed by signal, <strong>runawk</strong>
+exits with exit status 128+signal.</p>
+
+<h2><a name="environment">ENVIRONMENT</a></h2>
+<dl>
+<dt><strong><a name="awkpath" class="item"><em>AWKPATH</em></a></strong></dt>
+
+<dd>
+<p>Colon separated list of directories where <strong>awk</strong> modules are searched.</p>
+</dd>
+<dt><strong><a name="runawk_awkprog" class="item"><em>RUNAWK_AWKPROG</em></a></strong></dt>
+
+<dd>
+<p>Sets the path to the AWK interpreter, used by default,
+i.e. this variable overrides the compile-time default.
+Note that #interp directive overrides this.</p>
+</dd>
+</dl>
+
+<h2><a name="author_license">AUTHOR/LICENSE</a></h2>
+<p>Copyright (c) 2007-2008 Aleksey Cheusov &lt;<a href="mailto:vle@gmx.net">vle@gmx.net</a>&gt;</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+&quot;Software&quot;), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<h2><a name="bugs_feedback">BUGS/FEEDBACK</a></h2>
+<p>Please send any comments, questions, bug reports etc. to me by e-mail
+or (even better) register them at sourceforge project home.  Feature
+requests are also welcomed.</p>
+
