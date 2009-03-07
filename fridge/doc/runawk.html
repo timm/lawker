@@ -71,8 +71,8 @@ arguments with -- (two minus signes). In my view, this looks badly.</p>
 <p>Example:</p>
 <p>awk_program:</p>
 <pre>
-    #!/usr/bin/awk -f</pre>
-<pre>
+    #!/usr/bin/awk -f
+
     BEGIN {
        for (i=1; i &lt; ARGC; ++i){
           printf &quot;ARGV [%d]=%s\n&quot;, i, ARGV [i]
@@ -81,10 +81,9 @@ arguments with -- (two minus signes). In my view, this looks badly.</p>
 <p>Shell session:</p>
 <pre>
     % awk_program --opt1 --opt2
-    /usr/bin/awk: unknown option --opt1 ignored</pre>
-<pre>
-    /usr/bin/awk: unknown option --opt2 ignored</pre>
-<pre>
+    /usr/bin/awk: unknown option --opt1 ignored
+    /usr/bin/awk: unknown option --opt2 ignored
+
     % awk_program -- --opt1 --opt2
     ARGV [1]=--opt1
     ARGV [2]=--opt2
@@ -104,15 +103,14 @@ to read from stdin, it is necessary to add
 <p>Example:</p>
 <p>awk_program:</p>
 <pre>
-    #!/usr/bin/awk -f</pre>
-<pre>
+    #!/usr/bin/awk -f
+
     BEGIN {
        if (ARGV [1] == &quot;--flag&quot;){
           flag = 1
           ARGV [1] = &quot;&quot; # to not read file named &quot;--flag&quot;
        }
-    }</pre>
-<pre>
+    }
     {
        print &quot;flag=&quot; flag &quot; $0=&quot; $0
     }</pre>
@@ -205,12 +203,12 @@ the earlier module is mentioned, the earlier -f will be generated for it.</p>
 <p>Example:</p>
 <pre>
   file prog:
-     #!/usr/local/bin/runawk</pre>
-<pre>
+     #!/usr/local/bin/runawk
+
      #use &quot;A.awk&quot;
      #use &quot;B.awk&quot;
-     #use &quot;E.awk&quot;</pre>
-<pre>
+     #use &quot;E.awk&quot;
+
      PROG code
      ...</pre>
 <pre>
@@ -222,8 +220,8 @@ the earlier module is mentioned, the earlier -f will be generated for it.</p>
 <pre>
   file C.awk:
      #use &quot;A.awk&quot;
-     #use &quot;D.awk&quot;</pre>
-<pre>
+     #use &quot;D.awk&quot;
+
      C code
      ...</pre>
 <pre>
