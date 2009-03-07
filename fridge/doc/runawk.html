@@ -241,9 +241,8 @@ the earlier module is mentioned, the earlier -f will be generated for it.</p>
 <p>You can check this by running</p>
 <pre>
   runawk -d prog file1 file2</pre>
-<p>
-</p>
-<a name="module_search_strategy"><h3>Module search strategy</h3>
+
+<a name="module_search_strategy"><h3>Module search strategy </h3>
 <p>Modules are first searched in a directory where main
 program (or module in which #use directive is specified) is placed.
 If it is not found there, then
@@ -278,8 +277,7 @@ together with file1 and file2. If all arguments begin with `-' (minus),
 <p>will actually run the following</p>
 <pre>
   awk -f prog3 -- --value=value /dev/stdin</pre>
-<p>
-</p>
+
 <a name="program_as_an_argument"></a><h3>Program as an argument</h3>
 <p>Like some other interpreters
 <strong>runawk</strong> can obtain the script from a command line like this</p>
@@ -293,8 +291,7 @@ together with file1 and file2. If all arguments begin with `-' (minus),
    # your code below
    ...
  }'</pre>
-<p>
-</p>
+
 <a name="selecting_a_preferred_awk_interpreter"></a><h3>Selecting a preferred AWK interpreter</h3>
 <p>For some reason you may prefer one AWK interpreter or another with a help of
 <em>#interp</em> command like this</p>
@@ -313,8 +310,7 @@ together with file1 and file2. If all arguments begin with `-' (minus),
 not standard extensions or enything else.</p>
 <p>Note that <em>#interp</em> directive should also begin with column 0,
 no spaces are allowed before it and between <em>#</em> and <em>interp</em>.</p>
-<p>
-</p>
+
 <a name="setting_environment"><h3>Setting environment</h3>
 <p>In some cases you may want to run AWK interpreter with a
 specific environment. For example, your script may be oriented to
