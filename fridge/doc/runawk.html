@@ -313,15 +313,15 @@ no spaces are allowed before it and between <em>#</em> and <em>interp</em>.</p>
 specific environment. For example, your script may be oriented to
 process ASCII text only. In this case you can run AWK with LC_CTYPE=C
 environment and use regexp ranges.</p>
-<p><strong>runawk</strong> provides <em>#env</em> directive for this. String inside double quotes
+<p><strong>runawk</strong> provides <em>#env</em> directive for this. Strings inside double quotes
 is passed to putenv(3)</em> libc function.</p>
 <p>Example:</p>
 <pre>
   file prog:
-     #!/usr/local/bin/runawk</pre>
-<pre>
-     #env &quot;LC_ALL=C&quot;</pre>
-<pre>
+     #!/usr/local/bin/runawk
+
+     #env &quot;LC_ALL=C&quot;
+
      $1 ~ /^[A-Z]+$/ { # A-Z is valid if LC_CTYPE=C
          print $1
      }</pre>
