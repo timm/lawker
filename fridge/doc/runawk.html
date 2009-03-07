@@ -242,7 +242,7 @@ the earlier module is mentioned, the earlier -f will be generated for it.</p>
 <pre>
   runawk -d prog file1 file2</pre>
 
-<a name="module_search_strategy"><h3>Module search strategy </h3>
+<a name="module_search_strategy"></a><h3>Module search strategy </h3>
 <p>Modules are first searched in a directory where main
 program (or module in which #use directive is specified) is placed.
 If it is not found there, then
@@ -253,7 +253,7 @@ Finally, module is searched in system runawk modules directory,
 by default PREFIX/share/runawk but this can be changed at build time.</p>
 <p>An absolute path of the module can also be specified.</p>
 
-<a name="awk_interpreter_and_its_arguments"><h3>AWK interpreter and its arguments</h3>
+<a name="awk_interpreter_and_its_arguments"></a><h3>AWK interpreter and its arguments</h3>
 <p>In order to pass arguments to AWK script correctly, <strong>runawk</strong>
 treats their arguments beginning with `-' sign (minus) especially.
 The following command</p>
@@ -311,7 +311,7 @@ not standard extensions or enything else.</p>
 <p>Note that <em>#interp</em> directive should also begin with column 0,
 no spaces are allowed before it and between <em>#</em> and <em>interp</em>.</p>
 
-<a name="setting_environment"><h3>Setting environment</h3>
+<a name="setting_environment"></a><h3>Setting environment</h3>
 <p>In some cases you may want to run AWK interpreter with a
 specific environment. For example, your script may be oriented to
 process ASCII text only. In this case you can run AWK with LC_CTYPE=C
