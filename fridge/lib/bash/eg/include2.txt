@@ -1,0 +1,10 @@
+#.IN include2.txt
+#.H3 More stuff
+#.P 
+Now we are engaged in a great civil war, testing whether that nation,
+or any nation so conceived, and so dedicated, can long endure. We are
+met here on a great battlefield of that war. We have come to dedicate
+a portion of it as a final resting place for those who here gave their
+lives that that nation might live. It is altogether fitting and proper
+that we should do this
+#.BODY include3.txt

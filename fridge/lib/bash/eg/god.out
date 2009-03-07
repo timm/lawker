@@ -1,0 +1,39 @@
+<div class=htmltoc>
+<h2> And here's the rest</h2>
+<H3> More stuff</H3>
+<H2> More on the words</H2>
+</div><!---htmltoc--->
+<h1> The gang's all here</h1>
+<p> Four score and seven years ago our fathers brought forth,</p>
+<ul>
+<li> upon this continent,</li>
+<li> a new nation,</li>
+<li> conceived in Liberty,</li>
+<li> and dedicated to the proposition that all men are created equal.</li>
+</ul>
+<h2> And here's the rest</h2>
+<H3> More stuff</H3>
+<P>
+Now we are engaged in a great civil war, testing whether that nation,
+or any nation so conceived, and so dedicated, can long endure. We are
+met here on a great battlefield of that war. We have come to dedicate
+a portion of it as a final resting place for those who here gave their
+lives that that nation might live. It is altogether fitting and proper
+that we should do this
+
+<P>
+But in a larger sense we can not dedicate - we can not consecrate - we
+can not hallow this ground. 
+
+<H2> More on the words</H2>
+
+The brave men, living and dead, who
+struggled, here, have consecrated it far above our poor power to add
+or detract. The world will little note, nor long remember, what we say
+here, but can never forget what they did here.
+
+<p>../god
+<pre>
+add all headers to a div at stat of file
+toc() { gawk '
+    BEGIN { IGNORECASE = 1 }

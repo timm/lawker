@@ -1,0 +1,53 @@
+#add all headers to a div at stat of file
+toc() { gawk '
+    BEGIN { IGNORECASE = 1 }
+    /<div class=htmltoc>/,/<\div><!---htmltoc--->/ { next }
+    /^<h[23456789]>/    { Toc[++T]  = $0 } 
+                        { Line[++N] = $0 } 
+    END { print "<div class=htmltoc>"
+          for(I=1;I<=T;I++) print Toc[I]	
+          print "</div><!---htmltoc--->"
+          for(I=1;I<=N;I++) print Line[I]	
+         }' $1
+}
+# turn front of line mark up into 
+expandHtml() { gawk '
+    /^#\.H1/          {
+             $1=""; print "<h1><join>" $0 "</join></h1>" ; next }
+    sub(/^#\./,"",$1) {
+             Tag=$1; $1=""; Str = "<"Tag">"; 
+             print  Str  (($0 ~ /^[ \t]*$/) ? "" : $0"</"Tag">")
+             next
+    }
+    { print }' $1
+}
+includes() { gawk '
+  BEGIN { IGNORECASE=1 }
+        { include() }
+
+  function include() {
+      if ($1 ~ "^#.IN")         includes($2)
+      else if ($1 ~"^#.BODY" )  includesBody($2)
+      else if ($1 ~ "^#.CODE")  {
+          print "<p>" $2 "\n<pre>"
+          includes($2)
+          print "</pre>" } 
+      else print $0
+  }
+  function includes(f) {
+      if (++Seen[f]==1) { # loop detection
+          while((getline <f) > 0) include()
+          close(f) }
+  }
+  function includesBody(f, using) {
+      if (++Seen[f]==1) { 
+          while((getline <f) >0) {
+              if ( !using && ($0 ~ /^[\t ]*$/) ) using = 1
+              if ( using ) include()}
+          close(f) }
+  }' $1
+}
+
+for i in $*; do
+    includes $i | expandHtml | sed 's/^#//' | toc
+done

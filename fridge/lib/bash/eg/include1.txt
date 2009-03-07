@@ -1,0 +1,10 @@
+#.h1 The gang's all here
+#.p   Four score and seven years ago our fathers brought forth, 
+#.ul
+#.li  upon this continent, 
+#.li  a new nation, 
+#.li  conceived in Liberty, 
+#.li  and dedicated to the proposition that all men are created equal.
+#./ul
+#.h2 And here's the rest
+#.IN include2.txt
