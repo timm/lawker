@@ -13,7 +13,7 @@
 #    This allows the function name to be a variable, passed
 #    as an argument to an array, and called using the syntax
 #.PRE
-#@fun(arg1,arg2,...)  
+#@fun(arg1,arg2,...)    
 #./PRE
 #.P
 #    This enables a new kind of funcational programming style

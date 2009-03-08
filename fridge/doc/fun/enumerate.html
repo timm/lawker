@@ -1,230 +1,170 @@
-<h1><join> AWKWORDS</join></h1>
+<h1><join> Functional Enumeration in Gawk 3.1.7</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
-<h2><font color=blacl>&bull;</a> <a href=#1>SYNOPSIS</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#2>DESCRIPTION</a></h2>
-<h3><font color=blacl>&bull;</a> <a href=#3>Extra Markup</a></h3>
-<h4><font color=blacl>&bull;</a> <a href=#4>Short cuts for HTML</a></h4>
-<h4><font color=blacl>&bull;</a> <a href=#5>Including nested content:</a></h4>
-<h2><font color=blacl>&bull;</a> <a href=#6>INSTALLATION</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#7>PROGRAMMER'S GUIDE</a></h2>
-<h3><font color=blacl>&bull;</a> <a href=#8>Functions</a></h3>
-<h4><font color=blacl>&bull;</a> <a href=#9>toc</a></h4>
-<h4><font color=blacl>&bull;</a> <a href=#10>includes</a></h4>
-<h3><font color=blacl>&bull;</a> <a href=#11>CSS styles</a></h3>
-<h3><font color=blacl>&bull;</a> <a href=#12>Main command line</a></h3>
-<h2><font color=blacl>&bull;</a> <a href=#13>BUGS</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#14>AUTHOR</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#1>Synopsis</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#2>Description</a></h2>
+<h3><font color=blacl>&bull;</a> <a href=#3>Examples</a></h3>
+<h4><font color=blacl>&bull;</a> <a href=#4>all(fun,array [,max]</a></h4>
+<h4><font color=blacl>&bull;</a> <a href=#5>collect(fun,array1,array2 [,max])</a></h4>
+<h4><font color=blacl>&bull;</a> <a href=#6>select(fun,array1,array2 [,max])</a></h4>
+<h4><font color=blacl>&bull;</a> <a href=#7>reject(fun,array1,array2 [,max])</a></h4>
+<h4><font color=blacl>&bull;</a> <a href=#8>detect(fun,array [,max])</a></h4>
+<h4><font color=blacl>&bull;</a> <a href=#9>inject(fun,array,carry [,max])</a></h4>
+<h3><font color=blacl>&bull;</a> <a href=#10>Sample Functions</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#11>Using the Functions</a></h3>
+<h2><font color=blacl>&bull;</a> <a href=#12>Code</a></h2>
+<h3><font color=blacl>&bull;</a> <a href=#13>all</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#14>collect</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#15>select</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#16>reject</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#17>detect</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#18>inject</a></h3>
+<h2><font color=blacl>&bull;</a> <a href=#19>BUGS</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#20>AUTHOR</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<P> all(fun, array [,max]</P>
+<P> collect(fun, array1, array2 [,max])</P>
+<P> select(fun, array1, array2 [,max])</P>
+<P> reject(fun, array1, array2 [,max])</P>
+<P> detect(fun, array [,max])</P>
+<P> inject(fun, array, carry [,max])</P>
+<a name=2></a><H2> Description</H2>
+<P>
+    An interesting new feature in Gawk 3.1.7 is 
+    <a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/7a026a902361cbc5#s">indirect functions</a>.
+    This allows the function name to be a variable, passed
+    as an argument to an array, and called using the syntax
+<PRE>
+@fun(arg1,arg2,...)    
+</PRE>
+<P>
+    This enables a new kind of funcational programming style
+    in Gawk. For example, generic enumeration patterns
+    can be coded once, then called many different ways
+    with different function names passed as arguments.
+<P>
+    This document illustrates this style of programming.
+<a name=3></a><H3> Examples</H3>
+<P> For example, here are some standard enumeration functions:</P>
+<a name=4></a><H4> all(fun,array [,max]</H4>
+<P>
+     Applies the function <em>fun</em> to all items in the <em>array</em>.
+     If called with the <em>max</em>
+     argument, then they are iterated in the order i=1&nbsp;..&nbsp;<em>max</em>,
+     otherwise we use <em>for(i&nbsp;in&nbsp;a)</em>.
+<a name=5></a><H4> collect(fun,array1,array2 [,max])</H4>
+<P>
+    Applies <em>fun</em> to each item in <em>array1</em> and collects the
+    results in <em>array2</em>.
+<a name=6></a><H4> select(fun,array1,array2 [,max])</H4>
+<P>
+    Find all the items in <em>array1</em> that satisfies <em>fun</em> and
+    add them to <em>array2</em>.
+<a name=7></a><H4> reject(fun,array1,array2 [,max])</H4>
+<P>
+    Find all the items in <em>array1</em> that do <em>not</em> satisfy <em>fun</em> and
+    add them to <em>array2</em>.
+<a name=8></a><H4> detect(fun,array [,max])</H4>
+<P>
+    Return the first item found in  <em>array</em> that satisfies <em>fun</em>.
+    If no such item is found, then return the magic global value <em>Fail</em>.
+<a name=9></a><H4> inject(fun,array,carry [,max])</H4>
+<P>
+    (This one is a little tricky.)
+    The result of applying <em>fun</em> to each item in <em>array</em>
+    is carried into the  processing of the next item. Initially, the 
+    carried value is <em>carry</em>. This function returns the final <em>carry</em>.
 
-<a name=1></a><H2> SYNOPSIS</H2>
-<P> <b>awkwords</b> --title "Title" file > file.html</P>
-<P> <b>awkwords</b> file > file.html</P>
+<a name=10></a><H3> Sample Functions</H3>
 <P>
-         Pretty print for  source code, as described in
-<a href="http://awk.info/?awkwords">awk.info?tools/awkwords</a>
-
-<a name=2></a><H2> DESCRIPTION</H2>
-<P>
-        AwkWords is a simple-to-use markup language used 
-        for writing documentation for programs whose comment lines 
-        start with "#" and whose comments contain HTML code.
-<P>
-        When used with the <em>--title</em> option, a stand alone web page is generated
-        (to control the style of that page, see the <em>CSS</em> function, dicussed below).
-        When used without <em>--title</em> it generated some html suitable for inclusion
-        into other pages.
-<P>
-        Also, AwkWords finds all the &lt;h2>, &lt;h3>, &lt;h4>, &lt;h5>,
-        &lt;h6>, &lt;h7>, &lt;h8>, &lt;h9> headings and copies them to a table
-        of contents at the front of the file.
-        Note that AwkWords assumes that the file contains only one
-        &lt;h1> heading- this is printed before the table of contents.
-
-<P>
-       AwkWords adds some short cuts for HTML markup, as well as including
-       nested contents (see below: "including nested content"). This is useful for including, say,
-       program output along with the actual program.
-
-<a name=3></a><H3> Extra Markup</H3>
-<a name=4></a><H4> Short cuts for HTML</H4>
-<DL>
-<DT> #.XX</DT>
-<DD> This is replaced by <EM>&lt;XX></em>.</DD>
-<DT> #.XX words</DT>
-<DD> This is replaced by <EM>&lt;XX>words&lt;/XX></EM>.</DD>
-<DT> #.TO url words</DT>
-<DD> This is replaced by a link to mail to <em>url</em>.</DD>
-<DT> #.URL url words</DT>
-<DD> This is replaced by a link to mail to <em>url</em>.</DD>
-</DL>
-<a name=5></a><H4> Including nested content:</H4>
-<DL>
-<DT> #.IN file</DT>
-<DD> This line is replaced by the contents of <em>file</em>.</DD>
-<DT> #.CODE file</DT>
-<DD> This line is replaced by the verbatbim of <em>file</em> (no formatting).</DD>
-<DT> #.BODY file</DT>
-<DD> This line is replaced by <em>file</em>, less the lines before the first blank line.</DD>
-</DL>
-</UL>
-<a name=6></a><H2> INSTALLATION</H2>
-<P> This code requires gawk and bash.</P>
+ To illusrate the above, consider the following functions. Each of these are defined for
+ one  array item.
 <PRE>
-wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
-chmod +x awkwords
+function odd(x)    { return (x % 2) == 0 }
+function show(x)   { print "[" x "]" }
+function mult(x,y) { return x * y }
+function halve(x)  { return x/2}
 </PRE>
-<P> To test the code, apply it to itself:</P>
-<UL>
-<LI> ./awkwords --title "Does this work?" awkwords > awkwards.html</em></LI>
-</UL>
-<a name=7></a><H2> PROGRAMMER'S GUIDE</H2>
-<P>
-        Awkwords is divided into two functions: 
-           <em>toc</em> adds the table of contents while
-          <em>includes</em> handles the details of the extra mark-up.
-<a name=8></a><H3> Functions</H3>
-<a name=9></a><H4> toc</H4>
+<a name=11></a><H3> Using the Functions</H3>
 <PRE>
-toc() { cat $1 | gawk '
- BEGIN             { IGNORECASE = 1 }
- /^<[h]1>/         { Header=$0; next}
- /^<h[23456789]>/  { T++ ;
-                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
-                                      "<""h\\2><""font color=blacl>\\&bull;</a> <""a href=#" T ">\\3</a></h\\4>",
-                                      "g",$0)
-		     Pre="<a name="T"></a>" }
-                   { Line[++N] = Pre $0; Pre="" }
- END { print Header;
-       print "<" "h2>Contents</h2>"
-       print "<" "div id=\"htmltoc\">"
-       for(I=1;I<=T;I++) print Toc[I]	
-       print "<" "/div><!--- htmltoc --->"
-       print "<" "div id=\"htmlbody\">"
-       for(I=1;I<=N;I++) print Line[I]
-       print "</" "div><!--- htmlbody --->"		
-     }'
+function demo-all() {
+    split("22 23 24 25 26 27 28",arr)
+    all("show",arr)
+}
+<a name=12></a><H2> Code</H2>
+<a name=13></a><H3> all</H3>
+<PRE>
+function all (fun,a,max,   i) {
+	if (max) 
+		for(i=1;i<=max;i++) @fun(a[i]) 
+	else  
+		for(i in a) @fun(a[i])
 }
 </PRE>
-<a name=10></a><H4> includes</H4>
-<P> The <em>xpand</em> function controls recursive inclusion of content. Note that</P>
-<UL>
-<LI> The last act of this function must be to call <em>xpand1</em>.</LI>
-<LI>
-           When including verbatim text, the recursive call to <em>xpands</em> 
-           must pass "1" to the second paramter.
-</UL>
+<a name=14></a><H3> collect</H3>
 <PRE>
-includes() { cat $1 | gawk '
-function xpand(pre,  tmp) {
-   if      ($1 ~ "^#.IN")    xpands($2,pre)
-   else if ($1 ~ "^#.BODY" ) xpandsBody($2,pre)
-   else if ($1 ~ "^#.CODE")  {
-  	    print "<" "p>" $2 "\n<" "pre>"
-	    xpands($2,1)     # <===== note the recursive call with "1"
-	    print "<" "/pre>" } 
-   else if ($1 ~ "^#.URL") {
-	    tmp = $2; $1=$2="";
-	    print "<" "a href=\""tmp"\">" trim($0) "</a>"
-	    }
-   else if ($1 ~ "^#.TO") {
-	    tmp = $2; $1=$2="";
-	    print "<" "a href=\"mailto:"tmp"\">" trim($0) "</a>"
-	    }
-   else 
-	xpand1(pre)
+function collect (fun,a,b,max,   i) {
+	if (max)
+		for(i=1;i<=max;i++) b[i]= @fun(a[i])
+	else
+		for(i in a) b[i]= @fun(a[i])
 }
 </PRE>
+<a name=15></a><H3> select</H3>
+<PRE>
+function select (fun,a,b,max,   i) {
+	if (max)
+		for(i=1;i<=max;i++) {
+			if (@fun(a[i])) b[i]= a[i] }
+	else
+		for(i in a) {
+			if (@fun(a[i])) b[i]= a[i] }
+}
+</PRE>
+<a name=16></a><H3> reject</H3>
+<PRE>
+function reject (fun,a,b,max,   i) {
+	if (max)
+		for(i=1;i<=max;i++) {
+			if (! @fun(a[i])) b[i]= a[i] }
+	else
+		for(i in a) {
+			if (! @fun(a[i])) b[i]= a[i] }
+}
+</PRE>
+<a name=17></a><H3> detect</H3>
+<PRE>
+BEGIN {Fail="someUnLIKELYSymbol"}
+function detect (fun,a,max,   i) {
+	if (max)
+		for(i=1;i<=max;i++) {
+			if (@fun(a[i])) return a[i] }
+	else	
+		for(i in a) {
+			if (@fun(a[i])) return a[i] }
+	return Fail
+}
+</PRE>
+<a name=18></a><H3> inject</H3>
+<PRE>
+function inject (fun,a,carry,max,   i) {
+	if (max)
+		for(i=1;i<=max;i++)
+			 carry = @fun(a[i],carry) 
+	else
+		for(i in a)
+			 carry = @fun(a[i],carry) 
+	return carry
+}
+<a name=19></a><H2> BUGS</H2>
 <P>
-       The <em>xpand1</em> function controls the printing of a single line.
-       If we are formatting verbatim text, we must remove the start-of-html character "&lt;".
-       Otherwise, we expand any html shortcuts.
-<PRE>
-function xpand1(pre) {
-   if (pre)
-        gsub("<","\\&lt;",$0)  # <=== remove start-of-html-character
-   else {
-        $0= xpandHtml($0)      # <=== expand html short cuts
-        sub(/^#/,"",$0) }
-        print $0 
-}
-</PRE>
-<P> The function <em>xpandHtml</em> controls the html short cuts</P>
-<PRE>
-function xpandHtml(    str,tag) {
-   if ($0 ~ /^#\.H1/) {         
-	   $1=""
-	   return "<" "h""1><join>" $0 "</join></" "h1>" }
-   if (sub(/^#\./,"",$1)) {
-	   tag=$1;  $1=""
-	   return "<" tag ">"  (($0 ~ /^[ \t]*$/) ? "" : $0"</"tag">")
-   }
-   return $0
-}
-</PRE>
-<P> The rest of the code is just some book-keeping and managing the recursive addition of content.</P>
-<PRE>
-function xpands(f,pre) {
-     if (newFile(f)) {
-	  while((getline <f) > 0) xpand(pre)
-          close(f) }
-}
-function xpandsBody(f,pre, using) {
-     if (newFile(f)) { 
-	  while((getline <f) >0) {
-	    if ( !using && ($0 ~ /^[\t ]*$/) ) using = 1
-	    if ( using ) xpand(pre)}
-	  close(f) }
-}
-function newFile(f) { return ++Seen[f]==1 }
-function trim (s)   { sub(/^[ \t]*/,"",s);  sub(/[ \t]*$/,"",s); return s } 
-
-BEGIN { IGNORECASE=1 }
-      { xpand()      }'
-}
-</PRE>
-<a name=11></a><H3> CSS styles</H3>
-<P>
-    If used to generate a full web page, then the following styles are added.
-    Note that the <em>htmltoc</em> class controls the appearance of the table of contents.
-<PRE>
-css() { 
-      echo "<""STYLE type=\"text/css\">"
-      cat<<-'EOF'
-         div.htmltoc h2 { font-size: medium; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 30px;}
-	 div.htmltoc h3 { font-size: medium; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 60px;}
-         div.htmltoc h4 { font-size: medium; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 90px;}
-         div.htmltoc h5 { font-size: medium; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 120px;}
-         div.htmltoc h6 { font-size: medium; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 150px;}
-         div.htmltoc h7 { font-size: medium; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 180px; }
-      </STYLE>
-EOF
-}
-</PRE>
-<a name=12></a><H3> Main command line</H3>
-<PRE>
-main() { cat $1 | includes | toc; }
-
-if [ $1 == "--title" ]
-then 
-     echo "<""html><""head><""title>$2</title>`css`</head><""body>"; 
-     shift 2
-     main $1
-     echo "<""/body><""/html>"
-else 
-     main $1
-fi 
-</PRE>
-<a name=13></a><H2> BUGS</H2>
-<P> There's no checking for valid input (e.g. pre-formatting tags that never close).</P>
-<P> If the input file contains no html mark up, the results are pretty messy.</P>
-<a name=14></a><H2> AUTHOR</H2>
+ The above code does not pass around any state information that
+ the <em>fum</em> functions can use. So all their deliberations are either
+ with the current array values (integers or strings) or with global state.
+ It might be worthwhile writing new versions of the above with one more argument,
+ to carry that sate.
+<a name=20></a><H2> AUTHOR</H2>
 <a href="mailto:tim@menzies.us">Tim Menzies</a>
 </div><!--- htmlbody --->
