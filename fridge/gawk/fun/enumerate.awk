@@ -26,7 +26,7 @@
 #.H3 Enumerators
 #.P For example, here are some standard enumeration functions:
 #.H4 all(fun,array [,max]
-#.P
+#.P 
 #     Applies the function <em>fun</em> to all items in the <em>array</em>.
 #     If called with the <em>max</em>
 #     argument, then they are iterated in the order i=1&nbsp;..&nbsp;<em>max</em>,

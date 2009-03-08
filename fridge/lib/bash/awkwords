@@ -91,7 +91,7 @@ toc() { cat $1 | gawk '
  /^[<]h[23456789]>/  { 
        T++ ;
       Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
-      "<""h\\2><""font color=black>\\&bull;</a> <""a href=#" T ">\\3</a></h\\4>",
+      "<""h\\2><""font color=black>\\&bull;</font></a> <""a href=#" T ">\\3</a></h\\4>",
                 "g",$0)
 		Pre="<a name="T"></a>" }
      { Line[++N] = Pre $0; Pre="" }
@@ -117,7 +117,7 @@ toc() { cat $1 | gawk '
 #.PRE
 includes() { cat $1 | gawk '
 function xpand(pre,  tmp) {
-   if      ($1 ~ "^#.IN")    xpands($2,pre)
+   if      ($1 ~ "^#.IN")    xpands($2,pre) 
    else if ($1 ~ "^#.BODY" ) xpandsBody($2,pre)
    else if ($1 ~ "^#.CODE")  {
   	    print "<" "p>" $2 "\n<" "pre>"
