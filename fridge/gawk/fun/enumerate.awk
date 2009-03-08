@@ -16,7 +16,7 @@
 #.PRE
 #@fun(arg1,arg2,...)    
 #./PRE
-#.P
+#.P 
 #    This enables a new kind of funcational programming style
 #    in Gawk. For example, generic enumeration patterns
 #    can be coded once, then called many different ways
