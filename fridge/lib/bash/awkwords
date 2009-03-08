@@ -72,6 +72,7 @@
 #          <em>includes</em> handles the details of the extra mark-up.
 #.H3 Functions
 #.H4 unhtml
+#.PRE
 unhtml() { cat $1| gawk '
   BEGIN {IGNORECASE=1}
   /^<PRE>/   {In=1; print; next}
@@ -221,6 +222,7 @@ fi
 #.H2 Bugs
 #.P There's no checking for valid input (e.g. pre-formatting tags that never close).
 #.P If the input file contains no html mark up, the results are pretty messy.
+#.P Recursive includes fail silently if the referenced file does not exist.
 #.P 
 #  I don't like the way I need a seperate pass to do "unhtml". I tried making it work
 #  within the code but it got messy.

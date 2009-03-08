@@ -91,11 +91,12 @@ chmod +x awkwords
           <em>includes</em> handles the details of the extra mark-up.
 <a name=8></a><H3> Functions</H3>
 <a name=9></a><H4> unhtml</H4>
+<PRE>
 unhtml() { cat $1| gawk '
   BEGIN {IGNORECASE=1}
-  /^<PRE>/   {In=1; print; next}
-  /^<\/PRE>/ {In=0; print; next}
-  In         {gsub("<","\\&lt;",$0); print; next }
+  /^&lt;PRE>/   {In=1; print; next}
+  /^&lt;\/PRE>/ {In=0; print; next}
+  In         {gsub("&lt;","\\&lt;",$0); print; next }
              {print $0 }'
 }
 </PRE>
