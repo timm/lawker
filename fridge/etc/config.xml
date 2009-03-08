@@ -445,6 +445,22 @@ pageTracker._trackPageview();
 		<what>Arrays</what>
 		<title>array.awk</title>
 	</file>
+	<file where="doc/tools/runawk.html">
+		<what>AlexC</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Tools</what>
+		<what>Project</what>
+		<title>runawk</title>
+	</file>
+	<file where="doc/tools/awkwords.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Tools</what>
+		<what>Project</what>
+		<title>awkwords</title>
+	</file>
 	<file where="doc/var/top10posters.html">
 		<what>Steffen</what>
 		<what>2009</what>
