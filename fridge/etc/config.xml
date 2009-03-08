@@ -479,6 +479,13 @@ pageTracker._trackPageview();
 		<what>Funky</what>
 		<title>Functional Gawk </title>
 	</file>
+	<file where="doc/func-challenge.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Funky</what>
+		<title>Functional Challenge</title>
+	</file>
 	<file where="doc/fun/enumerate.html">
 		<what>Timm</what>
 		<what>2009</what>
