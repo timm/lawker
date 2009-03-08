@@ -3,7 +3,7 @@ Doc=../doc
 Bash=../lib/bash
 Fun=../gawk/fun
 Awkwords=$(Bash)/awkwords
-Awk2Html=$(Bash)/awkwords $< > $@
+Awk2Html=$(Bash)/awkwords $< > $@; svn add $@
 
 all : config.xml files
 
