@@ -1,6 +1,6 @@
 #.H1 Functional Enumeration in Gawk 3.1.7
 #.H2 Synopsis
-#.P      all(fun, array [,max]
+#.P      all( fun, array [,max]
 #.P      collect( fun, array1, array2  [,max])
 #.P      select( fun,  array1, array2  [,max])
 #.P      reject( fun,  array1, array2 [,max])
@@ -65,6 +65,7 @@ function mult(x,y) { return x * y }
 function halve(x)  { return x/2 }
 #./PRE
 #.H3 Using the Functions 
+#.P All-ing...
 #.PRE
 function do_all(   arr) { 
     split("22 23 24 25 26 27 28",arr)
@@ -72,10 +73,11 @@ function do_all(   arr) {
 }
 #./PRE
 #.P When we run this ...
-#.BODY eg/enum1
+#.CODE eg/enum1
 #.P we see every item in <em>arr</em> printed using the above <em>show</em> function ...
 #.CODE eg/enum1.out
 
+#.P Collect-ing...
 #.PRE
 function do_collect(        max,arr1,arr2,i) {
     max=split("22 23 24 25 26 27 28",arr1)
@@ -84,10 +86,11 @@ function do_collect(        max,arr1,arr2,i) {
 }
 #./PRE
 #.P When we run this ...
-#.BODY eg/enum2
+#.CODE eg/enum2
 #.P we see every item in <em>arr</em> divided in two ...
 #.CODE eg/enum2.out
 
+#.P Select-ing...
 #.PRE
 function do_select(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -96,10 +99,11 @@ function do_select(        all,less,arr1,arr2,i) {
 }
 #./PRE
 #.P When we run this ...
-#.BODY eg/enum3
+#.CODE eg/enum3
 #.P we see every item in <em>arr</em> that satisfies <em>odd</em>....
 #.CODE eg/enum3.out
 
+#.P Reject-ing...
 #.PRE
 function do_reject(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -108,7 +112,7 @@ function do_reject(        all,less,arr1,arr2,i) {
 }
 #./PRE
 #.P When we run this ...
-#.BODY eg/enum4
+#.CODE eg/enum4
 #.P we see every item in <em>arr</em> that <em>do not</em> satisfies <em>odd</em>....
 #.CODE eg/enum4.out
 
@@ -119,10 +123,11 @@ function do_detect(        all,arr1) {
 }
 #./PRE
 #.P When we run this ...
-#.BODY eg/enum5
+#.CODE eg/enum5
 #.P we see the first item in <em>arr</em> that satisfies <em>odd</em>....
 #.CODE eg/enum5.out
 
+#.P Inject-ing...
 #.PRE
 function do_inject(        all,less,arr1,arr2,i) {
     split("1 2 3 4 5",arr1)
@@ -130,7 +135,7 @@ function do_inject(        all,less,arr1,arr2,i) {
 }
 #./PRE
 #.P When we run this ...
-#.BODY eg/enum6
+#.CODE eg/enum6
 #.P we see every the result of multiplying every item in  <em>arr</em> by its predecessor.
 #.CODE eg/enum6.out
 
