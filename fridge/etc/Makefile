@@ -1,6 +1,7 @@
 #MAKEFLAGS +=  -s
 Doc=../doc
 Bash=../lib/bash
+Awkwords=$(Bash)/awkwords
 
 all : config.xml files
 
@@ -12,4 +13,4 @@ config.xml :	tags.txt things.awk tags.awk
 
 files : $(Doc)/tools/awkwords.html
 
-$(Doc)/tools/awkwords.html : $(Bash)/awkwords; $(Bash)/awkwords $< > $@
+$(Doc)/tools/awkwords.html : $(Awkwords) $(Bash)/awkwords; $(Bash)/awkwords $< > $@

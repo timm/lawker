@@ -1,18 +1,18 @@
 <h1><join> AWKWORDS</join></h1>
 <div id="htmltoc">
 <p>Table of Contents</p>
-<H2><a href="#1"> SYNOPSIS</a></H2>
-<a href="#2"><H2> DESCRIPTION</H2></a>
-<a href="#3"><H4> Extra Markup</H4></a>
-<a href="#4"><H2> INSTALLATION</H2></a>
-<a href="#5"><H2> PROGRAMMER'S GUIDE</H2></a>
-<a href="#6"><H3> Functions</H3></a>
-<a href="#7"><H4> toc</H4></a>
-<a href="#8"><H4> includes</H4></a>
-<a href="#9"><H3> CSS styles</H3></a>
-<a href="#10"><H3> Main command line</H3></a>
-<a href="#11"><H2> BUGS</H2></a>
-<a href="#12"><H2> AUTHOR</H2></a>
+<h2><a name=1>SYNOPSIS</a></h2>
+<h2><a name=2>DESCRIPTION</a></h2>
+<h4><a name=3>Extra Markup</a></h4>
+<h2><a name=4>INSTALLATION</a></h2>
+<h2><a name=5>PROGRAMMER'S GUIDE</a></h2>
+<h3><a name=6>Functions</a></h3>
+<h4><a name=7>toc</a></h4>
+<h4><a name=8>includes</a></h4>
+<h3><a name=9>CSS styles</a></h3>
+<h3><a name=10>Main command line</a></h3>
+<h2><a name=11>BUGS</a></h2>
+<h2><a name=12>AUTHOR</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <P>
@@ -91,12 +91,14 @@ chmod +x awkwords
 toc() { cat $1 | gawk '
  BEGIN             { IGNORECASE = 1 }
  /^<[h]1>/         { Header=$0; next}
- /^<h[23456789]>/  { Toc[++T]  = $0; Pre="<a name="T"></a>" }
+ /^<h[23456789]>/  { T++ ;
+                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,"\\1<h\\2><a name=" T ">\\3</a></h\\4>\\5","g",$0)
+		     Pre="<a name="T"></a>" }
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;
        print "<" "div id=\"htmltoc\">"
        print "<" "p>Table of Contents<""/p>";
-       for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
+       for(I=1;I<=T;I++) print Toc[I]	
        print "<" "/div><!--- htmltoc --->"
        print "<" "div id=\"htmlbody\">"
        for(I=1;I<=N;I++) print Line[I]
