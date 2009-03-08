@@ -105,7 +105,7 @@ function do_all(   arr) {
 <P> When we run this ...</P>
 
 $gawk317 -f ../enumerate.awk --source 'BEGIN { do_all() }'
-<P> we see every item in <em>arr</em> printed using the above <em>show<em> function ...</P>
+<P> we see every item in <em>arr</em> printed using the above <em>show</em> function ...</P>
 <p>eg/enum1.out
 <pre>
 [25]
@@ -154,13 +154,6 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_select() }'
 <P> we see every item in <em>arr</em> that satisfies <em>odd</em>....</P>
 <p>eg/enum3.out
 <pre>
-odd 22
-odd 23
-odd 24
-odd 25
-odd 26
-odd 27
-odd 28
 23
 25
 27
@@ -180,13 +173,6 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_reject() }'
 <P> we see every item in <em>arr</em> that <em>do not</em> satisfies <em>odd</em>....</P>
 <p>eg/enum4.out
 <pre>
-odd 22
-odd 23
-odd 24
-odd 25
-odd 26
-odd 27
-odd 28
 22
 24
 26
