@@ -1,34 +1,136 @@
-#.H1  HashDoc : Pretty Prints for Gawk Code 
-#.P   
-#Perl's POD command lets a developer mix up comments and code. POD can generate
-#pretty prints of code, with a table of contents at the top. 
-#!/bin/env gawk -f
+#.H1  AWKWORDS
+#.H2 AWKWORDS
+#.P Pretty print for  source code.
+#.H2 SYNOPSIS
 #.P
-#HashDoc does the
-#same, but relies more on CSS and html to format the code. It also allows includes
-#to that many documents can be combined into one.
-
-# note that the outer most document cannot be "Bodied"
-
-# assumes one h1 at the top of all and everything else is h2 or below.
- 
-toc() { gawk '
+#.B awkwords
+# file > file.html
+#.H2 INSTALLATION
+#.PRE
+#wget 
+#.H2 DESCRIPTION
+#.P 
+#AwkWords is a simple-to-use markup language used 
+#for writing documentation for programs whose comment lines 
+#start with "#"
+#and whose comments contain HTML code.
+#.P
+#Also, AwkWords finds all the
+#&lt;h2>, 
+#&lt;h3>, 
+#&lt;h4>, 
+#&lt;h5>, 
+#&lt;h6>, 
+#&lt;h7>, 
+#&lt;h8>, 
+#&lt;h9>
+#headings and copies them to a table of contents at the front of the file.
+#.P
+#AwkWords assumes that the file contains only one
+# #&lt;h1> heading- this is printed before the table of contents.
+#.H4 Extra Markup
+#.P
+#AwkWords also adds some short cuts for HTML markup, as well as including
+#nested contents. 
+#.P
+#.EM Short cuts for HTML
+#.DL
+#.TT #.XX
+#.DD This is replaced by <TT>&lt;XX>.
+#.DT 
+#.TT #.XX words
+#.DD This is replaced by <TT>&lt;XX>words&lt;/XX></TT>.
+#.DT 
+#.TT #.TO url words
+#.DD This is replaced by a link to <tt>url</tt>.
+#./DL
+#.P 
+#.EM Including nested content:
+#.DL
+#.DT 
+#.TT #.IN file
+#.DD This line is  replaced by the contents of <em>file</em>.
+#.DT 
+#.TT #.CODE file
+#.DD This line is  replaced by the verbatbim of <em>file</em> (no formatting).
+#.DT 
+#.TT #.BODY file
+#.DD This line is  replaced  by <em>file</em>, less the lines before the first blank line.
+#./DL
+#./UL
+#.PRE
+toc() { cat $1 | gawk '
     BEGIN             { IGNORECASE = 1 }
+    /^<[h]1>/           { Header=$0; next}
     /^<h[23456789]>/  { Toc[++T]  = $0; Pre="<a name="T"></a>" }
                       { Line[++N] = Pre $0; Pre="" }
-    END { print "<div class=htmltoc>"
-          for(I=1;I<=T;I++) print "<a href=\"#"I"\">"Toc[I]"</a>"	
-          print "</div><!--- htmltoc --->"
-          print "<div class=htmlbody>"
+    END { print Header;
+          print "<" "div class=htmltoc>"
+          print "<" "h2>Contents</h2>";
+	  for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
+          print "<" "/div><!--- htmltoc --->"
+          print "<" "div class=htmlbody>"
           for(I=1;I<=N;I++) print Line[I]
-          print "</div><!--- htmlbody --->"		
-         }' $1
+          print "</" "div><!--- htmlbody --->"		
+         }'
 }
+#./PRE
 #.P turn front of line mark up into 
+#.PRE
+includes() { cat $1 | gawk '
+     function xpand(pre,  tmp) {
+        if      ($1 ~ "^#.IN")    xpands($2,pre)
+        else if ($1 ~ "^#.BODY" ) xpandsBody($2,pre)
+        else if ($1 ~ "^#.CODE")  {
+  	    print "<" "p>" $2 "\n<" "pre>"
+	    xpands($2,1)
+	    print "<" "/pre>" } 
+        else if ($1 ~ "^#.TO") {
+	    tmp = $2; $1=$2=0;
+	    print "<" "a href=\""tmp"\">" $0 "</a>"
+	    }
+        else 
+	    xpand1(pre)
+     }
+     function xpand1(pre) {
+        if (pre)
+           gsub(/</,"\\&lt;",$0) 
+        else {
+	   $0= xpandHtml($0)
+	   sub(/^#/,"",$0) }
+        print $0 
+     }
+     function xpandHtml(    str,tag) {
+        if ($0 ~ /^#\.H1/) {         
+	   $1=""
+	   return "<" "h1><join>" $0 "</join></" "h1>" }
+        if (sub(/^#\./,"",$1)) {
+	   tag=$1;  $1=""
+	   return "<" tag ">"  (($0 ~ /^[ \t]*$/) ? "" : $0"</"tag">")
+        }
+        return $0
+     }
+     function newFile(f) {
+        return ++Seen[f]==1
+     }
+     function xpands(f,pre) {
+        if (newFile(f)) {
+	    while((getline <f) > 0) xpand(pre)
+	    close(f) }
+     }
+     function xpandsBody(f,pre, using) {
+        if (newFile(f)) { 
+	  while((getline <f) >0) {
+	    if ( !using && ($0 ~ /^[\t ]*$/) ) using = 1
+	    if ( using ) xpand(pre)}
+	  close(f) }
+     }
 
-main() {
-       gawk -f awkwords.awk $1 | toc 
+     BEGIN { IGNORECASE=1 }
+           { xpand()      }'
 }
-for i in $*; do
-    main $i
-done
+#./PRE
+#.P Main file
+#.PRE       
+cat $1   | includes |  toc 
+#./PRE

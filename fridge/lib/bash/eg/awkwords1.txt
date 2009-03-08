@@ -1,10 +1,10 @@
-#.h1 The gang's all here
-#.p   Four score and seven years ago our fathers brought forth, 
-#.ul
-#.li  upon this continent, 
-#.li  a new nation, 
-#.li  conceived in Liberty, 
-#.li  and dedicated to the proposition that all men are created equal.
-#./ul
-#.h2 And here's the rest
+#.H1 The gang's all here
+#.P   Four score and seven years ago our fathers brought forth, 
+#.UL
+#.LI  upon this continent, 
+#.LI  a new nation, 
+#.LI  conceived in Liberty, 
+#.LI  and dedicated to the proposition that all men are created equal.
+#./UL
+#.H2 And here's the rest
 #.IN awkwords2.txt
