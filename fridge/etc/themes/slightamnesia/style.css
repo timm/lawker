@@ -350,17 +350,17 @@ p.meta {
 }
 
 #htmltoc h2 { font-size: small; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 30px;}
+                          margin: 0 0 0 0; margin-left: 0px;}
 #htmltoc h3 { font-size: small; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 60px;}
+                          margin: 0 0 0 0; margin-left: 30px;}
 #htmltoc h4 { font-size: small; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 90px;}
+                          margin: 0 0 0 0; margin-left: 60px;}
 #htmltoc h5 { font-size: small; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 120px;}
+                          margin: 0 0 0 0; margin-left: 90px;}
 #htmltoc h6 { font-size: small; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 150px;}
+                          margin: 0 0 0 0; margin-left: 120px;}
 #htmltoc h7 { font-size: small; font-weight: normal; 
-                          margin: 0 0 0 0; margin-left: 180px; }
+                          margin: 0 0 0 0; margin-left: 150px; }
 
 #htmltoc  a {
 color:#D96107;
