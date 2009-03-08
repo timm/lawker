@@ -362,15 +362,12 @@ div.htmltoc h6 { font-size: small; font-weight: normal;
 div.htmltoc h7 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 180px; }
 
-div.htmltoc  a {
+Div.htmltoc  a {
 color:#D96107;
 text-decoration:underline;
 }
-div.htmltoc  a:visited {
-color:#D96107;
-text-decoration:underline;
-}
-div.htmltoc  a:hover {
+
+div.htmltoc  a:link {
 color:#D96107;
 text-decoration:underline;
 }
@@ -379,6 +376,13 @@ div.htmltoc a:hover {
 color:#999999;
 text-decoration:none;
 }
+
+
+div.htmltoc  a:visited {
+color:#D96107;
+text-decoration:underline;
+}
+
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}

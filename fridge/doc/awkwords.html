@@ -1,5 +1,5 @@
 <h1><join> AWKWORDS</join></h1>
-<div class=htmltoc>
+<div id="htmltoc">
 <p>Table of Contents</p>
 <a href="#1"><H2> SYNOPSIS</H2></a>
 <a href="#2"><H2> DESCRIPTION</H2></a>
@@ -14,7 +14,7 @@
 <a href="#11"><H2> BUGS</H2></a>
 <a href="#12"><H2> AUTHOR</H2></a>
 </div><!--- htmltoc --->
-<div class=htmlbody>
+<div id="htmlbody">
 <P>
          Pretty print for  source code, as described in
 <a href="http://awk.info/?awkwords">awk.info?awkwords</a>
@@ -94,11 +94,11 @@ toc() { cat $1 | gawk '
  /^<h[23456789]>/  { Toc[++T]  = $0; Pre="<a name="T"></a>" }
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;
-       print "<" "div class=htmltoc>"
+       print "<" "div id=\"htmltoc\">"
        print "<" "p>Table of Contents<""/p>";
        for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
        print "<" "/div><!--- htmltoc --->"
-       print "<" "div class=htmlbody>"
+       print "<" "div id=\"htmlbody\">"
        for(I=1;I<=N;I++) print Line[I]
        print "</" "div><!--- htmlbody --->"		
      }'

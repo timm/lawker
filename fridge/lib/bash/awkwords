@@ -78,11 +78,11 @@ toc() { cat $1 | gawk '
  /^<h[23456789]>/  { Toc[++T]  = $0; Pre="<a name="T"></a>" }
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;
-       print "<" "div class=htmltoc>"
+       print "<" "div id=\"htmltoc\">"
        print "<" "p>Table of Contents<""/p>";
        for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
        print "<" "/div><!--- htmltoc --->"
-       print "<" "div class=htmlbody>"
+       print "<" "div id=\"htmlbody\">"
        for(I=1;I<=N;I++) print Line[I]
        print "</" "div><!--- htmlbody --->"		
      }'
