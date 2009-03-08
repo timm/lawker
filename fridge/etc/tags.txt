@@ -49,6 +49,8 @@ gawk/array/array.awk				Timm	2009	Feb	Functionn	Arrays		|array.awk
 doc/tools/runawk.html				AlexC	2009	Mar	Tools	Project		        |runawk
 doc/tools/awkwords.html				Timm	2009	Mar	Tools	Project		        |awkwords
 
+doc/fun/enumerate.html				Timm	2009	Mar	Fun			        |Functional Enumeration
+
 doc/var/top10posters.html			Steffen	2009	Jan	Newsgroup			|Top 10 posters
 doc/var/top10subjects.html			Steffen	2009	Jan	Newsgroup			|Top 10 subjects
 doc/var/top10posterslastyear.html		Steffen	2009	Jan	Newsgroup			|Top 10 posters last year

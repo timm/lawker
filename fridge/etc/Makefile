@@ -1,7 +1,9 @@
 #MAKEFLAGS +=  -s
 Doc=../doc
 Bash=../lib/bash
+Fun=../gawk/fun
 Awkwords=$(Bash)/awkwords
+Awk2Html=$(Bash)/awkwords $< > $@
 
 all : config.xml files
 
@@ -13,6 +15,7 @@ config.xml :	tags.txt things.awk tags.awk
 	mv confignew.xml config.xml
 	svn commit -m "tags updated"
 
-files : $(Doc)/tools/awkwords.html
+files : $(Doc)/tools/awkwords.html $(Doc)/fun/enumerate.html
 
-$(Doc)/tools/awkwords.html : $(Awkwords) $(Bash)/awkwords; $(Bash)/awkwords $< > $@
+$(Doc)/tools/awkwords.html : $(Awkwords) $(Bash)/awkwords     ; $(Awk2Html)
+$(Doc)/fun/enumerate.html  : $(Awkwords) $(Fun)/enumerate.awk ; $(Awk2Html)

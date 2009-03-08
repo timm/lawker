@@ -461,6 +461,13 @@ pageTracker._trackPageview();
 		<what>Project</what>
 		<title>awkwords</title>
 	</file>
+	<file where="doc/fun/enumerate.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Fun</what>
+		<title>Functional Enumeration</title>
+	</file>
 	<file where="doc/var/top10posters.html">
 		<what>Steffen</what>
 		<what>2009</what>
