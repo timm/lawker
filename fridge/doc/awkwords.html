@@ -1,5 +1,6 @@
 <h1><join> AWKWORDS</join></h1>
 <div class=htmltoc>
+<p>Table of Contents
 <a href="#1"><H2> SYNOPSIS</H2></a>
 <a href="#2"><H2> DESCRIPTION</H2></a>
 <a href="#3"><H4> Extra Markup</H4></a>
@@ -49,30 +50,23 @@
 <P>
 <EM> Short cuts for HTML</EM>
 <DL>
-<DT>
-<TT> #.XX</TT>
+<DT> #.XX</DT>
 <DD> This is replaced by <EM>&lt;XX></em>.</DD>
-<DT>
-<TT> #.XX words</TT>
+<DT> #.XX words</DT>
 <DD> This is replaced by <EM>&lt;XX>words&lt;/XX></EM>.</DD>
-<DT>
-<TT> #.TO url words</TT>
+<DT> #.TO url words</DT>
 <DD> This is replaced by a link to mail to <em>url</em>.</DD>
-<DT>
-<TT> #.URL url words</TT>
+<DT> #.URL url words</DT>
 <DD> This is replaced by a link to mail to <em>url</em>.</DD>
 </DL>
 <P>
 <EM> Including nested content:</EM>
 <DL>
-<DT>
-<TT> #.IN file</TT>
+<DT> #.IN file</DT>
 <DD> This line is replaced by the contents of <em>file</em>.</DD>
-<DT>
-<TT> #.CODE file</TT>
+<DT> #.CODE file</DT>
 <DD> This line is replaced by the verbatbim of <em>file</em> (no formatting).</DD>
-<DT>
-<TT> #.BODY file</TT>
+<DT> #.BODY file</DT>
 <DD> This line is replaced by <em>file</em>, less the lines before the first blank line.</DD>
 </DL>
 </UL>
@@ -101,6 +95,7 @@ toc() { cat $1 | gawk '
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;
        print "<" "div class=htmltoc>"
+       print "<" "p>Table of Contents";
        for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
        print "<" "/div><!--- htmltoc --->"
        print "<" "div class=htmlbody>"

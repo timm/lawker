@@ -1,8 +1,15 @@
 #MAKEFLAGS +=  -s
+Doc=../doc
+Bash=../lib/bash
 
-all : config.xml
+all : config.xml files
+
 
 config.xml :	tags.txt things.awk tags.awk 	
 	(gawk -f ./things.awk config.xml ; gawk -f ./tags.awk tags.txt) > confignew.xml
 	mv confignew.xml config.xml
 	svn commit -m "tags updated"
+
+files : $(Doc)/awkwords.html
+
+$(Doc)/awkwords.html : $(Bash)/awkwords; $(Bash)/awkwords $< > $@
