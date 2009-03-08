@@ -349,36 +349,36 @@ p.meta {
 	color: #CCC;
 }
 
-div.htmltoc h2 { font-size: small; font-weight: normal; 
+#htmltoc h2 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 30px;}
-div.htmltoc h3 { font-size: small; font-weight: normal; 
+#htmltoc h3 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 60px;}
-div.htmltoc h4 { font-size: small; font-weight: normal; 
+#htmltoc h4 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 90px;}
-div.htmltoc h5 { font-size: small; font-weight: normal; 
+#htmltoc h5 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 120px;}
-div.htmltoc h6 { font-size: small; font-weight: normal; 
+#htmltoc h6 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 150px;}
-div.htmltoc h7 { font-size: small; font-weight: normal; 
+#htmltoc h7 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 180px; }
 
-Div.htmltoc  a {
+#htmltoc  a {
 color:#D96107;
 text-decoration:underline;
 }
 
-div.htmltoc  a:link {
+#htmltoc  a:link {
 color:#D96107;
 text-decoration:underline;
 }
 
-div.htmltoc a:hover {
+#htmltoc a:hover {
 color:#999999;
 text-decoration:none;
 }
 
 
-div.htmltoc  a:visited {
+#htmltoc  a:visited {
 color:#D96107;
 text-decoration:underline;
 }
