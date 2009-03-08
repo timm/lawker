@@ -211,6 +211,7 @@ function inject (fun,a,carry,max,   i) {
 			 carry = @fun(a[i],carry) 
 	return carry
 }
+#./PRE
 #.H2 BUGS
 #.P 
 # The above code does not pass around any state information that
