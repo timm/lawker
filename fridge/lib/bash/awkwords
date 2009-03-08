@@ -4,8 +4,10 @@
 #.P       <b>awkwords</b> --title "Title" file > file.html  
 #.P       <b>awkwords</b> file > file.html  
 #.P       
-#         Pretty print for  source code, as described in
+#         Pretty print for awk/bash  source code. For example,
 #.URL     http://awk.info/?awkwords awk.info?tools/awkwords 
+#         shows the html generated from 
+#.URL     http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords this bash script.
 
 #.H2   Description
 #.P 
