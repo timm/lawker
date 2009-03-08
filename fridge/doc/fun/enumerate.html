@@ -89,7 +89,8 @@ function mult(x,y) { return x * y }
 function halve(x)  { return x/2 }
 </PRE>
 <a name=11></a><H3> Using the Functions</H3>
-<P> All-ing...</P>
+<UL>
+<LI> All-ing...</LI>
 <PRE>
 function do_all(   arr) { 
     split("22 23 24 25 26 27 28",arr)
@@ -114,7 +115,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_all() }'
 [24]
 </pre>
 
-<P> Collect-ing...</P>
+<LI> Collect-ing...</LI>
 <PRE>
 function do_collect(        max,arr1,arr2,i) {
     max=split("22 23 24 25 26 27 28",arr1)
@@ -140,7 +141,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_collect() }'
 14
 </pre>
 
-<P> Select-ing...</P>
+<LI> Select-ing...</LI>
 <PRE>
 function do_select(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -162,7 +163,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_select() }'
 27
 </pre>
 
-<P> Reject-ing...</P>
+<LI> Reject-ing...</LI>
 <PRE>
 function do_reject(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -185,6 +186,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_reject() }'
 28
 </pre>
 
+<LI> Detect-ing</LI>
 <PRE>
 function do_detect(        all,arr1) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -203,7 +205,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_detect() }'
 23
 </pre>
 
-<P> Inject-ing...</P>
+<LI> Inject-ing...</LI>
 <PRE>
 function do_inject(        all,less,arr1,arr2,i) {
     split("1 2 3 4 5",arr1)
@@ -221,6 +223,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_inject() }'
 <pre>
 120
 </pre>
+</UL>
 
 <a name=12></a><H2> Code</H2>
 <P>

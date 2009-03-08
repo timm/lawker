@@ -65,7 +65,8 @@ function mult(x,y) { return x * y }
 function halve(x)  { return x/2 }
 #./PRE
 #.H3 Using the Functions 
-#.P All-ing...
+#.UL
+#.LI All-ing...
 #.PRE
 function do_all(   arr) { 
     split("22 23 24 25 26 27 28",arr)
@@ -77,7 +78,7 @@ function do_all(   arr) {
 #.P we see every item in <em>arr</em> printed using the above <em>show</em> function ...
 #.CODE eg/enum1.out
 
-#.P Collect-ing...
+#.LI Collect-ing...
 #.PRE
 function do_collect(        max,arr1,arr2,i) {
     max=split("22 23 24 25 26 27 28",arr1)
@@ -90,7 +91,7 @@ function do_collect(        max,arr1,arr2,i) {
 #.P we see every item in <em>arr</em> divided in two ...
 #.CODE eg/enum2.out
 
-#.P Select-ing...
+#.LI Select-ing...
 #.PRE
 function do_select(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -103,7 +104,7 @@ function do_select(        all,less,arr1,arr2,i) {
 #.P we see every item in <em>arr</em> that satisfies <em>odd</em>....
 #.CODE eg/enum3.out
 
-#.P Reject-ing...
+#.LI Reject-ing...
 #.PRE
 function do_reject(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -116,6 +117,7 @@ function do_reject(        all,less,arr1,arr2,i) {
 #.P we see every item in <em>arr</em> that <em>do not</em> satisfies <em>odd</em>....
 #.CODE eg/enum4.out
 
+#.LI Detect-ing
 #.PRE
 function do_detect(        all,arr1) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -127,7 +129,7 @@ function do_detect(        all,arr1) {
 #.P we see the first item in <em>arr</em> that satisfies <em>odd</em>....
 #.CODE eg/enum5.out
 
-#.P Inject-ing...
+#.LI Inject-ing...
 #.PRE
 function do_inject(        all,less,arr1,arr2,i) {
     split("1 2 3 4 5",arr1)
@@ -138,6 +140,7 @@ function do_inject(        all,less,arr1,arr2,i) {
 #.CODE eg/enum6
 #.P we see every the result of multiplying every item in  <em>arr</em> by its predecessor.
 #.CODE eg/enum6.out
+#./UL
 
 #.H2 Code
 #.P
