@@ -349,7 +349,7 @@ p.meta {
 	color: #CCC;
 }
 
-#htmltoc h2 { font-size: small; font-weight: normal; 
+#htmltoc h2 { color: black; font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 10px;}
 #htmltoc h3 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 40px;}
