@@ -100,7 +100,6 @@ function do_all(   arr) {
 <p>eg/enum1
 <pre>
 gawk317="$HOME/opt/gawk/bin/gawk"
-
 $gawk317 -f ../enumerate.awk --source 'BEGIN { do_all() }'
 </pre>
 <P> we see every item in <em>arr</em> printed using the above <em>show</em> function ...</P>
@@ -127,7 +126,6 @@ function do_collect(        max,arr1,arr2,i) {
 <p>eg/enum2
 <pre>
 gawk317="$HOME/opt/gawk/bin/gawk"
-
 $gawk317 -f ../enumerate.awk --source 'BEGIN { do_collect() }'
 </pre>
 <P> we see every item in <em>arr</em> divided in two ...</P>
@@ -154,7 +152,6 @@ function do_select(        all,less,arr1,arr2,i) {
 <p>eg/enum3
 <pre>
 gawk317="$HOME/opt/gawk/bin/gawk"
-
 $gawk317 -f ../enumerate.awk --source 'BEGIN { do_select() }'
 </pre>
 <P> we see every item in <em>arr</em> that satisfies <em>odd</em>....</P>
@@ -177,7 +174,6 @@ function do_reject(        all,less,arr1,arr2,i) {
 <p>eg/enum4
 <pre>
 gawk317="$HOME/opt/gawk/bin/gawk"
-
 $gawk317 -f ../enumerate.awk --source 'BEGIN { do_reject() }'
 </pre>
 <P> we see every item in <em>arr</em> that <em>do not</em> satisfies <em>odd</em>....</P>
@@ -199,7 +195,6 @@ function do_detect(        all,arr1) {
 <p>eg/enum5
 <pre>
 gawk317="$HOME/opt/gawk/bin/gawk"
-
 $gawk317 -f ../enumerate.awk --source 'BEGIN { do_detect() }'
 </pre>
 <P> we see the first item in <em>arr</em> that satisfies <em>odd</em>....</P>
@@ -219,7 +214,6 @@ function do_inject(        all,less,arr1,arr2,i) {
 <p>eg/enum6
 <pre>
 gawk317="$HOME/opt/gawk/bin/gawk"
-
 $gawk317 -f ../enumerate.awk --source 'BEGIN { do_inject() }'
 </pre>
 <P> we see every the result of multiplying every item in <em>arr</em> by its predecessor.</P>
