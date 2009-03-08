@@ -348,7 +348,8 @@ p.meta {
 	font-size: x-small;
 	color: #CCC;
 }
-div.htmltoc h2 { font-size: small; font-weight: normal;
+
+div.htmltoc h2 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 30px;}
  div.htmltoc h3 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 60px;}
@@ -360,6 +361,16 @@ div.htmltoc h2 { font-size: small; font-weight: normal;
                           margin: 0 0 0 0; margin-left: 150px;}
          div.htmltoc h7 { font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 180px; }
+
+div.htmltoc  a {
+color:#D96107;
+text-decoration:underline;
+}
+
+div.htmltoc a:hover {
+color:#999999;
+text-decoration:none;
+}
 
 /* Hides from IE-mac \*/
 * html .clearfix {height: 1%;}
