@@ -3,12 +3,12 @@ Doc=../doc
 Bash=../lib/bash
 Fun=../gawk/fun
 Awkwords=$(Bash)/awkwords
-Awk2Html=$(Bash)/awkwords $< > $@; svn add $@
+Awk2Html=$(Bash)/awkwords $< > $@; svn add $@ 
 
 all : config.xml files
 
 commit : 
-	cd ../..; svn commit
+	cd ../..; pwd; svn commit
 
 config.xml :	tags.txt things.awk tags.awk 	
 	(gawk -f ./things.awk config.xml ; gawk -f ./tags.awk tags.txt) > confignew.xml
