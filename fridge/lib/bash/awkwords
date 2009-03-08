@@ -1,8 +1,11 @@
 #.H1   AWKWORDS
-#.P       Pretty print for  source code.
+#.P       
+#         Pretty print for  source code, as described in
+#.URL     http://awk.info/?awkwords awk.info?awkwords 
 
 #.H2   SYNOPSIS
-#.P       <b>awkwords</b> file > file.html
+#.P       <b>awkwords</b> --title "Title" file > file.html  
+#.P       <b>awkwords</b> file > file.html  
 
 #.H2   DESCRIPTION
 #.P 
@@ -10,29 +13,39 @@
 #        for writing documentation for programs whose comment lines 
 #        start with "#" and whose comments contain HTML code.
 #.P
+#        When used with the <tt>--title</tt> option, a stand alone web page is generated
+#        (to control the style of that page, see the <tt>CSS</tt> function, dicussed below).
+#        When used without <tt>--title</tt> it generated some html suitable for inclusion
+#        into other pages.
+#.P
 #        Also, AwkWords finds all the &lt;h2>, &lt;h3>, &lt;h4>, &lt;h5>,
 #        &lt;h6>, &lt;h7>, &lt;h8>, &lt;h9> headings and copies them to a table
 #        of contents at the front of the file.
+#        Note that AwkWords assumes that the file contains only one
+#        &lt;h1> heading- this is printed before the table of contents.
+
 #.P
-#        AwkWords assumes that the file contains only one
-#        #&lt;h1> heading- this is printed before the table of contents.
+#       AwkWords adds some short cuts for HTML markup, as well as including
+#       nested contents (see below: "including nested content"). This is useful for including, say,
+#       program output along with the actual program.
 
 #.H4 Extra Markup
 #.P
-#       AwkWords also adds some short cuts for HTML markup, as well as including
-#       nested contents. 
 #.P
 #.EM    Short cuts for HTML
 #.DL
 #.DT
 #.TT       #.XX
-#.DD       This is replaced by <TT>&lt;XX>.
+#.DD       This is replaced by <TT>&lt;XX></tt>.
 #.DT 
 #.TT       #.XX words
 #.DD       This is replaced by <TT>&lt;XX>words&lt;/XX></TT>.
 #.DT 
 #.TT       #.TO url words
-#.DD       This is replaced by a link to <tt>url</tt>.
+#.DD       This is replaced by a link to mail to <tt>url</tt>.
+#.DT
+#.TT       #.URL url words
+#.DD       This is replaced by a link to mail to <tt>url</tt>.
 #./DL
 #.P 
 #.EM   Including nested content:
@@ -49,15 +62,22 @@
 #./DL
 #./UL
 #.H2   INSTALLATION
+#.P        This code requires gawk and bash.
 #.PRE
 #          wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
 #          chmod +x awkwords
 #./PRE
-#.P    To test the code, apply it to itself:
+#.P     To test the code, apply it to itself:
 #.UL
-#.LI       awkwords awkwords  > awkwards.html</tt>
+#.LI       awkwords --title "Does this work?" awkwords  > awkwards.html</tt>
 #./UL
 #.H2 PROGRAMMER'S GUIDE
+#.P
+#        Awkwords is divided into two functions: 
+#           <tt>toc</tt> adds the table of contents while
+#          <tt>includes</tt> handles the details of the extra mark-up.
+#.H3 Functions
+#.H4 toc
 #.PRE
 toc() { cat $1 | gawk '
     BEGIN             { IGNORECASE = 1 }
@@ -66,8 +86,7 @@ toc() { cat $1 | gawk '
                       { Line[++N] = Pre $0; Pre="" }
     END { print Header;
           print "<" "div class=htmltoc>"
-          print "<" "h2>Contents</h2>";
-	  for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
+          for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
           print "<" "/div><!--- htmltoc --->"
           print "<" "div class=htmlbody>"
           for(I=1;I<=N;I++) print Line[I]
@@ -75,7 +94,14 @@ toc() { cat $1 | gawk '
          }'
 }
 #./PRE
-#.P turn front of line mark up into 
+#.H4  includes
+#.P       The  <tt>xpand</tt> function controls recursive inclusion of content. Note that 
+#.UL       
+#.LI        The last act of this function must be to call <tt>xpand1</tt>.
+#.LI        
+#           When including verbatim text, the recursive call to <tt>xpands</tt> 
+#           must pass "1" to the second paramter.
+#./UL
 #.PRE
 includes() { cat $1 | gawk '
      function xpand(pre,  tmp) {
@@ -83,23 +109,36 @@ includes() { cat $1 | gawk '
         else if ($1 ~ "^#.BODY" ) xpandsBody($2,pre)
         else if ($1 ~ "^#.CODE")  {
   	    print "<" "p>" $2 "\n<" "pre>"
-	    xpands($2,1)
+	    xpands($2,1)     # <===== note the recursive call with "1"
 	    print "<" "/pre>" } 
+        else if ($1 ~ "^#.URL") {
+	    tmp = $2; $1=$2="";
+	    print "<" "a href=\""tmp"\">" trim($0) "</a>"
+	    }
         else if ($1 ~ "^#.TO") {
-	    tmp = $2; $1=$2=0;
-	    print "<" "a href=\""tmp"\">" $0 "</a>"
+	    tmp = $2; $1=$2="";
+	    print "<" "a href=\"mailto:"tmp"\">" trim($0) "</a>"
 	    }
         else 
 	    xpand1(pre)
      }
+#./PRE
+#.P       
+#       The <tt>xpand1</tt> function controls the printing of a single line.
+#       If we are formatting verbatim text, we must remove the start-of-html character "&lt;".
+#       Otherwise, we expand any html shortcuts.
+#.PRE
      function xpand1(pre) {
         if (pre)
-           gsub(/</,"\\&lt;",$0) 
+           gsub("<","\\&lt;",$0)  # <=== remove start-of-html-character
         else {
-	   $0= xpandHtml($0)
+	   $0= xpandHtml($0)      # <=== expand html short cuts
 	   sub(/^#/,"",$0) }
         print $0 
      }
+#./PRE
+#.P     The function <tt>xpandHtml</tt> controls the html short cuts
+#.PRE
      function xpandHtml(    str,tag) {
         if ($0 ~ /^#\.H1/) {         
 	   $1=""
@@ -110,9 +149,9 @@ includes() { cat $1 | gawk '
         }
         return $0
      }
-     function newFile(f) {
-        return ++Seen[f]==1
-     }
+#./PRE
+#.P The rest of the code is just some book-keeping and managing the recursive addition of content.
+#.PRE
      function xpands(f,pre) {
         if (newFile(f)) {
 	    while((getline <f) > 0) xpand(pre)
@@ -125,12 +164,47 @@ includes() { cat $1 | gawk '
 	    if ( using ) xpand(pre)}
 	  close(f) }
      }
+     function newFile(f) { return ++Seen[f]==1 }
+     function trim (s)   { sub(/^[ \t]*/,"",s);  sub(/[ \t]*$/,"",s); return s } 
 
      BEGIN { IGNORECASE=1 }
            { xpand()      }'
 }
 #./PRE
-#.P Main file
-#.PRE       
-cat $1   | includes |  toc 
+#.H3 CSS styles
+#.P 
+#    If used to generate a full web page, then the following styles are added.
+#    Note that the <tt>htmltoc</tt> class controls the appearance of the table of contents.
+#.PRE
+css() { 
+      echo "<""STYLE type=\"text/css\">"
+      cat<<-'EOF'
+         div.htmltoc h2 { font-size: medium; font-weight: normal; margin: 0 0 0 0; margin-left: 30px;}
+	 div.htmltoc h3 { font-size: medium; font-weight: normal; margin: 0 0 0 0; margin-left: 60px;}
+         div.htmltoc h4 { font-size: medium; font-weight: normal; margin: 0 0 0 0; margin-left: 90px;}
+         div.htmltoc h5 { font-size: medium; font-weight: normal; margin: 0 0 0 0; margin-left: 120px;}
+         div.htmltoc h6 { font-size: medium; font-weight: normal; margin: 0 0 0 0; margin-left: 150px;}
+         div.htmltoc h7 { font-size: medium; font-weight: normal; margin: 0 0 0 0; margin-left: 180px; }
+      </STYLE>
+EOF
+}
 #./PRE
+#.H3 Main command line
+#.PRE       
+main() { cat $1 | includes | toc; }
+
+if [ $1 == "--title" ]
+then 
+     echo "<""html><""head><""title>$2</title>`css`</head><""body>"; 
+     shift 2
+     main $1
+     echo "<""/body><""/html>"
+else 
+     main $1
+fi 
+#./PRE
+#.H2 BUGS 
+#.P There's no checking for valid input (e.g. pre-formatting tags that never close).
+#.P If the input file contains no html mark up, the results are pretty messy.
+#.H2 AUTHOR
+#.TO tim@menzies.us Tim Menzies 
