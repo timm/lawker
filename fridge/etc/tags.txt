@@ -51,7 +51,7 @@ doc/tools/runawk.html				AlexC	2009	Mar	Tools	Project		        |runawk
 doc/tools/awkwords.html				Timm	2009	Mar	Tools	Project		        |awkwords
 
 doc/funky.html					Timm	2009	Mar	Funky			        |Functional Gawk 
-doc/func-challenge.html					Timm	2009	Mar	Funky			        |Functional Challenge
+doc/funcChallenge.html					Timm	2009	Mar	Funky			        |Functional Challenge
 doc/fun/enumerate.html				Timm	2009	Mar	Funky			        |Functional Enumeration
 
 doc/var/top10posters.html			Steffen	2009	Jan	Newsgroup			|Top 10 posters
