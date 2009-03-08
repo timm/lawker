@@ -3,7 +3,7 @@ Doc=../doc
 Bash=../lib/bash
 Fun=../gawk/fun
 Awkwords=$(Bash)/awkwords
-Awk2Html=$(Bash)/awkwords $< > $@; svn add $@ 
+Awk2Html=$(Bash)/awkwords $< > $@ 
 
 all : config.xml files
 
@@ -17,5 +17,7 @@ config.xml :	tags.txt things.awk tags.awk
 
 files : $(Doc)/tools/awkwords.html $(Doc)/fun/enumerate.html
 
-$(Doc)/tools/awkwords.html : $(Bash)/awkwords     ; $(Awk2Html)
-$(Doc)/fun/enumerate.html  : $(Fun)/enumerate.awk ; $(Awk2Html)
+$(Doc)/tools/awkwords.html : $(Bash)/awkwords     
+	cd $(Bash) && $(Awk2Html)
+$(Doc)/fun/enumerate.html  : $(Fun)/enumerate.awk 
+	cd $(Fun) && $(Awk2Html)
