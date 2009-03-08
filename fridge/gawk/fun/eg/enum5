@@ -1,0 +1,2 @@
+gawk317="$HOME/opt/gawk/bin/gawk"
+$gawk317 -f ../enumerate.awk --source 'BEGIN { do_detect() }'

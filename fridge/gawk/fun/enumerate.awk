@@ -214,12 +214,12 @@ function inject (fun,a,carry,max,   i) {
 	return carry
 }
 #./PRE
-#.H2 BUGS
+#.H2 Bugs
 #.P 
 # The above code does not pass around any state information that
 # the <em>fum</em> functions can use. So all their deliberations are either
 # with the current array values (integers or strings) or with global state.
 # It might be worthwhile writing new versions of the above with one more argument,
 # to carry that sate.
-#.H2 AUTHOR
+#.H2 Author
 #.TO tim@menzies.us Tim Menzies
