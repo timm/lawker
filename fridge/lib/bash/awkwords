@@ -29,10 +29,8 @@
 #       nested contents (see below: "including nested content"). This is useful for including, say,
 #       program output along with the actual program.
 
-#.H4 Extra Markup
-#.P
-#.P
-#.EM    Short cuts for HTML
+#.H3 Extra Markup
+#.H4    Short cuts for HTML
 #.DL
 #.DT       #.XX
 #.DD       This is replaced by <EM>&lt;XX></em>.
@@ -43,8 +41,7 @@
 #.DT       #.URL url words
 #.DD       This is replaced by a link to mail to <em>url</em>.
 #./DL
-#.P 
-#.EM   Including nested content:
+#.H4  Including nested content:
 #.DL
 #.DT       #.IN file
 #.DD       This line is  replaced by the contents of <em>file</em>.
