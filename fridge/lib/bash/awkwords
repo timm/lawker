@@ -70,13 +70,15 @@
 #           <em>toc</em> adds the table of contents while
 #          <em>includes</em> handles the details of the extra mark-up.
 #.H3 Functions
-#.H4 toc
+#.H4 toc 
 #.PRE
 toc() { cat $1 | gawk '
  BEGIN             { IGNORECASE = 1 }
  /^<[h]1>/         { Header=$0; next}
  /^<h[23456789]>/  { T++ ;
-                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,"\\1<h\\2><a name=" T ">\\3</a></h\\4>\\5","g",$0)
+                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
+                                      "\\1<h\\2><a href=#" T ">\\3</a></h\\4>\\5",
+                                      "g",$0)
 		     Pre="<a name="T"></a>" }
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;

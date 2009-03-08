@@ -1,18 +1,18 @@
 <h1><join> AWKWORDS</join></h1>
 <div id="htmltoc">
 <p>Table of Contents</p>
-<h2><a name=1>SYNOPSIS</a></h2>
-<h2><a name=2>DESCRIPTION</a></h2>
-<h4><a name=3>Extra Markup</a></h4>
-<h2><a name=4>INSTALLATION</a></h2>
-<h2><a name=5>PROGRAMMER'S GUIDE</a></h2>
-<h3><a name=6>Functions</a></h3>
-<h4><a name=7>toc</a></h4>
-<h4><a name=8>includes</a></h4>
-<h3><a name=9>CSS styles</a></h3>
-<h3><a name=10>Main command line</a></h3>
-<h2><a name=11>BUGS</a></h2>
-<h2><a name=12>AUTHOR</a></h2>
+<h2><a href=#1>SYNOPSIS</a></h2>
+<h2><a href=#2>DESCRIPTION</a></h2>
+<h4><a href=#3>Extra Markup</a></h4>
+<h2><a href=#4>INSTALLATION</a></h2>
+<h2><a href=#5>PROGRAMMER'S GUIDE</a></h2>
+<h3><a href=#6>Functions</a></h3>
+<h4><a href=#7>toc</a></h4>
+<h4><a href=#8>includes</a></h4>
+<h3><a href=#9>CSS styles</a></h3>
+<h3><a href=#10>Main command line</a></h3>
+<h2><a href=#11>BUGS</a></h2>
+<h2><a href=#12>AUTHOR</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <P>
@@ -92,7 +92,9 @@ toc() { cat $1 | gawk '
  BEGIN             { IGNORECASE = 1 }
  /^<[h]1>/         { Header=$0; next}
  /^<h[23456789]>/  { T++ ;
-                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,"\\1<h\\2><a name=" T ">\\3</a></h\\4>\\5","g",$0)
+                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
+                                      "\\1<h\\2><a href=#" T ">\\3</a></h\\4>\\5",
+                                      "g",$0)
 		     Pre="<a name="T"></a>" }
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;
