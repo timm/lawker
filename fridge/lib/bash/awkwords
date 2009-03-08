@@ -8,11 +8,12 @@
 #        AwkWords is  a simple-to-use markup language  
 #        for writing documentation for programs whose comment lines 
 #        start with "#" and whose comments contain HTML code.
+#.P
 #	     For example,
 #.URL     http://awk.info/?tools/awkwords awk.info?tools/awkwords 
 #         shows the html generated from 
 #.URL     http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords this bash script.
-##.P
+#.P
 #        When used with the <em>--title</em> option, a stand alone web page is generated
 #        (to control the style of that page, see the <em>CSS</em> function, dicussed below).
 #        When used without <em>--title</em> it generated some html suitable for inclusion
