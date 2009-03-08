@@ -34,31 +34,24 @@
 #.P
 #.EM    Short cuts for HTML
 #.DL
-#.DT
-#.TT       #.XX
+#.DT       #.XX
 #.DD       This is replaced by <EM>&lt;XX></em>.
-#.DT 
-#.TT       #.XX words
+#.DT       #.XX words
 #.DD       This is replaced by <EM>&lt;XX>words&lt;/XX></EM>.
-#.DT 
-#.TT       #.TO url words
+#.DT       #.TO url words
 #.DD       This is replaced by a link to mail to <em>url</em>.
-#.DT
-#.TT       #.URL url words
+#.DT       #.URL url words
 #.DD       This is replaced by a link to mail to <em>url</em>.
 #./DL
 #.P 
 #.EM   Including nested content:
 #.DL
-#.DT 
-#.TT       #.IN file
+#.DT       #.IN file
 #.DD       This line is  replaced by the contents of <em>file</em>.
-#.DT 
-#.TT       #.CODE file
+#.DT       #.CODE file
 #.DD       This line is  replaced by the verbatbim of <em>file</em> (no formatting).
-#.DT 
-#.TT       #.BODY file
-#.DD        This line is  replaced  by <em>file</em>, less the lines before the first blank line.
+#.DT       #.BODY file
+#.DD       This line is  replaced  by <em>file</em>, less the lines before the first blank line.
 #./DL
 #./UL
 #.H2   INSTALLATION
@@ -86,6 +79,7 @@ toc() { cat $1 | gawk '
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;
        print "<" "div class=htmltoc>"
+       print "<" "p>Table of Contents";
        for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
        print "<" "/div><!--- htmltoc --->"
        print "<" "div class=htmlbody>"
