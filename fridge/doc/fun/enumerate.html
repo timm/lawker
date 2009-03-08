@@ -12,21 +12,15 @@
 <h4><font color=blacl>&bull;</a> <a href=#9>inject(fun,array,carry [,max])</a></h4>
 <h3><font color=blacl>&bull;</a> <a href=#10>Sample Functions</a></h3>
 <h3><font color=blacl>&bull;</a> <a href=#11>Using the Functions</a></h3>
-<h4><font color=blacl>&bull;</a> <a href=#12>all</a></h4>
-<h4><font color=blacl>&bull;</a> <a href=#13>collect</a></h4>
-<h4><font color=blacl>&bull;</a> <a href=#14>select</a></h4>
-<h4><font color=blacl>&bull;</a> <a href=#15>reject</a></h4>
-<h4><font color=blacl>&bull;</a> <a href=#16>detect</a></h4>
-<h4><font color=blacl>&bull;</a> <a href=#17>inject</a></h4>
-<h2><font color=blacl>&bull;</a> <a href=#18>Code</a></h2>
-<h3><font color=blacl>&bull;</a> <a href=#19>all</a></h3>
-<h3><font color=blacl>&bull;</a> <a href=#20>collect</a></h3>
-<h3><font color=blacl>&bull;</a> <a href=#21>select</a></h3>
-<h3><font color=blacl>&bull;</a> <a href=#22>reject</a></h3>
-<h3><font color=blacl>&bull;</a> <a href=#23>detect</a></h3>
-<h3><font color=blacl>&bull;</a> <a href=#24>inject</a></h3>
-<h2><font color=blacl>&bull;</a> <a href=#25>BUGS</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#26>AUTHOR</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#12>Code</a></h2>
+<h3><font color=blacl>&bull;</a> <a href=#13>all</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#14>collect</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#15>select</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#16>reject</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#17>detect</a></h3>
+<h3><font color=blacl>&bull;</a> <a href=#18>inject</a></h3>
+<h2><font color=blacl>&bull;</a> <a href=#19>BUGS</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#20>AUTHOR</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -95,7 +89,6 @@ function mult(x,y) { return x * y }
 function halve(x)  { return x/2 }
 </PRE>
 <a name=11></a><H3> Using the Functions</H3>
-<a name=12></a><H4> all</H4>
 <PRE>
 function do_all(   arr) { 
     split("22 23 24 25 26 27 28",arr)
@@ -117,7 +110,6 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_all() }'
 [24]
 </pre>
 
-<a name=13></a><H4> collect</H4>
 <PRE>
 function do_collect(        max,arr1,arr2,i) {
     max=split("22 23 24 25 26 27 28",arr1)
@@ -140,7 +132,6 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_collect() }'
 14
 </pre>
 
-<a name=14></a><H4> select</H4>
 <PRE>
 function do_select(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -159,7 +150,6 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_select() }'
 27
 </pre>
 
-<a name=15></a><H4> reject</H4>
 <PRE>
 function do_reject(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -179,7 +169,6 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_reject() }'
 28
 </pre>
 
-<a name=16></a><H4> detect</H4>
 <PRE>
 function do_detect(        all,arr1) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -195,7 +184,6 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_detect() }'
 23
 </pre>
 
-<a name=17></a><H4> inject</H4>
 <PRE>
 function do_inject(        all,less,arr1,arr2,i) {
     split("1 2 3 4 5",arr1)
@@ -211,11 +199,11 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_inject() }'
 120
 </pre>
 
-<a name=18></a><H2> Code</H2>
+<a name=12></a><H2> Code</H2>
 <P>
  Note one design principle in the following: any newly geneated arrays have indexes <em>1..max</em>
  where <em>max</em> is the number of elements in that array.
-<a name=19></a><H3> all</H3>
+<a name=13></a><H3> all</H3>
 <PRE>
 function all (fun,a,max,   i) {
 	if (max) 
@@ -224,7 +212,7 @@ function all (fun,a,max,   i) {
 		for(i in a) @fun(a[i])
 }
 </PRE>
-<a name=20></a><H3> collect</H3>
+<a name=14></a><H3> collect</H3>
 <PRE>
 function collect (fun,a,b,max,   i) {
 	if (max)
@@ -234,7 +222,7 @@ function collect (fun,a,b,max,   i) {
 	return n
 }
 </PRE>
-<a name=21></a><H3> select</H3>
+<a name=15></a><H3> select</H3>
 <PRE>
 function select (fun,a,b,max,   i,n) {
 	if (max)
@@ -246,7 +234,7 @@ function select (fun,a,b,max,   i,n) {
 	return n
 }
 </PRE>
-<a name=22></a><H3> reject</H3>
+<a name=16></a><H3> reject</H3>
 <PRE>
 function reject (fun,a,b,max,   i,n) {
 	if (max)
@@ -258,7 +246,7 @@ function reject (fun,a,b,max,   i,n) {
 	return n
 }
 </PRE>
-<a name=23></a><H3> detect</H3>
+<a name=17></a><H3> detect</H3>
 <PRE>
 BEGIN {Fail="someUnLIKELYSymbol"}
 function detect (fun,a,max,   i) {
@@ -271,7 +259,7 @@ function detect (fun,a,max,   i) {
 	return Fail
 }
 </PRE>
-<a name=24></a><H3> inject</H3>
+<a name=18></a><H3> inject</H3>
 <PRE>
 function inject (fun,a,carry,max,   i) {
 	if (max)
@@ -283,13 +271,13 @@ function inject (fun,a,carry,max,   i) {
 	return carry
 }
 </PRE>
-<a name=25></a><H2> BUGS</H2>
+<a name=19></a><H2> BUGS</H2>
 <P>
  The above code does not pass around any state information that
  the <em>fum</em> functions can use. So all their deliberations are either
  with the current array values (integers or strings) or with global state.
  It might be worthwhile writing new versions of the above with one more argument,
  to carry that sate.
-<a name=26></a><H2> AUTHOR</H2>
+<a name=20></a><H2> AUTHOR</H2>
 <a href="mailto:tim@menzies.us">Tim Menzies</a>
 </div><!--- htmlbody --->

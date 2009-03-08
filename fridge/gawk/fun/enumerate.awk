@@ -65,7 +65,6 @@ function mult(x,y) { return x * y }
 function halve(x)  { return x/2 }
 #./PRE
 #.H3 Using the Functions 
-#.H4 all
 #.PRE
 function do_all(   arr) { 
     split("22 23 24 25 26 27 28",arr)
@@ -77,7 +76,6 @@ function do_all(   arr) {
 #.P we see every item in <em>arr</em> printed using the above <em>show</em> function ...
 #.CODE eg/enum1.out
 
-#.H4 collect
 #.PRE
 function do_collect(        max,arr1,arr2,i) {
     max=split("22 23 24 25 26 27 28",arr1)
@@ -90,7 +88,6 @@ function do_collect(        max,arr1,arr2,i) {
 #.P we see every item in <em>arr</em> divided in two ...
 #.CODE eg/enum2.out
 
-#.H4 select
 #.PRE
 function do_select(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -103,7 +100,6 @@ function do_select(        all,less,arr1,arr2,i) {
 #.P we see every item in <em>arr</em> that satisfies <em>odd</em>....
 #.CODE eg/enum3.out
 
-#.H4 reject
 #.PRE
 function do_reject(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -116,7 +112,6 @@ function do_reject(        all,less,arr1,arr2,i) {
 #.P we see every item in <em>arr</em> that <em>do not</em> satisfies <em>odd</em>....
 #.CODE eg/enum4.out
 
-#.H4 detect
 #.PRE
 function do_detect(        all,arr1) {
     all  = split("22 23 24 25 26 27 28",arr1)
@@ -128,7 +123,6 @@ function do_detect(        all,arr1) {
 #.P we see the first item in <em>arr</em> that satisfies <em>odd</em>....
 #.CODE eg/enum5.out
 
-#.H4 inject
 #.PRE
 function do_inject(        all,less,arr1,arr2,i) {
     split("1 2 3 4 5",arr1)
