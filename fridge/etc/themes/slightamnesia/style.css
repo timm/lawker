@@ -351,15 +351,15 @@ p.meta {
 
 #htmltoc h2 { color: black; font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 10px;}
-#htmltoc h3 { font-size: small; font-weight: normal; 
+#htmltoc h3 { color: black;  font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 40px;}
-#htmltoc h4 { font-size: small; font-weight: normal; 
+#htmltoc h4 { color: black;  font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 70px;}
-#htmltoc h5 { font-size: small; font-weight: normal; 
+#htmltoc h5 { color: black;  font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 100px;}
-#htmltoc h6 { font-size: small; font-weight: normal; 
+#htmltoc h6 { color: black;  font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 130px;}
-#htmltoc h7 { font-size: small; font-weight: normal; 
+#htmltoc h7 { color: black;  font-size: small; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 160px; }
 
 #htmltoc  a {
