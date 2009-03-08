@@ -1,11 +1,11 @@
 #.H1   AWKWORDS
-#.P       
-#         Pretty print for  source code, as described in
-#.URL     http://awk.info/?awkwords awk.info?tools/awkwords 
 
 #.H2   SYNOPSIS
 #.P       <b>awkwords</b> --title "Title" file > file.html  
 #.P       <b>awkwords</b> file > file.html  
+#.P       
+#         Pretty print for  source code, as described in
+#.URL     http://awk.info/?awkwords awk.info?tools/awkwords 
 
 #.H2   DESCRIPTION
 #.P 
@@ -74,7 +74,7 @@ toc() { cat $1 | gawk '
  /^<[h]1>/         { Header=$0; next}
  /^<h[23456789]>/  { T++ ;
                      Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
-                                      "\\1<""h\\2><""a href=#" T ">\\3</a></h\\4>\\5",
+                                      "<""h\\2>&bull; <""a href=#" T ">\\3</a></h\\4>",
                                       "g",$0)
 		     Pre="<a name="T"></a>" }
                    { Line[++N] = Pre $0; Pre="" }

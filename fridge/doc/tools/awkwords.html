@@ -1,29 +1,29 @@
 <h1><join> AWKWORDS</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
-<h2><a href=#1>SYNOPSIS</a></h2>
-<h2><a href=#2>DESCRIPTION</a></h2>
-<h3><a href=#3>Extra Markup</a></h3>
-<h4><a href=#4>Short cuts for HTML</a></h4>
-<h4><a href=#5>Including nested content:</a></h4>
-<h2><a href=#6>INSTALLATION</a></h2>
-<h2><a href=#7>PROGRAMMER'S GUIDE</a></h2>
-<h3><a href=#8>Functions</a></h3>
-<h4><a href=#9>toc</a></h4>
-<h4><a href=#10>includes</a></h4>
-<h3><a href=#11>CSS styles</a></h3>
-<h3><a href=#12>Main command line</a></h3>
-<h2><a href=#13>BUGS</a></h2>
-<h2><a href=#14>AUTHOR</a></h2>
+<h2><H2> SYNOPSIS</H2>bull; <a href=#1>SYNOPSIS</a></h2>
+<h2><H2> DESCRIPTION</H2>bull; <a href=#2>DESCRIPTION</a></h2>
+<h3><H3> Extra Markup</H3>bull; <a href=#3>Extra Markup</a></h3>
+<h4><H4> Short cuts for HTML</H4>bull; <a href=#4>Short cuts for HTML</a></h4>
+<h4><H4> Including nested content:</H4>bull; <a href=#5>Including nested content:</a></h4>
+<h2><H2> INSTALLATION</H2>bull; <a href=#6>INSTALLATION</a></h2>
+<h2><H2> PROGRAMMER'S GUIDE</H2>bull; <a href=#7>PROGRAMMER'S GUIDE</a></h2>
+<h3><H3> Functions</H3>bull; <a href=#8>Functions</a></h3>
+<h4><H4> toc</H4>bull; <a href=#9>toc</a></h4>
+<h4><H4> includes</H4>bull; <a href=#10>includes</a></h4>
+<h3><H3> CSS styles</H3>bull; <a href=#11>CSS styles</a></h3>
+<h3><H3> Main command line</H3>bull; <a href=#12>Main command line</a></h3>
+<h2><H2> BUGS</H2>bull; <a href=#13>BUGS</a></h2>
+<h2><H2> AUTHOR</H2>bull; <a href=#14>AUTHOR</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
-<P>
-         Pretty print for  source code, as described in
-<a href="http://awk.info/?awkwords">awk.info?tools/awkwords</a>
 
 <a name=1></a><H2> SYNOPSIS</H2>
 <P> <b>awkwords</b> --title "Title" file > file.html</P>
 <P> <b>awkwords</b> file > file.html</P>
+<P>
+         Pretty print for  source code, as described in
+<a href="http://awk.info/?awkwords">awk.info?tools/awkwords</a>
 
 <a name=2></a><H2> DESCRIPTION</H2>
 <P>
@@ -92,7 +92,7 @@ toc() { cat $1 | gawk '
  /^<[h]1>/         { Header=$0; next}
  /^<h[23456789]>/  { T++ ;
                      Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
-                                      "\\1<""h\\2><""a href=#" T ">\\3</a></h\\4>\\5",
+                                      "<""h\\2>&bull; <""a href=#" T ">\\3</a></h\\4>",
                                       "g",$0)
 		     Pre="<a name="T"></a>" }
                    { Line[++N] = Pre $0; Pre="" }
