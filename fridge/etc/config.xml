@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="0.0"?>
 <things>
  <strings>
     <string id="index">etc/themes/slightamnesia</string>
@@ -20,8 +20,6 @@
       <![CDATA[  <ul>
                  <li><a href="?index">Home</a>        </li>
                  <li><a href="?advocacy">Why Awk?</a> </li> 
-                 <li><a href="?code">Code</a> </li>
-                 <li><a href="?community">Community</a> </li>
                  <li><a href="?contribute">Contribute</a> </li>
                  <li><a href="?awk100">Awk100</a> </li>
 		 <li><a href="?Funky">Funky</a> </li>
@@ -66,7 +64,7 @@ Implementations<br>
 
 &nbsp;&raquo;&nbsp; <a href="http://www.shelldorado.com/articles/awkcompat.html">platform support</a>
 <hr>
-Coding<br>
+Code<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?OneLiners">one-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?TenLiners">ten-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?Tips">tips</a><br>
@@ -79,11 +77,18 @@ Libraries<br>
 &nbsp;&raquo;&nbsp;  <a href="http://homepage.mac.com/stefan.tramm/iWiki/DownloadSection.html">Xgawk</a><br>
 &nbsp;&raquo;&nbsp;  the <a href="?code">Lawker</a> library
 <hr>
+Community<br>
+&nbsp;&raquo;&nbsp;  the <a href="http://awk.freeshell.org/">awk wiki</a><br>
+&nbsp;&raquo;&nbsp;  discussion <a href="http://groups.google.com/group/comp.lang.awk/topics">news group</a><br>
+&nbsp;&raquo;&nbsp;  top 10 subjects, last <a href="http://awk.info/?var/top10subjects">week</a>, 
+                                        <a href="http://awk.info/?var/top10subjectslastyear">year</a><br>
+&nbsp;&raquo;&nbsp;  top 10 posters, last <a href="http://awk.info/?var/top10posters">week</a>, 
+                                        <a href="http://awk.info/?var/top10posterslastyear">year</a><br>
+<hr>
 Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/cheatsheet.pdf">cheat sheet</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.nrl.navy.mil/code5595/online-software/manpages/gawk-manpage.html">manual pages</a><br>
-&nbsp;&raquo;&nbsp;  <a href="http://www.faqs.org/faqs/computer-lang/awk/faq/">FAQ</a><br>
-&nbsp;&raquo;&nbsp;  <a href="http://groups.google.com/group/comp.lang.awk/topics">discussion group</a><br>
+&nbsp;&raquo;&nbsp;  <a href="http://www.faqs.org/faqs/computer-lang/awk/faq/">FAQ</a>
 <hr>Reading<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
 &nbsp;&raquo;&nbsp;  articles
