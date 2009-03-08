@@ -70,12 +70,14 @@ Coding<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?OneLiners">one-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?TenLiners">ten-liners</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?Tips">tips</a><br>
-&nbsp;&raquo;&nbsp;  the <a href="?awk100">Awk 100</a>
+&nbsp;&raquo;&nbsp;  the <a href="?awk100">Awk 100</a><br>
+&nbsp;&raquo;&nbsp;  the <a href="?code">project tools</a><br>
+&nbsp;&raquo;&nbsp;  the <a href="?code">functional programming</a>
 <hr>
 Libraries<br>
 &nbsp;&raquo;&nbsp;  <a href="http://code.google.com/p/lawker/source/browse/fridge/gawk/">Gawk</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://homepage.mac.com/stefan.tramm/iWiki/DownloadSection.html">Xgawk</a><br>
-&nbsp;&raquo;&nbsp;  the <a href="?code">Lawker</a> library<br>
+&nbsp;&raquo;&nbsp;  the <a href="?code">Lawker</a> library
 <hr>
 Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/cheatsheet.pdf">cheat sheet</a><br>
@@ -445,6 +447,14 @@ pageTracker._trackPageview();
 		<what>Functionn</what>
 		<what>Arrays</what>
 		<title>array.awk</title>
+	</file>
+	<file where="doc/project.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Tools</what>
+		<what>Project</what>
+		<title>Project Tools</title>
 	</file>
 	<file where="doc/tools/runawk.html">
 		<what>AlexC</what>

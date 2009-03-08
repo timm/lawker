@@ -46,6 +46,7 @@ doc/tip/noforloops.html				Jimh	2009	Jan	Tips	Forloop			|Forloops
 gawk/array/join.awk				Arnoldr	2009	Feb	Functionn	Arrays	Timm	|join.awk
 gawk/array/array.awk				Timm	2009	Feb	Functionn	Arrays		|array.awk
 
+doc/project.html				Timm	2009	Mar	Tools	Project		        |Project Tools
 doc/tools/runawk.html				AlexC	2009	Mar	Tools	Project		        |runawk
 doc/tools/awkwords.html				Timm	2009	Mar	Tools	Project		        |awkwords
 
