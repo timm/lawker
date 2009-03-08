@@ -15,7 +15,7 @@ config.xml :	tags.txt things.awk tags.awk
 	mv confignew.xml config.xml
 	svn commit -m "tags updated"
 
-files : $(Doc)/tools/awkwords.html $(Doc)/tools/enumerate.html
+files : $(Doc)/tools/awkwords.html $(Doc)/fun/enumerate.html
 
 $(Doc)/tools/awkwords.html : $(Awkwords) $(Bash)/awkwords     ; $(Awk2Html)
-$(Doc)/tools/enumerate.html  : $(Awkwords) $(Fun)/enumerate.awk ; $(Awk2Html)
+$(Doc)/fun/enumerate.html  : $(Awkwords) $(Fun)/enumerate.awk ; $(Awk2Html)

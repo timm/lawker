@@ -63,7 +63,7 @@ function show(x)   { print "[" x "]" }
 function mult(x,y) { return x * y }
 function halve(x)  { return x/2}
 #./PRE
-#.H3 Using the Functions
+#.H3 Using the Functions 
 #.PRE
 function demo-all() {
     split("22 23 24 25 26 27 28",arr)
