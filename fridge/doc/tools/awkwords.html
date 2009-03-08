@@ -155,7 +155,7 @@ function xpand1(pre) {
 function xpandHtml(    str,tag) {
    if ($0 ~ /^#\.H1/) {         
 	   $1=""
-	   return "<" "h1><join>" $0 "</join></" "h1>" }
+	   return "<" "h""1><join>" $0 "</join></" "h1>" }
    if (sub(/^#\./,"",$1)) {
 	   tag=$1;  $1=""
 	   return "<" tag ">"  (($0 ~ /^[ \t]*$/) ? "" : $0"</"tag">")
