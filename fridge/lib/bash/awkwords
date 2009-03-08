@@ -1,63 +1,63 @@
-#.H1  AWKWORDS
-#.H2 AWKWORDS
-#.P Pretty print for  source code.
-#.H2 SYNOPSIS
-#.P
-#.B awkwords
-# file > file.html
-#.H2 INSTALLATION
-#.PRE
-#wget 
-#.H2 DESCRIPTION
+#.H1   AWKWORDS
+#.P       Pretty print for  source code.
+
+#.H2   SYNOPSIS
+#.P       <b>awkwords</b> file > file.html
+
+#.H2   DESCRIPTION
 #.P 
-#AwkWords is a simple-to-use markup language used 
-#for writing documentation for programs whose comment lines 
-#start with "#"
-#and whose comments contain HTML code.
+#        AwkWords is a simple-to-use markup language used 
+#        for writing documentation for programs whose comment lines 
+#        start with "#" and whose comments contain HTML code.
 #.P
-#Also, AwkWords finds all the
-#&lt;h2>, 
-#&lt;h3>, 
-#&lt;h4>, 
-#&lt;h5>, 
-#&lt;h6>, 
-#&lt;h7>, 
-#&lt;h8>, 
-#&lt;h9>
-#headings and copies them to a table of contents at the front of the file.
+#        Also, AwkWords finds all the &lt;h2>, &lt;h3>, &lt;h4>, &lt;h5>,
+#        &lt;h6>, &lt;h7>, &lt;h8>, &lt;h9> headings and copies them to a table
+#        of contents at the front of the file.
 #.P
-#AwkWords assumes that the file contains only one
-# #&lt;h1> heading- this is printed before the table of contents.
+#        AwkWords assumes that the file contains only one
+#        #&lt;h1> heading- this is printed before the table of contents.
+
 #.H4 Extra Markup
 #.P
-#AwkWords also adds some short cuts for HTML markup, as well as including
-#nested contents. 
+#       AwkWords also adds some short cuts for HTML markup, as well as including
+#       nested contents. 
 #.P
-#.EM Short cuts for HTML
+#.EM    Short cuts for HTML
 #.DL
-#.TT #.XX
-#.DD This is replaced by <TT>&lt;XX>.
+#.DT
+#.TT       #.XX
+#.DD       This is replaced by <TT>&lt;XX>.
 #.DT 
-#.TT #.XX words
-#.DD This is replaced by <TT>&lt;XX>words&lt;/XX></TT>.
+#.TT       #.XX words
+#.DD       This is replaced by <TT>&lt;XX>words&lt;/XX></TT>.
 #.DT 
-#.TT #.TO url words
-#.DD This is replaced by a link to <tt>url</tt>.
+#.TT       #.TO url words
+#.DD       This is replaced by a link to <tt>url</tt>.
 #./DL
 #.P 
-#.EM Including nested content:
+#.EM   Including nested content:
 #.DL
 #.DT 
-#.TT #.IN file
-#.DD This line is  replaced by the contents of <em>file</em>.
+#.TT       #.IN file
+#.DD       This line is  replaced by the contents of <em>file</em>.
 #.DT 
-#.TT #.CODE file
-#.DD This line is  replaced by the verbatbim of <em>file</em> (no formatting).
+#.TT       #.CODE file
+#.DD       This line is  replaced by the verbatbim of <em>file</em> (no formatting).
 #.DT 
-#.TT #.BODY file
-#.DD This line is  replaced  by <em>file</em>, less the lines before the first blank line.
+#.TT       #.BODY file
+#.DD        This line is  replaced  by <em>file</em>, less the lines before the first blank line.
 #./DL
 #./UL
+#.H2   INSTALLATION
+#.PRE
+#          wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
+#          chmod +x awkwords
+#./PRE
+#.P    To test the code, apply it to itself:
+#.UL
+#.LI       awkwords awkwords  > awkwards.html</tt>
+#./UL
+#.H2 PROGRAMMER'S GUIDE
 #.PRE
 toc() { cat $1 | gawk '
     BEGIN             { IGNORECASE = 1 }
