@@ -10,6 +10,6 @@ config.xml :	tags.txt things.awk tags.awk
 	mv confignew.xml config.xml
 	svn commit -m "tags updated"
 
-files : $(Doc)/awkwords.html
+files : $(Doc)/tools/awkwords.html
 
-$(Doc)/awkwords.html : $(Bash)/awkwords; $(Bash)/awkwords $< > $@
+$(Doc)/tools/awkwords.html : $(Bash)/awkwords; $(Bash)/awkwords $< > $@
