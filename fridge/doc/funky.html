@@ -1,0 +1,23 @@
+<h1><join>Funky: Functional Gawk</join></h1>
+<p>
+These pages are focused on <u>Fun</u>ctional  Gaw<u>k</u> (a.k.a.
+"Funky").
+<p>Funky is enabled by a new feature added to Gawk 3.1.7: indirect functions.
+For example:
+<pre>
+function foo() { print "foo" }
+function bar() { print "bar" }
+
+BEGIN {
+                the_func = "foo"
+                @the_func()     # calls foo()
+                the_func = "bar"
+                @the_func()     # calls bar()
+}
+</pre>
+<p>At the time of this writing, Gawk 3.1.7 is pre-release
+and indirect functions can be accessed using the
+ 3.1.6 development branch:
+<pre>
+cvs -d:pserver:anonymous@cvs.sv.gnu.org:/sources/gawk co gawk-devel
+</pre>

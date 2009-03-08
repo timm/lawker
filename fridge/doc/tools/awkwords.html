@@ -241,6 +241,7 @@ fi
 <a name=14></a><H2> Bugs</H2>
 <P> There's no checking for valid input (e.g. pre-formatting tags that never close).</P>
 <P> If the input file contains no html mark up, the results are pretty messy.</P>
+<P> Recursive includes fail silently if the referenced file does not exist.</P>
 <P>
   I don't like the way I need a seperate pass to do "unhtml". I tried making it work
   within the code but it got messy.
