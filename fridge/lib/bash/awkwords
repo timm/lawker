@@ -1,13 +1,13 @@
 #.H1   AWKWORDS
 
-#.H2   SYNOPSIS
+#.H2   Synopsis
 #.P       <b>awkwords</b> --title "Title" file > file.html  
 #.P       <b>awkwords</b> file > file.html  
 #.P       
 #         Pretty print for  source code, as described in
 #.URL     http://awk.info/?awkwords awk.info?tools/awkwords 
 
-#.H2   DESCRIPTION
+#.H2   Description
 #.P 
 #        AwkWords is a simple-to-use markup language used 
 #        for writing documentation for programs whose comment lines 
@@ -51,7 +51,7 @@
 #.DD       This line is  replaced  by <em>file</em>, less the lines before the first blank line.
 #./DL
 #./UL
-#.H2   INSTALLATION
+#.H2   Installation
 #.P        This code requires gawk and bash.
 #.PRE
 #wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
@@ -61,7 +61,7 @@
 #.UL
 #.LI       ./awkwords --title "Does this work?" awkwords  > awkwards.html</em>
 #./UL
-#.H2 PROGRAMMER'S GUIDE
+#.H2 Programmer's Guide
 #.P
 #        Awkwords is divided into two functions: 
 #           <em>toc</em> adds the table of contents while
@@ -204,8 +204,8 @@ else
      main $1
 fi 
 #./PRE
-#.H2 BUGS 
+#.H2 Bugs
 #.P There's no checking for valid input (e.g. pre-formatting tags that never close).
 #.P If the input file contains no html mark up, the results are pretty messy.
-#.H2 AUTHOR
+#.H2 Author
 #.TO tim@menzies.us Tim Menzies 
