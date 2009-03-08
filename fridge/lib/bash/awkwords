@@ -71,7 +71,7 @@
 #           <em>toc</em> adds the table of contents while
 #          <em>includes</em> handles the details of the extra mark-up.
 #.H3 Functions
-#.HT4 unhtml
+#.H4 unhtml
 unhtml() { cat $1| gawk '
   BEGIN {IGNORECASE=1}
   /^<PRE>/   {In=1; print; next}
@@ -79,6 +79,7 @@ unhtml() { cat $1| gawk '
   In         {gsub("<","\\&lt;",$0); print; next }
              {print $0 }'
 }
+#./PRE
 #.H4 toc 
 #.PRE
 toc() { cat $1 | gawk '
