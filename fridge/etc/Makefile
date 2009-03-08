@@ -1,7 +1,7 @@
 #MAKEFLAGS +=  -s
-Doc=../doc
-Bash=../lib/bash
-Fun=../gawk/fun
+Doc=$(Lawker)/doc
+Bash=$(Lawker)/lib/bash
+Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
 Awk2Html=$(Bash)/awkwords $< > $@ 
 

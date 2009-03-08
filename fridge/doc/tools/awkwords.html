@@ -1,31 +1,31 @@
 <h1><join> AWKWORDS</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
-<h2><font color=blacl>&bull;</a> <a href=#1>SYNOPSIS</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#2>DESCRIPTION</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#1>Synopsis</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#2>Description</a></h2>
 <h3><font color=blacl>&bull;</a> <a href=#3>Extra Markup</a></h3>
 <h4><font color=blacl>&bull;</a> <a href=#4>Short cuts for HTML</a></h4>
 <h4><font color=blacl>&bull;</a> <a href=#5>Including nested content:</a></h4>
-<h2><font color=blacl>&bull;</a> <a href=#6>INSTALLATION</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#7>PROGRAMMER'S GUIDE</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#6>Installation</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#7>Programmer's Guide</a></h2>
 <h3><font color=blacl>&bull;</a> <a href=#8>Functions</a></h3>
 <h4><font color=blacl>&bull;</a> <a href=#9>toc</a></h4>
 <h4><font color=blacl>&bull;</a> <a href=#10>includes</a></h4>
 <h3><font color=blacl>&bull;</a> <a href=#11>CSS styles</a></h3>
 <h3><font color=blacl>&bull;</a> <a href=#12>Main command line</a></h3>
-<h2><font color=blacl>&bull;</a> <a href=#13>BUGS</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#14>AUTHOR</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#13>Bugs</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#14>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 
-<a name=1></a><H2> SYNOPSIS</H2>
+<a name=1></a><H2> Synopsis</H2>
 <P> <b>awkwords</b> --title "Title" file > file.html</P>
 <P> <b>awkwords</b> file > file.html</P>
 <P>
          Pretty print for  source code, as described in
 <a href="http://awk.info/?awkwords">awk.info?tools/awkwords</a>
 
-<a name=2></a><H2> DESCRIPTION</H2>
+<a name=2></a><H2> Description</H2>
 <P>
         AwkWords is a simple-to-use markup language used 
         for writing documentation for programs whose comment lines 
@@ -53,7 +53,10 @@
 <DT> #.XX</DT>
 <DD> This is replaced by <EM>&lt;XX></em>.</DD>
 <DT> #.XX words</DT>
-<DD> This is replaced by <EM>&lt;XX>words&lt;/XX></EM>.</DD>
+<DD>
+          This is replaced by <EM>&lt;XX>words&lt;/XX></EM>. Note that 
+          this tag won't work properly if the source text spills over more than
+          one line.
 <DT> #.TO url words</DT>
 <DD> This is replaced by a link to mail to <em>url</em>.</DD>
 <DT> #.URL url words</DT>
@@ -69,7 +72,7 @@
 <DD> This line is replaced by <em>file</em>, less the lines before the first blank line.</DD>
 </DL>
 </UL>
-<a name=6></a><H2> INSTALLATION</H2>
+<a name=6></a><H2> Installation</H2>
 <P> This code requires gawk and bash.</P>
 <PRE>
 wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
@@ -79,31 +82,41 @@ chmod +x awkwords
 <UL>
 <LI> ./awkwords --title "Does this work?" awkwords > awkwards.html</em></LI>
 </UL>
-<a name=7></a><H2> PROGRAMMER'S GUIDE</H2>
+<a name=7></a><H2> Programmer's Guide</H2>
 <P>
-        Awkwords is divided into two functions: 
+        Awkwords is divided into three functions: 
+           <em>unhtml</em> fixes the printing of pre-formatted blocks;
            <em>toc</em> adds the table of contents while
           <em>includes</em> handles the details of the extra mark-up.
 <a name=8></a><H3> Functions</H3>
+<HT4> unhtml</HT4>
+unhtml() { cat $1| gawk '
+  BEGIN {IGNORECASE=1}
+  /^<PRE>/   {In=1; print; next}
+  /^<\/PRE>/ {In=0; print; next}
+  In         {gsub("<","\\&lt;",$0); print; next }
+             {print $0 }'
+}
 <a name=9></a><H4> toc</H4>
 <PRE>
 toc() { cat $1 | gawk '
  BEGIN             { IGNORECASE = 1 }
- /^<[h]1>/         { Header=$0; next}
- /^<h[23456789]>/  { T++ ;
-                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
-                                      "<""h\\2><""font color=blacl>\\&bull;</a> <""a href=#" T ">\\3</a></h\\4>",
-                                      "g",$0)
-		     Pre="<a name="T"></a>" }
-                   { Line[++N] = Pre $0; Pre="" }
+ /^&lt;[h]1>/         { Header=$0; next}
+ /^[&lt;]h[23456789]>/  { 
+       T++ ;
+      Toc[T]  = gensub(/(.*)&lt;h(.*)>[ \t]*(.*)[ \t]*&lt;\/h(.*)>(.*)/,
+      "&lt;""h\\2>&lt;""font color=blacl>\\&bull;&lt;/a> &lt;""a href=#" T ">\\3&lt;/a>&lt;/h\\4>",
+                "g",$0)
+		Pre="&lt;a name="T">&lt;/a>" }
+     { Line[++N] = Pre $0; Pre="" }
  END { print Header;
-       print "<" "h2>Contents</h2>"
-       print "<" "div id=\"htmltoc\">"
-       for(I=1;I<=T;I++) print Toc[I]	
-       print "<" "/div><!--- htmltoc --->"
-       print "<" "div id=\"htmlbody\">"
-       for(I=1;I<=N;I++) print Line[I]
-       print "</" "div><!--- htmlbody --->"		
+       print "&lt;" "h2>Contents&lt;/h2>"
+       print "&lt;" "div id=\"htmltoc\">"
+       for(I=1;I&lt;=T;I++) print Toc[I]	
+       print "&lt;" "/div>&lt;!--- htmltoc --->"
+       print "&lt;" "div id=\"htmlbody\">"
+       for(I=1;I&lt;=N;I++) print Line[I]
+       print "&lt;/" "div>&lt;!--- htmlbody --->"		
      }'
 }
 </PRE>
@@ -121,16 +134,16 @@ function xpand(pre,  tmp) {
    if      ($1 ~ "^#.IN")    xpands($2,pre)
    else if ($1 ~ "^#.BODY" ) xpandsBody($2,pre)
    else if ($1 ~ "^#.CODE")  {
-  	    print "<" "p>" $2 "\n<" "pre>"
-	    xpands($2,1)     # <===== note the recursive call with "1"
-	    print "<" "/pre>" } 
+  	    print "&lt;" "p>" $2 "\n&lt;" "pre>"
+	    xpands($2,1)     # &lt;===== note the recursive call with "1"
+	    print "&lt;" "/pre>" } 
    else if ($1 ~ "^#.URL") {
 	    tmp = $2; $1=$2="";
-	    print "<" "a href=\""tmp"\">" trim($0) "</a>"
+	    print "&lt;" "a href=\""tmp"\">" trim($0) "&lt;/a>"
 	    }
    else if ($1 ~ "^#.TO") {
 	    tmp = $2; $1=$2="";
-	    print "<" "a href=\"mailto:"tmp"\">" trim($0) "</a>"
+	    print "&lt;" "a href=\"mailto:"tmp"\">" trim($0) "&lt;/a>"
 	    }
    else 
 	xpand1(pre)
@@ -143,9 +156,9 @@ function xpand(pre,  tmp) {
 <PRE>
 function xpand1(pre) {
    if (pre)
-        gsub("<","\\&lt;",$0)  # <=== remove start-of-html-character
+        gsub("&lt;","\\&lt;",$0)  # &lt;=== remove start-of-html-character
    else {
-        $0= xpandHtml($0)      # <=== expand html short cuts
+        $0= xpandHtml($0)      # &lt;=== expand html short cuts
         sub(/^#/,"",$0) }
         print $0 
 }
@@ -155,10 +168,10 @@ function xpand1(pre) {
 function xpandHtml(    str,tag) {
    if ($0 ~ /^#\.H1/) {         
 	   $1=""
-	   return "<" "h""1><join>" $0 "</join></" "h1>" }
+	   return "&lt;" "h""1>&lt;join>" $0 "&lt;/join>&lt;/" "h1>" }
    if (sub(/^#\./,"",$1)) {
 	   tag=$1;  $1=""
-	   return "<" tag ">"  (($0 ~ /^[ \t]*$/) ? "" : $0"</"tag">")
+	   return "&lt;" tag ">"  (($0 ~ /^[ \t]*$/) ? "" : $0"&lt;/"tag">")
    }
    return $0
 }
@@ -167,12 +180,12 @@ function xpandHtml(    str,tag) {
 <PRE>
 function xpands(f,pre) {
      if (newFile(f)) {
-	  while((getline <f) > 0) xpand(pre)
+	  while((getline &lt;f) > 0) xpand(pre)
           close(f) }
 }
 function xpandsBody(f,pre, using) {
      if (newFile(f)) { 
-	  while((getline <f) >0) {
+	  while((getline &lt;f) >0) {
 	    if ( !using && ($0 ~ /^[\t ]*$/) ) using = 1
 	    if ( using ) xpand(pre)}
 	  close(f) }
@@ -190,8 +203,8 @@ BEGIN { IGNORECASE=1 }
     Note that the <em>htmltoc</em> class controls the appearance of the table of contents.
 <PRE>
 css() { 
-      echo "<""STYLE type=\"text/css\">"
-      cat<<-'EOF'
+      echo "&lt;""STYLE type=\"text/css\">"
+      cat&lt;&lt;-'EOF'
          div.htmltoc h2 { font-size: medium; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 30px;}
 	 div.htmltoc h3 { font-size: medium; font-weight: normal; 
@@ -204,27 +217,31 @@ css() {
                           margin: 0 0 0 0; margin-left: 150px;}
          div.htmltoc h7 { font-size: medium; font-weight: normal; 
                           margin: 0 0 0 0; margin-left: 180px; }
-      </STYLE>
+      &lt;/STYLE>
 EOF
 }
 </PRE>
 <a name=12></a><H3> Main command line</H3>
 <PRE>
-main() { cat $1 | includes | toc; }
+main() { cat $1 | includes | unhtml | toc; }
 
 if [ $1 == "--title" ]
 then 
-     echo "<""html><""head><""title>$2</title>`css`</head><""body>"; 
+     echo "&lt;""html>&lt;""head>&lt;""title>$2&lt;/title>`css`&lt;/head>&lt;""body>"; 
      shift 2
      main $1
-     echo "<""/body><""/html>"
+     echo "&lt;""/body>&lt;""/html>"
 else 
      main $1
 fi 
 </PRE>
-<a name=13></a><H2> BUGS</H2>
+<a name=13></a><H2> Bugs</H2>
 <P> There's no checking for valid input (e.g. pre-formatting tags that never close).</P>
 <P> If the input file contains no html mark up, the results are pretty messy.</P>
-<a name=14></a><H2> AUTHOR</H2>
+<P>
+  I don't like the way I need a seperate pass to do "unhtml". I tried making it work
+  within the code but it got messy.
+
+<a name=14></a><H2> Author</H2>
 <a href="mailto:tim@menzies.us">Tim Menzies</a>
 </div><!--- htmlbody --->

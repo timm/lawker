@@ -19,8 +19,8 @@
 <h3><font color=blacl>&bull;</a> <a href=#16>reject</a></h3>
 <h3><font color=blacl>&bull;</a> <a href=#17>detect</a></h3>
 <h3><font color=blacl>&bull;</a> <a href=#18>inject</a></h3>
-<h2><font color=blacl>&bull;</a> <a href=#19>BUGS</a></h2>
-<h2><font color=blacl>&bull;</a> <a href=#20>AUTHOR</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#19>Bugs</a></h2>
+<h2><font color=blacl>&bull;</a> <a href=#20>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -120,7 +120,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_all() }'
 function do_collect(        max,arr1,arr2,i) {
     max=split("22 23 24 25 26 27 28",arr1)
     collect("halve",arr1,arr2,max)
-    for(i=1;i<=max;i++) print arr2[i]
+    for(i=1;i&lt;=max;i++) print arr2[i]
 }
 </PRE>
 <P> When we run this ...</P>
@@ -146,7 +146,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_collect() }'
 function do_select(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
     less = select("odd",arr1,arr2,all)
-    for(i=1;i<=less;i++) print arr2[i]
+    for(i=1;i&lt;=less;i++) print arr2[i]
 }
 </PRE>
 <P> When we run this ...</P>
@@ -168,7 +168,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_select() }'
 function do_reject(        all,less,arr1,arr2,i) {
     all  = split("22 23 24 25 26 27 28",arr1)
     less = reject("odd",arr1,arr2,all)
-    for(i=1;i<=less;i++) print arr2[i]
+    for(i=1;i&lt;=less;i++) print arr2[i]
 }
 </PRE>
 <P> When we run this ...</P>
@@ -233,7 +233,7 @@ $gawk317 -f ../enumerate.awk --source 'BEGIN { do_inject() }'
 <PRE>
 function all (fun,a,max,   i) {
 	if (max) 
-		for(i=1;i<=max;i++) @fun(a[i]) 
+		for(i=1;i&lt;=max;i++) @fun(a[i]) 
 	else  
 		for(i in a) @fun(a[i])
 }
@@ -242,7 +242,7 @@ function all (fun,a,max,   i) {
 <PRE>
 function collect (fun,a,b,max,   i) {
 	if (max)
-	    for(i=1;i<=max;i++) {n++; b[i]= @fun(a[i]) }
+	    for(i=1;i&lt;=max;i++) {n++; b[i]= @fun(a[i]) }
 	else
 	    for(i in a) {n++; b[i]= @fun(a[i])}
 	return n
@@ -252,7 +252,7 @@ function collect (fun,a,b,max,   i) {
 <PRE>
 function select (fun,a,b,max,   i,n) {
 	if (max)
-		for(i=1;i<=max;i++) {
+		for(i=1;i&lt;=max;i++) {
 		    if (@fun(a[i])) {n++; b[n]= a[i] }}
 	else
 		for(i in a) {
@@ -264,7 +264,7 @@ function select (fun,a,b,max,   i,n) {
 <PRE>
 function reject (fun,a,b,max,   i,n) {
 	if (max)
-		for(i=1;i<=max;i++) {
+		for(i=1;i&lt;=max;i++) {
 		    if (! @fun(a[i])) {n++; b[n]= a[i] }}
 	else
 		for(i in a) {
@@ -277,7 +277,7 @@ function reject (fun,a,b,max,   i,n) {
 BEGIN {Fail="someUnLIKELYSymbol"}
 function detect (fun,a,max,   i) {
 	if (max)
-		for(i=1;i<=max;i++) {
+		for(i=1;i&lt;=max;i++) {
 			if (@fun(a[i])) return a[i] }
 	else	
 		for(i in a) {
@@ -289,7 +289,7 @@ function detect (fun,a,max,   i) {
 <PRE>
 function inject (fun,a,carry,max,   i) {
 	if (max)
-		for(i=1;i<=max;i++)
+		for(i=1;i&lt;=max;i++)
 			 carry = @fun(a[i],carry) 
 	else
 		for(i in a)
@@ -297,13 +297,13 @@ function inject (fun,a,carry,max,   i) {
 	return carry
 }
 </PRE>
-<a name=19></a><H2> BUGS</H2>
+<a name=19></a><H2> Bugs</H2>
 <P>
  The above code does not pass around any state information that
  the <em>fum</em> functions can use. So all their deliberations are either
  with the current array values (integers or strings) or with global state.
  It might be worthwhile writing new versions of the above with one more argument,
  to carry that sate.
-<a name=20></a><H2> AUTHOR</H2>
+<a name=20></a><H2> Author</H2>
 <a href="mailto:tim@menzies.us">Tim Menzies</a>
 </div><!--- htmlbody --->

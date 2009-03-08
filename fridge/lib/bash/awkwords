@@ -35,7 +35,10 @@
 #.DT       #.XX
 #.DD       This is replaced by <EM>&lt;XX></em>.
 #.DT       #.XX words
-#.DD       This is replaced by <EM>&lt;XX>words&lt;/XX></EM>.
+#.DD       
+#          This is replaced by <EM>&lt;XX>words&lt;/XX></EM>. Note that 
+#          this tag won't work properly if the source text spills over more than
+#          one line.
 #.DT       #.TO url words
 #.DD       This is replaced by a link to mail to <em>url</em>.
 #.DT       #.URL url words
@@ -63,21 +66,31 @@
 #./UL
 #.H2 Programmer's Guide
 #.P
-#        Awkwords is divided into two functions: 
+#        Awkwords is divided into three functions: 
+#           <em>unhtml</em> fixes the printing of pre-formatted blocks;
 #           <em>toc</em> adds the table of contents while
 #          <em>includes</em> handles the details of the extra mark-up.
 #.H3 Functions
+#.HT4 unhtml
+unhtml() { cat $1| gawk '
+  BEGIN {IGNORECASE=1}
+  /^<PRE>/   {In=1; print; next}
+  /^<\/PRE>/ {In=0; print; next}
+  In         {gsub("<","\\&lt;",$0); print; next }
+             {print $0 }'
+}
 #.H4 toc 
 #.PRE
 toc() { cat $1 | gawk '
  BEGIN             { IGNORECASE = 1 }
  /^<[h]1>/         { Header=$0; next}
- /^<h[23456789]>/  { T++ ;
-                     Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
-                                      "<""h\\2><""font color=blacl>\\&bull;</a> <""a href=#" T ">\\3</a></h\\4>",
-                                      "g",$0)
-		     Pre="<a name="T"></a>" }
-                   { Line[++N] = Pre $0; Pre="" }
+ /^[<]h[23456789]>/  { 
+       T++ ;
+      Toc[T]  = gensub(/(.*)<h(.*)>[ \t]*(.*)[ \t]*<\/h(.*)>(.*)/,
+      "<""h\\2><""font color=blacl>\\&bull;</a> <""a href=#" T ">\\3</a></h\\4>",
+                "g",$0)
+		Pre="<a name="T"></a>" }
+     { Line[++N] = Pre $0; Pre="" }
  END { print Header;
        print "<" "h2>Contents</h2>"
        print "<" "div id=\"htmltoc\">"
@@ -192,7 +205,7 @@ EOF
 #./PRE
 #.H3 Main command line
 #.PRE       
-main() { cat $1 | includes | toc; }
+main() { cat $1 | includes | unhtml | toc; }
 
 if [ $1 == "--title" ]
 then 
@@ -207,5 +220,9 @@ fi
 #.H2 Bugs
 #.P There's no checking for valid input (e.g. pre-formatting tags that never close).
 #.P If the input file contains no html mark up, the results are pretty messy.
+#.P 
+#  I don't like the way I need a seperate pass to do "unhtml". I tried making it work
+#  within the code but it got messy.
+
 #.H2 Author
 #.TO tim@menzies.us Tim Menzies 
