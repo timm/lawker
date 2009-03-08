@@ -1,6 +1,6 @@
 <h1><join> AWKWORDS</join></h1>
 <div class=htmltoc>
-<p>Table of Contents
+<p>Table of Contents</p>
 <a href="#1"><H2> SYNOPSIS</H2></a>
 <a href="#2"><H2> DESCRIPTION</H2></a>
 <a href="#3"><H4> Extra Markup</H4></a>
@@ -95,7 +95,7 @@ toc() { cat $1 | gawk '
                    { Line[++N] = Pre $0; Pre="" }
  END { print Header;
        print "<" "div class=htmltoc>"
-       print "<" "p>Table of Contents";
+       print "<" "p>Table of Contents<""/p>";
        for(I=1;I<=T;I++) print "<" "a href=\"#"I"\">"Toc[I]"</a>"	
        print "<" "/div><!--- htmltoc --->"
        print "<" "div class=htmlbody>"
