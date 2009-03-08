@@ -372,15 +372,15 @@ color:#D96107;
 text-decoration:underline;
 }
 
-#htmltoc a:hover {
-color:#999999;
-text-decoration:none;
-}
 
 
 #htmltoc  a:visited {
 color:#D96107;
 text-decoration:underline;
+}
+#htmltoc a:hover {
+color:#999999;
+text-decoration:none;
 }
 
 
