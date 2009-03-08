@@ -71,7 +71,7 @@ function do_all(   arr) {
     split("22 23 24 25 26 27 28",arr)
     all("show",arr)
 }
-#.PRE
+#./PRE
 #.P When we run this ...
 #.BODY eg/enum1
 #.P we see every item in <em>arr</em> printed using the above <em>show<em> function ...
@@ -84,7 +84,7 @@ function do_collect(        max,arr1,arr2,i) {
     collect("halve",arr1,arr2,max)
     for(i=1;i<=max;i++) print arr2[i]
 }
-#.PRE
+#./PRE
 #.P When we run this ...
 #.BODY eg/enum2
 #.P we see every item in <em>arr</em> divided in two ...
@@ -97,7 +97,7 @@ function do_select(        all,less,arr1,arr2,i) {
     less = select("odd",arr1,arr2,all)
     for(i=1;i<=less;i++) print arr2[i]
 }
-#.PRE
+#./PRE
 #.P When we run this ...
 #.BODY eg/enum3
 #.P we see every item in <em>arr</em> that satisfies <em>odd</em>....
@@ -110,7 +110,7 @@ function do_reject(        all,less,arr1,arr2,i) {
     less = reject("odd",arr1,arr2,all)
     for(i=1;i<=less;i++) print arr2[i]
 }
-#.PRE
+#./PRE
 #.P When we run this ...
 #.BODY eg/enum4
 #.P we see every item in <em>arr</em> that <em>do not</em> satisfies <em>odd</em>....
@@ -122,7 +122,7 @@ function do_detect(        all,arr1) {
     all  = split("22 23 24 25 26 27 28",arr1)
     print detect("odd",arr1,all)   
 }
-#.PRE
+#./PRE
 #.P When we run this ...
 #.BODY eg/enum5
 #.P we see the first item in <em>arr</em> that satisfies <em>odd</em>....
@@ -134,7 +134,7 @@ function do_inject(        all,less,arr1,arr2,i) {
     split("1 2 3 4 5",arr1)
     print inject("mult",arr1,1)
 }
-#.PRE
+#./PRE
 #.P When we run this ...
 #.BODY eg/enum6
 #.P we see every the result of multiplying every item in  <em>arr</em> by its predecessor.
