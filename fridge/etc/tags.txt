@@ -54,6 +54,10 @@ doc/funky.html					Timm	2009	Mar	Funky			        |Functional Gawk
 doc/funcChallenge.html					Timm	2009	Mar	Funky			        |Functional Challenge
 doc/fun/enumerate.html				Timm	2009	Mar	Funky			        |Functional Enumeration
 
+doc/dsl.html					Timm	2009	Mar	Dsl			        |Little Langauges 
+doc/dsl/awklisp.html				DariusB	2009	Mar	Dsl			        |awklisp
+
+
 doc/var/top10posters.html			Steffen	2009	Jan	Newsgroup			|Top 10 posters
 doc/var/top10subjects.html			Steffen	2009	Jan	Newsgroup			|Top 10 subjects
 doc/var/top10posterslastyear.html		Steffen	2009	Jan	Newsgroup			|Top 10 posters last year
