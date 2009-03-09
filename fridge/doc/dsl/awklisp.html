@@ -9,15 +9,13 @@
 </ul> 
 <h2>Synopsis</h2>
  
-<pre>awk [-v profiling=1] -f awklisp [optional-Lisp-source-files]
-</pre>
+<pre>awk [-v profiling=1] -f awklisp [optional-Lisp-source-files]</pre>
  <p>
 The -v profiling=1 option turns call-count profiling on.
 <p> 
 If you want to use it interactively, be sure to include '-' (for the standard
 input) among the source files. For example:
- <pre>gawk -f awklisp startup numbers lists -
- </pre>
+ <pre>gawk -f awklisp startup numbers lists -</pre>
 <h2>Description</h2>    
 <h3> Overview</h3>
  <p>
@@ -129,9 +127,7 @@ gawk -f awklisp startup numbers  lists fib.lsp
 </pre>
 <p>
 Command line:
-<pre> 
- gawk -f awklisp startup numbers  lists eliza.lsp  -
-</pre>
+<pre>gawk -f awklisp startup numbers  lists eliza.lsp -</pre>
 <p>Interaction:
 <pre>
 > (eliza)
@@ -421,12 +417,10 @@ Okay, that's easily fixed -- evaluate all the operands and stash them
 away somewhere until you're done, and *then* do the bindings. So
 the question is where to stash them. How about a global array?
 Like
-<pre> 
-for (i = 0; arglist != NIL; ++i) {
+<pre>for (i = 0; arglist != NIL; ++i) {
     global_temp[i] = eval(car[arglist])
     arglist = cdr[arglist]
-}
-</pre>
+}</pre>
 <p>followed by the equivalent of extend_env(). This will not do, because
 the global array will get clobbered in recursive calls to eval().
 Consider (+ 2 (* 3 4)) -- first we evaluate the arguments to the +,
@@ -490,7 +484,7 @@ The macroexpander in the startup file would be the best place to add syntax-
 checking.
 
 <h2>Author</h2>
-<p>Darius Bacom <a href="mailto:darius@wry.me">dairus@wry.me</a>
+<p>Darius Bacon <a href="mailto:darius@wry.me">dairus@wry.me</a>
 
 <h2>Copyright</h2>
 <p>
