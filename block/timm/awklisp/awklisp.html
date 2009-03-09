@@ -1,0 +1,509 @@
+<h1><join> AWKLISP</join><h1>
+
+<h2>Download from</h2>
+<ul>
+<li>LAWKER: 
+<li>Github:
+</ul> 
+<h2>Synopsis</h2>
+ 
+<pre>awk [-v profiling=1] -f awklisp [optional-Lisp-source-files]
+</pre>
+ <p>
+The -v profiling=1 option turns call-count profiling on.
+<p> 
+If you want to use it interactively, be sure to include '-' (for the standard
+input) among the source files. For example:
+ <pre>gawk -f awklisp startup numbers lists -
+ </pre>
+<h2>Description</h2>    
+<h3> Overview</h3>
+ <p>
+This program arose out of one-upmanship. At my previous job I had to
+use MapBasic, an interpreter so astoundingly slow (around 100 times
+slower than GWBASIC) that one must wonder if it itself is implemented
+in an interpreted language. I still wonder, but it clearly could be:
+a bare-bones Lisp in awk, hacked up in a few hours, ran substantially
+faster. Since then I've added features and polish, in the hope of
+taking over the burgeoning market for stately language
+implementations.
+ <p>
+This version tries to deal with as many of the essential issues in
+interpreter implementation as is reasonable in awk (though most would
+call this program utterly unreasonable from start to finish, perhaps...).
+Awk's impoverished control structures put error recovery and tail-call
+optimization out of reach, in that I can't see a non-painful way to code
+them. The scope of variables is dynamic because that was easier to
+implement efficiently. Subject to all those constraints, the language
+is as Schemely as I could make it: it has a single namespace with
+uniform evaluation of expressions in the function and argument positions,
+and the Scheme names for primitives and special forms.
+ <p>
+The rest of this file is a reference manual. My favorite tutorial would be
+<em>The Little LISPer</em> (see section 5, References); don't let the cute name
+and the cartoons turn you off, because it's a really excellent book with
+some mind-stretching material towards the end. All of its code will work
+with awklisp, except for the last two chapters. (You'd be better off
+learning with a serious Lisp implementation, of course.)
+ <p>
+For more details on the implementation,
+see the <em>Implementation notes</em> (below).
+<h3>Examples</h3>
+<h4>fib.lsp</h4>
+<p>Code:
+<pre>(define fib
+  (lambda (n)
+    (if (< n 2)
+        1
+        (+ (fib (- n 1))
+           (fib (- n 2))))))
+(fib 20)
+</pre>
+<p>Comamnd line:
+<pre>
+gawk -f awklisp startup numbers  lists fib.lsp
+</pre>
+<p>Output:
+<pre>
+10946
+</pre>
+<h4>Eliza</h4>
+<p>Here are the standard ELIZA dialogue patterns:
+<pre>
+(define rules
+  '(((hello)
+     (How do you do -- please state your problem))
+    ((I want)
+     (What would it mean if you got -R-)
+     (Why do you want -R-)
+     (Suppose you got -R- soon))
+    ((if)
+     (Do you really think its likely that -R-)
+     (Do you wish that -R-)
+     (What do you think about -R-)
+     (Really-- if -R-))
+    ((I was)
+     (Were you really?)
+     (Perhaps I already knew you were -R-)
+     (Why do you tell me you were -R- now?))
+    ((I am)
+     (In what way are you -R-)
+     (Do you want to be -R-))
+    ((because)
+     (Is that the real reason?)
+     (What other reasons might there be?)
+     (Does that reason seem to explain anything else?))
+    ((I feel)
+     (Do you often feel -R-))
+    ((I felt)
+     (What other feelings do you have?))
+    ((yes)
+     (You seem quite positive)
+     (You are sure)
+     (I understand))
+    ((no)
+     (Why not?)
+     (You are being a bit negative)
+     (Are you saying no just to be negative?))
+    ((someone)
+     (Can you be more specific?))
+    ((everyone)
+     (Surely not everyone)
+     (Can you think of anyone in particular?)
+     (Who for example?)
+     (You are thinking of a special person))
+    ((perhaps)
+     (You do not seem quite certain))
+    ((are)
+     (Did you think they might not be -R-)
+     (Possibly they are -R-))
+    (()
+     (Very interesting)
+     (I am not sure I understand you fully)
+     (What does that suggest to you?)
+     (Please continue)
+     (Go on)
+     (Do you feel strongly about discussing such things?))))
+</pre>
+<p>
+Command line:
+<pre> 
+ gawk -f awklisp startup numbers  lists eliza.lsp  -
+</pre>
+<p>Interaction:
+<pre>
+> (eliza)
+Hello-- please state your problem 
+> (I feel sick)
+Do you often feel sick 
+> (I am in love with awk)
+In what way are you in love with awk 
+> (because it is so easy to use)
+Is that the real reason? 
+> (I was laughed at by the other kids at space camp)
+Were you really? 
+> (everyone hates me)
+Can you think of anyone in particular? 
+> (everyone at space camp)
+Surely not everyone 
+> (perhaps not tina fey)
+You do not seem quite certain 
+> (I want her to laugh at me)
+What would it mean if you got her to laugh at me 
+</pre>
+ 
+ 
+<h3> Expressions and their evaluation</h3>
+ <p>
+Lisp evaluates expressions, which can be simple (atoms) or compound (lists).
+ <p>
+An atom is a string of characters, which can be letters, digits, and most
+punctuation; the characters may -not- include spaces, quotes, parentheses,
+brackets, '.', '#', or ';' (the comment character). In this Lisp, case is
+significant ( X is different from x ).
+ <ul>
+<li>
+Atoms: atom 42 1/137 + ok? hey:names-with-dashes-are-easy-to-read
+<li>
+Not atoms: don't-include-quotes (or spaces or parentheses)
+</ul>
+ <p>
+A list is a '(', followed by zero or more objects (each of which is an atom
+or a list), followed by a ')'.
+ <ul>
+<li>
+Lists: () (a list of atoms) ((a list) of atoms (and lists))
+<li>Not lists: ) ((()) (two) (lists)
+</ul>
+ <p>
+The special object nil is both an atom and the empty list. That is,
+nil = (). A non-nil list is called a -pair-, because it is represented by a
+pair of pointers, one to the first element of the list (its -car-), and one to
+the rest of the list (its -cdr-). For example, the car of ((a list) of stuff)
+is (a list), and the cdr is (of stuff). It's also possible to have a pair
+whose cdr is not a list; the pair with car A and cdr B is printed as (A . B).
+ <p>
+That's the syntax of programs and data. Now let's consider their meaning. You
+can use Lisp like a calculator: type in an expression, and Lisp prints its
+value. If you type 25, it prints 25. If you type (+ 2 2), it prints 4. In
+general, Lisp evaluates a particular expression in a particular environment
+(set of variable bindings) by following this algorithm:
+ <ul>
+<li>
+If the expression is a number, return that number.
+ <li>
+If the expression is a non-numeric atom (a -symbol-), return the value of that
+symbol in the current environment. If the symbol is currently unbound, that's
+an error.
+ <li>
+Otherwise the expression is a list. If its car is one of the symbols: quote,
+lambda, if, begin, while, set!, or define, then the expression is a -special-
+-form-, handled by special rules. Otherwise it's just a procedure call,
+handled like this: evaluate each element of the list in the current environment,
+and then apply the operator (the value of the car) to the operands (the values
+of the rest of the list's elements). For example, to evaluate (+ 2 3), we
+first evaluate each of its subexpressions: the value of + is (at least in the
+initial environment) the primitive procedure that adds, the value of 2 is 2,
+and the value of 3 is 3. Then we call the addition procedure with 2 and 3 as
+arguments, yielding 5. For another example, take (- (+ 2 3) 1). Evaluating
+each subexpression gives the subtraction procedure, 5, and 1. Applying the
+procedure to the arguments gives 4.
+ </ul>
+We'll see all the primitive procedures in the next section. A user-defined
+procedure is represented as a list of the form (lambda &lt;parameters> &lt;body>),
+such as (lambda (x) (+ x 1)). To apply such a procedure, evaluate its body
+in the environment obtained by extending the current environment so that the
+parameters are bound to the corresponding arguments. Thus, to apply the above
+procedure to the argument 41, evaluate (+ x 1) in the same environment as the
+current one except that x is bound to 41.
+ <p>
+If the procedure's body has more than one expression -- e.g.,
+(lambda () (write 'Hello) (write 'world!)) -- evaluate them each in turn, and
+return the value of the last one.
+ <p>
+We still need the rules for special forms. They are:
+ <ul>
+<li>
+The value of (quote &lt;x>) is &lt;x>. There's a shorthand for this form: '<x>.
+E.g., the value of '(+ 2 2) is (+ 2 2), -not- 4.
+ <li>
+(lambda &lt;parameters> <body>) returns itself: e.g., the value of (lambda (x) x)
+is (lambda (x) x).
+ <li>
+To evaluate (if &lt;test-expr> &lt;then-exp> &lt;else-exp>), first evaluate &lt;test-expr>.
+If the value is true (non-nil), then return the value of &lt;then-exp>, otherwise
+return the value of &lt;else-exp>. (&lt;else-exp> is optional; if it's left out,
+pretend there's a nil there.) Example: (if nil 'yes 'no) returns no.
+ <li>
+To evaluate (begin &lt;expr-1> &lt;expr-2>...), evaluate each of the subexpressions
+in order, returning the value of the last one.
+ <li>
+To evaluate (while &lt;test> &lt;expr-1> &lt;expr-2>...), first evaluate &lt;test>. If
+it's nil, return nil. Otherwise, evaluate &lt;expr-1>, &lt;expr-2>,... in order,
+and then repeat.
+ <li>
+To evaluate (set! &lt;variable> &lt;expr>), evaluate &lt;expr>, and then set the value
+of &lt;variable> in the current environment to the result. If the variable is
+currently unbound, that's an error. The value of the whole set! expression
+is the value of &lt;expr>.
+ <li>
+(define &lt;variable> &lt;expr>) is like set!, except it's used to introduce new
+bindings, and the value returned is &lt;variable>.
+ </ul>
+<p>It's possible to define new special forms using the macro facility provided in
+the startup file. The macros defined there are:
+<ul>
+<li><pre>
+(let ((&lt;var> &lt;expr>)...)
+  &lt;body>...)</pre>
+  Bind each &lt;var> to its corresponding &lt;expr> (evaluated in the current
+  environment), and evaluate &lt;body> in the resulting environment.
+<li> 
+<pre>(cond (&lt;test-expr> &lt;result-expr>...)... (else &lt;result-expr>...))</pre>
+  
+  where the final else clause is optional. Evaluate each &lt;test-expr> in
+  turn, and for the first non-nil result, evaluate its &lt;result-expr>. If
+  none are non-nil, and there's no else clause, return nil.
+ 
+<li><pre>(and &lt;expr>...)</pre>
+ 
+  Evaluate each &lt;expr> in order, until one returns nil; then return nil.
+  If none are nil, return the value of the last &lt;expr>.
+ 
+<li><pre>(or &lt;expr>...)</pre>
+ 
+  Evaluate each &lt;expr> in order, until one returns non-nil; return that value.
+  If all are nil, return nil.
+ </ul>
+ 
+<h3> Built-in procedures</h3>
+ 
+<h4>List operations:</h4>
+<ul>
+<li>(null? &lt;x>) returns true (non-nil) when &lt;x> is nil.
+<li>(atom? &lt;x>) returns true when &lt;x> is an atom.
+<li>(pair? &lt;x>) returns true when &lt;x> is a pair.
+<li>(car &lt;pair>) returns the car of &lt;pair>.
+<li>(cdr &lt;pair>) returns the cdr of &lt;pair>.
+<li>(cadr &lt;pair>) returns the car of the cdr of &lt;pair>. (i.e., the second element.)
+<li>(cddr &lt;pair>) returns the cdr of the cdr of &lt;pair>.
+<li>(cons &lt;x> &lt;y>) returns a new pair whose car is &lt;x> and whose cdr is &lt;y>.
+<li>(list &lt;x>...) returns a list of its arguments.
+<li>(set-car! &lt;pair> &lt;x>) changes the car of &lt;pair> to &lt;x>.
+<li>(set-cdr! &lt;pair> &lt;x>) changes the cdr of &lt;pair> to &lt;x>.
+<li>(reverse! &lt;list>) reverses &lt;list> in place, returning the result.
+</ul>
+
+<h4>Numbers:</h4>
+<ul>
+<li>
+(number? &lt;x>) returns true when &lt;x> is a number.
+<li>(+ &lt;n> &lt;n>) returns the sum of its arguments.
+<li>(- &lt;n> &lt;n>) returns the difference of its arguments.
+<li>(* &lt;n> &lt;n>) returns the product of its arguments.
+<li>(quotient &lt;n> &lt;n>) returns the quotient. Rounding is towards zero.
+<li>(remainder &lt;n> &lt;n>) returns the remainder.
+<li>(&lt; &lt;n1> &lt;n2>) returns true when &lt;n1> is less than &lt;n2>.
+</ul> 
+<h4>I/O:</h4>
+<ul>
+<li>(write &lt;x>) writes &lt;x> followed by a space.
+<li>(newline) writes the newline character.
+<li>(read) reads the next expression from standard input and returns it.
+ </ul>
+<h4>Meta-operations:</h4>
+<ul>
+<li>
+(eval &lt;x>) evaluates &lt;x> in the current environment, returning the result.
+<li>(apply &lt;proc> &lt;list>) calls &lt;proc> with arguments &lt;list>, returning the result.
+ </ul>
+
+<h4>Miscellany:</h4>
+<ul>
+<li>(eq? &lt;x> &lt;y>) returns true when &lt;x> and &lt;y> are the same object. Be careful
+    using eq? with lists, because (eq? (cons &lt;x> &lt;y>) (cons &lt;x> &lt;y>)) is false.
+<li>
+(put &lt;x> &lt;y> &lt;z>)
+<li>
+(get &lt;x> &lt;y>) returns the last value &lt;z> that was put for &lt;x> and &lt;y>, or nil
+    if there is no such value.
+<li>
+(symbol? &lt;x>) returns true when &lt;x> is a symbol.
+<li>(gensym) returns a new symbol distinct from all symbols that can be read.
+<li>(random &lt;n>) returns a random integer between 0 and &lt;n>-1 (if &lt;n> is positive).
+<li>
+(error &lt;x>...) writes its arguments and aborts with error code 1.
+</ul> 
+ 
+
+
+<h3>Implementation Notes</h3>
+ 
+<h4> Overview</h4>
+ 
+<p>
+Since the code should be self-explanatory to anyone knowledgeable
+about Lisp implementation, these notes assume you know Lisp but not
+interpreters. I haven't got around to writing up a complete
+discussion of everything, though.
+ <p>
+The code for an interpreter can be pretty low on redundancy -- this is
+natural because the whole reason for implementing a new language is to
+avoid having to code a particular class of programs in a redundant
+style in the old language. We implement what that class of programs
+has in common just once, then use it many times. Thus an interpreter
+has a different style of code, perhaps denser, than a typical
+application program.
+ 
+ 
+<h4> Data representation</h4>
+<p>
+Conceptually, a Lisp datum is a tagged pointer, with the tag giving
+the datatype and the pointer locating the data. We follow the common
+practice of encoding the tag into the two lowest-order bits of the
+pointer. This is especially easy in awk, since arrays with
+non-consecutive indices are just as efficient as dense ones (so we can
+use the tagged pointer directly as an index, without having to mask
+out the tag bits). (But, by the way, mawk accesses negative indices
+much more slowly than positive ones, as I found out when trying a
+different encoding.)
+ <p>
+This Lisp provides three datatypes: integers, lists, and symbols. (A
+modern Lisp provides many more.)
+ <p>
+For an integer, the tag bits are zero and the pointer bits are simply
+the numeric value; thus, N is represented by N*4. This choice of the
+tag value has two advantages. First, we can add and subtract without
+fiddling with the tags. Second, negative numbers fit right in.
+(Consider what would happen if N were represented by 1+N*4 instead,
+and we tried to extract the tag as N%4, where N may be either positive
+or negative. Because of this problem and the above-mentioned
+inefficiency of negative indices, all other datatypes are represented
+by positive numbers.)
+ 
+ 
+<h4>The evaluation/saved-bindings stack</h4>
+ <p>
+The following is from an email discussion; it doesn't develop
+everything from first principles but is included here in the hope
+it will be helpful.
+ <p>
+Hi. I just took a look at awklisp, and remembered that there's more
+to your question about why we need a stack -- it's a good question.
+The real reason is because a stack is accessible to the garbage
+collector.
+ <p>
+We could have had apply() evaluate the arguments itself, and stash
+the results into variables like arg0 and arg1 -- then the case for
+ADD would look like
+<pre>
+if (proc == ADD) return is(a_number, arg0) + is(a_number, arg1)
+</pre>
+<p>The obvious problem with that approach is how to handle calls to
+user-defined procedures, which could have any number of arguments.
+Say we're evaluating ((lambda (x) (+ x 1)) 42). (lambda (x) (+ x 1))
+is the procedure, and 42 is the argument.
+ <p>
+A (wrong) solution could be to evaluate each argument in turn, and
+bind the corresponding parameter name (like x in this case) to the
+resulting value (while saving the old value to be restored after we
+return from the procedure). This is wrong because we must not
+change the variable bindings until we actually enter the procedure --
+for example, with that algorithm ((lambda (x y) y) 1 x) would return
+1, when it should return whatever the value of x is in the enclosing
+environment. (The eval_rands()-type sequence would be: eval the 1,
+bind x to 1, eval the x -- yielding 1 which is *wrong* -- and bind
+y to that, then eval the body of the lambda.)
+ <p>
+Okay, that's easily fixed -- evaluate all the operands and stash them
+away somewhere until you're done, and *then* do the bindings. So
+the question is where to stash them. How about a global array?
+Like
+<pre> 
+for (i = 0; arglist != NIL; ++i) {
+    global_temp[i] = eval(car[arglist])
+    arglist = cdr[arglist]
+}
+</pre>
+<p>followed by the equivalent of extend_env(). This will not do, because
+the global array will get clobbered in recursive calls to eval().
+Consider (+ 2 (* 3 4)) -- first we evaluate the arguments to the +,
+like this: global_temp[0] gets 2, and then global_temp[1] gets the
+eval of (* 3 4). But in evaluating (* 3 4), global_temp[0] gets set
+to 3 and global_temp[1] to 4 -- so the original assignment of 2 to
+global_temp[0] is clobbered before we get a chance to use it. By
+using a stack[] instead of a global_temp[], we finesse this problem.
+ <p>
+You may object that we can solve that by just making the global array
+local, and that's true; lots of small local arrays may or may not be
+more efficient than one big global stack, in awk -- we'd have to try
+it out to see. But the real problem I alluded to at the start of this
+message is this: the garbage collector has to be able to find all the
+live references to the car[] and cdr[] arrays. If some of those
+references are hidden away in local variables of recursive procedures,
+we're stuck. With the global stack, they're all right there for the
+gc().
+ <p>
+(In C we could use the local-arrays approach by threading a chain of
+pointers from each one to the next; but awk doesn't have pointers.)
+ <p>
+(You may wonder how the code gets away with having a number of local
+variables holding lisp values, then -- the answer is that in every
+such case we can be sure the garbage collector can find the values
+in question from some other source. That's what this comment is
+about:
+ <pre>
+  # All the interpretation routines have the precondition that their
+  # arguments are protected from garbage collection.
+</pre>
+<p>In some cases where the values would not otherwise be guaranteed to
+be available to the gc, we call protect().)
+<p> 
+Oh, there's another reason why apply() doesn't evaluate the arguments
+itself: it's called by do_apply(), which handles lisp calls like
+(apply car '((x))) -- where we *don't* want the x to get evaluated
+by apply().
+ 
+<h2>References</h2>
+<ul>
+<li> 
+Harold Abelson and Gerald J. Sussman, with Julie Sussman.
+  Structure and Interpretation of Computer Programs. MIT Press, 1985.
+ <li>
+John Allen. Anatomy of Lisp. McGraw-Hill, 1978.
+ <;i>
+Daniel P. Friedman and Matthias Felleisen. The Little LISPer. Macmillan, 1989.
+ </ul>
+<P>Roger Rohrbach wrote a Lisp interpreter, in old awk (which has no
+procedures!), called walk . It can't do as much as this Lisp, but it
+certainly has greater hack value. Cooler name, too. It's available at
+http://www-2.cs.cmu.edu/afs/cs/project/ai-repository/ai/lang/lisp/impl/awk/0.html
+ 
+ 
+<h2> Bugs</h2>
+ <p>
+Eval doesn't check the syntax of expressions. This is a probably-misguided
+attempt to bump up the speed a bit, that also simplifies some of the code.
+The macroexpander in the startup file would be the best place to add syntax-
+checking.
+
+<h2>Author</h2>
+<p>Darius Bacom <a href="mailto:darius@wry.me">dairus@wry.me</a>
+
+<h2>Copyright</h2>
+<p>
+Copyright (c) 1994, 2001 by Darius Bacon.
+<p>
+Permission is granted to anyone to use this software for any
+purpose on any computer system, and to redistribute it freely,
+subject to the following restrictions:
+<ol>
+<li> The author is not responsible for the consequences of use of
+   this software, no matter how awful, even if they arise from
+   defects in it.
+
+<li> The origin of this software must not be misrepresented, either
+   by explicit claim or by omission.
+<li> Altered versions must be plainly marked as such, and must not
+   be misrepresented as being the original software.
+</ol>
