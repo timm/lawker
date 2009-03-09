@@ -499,6 +499,20 @@ pageTracker._trackPageview();
 		<what>Funky</what>
 		<title>Functional Enumeration</title>
 	</file>
+	<file where="doc/dsl.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<title>Little Langauges </title>
+	</file>
+	<file where="doc/dsl/awklisp.html">
+		<what>DariusB</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<title>awklisp</title>
+	</file>
 	<file where="doc/var/top10posters.html">
 		<what>Steffen</what>
 		<what>2009</what>
