@@ -23,7 +23,7 @@
                  <li><a href="?contribute">Contribute</a> </li>
                  <li><a href="?awk100">Awk100</a> </li>
 		 <li><a href="?Funky">Funky</a> </li>
-                 <li><a href="?Dsl"><font size="-5">Little<br>languages</font></a> </li>
+                 <li><a href="?Dsl"><span style="font-size:0.1em;">Little<br>languages</span></a> </li>
                 <li><a href="mailto:mail@awk.info">Contact</a></li>
 		<li><a href="http://tinyurl.com/rss4awk"><img src="http://lawker.googlecode.com/svn/fridge/share/img/rss.gif"></a> </li>
               
