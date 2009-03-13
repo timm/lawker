@@ -3,7 +3,8 @@
 #.H2 Synopsis
 #.P awk -f markdown.awk file.txt > file.html
 #.H2 Description
-#.P (Note: this code was orginally called <em>txt2html.awk</em> by its author but that caused a name
+#.P 
+# (Note: this code was orginally called <em>txt2html.awk</em> by its author but that caused a name
 # clash inside LAWKER. Hence, I've taken the liberty of renamining it. --<a href="?who/timm">Timm</a>)
 #.P The following code implements a subset of John Gruber's <a href="http://daringfireball.net/projects/markdown/">Markdown</a> langauge:  a widely-used, ultra light-weight markup language for html. 
 
@@ -26,7 +27,7 @@
 #Level 2 Header
 #--------------
 #
-#Level 3 Header
+#Level 3 Header 
 #______________
 #./PRE
 #.LI
