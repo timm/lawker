@@ -1,5 +1,6 @@
 #MAKEFLAGS +=  -s
 Doc=$(Lawker)/doc
+Gawk=$(Lawker)/gawk
 Bash=$(Lawker)/lib/bash
 Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
@@ -15,8 +16,10 @@ config.xml :	tags.txt things.awk tags.awk
 	mv confignew.xml config.xml
 	svn commit -m "tags updated"
 
-files : $(Doc)/tools/awkwords.html $(Doc)/fun/enumerate.html
+files : $(Doc)/dsl/markdown.html $(Doc)/tools/awkwords.html $(Doc)/fun/enumerate.html
 
+$(Doc)/dsl/markdown.html : $(Gawk)/text/markdown.awk     
+	cd $(Gawk) && $(Awk2Html)
 $(Doc)/tools/awkwords.html : $(Bash)/awkwords     
 	cd $(Bash) && $(Awk2Html)
 $(Doc)/fun/enumerate.html  : $(Fun)/enumerate.awk 
