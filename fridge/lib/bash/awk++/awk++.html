@@ -113,20 +113,20 @@
 #.H4  Details
 # 
 #.P To define a class (similar to C++ but no public/private):
-# 
-#   class class_name {.....}
-# 
-# 
-# *** To define a class with inheritance (similar to C++ but no public/private):
-# 
-#  class class_name : inherited_class_name [ : inherited_class_name...] {.....}
-# 
-# 
-# *** To add local/private variables (persistent variables; syntax is unique to awk++):
 #.PRE 
-#   class class_name {
-# 	attribute|attr|property|prop|element|elem|variable|var variable_name     
-#  ..... }
+#class class_name {.....}
+#./PRE 
+# 
+#.P To define a class with inheritance (similar to C++ but no public/private):
+#.PRE 
+#class class_name : inherited_class_name [ : inherited_class_name...] {.....}
+#./PRE 
+# 
+#.P To add local/private variables (persistent variables; syntax is unique to awk++):
+#.PRE 
+#class class_name {
+#	attribute|attr|property|prop|element|elem|variable|var variable_name     
+# ..... }
 #./PRE 
 #.P 
 # To help programmers who are used to other OO languages, "attribute",
@@ -139,13 +139,12 @@
 # 
 #.P To add methods
 #.PRE 
-#   class class_name {
-# 
+#class class_name {
 # 	attribute variable_name1
 # 
 # 	method method_name(parameters) {
 # 	...any awk code....
-# 	}
+#   }
 #  ..other method definitions...
 #   }
 #./PRE 

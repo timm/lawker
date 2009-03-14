@@ -129,20 +129,20 @@ a,b,c = {"Hello","World","!"}
 <a name=8></a><H4> Details</H4>
  
 <P> To define a class (similar to C++ but no public/private):</P>
- 
-   class class_name {.....}
- 
- 
- *** To define a class with inheritance (similar to C++ but no public/private):
- 
-  class class_name : inherited_class_name [ : inherited_class_name...] {.....}
- 
- 
- *** To add local/private variables (persistent variables; syntax is unique to awk++):
 <PRE>
-   class class_name {
- 	attribute|attr|property|prop|element|elem|variable|var variable_name     
-  ..... }
+class class_name {.....}
+</PRE>
+ 
+<P> To define a class with inheritance (similar to C++ but no public/private):</P>
+<PRE>
+class class_name : inherited_class_name [ : inherited_class_name...] {.....}
+</PRE>
+ 
+<P> To add local/private variables (persistent variables; syntax is unique to awk++):</P>
+<PRE>
+class class_name {
+	attribute|attr|property|prop|element|elem|variable|var variable_name     
+ ..... }
 </PRE>
 <P>
  To help programmers who are used to other OO languages, "attribute",
@@ -155,13 +155,12 @@ a,b,c = {"Hello","World","!"}
  
 <P> To add methods</P>
 <PRE>
-   class class_name {
- 
+class class_name {
  	attribute variable_name1
  
  	method method_name(parameters) {
  	...any awk code....
- 	}
+   }
   ..other method definitions...
    }
 </PRE>
