@@ -56,6 +56,7 @@ doc/fun/enumerate.html				Timm	2009	Mar	Funky			        |Functional Enumeration
 
 doc/dsl.html					Timm	2009	Mar	Dsl			        |Little Langauges 
 doc/dsl/markdown.html				JesusG	2009	Mar	Dsl			        |Markdown
+doc/dsl/awkplusplus.html				Jimh	2009	Mar	Dsl			        |Awk++
 doc/dsl/awklisp.html				DariusB	2009	Mar	Dsl			        |awklisp
 
 
