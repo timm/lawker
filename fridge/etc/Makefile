@@ -16,7 +16,13 @@ config.xml :	tags.txt things.awk tags.awk
 	mv confignew.xml config.xml
 	svn commit -m "tags updated"
 
-files : $(Doc)/dsl/markdown.html $(Doc)/tools/awkwords.html $(Doc)/fun/enumerate.html
+files : $(Doc)/dsl/markdown.html \
+	    $(Doc)/tools/awkwords.html \
+	    $(Doc)/fun/enumerate.html \
+	    $(Doc)/dsl/awkplusplus.html
+
+$(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html
+	cd $(Bash) && $(Awk2Html)
 
 $(Doc)/dsl/markdown.html : $(Gawk)/text/markdown.awk     
 	cd $(Gawk) && $(Awk2Html)
