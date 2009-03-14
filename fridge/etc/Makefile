@@ -6,7 +6,7 @@ Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
 Awk2Html=$(Bash)/awkwords $< > $@ 
 
-all : config.xml files
+all : config.xml files zips
 
 commit : 
 	cd ../..; pwd; svn commit
@@ -20,6 +20,9 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html
+
+zips :  
+	cd $(Bash)/awk++ && zip -r awk++.zip *
 
 $(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html
 	cd $(Bash) && $(Awk2Html)
