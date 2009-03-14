@@ -565,5 +565,13 @@ pageTracker._trackPageview();
 		<what>AwkLisp</what>
 		<title>Awklisp</title>
 	</file>
+	<file where="doc/awk100/009yawk.html">
+		<what>WolfganZ</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Awk100</what>
+		<what>Yawk</what>
+		<title>Yawk</title>
+	</file>
   </files>
 </things>
