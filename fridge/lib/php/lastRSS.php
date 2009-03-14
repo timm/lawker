@@ -204,7 +204,7 @@ class lastRSS {
 						if ($temp2 != '') {
 							$words=explode("=",$temp2);
 							if (preg_match("/(\'http.*\')/", $words[2],$url)) {
-								$result['items'][$i]['enclosure']['url'] =  $url[1]; 
+								$result['items'][$i]['enclosure']['url'] =  $url[1];
 							};
 							
 							//reg_match_all( '/([^\s"=]+)="([^"]*?)"/' , $temp2, $attr, PREG_SET_ORDER);

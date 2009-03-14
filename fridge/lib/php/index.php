@@ -10,11 +10,10 @@ function rss($feed,$n = 5) {
 	$rss->cache_time = 3600; // one hour
 	$rs = $rss->get($feed);
 	foreach ($rs['items'] as $item) {
-	
 		$date = explode(" ",$item[pubDate]);
-     		$out = $out .  "<p><b>$date[2] $date[1], $date[3]</b>: " .
-                               "$item[description]" . 
-				" <a href=\"" . $item[enclosure][url] ."\">More...</a>";
+     		$out = $out .  "<p> <a href=" . $item[enclosure][url] ."> $date[2] $date[1]</a>: " .
+                               "$item[description] " ;
+
 		$n   = $n - 1;
 		if ($n == 0) {break; }; 
 	}
