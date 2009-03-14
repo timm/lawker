@@ -8,15 +8,7 @@ doc/who/arnoldr.html				ArnoldR	2009	Feb	Who				|Arnold Robbins
 doc/who/steffen.html				Steffen	2009	Feb	Who				|Steffen Schuler 
 doc/who/greatauk.html				Timm	2009	Feb	Who		 		|Great Auks
 
-doc/awk100.html					Timm	2009	Jan	Awk100				|Awk100
-doc/awk100/001argcol.html			Ronl	2009	Jan	Awk100	Argcol			|Argcol
-doc/awk100/002baseballsim.html			Ronl	2009	Jan	Awk100	Baseballsim		|Basebase Sim
-doc/awk100/003negotiate.html			Ronl	2009	Jan	Awk100	Negotiate		|Negotiate
-doc/awk100/004sudoku.html			Jimh	2009	Jan	Awk100	Sudoku			|Sudoku
-doc/awk100/005getYouTube.html			PeterK	2009	Jan	Awk100	WWW			|Get YouTube Vids
-doc/awk100/006boris.html			Ronl	2009	Feb	Awk100	Boris			|Fast Clustering
-doc/awk100/007name.html				BillP	2009	Feb	Awk100	Name			|Tex-to-bilingual Dictionary
- 
+
 doc/advocacy.html				Timm	2009	Jan	Misc				|Advocacy
 doc/community.html				Timm	2009	Jan	Misc				|Community
 doc/contact.html				Timm	2009	Jan	Misc				|Contact
@@ -57,7 +49,7 @@ doc/fun/enumerate.html				Timm	2009	Mar	Funky			        |Functional Enumeration
 doc/dsl.html					Timm	2009	Mar	Dsl			        |Little Langauges 
 doc/dsl/markdown.html				JesusG	2009	Mar	Dsl			        |Markdown
 doc/dsl/awkplusplus.html				Jimh	2009	Mar	Dsl			        |Awk++
-doc/dsl/awklisp.html				DariusB	2009	Mar	Dsl			        |awklisp
+doc/dsl/awklisp.html				DariusB	2009	Mar	Dsl	AwkLisp		        |awklisp
 
 
 doc/var/top10posters.html			Steffen	2009	Jan	Newsgroup			|Top 10 posters
@@ -65,4 +57,13 @@ doc/var/top10subjects.html			Steffen	2009	Jan	Newsgroup			|Top 10 subjects
 doc/var/top10posterslastyear.html		Steffen	2009	Jan	Newsgroup			|Top 10 posters last year
 doc/var/top10subjectslastyear.html		Steffen	2009	Jan	Newsgroup			|Top 10 subjects last year
 
-
+doc/awk100.html					Timm	2009	Jan	Awk100				|Awk100
+doc/awk100/001argcol.html			Ronl	2009	Jan	Awk100	Argcol			|Argcol
+doc/awk100/002baseballsim.html			Ronl	2009	Jan	Awk100	Baseballsim		|Basebase Sim
+doc/awk100/003negotiate.html			Ronl	2009	Jan	Awk100	Negotiate		|Negotiate
+doc/awk100/004sudoku.html			Jimh	2009	Jan	Awk100	Sudoku			|Sudoku
+doc/awk100/005getYouTube.html			PeterK	2009	Jan	Awk100	WWW			|Get YouTube Vids
+doc/awk100/006boris.html			Ronl	2009	Feb	Awk100	Boris			|Fast Clustering
+doc/awk100/007name.html				BillP	2009	Feb	Awk100	Name			|Tex-to-bilingual Dictionary
+doc/awk100/008awklisp.html			DairusB	2009	Feb	Awk100	AwkLisp			|Awklisp
+ 

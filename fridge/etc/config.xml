@@ -211,69 +211,6 @@ pageTracker._trackPageview();
 		<what> </what>
 		<title>Great Auks</title>
 	</file>
-	<file where="doc/awk100.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<title>Awk100</title>
-	</file>
-	<file where="doc/awk100/001argcol.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Argcol</what>
-		<title>Argcol</title>
-	</file>
-	<file where="doc/awk100/002baseballsim.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Baseballsim</what>
-		<title>Basebase Sim</title>
-	</file>
-	<file where="doc/awk100/003negotiate.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Negotiate</what>
-		<title>Negotiate</title>
-	</file>
-	<file where="doc/awk100/004sudoku.html">
-		<what>Jimh</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Sudoku</what>
-		<title>Sudoku</title>
-	</file>
-	<file where="doc/awk100/005getYouTube.html">
-		<what>PeterK</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>WWW</what>
-		<title>Get YouTube Vids</title>
-	</file>
-	<file where="doc/awk100/006boris.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Awk100</what>
-		<what>Boris</what>
-		<title>Fast Clustering</title>
-	</file>
-	<file where="doc/awk100/007name.html">
-		<what>BillP</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Awk100</what>
-		<what>Name</what>
-		<title>Tex-to-bilingual Dictionary</title>
-	</file>
 	<file where="doc/advocacy.html">
 		<what>Timm</what>
 		<what>2009</what>
@@ -526,6 +463,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Mar</what>
 		<what>Dsl</what>
+		<what>AwkLisp</what>
 		<title>awklisp</title>
 	</file>
 	<file where="doc/var/top10posters.html">
@@ -555,6 +493,77 @@ pageTracker._trackPageview();
 		<what>Jan</what>
 		<what>Newsgroup</what>
 		<title>Top 10 subjects last year</title>
+	</file>
+	<file where="doc/awk100.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<title>Awk100</title>
+	</file>
+	<file where="doc/awk100/001argcol.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Argcol</what>
+		<title>Argcol</title>
+	</file>
+	<file where="doc/awk100/002baseballsim.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Baseballsim</what>
+		<title>Basebase Sim</title>
+	</file>
+	<file where="doc/awk100/003negotiate.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Negotiate</what>
+		<title>Negotiate</title>
+	</file>
+	<file where="doc/awk100/004sudoku.html">
+		<what>Jimh</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>Sudoku</what>
+		<title>Sudoku</title>
+	</file>
+	<file where="doc/awk100/005getYouTube.html">
+		<what>PeterK</what>
+		<what>2009</what>
+		<what>Jan</what>
+		<what>Awk100</what>
+		<what>WWW</what>
+		<title>Get YouTube Vids</title>
+	</file>
+	<file where="doc/awk100/006boris.html">
+		<what>Ronl</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Awk100</what>
+		<what>Boris</what>
+		<title>Fast Clustering</title>
+	</file>
+	<file where="doc/awk100/007name.html">
+		<what>BillP</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Awk100</what>
+		<what>Name</what>
+		<title>Tex-to-bilingual Dictionary</title>
+	</file>
+	<file where="doc/awk100/008awklisp.html">
+		<what>DairusB</what>
+		<what>2009</what>
+		<what>Feb</what>
+		<what>Awk100</what>
+		<what>AwkLisp</what>
+		<title>Awklisp</title>
 	</file>
   </files>
 </things>
