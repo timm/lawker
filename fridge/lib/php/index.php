@@ -12,7 +12,7 @@ function rss($feed,$n = 5) {
 	foreach ($rs['items'] as $item) {
 		$date = explode(" ",$item[pubDate]);
      		$out = $out .  "<p> <a href=" . $item[enclosure][url] ."> $date[2] $date[1]</a>: " .
-                               "$item[description] " ;
+                                 preg_replace('/....div.*/','',$item[description] ) ;
 
 		$n   = $n - 1;
 		if ($n == 0) {break; }; 
