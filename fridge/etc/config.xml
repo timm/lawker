@@ -456,13 +456,6 @@ pageTracker._trackPageview();
 		<what>Dsl</what>
 		<title>Markdown</title>
 	</file>
-	<file where="doc/dsl/markdown.html">
-		<what>JesusG</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<title>Markdown</title>
-	</file>
 	<file where="doc/dsl/awkplusplus.html">
 		<what>Jimh</what>
 		<what>2009</what>
