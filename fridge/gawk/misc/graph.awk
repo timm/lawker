@@ -3,9 +3,9 @@
 #.P gawk -f graph.awk graphFile
 #.H2 Description
 #.P A processor for a little language, specialized for graph-drawing.
-#The code   inputs  data, which includes a specification of a graph
-#The out is 
-# data plotted in specified area
+#The code inputs  data, which includes a specification of a graph
+#The output is 
+#data plotted in specified area
 #.P For example, here is an input specification:
 #.PRE
 #.IN eg/graph1.dat

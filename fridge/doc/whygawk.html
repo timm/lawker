@@ -20,7 +20,7 @@ Also, the cost of <a href="http://awk.info/?teachingawk">learning Awk</a> is ver
 <p>But aren't there better scripting languages? 
 Faster? Well, <a href="http://www.cs.columbia.edu/~sedwards/classes/2002/w4115/scripting.9up.pdf" title="Scripting languages (2002) by Stephen A. Edwards; Department of Computer Science; Columbia University;">maybe yes</a> and <a href="http://cm.bell-labs.com/cm/cs/who/bwk/interps/pap.html" title="Timing Trials, or, the Trials of Timing: Experiments with Scripting and User-Interface Languages  by Brian W. Kernighan and Christopher J. Van Wyk; ">maybe no</a>. </p>
 
-<p>And GAWK is old (mid-70s). Aren't modern languages more productive? 
+<p>And Awk is old (mid-70s). Aren't modern languages more productive? 
 Well
 again, maybe yes and maybe no. One measure of the productivity of a
 language is how lines of code are required to code up one business level
@@ -59,7 +59,7 @@ popular languages, GAWK scores very highly:</p>
   640,   machine language
  3200,   natural language
 </code></pre>
-<p>Anyway, there are other considerations. GAWK is real succinct, simple
+<p>Anyway, there are other considerations. Awk is real succinct, simple
 enough to teach, and easy enough to recode in C (if you want raw speed).
 For example,  here's the complete listing of someone's Awk spell-checking program.</p>
 
@@ -67,14 +67,18 @@ For example,  here's the complete listing of someone's Awk spell-checking progra
 !dict[$1] {print $1}
 </code></pre>
 
-<p>Sure, there's about a gazillion enhancements you'd like to make on this one but you gotta say, this is real succinct.</p>
-
-<p>Awk is the cure for  late execution
+<p>Sure, there's about a gazillion enhancements you'd like to make on this one but you gotta say, this is real succinct.
+<p>
+Awk is the cure for  late execution
 of software syndrome (a.k.a. LESS). The symptoms of LESS are a huge time
-delay before a new idea is executable. Awk programmers can hack up usable 
+delay before a new idea is executable. 
+Awk programmers can hack up usable 
 systems in the time it takes other programmers to boot their IDE.
+And, as a result of that  easy exploration, it is possible to find loopholes missed by other analyst that
+lead to the innovative better solution to the problems (e.g. see Ronald Loui's O(nlogn) 
+<a href="http://awk.info/?awk100/006boris">clustering tool</a>). 
 
-<p>Sure, we can drool over the language features offered by more advanced
+<p>Certainly, we can drool over the language features offered by more advanced
 languages like pointers, generic iterators, continuations, etc etc. And
 Awk's lack of data structures (except num, string, and array) requires
 some discipline to handle properly.
@@ -85,3 +89,13 @@ smaller the audience gets.
  If it is possible for to explain something
 succinctly in a simple language like Awk, then it is also possible that
 more folks will read that code.
+
+<p>
+Finally, at this may be the most important point, it might be misguided to argue about Awk vs LanguageX in terms
+of the specifics of those languages. 
+Awk programmers can't over-elaborate their solutions- they are forced to code the solution in the
+simplest manner possible.  This push to simplicity, to the essence of the problem, can be an insightful process.
+Coding in Awk is like preserving fruit- you boil
+off everything that is superfluous,  that needlessly bloats the material what you are working with.
+It is amazing how little code is required to code the core of an idea (e.g. see Darius Bacon's
+<a href="?dsl/awklisp">LISP interpreter</a>, written in Awk).  
