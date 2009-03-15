@@ -1,0 +1,1 @@
+gawk -f ../graph.awk graph1.dat

@@ -1,0 +1,207 @@
+<h1><join> Graph.awk</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#4>Initialization</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#5>Handling patterns</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Functions</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#7>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<P> gawk -f graph.awk graphFile</P>
+<a name=2></a><H2> Description</H2>
+<P> A processor for a little language, specialized for graph-drawing.</P>
+The code   inputs  data, which includes a specification of a graph
+The out is 
+ data plotted in specified area
+<P> For example, here is an input specification:</P>
+<PRE>
+label here's some stuff
+bottom ticks 1 5 10 
+left ticks 1 2 10 20
+range 1 1 10 22
+height 10
+width 30
+1 2 *
+2 4 * 
+3 6 *
+4 8 *
+7 14 +
+8 12 +
+9 10 +
+mb 0.9 11 =
+</PRE>
+<P> It produces the following output</P>
+<PRE>
+      |----------------------|
+20    -                 = =  =
+      |       = =  = =       |
+      =  = =         +  +    |
+10    -                   +  |
+      |    *  *              |
+      |  *                   |
+2     *---------|------------|
+     1         5            10
+         here's some stuff    
+</PRE>
+<a name=3></a><H2> Code</H2>
+<a name=4></a><H3> Initialization</H3>
+<P> Set frame dimensions: height and width; offset for x and y axes.</P>
+<PRE>
+BEGIN {                
+    ht = 24; wid = 80  
+    ox = 6; oy = 2     
+    number = "^[-+]?([0-9]+[.]?[0-9]*|[.][0-9]+)" \
+                            "([eE][-+]?[0-9]+)?$"
+}
+</PRE>
+<a name=5></a><H3> Handling patterns</H3>
+<P> Skip comments</P>
+<PRE>
+/^[ \t]*#/     { next } 
+</PRE>
+<P> Simple tags</P>
+<PRE>
+$1 == "height" { ht = $2;  next }
+$1 == "width"  { wid = $2; next }
+$1 == "label"  {                       # for bottom
+    sub(/^ *label */, "")
+    botlab = $0
+    next
+}
+$1 == "bottom" && $2 == "ticks" {     # ticks for x-axis
+    for (i = 3; i &lt;= NF; i++) bticks[++nb] = $i
+    next
+}
+$1 == "left" && $2 == "ticks" {       # ticks for y-axis
+    for (i = 3; i &lt;= NF; i++) lticks[++nl] = $i
+    next
+}
+$1 == "range" {                       # xmin ymin xmax ymax
+    xmin = $2; ymin = $3; xmax = $4; ymax = $5
+    next
+}
+</PRE>
+<P> Handling numerics.</P>
+<PRE>
+$1 ~ number && $2 ~ number {  # pair of numbers
+    nd++                      # count number of data points
+    x[nd] = $1; y[nd] = $2
+    ch[nd] = $3               # optional plotting character
+    next
+}
+$1 ~ number && $2 !~ number { # single number
+    nd++                      # count number of data points
+    x[nd] = nd; y[nd] = $1; ch[nd] = $2
+    next
+}
+</PRE>
+<P> Line functions, defined by a slope "m" and a y-intercept "b".</P>
+<PRE>
+$1 == "mb" {  # m b [mark]
+	expand()
+    for(i=xmin;i&lt;=xmax;i++) {
+		nd++; x[nd]=i; y[nd]=$2*i + $3; ch[nd]=$4 
+    }
+    next;
+}		
+</PRE>
+<P> Final case: input error.</P>
+<PRE>
+{ print "?? line " NR ": ["$0"]" >"/dev/stderr" }
+</PRE>
+<P> Draw the graph</P>
+<PRE>
+END { expand();   frame(); ticks(); label(); data(); draw() }
+</PRE>
+<a name=6></a><H3> Functions</H3>
+<P> Expand the "x" and "y" boundaries to include all points.</P>
+<PRE>
+function expand(note) { if (xmin == "") expand1(note) }
+function expand1(note) {
+ 	xmin = xmax = x[1]    
+    ymin = ymax = y[1]
+    for (i = 2; i &lt;= nd; i++) {
+        if (x[i] &lt; xmin) xmin = x[i]
+        if (x[i] > xmax) xmax = x[i]
+        if (y[i] &lt; ymin) ymin = y[i]
+        if (y[i] > ymax) ymax = y[i] }
+}
+</PRE>
+<P> Draw the frame around the graph.</P>
+<PRE>
+function frame() {        
+    for (i = ox; i &lt; wid; i++) plot(i, oy, "-")     # bottom
+    for (i = ox; i &lt; wid; i++) plot(i, ht-1, "-")   # top
+    for (i = oy; i &lt; ht; i++) plot(ox, i, "|")      # left
+    for (i = oy; i &lt; ht; i++) plot(wid-1, i, "|")   # right
+}
+</PRE>
+<P> Create tick marks for both axes.</P>
+<PRE>
+function ticks(    i) {   
+    for (i = 1; i &lt;= nb; i++) {
+        plot(xscale(bticks[i]), oy, "|")
+        splot(xscale(bticks[i])-1, 1, bticks[i])
+    }
+    for (i = 1; i &lt;= nl; i++) {
+        plot(ox, yscale(lticks[i]), "-")
+        splot(0, yscale(lticks[i]), lticks[i])
+    }
+}
+</PRE>
+<P> Center labels under x-axis.</P>
+<PRE>
+function label() {        
+    splot(int((wid + ox - length(botlab))/2), 0, botlab)
+}
+</PRE>
+<P> Create data points.</P>
+<PRE>
+function data(    i) {    
+    for (i = 1; i &lt;= nd; i++)
+        plot(xscale(x[i]),yscale(y[i]),ch[i]=="" ? "*" : ch[i])
+    for(i in mark) print mark[i]
+}
+</PRE>
+<P> Print graph from array.</P>
+<PRE>
+function draw(    i, j) { 
+    for (i = ht-1; i >= 0; i--) {
+        for (j = 0; j &lt; wid; j++)
+            printf((j,i) in array ? array[j,i] : " ")
+        printf("\n")
+    }
+}
+</PRE>
+<P> Scale x-values, y-values.</P>
+<PRE>
+function xscale(x) {      
+    return int((x-xmin)/(xmax-xmin) * (wid-1-ox) + ox + 0.5)
+}
+function yscale(y) {      
+    return int((y-ymin)/(ymax-ymin) * (ht-1-oy) + oy + 0.5)
+}
+</PRE>
+<P> Put one character into array.</P>
+<PRE>
+function plot(x, y, c) {  
+    array[x,y] = c
+}
+</PRE>
+<P> Put string "s" into array.</P>
+<PRE>
+function splot(x, y, s,    i, n) { 
+    n = length(s)
+    for (i = 0; i &lt; n; i++)
+        array[x+i, y] = substr(s, i+1, 1)
+}
+</PRE>
+<a name=7></a><H2> Author</H2>
+<P>
+ This code comes from the original Awk book by Alfred Aho, Peter Weinberger &  Brian Kernighan and contains some small
+ modifications by  <A href="?who/timm">Tim Menzies</a>.
+</div><!--- htmlbody --->
