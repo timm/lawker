@@ -438,11 +438,17 @@ pageTracker._trackPageview();
 		<title>Functional Enumeration</title>
 	</file>
 	<file where="doc/dsl.html">
-		<what>Timm</what>
+		<what>AlfredA PeterW BrianK 2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<title>Graph</title>
+	</file>
+	<file where="doc/dsl/graph.html">
+		<what>JesusG</what>
 		<what>2009</what>
 		<what>Mar</what>
 		<what>Dsl</what>
-		<title>Little Langauges </title>
+		<title>Markdown</title>
 	</file>
 	<file where="doc/dsl/markdown.html">
 		<what>JesusG</what>

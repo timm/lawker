@@ -19,13 +19,17 @@ config.xml :	tags.txt things.awk tags.awk
 files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
 	    $(Doc)/fun/enumerate.html \
-	    $(Doc)/dsl/awkplusplus.html
+	    $(Doc)/dsl/awkplusplus.html\
+	    $(Doc)/dsl/graph.html
 
 zips :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
 
 $(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html
 	cd $(Bash) && $(Awk2Html)
+
+$(Doc)/dsl/graph.html : $(Gawk)/misc/graph.awk     
+	cd $(Gawk)/misc && $(Awk2Html)
 
 $(Doc)/dsl/markdown.html : $(Gawk)/text/markdown.awk     
 	cd $(Gawk) && $(Awk2Html)
