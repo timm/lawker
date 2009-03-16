@@ -5,7 +5,7 @@
 #.H2 Download 
 #.P 
 #Download from
-#.URL  http://lawker.googlecode.com/svn/fridge/gawk/text/markdown.awk LAKWER
+#.URL  http://lawker.googlecode.com/svn/fridge/gawk/text/markdown.awk LAWKER.
 #.H2 Description
 #.P 
 # (Note: this code was orginally called <em>txt2html.awk</em> by its author but that caused a name
