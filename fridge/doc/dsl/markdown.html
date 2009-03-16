@@ -2,27 +2,32 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#2>Description</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#3>Code</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#4>Globals</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#5>Images</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#6>Links</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#7>Code</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#8>Emphasis</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#9>Setex-style Headers</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#10>Atx-style headers</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#11>Unordered Lists</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#12>Paragraphs</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#13>Default</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#14>End</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#15>Bugs</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#16>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#5>Globals</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Images</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>Links</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#8>Code</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#9>Emphasis</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#10>Setex-style Headers</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#11>Atx-style headers</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#12>Unordered Lists</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#13>Paragraphs</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#14>Default</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#15>End</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#16>Bugs</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#17>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 
 <a name=1></a><H2> Synopsis</H2>
 <P> awk -f markdown.awk file.txt > file.html</P>
-<a name=2></a><H2> Description</H2>
+<a name=2></a><H2> Download</H2>
+<P>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/gawk/text/markdown.awk">LAKWER</a>
+<a name=3></a><H2> Description</H2>
 <P>
  (Note: this code was orginally called <em>txt2html.awk</em> by its author but that caused a name
  clash inside LAWKER. Hence, I've taken the liberty of renamining it. --<a href="?who/timm">Timm</a>)
@@ -68,20 +73,20 @@ Heaings (Atx style):
 1 A numbered list item
 </PRE>
 </UL>
-<a name=3></a><H2> Code</H2>
+<a name=4></a><H2> Code</H2>
 <P>
  The following code demonstrates a "exception-style" of Awk programming. Note
 how all the processing relating to each mark-up tag is localized (exception, carrying
 round prior text and environments). The modularity of the following code should make it
 easily hackable.
-<a name=4></a><H3> Globals</H3>
+<a name=5></a><H3> Globals</H3>
 <PRE>
 BEGIN {
 	env = "none";
 	text = "";
 }
 </PRE>
-<a name=5></a><H3> Images</H3>
+<a name=6></a><H3> Images</H3>
 <PRE>
 /^!\[.+\] *\(.+\)/ {
 	split($0, a, /\] *\(/);
@@ -94,7 +99,7 @@ BEGIN {
 	next;
 }
 </PRE>
-<a name=6></a><H3> Links</H3>
+<a name=7></a><H3> Links</H3>
 <PRE>
 /\] *\(/ {
 	do {
@@ -114,7 +119,7 @@ BEGIN {
 	while (na > 2);
 }
 </PRE>
-<a name=7></a><H3> Code</H3>
+<a name=8></a><H3> Code</H3>
 <PRE>
 /`/ {
 	while (match($0, /`/) != 0) {
@@ -130,7 +135,7 @@ BEGIN {
 	}
 }
 </PRE>
-<a name=8></a><H3> Emphasis</H3>
+<a name=9></a><H3> Emphasis</H3>
 <PRE>
 /\*\*/ {
 	while (match($0, /\*\*/) != 0) {
@@ -146,7 +151,7 @@ BEGIN {
 	}
 }
 </PRE>
-<a name=9></a><H3> Setex-style Headers</H3>
+<a name=10></a><H3> Setex-style Headers</H3>
 <P> (Plus h3 with underscores.)</P>
 <PRE>
 /^=+$/ {
@@ -167,7 +172,7 @@ BEGIN {
 	next;
 }
 </PRE>
-<a name=10></a><H3> Atx-style headers</H3>
+<a name=11></a><H3> Atx-style headers</H3>
 <PRE>
 /^#/ {
 	match($0, /#+/);
@@ -178,7 +183,7 @@ BEGIN {
 	next;
 }
 </PRE>
-<a name=11></a><H3> Unordered Lists</H3>
+<a name=12></a><H3> Unordered Lists</H3>
 <PRE>
 /^[*-+]/ {
 	if (env == "none") {
@@ -199,7 +204,7 @@ BEGIN {
 	next;
 }
 </PRE>
-<a name=12></a><H3> Paragraphs</H3>
+<a name=13></a><H3> Paragraphs</H3>
 <PRE>
 /^[ t]*$/ {
 	if (env != "none") {
@@ -215,13 +220,13 @@ BEGIN {
 	next;
 }
 </PRE>
-<a name=13></a><H3> Default</H3>
+<a name=14></a><H3> Default</H3>
 <PRE>
 // {
 	text = text $0;
 }
 </PRE>
-<a name=14></a><H3> End</H3>
+<a name=15></a><H3> End</H3>
 <PRE>
 END {
         if (env != "none") {
@@ -236,9 +241,9 @@ END {
         text = "";
 }
 </PRE>
-<a name=15></a><H2> Bugs</H2>
+<a name=16></a><H2> Bugs</H2>
 <P> Does not implement the full Markdown syntax.</P>
-<a name=16></a><H2> Author</H2>
+<a name=17></a><H2> Author</H2>
 <P> Jesus Galan (yiyus) 2006</P>
  &lt;yiyu DOT jgl AT gmail DOT com>
 </div><!--- htmlbody --->

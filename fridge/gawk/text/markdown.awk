@@ -2,6 +2,10 @@
 
 #.H2 Synopsis
 #.P awk -f markdown.awk file.txt > file.html
+#.H2 Download 
+#.P 
+#Download from
+#.URL  http://lawker.googlecode.com/svn/fridge/gawk/text/markdown.awk LAKWER
 #.H2 Description
 #.P 
 # (Note: this code was orginally called <em>txt2html.awk</em> by its author but that caused a name
