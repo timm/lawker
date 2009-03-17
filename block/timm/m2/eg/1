@@ -1,0 +1,3 @@
+cat<<'EOF' | gawk -f ../m2.awk 
+i love `fish`
+EOF

@@ -121,8 +121,8 @@ function pariedTag(div,tag,    out,n,i,tmp) {
 #.H3 Setex-style Headers
 #.P (Plus h3 with underscores.)
 #.PRE
-/^=+$/ { heading(1,$0) ; text=""; next }
-/^=+$/ { heading(2,$0) ; text=""; next }
+/^=+$/ { setexHeading(1,$0) ; text=""; next }
+/^=+$/ { setexHeading(2,$0) ; text=""; next }
 
 function heading(n,txt) { return "<h" n" >" txt "</h" n ">\n" }
 
