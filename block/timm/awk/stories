@@ -1,0 +1,9 @@
+for((i=1;i<=20;i++)); 
+do
+	echo ""
+	echo "Start" | 
+	gawk -f sentgen.awk -v Grammar=story Seed=$RANDOM | 
+	sed 's/  */ /g' |
+	tr A-Z a-z | 
+	fmt
+done
