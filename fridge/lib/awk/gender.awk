@@ -1,6 +1,8 @@
 #.H1 Predicting  Gender
 #.H2 Synopsis
-#.PRE echo name | gawk -f gender.awk
+#.PRE 
+#echo name | gawk -f gender.awk
+#./PRE
 #.H2 Download
 #.P Download from LAWKER
 #.H2 Description
@@ -12,7 +14,7 @@
 #Scott Pakin. <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/palin1991.pdf">Regular 
 #Expressions and Gender Guessing</a>. In Computer Language Magazine, 8(12):pp. 59¿68, December 1991.
 #./UL 
-#.H2 Code
+#.h2 Code
 #.Pre
                                           { sex = "m" } # Assume male.
 
