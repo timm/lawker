@@ -2,6 +2,8 @@
 stop gaps:
 	- editorial: awkwords?
 	- towers of hanoi??
+	- more functional stuff
+	- saya
 
 11111111111111111111111
 - awk 100: CSS spell checker
