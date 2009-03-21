@@ -15,6 +15,7 @@
 #Expressions and Gender Guessing</a>. In Computer Language Magazine, 8(12):pp. 59¿68, December 1991.
 #./UL 
 #.h2 Code
+#.small
 #.Pre
                                           { sex = "m" } # Assume male.
 
@@ -61,5 +62,6 @@
 
                                           { print sex }  # Output prediction
 #./PRE
+#.small
 #.H2 Author
 # by Scott Pakin, August 1991
