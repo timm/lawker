@@ -1,6 +1,7 @@
 ????
 stop gaps:
 	- editorial: awkwords?
+	- stuff from sed & awk
 	- towers of hanoi??
 	- more functional stuff
 	- saya
