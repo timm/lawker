@@ -359,6 +359,20 @@ pageTracker._trackPageview();
 		<what>TenLiners</what>
 		<title>Samples of AWK</title>
 	</file>
+	<file where="doc/montyhall.html">
+		<what>DonaldM</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>TenLiners</what>
+		<title>Monty Hall Problem</title>
+	</file>
+	<file where="doc/gender.html">
+		<what>ScottP</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>TenLiners</what>
+		<title>Predicting Gender</title>
+	</file>
 	<file where="doc/tip/getline.html">
 		<what>Ed</what>
 		<what>2009</what>
@@ -578,6 +592,14 @@ pageTracker._trackPageview();
 		<what>Awk100</what>
 		<what>Yawk</what>
 		<title>Yawk</title>
+	</file>
+	<file where="doc/textmining.html">
+		<what>                       Timm 2009 Mar   TextMining</what>
+		<title>Text Mining</title>
+	</file>
+	<file where="doc/textmine/textmunge.html">
+		<what>                       DonaldM 2009 Mar   TextMining</what>
+		<title>Text Munging</title>
 	</file>
   </files>
 </things>
