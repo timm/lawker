@@ -19,7 +19,7 @@
 #.Pre
                                           { sex = "m" } # Assume male.
 
-/^.*[aeiy]$/                              { sex = "f" }  # Most names that end in a/e/i/y are female.
+/^.*[aeiy]$/                              { sex = "f" }  # Female names endng in a/e/i/y.
 /^All?[iy]((ss?)|z)on$/                   { sex = "f" }  # Allison (and variations)
 /^.*een$/                                 { sex = "f" }  # Cathleen, Eileen, Maureen,...
 /^[^S].*r[rv]e?y?$/                       { sex = "m" }  # Barry, Larry, Perry,...
