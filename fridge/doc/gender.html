@@ -2,25 +2,29 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
-<PRE> </PRE>
+<PRE>
 echo name | gawk -f gender.awk
-&lt;/PRE>
-&lt;H2> Download&lt;/H2>
-&lt;P> Download from LAWKER&lt;/P>
-&lt;H2> Description&lt;/H2>
-&lt;P> THe following code predicts gender, given a first name.&lt;/P>
-&lt;P> This code is an excellent example of rule-based programming in Awk.&lt;/P>
-&lt;P> For a full description of the code, see&lt;/P>
-&lt;UL>
-&lt;LI> &lt;/LI>
-Scott Pakin. &lt;a href="http://lawker.googlecode.com/svn/fridge/share/pdf/palin1991.pdf">Regular 
-Expressions and Gender Guessing&lt;/a>. In Computer Language Magazine, 8(12):pp. 59¿68, December 1991.
-&lt;/UL> &lt;//UL>
-&lt;h2> Code&lt;/h2>
-&lt;Pre>
+</PRE>
+<a name=2></a><H2> Download</H2>
+<P> Download from LAWKER</P>
+<a name=3></a><H2> Description</H2>
+<P> THe following code predicts gender, given a first name.</P>
+<P> This code is an excellent example of rule-based programming in Awk.</P>
+<P> For a full description of the code, see</P>
+<UL>
+<LI> </LI>
+Scott Pakin. <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/palin1991.pdf">Regular 
+Expressions and Gender Guessing</a>. In Computer Language Magazine, 8(12):pp. 59¿68, December 1991.
+</UL> <//UL>
+<a name=4></a><h2> Code</h2>
+<Pre>
                                           { sex = "m" } # Assume male.
 
 /^.*[aeiy]$/                              { sex = "f" }  # Most names that end in a/e/i/y are female.
@@ -65,7 +69,7 @@ Expressions and Gender Guessing&lt;/a>. In Computer Language Magazine, 8(12):pp.
 /^[ADFGIM][^r]*([bg]e[lr]|il|wn)$/        { sex = "f" }  # Angel, Gail, Isabel,...
 
                                           { print sex }  # Output prediction
-&lt;/PRE>
-&lt;H2> Author&lt;/H2>
+</PRE>
+<a name=5></a><H2> Author</H2>
  by Scott Pakin, August 1991
 </div><!--- htmlbody --->

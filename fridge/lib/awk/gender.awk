@@ -1,6 +1,6 @@
 #.H1 Predicting  Gender
 #.H2 Synopsis
-#.PRE 
+#.PRE
 #echo name | gawk -f gender.awk
 #./PRE
 #.H2 Download
