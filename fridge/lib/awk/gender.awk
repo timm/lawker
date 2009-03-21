@@ -4,9 +4,9 @@
 #echo name | gawk -f gender.awk
 #./PRE
 #.H2 Download
-#.P Download from LAWKER
+#.P Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/gender.awk">LAWKER</a>
 #.H2 Description
-#.P THe following code predicts gender, given a first name.
+#.P The following code predicts gender, given a first name.
 #.P This code is an excellent example of rule-based programming in Awk.
 #.P For a full description of the code, see
 #.UL
