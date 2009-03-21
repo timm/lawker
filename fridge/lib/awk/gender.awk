@@ -11,8 +11,8 @@
 #.P For a full description of the code, see
 #.UL
 #.LI 
-#Scott Pakin. <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/palin1991.pdf">Regular 
-#Expressions and Gender Guessing</a>. In Computer Language Magazine, 8(12):pp. 59¿68, December 1991.
+#Scott Pakin. <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/pakin1991.pdf">Regular 
+#Expressions and Gender Guessing</a>. In Computer Language Magazine, 8(12):pp. 59-68, December 1991.
 #./UL 
 #.h2 Code
 #.small
