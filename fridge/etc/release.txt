@@ -1,0 +1,36 @@
+????
+stop gaps:
+	- editorial: awkwords?
+	- towers of hanoi??
+
+11111111111111111111111
+- awk 100: CSS spell checker
+- next section on text mining
+- two text mining workbenches, using awk+shell, written by some
+  Japanese folks and yours truly
+- papers on linguistic analysis, and my two papers
+
+222222222222222222222
+- awk100: m1
+- fun: story generation
+
+- next section on macro languages
+- m1
+- m4
+- 2 macro languages (m1 from jon bentley and a cool variant called m5)
+
+3333333333333333333
+- awk100: awk-linux  a very cool tool for instrumenting programs to be used in
+an operating systems subject.  awk is used cause it is platform
+independent. this was the basis of a 2008 ieee trans on education
+paper.
+
+- fun: ronold lou's soccer game
+
+- new section on postscript manipulation tools
+- robbin's postscript tools
+
+4444444444444444444
+- awk100: nroff in awk
+- fun: ???
+- next section on awk word-processors (markdown, awkwords, nroff in awk
