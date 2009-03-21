@@ -10,7 +10,7 @@
 #.P This code is an excellent example of rule-based programming in Awk.
 #.P For a full description of the code, see
 #.UL
-#.LI 
+#.LI
 #Scott Pakin. <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/pakin1991.pdf">Regular 
 #Expressions and Gender Guessing</a>. In Computer Language Magazine, 8(12):pp. 59-68, December 1991.
 #./UL 
