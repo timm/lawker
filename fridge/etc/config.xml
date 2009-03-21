@@ -594,11 +594,17 @@ pageTracker._trackPageview();
 		<title>Yawk</title>
 	</file>
 	<file where="doc/textmining.html">
-		<what>                       Timm 2009 Mar   TextMining</what>
+		<what>                       Timm</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>TextMining</what>
 		<title>Text Mining</title>
 	</file>
 	<file where="doc/textmine/textmunge.html">
-		<what>                       DonaldM 2009 Mar   TextMining</what>
+		<what>       DonaldM </what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>TextMining</what>
 		<title>Text Munging</title>
 	</file>
   </files>

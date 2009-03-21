@@ -72,5 +72,5 @@ doc/awk100/007name.html				BillP	2009	Feb	Awk100	Name			|Tex-to-bilingual Dictio
 doc/awk100/008awklisp.html			DairusB	2009	Feb	Awk100	AwkLisp			|Awklisp
 doc/awk100/009yawk.html			WolfganZ	2009	Feb	Awk100	Yawk			|Yawk
  
-doc/textmining.html	                       Timm 2009 Mar   TextMining		|Text Mining
-doc/textmine/textmunge.html	                       DonaldM 2009 Mar   TextMining		|Text Munging
+doc/textmining.html	                       Timm	2009	Mar	TextMining		|Text Mining
+doc/textmine/textmunge.html		       DonaldM 	2009	Mar	TextMining		|Text Munging
