@@ -29,7 +29,7 @@ BEGIN {
     KEEP = "keep"; SWITCH="switch"; RAND="random"; 
 }
 function monty_hall( choice, algorithm ) { # Set up doors
-  for ( i=0; i<doors; i++ ) {
+  for ( i=0; i&lt;doors; i++ ) {
 		door[i] = EMPTY
 	}
 	door[int(rand()*doors)] = PRIZE # One door with prize
@@ -47,11 +47,11 @@ function monty_hall( choice, algorithm ) { # Set up doors
 	if( algorithm == SWITCH) {
 		return alternative
 	} 
-	return rand() <0.5 ? chosen : alternative
+	return rand() &lt;0.5 ? chosen : alternative
 }
 function simulate(algo){
 	prizecount = 0
-	for(j=0; j< iterations; j++){
+	for(j=0; j&lt; iterations; j++){
 		if( monty_hall( int(rand()*doors), algo) == PRIZE) { 
 			prizecount ++ 
 		}
