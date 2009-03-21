@@ -150,7 +150,6 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what> </what>
 		<title>Credits</title>
 	</file>
 	<file where="doc/who/jimh.html">
@@ -172,7 +171,6 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what> </what>
 		<title>Tim Menzies</title>
 	</file>
 	<file where="doc/who/ed.html">
@@ -201,14 +199,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<title>Steffen Schuler </title>
+		<title>Steffen Schuler</title>
 	</file>
 	<file where="doc/who/greatauk.html">
 		<what>Timm</what>
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Who</what>
-		<what> </what>
 		<title>Great Auks</title>
 	</file>
 	<file where="doc/advocacy.html">
@@ -252,7 +249,6 @@ pageTracker._trackPageview();
 		<what>Jan</what>
 		<what>Misc</what>
 		<what>Mascot</what>
-		<what> </what>
 		<title>Mascot</title>
 	</file>
 	<file where="doc/awk4ai.html">
@@ -274,7 +270,6 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Jan</what>
 		<what>Misc</what>
-		<what> </what>
 		<title>Why Gawk?</title>
 	</file>
 	<file where="doc/contribute.html">
@@ -378,7 +373,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Jan</what>
 		<what>Tips</what>
-		<what>Getline </what>
+		<what>Getline</what>
 		<title>Getline</title>
 	</file>
 	<file where="doc/tip/noforloops.html">
@@ -452,13 +447,17 @@ pageTracker._trackPageview();
 		<title>Functional Enumeration</title>
 	</file>
 	<file where="doc/dsl.html">
-		<what>Timm 2009</what>
+		<what>Timm</what>
+		<what>2009</what>
 		<what>Mar</what>
 		<what>Dsl</what>
 		<title>Domain-Specific Langauges</title>
 	</file>
 	<file where="doc/dsl/graph.html">
-		<what>AlfredA PeterW BrianK 2009</what>
+		<what>AlfredA</what>
+		<what>PeterW</what>
+		<what>BrianK</what>
+		<what>2009</what>
 		<what>Mar</what>
 		<what>Dsl</what>
 		<title>Graph</title>
@@ -593,15 +592,18 @@ pageTracker._trackPageview();
 		<what>Yawk</what>
 		<title>Yawk</title>
 	</file>
+	<file where="">
+		<what></what>
+	</file>
 	<file where="doc/textmining.html">
-		<what>                       Timm</what>
+		<what>Timm</what>
 		<what>2009</what>
 		<what>Mar</what>
 		<what>TextMining</what>
 		<title>Text Mining</title>
 	</file>
 	<file where="doc/textmine/textmunge.html">
-		<what>       DonaldM</what>
+		<what>DonaldM</what>
 		<what>2009</what>
 		<what>Mar</what>
 		<what>TextMining</what>
