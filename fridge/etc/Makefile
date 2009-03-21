@@ -2,6 +2,7 @@
 Doc=$(Lawker)/doc
 Gawk=$(Lawker)/gawk
 Bash=$(Lawker)/lib/bash
+Awklib=$(Lawker)/lib/awk
 Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
 Awk2Html=$(Bash)/awkwords $< > $@ 
@@ -20,10 +21,15 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
-	    $(Doc)/dsl/graph.html
+	    $(Doc)/dsl/graph.html \
+	    $(Doc)/gender.html 
 
 zips :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
+
+$(Doc)/gender.html : $(Awklib)/gender.awk
+	cd $(Awklib) && $(Awk2Html)
+
 
 $(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html
 	cd $(Bash) && $(Awk2Html)
