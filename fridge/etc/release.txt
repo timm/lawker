@@ -5,6 +5,7 @@ stop gaps:
 	- towers of hanoi??
 	- more functional stuff
 	- saya
+	- batchrunner
 
 11111111111111111111111
 - awk 100: CSS spell checker
@@ -28,8 +29,7 @@ an operating systems subject.  awk is used cause it is platform
 independent. this was the basis of a 2008 ieee trans on education
 paper.
 
-- fun: ronold lou's soccer game
-
+- fun: my bayes trick
 - new section on postscript manipulation tools
 - robbin's postscript tools
 
@@ -37,3 +37,11 @@ paper.
 - awk100: nroff in awk
 - fun: ???
 - next section on awk word-processors (markdown, awkwords, nroff in awk
+
+5555555555555555555
+- awk100:   ronold lou's soccer game
+
+66666666666666666
+- awk100: the amazing awk assembler
+- fun: ??
+- new section on awk interpreters (awk assembler, awklisp)
