@@ -9,6 +9,7 @@
 #.P Download from
 #.URL http://lawker.googlecode.com/svn/fridge/lib/awk/spell.awk LAWKER.
 #.H2 Description
+#.H3 Why Study This Code?
 #.P
 #This program is an example par excellence of the power of awk.
 #Yes, if written in "C", it would run faster. But this few lines of code
@@ -34,6 +35,7 @@
 #the use of <em>sortpipe</em> in <em>report_expcetions</em> to link
 #the awk code to UNIX scripts
 #./UL
+#.H3 Dictionaries
 #.P
 # Dictionaries are simple text files, with one word per line.  Unlike
 # those for Unix spell(1), the dictionaries need not be sorted, and
@@ -55,6 +57,7 @@
 # In this simple version, which is intended to support multiple
 # languages, no attempt is made to strip word suffixes, unless the
 # +strip option is supplied.
+#.H3 Suffixes
 #.P
 # Suffixes are defined as regular expressions, and may be supplied from
 # suffix files (one per name) named on the command line, or from an
@@ -76,6 +79,7 @@
 #.P
 # Suffixes are tested in order of decreasing length, so that the longest
 # matches are tried first.
+#.H3 Output
 #.P
 # The default output is just a sorted list of unique spelling
 # exceptions, one per line.  With the +verbose option, output lines

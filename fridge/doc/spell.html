@@ -4,20 +4,24 @@
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#5>Top-Level</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#6>get_dictionaries</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#7>Initialize</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#8>load_dictionaries</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#9>load_suffixes</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#10>order_suffixes</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#11>report_execptions</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#12>scan_options</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#13>spell_check_line</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#14>spell_check_word</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#15>strip_suffixes</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#16>swap</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#17>Author</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#4>Why Study This Code?</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#5>Dictionaries</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Suffixes</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>Output</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#8>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#9>Top-Level</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#10>get_dictionaries</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#11>Initialize</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#12>load_dictionaries</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#13>load_suffixes</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#14>order_suffixes</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#15>report_execptions</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#16>scan_options</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#17>spell_check_line</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#18>spell_check_word</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#19>strip_suffixes</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#20>swap</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#21>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><h2> Synopsis</h2>
@@ -30,6 +34,7 @@
 <P> Download from</P>
 <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/spell.awk">LAWKER.</a>
 <a name=3></a><H2> Description</H2>
+<a name=4></a><H3> Why Study This Code?</H3>
 <P>
 This program is an example par excellence of the power of awk.
 Yes, if written in "C", it would run faster. But this few lines of code
@@ -55,6 +60,7 @@ and with local functions.
 the use of <em>sortpipe</em> in <em>report_expcetions</em> to link
 the awk code to UNIX scripts
 </UL>
+<a name=5></a><H3> Dictionaries</H3>
 <P>
  Dictionaries are simple text files, with one word per line.  Unlike
  those for Unix spell(1), the dictionaries need not be sorted, and
@@ -76,6 +82,7 @@ the awk code to UNIX scripts
  In this simple version, which is intended to support multiple
  languages, no attempt is made to strip word suffixes, unless the
  +strip option is supplied.
+<a name=6></a><H3> Suffixes</H3>
 <P>
  Suffixes are defined as regular expressions, and may be supplied from
  suffix files (one per name) named on the command line, or from an
@@ -97,6 +104,7 @@ the awk code to UNIX scripts
 <P>
  Suffixes are tested in order of decreasing length, so that the longest
  matches are tried first.
+<a name=7></a><H3> Output</H3>
 <P>
  The default output is just a sorted list of unique spelling
  exceptions, one per line.  With the +verbose option, output lines
@@ -108,14 +116,14 @@ the awk code to UNIX scripts
  Some Unix text editors recognize such lines, and can use them to move
  quickly to the indicated location.
 
-<a name=4></a><H2> Code</H2>
-<a name=5></a><H3> Top-Level</H3>
+<a name=8></a><H2> Code</H2>
+<a name=9></a><H3> Top-Level</H3>
 <PRE>
 BEGIN	{ initialize() }
 	    { spell_check_line() }
 END	    { report_exceptions() }
 </PRE>
-<a name=6></a><H3> get_dictionaries</H3>
+<a name=10></a><H3> get_dictionaries</H3>
 <PRE>
 function get_dictionaries(        files, key)
 {
@@ -134,7 +142,7 @@ function get_dictionaries(        files, key)
     }
 }
 </PRE>
-<a name=7></a><H3> Initialize</H3>
+<a name=11></a><H3> Initialize</H3>
 <PRE>
 function initialize()
 {
@@ -158,7 +166,7 @@ function initialize()
     order_suffixes()
 }
 </PRE>
-<a name=8></a><H3> load_dictionaries</H3>
+<a name=12></a><H3> load_dictionaries</H3>
 <PRE>
 function load_dictionaries(        file, word)
 {
@@ -171,7 +179,7 @@ function load_dictionaries(        file, word)
     }
 }
 </PRE>
-<a name=9></a><H3> load_suffixes</H3>
+<a name=13></a><H3> load_suffixes</H3>
 <PRE>
 function load_suffixes(        file, k, line, n, parts)
 {
@@ -207,7 +215,7 @@ function load_suffixes(        file, k, line, n, parts)
     }
 }
 </PRE>
-<a name=10></a><H3> order_suffixes</H3>
+<a name=14></a><H3> order_suffixes</H3>
 <PRE>
 function order_suffixes(        i, j, key)
 {
@@ -221,7 +229,7 @@ function order_suffixes(        i, j, key)
 		swap(OrderedSuffix, i, j)
 }
 </PRE>
-<a name=11></a><H3> report_execptions</H3>
+<a name=15></a><H3> report_execptions</H3>
 <PRE>
 function report_exceptions(        key, sortpipe)
 {
@@ -231,7 +239,7 @@ function report_exceptions(        key, sortpipe)
   close(sortpipe)
 }
 </PRE>
-<a name=12></a><H3> scan_options</H3>
+<a name=16></a><H3> scan_options</H3>
 <PRE>
 function scan_options(        k)
 {
@@ -265,7 +273,7 @@ function scan_options(        k)
         ARGC--
 }
 </PRE>
-<a name=13></a><H3> spell_check_line</H3>
+<a name=17></a><H3> spell_check_line</H3>
 <PRE>
 function spell_check_line(        k, word)
 {
@@ -281,7 +289,7 @@ function spell_check_line(        k, word)
     }
 }
 </PRE>
-<a name=14></a><H3> spell_check_word</H3>
+<a name=18></a><H3> spell_check_word</H3>
 <PRE>
 function spell_check_word(word,        key, lc_word, location, w, wordlist)
 {
@@ -310,7 +318,7 @@ function spell_check_word(word,        key, lc_word, location, w, wordlist)
     }
 }
 </PRE>
-<a name=15></a><H3> strip_suffixes</H3>
+<a name=19></a><H3> strip_suffixes</H3>
 <PRE>
 function strip_suffixes(word, wordlist,        ending, k, n, regexp)
 {
@@ -341,7 +349,7 @@ function strip_suffixes(word, wordlist,        ending, k, n, regexp)
      ## for (n in wordlist) print "DEBUG: strip_suffixes() -> \"" n "\""
 }
 </PRE>
-<a name=16></a><H3> swap</H3>
+<a name=20></a><H3> swap</H3>
 <PRE>
 function swap(a, i, j,        temp)
 {
@@ -350,7 +358,7 @@ function swap(a, i, j,        temp)
     a[j] = temp
 }
 </PRE>
-<a name=17></a><H2> Author</H2>
+<a name=21></a><H2> Author</H2>
 <P> Arnold Robbins and Nelson H.F. Beebe in "Classic Shell Scripting", O'Reilly Books</P>
 
 </div><!--- htmlbody --->
