@@ -26,7 +26,7 @@
 #.UL
 #.LI 
 # The code is hundreds of lines long. Yes folks, its true, Awk is
-# not just tool for writing one-liners. 
+# not just a tool for writing one-liners. 
 #.LI 
 # The code is well-structured. Note, for example,
 #how the  BEGIN block is used to initialize the system from files,
