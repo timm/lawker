@@ -623,13 +623,6 @@ pageTracker._trackPageview();
 		<what>TextMining</what>
 		<title>Text Mining</title>
 	</file>
-	<file where="doc/textmine/textmunge.html">
-		<what>DonaldM</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>TextMining</what>
-		<title>Text Munging</title>
-	</file>
 	<file where="doc/textmine/languageAnalysis.html">
 		<what>LotharS</what>
 		<what>2009</what>
@@ -637,12 +630,19 @@ pageTracker._trackPageview();
 		<what>TextMining</what>
 		<title>Language Analysis</title>
 	</file>
-	<file where="doc/textmine/servis.html">
+	<file where="doc/textmine/severis.html">
 		<what>Timm</what>
 		<what>2009</what>
 		<what>Mar</what>
 		<what>TextMining</what>
 		<title>Issue report mining</title>
+	</file>
+	<file where="doc/textmine/textmunge.html">
+		<what>DonaldM</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>TextMining</what>
+		<title>Text Munging</title>
 	</file>
   </files>
 </things>

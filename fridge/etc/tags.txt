@@ -74,6 +74,6 @@ doc/awk100/009yawk.html			;WolfganZ	;2009;Feb	;Awk100	;Yawk	;|Yawk
 doc/awk100/spell.html			;ArnoldR ;NelsonB ;2009 ;Mar ;Awk100; Top10	;|spell.awk
 
 doc/textmining.html				;Timm	;2009	;Mar	;TextMining	;|Text Mining
-doc/textmine/textmunge.html		;DonaldM	;2009	;Mar	;TextMining	;|Text Munging
 doc/textmine/languageAnalysis.html		;LotharS	;2009	;Mar	;TextMining	;|Language Analysis
-doc/textmine/servis.html		;Timm	;2009	;Mar	;TextMining	;|Issue report mining
+doc/textmine/severis.html		;Timm	;2009	;Mar	;TextMining	;|Issue report mining
+doc/textmine/textmunge.html		;DonaldM	;2009	;Mar	;TextMining	;|Text Munging
