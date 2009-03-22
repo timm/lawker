@@ -1,9 +1,9 @@
 #.h1 spell.awk
 #.h2 Synopsis
 #.PRE
-#	awk [-v Dictionaries="sysdict1 sysdict2 ..."] -f spell.awk -- \
-#	    [=suffixfile1 =suffixfile2 ...] [+dict1 +dict2 ...] \
-#	    [-strip] [-verbose] [file(s)]
+#awk [-v Dictionaries="sysdict1 sysdict2 ..."] -f spell.awk -- \
+#    [=suffixfile1 =suffixfile2 ...] [+dict1 +dict2 ...] \
+#    [-strip] [-verbose] [file(s)]
 #./PRE
 #.H2 Download
 #.P 
