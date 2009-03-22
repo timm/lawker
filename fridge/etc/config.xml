@@ -147,7 +147,8 @@ pageTracker._trackPageview();
 
  <files>
 	<file where="doc/top10.html">
-		<what>Timm    2009 Mari</what>
+		<what>Timm    2009</what>
+		<what>Mar</what>
 		<what>Top10</what>
 		<title>Top 10 pages</title>
 	</file>
@@ -302,7 +303,8 @@ pageTracker._trackPageview();
 		<what>Ronl</what>
 		<what>2009</what>
 		<what>Jan</what>
-		<what>Misc Top10</what>
+		<what>Misc</what>
+		<what>Top10</what>
 		<title>Awk for AI</title>
 	</file>
 	<file where="doc/history.html">
@@ -412,7 +414,8 @@ pageTracker._trackPageview();
 		<what>ScottP</what>
 		<what>2009</what>
 		<what>Mar</what>
-		<what>TenLiners Top10</what>
+		<what>TenLiners</what>
+		<what>Top10</what>
 		<title>Predicting Gender</title>
 	</file>
 	<file where="doc/tip/getline.html">
@@ -601,7 +604,8 @@ pageTracker._trackPageview();
 		<title>Yawk</title>
 	</file>
 	<file where="doc/awk100/spell.html">
-		<what>ArnoldR NelsonB 2009 Mar Awk100 Top10</what>
+		<what>ArnoldR NelsonB 2009 Mar Awk100</what>
+		<what>Top10</what>
 		<title>spell.awk</title>
 	</file>
 	<file where="doc/textmining.html">

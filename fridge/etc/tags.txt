@@ -1,4 +1,4 @@
-doc/top10.html				;Timm    2009 Mari	;Top10		;|Top 10 pages
+doc/top10.html				;Timm    2009; Mar	;Top10		;|Top 10 pages
 doc/credits.html			;Timm	;2009	;Feb	;Who	;|Credits
 doc/who/jimh.html			;Jimh	;2009	;Feb	;Who	;|Jim Hart
 doc/who/ronl.html			;Ronl	;2009	;Feb	;Who	;|Ronald Loui
@@ -23,7 +23,7 @@ doc/contact.html			;Timm	;2009	;Jan	;Misc	;|Contact
 doc/index.html				;Timm	;2009	;Jan	;Misc	;|Awk.info
 doc/code.html				;Timm	;2009	;Jan	;Misc	;|Coding
 doc/mascot.html				;Timm	;2009	;Jan	;Misc	;Mascot	;|Mascot
-doc/awk4ai.html				;Ronl	;2009	;Jan	;Misc Top10	;|Awk for AI
+doc/awk4ai.html				;Ronl	;2009	;Jan	;Misc;	Top10	;|Awk for AI
 doc/history.html			;Timm	;2009	;Jan	;Misc	;|History
 doc/whygawk.html			;Timm	;2009	;Jan	;Misc	;|Why Gawk?
 
@@ -41,7 +41,7 @@ doc/tenliners.html			;Timm	;2009	;Jan	;Learn	;TenLiners	;|Ten Liners
 doc/samples.html			;Ronl	;2009	;Jan	;Learn	;TenLiners	;|Samples of AWK
 
 doc/montyhall.html			;DonaldM	;2009	;Mar	;TenLiners	;|Monty Hall Problem
-doc/gender.html				;ScottP	;2009	;Mar	;TenLiners Top10	;|Predicting Gender
+doc/gender.html				;ScottP	;2009	;Mar	;TenLiners; Top10	;|Predicting Gender
 
 doc/tip/getline.html		;Ed	;2009	;Jan	;Tips	;Getline	;|Getline
 doc/tip/noforloops.html		;Jimh	;2009	;Jan	;Tips	;Forloop	;|Forloops
@@ -72,7 +72,7 @@ doc/awk100/006boris.html		;Ronl	;2009	;Feb	;Awk100	;Boris	;|Fast Clustering
 doc/awk100/007name.html			;BillP	;2009	;Feb	;Awk100	;Name	;|Tex-to-bilingual Dictionary
 doc/awk100/008awklisp.html		;DairusB	;2009	;Feb	;Awk100	;AwkLisp	;|Awklisp
 doc/awk100/009yawk.html			;WolfganZ	;2009;Feb	;Awk100	;Yawk	;|Yawk
-doc/awk100/spell.html			;ArnoldR NelsonB 2009 Mar Awk100 Top10	;|spell.awk
+doc/awk100/spell.html			;ArnoldR NelsonB 2009 Mar Awk100; Top10	;|spell.awk
 
 doc/textmining.html				;Timm	;2009	;Mar	;TextMining	;|Text Mining
 doc/textmine/textmunge.html		;DonaldM	;2009	;Mar	;TextMining	;|Text Munging
