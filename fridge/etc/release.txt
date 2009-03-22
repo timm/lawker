@@ -9,7 +9,8 @@ stop gaps:
 
 11111111111111111111111
 - awk 100: CSS spell checker
-- next section on text mining
+- new section on text mining
+- new section: the top10
 - two text mining workbenches, using awk+shell, written by some
   Japanese folks and yours truly
 - papers on linguistic analysis, and my two papers

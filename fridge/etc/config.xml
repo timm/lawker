@@ -281,6 +281,21 @@ pageTracker._trackPageview();
 		<what>Misc</what>
 		<title>Why Gawk?</title>
 	</file>
+	<file where="doc/montyhall.html">
+		<what>DonaldM</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>TenLiners</what>
+		<title>Monty Hall Problem</title>
+	</file>
+	<file where="doc/gender.html">
+		<what>ScottP</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>TenLiners</what>
+		<what>Top10</what>
+		<title>Predicting Gender</title>
+	</file>
 	<file where="doc/dsl.html">
 		<what>Timm</what>
 		<what>2009</what>
