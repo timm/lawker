@@ -1,10 +1,13 @@
 <h1><join>Text Mining</join></h1>
 <p>Some of the code at awk.info is somewhat historical in nature. For example, Scott Pakin's <a href="http://awk.info/?gender">gender
 predictor</a> was written in 1991. Given that, it might be mistakenly concluded that Awk is somehow old-fashioned and not suitable
-for 21st century tasks.
+for modern tasks.
 <p>Text mining, on the other hand, could be the killer app for Awk in the 21st century. 
 The language excels at creating one-off reports that handle the quirks
 of a particular file format. 
+<p>
+There is a growing interest in using Awk for this kind of work.
+All the examples presented below come from work conducted in 2007, 2008:
 <h2>Why Text Mining?</h2>
 <p>If we could properly understand unstructured text, this would 
 be a result of tremendous practical importance. A <a href="http://www.b- eye- network.com/view/2098">recent study</a>
@@ -20,37 +23,23 @@ Unstructured data doubles every three months;
 <p>That is, if we can tame the text mining problem, it would 
 be possible to reason and learn from a much wider range of 
 business  data than ever before. 
-<h2>Results</h2>
+<h2>Results (with Awk)</h2>
 <ul>
-<li>
-Further, despite its maturity (euphimism for "written a very long time ago"),
-Awk still runs as fast (or faster) than supposedly more modern langauges (perhaps because it its simple- fewer layers between the data
-and the processing). Donald McCarthy's <a href="http://awk.info/?doc/textmine/textmunge.html">comparative analysis</a>
-show that Awk is not necessarily slower
-than certain other script-based text miners.
 <li>Menzies and Marcus  <a href="?textmine/severis.html">prototyped a set of scripts to text mine NASA issue reports</a>.
 <li> 
 Lothar M. Schmitt and Kiel T. Christianson discuss a more general tool kit in 
-<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/languageAnalysis.pdf">
+<a href="?textmine/languageAnalysis">
 Combining the Bourne-shell, sed and awk in the UNIX 
 environment for language analysis</a> 
+<li>
+Further, despite its maturity (polite way of saying "written a very long time ago"),
+Awk still runs as fast (or faster) than supposedly more modern languages (perhaps because it its simple- fewer layers between the data
+and the processing). Donald McCarthy's <a href="http://awk.info/?doc/textmine/textmunge.html">comparative analysis</a>
+show that Awk is not necessarily slower
+than certain other script-based text miners.
 </ul>
 <p>
 Note that, in the Menzies/Marcus and Schmitt/Christianson tool kits,   Awk but itself was not enough. The two data mining toolkits mentioned above were all intricate
 combinations of Awk and sed and bash and etc end etc.  Within that combination, Awk was very useful for handling the specifics not managed by the
-
-<h2>Trends</h2>
-There is a growing interest in using Awk for this kind of work.
-All the examples presented above come from 2007,2008:
-<ul>
-<li>While Schmitt and Christianson wrote their toolkit in 2000, it is of much interest to contemporary audiences. The recently
-published their workbench as <em>Linguistic
-Computing with UNIX Tools</em>  in
-<a href="http://www.springerlink.com/content/978-1-84628-175-4">Natural Language Processing and Text
-Mining</a>,  Springer, 2007.
-<li>Menzies and Marcus published their Awk-based text mining results at the IEEE ICSM conference in 2008.
-<li>
-Donald McCarthy's <a href="http://awk.info/?doc/textmine/textmunge.html">comparative analysis</a>
-was conducted in 2007.
-</ul>
+other tools.
 

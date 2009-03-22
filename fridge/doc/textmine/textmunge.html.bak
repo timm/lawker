@@ -1,11 +1,11 @@
 <h1><join>Text Munging in Awk (and Perl and Python)</join></h1>
 <p><a href="mailto:paddy3118@googlemail.com">Donald 'Paddy' McCarthy</a>
-reports an interesting comparison of Awk vs Perl vs Python for
+repots an interesting comparison of Awk vs Perl vs Python for
 doing some text pre-processing.
 <p>The example shows off Awk's ability to quickly prototype a
 one-off specialized report for a particular data format.
 <p>It also offers some comment on the language wars between
-Awk and &lt;insert your favorite scripting language here>: there
+Awk and &lt;insert your favorite scripting langauge here>: there
 is no evidence in the following code that dear old-fashioned
 Awk is more complex
 or arcane 
