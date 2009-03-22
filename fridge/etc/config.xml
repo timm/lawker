@@ -23,6 +23,7 @@
                  <li><a href="?contribute">Contribute</a> </li>
                  <li><a href="?awk100">Awk100</a> </li> 
 		 <li><a href="?Funky">Funky</a> </li>
+		 <li><a href="?Top10">Top 10</a> </li>
 		 <li><a href="?Dsl"><img border=0 height="20px" align=top src="http://lawker.googlecode.com/svn/fridge/share/img/dsl.gif"></a> </li>
                 <li><a href="mailto:mail@awk.info">Contact</a></li>
 		<li><a href="http://tinyurl.com/rss4awk"><img src="http://lawker.googlecode.com/svn/fridge/share/img/rss.gif"></a> </li>
@@ -145,6 +146,10 @@ pageTracker._trackPageview();
 
 
  <files>
+	<file where="doc/top10.html">
+		<what>Timm    2009 Mar   Top10</what>
+		<title>Top 10 pages</title>
+	</file>
 	<file where="doc/credits.html">
 		<what>Timm</what>
 		<what>2009</what>
@@ -255,7 +260,7 @@ pageTracker._trackPageview();
 		<what>Ronl</what>
 		<what>2009</what>
 		<what>Jan</what>
-		<what>Misc</what>
+		<what>Misc Top10</what>
 		<title>Awk for AI</title>
 	</file>
 	<file where="doc/history.html">
@@ -365,7 +370,7 @@ pageTracker._trackPageview();
 		<what>ScottP</what>
 		<what>2009</what>
 		<what>Mar</what>
-		<what>TenLiners</what>
+		<what>TenLiners Top10</what>
 		<title>Predicting Gender</title>
 	</file>
 	<file where="doc/tip/getline.html">
@@ -467,6 +472,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Mar</what>
 		<what>Dsl</what>
+		<what>Top10</what>
 		<title>Markdown</title>
 	</file>
 	<file where="doc/dsl/awkplusplus.html">
@@ -483,6 +489,7 @@ pageTracker._trackPageview();
 		<what>Mar</what>
 		<what>Dsl</what>
 		<what>AwkLisp</what>
+		<what>Top10</what>
 		<title>awklisp</title>
 	</file>
 	<file where="doc/var/top10posters.html">
@@ -593,7 +600,7 @@ pageTracker._trackPageview();
 		<title>Yawk</title>
 	</file>
 	<file where="doc/awk100/spell.html">
-		<what>    ArnoldR NelsonB 2009 Mar Awk100 </what>
+		<what>    ArnoldR NelsonB 2009 Mar Awk100 Top10</what>
 		<title>spell.awk</title>
 	</file>
 	<file where="">
