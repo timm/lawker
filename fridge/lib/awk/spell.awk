@@ -5,6 +5,9 @@
 #	    [=suffixfile1 =suffixfile2 ...] [+dict1 +dict2 ...] \
 #	    [-strip] [-verbose] [file(s)]
 #./PRE
+#.H2 Download
+#.P Download from
+#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/spell.awk LAWKER.
 #.H2 Description
 #.P
 #This program is an example par excellence of the power of awk.
@@ -167,7 +170,7 @@ function load_suffixes(        file, k, line, n, parts)
 		Suffixes[parts[1]]++
 		Replacement[parts[1]] = parts[2]
 		for (k = 3; k <= n; k++)
-		    Replacement[parts[1]] = Replacement[parts[1]] " " parts[k]
+		  Replacement[parts[1]]= Replacement[parts[1]] " " parts[k]
 	    }
 	    close(file)
 	}
@@ -201,11 +204,10 @@ function order_suffixes(        i, j, key)
 #.PRE
 function report_exceptions(        key, sortpipe)
 {
-    ## print "DEBUG: report_exceptions(): NR = ", NR, " FILENAME =", FILENAME
-    sortpipe = Verbose ? "sort -f -t: -u -k1,1 -k2n,2 -k3" : "sort -f -u -k1"
-    for (key in Exception)
-	print Exception[key] | sortpipe
-    close(sortpipe)
+  sortpipe= Verbose ? "sort -f -t: -u -k1,1 -k2n,2 -k3" : "sort -f -u -k1"
+  for (key in Exception)
+  print Exception[key] | sortpipe
+  close(sortpipe)
 }
 #./PRE
 #.H3 scan_options
@@ -299,7 +301,6 @@ function strip_suffixes(word, wordlist,        ending, k, n, regexp)
 	## print "DEBUG: strip_suffixes(): Checking \"" regexp "\""
 	if (match(word, regexp))
 	{
-	    ## print "DEBUG: strip_suffixes(): MATCHED: RSTART =", RSTART, " RLENGTH =", RLENGTH
 	    word = substr(word, 1, RSTART - 1)
 	    if (Replacement[regexp] == "")
 		wordlist[word] = 1
