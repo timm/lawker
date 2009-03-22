@@ -20,11 +20,11 @@
       <![CDATA[  <ul>
                  <li><a href="?index">Home</a>        </li>
                  <li><a href="?advocacy">Why Awk?</a> </li> 
-                 <li><a href="?contribute">Contribute</a> </li>
                  <li><a href="?awk100">Awk100</a> </li> 
 		 <li><a href="?Funky">Funky</a> </li>
 		 <li><a href="?Top10">Top 10</a> </li>
 		 <li><a href="?Dsl"><img border=0 height="20px" align=top src="http://lawker.googlecode.com/svn/fridge/share/img/dsl.gif"></a> </li>
+                 <li><a href="?contribute">Contribute</a> </li>
                 <li><a href="mailto:mail@awk.info">Contact</a></li>
 		<li><a href="http://tinyurl.com/rss4awk"><img src="http://lawker.googlecode.com/svn/fridge/share/img/rss.gif"></a> </li>
               
@@ -459,6 +459,7 @@ pageTracker._trackPageview();
 		<what>Mar</what>
 		<what>Tools</what>
 		<what>Project</what>
+		<what>Top10</what>
 		<title>awkwords</title>
 	</file>
 	<file where="doc/funky.html">
@@ -563,6 +564,7 @@ pageTracker._trackPageview();
 		<what>Feb</what>
 		<what>Awk100</what>
 		<what>Boris</what>
+		<what>Top10</what>
 		<title>Fast Clustering</title>
 	</file>
 	<file where="doc/awk100/007name.html">
