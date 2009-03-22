@@ -36,7 +36,7 @@ paper.
 
 4444444444444444444
 - awk100: nroff in awk
-- fun: ???
+- fun: eliza.awk
 - next section on awk word-processors (markdown, awkwords, nroff in awk
 
 5555555555555555555
