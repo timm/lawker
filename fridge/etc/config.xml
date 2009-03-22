@@ -592,6 +592,10 @@ pageTracker._trackPageview();
 		<what>Yawk</what>
 		<title>Yawk</title>
 	</file>
+	<file where="doc/awk100/011spell.html">
+		<what>ArnoldR NelsonB 2009 Mar Awk100 </what>
+		<title>spell.awk</title>
+	</file>
 	<file where="">
 		<what></what>
 	</file>
