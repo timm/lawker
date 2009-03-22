@@ -147,7 +147,8 @@ pageTracker._trackPageview();
 
  <files>
 	<file where="doc/top10.html">
-		<what>Timm    2009 Mar   Top10</what>
+		<what>Timm    2009 Mari</what>
+		<what>Top10</what>
 		<title>Top 10 pages</title>
 	</file>
 	<file where="doc/credits.html">
@@ -212,6 +213,47 @@ pageTracker._trackPageview();
 		<what>Feb</what>
 		<what>Who</what>
 		<title>Great Auks</title>
+	</file>
+	<file where="doc/dsl.html">
+		<what>Timm</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<title>Domain-Specific Langauges</title>
+	</file>
+	<file where="doc/dsl/graph.html">
+		<what>AlfredA</what>
+		<what>PeterW</what>
+		<what>BrianK</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<title>Graph</title>
+	</file>
+	<file where="doc/dsl/markdown.html">
+		<what>JesusG</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<what>Top10</what>
+		<title>Markdown</title>
+	</file>
+	<file where="doc/dsl/awkplusplus.html">
+		<what>Jimh</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<what>Awk100</what>
+		<title>Awk++</title>
+	</file>
+	<file where="doc/dsl/awklisp.html">
+		<what>DariusB</what>
+		<what>2009</what>
+		<what>Mar</what>
+		<what>Dsl</what>
+		<what>AwkLisp</what>
+		<what>Top10</what>
+		<title>awklisp</title>
 	</file>
 	<file where="doc/advocacy.html">
 		<what>Timm</what>
@@ -390,7 +432,7 @@ pageTracker._trackPageview();
 		<title>Forloops</title>
 	</file>
 	<file where="gawk/array/join.awk">
-		<what>Arnoldr</what>
+		<what>ArnoldR</what>
 		<what>2009</what>
 		<what>Feb</what>
 		<what>Functionn</what>
@@ -450,47 +492,6 @@ pageTracker._trackPageview();
 		<what>Mar</what>
 		<what>Funky</what>
 		<title>Functional Enumeration</title>
-	</file>
-	<file where="doc/dsl.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<title>Domain-Specific Langauges</title>
-	</file>
-	<file where="doc/dsl/graph.html">
-		<what>AlfredA</what>
-		<what>PeterW</what>
-		<what>BrianK</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<title>Graph</title>
-	</file>
-	<file where="doc/dsl/markdown.html">
-		<what>JesusG</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<what>Top10</what>
-		<title>Markdown</title>
-	</file>
-	<file where="doc/dsl/awkplusplus.html">
-		<what>Jimh</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<what>Awk100</what>
-		<title>Awk++</title>
-	</file>
-	<file where="doc/dsl/awklisp.html">
-		<what>DariusB</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<what>AwkLisp</what>
-		<what>Top10</what>
-		<title>awklisp</title>
 	</file>
 	<file where="doc/var/top10posters.html">
 		<what>Steffen</what>
@@ -600,11 +601,8 @@ pageTracker._trackPageview();
 		<title>Yawk</title>
 	</file>
 	<file where="doc/awk100/spell.html">
-		<what>    ArnoldR NelsonB 2009 Mar Awk100 Top10</what>
+		<what>ArnoldR NelsonB 2009 Mar Awk100 Top10</what>
 		<title>spell.awk</title>
-	</file>
-	<file where="">
-		<what></what>
 	</file>
 	<file where="doc/textmining.html">
 		<what>Timm</what>
