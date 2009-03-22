@@ -22,10 +22,14 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
 	    $(Doc)/dsl/graph.html \
-	    $(Doc)/gender.html 
+	    $(Doc)/gender.html \
+    	$(Doc)/spell.html 
 
 zips :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
+
+$(Doc)/spell.html : $(Awklib)/spell.awk
+	cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/gender.html : $(Awklib)/gender.awk
 	cd $(Awklib) && $(Awk2Html)
