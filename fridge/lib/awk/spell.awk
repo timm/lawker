@@ -6,7 +6,8 @@
 #	    [-strip] [-verbose] [file(s)]
 #./PRE
 #.H2 Download
-#.P Download from
+#.P 
+#Download from
 #.URL http://lawker.googlecode.com/svn/fridge/lib/awk/spell.awk LAWKER.
 #.H2 Description
 #.H3 Why Study This Code?
