@@ -1,4 +1,4 @@
-<h1><join> Spell Checking</join></h1>
+<h1><join> spell.awk</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
@@ -47,19 +47,19 @@ spelling check, with user-specifiable exception
 It also offer some tips on how to structure larger-than-ten-line awk programs.
 In the code below, note the:
 <UL>
+<LI> The code is hundreds of lines long;</LI>
+<LI> The code is well-structured;</LI>
 <LI>
-moving much of the functionality out of PATTERN-ACTION and into
+Much of the functionality has been moved out of PATTERN-ACTION and into
 functions;
-<LI> the <em>scan_options</em> code to parse the command line;</LI>
-<LI> extensive use of local variables in functions;</LI>
+<LI> There is an example in <em>scan_options</em> of how parsethe command line arguments;</LI>
+<LI> The number of globals is tamed using lots of local variables in functions;</LI>
 <LI>
- the naming convention for globals (they start with upper case);
-<LI>
- the use of the BEGIN block to initialize the system from files,
+The  BEGIN block is used to initialize the system from files,
 and with local functions.
 <LI>
-the use of <em>sortpipe</em> in <em>report_expcetions</em> to link
-the awk code to UNIX scripts
+The use of "print pipes" in  in <em>report_expcetions</em> shows how to link
+Awk code to other commands.
 </UL>
 <a name=5></a><H3> Dictionaries</H3>
 <P>

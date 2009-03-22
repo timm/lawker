@@ -1,4 +1,4 @@
-#.h1 Spell Checking
+#.h1 spell.awk
 #.h2 Synopsis
 #.PRE
 #	awk [-v Dictionaries="sysdict1 sysdict2 ..."] -f spell.awk -- \
@@ -22,19 +22,19 @@
 #It also offer some tips on how to structure larger-than-ten-line awk programs.
 #In the code below, note the:
 #.UL
+#.LI The code is hundreds of lines long;
+#.LI The code is well-structured;
 #.LI 
-#moving much of the functionality out of PATTERN-ACTION and into
+#Much of the functionality has been moved out of PATTERN-ACTION and into
 #functions;
-#.LI the <em>scan_options</em> code to parse the command line;
-#.LI extensive use of local variables in functions;
+#.LI There is an example in <em>scan_options</em> of how parsethe command line arguments;
+#.LI The number of globals is tamed using lots of local variables in functions;
 #.LI 
-# the naming convention for globals (they start with upper case);
-#.LI 
-# the use of the BEGIN block to initialize the system from files,
+#The  BEGIN block is used to initialize the system from files,
 #and with local functions.
 #.LI
-#the use of <em>sortpipe</em> in <em>report_expcetions</em> to link
-#the awk code to UNIX scripts
+#The use of "print pipes" in  in <em>report_expcetions</em> shows how to link
+#Awk code to other commands.
 #./UL
 #.H3 Dictionaries
 #.P
