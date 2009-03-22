@@ -14,7 +14,7 @@ NF < 2 {next}
 }
 function trim(s) {
 	sub(/^[ \t]*/,"",s)
-	sub(/[ \t]*$/,"",s)
+	sub(/[ \t\r]*$/,"",s)
 	return s
 }
 END {
