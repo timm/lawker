@@ -58,7 +58,8 @@ About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="?mascot">mascot</a>  
  <hr>
 Implementations<br>
-&nbsp;&raquo;&nbsp; <a href="http://plan9.bell-labs.com/cm/cs/who/bwk/awk.tar.gz">Awk</a> (old)<br>
+&nbsp;&raquo;&nbsp; <a href="http://plan9.bell-labs.com/cm/cs/who/bwk/awk.tar.gz">Awk</a> (rarely used)<br>
+&nbsp;&raquo;&nbsp; <a href="http://www.cs.princeton.edu/~bwk/btl.mirror/awk.tar.gz">Nawk</a> (the-one-true, old)<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">Gawk</a> (widely used)<br> 
 &nbsp;&raquo;&nbsp; <a href="http://freshmeat.net/projects/mawk/">Mawk</a> <br>
 &nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">Xgawk</a> (gawk + xml + ...)<br>
