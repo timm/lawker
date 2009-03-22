@@ -10,7 +10,7 @@ Awk2Html=$(Bash)/awkwords $< > $@
 all : config.xml files 
 
 commit : 
-	cd ../..; pwd; svn commit
+	cd $(Lawker); pwd; svn commit
 
 config.xml :	tags.txt things.awk tags.awk 	
 	(gawk -f ./things.awk config.xml ; gawk -f ./tags.awk tags.txt) > confignew.xml
