@@ -90,7 +90,7 @@
 BEGIN	{ initialize() }
 	    { spell_check_line() }
 END	    { report_exceptions() }
-#.PRE
+#./PRE
 #.H3 get_dictionaries
 #.PRE
 function get_dictionaries(        files, key)
