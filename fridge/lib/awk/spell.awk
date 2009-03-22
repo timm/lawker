@@ -13,26 +13,35 @@
 #.H3 Why Study This Code?
 #.P
 #This program is an example par excellence of the power of awk.
-#Yes, if written in "C", it would run faster. But this few lines of code
-#implement a powerful spell checker implements a 
-#spelling check, with user-specifiable exception
+#Yes, if written in "C", it would run faster. But goodness me, it would be
+#.I much
+#longer to code. These few lines 
+#implement a powerful spell checker,
+# with user-specifiable exception
 # lists.  The built-in dictionary is constructed from a list of
 # standard Unix spelling dictionaries, overridable on the command line.
 #.P
 #It also offer some tips on how to structure larger-than-ten-line awk programs.
 #In the code below, note the:
 #.UL
-#.LI The code is hundreds of lines long;
-#.LI The code is well-structured;
+#.LI 
+# The code is hundreds of lines long. Yes folks, its true, Awk is
+# not just tool for writing one-liners. 
+#.LI 
+# The code is well-structured. Note, for example,
+#how the  BEGIN block is used to initialize the system from files,
+#and with local functions.
+#.LI 
+#The code uses two tricks that encourages function reuse:
+#.UL
 #.LI 
 #Much of the functionality has been moved out of PATTERN-ACTION and into
-#functions;
-#.LI There is an example in <em>scan_options</em> of how parsethe command line arguments;
-#.LI The number of globals is tamed using lots of local variables in functions;
+#functions. 
 #.LI 
-#The  BEGIN block is used to initialize the system from files,
-#and with local functions.
-#.LI
+#The number of globals is restricted: note the frequent use of local variables in functions.
+#./UL
+#.LI There is an example, in <em>scan_options</em>, of how parse command line arguments;
+#.LI 
 #The use of "print pipes" in  in <em>report_expcetions</em> shows how to link
 #Awk code to other commands.
 #./UL

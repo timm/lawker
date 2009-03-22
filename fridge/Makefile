@@ -2,20 +2,22 @@
 Doc=$(Lawker)/doc
 Gawk=$(Lawker)/gawk
 Bash=$(Lawker)/lib/bash
+Config=$(Lawker)/etc
 Awklib=$(Lawker)/lib/awk
 Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
 Awk2Html=$(Bash)/awkwords $< > $@ 
 
-all : config.xml files 
+all : config.xml files  commit
 
 commit : 
 	cd $(Lawker); pwd; svn commit
 
-config.xml :	tags.txt things.awk tags.awk 	
-	(gawk -f ./things.awk config.xml ; gawk -f ./tags.awk tags.txt) > confignew.xml
+config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk 	
+	cd $(Config); \
+	(gawk -f things.awk config.xml ;\
+     gawk -f tags.awk tags.txt) > confignew.xml; \
 	mv confignew.xml config.xml
-	svn commit -m "tags updated"
 
 files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
