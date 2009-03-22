@@ -7,7 +7,7 @@ Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
 Awk2Html=$(Bash)/awkwords $< > $@ 
 
-all : config.xml files zips
+all : config.xml files #awkpp
 
 commit : 
 	cd ../..; pwd; svn commit
@@ -25,7 +25,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html 
 
-zips :  
+awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
 
 $(Doc)/awk100/spell.html : $(Awklib)/spell.awk
