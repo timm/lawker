@@ -21,7 +21,7 @@
 # lists.  The built-in dictionary is constructed from a list of
 # standard Unix spelling dictionaries, overridable on the command line.
 #.P
-#It also offer some tips on how to structure larger-than-ten-line awk programs.
+#It also offers some tips on how to structure larger-than-ten-line awk programs.
 #In the code below, note the:
 #.UL
 #.LI 
@@ -29,8 +29,7 @@
 # not just a tool for writing one-liners. 
 #.LI 
 # The code is well-structured. Note, for example,
-#how the  BEGIN block is used to initialize the system from files,
-#and with local functions.
+#how the  BEGIN block is used to initialize the system from files/functions.
 #.LI 
 #The code uses two tricks that encourages function reuse:
 #.UL
@@ -45,6 +44,8 @@
 #The use of "print pipes" in  in <em>report_expcetions</em> shows how to link
 #Awk code to other commands.
 #./UL
+#(And to write even large programs, divided into many files, see
+#<a href="http://awk.info/?tools/runawk">runawk</a>).
 #.H3 Dictionaries
 #.P
 # Dictionaries are simple text files, with one word per line.  Unlike
