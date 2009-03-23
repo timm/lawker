@@ -49,6 +49,8 @@ paper.
 - fun: ninety nine bottls of beer
 - new section on awk interpreters (awk assembler, awklisp)
 
+77777777777777777777
+- akw100 oo in ansi "C" awk packages. axel schreiner
 
 ===================
 because it jsut doesn't matter
