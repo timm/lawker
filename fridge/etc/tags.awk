@@ -4,7 +4,7 @@ BEGIN {
 }
 NF < 2 {next}
 {print "\t<file where=\""trim($1)"\">"
- for(i=2;i<=NF;i++)
+ for(i=NF;i>=2;i--)
 	if ($i) 
 		if (sub(/^[ \t]*\|/,"",$i) )
 			print "\t\t<title>"trim($i)"</title>"

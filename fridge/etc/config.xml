@@ -149,501 +149,501 @@ pageTracker._trackPageview();
 
  <files>
 	<file where="doc/top10.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Top10</what>
 		<title>Top 10 pages</title>
+		<what>Top10</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/credits.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Credits</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/who/jimh.html">
-		<what>Jimh</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Jim Hart</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Jimh</what>
 	</file>
 	<file where="doc/who/ronl.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Ronald Loui</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="doc/who/timm.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Tim Menzies</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/who/ed.html">
-		<what>Ed</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Ed Morten</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Ed</what>
 	</file>
 	<file where="doc/who/mikelangman.html">
-		<what>Mikel</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Who</what>
 		<title>Mike Langman</title>
+		<what>Who</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Mikel</what>
 	</file>
 	<file where="doc/who/arnoldr.html">
-		<what>ArnoldR</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Arnold Robbins</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
 	</file>
 	<file where="doc/who/steffen.html">
-		<what>Steffen</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Steffen Schuler</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Steffen</what>
 	</file>
 	<file where="doc/who/greatauk.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Who</what>
 		<title>Great Auks</title>
+		<what>Who</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/advocacy.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
 		<title>Advocacy</title>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/community.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
 		<title>Community</title>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/contact.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
 		<title>Contact</title>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/index.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
 		<title>Awk.info</title>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/code.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
 		<title>Coding</title>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/mascot.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
-		<what>Mascot</what>
 		<title>Mascot</title>
+		<what>Mascot</what>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/awk4ai.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
-		<what>Top10</what>
 		<title>Awk for AI</title>
+		<what>Top10</what>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="doc/history.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
 		<title>History</title>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/whygawk.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Misc</what>
 		<title>Why Gawk?</title>
+		<what>Misc</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/montyhall.html">
-		<what>DonaldM</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>TenLiners</what>
 		<title>Monty Hall Problem</title>
+		<what>TenLiners</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>DonaldM</what>
 	</file>
 	<file where="doc/gender.html">
-		<what>ScottP</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>TenLiners</what>
-		<what>Top10</what>
 		<title>Predicting Gender</title>
+		<what>Top10</what>
+		<what>TenLiners</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>ScottP</what>
 	</file>
 	<file where="doc/dsl.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
 		<title>Domain-Specific Langauges</title>
+		<what>Dsl</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/dsl/graph.html">
-		<what>AlfredA</what>
-		<what>PeterW</what>
-		<what>BrianK</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
 		<title>Graph</title>
+		<what>Dsl</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>BrianK</what>
+		<what>PeterW</what>
+		<what>AlfredA</what>
 	</file>
 	<file where="doc/dsl/awklisp.html">
-		<what>DariusB</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<what>AwkLisp</what>
-		<what>Top10</what>
 		<title>awklisp</title>
+		<what>Top10</what>
+		<what>AwkLisp</what>
+		<what>Dsl</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>DariusB</what>
 	</file>
 	<file where="doc/dsl/markdown.html">
-		<what>JesusG</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<what>Top10</what>
 		<title>Markdown</title>
+		<what>Top10</what>
+		<what>Dsl</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>JesusG</what>
 	</file>
 	<file where="doc/dsl/awkplusplus.html">
-		<what>Jimh</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Dsl</what>
-		<what>Awk100</what>
 		<title>Awk++</title>
+		<what>Awk100</what>
+		<what>Dsl</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Jimh</what>
 	</file>
 	<file where="doc/tip/getline.html">
-		<what>Ed</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Tips</what>
-		<what>Getline</what>
 		<title>Getline</title>
+		<what>Getline</what>
+		<what>Tips</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Ed</what>
 	</file>
 	<file where="doc/tip/noforloops.html">
-		<what>Jimh</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Tips</what>
-		<what>Forloop</what>
 		<title>Forloops</title>
+		<what>Forloop</what>
+		<what>Tips</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Jimh</what>
 	</file>
 	<file where="doc/contribute.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Contribute</what>
 		<title>How to contribute</title>
+		<what>Contribute</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/prettyprint.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Contribute</what>
 		<title>Pretty print</title>
+		<what>Contribute</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/unittests.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Contribute</what>
 		<title>Unit tests</title>
+		<what>Contribute</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/learning.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
 		<title>Learning Awk</title>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/teachingawk.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
 		<title>Teaching Awk</title>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="doc/keys2awk.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
 		<title>Four Keys to Awk</title>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/oneliners.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
-		<what>OneLiners</what>
 		<title>One Liners</title>
+		<what>OneLiners</what>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/awk1line.html">
-		<what>EricP</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
-		<what>OneLiners</what>
 		<title>Handy One Liners</title>
+		<what>OneLiners</what>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>EricP</what>
 	</file>
 	<file where="doc/explain1line.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
-		<what>OneLiners</what>
 		<title>Explaining Awk One Liners</title>
+		<what>OneLiners</what>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/tenliners.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
-		<what>TenLiners</what>
 		<title>Ten Liners</title>
+		<what>TenLiners</what>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/samples.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Learn</what>
-		<what>TenLiners</what>
 		<title>Samples of AWK</title>
+		<what>TenLiners</what>
+		<what>Learn</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="gawk/array/join.awk">
-		<what>ArnoldR</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Functionn</what>
-		<what>Arrays</what>
-		<what>Timm</what>
 		<title>join.awk</title>
+		<what>Timm</what>
+		<what>Arrays</what>
+		<what>Functionn</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
 	</file>
 	<file where="gawk/array/array.awk">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Functionn</what>
-		<what>Arrays</what>
 		<title>array.awk</title>
+		<what>Arrays</what>
+		<what>Functionn</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/project.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Tools</what>
-		<what>Project</what>
 		<title>Project Tools</title>
+		<what>Project</what>
+		<what>Tools</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/tools/runawk.html">
-		<what>AlexC</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Tools</what>
-		<what>Project</what>
 		<title>runawk</title>
+		<what>Project</what>
+		<what>Tools</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>AlexC</what>
 	</file>
 	<file where="doc/tools/awkwords.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Tools</what>
-		<what>Project</what>
-		<what>Top10</what>
 		<title>awkwords</title>
+		<what>Top10</what>
+		<what>Project</what>
+		<what>Tools</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/funky.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Funky</what>
 		<title>Functional Gawk</title>
+		<what>Funky</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/funcChallenge.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Funky</what>
 		<title>Functional Challenge</title>
+		<what>Funky</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/fun/enumerate.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Funky</what>
 		<title>Functional Enumeration</title>
+		<what>Funky</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/var/top10posters.html">
-		<what>Steffen</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Newsgroup</what>
 		<title>Top 10 posters</title>
+		<what>Newsgroup</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Steffen</what>
 	</file>
 	<file where="doc/var/top10subjects.html">
-		<what>Steffen</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Newsgroup</what>
 		<title>Top 10 subjects</title>
+		<what>Newsgroup</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Steffen</what>
 	</file>
 	<file where="doc/var/top10posterslastyear.html">
-		<what>Steffen</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Newsgroup</what>
 		<title>Top 10 posters last year</title>
+		<what>Newsgroup</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Steffen</what>
 	</file>
 	<file where="doc/var/top10subjectslastyear.html">
-		<what>Steffen</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Newsgroup</what>
 		<title>Top 10 subjects last year</title>
+		<what>Newsgroup</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Steffen</what>
 	</file>
 	<file where="doc/awk100.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
 		<title>Awk100</title>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/awk100/001argcol.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Argcol</what>
 		<title>Argcol</title>
+		<what>Argcol</what>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="doc/awk100/002baseballsim.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Baseballsim</what>
 		<title>Basebase Sim</title>
+		<what>Baseballsim</what>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="doc/awk100/003negotiate.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Negotiate</what>
 		<title>Negotiate</title>
+		<what>Negotiate</what>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="doc/awk100/004sudoku.html">
-		<what>Jimh</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>Sudoku</what>
 		<title>Sudoku</title>
+		<what>Sudoku</what>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Jimh</what>
 	</file>
 	<file where="doc/awk100/005getYouTube.html">
-		<what>PeterK</what>
-		<what>2009</what>
-		<what>Jan</what>
-		<what>Awk100</what>
-		<what>WWW</what>
 		<title>Get YouTube Vids</title>
+		<what>WWW</what>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>PeterK</what>
 	</file>
 	<file where="doc/awk100/006boris.html">
-		<what>Ronl</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Awk100</what>
-		<what>Boris</what>
-		<what>Top10</what>
 		<title>Fast Clustering</title>
+		<what>Top10</what>
+		<what>Boris</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Ronl</what>
 	</file>
 	<file where="doc/awk100/007name.html">
-		<what>BillP</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Awk100</what>
-		<what>Name</what>
 		<title>Tex-to-bilingual Dictionary</title>
+		<what>Name</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>BillP</what>
 	</file>
 	<file where="doc/awk100/008awklisp.html">
-		<what>DairusB</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Awk100</what>
-		<what>AwkLisp</what>
 		<title>Awklisp</title>
+		<what>AwkLisp</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>DairusB</what>
 	</file>
 	<file where="doc/awk100/009yawk.html">
-		<what>WolfganZ</what>
-		<what>2009</what>
-		<what>Feb</what>
-		<what>Awk100</what>
-		<what>Yawk</what>
 		<title>Yawk</title>
+		<what>Yawk</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>WolfganZ</what>
 	</file>
 	<file where="doc/awk100/spell.html">
-		<what>ArnoldR</what>
-		<what>NelsonB</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>Awk100</what>
-		<what>Top10</what>
 		<title>spell.awk</title>
+		<what>Top10</what>
+		<what>Awk100</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>NelsonB</what>
+		<what>ArnoldR</what>
 	</file>
 	<file where="doc/textmining.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>TextMining</what>
 		<title>Text Mining</title>
+		<what>TextMining</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/textmine/languageAnalysis.html">
-		<what>LotharS</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>TextMining</what>
 		<title>Language Analysis</title>
+		<what>TextMining</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>LotharS</what>
 	</file>
 	<file where="doc/textmine/severis.html">
-		<what>Timm</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>TextMining</what>
 		<title>Issue report mining</title>
+		<what>TextMining</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/textmine/textmunge.html">
-		<what>DonaldM</what>
-		<what>2009</what>
-		<what>Mar</what>
-		<what>TextMining</what>
 		<title>Text Munging</title>
+		<what>TextMining</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>DonaldM</what>
 	</file>
   </files>
 </things>
