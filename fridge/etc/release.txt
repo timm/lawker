@@ -15,6 +15,8 @@ stop gaps:
   Japanese folks and yours truly
 - papers on linguistic analysis, and my two papers
 
+-----------------------------------------------
+
 222222222222222222222
 - awk100: m1
 - fun: story generation
@@ -46,3 +48,35 @@ paper.
 - awk100: the amazing awk assembler
 - fun: ninety nine bottls of beer
 - new section on awk interpreters (awk assembler, awklisp)
+
+
+===================
+because it jsut doesn't matter
+i have an ide: emacs.unix
+
+i have development environment:
+- version control, backed up onto the web
+- discussion tools (a google news group, a wikispaces wiki, chat, email)
+- test driven development (eg subdirectory with x.want files)
+- library of functions stored in a directory, indexed by ctags
+- emacs/vim ctags intergration means by code is hyperlinked by function name
+
+because here are the factors that control software economics
+- boehm
+
+bcasue its principles other the code that matter
+- algorhtms O(logn)
+
+because i am not just doing but also constantly explainin to people what i have to do
+- awk exels at the one off report
+- if i wrote in other languages, i'd still be writing the reports with awk scripts
+
+because i teach 3rd year students programming languages and they eat
+awk quickly, chew smalltalk slower, and barph at lisp. the added power
+and functionality of these languages confuses them.
+
+because i do a lot of stochastic stuff and so i've given away overly complex algorithms
+in favor of simpler stochastic ones
+
+because i do a lot of data mining and i keep finding that simple bayes
+approaches consistently do better than anything else- and bayes is a snap in awk (see awk)
