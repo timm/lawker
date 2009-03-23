@@ -45,7 +45,7 @@
 #Awk code to other commands.
 #./UL
 #.P
-#(And to write even large programs, divided into many files, see
+#(And to write even larger programs, divided into many files, see
 #<a href="http://awk.info/?tools/runawk">runawk</a>.)
 #.H3 Dictionaries
 #.P
