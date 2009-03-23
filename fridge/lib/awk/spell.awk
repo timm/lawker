@@ -44,8 +44,9 @@
 #The use of "print pipes" in  in <em>report_expcetions</em> shows how to link
 #Awk code to other commands.
 #./UL
+#.P
 #(And to write even large programs, divided into many files, see
-#<a href="http://awk.info/?tools/runawk">runawk</a>).
+#<a href="http://awk.info/?tools/runawk">runawk</a>.)
 #.H3 Dictionaries
 #.P
 # Dictionaries are simple text files, with one word per line.  Unlike
