@@ -81,7 +81,8 @@ function superfor(loopdepth, prologue, body, epilogue,     zz)
                         @body()
                 }
                 else if ( loopdepth>1 )
-                        superfor(loopdepth-1, proloogue, body, epilogue)
+                        superfor(loopdepth-1, proloogue, 
+                                 body, epilogue)
                 }
 
         @epilogue()
