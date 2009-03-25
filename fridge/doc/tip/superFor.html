@@ -1,0 +1,92 @@
+<h1><join>Super-For Loops</join></h1>
+<p><em>In this <a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/71accc0576ce615e#">exchange from comp.lang.awk</a>, 
+Jason Quinn discusses his super-for loop trick.
+Arnold Robbins then chimes in to say that, with indirect functions, super-for loops
+could become a generic tool.</em>
+<p>Jason Quinn writes:
+<ul>
+<li>
+Frequently when programming, situations arise for me where I need a
+nested number of for-loops. Such  case arose for me again just
+recently while I was inventing a dice game. Anyway, here is the
+implementation that I ended up using to create a "super-for" loop in
+AWK (a little trickier than C).
+<li>
+This simple example merely lists all possible outcomes of rolling 4,
+6, 8, 10, 12, and 20 sided dice at once. A super-for loop requires an
+array to specify the loop indices... here we have 6 dice and the
+number of sides determines the indices. The code is easily modified
+for an arbitrary number of dice (which is the whole point).
+<li>
+I identify three parts of a super-for which I called the <b>prologue</b>,
+<b>body</b>, and <b>epilog</b>. Under most circumstances, I think the main body only
+would get used.
+<li>For example:
+</ul>
+<pre>
+#shows an example of a superfor loop
+BEGIN {
+	#define loop maximums
+	loopmax[1]=4
+	loopmax[2]=6
+	loopmax[3]=8
+	loopmax[4]=10
+	loopmax[5]=12
+	loopmax[6]=20
+	#call the loop
+	superfor(6)
+}
+function superfor(loopdepth, zz) { # zz is a local variable
+        currloopnum++
+
+        #start of prologue
+        #end of prologue
+
+        for(loopcounter[currloopnum]=1; 
+            loopcounter[currloopnum]<=loopmax[currloopnum]; 
+            loopcounter[currloopnum]++) {
+                if ( loopdepth==1 ) {
+                        #start of superfor body
+                        for (zz=1;zz<=currloopnum;zz++) {
+                                printf loopcounter[zz] FS
+                                }
+                        print ""
+                        #end of superfor body
+                        }
+                else if ( loopdepth>1 )
+                        superfor(loopdepth-1)
+                }
+
+        #start of epilog
+        #end of epilog
+
+        loopdepth++ ; currloopnum--
+        }
+</pre>	
+<p>Arnold Robbins replies:
+<ul>
+<li>I think this would make a great application for indirect function calls:
+<li>For example:
+<//ul>
+<pre>
+function superfor(loopdepth, prologue, body, epilogue,     zz)
+{
+        currloopnum++
+
+        @prologue()
+
+        for(loopcounter[currloopnum]=1; 
+            loopcounter[currloopnum]<=loopmax [currloopnum]; 
+            loopcounter[currloopnum]++) {
+                if ( loopdepth==1 ) {
+                        @body()
+                }
+                else if ( loopdepth>1 )
+                        superfor(loopdepth-1)
+                }
+
+        @epilogue()
+
+        loopdepth++ ; currloopnum--
+}
+</pre>

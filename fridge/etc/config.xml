@@ -346,6 +346,28 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Jimh</what>
 	</file>
+	<file where="doc/funky.html">
+		<title>Functional Gawk</title>
+		<what>Funky</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
+	<file where="doc/funcChallenge.html">
+		<title>Functional Challenge</title>
+		<what>Funky</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
+	<file where="doc/tip/superFor.html">
+		<title>Super-For loops</title>
+		<what>Functional</what>
+		<what>Tips</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
+	</file>
 	<file where="doc/tip/multiLineComment.html">
 		<title>Multi-line comments</title>
 		<what>Comments</what>
@@ -369,6 +391,13 @@ pageTracker._trackPageview();
 		<what>Jan</what>
 		<what>2009</what>
 		<what>Jimh</what>
+	</file>
+	<file where="doc/fun/enumerate.html">
+		<title>Functional Enumeration</title>
+		<what>Funky</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
 	</file>
 	<file where="doc/contribute.html">
 		<title>How to contribute</title>
@@ -490,27 +519,6 @@ pageTracker._trackPageview();
 		<what>Top10</what>
 		<what>Project</what>
 		<what>Tools</what>
-		<what>Mar</what>
-		<what>2009</what>
-		<what>Timm</what>
-	</file>
-	<file where="doc/funky.html">
-		<title>Functional Gawk</title>
-		<what>Funky</what>
-		<what>Mar</what>
-		<what>2009</what>
-		<what>Timm</what>
-	</file>
-	<file where="doc/funcChallenge.html">
-		<title>Functional Challenge</title>
-		<what>Funky</what>
-		<what>Mar</what>
-		<what>2009</what>
-		<what>Timm</what>
-	</file>
-	<file where="doc/fun/enumerate.html">
-		<title>Functional Enumeration</title>
-		<what>Funky</what>
 		<what>Mar</what>
 		<what>2009</what>
 		<what>Timm</what>
