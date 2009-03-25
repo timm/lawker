@@ -22,7 +22,6 @@ I identify three parts of a super-for which I called the <b>prologue</b>,
 <b>body</b>, and <b>epilog</b>. Under most circumstances, I think the main body only
 would get used.
 <li>For example:
-</ul>
 <pre>
 #shows an example of a superfor loop
 BEGIN {
@@ -63,11 +62,11 @@ function superfor(loopdepth, zz) { # zz is a local variable
         loopdepth++ ; currloopnum--
         }
 </pre>	
+</ul>
 <p>Arnold Robbins replies:
 <ul>
 <li>I think this would make a great application for indirect function calls:
 <li>For example:
-<//ul>
 <pre>
 function superfor(loopdepth, prologue, body, epilogue,     zz)
 {
@@ -90,3 +89,4 @@ function superfor(loopdepth, prologue, body, epilogue,     zz)
         loopdepth++ ; currloopnum--
 }
 </pre>
+<//ul>
