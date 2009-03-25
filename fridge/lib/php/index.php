@@ -116,12 +116,12 @@ function foriegnContents($file,$type) {
         $tmp   = slurp($path) ;
 	return filter_specials($tmp, "$type",s($type));      
 }
-function contents() { 
+function contents($permalink) { 
 	 global $files;
 	 global $config;
 	 $between="";
-	 $out="";
-	 foreach ($files as $file) {
+	 	$out = "";
+   	foreach ($files as $file) {
 	     if (preg_match("/^awk:/",$file)) {
 			$tmp=foriegnContents($file,"awk");
 		 } else {
@@ -142,7 +142,14 @@ function contents() {
                      $meta .= $sep . "<a href=\"?" . $val . "\">" . $val . "</a>" ;
 		     $sep = ",";
                 }}
-		$out  .= $between . "<a name=\"$file\"></a>" . $meta . "</p>" .
+#		$meta.=" <div 
+#				   class=\"js-kit-rating\" 
+#				   	title=\"\" permalink=\"" . s("site") . "/?$fname\">" . "
+#				   thumbsize=\"small\" starColor=\"Golden\" style=\"float: right;\"> 
+#		          <script src=\"http://js-kit.com/ratings.js\"></script></div>";
+
+	
+			$out  .= $between . "<a name=\"$file\"></a>" . $meta . "</p>" .
                          preg_replace(s("join"),"<a href=\"" . s("site") . 
                          "/?$fname\">$1</a>",$tmp) ;
 		$between = "<hr>";
@@ -169,7 +176,7 @@ function title() {
 $config = simplexml_load_string(slurp($slurping));
 $files=thefiles();
 if (sizeof($files) == 0) { $files[]= s("default") ; }
-$magic["Content"]=contents();
+$magic["Content"]=contents(md5(implode(",",$_GET)));
 $magic["Title"]=title();
 $pieces  = explode(s("delimiter"), slurp(s("source") . "/" . s("index") . "/index.html"));
 foreach($pieces as $piece) { 	print ($raw = 1 - $raw) ?  $piece :   s($piece); }
