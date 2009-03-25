@@ -1,3 +1,5 @@
+doc/news/theAwkBook.html	;Timm; 2009; Mar; News			;|The Awk Book's Code
+
 doc/top10.html				;Timm ;  2009; Mar	;Top10		;|Top 10 pages
 doc/credits.html			;Timm	;2009	;Feb	;Who	;|Credits
 doc/who/jimh.html			;Jimh	;2009	;Feb	;Who	;|Jim Hart

@@ -1,0 +1,26 @@
+> From bwk@CS.Princeton.EDU  Tue Mar 24 09:54:31 2009
+> X-Envelope-From: bwk@CS.Princeton.EDU
+> X-Envelope-To: <arnold@skeeve.com>
+> Date: Mon, 23 Mar 2009 19:29:14 -0400 (EDT)
+> From: Brian Kernighan <bwk@CS.Princeton.EDU>
+> To: Aharon Robbins <arnold@skeeve.com>
+> cc: mike@madronabluff.com
+> Subject: Re: http://awk.info
+>
+> no problem with the awk book code -- having it in a central place
+> is a fine idea.
+>
+> On Sat, 21 Mar 2009, Aharon Robbins wrote:
+>
+> > Hi. Y'all might like to check out awk.info. I own this domain. A while
+> > back a guy named Tim Menzies who's a professor somewhere volunteered to
+> > get a website and code repository going, so he is running it.
+> >
+> > Brian, can I send him the code from the awk book? Or would you like to do
+> > it?
+> >
+> > Mike, have you any code you'd like to see in his repository?
+> >
+> > Thanks!
+> >
+> > Arnold

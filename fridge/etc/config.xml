@@ -148,6 +148,13 @@ pageTracker._trackPageview();
 
 
  <files>
+	<file where="doc/news/theAwkBook.html">
+		<title>The Awk Book's Code</title>
+		<what>News</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/top10.html">
 		<title>Top 10 pages</title>
 		<what>Top10</what>
