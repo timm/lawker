@@ -65,8 +65,8 @@ function superfor(loopdepth, zz) { # zz is a local variable
 </ul>
 <p>Arnold Robbins replies:
 <ul>
-<li>I think this would make a great application for indirect function calls:
-<li>For example:
+<li>I think this would make a great application for indirect function calls.
+For example:
 <pre>
 function superfor(loopdepth, prologue, body, epilogue,     zz)
 {
@@ -81,7 +81,7 @@ function superfor(loopdepth, prologue, body, epilogue,     zz)
                         @body()
                 }
                 else if ( loopdepth>1 )
-                        superfor(loopdepth-1)
+                        superfor(loopdepth-1, proloogue, body, epilogue)
                 }
 
         @epilogue()
