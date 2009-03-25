@@ -30,6 +30,7 @@ doc/dsl/awklisp.html		;DariusB	;2009	;Mar	;Dsl	;AwkLisp	;Top10	;|awklisp
 doc/dsl/markdown.html		;JesusG	;2009	;Mar	;Dsl	;Top10	;|Markdown
 doc/dsl/awkplusplus.html	;Jimh	;2009	;Mar	;Dsl	;Awk100	;|Awk++
 
+doc/tip/multiLineComment.html		;ArnoldR	;2009	;Mar	;Tips	;Comments	;|Multi-line comments
 doc/tip/getline.html		;Ed	;2009	;Jan	;Tips	;Getline	;|Getline
 doc/tip/noforloops.html		;Jimh	;2009	;Jan	;Tips	;Forloop	;|Forloops
 
