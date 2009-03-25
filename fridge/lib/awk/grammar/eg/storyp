@@ -1,0 +1,10 @@
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=7
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=13
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=17
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=23
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=29
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=37
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=47
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=53
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=71
+echo Sentence |  gawk -f ../storyp.awk -v Grammar=englishp.rules -v Seed=87

@@ -1,0 +1,10 @@
+actions() { cat<<EOF
+Adverb
+Verbphrase
+Sentence
+Sentence
+EOF
+}
+
+actions | 
+gawk -f ../story.awk -v Grammar=english.rules -v Seed=23

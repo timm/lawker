@@ -1,5 +1,7 @@
-BEGIN {  
-    while (getline < "test-gram" > 0)
+BEGIN {
+    srand(Seed ? Seed : 1) 
+    Grammar = Grammar ? Grammar : "grammar"
+    while ((getline < Grammar) > 0)
         if ($2 == "->") {
             i = ++lhs[$1]              # count lhs
             rhsprob[$1, i] = $NF       # 0 <= probability <= 1
@@ -12,7 +14,6 @@ BEGIN {
          for (i = 2; i <= lhs[sym]; i++)
             rhsprob[sym, i] += rhsprob[sym, i-1]
 }
-NR==1 { srand(Seed ? Seed : 1) }
 {   if ($1 in lhs) {  # nonterminal to expand
          gen($1)
          printf("\n")
@@ -23,7 +24,7 @@ NR==1 { srand(Seed ? Seed : 1) }
 function gen(sym,    i, j) {
     if (sym in lhs) {       # a nonterminal
         j = rand()          # random production
-        for (i = 1; i <= lhs[sym] && j > rhsprob[sym, i]; i++)         
+        for (i = 1; i <= lhs[sym] && j > rhsprob[sym, i]; i++) ;       
         for (j = 1; j <= rhscnt[sym, i]; j++) # expand rhs's
             gen(rhslist[sym, i, j])
     } else
