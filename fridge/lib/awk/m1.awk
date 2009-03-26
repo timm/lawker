@@ -36,7 +36,8 @@
 # the corresponding value.
 #.P
 # @name at beginning of line is treated the same as @name@.
-#.H3 Application
+#.H3 Applications
+#.H4 Form Letters
 #.P
 #We'll start with a toy example that illustrates some simple uses of m1. Here's a form letter that 
 # I've often been tempted to use:
@@ -62,6 +63,7 @@
 #./PRE
 #.P
 #Recall that a @default takes effect only if its variable was not previously @defined. 
+#.H4 Troff Pre-Processing
 #.P
 #I've found m1 to be a handy Troff preprocessor. Many of my text files (including this one) start 
 # with m1 definitions like: 
@@ -89,8 +91,9 @@
 #.P
 # The two @defines are a hack to supply the two parameters of number and title to the figure. The 
 # figure might be set off by horizontal lines or enclosed in a box, the number and title might be printed at 
-# the top or the bottom, and the ¿gures might be graphs, pictures, or animations of algorithms. All 
+# the top or the bottom, and the figures might be graphs, pictures, or animations of algorithms. All 
 # figures, though, are presented in the consistent format defined by FIGSTART and FIGEND. 
+#.H4 Awk Library Management
 #.P
 # I have also used m1 as a preprocessor for Awk programs. The @include statement allows one 
 # to build simple libraries of Awk functions (though some-  but not all- Awk implementations provide 
@@ -98,6 +101,7 @@
 # paper to include individual functions in the text and then wrap them all together into the completem1 
 # program. The conditional statements allow one to customize a program with macros rather than run-time
 # if statements, which can reduce both run time and compile time. 
+#.H4 Controlling Experiments
 #.P
 # The most interesting application for which I've used this macro language is unfortunately too 
 # complicated to describe in detail. The job for which I wrote the original version of m1 was to control a 
@@ -329,7 +333,7 @@ BEGIN {	EOF = "EOF"
 		error("usage: m1 [fname...]")
 }
 #./PRE
-#.H1 BUGS
+#.H2 BUGS
 #.P
 # M1 is three steps lower than m4.  You'll probably miss something
 # you have learned to expect.
