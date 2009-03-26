@@ -9,7 +9,11 @@
 <h2><font color=black>&bull;</font></a> <a href=#6>Code</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#7>error</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#8>dofile</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#9>Author</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#9>readline</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#10>gobble</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#11>dosubs</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#12>docodef</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#13>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -251,9 +255,9 @@ function dofile(fname,  savefile, savebuffer, newstring) {
 	file = savefile
 	buffer = savebuffer
 }
-/PRE
-&lt;H3> readline&lt;/H3>
-&lt;P>
+</PRE>
+<a name=9></a><H3> readline</H3>
+<P>
 Put next input line into global string "buffer".
 Return "EOF" or "" (null string).
 <PRE>
@@ -273,8 +277,8 @@ function readline(  i, status) {
 		sub(/[ t]*$/, "@")
 	return status
 }
-/PRE
-&lt;H3> gobble&lt;/H3>
+</PRE>
+<a name=10></a><H3> gobble</H3>
 <PRE>
 function gobble(  ifdepth) {
 	ifdepth = 1
@@ -285,8 +289,8 @@ function gobble(  ifdepth) {
 			break
 	}
 }
-/PRE
-&lt;H3> dosubs&lt;/H3>
+</PRE>
+<a name=11></a><H3> dosubs</H3>
 <PRE>
 function dosubs(s,  l, r, i, m) {
 	if (index(s, "@") == 0)
@@ -312,8 +316,8 @@ function dosubs(s,  l, r, i, m) {
 	}
 	return l r
 }
-/PRE
-&lt;H3> docodef&lt;/H3>
+</PRE>
+<a name=12></a><H3> docodef</H3>
 <PRE>
 function dodef(fname,  str, x) {
 	name = $2
@@ -344,7 +348,7 @@ BEGIN {	EOF = "EOF"
 <P>
  M1 is three steps lower than m4.  You'll probably miss something
  you have learned to expect.
-<a name=9></a><H2> Author</H2>
+<a name=13></a><H2> Author</H2>
 <P>
 Jon L. Bentley.
 <a href="mailto:jlb@research.bell-labs.com">jlb@research.bell-labs.com</a>.

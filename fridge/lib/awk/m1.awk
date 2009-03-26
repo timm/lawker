@@ -239,7 +239,7 @@ function dofile(fname,  savefile, savebuffer, newstring) {
 	file = savefile
 	buffer = savebuffer
 }
-#/PRE
+#./PRE
 #.H3 readline
 #.P
 #Put next input line into global string "buffer".
@@ -261,7 +261,7 @@ function readline(  i, status) {
 		sub(/[ t]*$/, "@")
 	return status
 }
-#/PRE
+#./PRE
 #.H3 gobble
 #.PRE
 function gobble(  ifdepth) {
@@ -273,7 +273,7 @@ function gobble(  ifdepth) {
 			break
 	}
 }
-#/PRE
+#./PRE
 #.H3 dosubs
 #.PRE
 function dosubs(s,  l, r, i, m) {
@@ -300,7 +300,7 @@ function dosubs(s,  l, r, i, m) {
 	}
 	return l r
 }
-#/PRE
+#./PRE
 #.H3 docodef
 #.PRE
 function dodef(fname,  str, x) {
