@@ -9,7 +9,7 @@
 #.URL http://lawker.googlecode.com/svn/fridge/lib/awk/m1.awk LAWKER.
 #.H2 Description
 #.P
-# This simple macro language
+# M1 is a  simple macro language that
 # supports the essential operations of defining strings and replacing strings in text by
 # their definitions. It also provides facilities for file inclusion and for conditional expan-
 # sion of text. It is not designed for any particular application, so it is mildly useful
@@ -189,7 +189,7 @@
 #.LI
 # Awk's file handling makes the dofile procedure straightforward. 
 #.LI
-# The readline function and pushback mechanism associated with bufferi are of general utility. 
+# The readline function and pushback mechanism associated with buffer are of general utility. 
 #./UL
 #.H3 error
 #.PRE
@@ -343,9 +343,15 @@ BEGIN {
 #.P
 # M1 is three steps lower than m4.  You'll probably miss something
 # you have learned to expect.
+#.H2 HISTORY
+#.P
+#M1 was documented in the 1997 sedawk book by Dale Dougherty & Arnold Robbins (ISBN 1-56592-225-5)
+#but may have been written earlier.
+#.P
+#This page comes from 
+#131.191.66.141:8181/UNIX_BS/sedawk/examples/ch13/m1.ps (download from
+#<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/m1.pdf">LAWKER</a>).
 #.H2 Author
 #.P 
 #Jon L. Bentley.
 #<a href="mailto:jlb@research.bell-labs.com">jlb@research.bell-labs.com</a>.
-#This page comes from 
-#<a href="131.191.66.141:8181/UNIX_BS/sedawk/examples/ch13/m1.ps">131.191.66.141:8181/UNIX_BS/sedawk/examples/ch13/m1.ps</a>.
