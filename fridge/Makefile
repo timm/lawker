@@ -21,6 +21,7 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
 
 files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
+	    $(Doc)/tools/m1.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
 	    $(Doc)/dsl/graph.html \
@@ -29,6 +30,9 @@ files : $(Doc)/dsl/markdown.html \
 
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
+	    
+$(Doc)/tools/m1.html : $(Awklib)/m1.awk
+	cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/awk100/spell.html : $(Awklib)/spell.awk
 	cd $(Awklib) && $(Awk2Html)
