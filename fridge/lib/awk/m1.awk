@@ -339,19 +339,18 @@ BEGIN {
 		error("usage: m1 [fname...]")
 }
 #./PRE
-#.H2 BUGS
+#.H2 Bugs
 #.P
 # M1 is three steps lower than m4.  You'll probably miss something
 # you have learned to expect.
-#.H2 HISTORY
+#.H2 History
 #.P
 #M1 was documented in the 1997 sedawk book by Dale Dougherty & Arnold Robbins (ISBN 1-56592-225-5)
 #but may have been written earlier.
 #.P
-#This page comes from 
+#This page was adapted from 
 #131.191.66.141:8181/UNIX_BS/sedawk/examples/ch13/m1.ps (download from
 #<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/m1.pdf">LAWKER</a>).
 #.H2 Author
 #.P 
 #Jon L. Bentley.
-#<a href="mailto:jlb@research.bell-labs.com">jlb@research.bell-labs.com</a>.
