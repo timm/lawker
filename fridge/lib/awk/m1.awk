@@ -316,7 +316,7 @@ function dodef(fname,  str, x) {
 	}
 	symtab[name] = str
 }
-#/PRE
+#./PRE
 #.H3 BEGIN
 #.PRE
 BEGIN {	EOF = "EOF"
