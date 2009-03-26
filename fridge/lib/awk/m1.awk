@@ -51,7 +51,7 @@
 #many times yourself. 
 #            Sincerely, 
 #            @MYNAME@ 
-#.PRE
+#./PRE
 #.P
 # If that file is namedsayno.mac, it might be invoked with this text: 
 #.PRE
