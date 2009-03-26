@@ -231,27 +231,27 @@ function dofile(fname,  savefile, savebuffer, newstring) {
 	while (readline() != EOF) {
 		if (index($0, "@") == 0) {
 			print $0
-		} else if (/^@define[ t]/) {
+		} else if (/^@define[ \t]/) {
 			dodef()
-		} else if (/^@default[ t]/) {
+		} else if (/^@default[ \t]/) {
 			if (!($2 in symtab))
 				dodef()
-		} else if (/^@include[ t]/) {
+		} else if (/^@include[ \t]/) {
 			if (NF != 2) error("bad include line")
 			dofile(dosubs($2))
-		} else if (/^@if[ t]/) {
+		} else if (/^@if[ \t]/) {
 			if (NF != 2) error("bad if line")
 			if (!($2 in symtab) || symtab[$2] == 0)
 				gobble()
-		} else if (/^@unless[ t]/) {
+		} else if (/^@unless[ \t]/) {
 			if (NF != 2) error("bad unless line")
 			if (($2 in symtab) && symtab[$2] != 0)
 				gobble()
-		} else if (/^@fi([ t]?|$)/) { # Could do error checking here
-		} else if (/^@stderr[ t]?/) { 
+		} else if (/^@fi([ \t]?|$)/) { # Could do error checking here
+		} else if (/^@stderr[ \t]?/) {
 			print substr($0, 9) | "cat 1>&2"
-		} else if (/^@(comment|@)[ t]?/) {
-		} else if (/^@ignore[ t]/) { # Dump input until $2
+		} else if (/^@(comment|@)[ \t]?/) {
+		} else if (/^@ignore[ \t]/) { # Dump input until $2
 			delim = $2
 			l = length(delim)
 			while (readline() != EOF)
@@ -262,7 +262,7 @@ function dofile(fname,  savefile, savebuffer, newstring) {
 			if ($0 == newstring || index(newstring, "@") == 0)
 				print newstring
 			else
-				buffer = newstring "n" buffer
+				buffer = newstring "\n" buffer
 		}
 	}
 	close(fname)
@@ -279,7 +279,7 @@ Return "EOF" or "" (null string).
 function readline(  i, status) {
 	status = ""
 	if (buffer != "") {
-		i = index(buffer, "n")
+		i = index(buffer, "\n")
 		$0 = substr(buffer, 1, i-1)
 		buffer = substr(buffer, i+1)
 	} else {
@@ -288,8 +288,8 @@ function readline(  i, status) {
 			status = EOF
 	}
 	# Hack: allow @Mname at start of line w/o closing @
-	if ($0 ~ /^@[A-Z][a-zA-Z0-9]*[ t]*$/)
-		sub(/[ t]*$/, "@")
+	if ($0 ~ /^@[A-Z][a-zA-Z0-9]*[ \t]*$/)
+		sub(/[ \t]*$/, "@")
 	return status
 }
 </PRE>
@@ -298,9 +298,9 @@ function readline(  i, status) {
 function gobble(  ifdepth) {
 	ifdepth = 1
 	while (readline() != EOF) {
-		if (/^@(if|unless)[ t]/)
+		if (/^@(if|unless)[ \t]/)
 			ifdepth++
-		if (/^@fi[ t]?/ && --ifdepth &lt;= 0)
+		if (/^@fi[ \t]?/ && --ifdepth &lt;= 0)
 			break
 	}
 }
@@ -336,21 +336,23 @@ function dosubs(s,  l, r, i, m) {
 <PRE>
 function dodef(fname,  str, x) {
 	name = $2
-	sub(/^[ t]*[^ t]+[ t]+[^ t]+[ t]*/, "")  # OLD BUG: last * was +
+	sub(/^[ \t]*[^ \t]+[ \t]+[^ \t]+[ \t]*/, "")  # OLD BUG: last * was +
 	str = $0
 	while (str ~ /\\$/) {
 		if (readline() == EOF)
 			error("EOF inside definition")
+		# OLD BUG: sub(/\\$/, "\n" $0, str)
 		x = $0
-		sub(/^[ t]+/, "", x)
-		str = substr(str, 1, length(str)-1) "n" x
+		sub(/^[ \t]+/, "", x)
+		str = substr(str, 1, length(str)-1) "\n" x
 	}
 	symtab[name] = str
 }
 </PRE>
 <a name=18></a><H3> BEGIN</H3>
 <PRE>
-BEGIN {	EOF = "EOF"
+BEGIN {	
+    EOF = "EOF"
 	if (ARGC == 1)
 		dofile("/dev/stdin")
 	else if (ARGC >= 2) {
