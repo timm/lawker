@@ -2,31 +2,36 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#2>Description</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#3>Applications</a></h3>
-<h4><font color=black>&bull;</font></a> <a href=#4>Form Letters</a></h4>
-<h4><font color=black>&bull;</font></a> <a href=#5>Troff Pre-Processing</a></h4>
-<h4><font color=black>&bull;</font></a> <a href=#6>Awk Library Management</a></h4>
-<h4><font color=black>&bull;</font></a> <a href=#7>Controlling Experiments</a></h4>
-<h3><font color=black>&bull;</font></a> <a href=#8>The Substitution Function</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#9>Possible Extensions</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#10>Code</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#11>error</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#12>dofile</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#13>readline</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#14>gobble</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#15>dosubs</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#16>docodef</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#17>BEGIN</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#18>BUGS</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#19>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#4>Applications</a></h3>
+<h4><font color=black>&bull;</font></a> <a href=#5>Form Letters</a></h4>
+<h4><font color=black>&bull;</font></a> <a href=#6>Troff Pre-Processing</a></h4>
+<h4><font color=black>&bull;</font></a> <a href=#7>Awk Library Management</a></h4>
+<h4><font color=black>&bull;</font></a> <a href=#8>Controlling Experiments</a></h4>
+<h3><font color=black>&bull;</font></a> <a href=#9>The Substitution Function</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#10>Possible Extensions</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#11>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#12>error</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#13>dofile</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#14>readline</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#15>gobble</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#16>dosubs</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#17>docodef</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#18>BEGIN</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#19>BUGS</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#20>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
 <PRE>
 awk -f m1.awk [file...]
 </PRE>
-<a name=2></a><H2> Description</H2>
+<a name=2></a><H2> Download</H2>
+<P>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/m1.awk">LAWKER.</a>
+<a name=3></a><H2> Description</H2>
 <P>
  This simple macro language
  supports the essential operations of defining strings and replacing strings in text by
@@ -59,8 +64,8 @@ awk -f m1.awk [file...]
  the corresponding value.
 <P>
  @name at beginning of line is treated the same as @name@.
-<a name=3></a><H3> Applications</H3>
-<a name=4></a><H4> Form Letters</H4>
+<a name=4></a><H3> Applications</H3>
+<a name=5></a><H4> Form Letters</H4>
 <P>
 We'll start with a toy example that illustrates some simple uses of m1. Here's a form letter that 
  I've often been tempted to use:
@@ -85,7 +90,7 @@ many times yourself.
 </PRE>
 <P>
 Recall that a @default takes effect only if its variable was not previously @defined. 
-<a name=5></a><H4> Troff Pre-Processing</H4>
+<a name=6></a><H4> Troff Pre-Processing</H4>
 <P>
 I've found m1 to be a handy Troff preprocessor. Many of my text files (including this one) start 
  with m1 definitions like: 
@@ -115,7 +120,7 @@ I include figures in documents with lines like this:
  figure might be set off by horizontal lines or enclosed in a box, the number and title might be printed at 
  the top or the bottom, and the figures might be graphs, pictures, or animations of algorithms. All 
  figures, though, are presented in the consistent format defined by FIGSTART and FIGEND. 
-<a name=6></a><H4> Awk Library Management</H4>
+<a name=7></a><H4> Awk Library Management</H4>
 <P>
  I have also used m1 as a preprocessor for Awk programs. The @include statement allows one 
  to build simple libraries of Awk functions (though some-  but not all- Awk implementations provide 
@@ -123,7 +128,7 @@ I include figures in documents with lines like this:
  paper to include individual functions in the text and then wrap them all together into the completem1 
  program. The conditional statements allow one to customize a program with macros rather than run-time
  if statements, which can reduce both run time and compile time. 
-<a name=7></a><H4> Controlling Experiments</H4>
+<a name=8></a><H4> Controlling Experiments</H4>
 <P>
  The most interesting application for which I've used this macro language is unfortunately too 
  complicated to describe in detail. The job for which I wrote the original version of m1 was to control a 
@@ -146,7 +151,7 @@ I include figures in documents with lines like this:
  databases. I had tried to conduct a similar set of experiments before I built m1, and got mired in muck. 
  The few hours I spent building the tool were paid back handsomely in the first days I used it. 
 
-<a name=8></a><H3> The Substitution Function</H3>
+<a name=9></a><H3> The Substitution Function</H3>
 <P>
 M1 uses as fast substitution function.
  The idea is to process the string from left to right, searching for the first substitution to be made. 
@@ -170,7 +175,7 @@ while R contains an "@" sign do
 		R = "@" R 
 	return L R 
 </PRE>
-<a name=9></a><H3> Possible Extensions</H3>
+<a name=10></a><H3> Possible Extensions</H3>
 <P>
  There are many ways in which them1program could be extended. Here are some of the biggest 
  temptations to "creeping creaturism": 
@@ -191,7 +196,7 @@ while R contains an "@" sign do
  (to postpone evaluation) and for forcing immediate evaluation. 
 </UL>
 
-<a name=10></a><H2> Code</H2>
+<a name=11></a><H2> Code</H2>
 <P>
  The following code is short (around 100 lines),
  which is 
@@ -209,13 +214,13 @@ while R contains an "@" sign do
 <LI>
  The readline function and pushback mechanism associated with bufferi are of general utility. 
 </UL>
-<a name=11></a><H3> error</H3>
+<a name=12></a><H3> error</H3>
 <PRE>
 function error(s) {
 	print "m1 error: " s | "cat 1>&2"; exit 1
 }
 </PRE>
-<a name=12></a><H3> dofile</H3>
+<a name=13></a><H3> dofile</H3>
 <PRE>
 function dofile(fname,  savefile, savebuffer, newstring) {
 	if (fname in activefiles)
@@ -266,7 +271,7 @@ function dofile(fname,  savefile, savebuffer, newstring) {
 	buffer = savebuffer
 }
 </PRE>
-<a name=13></a><H3> readline</H3>
+<a name=14></a><H3> readline</H3>
 <P>
 Put next input line into global string "buffer".
 Return "EOF" or "" (null string).
@@ -288,7 +293,7 @@ function readline(  i, status) {
 	return status
 }
 </PRE>
-<a name=14></a><H3> gobble</H3>
+<a name=15></a><H3> gobble</H3>
 <PRE>
 function gobble(  ifdepth) {
 	ifdepth = 1
@@ -300,7 +305,7 @@ function gobble(  ifdepth) {
 	}
 }
 </PRE>
-<a name=15></a><H3> dosubs</H3>
+<a name=16></a><H3> dosubs</H3>
 <PRE>
 function dosubs(s,  l, r, i, m) {
 	if (index(s, "@") == 0)
@@ -327,7 +332,7 @@ function dosubs(s,  l, r, i, m) {
 	return l r
 }
 </PRE>
-<a name=16></a><H3> docodef</H3>
+<a name=17></a><H3> docodef</H3>
 <PRE>
 function dodef(fname,  str, x) {
 	name = $2
@@ -343,7 +348,7 @@ function dodef(fname,  str, x) {
 	symtab[name] = str
 }
 </PRE>
-<a name=17></a><H3> BEGIN</H3>
+<a name=18></a><H3> BEGIN</H3>
 <PRE>
 BEGIN {	EOF = "EOF"
 	if (ARGC == 1)
@@ -355,11 +360,11 @@ BEGIN {	EOF = "EOF"
 		error("usage: m1 [fname...]")
 }
 </PRE>
-<a name=18></a><H2> BUGS</H2>
+<a name=19></a><H2> BUGS</H2>
 <P>
  M1 is three steps lower than m4.  You'll probably miss something
  you have learned to expect.
-<a name=19></a><H2> Author</H2>
+<a name=20></a><H2> Author</H2>
 <P>
 Jon L. Bentley.
 <a href="mailto:jlb@research.bell-labs.com">jlb@research.bell-labs.com</a>.
