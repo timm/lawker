@@ -56,6 +56,8 @@ doc/samples.html			;Ronl	;2009	;Jan	;Learn	;TenLiners	;|Samples of AWK
 gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Functionn	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Timm	;2009	;Feb	;Functionn	;Arrays	;|array.awk
 
+doc/tools/macro.html			;Timm	;2009	;Mar	;Tools	;Macros	;|Macro pre-processors
+
 doc/project.html			;Timm	;2009	;Mar	;Tools	;Project	;|Project Tools
 doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project	;|runawk
 doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros
