@@ -188,7 +188,7 @@
 function error(s) {
 	print "m1 error: " s | "cat 1>&2"; exit 1
 }
-#/PRE
+#./PRE
 #.H3 dofile
 #.PRE
 function dofile(fname,  savefile, savebuffer, newstring) {
