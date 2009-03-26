@@ -59,6 +59,7 @@ gawk/array/array.awk		;Timm	;2009	;Feb	;Functionn	;Arrays	;|array.awk
 doc/project.html			;Timm	;2009	;Mar	;Tools	;Project	;|Project Tools
 doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project	;|runawk
 doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros
+doc/tools/m5.html			;WillW	;2009	;Mar	;Tools	;Macros; ;|m5 :  macro processor
 doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project;Top10	;|awkwords
 
 doc/var/top10posters.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 posters
