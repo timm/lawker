@@ -1,4 +1,4 @@
-#.H1 m1 : A Tiny Macro Processor 
+#.H1 m1 : A Micro Macro Processor 
 #.H2 Synopsis
 #.PRE
 #awk -f m1.awk [file...]
