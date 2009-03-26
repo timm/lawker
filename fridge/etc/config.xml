@@ -498,7 +498,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
-	<file where="doc/tools/macro.html">
+	<file where="doc/macro.html">
 		<title>Macro pre-processors</title>
 		<what>Macros</what>
 		<what>Tools</what>
