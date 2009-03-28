@@ -11,10 +11,13 @@
 #This code inputs a set of productions 
 #and outputs a string of words that satisfy the production rules.
 #.H3 A Short Example
-#.P This input ...
+#.P 
+# This grammar..
+#.IN eg/english.rules
+# ... and this input ...
 #echo Sentence | gawk -f ../story.awk -v Grammar=english.rules 
 #./PRE
-# ... generates this sentence
+# ... generates this sentence:
 #.PRE
 #the boy runs very slowly
 #./PRE
