@@ -8,8 +8,11 @@
 <h2><font color=black>&bull;</font></a> <a href=#5>Examples</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#6>A Short Example</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#7>A Longer Example</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#8>Code</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#9>Author</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#8>Biasing the Story</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#9>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#10>Story.awk</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#11>Storyp.awk</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#12>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -64,9 +67,8 @@ for i in 1 2 3 4 5 6 7 8 9 10;do
 	gawk -f ../story.awk -v Grammar=english.rules -v Seed=$i | 
 	fmt
 done
-
 </pre>
- ... generates this sentence:
+ ... generates these sentences:
 <pre>
 the boy runs very slowly
 the girl runs slowly
@@ -121,16 +123,15 @@ Using the above, we can generate the following stories:
 </pre>
 <P>
 This is generated from the following code:
-<PRE>
+<pre>
 for i in 1 2 3 4 5 6 7 8 9 10;do
 	echo
 	echo Start | 
 	gawk -f ../story.awk -v Grammar=scifi.rules -v Seed=$i | 
 	fmt
 done
-</PRE>
+</pre>
 <P> running on the following grammar:</P>
-<p>eg/scifi.rules
 <pre>
 Start      -> Earth IsStressed
 IsStressed -> Catestrophes 
@@ -259,7 +260,44 @@ Ending -> andTheyTurnIntoDisgustingLumps
 
 HappyEnding -> andTheyGetMarriedAndLiveHappilyForeverAfter
 </pre>
-<a name=8></a><H2> Code</H2>
+<a name=8></a><H3> Biasing the Story</H3>
+<P>
+Here is a grammar suitable for storyp.awk. Note that number at end of line that biases how often a
+production is selected. For example, "runs" and "slowly" are nine times more likely than other Verbs
+ and Adverbs.
+<pre>
+Sentence -> Nounphrase Verbphrase   1
+Nounphrase -> the boy               0.75
+Nounphrase -> the girl              0.25
+Verbphrase -> Verb Modlist Adverb   1
+Verb -> runs                        0.9
+Verb -> walks                       0.1
+Modlist ->                          0.5
+Modlist -> very Modlist             0.5
+Adverb -> quickly                   0.1
+Adverb -> slowly                    0.9
+</pre>
+The following code executes the biases story generation:
+<pre>
+for((i=1;i&lt;=10;i++)); do echo Sentence ;  done |
+gawk -f ../storyp.awk -v Grammar=englishp.rules 
+</pre>
+<P>
+This produces the following output. Note that, usually, we run slowly.
+<pre>
+the boy runs very slowly 
+the boy runs slowly 
+the girl runs very slowly 
+the boy runs slowly 
+the boy runs slowly 
+the girl walks very slowly 
+the boy walks slowly 
+the girl runs slowly 
+the boy runs slowly 
+the boy runs slowly 
+</pre>
+<a name=9></a><H2> Code</H2>
+<a name=10></a><H3> Story.awk</H3>
 <PRE>
 BEGIN { 
     srand(Seed ? Seed : 1) 
@@ -290,7 +328,45 @@ function gen(sym,    i, j) {
         printf("%s ", sym) }
 }
 </PRE>
-<a name=9></a><H2> Author</H2>
+<a name=11></a><H3> Storyp.awk</H3>
+<P>
+<a href="mailto:is">almost the same as story.awk but it is assumed that each line ends in a number</a>
+ that will bias how often that production gets selected.
+<pre>
+BEGIN {
+    srand(Seed ? Seed : 1) 
+    Grammar = Grammar ? Grammar : "grammar"
+    while ((getline &lt; Grammar) > 0)
+        if ($2 == "->") {
+            i = ++lhs[$1]              # count lhs
+            rhsprob[$1, i] = $NF       # 0 &lt;= probability &lt;= 1
+            rhscnt[$1, i] = NF-3       # how many in rhs
+            for (j = 3; j &lt; NF; j++)   # record them
+               rhslist[$1, i, j-2] = $j
+        } else
+            print "illegal production: " $0
+    for (sym in lhs)
+         for (i = 2; i &lt;= lhs[sym]; i++)
+            rhsprob[sym, i] += rhsprob[sym, i-1]
+}
+{   if ($1 in lhs) {  # nonterminal to expand
+         gen($1)
+         printf("\n")
+     } else 
+         print "unknown nonterminal: " $0   
+}
+function gen(sym,    i, j) {
+    if (sym in lhs) {       # a nonterminal
+        j = rand()          # random production
+        for (i = 1; i &lt;= lhs[sym] && j > rhsprob[sym, i]; i++) ;       
+        for (j = 1; j &lt;= rhscnt[sym, i]; j++) # expand rhs's
+            gen(rhslist[sym, i, j])
+    } else
+        printf("%s ", sym)
+}
+#./PRE
+</pre>
+<a name=12></a><H2> Author</H2>
 <P>
 The code comes from 
 Alfred Aho, Brian  Kernighan, and Peter  Weinberger from the 

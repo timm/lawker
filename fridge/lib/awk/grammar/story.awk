@@ -35,7 +35,7 @@
 #.LISTING eg/english.rules
 # ... and this input ...
 #.LISTING eg/english
-# ... generates this sentence:
+# ... generates these sentences:
 #.LISTING eg/english.out
 #.H3 A Longer Example
 #.P Here is the standard sci-fi story generator ...
@@ -49,17 +49,22 @@
 #.CODE eg/story.out
 #.P
 #This is generated from the following code:
-#.PRE
-#for i in 1 2 3 4 5 6 7 8 9 10;do
-#	echo
-#	echo Start | 
-#	gawk -f ../story.awk -v Grammar=scifi.rules -v Seed=$i | 
-#	fmt
-#done
-#./PRE
+#.LISTING eg/story
 #.P running on the following grammar:
-#.CODE eg/scifi.rules
+#.LISTING eg/scifi.rules
+#.H3 Biasing the Story
+#.P
+#Here is a grammar suitable for storyp.awk. Note that number at end of line that biases how often a
+#production is selected. For example, "runs" and "slowly" are nine times more likely than other Verbs
+# and Adverbs.
+#.LISTING eg/englishp.rules
+#The following code executes the biases story generation:
+#.LISTING eg/englishp
+#.P
+#This produces the following output. Note that, usually, we run slowly.
+#.LISTING eg/englishp.out
 #.H2 Code
+#.H3 Story.awk
 #.PRE
 BEGIN { 
     srand(Seed ? Seed : 1) 
@@ -90,6 +95,11 @@ function gen(sym,    i, j) {
         printf("%s ", sym) }
 }
 #./PRE
+#.H3 Storyp.awk
+#.P
+#Storyp.awk is almost the same as story.awk but it is assumed that each line ends in a number
+# that will bias how often that production gets selected.
+#.LISTING storyp.awk
 #.H2 Author
 #.P
 #The code comes from 
