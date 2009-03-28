@@ -1,0 +1,235 @@
+<h1><join> Story Generation</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#3>A Short Example</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#4>A Longer Example</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#5>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<PRE>
+echo Goal | gawk -f storyp.awk -v Grammar 
+</PRE>
+<a name=2></a><H2> Download</H2>
+<P>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/story/">LAWKER.</a>
+<P>
+This code inputs a set of productions 
+and outputs a string of words that satisfy the production rules.
+<a name=3></a><H3> A Short Example</H3>
+<P> This input ...</P>
+echo Sentence | gawk -f ../story.awk -v Grammar=english.rules 
+</PRE>
+ ... generates this sentence
+<PRE>
+the boy runs very slowly
+</PRE>
+<a name=4></a><H3> A Longer Example</H3>
+<P> Here is the standard sci-fi story generator ...</P>
+<center>
+<a href="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
+<img wdith=300 src="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
+</a>
+</center>
+<P>
+Using the above, we can generate the following stories:
+
+ Earth scientists invent giant bugs who want Our Women,  And Take
+ A Few And Leave
+
+ Earth is Attacked By tiny lunar superbeings who  Under Stand and
+ Are Not radioactive and can not be killed by the Navy but They Die
+ From Catching A Cold
+
+ Earth scientists invent enormous bugs who are Friendly and and
+ They Get Married And Live Happily Forever After
+
+ Earth is Struck By A Giant cloud and Magically Saved
+
+ Earth scientists invent giant bugs who  Under Stand and Are Not
+ radioactive and can not be killed by the Air Force so They Kill
+ Us
+
+ Earth is Attacked By enormous extra Galactic blobs who  Under Stand
+ and Are Not radioactive and can be killed by the Air Force
+
+ Earth scientists discover enormous blobs who  Under Stand and Are
+ Not radioactive and can be killed by a Crowd Of Peasants
+
+ Earth falls Into Sun and  Some  Resuced
+
+ Earth is Struck By A Giant comet but Is Saved
+
+ Earth is Struck By A Giant comet and Is Destroyed
+<P>
+This is generated from the following grammar:
+Start      -> Earth IsStressed
+IsStressed -> Catestrophes 
+IsStressed -> Science 
+IsStressed -> Attack 
+IsStressed -> Collision
+
+Catestrophes -> Catestrophe and PossibleMegaDeath
+
+Catestrophe -> burnsUp 
+Catestrophe -> freezes
+Catestrophe -> fallsIntoSun
+
+Collision -> isStruckByAGiant Floater AndThen
+
+Floater -> comet
+Floater -> asteroid
+Floater -> cloud
+
+AndThen -> butIsSaved
+AndThen -> andIsDestroyed
+AndThen -> andMagicallySaved
+
+
+PossibleMegaDeath -> everybodyDies
+PossibleMegaDeath -> Some GoOn 
+
+SomeSaved ->  somePeople
+SomeSaved ->  everybody
+SomeSaved ->  almostEverybody
+  
+GoOn -> dies
+GoOn -> Resuced
+GoOn -> Saved
+ 
+Rescued -> isRescuedBy Sizes Extraterestrial Beings
+Saved   -> butIsSavedBy SomeOne scientists the  Science
+
+SomeOne -> earth
+SomeOne -> extraterestrial
+
+Science -> scientists DoSomething Sizes Beings Whichetc
+
+DoSomething -> invent
+DoSomething -> discover
+
+Attack -> isAttackedBy Sizes Extraterestrial Beings Whichetc
+
+Sizes -> tiny 
+Sizes -> giant 
+Sizes -> enormous
+ 
+Extraterestrial -> martian
+Extraterestrial -> lunar
+Extraterestrial -> extraGalactic
+
+Beings -> bugs
+Beings -> reptiles
+Beings -> blobs
+Beings -> superbeings
+
+Whichetc -> who WantSomething
+
+WantSomething -> WantWomen
+WantSomething -> areFriendly  and DenoumentOrHappyEnding
+WantSomething -> UnderStand ButEtc
+
+Understand -> areFriendly butMisunderstood
+Understand -> misunderstandUs
+Understand -> understandUsAllTooWell
+Understand -> hungry
+
+DenoumentOrHappyEnding -> Denoument
+DenoumentOrHappyEnding -> HappyEnding
+ 
+Dine -> Hungry and eat us Denoument?
+
+WhichEtc -> 
+Hungry -> lookUponUsAsASourceOfNourishment
+
+WantWomen -> wantOurWomen, AndTakeAFewAndLeave
+
+ButEtc -> AndAre radioactive and TryToKill
+
+AndAre -> andAre
+AndAre -> andAreNot
+
+Killers -> Killer 
+Killers -> Killer and Killer
+
+Killer -> aCrowdOfPeasants
+Killer -> theArmy
+Killer -> theNavy
+Killer -> theAirForce
+Killer -> theMarines
+Killer -> theCoastGuard
+Killer -> theAtomBomb
+
+TryToKill -> can be killed by Killers
+TryToKill -> can not be killed by Killers SoEtc
+
+SoEtc -> butTheyDieFromCatchingACold
+SoEtc -> soTheyKillUs
+SoEtc -> soTheyPutUsUnderABenignDictatorShip
+SoEtc -> soTheyEatUs
+SoEtc -> soScientistsInventAWeapon Which
+SeEtc -> but Denoument
+
+Which -> whichTurnsThemIntoDisgustingLumps
+Which -> whichKillsThem
+Which -> whichFails SoEtc
+
+Denomument? ->  
+Denomument? -> Denoument  
+
+Denoument ->  aCuteLittleKidConvincesThemPeopleAreOk Ending
+Denoument -> aPriestTalksToThemOfGod Ending
+Denoument -> theyFallInLoveWithThisBeautifulGirl EndSadOrHappy
+
+EndSadOrHappy -> Ending
+EndSadOrHappy -> HappyEnding
+
+Ending -> andTheyDie
+Ending -> andTheyLeave
+Ending -> andTheyTurnIntoDisgustingLumps
+
+HappyEnding -> andTheyGetMarriedAndLiveHappilyForeverAfter
+<a name=5></a><H2> Code</H2>
+<PRE>
+BEGIN { 
+    srand(Seed ? Seed : 1) 
+	Grammar = Grammar ? Grammar : "grammar"
+	while (getline &lt; Grammar > 0)
+	    if ($2 == "->") {
+		    i = ++lhs[$1]              # count lhs
+		    rhscnt[$1, i] = NF-2       # how many in rhs
+		    for (j = 3; j &lt;= NF; j++)  # record them
+		        rhslist[$1, i, j-2] = $j
+	    } else
+		     if ($0 !~ /^[ \t]*$/)
+        	    print "illegal production: " $0
+}
+{   if ($1 in lhs) {  # nonterminal to expand
+        gen($1)
+        printf("\n")
+    } else 
+        print "unknown nonterminal: " $0   
+}
+function gen(sym,    i, j) {
+    if (sym in lhs) {       # a nonterminal
+        i = int(lhs[sym] * rand()) + 1   # random production
+        for (j = 1; j &lt;= rhscnt[sym, i]; j++) # expand rhs's
+            gen(rhslist[sym, i, j])
+    } else {
+        gsub(/[A-Z]/," &",sym)
+        printf("%s ", sym) }
+}
+</PRE>
+<a name=6></a><H2> Author</H2>
+<P>
+The code comes from 
+Alfred Aho, Brian  Kernighan, and Peter  Weinberger from the 
+ book "The AWK Programming Language",
+Addison-Wesley, 1988. 
+<P>
+The scifi grammar was written by Tim Menzies.
+</div><!--- htmlbody --->

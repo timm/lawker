@@ -33,7 +33,7 @@ awkpp :
 	cd $(Bash)/awk++ && zip -r awk++.zip *
     	
 $(Doc)/story.html : $(Awklib)/grammar/story.awk 
-	cd $(Awklib) && $(Awk2Html)
+	cd $(Awklib)/grammar && $(Awk2Html)
 	    
 $(Doc)/tools/m1.html : $(Awklib)/m1.awk
 	cd $(Awklib) && $(Awk2Html)
