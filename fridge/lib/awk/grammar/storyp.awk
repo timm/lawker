@@ -29,4 +29,3 @@ function gen(sym,    i, j) {
     } else
         printf("%s ", sym)
 }
-#./PRE

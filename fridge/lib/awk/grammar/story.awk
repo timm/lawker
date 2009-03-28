@@ -2,6 +2,7 @@
 #.H2 Synopsis
 #.PRE
 #echo Goal | gawk -f story.awk [ -v Grammar=FILE ] [ -v Seed=NUMBER ] 
+#echo Goal | gawk -f storyp.awk [ -v Grammar=FILE ] [ -v Seed=NUMBER ] 
 #./PRE
 #.H2 Download
 #.P
