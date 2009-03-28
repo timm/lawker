@@ -13,7 +13,7 @@
 #.H3 A Short Example
 #.P 
 # This grammar..
-#.IN eg/english.rules
+#.CODE eg/english.rules
 # ... and this input ...
 #echo Sentence | gawk -f ../story.awk -v Grammar=english.rules 
 #./PRE
