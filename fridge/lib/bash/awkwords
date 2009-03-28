@@ -5,8 +5,15 @@
 #.P       <b>awkwords</b> file > file.html  
 
 #.H2   Download
-#.P       Awkwords can be installed by downlading a single bash script (that contains in-line awk functions).
-#         Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords.awk">LAWKER</a>.
+#.P        This code requires gawk and bash. To download:
+#.PRE
+#wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
+#chmod +x awkwords
+#./PRE
+#.P     To test the code, apply it to itself:
+#.UL
+#.LI       ./awkwords --title "Does this work?" awkwords  > awkwards.html</em>
+#./UL
 #
 #.H2   Description
 #.P       
@@ -61,16 +68,6 @@
 #.DT       #.BODY file
 #.DD       This line is  replaced  by <em>file</em>, less the lines before the first blank line.
 #./DL
-#./UL
-#.H2   Installation
-#.P        This code requires gawk and bash.
-#.PRE
-#wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
-#chmod +x awkwords
-#./PRE
-#.P     To test the code, apply it to itself:
-#.UL
-#.LI       ./awkwords --title "Does this work?" awkwords  > awkwards.html</em>
 #./UL
 #.H2 Programmer's Guide
 #.P

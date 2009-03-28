@@ -7,16 +7,15 @@
 <h3><font color=black>&bull;</font></a> <a href=#4>Extra Markup</a></h3>
 <h4><font color=black>&bull;</font></a> <a href=#5>Short cuts for HTML</a></h4>
 <h4><font color=black>&bull;</font></a> <a href=#6>Including nested content:</a></h4>
-<h2><font color=black>&bull;</font></a> <a href=#7>Installation</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#8>Programmer's Guide</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#9>Functions</a></h3>
-<h4><font color=black>&bull;</font></a> <a href=#10>unhtml</a></h4>
-<h4><font color=black>&bull;</font></a> <a href=#11>toc</a></h4>
-<h4><font color=black>&bull;</font></a> <a href=#12>includes</a></h4>
-<h3><font color=black>&bull;</font></a> <a href=#13>CSS styles</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#14>Main command line</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#15>Bugs</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#16>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#7>Programmer's Guide</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#8>Functions</a></h3>
+<h4><font color=black>&bull;</font></a> <a href=#9>unhtml</a></h4>
+<h4><font color=black>&bull;</font></a> <a href=#10>toc</a></h4>
+<h4><font color=black>&bull;</font></a> <a href=#11>includes</a></h4>
+<h3><font color=black>&bull;</font></a> <a href=#12>CSS styles</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#13>Main command line</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#14>Bugs</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#15>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 
@@ -25,8 +24,15 @@
 <P> <b>awkwords</b> file > file.html</P>
 
 <a name=2></a><H2> Download</H2>
-<P> Awkwords can be installed by downlading a single bash script (that contains in-line awk functions).</P>
-         Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords.awk">LAWKER</a>.
+<P> This code requires gawk and bash. To download:</P>
+<PRE>
+wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
+chmod +x awkwords
+</PRE>
+<P> To test the code, apply it to itself:</P>
+<UL>
+<LI> ./awkwords --title "Does this work?" awkwords > awkwards.html</em></LI>
+</UL>
 
 <a name=3></a><H2> Description</H2>
 <P>
@@ -82,24 +88,14 @@
 <DD> This line is replaced by <em>file</em>, less the lines before the first blank line.</DD>
 </DL>
 </UL>
-<a name=7></a><H2> Installation</H2>
-<P> This code requires gawk and bash.</P>
-<PRE>
-wget  http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords
-chmod +x awkwords
-</PRE>
-<P> To test the code, apply it to itself:</P>
-<UL>
-<LI> ./awkwords --title "Does this work?" awkwords > awkwards.html</em></LI>
-</UL>
-<a name=8></a><H2> Programmer's Guide</H2>
+<a name=7></a><H2> Programmer's Guide</H2>
 <P>
         Awkwords is divided into three functions: 
            <em>unhtml</em> fixes the printing of pre-formatted blocks;
            <em>toc</em> adds the table of contents while
           <em>includes</em> handles the details of the extra mark-up.
-<a name=9></a><H3> Functions</H3>
-<a name=10></a><H4> unhtml</H4>
+<a name=8></a><H3> Functions</H3>
+<a name=9></a><H4> unhtml</H4>
 <PRE>
 unhtml() { cat $1| gawk '
   BEGIN {IGNORECASE=1}
@@ -109,7 +105,7 @@ unhtml() { cat $1| gawk '
              {print $0 }'
 }
 </PRE>
-<a name=11></a><H4> toc</H4>
+<a name=10></a><H4> toc</H4>
 <PRE>
 toc() { cat $1 | gawk '
  BEGIN             { IGNORECASE = 1 }
@@ -132,7 +128,7 @@ toc() { cat $1 | gawk '
      }'
 }
 </PRE>
-<a name=12></a><H4> includes</H4>
+<a name=11></a><H4> includes</H4>
 <P> The <em>xpand</em> function controls recursive inclusion of content. Note that</P>
 <UL>
 <LI> The last act of this function must be to call <em>xpand1</em>.</LI>
@@ -213,7 +209,7 @@ BEGIN { IGNORECASE=1 }
       { xpand()      }'
 }
 </PRE>
-<a name=13></a><H3> CSS styles</H3>
+<a name=12></a><H3> CSS styles</H3>
 <P>
     If used to generate a full web page, then the following styles are added.
     Note that the <em>htmltoc</em> class controls the appearance of the table of contents.
@@ -237,7 +233,7 @@ css() {
 EOF
 }
 </PRE>
-<a name=14></a><H3> Main command line</H3>
+<a name=13></a><H3> Main command line</H3>
 <PRE>
 main() { cat $1 | includes | unhtml | toc; }
 
@@ -251,7 +247,7 @@ else
      main $1
 fi 
 </PRE>
-<a name=15></a><H2> Bugs</H2>
+<a name=14></a><H2> Bugs</H2>
 <P> There's no checking for valid input (e.g. pre-formatting tags that never close).</P>
 <P> If the input file contains no html mark up, the results are pretty messy.</P>
 <P> Recursive includes fail silently if the referenced file does not exist.</P>
@@ -259,6 +255,6 @@ fi
   I don't like the way I need a seperate pass to do "unhtml". I tried making it work
   within the code but it got messy.
 
-<a name=16></a><H2> Author</H2>
+<a name=15></a><H2> Author</H2>
 <a href="http://awk.info/?who/timm">Tim Menzies</a>
 </div><!--- htmlbody --->
