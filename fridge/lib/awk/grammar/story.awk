@@ -22,7 +22,7 @@
 #each production. 
 #.H2 Options
 #.DL
-#.DT -v Grammer=FILE
+#.DT -v Grammar=FILE
 #.DD Sets the FILE containing the productions. Defaults to "grammar".
 #.DT -v Seed=NUM
 #.DD 
@@ -39,7 +39,7 @@
 # ... generates these sentences:
 #.LISTING eg/english.out
 #.H3 A Longer Example
-#.P Here is the standard sci-fi story generator ...
+#.P Here is <a href="http://www.gahanwilson.com/moviegen11.htm">Gahan Wilson</a>'s sci-fi plot generator ...
 #<center>
 #<a href="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
 #<img border=1 width=500 src="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
@@ -108,8 +108,8 @@ function gen(sym,    i, j) {
 # book "The AWK Programming Language",
 #Addison-Wesley, 1988. 
 #.P
-#The scifi grammar was written by Tim Menzies, 2009, based on 
-#one from 
-#"The Science Fiction Horror Movie Pocket Computer" by Gahan Wilson,
+#The scifi grammar was written by Tim Menzies, 2009, and is based on 
+#<a href="http://www.gahanwilson.com/moviegen11.htm">Gahan Wilson</a>'s sci-fi plot generator: 
+#"The Science Fiction Horror Movie Pocket Computer" 
 #( in "The Year's Best Science Fiction No. 5", edited by
 #Harry Harrison and Brian Aldiss, Sphere, London, 1972).
