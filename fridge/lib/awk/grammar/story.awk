@@ -25,7 +25,7 @@
 #.P Here is the standard sci-fi story generator ...
 #<center>
 #<a href="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
-#<img width=500 src="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
+#<img border=1 width=500 src="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
 #</a>
 #</center>
 #.P
