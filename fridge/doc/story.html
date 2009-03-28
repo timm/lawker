@@ -37,6 +37,8 @@ the boy runs very slowly
 </center>
 <P>
 Using the above, we can generate the following stories:
+<p>eg/story.out
+<pre>
 
  Earth scientists invent giant bugs who want Our Women,  And Take
  A Few And Leave
@@ -65,8 +67,11 @@ Using the above, we can generate the following stories:
  Earth is Struck By A Giant comet but Is Saved
 
  Earth is Struck By A Giant comet and Is Destroyed
+</pre>
 <P>
 This is generated from the following grammar:
+<p>eg/scifi.rules
+<pre>
 Start      -> Earth IsStressed
 IsStressed -> Catestrophes 
 IsStressed -> Science 
@@ -193,6 +198,7 @@ Ending -> andTheyLeave
 Ending -> andTheyTurnIntoDisgustingLumps
 
 HappyEnding -> andTheyGetMarriedAndLiveHappilyForeverAfter
+</pre>
 <a name=5></a><H2> Code</H2>
 <PRE>
 BEGIN { 

@@ -27,10 +27,10 @@
 #</center>
 #.P
 #Using the above, we can generate the following stories:
-#.IN eg/story.out
+#.CODE eg/story.out
 #.P
 #This is generated from the following grammar:
-#.IN eg/scifi.rules
+#.CODE eg/scifi.rules
 #.H2 Code
 #.PRE
 BEGIN { 
