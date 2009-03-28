@@ -46,7 +46,7 @@
 #</center>
 #.P
 #Using the above, we can generate the following stories:
-#.CODE eg/story.out
+#.LISTING eg/story.out
 #.P
 #This is generated from the following code:
 #.LISTING eg/story
@@ -97,7 +97,7 @@ function gen(sym,    i, j) {
 #./PRE
 #.H3 Storyp.awk
 #.P
-#Storyp.awk is almost the same as story.awk but it is assumed that each line ends in a number
+# Storyp.awk is almost the same as story.awk but it is assumed that each line ends in a number
 # that will bias how often that production gets selected.
 #.LISTING storyp.awk
 #.H2 Author
