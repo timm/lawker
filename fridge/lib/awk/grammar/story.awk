@@ -1,7 +1,7 @@
 #.H1 Story Generation
 #.H2 Synopsis
 #.PRE
-#echo Goal | gawk -f storyp.awk -v Grammar 
+#echo Goal | gawk -f story.awk -v Grammar 
 #./PRE
 #.H2 Download
 #.P
