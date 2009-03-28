@@ -26,10 +26,14 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/dsl/awkplusplus.html\
 	    $(Doc)/dsl/graph.html \
 	    $(Doc)/gender.html \
-    	$(Doc)/awk100/spell.html 
+    	$(Doc)/awk100/spell.html \
+    	$(Doc)/story.html 
 
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
+    	
+$(Doc)/story.html : $(Awklib)/grammar/story.awk 
+	cd $(Awklib) && $(Awk2Html)
 	    
 $(Doc)/tools/m1.html : $(Awklib)/m1.awk
 	cd $(Awklib) && $(Awk2Html)

@@ -1,3 +1,38 @@
+#.H1 Story Generation
+#.H2 Synopsis
+#.PRE
+#echo Goal | gawk -f storyp.awk -v Grammar 
+#./PRE
+#.H2 Download
+#.P
+#Download from
+#.URL http://lawker.googlecode.com/svn/fridge/lib/bash/story/ LAWKER.
+#.P
+#This code inputs a set of productions 
+#and outputs a string of words that satisfy the production rules.
+#.H3 A Short Example
+#.P This input ...
+#echo Sentence | gawk -f ../story.awk -v Grammar=english.rules 
+#./PRE
+# ... generates this sentence
+#.PRE
+#the boy runs very slowly
+#./PRE
+#.H3 A Longer Example
+#.P Here is the standard sci-fi story generator ...
+#<center>
+#<a href="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
+#<img wdith=400 src="http://lawker.googlecode.com/svn/fridge/share/img/movie_generator.gif">
+#</a>
+#</center>
+#.P
+#Using the above, we can generate the following stories:
+#.IN eg/story.out
+#.P
+#This is generated from the following grammar:
+#.IN eg/scifi.rules
+#.H2 Code
+#.PRE
 BEGIN { 
     srand(Seed ? Seed : 1) 
 	Grammar = Grammar ? Grammar : "grammar"
@@ -26,3 +61,12 @@ function gen(sym,    i, j) {
         gsub(/[A-Z]/," &",sym)
         printf("%s ", sym) }
 }
+#./PRE
+#.H2 Author
+#.P
+#The code comes from 
+#Alfred Aho, Brian  Kernighan, and Peter  Weinberger from the 
+# book "The AWK Programming Language",
+#Addison-Wesley, 1988. 
+#.P
+#The scifi grammar was written by Tim Menzies.
