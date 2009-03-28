@@ -1,3 +1,38 @@
+#.H1 Story Generation
+#.H2 Synopsis
+#.PRE
+#echo Goal | gawk -f storyp.awk -v Grammar 
+#./PRE
+#.H2 Download
+#.P
+#Download from
+#.URL http://lawker.googlecode.com/svn/fridge/lib/bash/story/ LAWKER.
+#.P
+#This code inputs a set of productions 
+#and outputs a string of words in accordance with probabilities
+#associated with each production.
+#.H3 Short Example
+#In the following grammar:
+#.UL
+#.LI
+#Noun phrases with "the girl" are three times less likely than noun phrases with "the boy"; 
+#.LI
+#The Verb "runs" is nine times more likely thatn "walks"; 
+#.LI
+#"Modlists" are empty half the time;
+#.LI
+#The Adverb "slowly" is nine times more likely than "quickly".
+#./UL
+#.IN eg/englishp.rules
+#.P 
+#This can be called ten times, looking for a sentence, as follows:
+#.PRE
+#for((i=1;i<=10;i++)); do echo Sentence ;  done |
+#gawk -f ../storyp.awk -v Grammar=englishp.rules #./PRE
+#./PRE
+#.IN eg/englishp
+#.H2 Code
+#.PRE
 BEGIN {
     srand(Seed ? Seed : 1) 
     Grammar = Grammar ? Grammar : "grammar"
@@ -19,8 +54,7 @@ BEGIN {
          printf("\n")
      } else 
          print "unknown nonterminal: " $0   
- }
-
+}
 function gen(sym,    i, j) {
     if (sym in lhs) {       # a nonterminal
         j = rand()          # random production
@@ -30,4 +64,4 @@ function gen(sym,    i, j) {
     } else
         printf("%s ", sym)
 }
-
+#./PRE
