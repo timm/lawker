@@ -32,7 +32,16 @@
 #Using the above, we can generate the following stories:
 #.CODE eg/story.out
 #.P
-#This is generated from the following grammar:
+#This is generated from the following code:
+#.PRE
+#for i in 1 2 3 4 5 6 7 8 9 10;do
+#	echo
+#	echo Start | 
+#	gawk -f ../story.awk -v Grammar=scifi.rules -v Seed=$i | 
+#	fmt
+#done
+#./PRE
+#.P running on the following grammar:
 #.CODE eg/scifi.rules
 #.H2 Code
 #.PRE

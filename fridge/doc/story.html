@@ -84,7 +84,16 @@ Using the above, we can generate the following stories:
  Earth is Struck By A Giant comet and Is Destroyed
 </pre>
 <P>
-This is generated from the following grammar:
+This is generated from the following code:
+<PRE>
+for i in 1 2 3 4 5 6 7 8 9 10;do
+	echo
+	echo Start | 
+	gawk -f ../story.awk -v Grammar=scifi.rules -v Seed=$i | 
+	fmt
+done
+</PRE>
+<P> running on the following grammar:</P>
 <p>eg/scifi.rules
 <pre>
 Start      -> Earth IsStressed
