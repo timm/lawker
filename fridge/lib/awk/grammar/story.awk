@@ -6,7 +6,7 @@
 #.H2 Download
 #.P
 #Download from
-#.URL http://lawker.googlecode.com/svn/fridge/lib/bash/story/ LAWKER.
+#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/story.awk LAWKER.
 #.P
 #This code inputs a set of productions 
 #and outputs a string of words that satisfy the production rules.
@@ -69,4 +69,8 @@ function gen(sym,    i, j) {
 # book "The AWK Programming Language",
 #Addison-Wesley, 1988. 
 #.P
-#The scifi grammar was written by Tim Menzies.
+#The scifi grammar was written by Tim Menzies, 2009, based on 
+#one from 
+#"The Science Fiction Horror Movie Pocket Computer" by Gahan Wilson,
+#( in "The Year's Best Science Fiction No. 5", edited by
+#Harry Harrison and Brian Aldiss, Sphere, London, 1972).
