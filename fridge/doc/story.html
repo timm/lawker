@@ -28,7 +28,7 @@ and outputs a string of words that satisfy the production rules.
 This page describes two versions of that system: 
 <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/story.awk">story.awk</a>
 and
-<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/storyp.awk">storyp.awk>/a>.
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/storyp.awk">storyp.awk</a>.
 The former selects productions at random with equal probability. The latter
 allows the user to bias the selection by adding weights at the end  of line, after
 each production. 
@@ -58,12 +58,27 @@ Adverb -> quickly
 Adverb -> slowly           
 </pre>
  ... and this input ...
-echo Sentence | gawk -f ../story.awk -v Grammar=english.rules 
-</PRE>
+<pre>
+for i in 1 2 3 4 5 6 7 8 9 10;do
+	echo Sentence | 
+	gawk -f ../story.awk -v Grammar=english.rules -v Seed=$i | 
+	fmt
+done
+
+</pre>
  ... generates this sentence:
-<PRE>
+<pre>
 the boy runs very slowly
-</PRE>
+the girl runs slowly
+the boy runs very slowly
+the girl walks very very quickly
+the boy runs quickly
+the girl walks very very slowly
+the boy walks very very very very very very quickly
+the boy walks very quickly
+the girl runs slowly
+the girl runs very quickly
+</pre>
 <a name=7></a><H3> A Longer Example</H3>
 <P> Here is the standard sci-fi story generator ...</P>
 <center>

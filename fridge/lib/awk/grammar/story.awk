@@ -15,7 +15,7 @@
 #This page describes two versions of that system: 
 #<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/story.awk">story.awk</a>
 #and
-#<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/storyp.awk">storyp.awk>/a>.
+#<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/storyp.awk">storyp.awk</a>.
 #The former selects productions at random with equal probability. The latter
 #allows the user to bias the selection by adding weights at the end  of line, after
 #each production. 
@@ -34,12 +34,9 @@
 # This grammar..
 #.LISTING eg/english.rules
 # ... and this input ...
-#echo Sentence | gawk -f ../story.awk -v Grammar=english.rules 
-#./PRE
+#.LISTING eg/english
 # ... generates this sentence:
-#.PRE
-#the boy runs very slowly
-#./PRE
+#.LISTING eg/english.out
 #.H3 A Longer Example
 #.P Here is the standard sci-fi story generator ...
 #<center>
