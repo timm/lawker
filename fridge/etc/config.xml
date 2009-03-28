@@ -289,6 +289,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/story.html">
+		<title>Writing SciFi</title>
+		<what>Top10</what>
+		<what>TenLiners</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>BrianK</what>
+	</file>
 	<file where="doc/montyhall.html">
 		<title>Monty Hall Problem</title>
 		<what>TenLiners</what>

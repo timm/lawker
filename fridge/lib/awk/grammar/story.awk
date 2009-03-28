@@ -22,7 +22,7 @@
 #each production. 
 #.H2 Options
 #.DL
-#.DT -v Grammer=FILE ]
+#.DT -v Grammer=FILE
 #.DD Sets the FILE containing the productions. Defaults to "grammar".
 #.DT -v Seed=NUM
 #.DD 
