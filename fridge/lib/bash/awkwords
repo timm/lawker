@@ -4,6 +4,10 @@
 #.P       <b>awkwords</b> --title "Title" file > file.html  
 #.P       <b>awkwords</b> file > file.html  
 
+#.H2   Download
+#.P       Awkwords can be installed by downlading a single bash script (that contains in-line awk functions).
+#         Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/bash/awkwords.awk">LAWKER</a>.
+#
 #.H2   Description
 #.P       
 #        AwkWords is  a simple-to-use markup language  
@@ -50,8 +54,10 @@
 #.DL
 #.DT       #.IN file
 #.DD       This line is  replaced by the contents of <em>file</em>.
+#.DT       #.LISTING file
+#.DD       This line is  replaced by the name of the file, followed by a verbatbim displau of <em>file</em> (no formatting).
 #.DT       #.CODE file
-#.DD       This line is  replaced by the verbatbim of <em>file</em> (no formatting).
+#.DD       This line is  replaced by the name of the file, followed verbatbim by <em>file</em> (no formatting).
 #.DT       #.BODY file
 #.DD       This line is  replaced  by <em>file</em>, less the lines before the first blank line.
 #./DL
@@ -119,6 +125,10 @@ includes() { cat $1 | gawk '
 function xpand(pre,  tmp) {
    if      ($1 ~ "^#.IN")    xpands($2,pre) 
    else if ($1 ~ "^#.BODY" ) xpandsBody($2,pre)
+   else if ($1 ~ "^#.LISTING")  {
+  	    print "<" "pre>"
+	    xpands($2,1)     # <===== note the recursive call with "1"
+	    print "<" "/pre>" } 
    else if ($1 ~ "^#.CODE")  {
   	    print "<" "p>" $2 "\n<" "pre>"
 	    xpands($2,1)     # <===== note the recursive call with "1"

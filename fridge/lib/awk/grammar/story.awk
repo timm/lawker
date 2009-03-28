@@ -1,19 +1,38 @@
-#.H1 Story Generation
+#.H1 Story.awk
 #.H2 Synopsis
 #.PRE
-#echo Goal | gawk -f story.awk -v Grammar 
+#echo Goal | gawk -f story.awk [ -v Grammar=FILE ] [ -v Seed=NUMBER ] 
 #./PRE
 #.H2 Download
 #.P
 #Download from
-#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/story.awk LAWKER.
+#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/grammar LAWKER.
+#.H2 Description
 #.P
 #This code inputs a set of productions 
 #and outputs a string of words that satisfy the production rules.
+#.P
+#This page describes two versions of that system: 
+#<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/story.awk">story.awk</a>
+#and
+#<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/grammar/storyp.awk">storyp.awk>/a>.
+#The former selects productions at random with equal probability. The latter
+#allows the user to bias the selection by adding weights at the end  of line, after
+#each production. 
+#.H2 Options
+#.DL
+#.DT -v Grammer=FILE ]
+#.DD Sets the FILE containing the productions. Defaults to "grammar".
+#.DT -v Seed=NUM
+#.DD 
+# Sets the seed for the random number generator. Defaults to "1". 
+#A useful idiom for generating random text is to use <em> Seed=$RANDOM</em>
+#./DL
+#.H2 Examples
 #.H3 A Short Example
 #.P 
 # This grammar..
-#.CODE eg/english.rules
+#.LISTING eg/english.rules
 # ... and this input ...
 #echo Sentence | gawk -f ../story.awk -v Grammar=english.rules 
 #./PRE
