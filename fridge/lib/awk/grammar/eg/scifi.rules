@@ -1,0 +1,126 @@
+Start      -> Earth IsStressed
+IsStressed -> Catestrophes 
+IsStressed -> Science 
+IsStressed -> Attack 
+IsStressed -> Collision
+
+Catestrophes -> Catestrophe and PossibleMegaDeath
+
+Catestrophe -> burnsUp 
+Catestrophe -> freezes
+Catestrophe -> fallsIntoSun
+
+Collision -> isStruckByAGiant Floater AndThen
+
+Floater -> comet
+Floater -> asteroid
+Floater -> cloud
+
+AndThen -> butIsSaved
+AndThen -> andIsDestroyed
+AndThen -> andMagicallySaved
+
+
+PossibleMegaDeath -> everybodyDies
+PossibleMegaDeath -> Some GoOn 
+
+SomeSaved ->  somePeople
+SomeSaved ->  everybody
+SomeSaved ->  almostEverybody
+  
+GoOn -> dies
+GoOn -> Resuced
+GoOn -> Saved
+ 
+Rescued -> isRescuedBy Sizes Extraterestrial Beings
+Saved   -> butIsSavedBy SomeOne scientists the  Science
+
+SomeOne -> earth
+SomeOne -> extraterestrial
+
+Science -> scientists DoSomething Sizes Beings Whichetc
+
+DoSomething -> invent
+DoSomething -> discover
+
+Attack -> isAttackedBy Sizes Extraterestrial Beings Whichetc
+
+Sizes -> tiny 
+Sizes -> giant 
+Sizes -> enormous
+ 
+Extraterestrial -> martian
+Extraterestrial -> lunar
+Extraterestrial -> extraGalactic
+
+Beings -> bugs
+Beings -> reptiles
+Beings -> blobs
+Beings -> superbeings
+
+Whichetc -> who WantSomething
+
+WantSomething -> WantWomen
+WantSomething -> areFriendly  and DenoumentOrHappyEnding
+WantSomething -> UnderStand ButEtc
+
+Understand -> areFriendly butMisunderstood
+Understand -> misunderstandUs
+Understand -> understandUsAllTooWell
+Understand -> hungry
+
+DenoumentOrHappyEnding -> Denoument
+DenoumentOrHappyEnding -> HappyEnding
+ 
+Dine -> Hungry and eat us Denoument?
+
+WhichEtc -> 
+Hungry -> lookUponUsAsASourceOfNourishment
+
+WantWomen -> wantOurWomen, AndTakeAFewAndLeave
+
+ButEtc -> AndAre radioactive and TryToKill
+
+AndAre -> andAre
+AndAre -> andAreNot
+
+Killers -> Killer 
+Killers -> Killer and Killer
+
+Killer -> aCrowdOfPeasants
+Killer -> theArmy
+Killer -> theNavy
+Killer -> theAirForce
+Killer -> theMarines
+Killer -> theCoastGuard
+Killer -> theAtomBomb
+
+TryToKill -> can be killed by Killers
+TryToKill -> can not be killed by Killers SoEtc
+
+SoEtc -> butTheyDieFromCatchingACold
+SoEtc -> soTheyKillUs
+SoEtc -> soTheyPutUsUnderABenignDictatorShip
+SoEtc -> soTheyEatUs
+SoEtc -> soScientistsInventAWeapon Which
+SeEtc -> but Denoument
+
+Which -> whichTurnsThemIntoDisgustingLumps
+Which -> whichKillsThem
+Which -> whichFails SoEtc
+
+Denomument? ->  
+Denomument? -> Denoument  
+
+Denoument ->  aCuteLittleKidConvincesThemPeopleAreOk Ending
+Denoument -> aPriestTalksToThemOfGod Ending
+Denoument -> theyFallInLoveWithThisBeautifulGirl EndSadOrHappy
+
+EndSadOrHappy -> Ending
+EndSadOrHappy -> HappyEnding
+
+Ending -> andTheyDie
+Ending -> andTheyLeave
+Ending -> andTheyTurnIntoDisgustingLumps
+
+HappyEnding -> andTheyGetMarriedAndLiveHappilyForeverAfter
