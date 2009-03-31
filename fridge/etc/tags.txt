@@ -35,7 +35,6 @@ doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk
 doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
 
 doc/tip/superFor.html		;ArnoldR	;2009	;Mar	;Tips	;Funky	;|Super-For loops
-doc/tip/multiLineComment.html		;ArnoldR	;2009	;Mar	;Tips	;Comments	;|Multi-line comments
 doc/tip/getline.html		;Ed	;2009	;Jan	;Tips	;Getline	;|Getline
 doc/tip/noforloops.html		;Jimh	;2009	;Jan	;Tips	;Forloop	;|Forloops
 

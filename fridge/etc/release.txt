@@ -7,46 +7,59 @@ stop gaps:
 	- saya
 	- batchrunner
 
-222222222222222222222
-- awk100: m1
-- fun: story generation
-- kenrignham releases code from the awk book
-- robbins: superforloops: a application for functional gawk?
-   - http://groups.google.com/group/comp.lang.awk/browse_thread/thread/71accc0576ce615e/93ecc51686ddffad?lnk=gst&q=super#93ecc51686ddffad
-- robbins: multi-line comments
-
-- next section on macro languages
-- m1
-- m4
-- 2 macro languages (m1 from jon bentley and a cool variant called m5)
-
 3333333333333333333
 - awk100: awk-linux  a very cool tool for instrumenting programs to be used in
 an operating systems subject.  awk is used cause it is platform
 independent. this was the basis of a 2008 ieee trans on education
 paper.
 
-- fun: my bayes trick
-
-- new section on postscript manipulation tools
-- robbin's postscript tools
+- fun: robbins: ninety nine bottls of beer
+- towers of hanoi
+- new section on mail filters with awk
+	- robbins: processing mail with awk
+	- http://www.tc.umn.edu/~hause011/article/Statistical_spam_filter.html
 
 4444444444444444444
 - awk100: awf nroff in awk
-- robbins: processing mail with awk
-- fun: eliza.awk
-- next section on awk word-processors (markdown, awkwords, nroff in awk
+- next section on awk word-processors (markdown, awkwords, nroff in awk)
+- Even more fun with cal and GeekTool 
+    http://www.macosxhints.com/article.php?story=20040625094428394
+-fun mind reading machine in awk
+- sed variants
+	- sed2awk
+	- robbins: http://www.gnu.org/software/gawk/manual/gawk.html 13.3.8
 
 5555555555555555555
 - awk100:   ronold lou's soccer game
-- fun: robbins: ninety nine bottls of beer
+- fun: eliza.awk
+
+- new section on postscript manipulation tools
+	- robbin's postscript tools
+
+ - bash formatter
+      http://mail.google.com/mail/#label/awk.info/1201bb25d80abedd
 
 66666666666666666
 - awk100: the amazing awk assembler
 - new section on awk interpreters (awk assembler, awklisp)
+- quick sort in awk
+
 
 77777777777777777777
 - akw100 oo in ansi "C" awk packages. axel schreiner
+- new section on operating ssytems and awk (awk linux) and 
+	http://www.icir.org/tfrc/sims1.html
+	awk-linux
+
+- awk for databases
+  http://victor-notes.com/qppro/awk.html
+
+888888888888888888
+
+code testing: kernighan
+spread sheet access: http://www.freakout.de/mc.htm#Piping
+eiso's awk scrits- if i understood what they did
+- fun: my bayes trick
 
 ===================
 because it jsut doesn't matter
@@ -87,6 +100,10 @@ because i do a lot of data mining and i keep finding that simple bayes
 approaches consistently do better than anything else- and bayes is a snap in awk (see awk)
 
 ----------------
+becasue it drives yu to the core.
+no time lost nterfacing to complex libraries. no clear data structure design. just do it.
+
+
 our software development processes are too complex since we don't acknowledge the following fact. usually,
 we dont know what we are doing. software development isn't some mathematical process of translating
 requirements into an executable, then testing that executable against the requiremetns. instead,

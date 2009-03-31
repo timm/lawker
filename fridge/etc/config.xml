@@ -375,14 +375,6 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>ArnoldR</what>
 	</file>
-	<file where="doc/tip/multiLineComment.html">
-		<title>Multi-line comments</title>
-		<what>Comments</what>
-		<what>Tips</what>
-		<what>Mar</what>
-		<what>2009</what>
-		<what>ArnoldR</what>
-	</file>
 	<file where="doc/tip/getline.html">
 		<title>Getline</title>
 		<what>Getline</what>
