@@ -12,9 +12,10 @@
 #-n
 #.DT
 #Number of disks, defaults to 5.
+#./DL
 #.PRE
+#.H2 Example
 #gawk -f hanoi.awk -n 4
-#.PRE
 #0 4321
 #1 
 #2 
