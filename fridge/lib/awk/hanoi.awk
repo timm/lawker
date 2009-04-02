@@ -80,8 +80,6 @@
 #1 4321
 #2 
 #./PRE
-#.DD
-#./DL
 #.H2 Details
 #.H3 Globals
 #.DL
