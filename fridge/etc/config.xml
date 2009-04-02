@@ -312,6 +312,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>ScottP</what>
 	</file>
+	<file where="doc/hanoi.html">
+		<title>Towers of Hanoi</title>
+		<what>TenLiners</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>AlanL</what>
+	</file>
 	<file where="doc/dsl.html">
 		<title>Domain-Specific Langauges</title>
 		<what>Dsl</what>
