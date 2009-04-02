@@ -27,6 +27,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/dsl/graph.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html \
+    	$(Doc)/hanoi.html \
     	$(Doc)/story.html 
 
 awkpp :  
@@ -34,6 +35,9 @@ awkpp :
     	
 $(Doc)/story.html : $(Awklib)/grammar/story.awk 
 	cd $(Awklib)/grammar && $(Awk2Html)
+	    
+$(Doc)/hanoi.html : $(Awklib)/hanoi.awk
+	cd $(Awklib) && $(Awk2Html)
 	    
 $(Doc)/tools/m1.html : $(Awklib)/m1.awk
 	cd $(Awklib) && $(Awk2Html)
