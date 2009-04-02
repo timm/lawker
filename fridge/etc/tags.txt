@@ -86,3 +86,6 @@ doc/textmining.html				;Timm	;2009	;Mar	;TextMining	;|Text Mining
 doc/textmine/languageAnalysis.html		;LotharS	;2009	;Mar	;TextMining	;|Language Analysis
 doc/textmine/severis.html		;Timm	;2009	;Mar	;TextMining	;|Issue report mining
 doc/textmine/textmunge.html		;DonaldM	;2009	;Mar	;TextMining	;|Text Munging
+
+
+doc/99bottles.html		;ArnoldR; OsamuA; WilhelmW 	;2009	;Apr	|99 bottles of beer

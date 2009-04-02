@@ -701,5 +701,12 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>DonaldM</what>
 	</file>
+	<file where="doc/99bottles.html">
+		<what>Apr	|99 bottles of beer</what>
+		<what>2009</what>
+		<what>WilhelmW</what>
+		<what>OsamuA</what>
+		<what>ArnoldR</what>
+	</file>
   </files>
 </things>
