@@ -91,7 +91,7 @@
 #stack[i,j] 
 #.DD
 # value of stack i at position j
-#.DL
+#./DL
 #.H3 Code
 #.P Main:
 #.PRE
