@@ -1,0 +1,119 @@
+<h1><join>99 Bottles of Beer</join></h1>
+<p>You know the song:
+<ul>
+<em><p>99 bottles of beer on the wall, 99 bottles of beer.
+Take one down and pass it around, 98 bottles of beer on the wall.
+<p>
+98 bottles of beer on the wall, 98 bottles of beer.
+Take one down and pass it around, 97 bottles of beer on the wall.
+<p>
+97 bottles of beer on the wall, 97 bottles of beer.
+Take one down and pass it around, 96 bottles of beer on the wall.
+<p>
+....
+</em>
+</ul>
+<p>But how do you code it?  	Here's 
+<a href="http://www.faert.de">Wilhelm Weske</a>'s version.
+It is kind of fun but its a little hard to read: 
+<pre>
+#!/usr/bin/awk -f
+
+        BEGIN{
+       split( \
+       "no mo"\
+       "rexxN"\
+       "o mor"\
+       "exsxx"\
+       "Take "\
+      "one dow"\
+     "n and pas"\
+    "s it around"\
+   ", xGo to the "\
+  "store and buy s"\
+  "ome more, x bot"\
+  "tlex of beerx o"\
+  "n the wall" , s,\
+  "x"); for( i=99 ;\
+  i>=0; i--){ s[0]=\
+  s[2] = i ; print \
+  s[2 + !(i) ] s[8]\
+  s[4+ !(i-1)] s[9]\
+  s[10]", " s[!(i)]\
+  s[8] s[4+ !(i-1)]\
+  s[9]".";i?s[0]--:\
+  s[0] = 99; print \
+  s[6+!i]s[!(s[0])]\
+  s[8] s[4 +!(i-2)]\
+  s[9]s[10] ".\n";}}
+</pre>
+<p><a href="http://people.debian.org/~osamu">Osamu Aoki</a> has a more maintainable version. Note
+how all the screen I/O is localized via functions that return strings, rather than printing
+straight to the screen. This is <em>very</em> useful for maintaince purposes or including
+code as libraries into other Awk programs.
+<pre>
+BEGIN { 
+   for(i = 99; i >= 0; i--) {
+      print ubottle(i), "on the wall,", lbottle(i) "."
+      print action(i), lbottle(inext(i)), "on the wall."
+      print
+   }
+}
+function ubottle(n) {
+   return sprintf("%s bottle%s of beer", n ? n : "No more", n - 1 ? "s" : "")
+}
+function lbottle(n) {
+   return sprintf("%s bottle%s of beer", n ? n : "no more", n - 1 ? "s" : "")
+}
+function action(n) {
+   return sprintf("%s", n ? "Take one down and pass it around," : \
+                            "Go to the store and buy some more,")
+}
+function inext(n) {
+   return n ? n - 1 : 99
+}
+</Pre>
+<p>Osamu's version is very similar to how it'd be done in C or other languages and it
+does not  take full advantage of Awk's features.
+So
+Arnold Robbins wrote  a third  version that is more data driven.
+Most of the work is done in a
+pre-processor and the actual runtime just dumps text decided before
+the run. This solution might take more time (to do the setup) but it
+does allow for the simple switching of the interface (just change the
+last 10 lines).
+<pre>
+BEGIN {
+        # Setup
+        take = "Take one down, pass it around"
+        buy = "Go to the store and buy some more"
+
+        Instruction[0] = buy
+        Next[0] = 99
+        Count[0, 1] = "No more"
+        Count[0, 0] = "no more"
+
+        for (i = 99; i >= 1; i--) {
+                Instruction[i] = take
+                Next[i] = i - 1
+                Count[i, 0] = Count[i, 1] = (i "")
+                Bottles[i] = "bottles"
+        }
+        Bottles[1] = "bottle"
+        Bottles[0] = "bottles"
+        # Execution
+        for (i = 99; i >= 0; i--) {
+                printf("%s %s of beer on the wall, %s %s of beer.\n",
+                        Count[i, 1],
+                        Bottles[i],
+                        Count[i, 0],
+                        Bottles[i])
+                printf("%s, %s %s of beer on the wall.\n\n",
+                        Instruction[i],
+                        Count[Next[i], 0],
+                        Bottles[Next[i]])
+        }
+}
+</pre>
+<p>I'll drink to that.
+
