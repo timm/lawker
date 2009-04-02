@@ -5,7 +5,8 @@
 <h2><font color=black>&bull;</font></a> <a href=#2>Description</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#3>Options</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#4>Example</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Example</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -17,13 +18,13 @@ always putting a smaller disc on top of a larger one.
 or on an empty stack
 <a name=3></a><H2> Options</H2>
 <DL>
-<DD>
--n
 <DT>
+-n
+<DD>
 Number of disks, defaults to 5.
 </DL>
+<a name=4></a><H2> Example</H2>
 <PRE>
-&lt;H2> Example&lt;/H2>
 gawk -f hanoi.awk -n 4
 0 4321
 1 
@@ -91,7 +92,7 @@ gawk -f hanoi.awk -n 4
 </PRE>
 <DD>
 </DL>
-<a name=4></a><H2> Example</H2>
+<a name=5></a><H2> Example</H2>
 <PRE>
 gawk -f hanoi.awk -n 4
 <PRE>
@@ -219,7 +220,7 @@ function arg(tag,default) {
 function push(i,v) { stack[i,sp[i]++]=v }
 function pop(i)    { return stack[i,--sp[i]] }
 </PRE>
-<a name=5></a><H2> Author</H2>
+<a name=6></a><H2> Author</H2>
 <P>
 Alan Linton, 2001
 </div><!--- htmlbody --->

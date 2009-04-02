@@ -8,13 +8,13 @@
 #or on an empty stack
 #.H2 Options
 #.DL
-#.DD
-#-n
 #.DT
+#-n
+#.DD
 #Number of disks, defaults to 5.
 #./DL
-#.PRE
 #.H2 Example
+#.PRE
 #gawk -f hanoi.awk -n 4
 #0 4321
 #1 
