@@ -5,8 +5,10 @@
 <h2><font color=black>&bull;</font></a> <a href=#2>Description</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#3>Options</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#4>Example</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#5>Example</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Details</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#6>Globals</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>Code</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#8>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -92,87 +94,20 @@ gawk -f hanoi.awk -n 4
 </PRE>
 <DD>
 </DL>
-<a name=5></a><H2> Example</H2>
-<PRE>
-gawk -f hanoi.awk -n 4
-<PRE>
-0 4321
-1 
-2 
-
-0 432
-1 
-2 1
-
-0 43
-1 2
-2 1
-
-0 43
-1 21
-2 
-
-0 4
-1 21
-2 3
-
-0 41
-1 2
-2 3
-
-0 41
-1 
-2 32
-
-0 4
-1 
-2 321
-
-0 
-1 4
-2 321
-
-0 
-1 41
-2 32
-
-0 2
-1 41
-2 3
-
-0 21
-1 4
-2 3
-
-0 21
-1 43
-2 
-
-0 2
-1 43
-2 1
-
-0 
-1 432
-2 1
-
-0 
-1 4321
-2 
-&lt;/PRE#.H2> Details&lt;//PRE#.H2>
-&lt;H3> Globals&lt;/H3>
-&lt;DL>
-&lt;DT>
+<a name=5></a><H2> Details</H2>
+<a name=6></a><H3> Globals</H3>
+<DL>
+<DT>
  sp[i] 
-&lt;DD>
+<DD>
  stack pointer for the ith stack = next free space
-&lt;DT>
+<DT>
 stack[i,j] 
-&lt;DD>
+<DD>
  value of stack i at position j
-&lt;DL>
-&lt;H3> Code&lt;/H3>
-&lt;P> Main:&lt;/P>
+<DL>
+<a name=7></a><H3> Code</H3>
+<P> Main:</P>
 <PRE>
 BEGIN {
   n = arg("-n",5)
@@ -220,7 +155,7 @@ function arg(tag,default) {
 function push(i,v) { stack[i,sp[i]++]=v }
 function pop(i)    { return stack[i,--sp[i]] }
 </PRE>
-<a name=6></a><H2> Author</H2>
+<a name=8></a><H2> Author</H2>
 <P>
 Alan Linton, 2001
 </div><!--- htmlbody --->
