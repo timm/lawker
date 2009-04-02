@@ -583,9 +583,75 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
-	<file where="doc/awk100/001argcol.html">
-		<title>Argcol</title>
-		<what>Argcol</what>
+	<file where="doc/awk100/013awklinux.html">
+		<title>Awk-Linux</title>
+		<what>Top10</what>
+		<what>Awk100</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>YungC</what>
+	</file>
+	<file where="doc/awk100/spell.html">
+		<title>spell.awk</title>
+		<what>Top10</what>
+		<what>Awk100</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>NelsonB</what>
+		<what>ArnoldR</what>
+	</file>
+	<file where="doc/awk100/009yawk.html">
+		<title>Yawk</title>
+		<what>Yawk</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>WolfganZ</what>
+	</file>
+	<file where="doc/awk100/008awklisp.html">
+		<title>Awklisp</title>
+		<what>AwkLisp</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>DairusB</what>
+	</file>
+	<file where="doc/awk100/007name.html">
+		<title>Tex-to-bilingual Dictionary</title>
+		<what>Name</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>BillP</what>
+	</file>
+	<file where="doc/awk100/006boris.html">
+		<title>Fast Clustering</title>
+		<what>Top10</what>
+		<what>Boris</what>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2009</what>
+		<what>Ronl</what>
+	</file>
+	<file where="doc/awk100/005getYouTube.html">
+		<title>Get YouTube Vids</title>
+		<what>WWW</what>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>PeterK</what>
+	</file>
+	<file where="doc/awk100/004sudoku.html">
+		<title>Sudoku</title>
+		<what>Sudoku</what>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Jimh</what>
+	</file>
+	<file where="doc/awk100/003negotiate.html">
+		<title>Negotiate</title>
+		<what>Negotiate</what>
 		<what>Awk100</what>
 		<what>Jan</what>
 		<what>2009</what>
@@ -599,71 +665,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Ronl</what>
 	</file>
-	<file where="doc/awk100/003negotiate.html">
-		<title>Negotiate</title>
-		<what>Negotiate</what>
+	<file where="doc/awk100/001argcol.html">
+		<title>Argcol</title>
+		<what>Argcol</what>
 		<what>Awk100</what>
 		<what>Jan</what>
 		<what>2009</what>
 		<what>Ronl</what>
-	</file>
-	<file where="doc/awk100/004sudoku.html">
-		<title>Sudoku</title>
-		<what>Sudoku</what>
-		<what>Awk100</what>
-		<what>Jan</what>
-		<what>2009</what>
-		<what>Jimh</what>
-	</file>
-	<file where="doc/awk100/005getYouTube.html">
-		<title>Get YouTube Vids</title>
-		<what>WWW</what>
-		<what>Awk100</what>
-		<what>Jan</what>
-		<what>2009</what>
-		<what>PeterK</what>
-	</file>
-	<file where="doc/awk100/006boris.html">
-		<title>Fast Clustering</title>
-		<what>Top10</what>
-		<what>Boris</what>
-		<what>Awk100</what>
-		<what>Feb</what>
-		<what>2009</what>
-		<what>Ronl</what>
-	</file>
-	<file where="doc/awk100/007name.html">
-		<title>Tex-to-bilingual Dictionary</title>
-		<what>Name</what>
-		<what>Awk100</what>
-		<what>Feb</what>
-		<what>2009</what>
-		<what>BillP</what>
-	</file>
-	<file where="doc/awk100/008awklisp.html">
-		<title>Awklisp</title>
-		<what>AwkLisp</what>
-		<what>Awk100</what>
-		<what>Feb</what>
-		<what>2009</what>
-		<what>DairusB</what>
-	</file>
-	<file where="doc/awk100/009yawk.html">
-		<title>Yawk</title>
-		<what>Yawk</what>
-		<what>Awk100</what>
-		<what>Feb</what>
-		<what>2009</what>
-		<what>WolfganZ</what>
-	</file>
-	<file where="doc/awk100/spell.html">
-		<title>spell.awk</title>
-		<what>Top10</what>
-		<what>Awk100</what>
-		<what>Mar</what>
-		<what>2009</what>
-		<what>NelsonB</what>
-		<what>ArnoldR</what>
 	</file>
 	<file where="doc/textmining.html">
 		<title>Text Mining</title>
