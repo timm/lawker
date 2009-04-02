@@ -118,8 +118,6 @@ function move(i,j) {
   showstacks()
 }
 #./PRE
-#.P 
-#.PRE 
 #.P Showing the stack:
 #.PRE
 function showstacks(  i,j) {
