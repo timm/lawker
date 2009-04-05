@@ -716,5 +716,26 @@ pageTracker._trackPageview();
 		<what>OsamuA</what>
 		<what>ArnoldR</what>
 	</file>
+	<file where="doc/mail.html">
+		<title>Awk and Mail</title>
+		<what>Mail</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
+	<file where="doc/mailsort.html">
+		<title>Mail sort</title>
+		<what>Mail</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
+	</file>
+	<file where="doc/spam.html">
+		<title>Spam Filtering</title>
+		<what>Mail</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>StevenH</what>
+	</file>
   </files>
 </things>
