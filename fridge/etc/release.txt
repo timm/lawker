@@ -7,18 +7,6 @@ stop gaps:
 	- saya
 	- batchrunner
 
-3333333333333333333
-- awk100: awk-linux  a very cool tool for instrumenting programs to be used in
-an operating systems subject.  awk is used cause it is platform
-independent. this was the basis of a 2008 ieee trans on education
-paper.
-
-- fun: robbins: ninety nine bottls of beer
-- towers of hanoi
-- new section on mail filters with awk
-	- robbins: processing mail with awk
-	- http://www.tc.umn.edu/~hause011/article/Statistical_spam_filter.html
-
 4444444444444444444
 - awk100: awf nroff in awk
 - next section on awk word-processors (markdown, awkwords, nroff in awk)
@@ -28,6 +16,7 @@ paper.
 - sed variants
 	- sed2awk
 	- robbins: http://www.gnu.org/software/gawk/manual/gawk.html 13.3.8
+- new release of runawk
 
 5555555555555555555
 - awk100:   ronold lou's soccer game
@@ -38,12 +27,17 @@ paper.
 
  - bash formatter
       http://mail.google.com/mail/#label/awk.info/1201bb25d80abedd
+-tips: getting shell variables into awk. 
+	- config file	
+	- double quotes
+	- the '$' trick
 
 66666666666666666
 - awk100: the amazing awk assembler
 - new section on awk interpreters (awk assembler, awklisp)
 - quick sort in awk
 
+visual awk
 
 77777777777777777777
 - akw100 oo in ansi "C" awk packages. axel schreiner
@@ -54,6 +48,8 @@ paper.
 - awk for databases
   http://victor-notes.com/qppro/awk.html
 
+awkastar
+
 888888888888888888
 
 code testing: kernighan
@@ -61,6 +57,7 @@ spread sheet access: http://www.freakout.de/mc.htm#Piping
 eiso's awk scrits- if i understood what they did
 - fun: my bayes trick
 
+awktemplate
 ===================
 because it jsut doesn't matter
 i have an ide: emacs.unix
