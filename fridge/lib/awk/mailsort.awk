@@ -22,6 +22,7 @@
 # be made to run on a POSIX awk with some work.
 #.h2 Code
 #.H3 Main
+#.SMALL
 #.PRE
 BEGIN {
        TRUE = 1
@@ -192,9 +193,11 @@ END {
        close("/dev/stderr")    # shuts up --lint
 }
 #./PRE
-#.H2 compute_date 
+#./SMALL
+#.H3 compute_date 
 #.P
 # Pull apart a date string and convert to timestamp.
+#.SMALL
 #.PRE
 function compute_date(date_rec,         fields, year, month, day,
                                        hour, min, sec, tzoff, timestamp)
@@ -252,10 +255,12 @@ function compute_date(date_rec,         fields, year, month, day,
        return sprintf("%011d", timestamp)
 }
 #./PRE
+#./SMALL
 #.H3  days_in_month 
 #.P
 # How many days in the given month?
-
+#.SMALL
+#.PRE
 function days_in_month(month, year)
 {
        if (month != 2)
@@ -267,9 +272,11 @@ function days_in_month(month, year)
        return 28
 }
 #./PRE
+#./SMALL
 #.H3 canonacalize_subject 
 #.P
 #Trim out "Re:", white space.
+#.SMALL
 #.PRE
 function canonacalize_subject(subj_line)
 {
@@ -282,6 +289,7 @@ function canonacalize_subject(subj_line)
        return subj_line
 }
 #./PRE
+#./SMALL
 #.H2 Copyright
 #.P
 # Copyright 2007, 2008, Arnold David Robbins

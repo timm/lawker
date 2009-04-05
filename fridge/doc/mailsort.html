@@ -6,7 +6,7 @@
 <h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#5>Main</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#6>compute_date</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#6>compute_date</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#7>days_in_month</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#8>canonacalize_subject</a></h3>
 <h2><font color=black>&bull;</font></a> <a href=#9>Copyright</a></h2>
@@ -35,6 +35,7 @@ The script uses Message-ID header to detect and remove duplicates.  It requires 
  be made to run on a POSIX awk with some work.
 <a name=4></a><h2> Code</h2>
 <a name=5></a><H3> Main</H3>
+<SMALL>
 <PRE>
 BEGIN {
        TRUE = 1
@@ -205,9 +206,11 @@ END {
        close("/dev/stderr")    # shuts up --lint
 }
 </PRE>
-<a name=6></a><H2> compute_date</H2>
+</SMALL>
+<a name=6></a><H3> compute_date</H3>
 <P>
  Pull apart a date string and convert to timestamp.
+<SMALL>
 <PRE>
 function compute_date(date_rec,         fields, year, month, day,
                                        hour, min, sec, tzoff, timestamp)
@@ -265,10 +268,12 @@ function compute_date(date_rec,         fields, year, month, day,
        return sprintf("%011d", timestamp)
 }
 </PRE>
+</SMALL>
 <a name=7></a><H3> days_in_month</H3>
 <P>
  How many days in the given month?
-
+<SMALL>
+<PRE>
 function days_in_month(month, year)
 {
        if (month != 2)
@@ -280,9 +285,11 @@ function days_in_month(month, year)
        return 28
 }
 </PRE>
+</SMALL>
 <a name=8></a><H3> canonacalize_subject</H3>
 <P>
 Trim out "Re:", white space.
+<SMALL>
 <PRE>
 function canonacalize_subject(subj_line)
 {
@@ -295,6 +302,7 @@ function canonacalize_subject(subj_line)
        return subj_line
 }
 </PRE>
+</SMALL>
 <a name=9></a><H2> Copyright</H2>
 <P>
  Copyright 2007, 2008, Arnold David Robbins
