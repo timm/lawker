@@ -1,6 +1,7 @@
 #.h1 Shell Statistical Spam Filter and Whitelist
 #.h2 About
 #.h3 Author
+#.P
 #Steven Hauser.
 #.H3 Origin
 #.P
@@ -385,4 +386,4 @@ whitelister () {
  # white list it is piped to the spam filter.
 whitelister | spamly 
 exit
-./PRE
+#./PRE
