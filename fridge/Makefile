@@ -2,6 +2,7 @@
 Doc=$(Lawker)/doc
 Gawk=$(Lawker)/gawk
 Bash=$(Lawker)/lib/bash
+Ksh=$(Lawker)/lib/ksh
 Config=$(Lawker)/etc
 Awklib=$(Lawker)/lib/awk
 Fun=$(Lawker)/gawk/fun
@@ -28,11 +29,15 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html \
     	$(Doc)/hanoi.html \
-    	$(Doc)/story.html 
+    	$(Doc)/story.html \
+    	$(Doc)/spam.html 
 
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
     	
+$(Doc)/spam.html : $(Ksh)/spam.ksh
+	cd $(Ksh) && $(Awk2Html)
+
 $(Doc)/story.html : $(Awklib)/grammar/story.awk 
 	cd $(Awklib)/grammar && $(Awk2Html)
 	    
