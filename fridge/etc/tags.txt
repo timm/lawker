@@ -92,6 +92,6 @@ doc/textmine/textmunge.html		;DonaldM	;2009	;Mar	;TextMining	;|Text Munging
 doc/99bottles.html		;ArnoldR; OsamuA; WilhelmW 	;2009	;Apr	;|99 bottles of beer
 
 doc/mail.html				;Timm	;2009;	Apr;	Mail	;|Awk and Mail
-doc/mailsort.html				;ArnoldR	;2009;	Apr;	Mail	;|Mail sort
 doc/spam.html				;StevenH	;2009;	Apr;	Mail	;|Spam Filtering
+doc/mailsort.html				;ArnoldR	;2009;	Apr;	Mail	;|Mail sort
 

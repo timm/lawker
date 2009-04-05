@@ -723,19 +723,19 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
-	<file where="doc/mailsort.html">
-		<title>Mail sort</title>
-		<what>Mail</what>
-		<what>Apr</what>
-		<what>2009</what>
-		<what>ArnoldR</what>
-	</file>
 	<file where="doc/spam.html">
 		<title>Spam Filtering</title>
 		<what>Mail</what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>StevenH</what>
+	</file>
+	<file where="doc/mailsort.html">
+		<title>Mail sort</title>
+		<what>Mail</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
 	</file>
   </files>
 </things>
