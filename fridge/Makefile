@@ -30,6 +30,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/awk100/spell.html \
     	$(Doc)/hanoi.html \
     	$(Doc)/story.html \
+    	$(Doc)/mailsort.html\
     	$(Doc)/spam.html 
 
 awkpp :  
@@ -45,6 +46,9 @@ $(Doc)/hanoi.html : $(Awklib)/hanoi.awk
 	cd $(Awklib) && $(Awk2Html)
 	    
 $(Doc)/tools/m1.html : $(Awklib)/m1.awk
+	cd $(Awklib) && $(Awk2Html)
+
+$(Doc)/mailsort.html : $(Awklib)/mailsort.awk
 	cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/awk100/spell.html : $(Awklib)/spell.awk
