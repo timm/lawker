@@ -64,7 +64,7 @@ t > 1	{ guess= hpb }
 	printf ".  "(play==guess?"I":"You")" win. "
 	print "("(pw+=(play!=guess))"-"(cw+=(play==guess))")"
 	}
-#</pre><h3>update model</h3><pre>
+#</pre><h3>update model</h3>
 #<p>After finishing a round, we update the history with the results, including updating tally according to the player's behavior. Again, we wait for two rounds before touching the tally counters, at which point the history will have been fully initialized.
 #<pre>
 NR > 2	{ tally[case] += (hpb == play ? 1 : -1) }
@@ -72,7 +72,7 @@ NR > 2	{ tally[case] += (hpb == play ? 1 : -1) }
 	hpa = hpb; hpb = play
 	hca = hcb; hcb = guess
 	}
-#</pre><h3>check for victory</h3><pre>
+#</pre><h3>check for victory</h3>
 #<p>At the end of each round, if we haven't met a victory 
 #condition, we prompt for the next round.
 #<pre>
