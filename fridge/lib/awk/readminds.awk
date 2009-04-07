@@ -55,7 +55,7 @@ t > 1	{ guess= hpb }
 /^[hH]/		{ play=1 }
 /^[tT]/		{ play=0 }
 /^[^hHtT]/	{ printf "heads or tails? "; next }
-#</pre><h3>report results</h3><pre>
+#</pre><h3>report results</h3>
 #<p>We also report the results of the round to the player (in case they wish to update their internal models). En passant, we update pw and cw, the number of player (resp. computer) wins.
 #<pre>
 	{
