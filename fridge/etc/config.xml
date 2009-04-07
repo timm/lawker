@@ -417,6 +417,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Jimh</what>
 	</file>
+	<file where="doc/tip/moving.html">
+		<title>Moving Files with Awk</title>
+		<what>Tips</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
+	</file>
 	<file where="doc/fun/enumerate.html">
 		<title>Functional Enumeration</title>
 		<what>Funky</what>

@@ -1,0 +1,44 @@
+<h1><join>Moving Files with Awk</join></h1>
+
+<p><b>Andrew Eaton</b> wrote at <a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/b46590ad3d219299/30dcbc8ea43f741b?lnk=gst&q=arnold+robbins#30dcbc8ea43f741b">comp.lang.awk</a>:
+<p>
+<em>I just started with awk and sed, I am more of a perl/C/C++ person.  I
+have a quick question reguarding the pipe.  In Awk, I am trying to use this
+construct.</em>
+<pre>
+while ((getline < "somedata.txt") > 0)
+            {print | "mv"} #or could be "mv -v" for verbose. 
+</pre>
+<p>
+<em>Is it possible that "print" is no longer printing the value of
+getline, if so how do I correct it?
+</em>
+
+<p><b>Arnold Robbins</b> comments:
+<p>The problem here is that `mv' doesn't read standard input, it only
+processes command lines.  Assuming that your data is something like:
+<pre>
+oldfile newfile
+</pre>
+<p>
+You can do things two ways:
+<pre>
+# build the command and execute it
+while ((getline &lt; "somedata.txt") > 0) {
+          command = "mv " $1 " " $2
+          system(command)
+}
+close("somedata.txt")
+</pre>
+<p>
+or this way:
+<pre>
+# send commands to the shell
+while ((getline &lt; "somedata.txt") > 0) {
+          printf("mv %s %s\n", $1, $2) | "sh"
+}
+close("somedata.txt")
+close("sh")
+</pre>
+<p>
+The latter is more efficient.
