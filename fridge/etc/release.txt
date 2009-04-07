@@ -13,6 +13,7 @@ stop gaps:
 - Even more fun with cal and GeekTool 
     http://www.macosxhints.com/article.php?story=20040625094428394
 -fun mind reading machine in awk
+- moving files
 
 - sed variants
 	- sed2awk
