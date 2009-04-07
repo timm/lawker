@@ -25,17 +25,17 @@ O#ur markov model is based on behavior over the last two rounds, with hpa and hp
 #.H3 Begin
 #.PRE
 BEGIN	{
-	print "+--------------------------------------------------------------+"
-	print "| An AWKward mind-reading machine                              |"
-	print "|         (this retrogame inspired by the Bell Labs Memo:      |"
-	print "|          Shannon, 1953, 'A Mind-Reading (?) Machine')        |"
-	print "+--------------------------------------------------------------+"
-	print "Shall we play a game?"
-	print "Tell me either 'heads' or 'tails'."
-	print "If I guess what you picked, I win.  Otherwise, you win."
-	print "The match goes for 100 rounds, or until one player is up by 20."
-	printf "your play? "
-	}
+ print "+---------------------------------------------------------+"
+ print "| An AWKward mind-reading machine                         |"
+ print "|         (this retrogame inspired by the Bell Labs Memo: |"
+ print "|          Shannon, 1953, 'A Mind-Reading (?) Machine')   |"
+ print "+---------------------------------------------------------+"
+ print "Shall we play a game?"
+ print "Tell me either 'heads' or 'tails'."
+ print "If I guess what you picked, I win.  Otherwise, you win."
+ print "The match goes for 100 rounds, or someone gets 20."
+ printf "your play? "
+}
 #</pre>
 #.h3 set seed
 #.pre
