@@ -87,7 +87,7 @@ cw-pw==20	{ print "I win -- up by 20"; exit }
 END	{ 
 	print " T H A N K   Y O U   F O R   P L A Y I N G "
 	}
-#.PRE
+#./PRE
 #.H2 Copyright
 #.P
 # Copyright (c) 2009 the authors listed at the following URL, and/or
