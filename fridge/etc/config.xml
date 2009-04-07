@@ -330,6 +330,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Anon</what>
 	</file>
+	<file where="doc/wp.html">
+		<title>Word-processing in Awk</title>
+		<what>Wp</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/dsl.html">
 		<title>Domain-Specific Langauges</title>
 		<what>Dsl</what>
@@ -358,6 +365,7 @@ pageTracker._trackPageview();
 	<file where="doc/dsl/markdown.html">
 		<title>Markdown</title>
 		<what>Top10</what>
+		<what>Wp</what>
 		<what>Dsl</what>
 		<what>Mar</what>
 		<what>2009</what>
@@ -560,6 +568,7 @@ pageTracker._trackPageview();
 	<file where="doc/tools/awkwords.html">
 		<title>awkwords</title>
 		<what>Top10</what>
+		<what>Wp</what>
 		<what>Project</what>
 		<what>Tools</what>
 		<what>Mar</what>
@@ -568,6 +577,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/awf.html">
 		<title>Amazing Awk Formatter</title>
+		<what>Wp</what>
 		<what>Awk100</what>
 		<what>Wp</what>
 		<what>Tools</what>

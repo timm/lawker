@@ -25,12 +25,14 @@ doc/story.html				;BrianK	;2009	;Mar	;TenLiners	;Top10  ;|Writing SciFi
 doc/montyhall.html			;DonaldM	;2009	;Mar	;TenLiners	 	;|Monty Hall Problem
 doc/gender.html				;ScottP	;2009	;Mar	;TenLiners; Top10	;|Predicting Gender
 doc/hanoi.html				;AlanL	;2009	;Apr	;TenLiners 			;|Towers of Hanoi
-doc/readminds.html				;Anon	;2009	;Apr	;TenLiners 			;| How to Read Minds
+doc/readminds.html			;Anon	;2009	;Apr	;TenLiners 			;| How to Read Minds
+
+doc/wp.html					;Timm	;2009	;Apr	;Wp					;|Word-processing in Awk
 
 doc/dsl.html				;Timm	;2009	;Mar	;Dsl	;|Domain-Specific Langauges
 doc/dsl/graph.html			;AlfredA	;PeterW	;BrianK	;2009	;Mar	;Dsl	;|Graph
 doc/dsl/awklisp.html		;DariusB	;2009	;Mar	;Dsl	;AwkLisp	;Top10	;|awklisp
-doc/dsl/markdown.html		;JesusG	;2009	;Mar	;Dsl	;Top10	;|Markdown
+doc/dsl/markdown.html		;JesusG	;2009	;Mar	;Dsl	;Wp ;Top10	;|Markdown
 doc/dsl/awkplusplus.html	;Jimh	;2009	;Mar	;Dsl	;Awk100	;|Awk++
 
 doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk 
@@ -64,8 +66,8 @@ doc/project.html			;Timm	;2009	;Mar	;Tools	;Project	;|Project Tools
 doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project	;|runawk
 doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros
 doc/tools/m5.html			;WillW	;2009	;Mar	;Tools	;Macros; ;|m5 :  macro processor
-doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project;Top10	;|awkwords
-doc/tools/awf.html		;HenryS	;2009	;Apr	;Tools ;Wp ;Awk100		;|Amazing Awk Formatter
+doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project; Wp; Top10	;|awkwords
+doc/tools/awf.html		;HenryS	;2009	;Apr	;Tools ;Wp ;Awk100;Wp		;|Amazing Awk Formatter
 
 doc/var/top10posters.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 posters
 doc/var/top10subjects.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subjects
