@@ -36,9 +36,13 @@ BEGIN	{
 	print "The match goes for 100 rounds, or until one player is up by 20."
 	printf "your play? "
 	}
-#</pre><h3>set seed</h3><pre>
+#</pre>
+#.h3 set seed
+#.pre
 BEGIN	{ "date +%s" | getline seed; srand(seed) }
-#</pre><h3>consult model</h3><pre>
+#</pre>
+#.h3 consult model
+#.pre
 BEGIN	{ t = 0 }
 NR > 2	{
 	case = (hpa!=hca)"/"(hpa!=hpb)"/"(hpb!=hcb)
@@ -51,11 +55,14 @@ t == 0	{ guess=int(rand()+.5) }
 t == 1  { guess=(int(rand()+.75)?hpb:!hpb) }
 t > 1	{ guess= hpb }
 
-#</pre><h3>get input</h3><pre>
+#</pre>
+#.h3 get input
+#.pre
 /^[hH]/		{ play=1 }
 /^[tT]/		{ play=0 }
 /^[^hHtT]/	{ printf "heads or tails? "; next }
-#</pre><h3>report results</h3>
+#</pre>
+#.h3 report results
 #<p>We also report the results of the round to the player (in case they wish to update their internal models). En passant, we update pw and cw, the number of player (resp. computer) wins.
 #<pre>
 	{
@@ -64,7 +71,8 @@ t > 1	{ guess= hpb }
 	printf ".  "(play==guess?"I":"You")" win. "
 	print "("(pw+=(play!=guess))"-"(cw+=(play==guess))")"
 	}
-#</pre><h3>update model</h3>
+#</pre>
+#.h3 update model
 #<p>After finishing a round, we update the history with the results, including updating tally according to the player's behavior. Again, we wait for two rounds before touching the tally counters, at which point the history will have been fully initialized.
 #<pre>
 NR > 2	{ tally[case] += (hpb == play ? 1 : -1) }
@@ -72,7 +80,8 @@ NR > 2	{ tally[case] += (hpb == play ? 1 : -1) }
 	hpa = hpb; hpb = play
 	hca = hcb; hcb = guess
 	}
-#</pre><h3>check for victory</h3>
+#</pre>
+#.h3 check for victory
 #<p>At the end of each round, if we haven't met a victory 
 #condition, we prompt for the next round.
 #<pre>
@@ -83,7 +92,9 @@ pw-cw==20	{ print "You win -- up by 20"; exit }
 cw-pw==20	{ print "I win -- up by 20"; exit }
 		{ printf "? " }
 
-#</pre><h3>end </h3><pre>
+#</pre>
+#.h3 end 
+#.pre
 END	{ 
 	print " T H A N K   Y O U   F O R   P L A Y I N G "
 	}
