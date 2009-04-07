@@ -59,6 +59,7 @@ code testing: kernighan
 spread sheet access: http://www.freakout.de/mc.htm#Piping
 eiso's awk scrits- if i understood what they did
 - fun: my bayes trick
+- cocomo lv
 
 awktemplate
 ===================
