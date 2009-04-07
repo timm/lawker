@@ -31,6 +31,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/hanoi.html \
     	$(Doc)/story.html \
     	$(Doc)/mailsort.html\
+    	$(Doc)/readminds.html\
     	$(Doc)/spam.html 
 
 awkpp :  
@@ -41,6 +42,9 @@ $(Doc)/spam.html : $(Ksh)/spam.ksh
 
 $(Doc)/story.html : $(Awklib)/grammar/story.awk 
 	cd $(Awklib)/grammar && $(Awk2Html)
+	    
+$(Doc)/readminds.html : $(Awklib)/readminds.awk
+	cd $(Awklib) && $(Awk2Html)
 	    
 $(Doc)/hanoi.html : $(Awklib)/hanoi.awk
 	cd $(Awklib) && $(Awk2Html)

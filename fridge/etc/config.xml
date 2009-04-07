@@ -323,6 +323,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>AlanL</what>
 	</file>
+	<file where="doc/readminds.html">
+		<title>How to Read Minds</title>
+		<what>TenLiners</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Anon</what>
+	</file>
 	<file where="doc/dsl.html">
 		<title>Domain-Specific Langauges</title>
 		<what>Dsl</what>

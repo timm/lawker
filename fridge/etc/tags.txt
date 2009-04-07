@@ -25,6 +25,7 @@ doc/story.html				;BrianK	;2009	;Mar	;TenLiners	;Top10  ;|Writing SciFi
 doc/montyhall.html			;DonaldM	;2009	;Mar	;TenLiners	 	;|Monty Hall Problem
 doc/gender.html				;ScottP	;2009	;Mar	;TenLiners; Top10	;|Predicting Gender
 doc/hanoi.html				;AlanL	;2009	;Apr	;TenLiners 			;|Towers of Hanoi
+doc/readminds.html				;Anon	;2009	;Apr	;TenLiners 			;| How to Read Minds
 
 doc/dsl.html				;Timm	;2009	;Mar	;Dsl	;|Domain-Specific Langauges
 doc/dsl/graph.html			;AlfredA	;PeterW	;BrianK	;2009	;Mar	;Dsl	;|Graph
