@@ -64,7 +64,7 @@ doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project	;|runawk
 doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros
 doc/tools/m5.html			;WillW	;2009	;Mar	;Tools	;Macros; ;|m5 :  macro processor
 doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project;Top10	;|awkwords
-doc/tools/awf.html		;HenryS	;2009	;Apr	;Tools ;Wp		;|Amazing Awk Formatter
+doc/tools/awf.html		;HenryS	;2009	;Apr	;Tools ;Wp ;Awk100		;|Amazing Awk Formatter
 
 doc/var/top10posters.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 posters
 doc/var/top10subjects.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subjects

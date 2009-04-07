@@ -561,6 +561,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/awf.html">
 		<title>Amazing Awk Formatter</title>
+		<what>Awk100</what>
 		<what>Wp</what>
 		<what>Tools</what>
 		<what>Apr</what>
