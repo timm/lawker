@@ -29,7 +29,7 @@ Download from
 <P>
 Shannon's 1953 memo, A Mind-Reading(?) Machine, describes a machine built out of relays at Bell Labs.
 <UL>
-  #  This machine is a somewhat simplified model of a machine designed by D.W. Hagelbarger. It plays what is essentially the old game of matching pennies or "odds and evens". This games has been discussed from the game theoretic angle by von Neumann and Morgenstern, and from the psychological point of view by Edgar Allen Poe in "The Purloined Letter". Oddly enough, the machine is aimed more nearly at Poe's method of play than von Neumann's. 
+  This machine is a somewhat simplified model of a machine designed by D.W. Hagelbarger. It plays what is essentially the old game of matching pennies or "odds and evens". This games has been discussed from the game theoretic angle by von Neumann and Morgenstern, and from the psychological point of view by Edgar Allen Poe in "The Purloined Letter". Oddly enough, the machine is aimed more nearly at Poe's method of play than von Neumann's. 
 </ul>
 <P>
 The machine took advantage of the difficulty of generating truly random behavior in wetware by using a small (8-state) markov model to predict its human opponents. 
@@ -37,7 +37,7 @@ The machine took advantage of the difficulty of generating truly random behavior
 <P>
 We implement a 1970's version of this 1950's algorithm, using AWK instead of mechanical relays.
 <P>
-O#ur markov model is based on behavior over the last two rounds, with hpa and hpb recording the history of the player's plays, and hca and hcb recording the history of the computer's guesses. The possible cases are: the player won or lost two rounds ago, changed plays or stayed with the same play, and won or lost the last round, for a total of 23 = 8 histories, with any bias towards changing or staying in the upcoming round kept in the tally array.
+Our markov model is based on behavior over the last two rounds, with hpa and hpb recording the history of the player's plays, and hca and hcb recording the history of the computer's guesses. The possible cases are: the player won or lost two rounds ago, changed plays or stayed with the same play, and won or lost the last round, for a total of 2<sup>3</sup> = 8 histories, with any bias towards changing or staying in the upcoming round kept in the tally array.
 <P>
 If the player has repeated their behavior for a given history at least twice, we guess according to their predicted behavior. After the first observation, we guess with a 75%/25%, split, weighted towards the bias. If the player hasn't shown any bias (or during the first two rounds of the game), we guess at hazard. 
 <a name=6></a><H2> Code</H2>
