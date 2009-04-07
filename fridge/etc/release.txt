@@ -36,6 +36,7 @@ stop gaps:
 - awk100: the amazing awk assembler
 - new section on awk interpreters (awk assembler, awklisp)
 - quick sort in awk
+- fun sig generator
 
 visual awk
 

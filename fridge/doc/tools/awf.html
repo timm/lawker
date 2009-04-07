@@ -1,0 +1,165 @@
+<h1><join>awf</join></h1>
+<p>
+The amazingly workable (text) formatter
+
+<h2>Synopsis</h2>
+<p>
+     awf <b>-m</b>acros [ file ] ...
+<h2>Download</h2>
+<p>Download from
+<a href="">LAWKER</a>.
+Type "make r" to run a regression test, formatting the manual page
+(awf.1) and comparing it to a preformatted copy (awf.1.out).  Type
+"make install" to install it.  Pathnames may need changing.
+
+
+<h2>Description</h2>
+ <p>    Awf formats the text from the input file(s) (standard input if  none)  in
+     an  imitation  of nroff's style with the <b>-man</b> or <b>-ms</b> macro packages.  The
+     <b>-m</b>acro option is mandatory and must be `-man' or `-ms'.
+<p>
+Awf is slow and has many restrictions, but does a decent job on most
+manual pages and simple -ms documents, and isn't subject to AT&T's
+brain-damaged licensing that denies many System V users any text
+formatter at all.  It is also a text formatter that is simple enough
+to be tinkered with, for people who want to experiment.
+
+<p>
+     Awf implements the following raw nroff requests:
+<pre>
+.\"  .ce  .fi  .in  .ne  .pl  .sp
+.ad  .de  .ft  .it  .nf  .po  .ta
+.bp  .ds  .ie  .ll  .nr  .ps  .ti
+.br  .el  .if  .na  .ns  .rs  .tm
+</pre>
+<P>     and the following in-text codes:
+<pre>
+\$   \%   \*   \c   \f   \n   \s
+</pre>
+<p>
+     plus the full list of nroff/troff special characters in the  original  V7
+     troff manual.
+<p>
+     Many restrictions are present; the behavior in general  is  a  subset  of
+     nroff's.  Of particular note are the following:
+<ul>
+     <li> Point sizes do not exist; <b>.ps</b> and <b>\s</b> are ignored.
+
+     <li> Conditionals implement only numeric comparisons on <b>\n(.$</b>,  string  com-
+       parisons  between  a macro parameter and a literal, and n (always true)
+       and t (always false).
+
+     <li> The implementation of strings is generally primitive.
+
+     <li> Expressions in (e.g.) .sp are fairly general,  but  the  <b>|,  &</b>,  and  <b>:</b>
+       operators  do  not  exist,  and  the implementation of \w</b> requires that
+       quote (') be used as the delimiter and  simply  counts  the  characters
+       inside (so that, e.g., \w'\(bu' equals 4).
+	</ul>
+<p>
+     White space at the beginning of lines, and imbedded  white  space  within
+     lines, is dealt with properly.  Sentence terminators at ends of lines are
+     understood to imply extra space afterward in filled lines.  Tabs are  implemented  crudely  and  not quite correctly, although in most cases they
+     work as expected.  Hyphenation is done  only  at  explicit  hyphens,  emdashes, and nroff discretionary hyphens.
+
+<h2>MAN Macros</h2>
+<p>
+     The <b>-man</b> macro set implements the full V7 manual macros, plus a few semi-
+     random oddballs.  The full list is:
+<pre>
+.B   .DT  .IP  .P   .RE  .SM
+.BI  .HP  .IR  .PD  .RI  .TH
+.BR  .I   .LP  .PP  .RS  .TP
+.BY  .IB  .NB  .RB  .SH  .UC
+</pre>
+<p>
+     <b>.BY</b> and <b>.NB</b> each take a single string argument  (respectively,  an  indi-
+     cation  of authorship and a note about the status of the manual page) and
+     arrange to place it in the page footer.
+
+<h2>MS Macros</h2>
+<p>
+     The <b>-ms</b> macro set is a substantial subset of the  V7  manuscript  macros.
+     The implemented macros are:
+<pre>
+.AB  .CD  .ID  .ND  .QP  .RS  .UL
+.AE  .DA  .IP  .NH  .QS  .SH  .UX
+.AI  .DE  .LD  .NL  .R   .SM
+.AU  .DS  .LG  .PP  .RE  .TL
+.B   .I   .LP  .QE  .RP  .TP
+</pre>
+<p>
+     Size changes are recognized but ignored, as are <b>.RP</b> and  <b>.ND.</b>   <b>.UL </b> just
+     prints  its  argument in italics.  <b>.DS</b>/<b>.DE</b> does not do a keep, nor do any
+     of the other macros that normally imply keeps.
+<p>
+     Assignments to the header/footer  string  variables  are  recognized  and
+     implemented,  but  there  is  otherwise  no  control  over  header/footer
+     formatting.  The <b>DY</b> string variable is available.  The  <b>PD</b>,  <b>PI</b>,  and <b> LL</b>
+     number registers exist and can be changed.
+
+<h2>Output</h2>
+<p>
+     The only output format supported by awf, in its distributed form, is that
+     appropriate  to  a  dumb  terminal,  using  overprinting for italics (via
+     underlining) and bold.  The nroff special characters are printed as  some
+   vague   approximation  (it's  sometimes  very  vague)  to  their  correct
+     appearance.
+<p>
+     Awf's knowledge of the output device is established  by  a  device  file,
+     which  is  read  before  the user's input.  It is sought in awf's library
+     directory, first as <b>dev</b>.term  (where  term  is  the  value  of  the  TERM
+     environment  variable)  and,  failing that, as <b>dev.dumb</b>.  The device file
+     uses special internal commands to set up resolution, special  characters,
+     fonts, etc., and more normal nroff commands to set up page length etc.
+
+<h2>FiLes</h2>
+  <p>   All in /usr/lib/awf (this can be overridden  by  the  AWFLIB  environment
+     variable):
+<pre>
+common     common device-independent initialization
+dev.*      device-specific initialization
+mac.m*     macro packages
+pass1      macro substituter
+pass2.base central formatter
+pass2.m*   macro-package-specific bits of formatter
+pass3      line and page composer
+</pre>
+<h2>See Also</h2>
+<p>     awk(1), nroff(1), man(7), ms(7)
+<h2>Diagnostics</h2>
+<p>     Unlike nroff, awf complains whenever it sees unknown commands and macros.
+     All diagnostics (these and some internal ones) appear on standard error
+     at the end of the run.
+
+<h2>Author</h2>
+  <p>   Written at University of Toronto by Henry Spencer,  more  or  less  as  a
+     supplement to the C News project.
+<h2>Copyright</h2>
+<p>
+  Copyright 1990 University of Toronto.  All rights reserved.
+  Written by Henry Spencer.
+  This software is not subject to any license of the American Telephone
+  and Telegraph Company or of the Regents of the University of California.
+<p> 
+ Permission is granted to anyone to use this software for any purpose on
+ any computer system, and to alter it and redistribute it freely, subject
+  to the following restrictions:
+ 
+<ol><li> The author is not responsible for the consequences of use of this
+    software, no matter how awful, even if they arise from flaws in it.
+<lI>  The origin of this software must not be misrepresented, either by
+    explicit claim or by omission.  Since few users ever read sources,
+    credits must appear in the documentation.
+
+<lI>  Altered versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.  Since few users
+    ever read sources, credits must appear in the documentation.
+
+<li>  This notice may not be removed or altered.
+</ol>
+<h2>Bugs</h2>
+<p>
+     There are plenty, but what do you expect for  a  text  formatter  written
+     entirely in (old) awk?
+<p>   The <b>-ms</b>  stuff has not been checked out very thoroughly.

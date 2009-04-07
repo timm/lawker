@@ -559,6 +559,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/tools/awf.html">
+		<title>Amazing Awk Formatter</title>
+		<what>Wp</what>
+		<what>Tools</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>HenryS</what>
+	</file>
 	<file where="doc/var/top10posters.html">
 		<title>Top 10 posters</title>
 		<what>Newsgroup</what>
