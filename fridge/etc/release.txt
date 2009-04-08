@@ -144,3 +144,6 @@ systems). yes, we will model user goals and goal interaction and
 negotiaton between goals. and we will represent beliefs, desires,
 and intentions. but we will add in a lot of data mining technology
 to reduce 
+
+
+invisible code. shoul melt away. reveal all.
