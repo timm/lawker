@@ -1,4 +1,4 @@
-#.h1 S2A: sed to Awk
+#.h1 s2a: sed to Awk
 #.H2 Download
 #.P
 #Download from
