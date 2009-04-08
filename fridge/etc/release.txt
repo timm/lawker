@@ -50,6 +50,7 @@ visual awk
 
 - awk for databases
   http://victor-notes.com/qppro/awk.html
+	dda for awk share/pdf/awkdda.awk
 
 awkastar
 
