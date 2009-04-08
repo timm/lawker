@@ -19,7 +19,7 @@
 #.P
 #James Lyons, Feb 2008.
 #.P
-#For more excellent awk code, visit Lyon's <a href="http://awk.dsplabs.com.au/awk_applications.php">awk.dsplab 
+#For more excellent awk code, visit Lyon's <a href="http://awk.dsplabs.com.au">awk.dsplab 
 #web site</a>.
 #.H2 Code
 #.PRE
@@ -75,4 +75,4 @@ function matchaddr(){
     return arr[1];
 }
 END{print "{print}";}
-#.PRE
+#./PRE
