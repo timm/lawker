@@ -424,6 +424,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>ArnoldR</what>
 	</file>
+	<file where="doc/tip/awksed.html">
+		<title>Simple Stream Editor</title>
+		<what>Sed</what>
+		<what>Tips</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
+	</file>
 	<file where="doc/fun/enumerate.html">
 		<title>Functional Enumeration</title>
 		<what>Funky</what>
