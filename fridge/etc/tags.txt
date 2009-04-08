@@ -38,11 +38,14 @@ doc/dsl/awkplusplus.html	;Jimh	;2009	;Mar	;Dsl	;Awk100	;|Awk++
 doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk 
 doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
 
+doc/sed.html				;Timm	;2009	;Apr	;Tips ;Sed		;|Sed-clones (in Awk)
+
 doc/tip/superFor.html		;ArnoldR	;2009	;Mar	;Tips	;Funky	;|Super-For loops
 doc/tip/getline.html		;Ed	;2009	;Jan	;Tips	;Getline	;|Getline
 doc/tip/noforloops.html		;Jimh	;2009	;Jan	;Tips	;Forloop	;|Forloops
-doc/tip/moving.html		;ArnoldR	;2009	;Apr	;Tips		;|Moving Files with Awk
-doc/tip/awksed.html		;ArnoldR	;2009	;Apr	;Tips ;Sed		;|Simple Stream Editor
+doc/tip/moving.html			;ArnoldR	;2009	;Apr	;Tips		;|Moving Files with Awk
+doc/tip/awksed.html			;ArnoldR	;2009	;Apr	;Tips ;Sed		;|Simple Stream Editor
+doc/tip/s2a.html			;JamesL	;2009	;Apr	;Tips ;Sed		;|Sed to Awk
 
 doc/fun/enumerate.html		;Timm	;2009	;Mar	;Funky	;|Functional Enumeration
 

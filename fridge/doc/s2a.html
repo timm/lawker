@@ -1,0 +1,88 @@
+<h1><join> S2A: sed to Awk</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Bugs</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Code</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Download</H2>
+<P>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/s2a.awk">LAWKER.</a>
+<a name=2></a><h2> Description</h2>
+<P>
+The s2a project is a sed to awk conversion utility written in awk. As input it takes sed scripts, and it outputs an equivalent awk script.
+<P>
+This version should be fully functional as far as the following sed commands are concerned: a,d,s,p,q,c,i,n.
+Commands to be implemented in the future: {},=,h,g,N,P,r,x,y,l,H,G,D,b,t,:
+
+<a name=3></a><H2> Bugs</H2>
+<P>
+$ is not a valid line address.
+Also, line continuation with '\' is not implemented.
+
+<a name=4></a><h2> Author</h2>
+<P>
+James Lyons, Feb 2008.
+<P>
+For more excellent awk code, visit Lyon's <a href="http://awk.dsplabs.com.au/awk_applications.php">awk.dsplab 
+web site</a>.
+<a name=5></a><H2> Code</H2>
+<PRE>
+BEGIN{RS=";|\n"; FS=""; var=1;}
+{
+    i=1; case1=""; case2="";
+    while($i==" ")i++;
+    if($i=="\\"||$i=="/"||$i~/[0-9]/) case1=matchaddr();
+    if($i==","){i++; case2=matchaddr()};
+ handle sed commands
+####################################################################################################
+    if($i == "d"){ a1=a2="next;";
+    }else if($i == "p"){ a1=a2="print;";
+    }else if($i == "a"){ rest="";
+        for(c=i+2;c&lt;=NF;c++) rest=rest$c;
+        a1=a2="$0=$0\"\\n"rest"\";"; 
+    }else if($i == "q"){ a1=a2="print; exit;"; 
+    }else if($i == "n"){ a1=a2="print; if(getline &lt;= 0) next;"
+    }else if($i == "s"){
+        re=substr($0, i); p=substr(re,2,1); match(re,"s"p"((\\"p"|.)*)"p"((\\"p"|.)*)"p"([a-zA-Z])?",tmp);
+        tmp[3]=gensub(/\\[0-9]/,"\\\\&","g",tmp[3]); 
+        tmp[1]=gensub(/\\\(/,"(","g",tmp[1]); tmp[1]=gensub(/\\\)/,")","g",tmp[1]);
+        if(tmp[3]=="") a1=a2="$0=gensub(/"tmp[1]"/,\""tmp[3]"\",1);";
+        else a1=a2="$0=gensub(/"tmp[1]"/,\""tmp[3]"\",\""tmp[5]"\");";
+    }else if($i == "c"){ rest="";
+        for(c=i+2;c&lt;=NF;c++) rest=rest$c;
+        a1="$0=\""rest"\";"; 
+        a2="next;";
+    }else if($i == "i"){ rest="";
+        for(c=i+2;c&lt;=NF;c++) rest=rest$c;
+        a1=a2="$0=\""rest"\\n\"$0;"; 
+    }else{
+        print "ERROR: invalid syntax. Unkown command in expression "$0" (expr number "NR")"; exit;
+    }
+####################################################################################################
+ output awk commands
+    if(case1=="" && case2=="") print "{"a1"}";
+    else if(case1~/^[0-9]/ && case2=="") print "NR=="case1"{"a1"}";
+    else if(case2 == "") print "/"case1"/{"a1"}";
+    else if(case1~/^[0-9]/ && case2~/^[0-9]/) print "temp"var"==1&&NR=="case2"{temp"var"=0;"a2"}temp"var"==1{"a2"}NR=="case1"{temp"var"=1;"a1"}";
+    else if(case1~/^[0-9]/)  print "temp"var"==1&&/"case2"/{temp"var"=0;"a2"}temp"var"==1{"a2"}NR=="case1"{temp"var"=1;"a1"}";
+    else if(case2~/^[0-9]/)  print "temp"var"==1&&NR=="case2"{temp"var"=0;"a2"}temp"var"==1{"a2"}/"case1"/{temp"var"=1;"a1"}";
+    else print "temp"var"==1&&/"case2"/{temp"var++"=0;"a2"}temp"var"==1{"a2"}/"case1"/{temp"var"=1;"a1"}";
+    var++;
+}
+
+function matchaddr(){
+    str=substr($0, i); p=1;
+    if($i == "\\"){ p=substr(str,2,1); match(str,p"([^"p"]*)"p,arr); i++}
+    else if($i == "/"){ p=substr(str,1,1); match(str,p"([^"p"]*)"p,arr); }
+    else { match(str,/^([0-9]*)/,arr) };
+    i += RLENGTH;
+    return arr[1];
+}
+END{print "{print}";}
+<PRE>
+</div><!--- htmlbody --->

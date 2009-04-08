@@ -393,6 +393,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/sed.html">
+		<title>Sed-clones (in Awk)</title>
+		<what>Sed</what>
+		<what>Tips</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/tip/superFor.html">
 		<title>Super-For loops</title>
 		<what>Funky</what>
@@ -431,6 +439,14 @@ pageTracker._trackPageview();
 		<what>Apr</what>
 		<what>2009</what>
 		<what>ArnoldR</what>
+	</file>
+	<file where="doc/tip/s2a.html">
+		<title>Sed to Awk</title>
+		<what>Sed</what>
+		<what>Tips</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>JamesL</what>
 	</file>
 	<file where="doc/fun/enumerate.html">
 		<title>Functional Enumeration</title>
