@@ -440,7 +440,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>ArnoldR</what>
 	</file>
-	<file where="doc/tip/s2a.html">
+	<file where="doc/s2a.html">
 		<title>Sed to Awk</title>
 		<what>Sed</what>
 		<what>Tips</what>
