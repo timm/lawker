@@ -1,0 +1,4 @@
+Sitemap: http://awk.info/map.xml
+
+User-agent: *
+Disallow:
