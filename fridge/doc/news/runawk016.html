@@ -1,0 +1,157 @@
+<h1><join>New release: Runawk 0.16</join></h1>
+<p><em>In 
+<a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/93548c6764c469af#">comp.lang.awk</a>, 
+<b>Aleksey Cheuso</b> writes:</em>
+<p> 
+I've made runawk-0.16.0 release. This release has lots of important
+improvements and additions.
+Sources are available from
+<ul>
+<Li>
+   <a href="http://sourceforge.net/projects/runawk">sourceforge</a>
+<li>
+   <a href="http://freshmeat.net/projects/runawk">freshmeat</a>
+<li>
+<a href="http://code.google.com/p/lawker/source/browse/fridge/c/runawk/">LAWKER</a>
+</ul>
+<h2>What is runawk?</h2>
+<p>
+   RUNAWK is a small wrapper for AWK interpreter that helps to write the
+   standalone programs in AWK. It provides MODULES for AWK similar to
+   PERL's "use" command and other powerful features. Dozens of ready to
+   use modules are also provided.
+<p>
+(For more information, see <a href="http://awk.info/?tools/runawk">detasils from the last release</a>.)
+
+<h2>Major changes in this release</h2>
+<p>
+  Lots of demo programs for most runawk modules were created and
+  they are in examples/ subdirectory now.
+<p>
+  New MEGA module ;-) power_getopt.awk
+  See the documentation and demo program examples/demo_power_getopt.
+  It makes options handling REALLY easy (see below).
+<p>
+  New modules:
+<ul>
+    <li>  embed_str.awk
+     <ii> has_suffix.awk
+      <li>has_prefix.awk
+      <li>readfile.awk
+      <li>modinfo.awk
+</ul>
+<p>
+  Minor fixes and improvements in dirname.awk and basename.awk.
+  Now they are fully compatible with dirname(1) and basename(1)
+<p>
+  RUNAWK sets the following environment variables for the child awk
+      subprocess:
+<ul>
+<li>
+      RUNAWK_MODC - A number of modules (-f filename) passed to AWK
+<li>
+      RUNAWK_MODV_&lt;n> - Full path to the module #n,
+          where n is in [0..RUNAWK_MODC) range.
+</ul>
+<p>
+  RUNAWK sets RUNAWK_ART_STDIN environment variable for the child awk
+  subprocess to 1 if additional/artificial `-' was added to the list
+  to awk's arguments.
+<p>
+  Makefile:
+<ul>
+<li>
+     bmake-ism were removed. Now Makefile is fully compatible with
+     FreeBSD make.
+<li>
+     CLEANFILES target is used instead of hand-made rules
+<li>
+     Minor fix in 'test_all' target
+</ul>
+<h2>Power_GetOpt.awk</h2>
+<p>
+The most powerful feature of this release is power_getopt.awk module.
+It provides a very powerful and very easy way to handle options.
+Everything is in the usage message, you should do anything at all.
+<o>
+I think example below is easy.
+<h3>Example Code</h3>
+<pre>
+% cat 1.awk
+#!/usr/bin/env runawk
+
+#use "power_getopt.awk"
+
+#.begin-str help
+# power_getopt - program demonstrating a power of power_getopt.awk module
+# usage: power_getopt [OPTIONS]
+# OPTIONS:
+#    -h|--help                  display this screen
+#    -f|--flag                  flag
+#       --long-flag             long flag only
+#    -s                         short flag only
+#    =F|--FLAG <value>          flag with value
+#.end-str
+
+BEGIN {
+        print "f         --- " getarg("f")
+        print "flag      --- " getarg("flag")
+        print "long-flag --- " getarg("long-flag")
+        print "s         --- " getarg("s")
+        print "F         --- " getarg("F", "default1")
+        print "FLAG      --- " getarg("FLAG", "default2")
+
+        exit 0
+}
+</pre>
+<h3>./1.awk</h3>
+<pre>
+% ./1.awk
+f         --- 0
+flag      --- 0
+long-flag --- 0
+s         --- 0
+F         --- default1
+FLAG      --- default2
+</pre>
+<h3> ./1.awk -h</h3>
+% ./1.awk -h
+<pre>
+power_getopt - program demonstrating a power of power_getopt.awk module
+usage: power_getopt [OPTIONS]
+OPTIONS:
+   -h|--help                  display this screen
+   -f|--flag                  flag
+      --long-flag             long flag only
+   -s                         short flag only
+   -F|--FLAG <value>          flag with value
+</pre>
+<h3> ./1.awk -f</h3>
+<pre>
+% ./1.awk -f
+f         --- 1
+flag      --- 1
+long-flag --- 0
+s         --- 0
+F         --- default1
+FLAG      --- default2
+</pre>
+<h3> ./1.awk -F value</h3>
+<pre> % ./1.awk -F value
+f         --- 0
+flag      --- 0
+long-flag --- 0
+s         --- 0
+F         --- value
+FLAG      --- value
+</pre>
+<h3> ./1.awk --FLAG=value</h3>
+<pre>
+% ./1.awk --FLAG=value
+f         --- 0
+flag      --- 0
+long-flag --- 0
+s         --- 0
+F         --- value
+FLAG      --- value
+</pre>

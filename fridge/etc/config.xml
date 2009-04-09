@@ -80,7 +80,8 @@ Topics<br>
 &nbsp;&raquo;&nbsp;  <a href="?TextMining">text mining</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?Macros">macro pre-processors</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?Mail">advanced mail filtering</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Sed">sed-clones</a>
+&nbsp;&raquo;&nbsp;  <a href="?Sed">sed-clones</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Wp">word-processing</a>
 
 <hr>
 Community<br>
@@ -158,6 +159,15 @@ pageTracker._trackPageview();
 		<what>Mar</what>
 		<what>2009</what>
 		<what>Timm</what>
+	</file>
+	<file where="doc/news/runawk016.html">
+		<title>Runawk 0.16</title>
+		<what>Runawk</what>
+		<what>Project</what>
+		<what>Tools</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>AlexC</what>
 	</file>
 	<file where="doc/top10.html">
 		<title>Top 10 pages</title>
@@ -573,6 +583,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/runawk.html">
 		<title>runawk</title>
+		<what>Runawk</what>
 		<what>Project</what>
 		<what>Tools</what>
 		<what>Mar</what>

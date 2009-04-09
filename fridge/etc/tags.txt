@@ -1,4 +1,5 @@
 doc/news/theAwkBook.html	;Timm; 2009; Mar; News			;|The Awk Book's Code
+doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
 
 doc/top10.html				;Timm ;  2009; Mar	;Top10		;|Top 10 pages
 doc/credits.html			;Timm	;2009	;Feb	;Who	;|Credits
@@ -68,7 +69,7 @@ gawk/array/array.awk		;Timm	;2009	;Feb	;Functionn	;Arrays	;|array.awk
 doc/macro.html			;Timm	;2009	;Mar	;Tools	;Macros	;|Macro pre-processors
 
 doc/project.html			;Timm	;2009	;Mar	;Tools	;Project	;|Project Tools
-doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project	;|runawk
+doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project ;Runawk	;|runawk
 doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros
 doc/tools/m5.html			;WillW	;2009	;Mar	;Tools	;Macros; ;|m5 :  macro processor
 doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project; Wp; Top10	;|awkwords
