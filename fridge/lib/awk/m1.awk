@@ -349,7 +349,7 @@ BEGIN {
 #but may have been written earlier.
 #.P
 #This page was adapted from 
-#131.191.66.141:8181/UNIX_BS/sedawk/examples/ch13/m1.ps (download from
+#131.191.66.141:8181/UNIX_BS/sedawk/examples/ch13/m1.pdf (download from
 #<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/m1.pdf">LAWKER</a>).
 #.H2 Author
 #.P 
