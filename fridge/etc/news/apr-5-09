@@ -1,0 +1,82 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+1) Fun with Awk
+
+http://awk.info/?doc/99bottles.html
+
+Arnold Robbins and Wilhelm Weske and Osamu Aoki 
+invite us to share 99 bottles of beer.
+
+-------------------------------------------------------------
+2) http://awk.info/?Mail
+   - New section: advanced mail filtering methods, in awk.
+
+2a) http://awk.info/?spam
+    - Steven Hauser's spam killer. Over 96% effective!
+
+2b) http://awk.info/?mailsort
+    - Arnold Robbins sorts mail threads, with Awk.
+
+-----------------------------------------------------------
+3) New entries for the Awk100
+(the Awk100  project collects impressive Awk programs.)
+
+http://awk.info/?awk100/013awklinux
+
+Who said you can't use Awk for cutting edge research?
+Yung-Pin Cheng's Awk-Linux system teaches operating
+systems to univesrity students.  A major advantange of
+the use of Awk for this tool is platform independence.
+Stable Awk versions run on many platforms so this tool
+can be readily and easily ported to other machines. The
+same can not be said for other, more complex operating
+systems courseware that may be much harder to port to
+new environments.
+
+Awk-Linux is a state-of-the-art tool.  See Yung-Pin
+Cheng, Janet Mei-Chuen Lin, Awk-Linux: A Lightweight
+Operating Systems Courseware IEEE Transactions on
+Education, vol.  51, issue 4, pp.  461-467, 2008.
+
+------------------------------------------------------------
+4) Bits of awk
+
+http://awk.info/?hanoi
+
+Alan Linton's  Towers of Hanoi program.
+
+----------------------------------------------------------
+5) Page of the week
+
+http://awk.info/?awk100/006boris
+
+Ladies and gentlemen, a star is born. For a record
+breadking third week, Google Analytics tells us that
+"Boris" (demonstration  to DoD of a clustering
+algorithm suitable for streaming  data) is STILL our
+page of the week.
+
+The code shows the power of Awk.  Write the code as
+quick as you can, then look for quirks that can be
+exploited to spped things up.  In the case of Boris,
+those quirks turned a O(n^4) problem into a O(nlogn)
+with a few judicious uses of constants.
+
+Congrats, once again, to Ronald Loui and the man known
+only as Boris.
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute

@@ -1,0 +1,114 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+1) Fun with Awk
+
+http://awk.info/?readminds
+
+Claude Shannon's classic mind-reading machine.  I've
+run this one for my friends and after a few rounds of
+Awk guessing their next move, they backed off saying
+"errr.. that's kind of creepy".
+
+-------------------------------------------------------------
+2) http://awk.info/?Sed
+   - New section: writing sed clones in Awk
+
+2a) http://awk.info/?doc/tip/awksed.html
+    - Arnold Robbins turns Awk into a stream editor.
+
+2b) http://awk.info/?doc/s2a.html
+    - James Lyons converts Sed scripts to Awk.
+
+-----------------------------------------------------------
+3) New entries for the Awk100
+(the Awk100  project collects impressive Awk programs.)
+
+http://awk.info/?tools/awf
+
+Henry Spencer's amazing Awk test formatter.  Awf
+formats the text from the input file(s) (standard input
+if none) in an imitation of nroff's style with the -man
+or -ms macro packages.
+
+Awf may not be lightning fast, and it has certain
+restrictions, but it does a decent job on most manual
+pages and simple -ms documents, and isn't subject to
+AT&T's brain-damaged licensing that denied many System
+V users any text formatter at all. 
+
+It is also a text formatter that is simple enough to be
+tinkered with, for people who want to experiment.
+
+Finally, it shows that Awk is not just a language for
+one-liners.
+
+------------------------------------------------------------
+4) Bits and Bytes of awk
+
+4a) http://awk.info/?news/runawk016
+	- Aleksey Cheusov updates his Runawk tool
+
+4b) http://awk.info/?tip/moving
+	- Arnold Robbins shows how to 
+      push files around, with Awk.
+
+4c) http://awk.info/?tip/caltricks
+    - Walter Ferlazzo tames the Unix "cal" command.
+
+----------------------------------------------------------
+5) Page of the week
+
+http://awk.info/?advocacy
+
+Google Analytics tells us that the Awk.info
+"Why Awk?" page is top of pops. What does that
+mean? I'm only guessing here,  but maybe some folks
+are reevaluating what they want from their
+scripting tools and what Awk can offer, relative
+to other tools. The more Awk.info collects large
+and impressive Awk programs, the more it shows
+that Awk is not just a language for one-liners
+(e.g. see http://awk.info/?tools/awf).
+
+----------------------------------------------------------
+6) Link Attack
+
+If you like what you are reading at Awk.info, please
+help increase its PageRank statistics:
+
+- Link to the site from your own pages 
+
+- Or, where appropriate, add comments at other 
+  sites that link to Awk.Info.
+
+But please, no robot storms- reasonable linking only.
+
+----------------------------------------------------------
+7) Mystery
+
+Google Analytics reports that in all of Florida, there
+is only one place that reads Awk.info. And someone at
+that site is reading these pages more frequently that
+most of Europe.
+
+Would the mysterious reader at Oldsmar Florida please
+email me and let me know what is so good/bad about this
+site?
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
