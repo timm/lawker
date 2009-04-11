@@ -1,0 +1,13 @@
+This is a 150 line CMS, written in PHP that serves files from an on-line repository.
+
+The only essential files are index.php, lastRSS.php, and config.php.
+
+If you copy these three files to a web-accessible directory, you will get the whole site.
+
+If you want to configure the site, you need to 
+	
+    svn export http://code.google.com/p/lawker/source/browse/fridge/etc/
+
+and play with the file etc/config.xml.
+
+Good luck!
