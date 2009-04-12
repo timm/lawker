@@ -1,0 +1,9 @@
+### user config stuff
+Here=$(HOME)/svns/lawker/block/timm# .. Root
+Evil=$(Here)/evil# .... Root
+
+Write=$(Evil)/write# .. Directory of unique function names
+Base=$(Write)/base# ... Start up utils
+Read=$(Evil)/read# .... Html docs, in the repository
+Test=$(Evil)/test# .... Directory, flattenned
+Run=$(Evil)/run# ...... Delivered code.

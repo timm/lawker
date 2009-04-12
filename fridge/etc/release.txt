@@ -7,19 +7,6 @@ stop gaps:
 	- saya
 	- batchrunner
 
-4444444444444444444
-- awk100: awf nroff in awk
-- next section on awk word-processors (markdown, awkwords, nroff in awk)
-- Even more fun with cal and GeekTool 
-    http://www.macosxhints.com/article.php?story=20040625094428394
--fun mind reading machine in awk
-- moving files
-- sed variants
-	- sed2awk
-	- robbins: http://www.gnu.org/software/gawk/manual/gawk.html 13.3.8
-
-- new release of runawk
-
 5555555555555555555
 - awk100:   ronold lou's soccer game
 - fun: eliza.awk
