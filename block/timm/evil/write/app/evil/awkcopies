@@ -1,0 +1,9 @@
+cd $1/write
+find . -name "*.awk" | 
+gawk -F/ ' 
+    { Seen[$NF]++
+      Path[$NF]= Path[$NF] " : " $0 }
+END { for(I in Seen)
+        if (Seen[I] > 1)
+           print "Warning : " Seen[I] " repeats of " I  Path[I]
+}'

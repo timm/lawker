@@ -1,11 +1,10 @@
-BEGIN { IGNORECASE=1 }
-      { xpand()      }
+BEGIN  { xpand()  }
 
 function xpand() {
-   if      ($1 ~ "^.IN")    xpands($2) 
-   else if ($1 ~ "^.BODY" ) xpandsBody($2)
-   else if ($1 ~ "^.LIST")  {
-  	    print "<PRE>"
+   if      ($1 ~ "^.SHOW")  xpands($2) 
+   else if ($1 ~ "^.show" ) xpandsBody($2)
+   else if ($1 ~ "^.list")  {
+  	    print "<pre>"
 	    xpands($2)
 	    print "</pre>" } 
    else print $0

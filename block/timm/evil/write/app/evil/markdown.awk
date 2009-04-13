@@ -43,12 +43,23 @@ BEGIN {
 }
 /\*\*/ {
 	while (match($0, /\*\*/) != 0) {
+		if (env == "strong") {
+			sub(//, "</strong>");
+			env = peenv;
+		}
+		else {
+			sub(/\*\*/, "<strong>");
+			peenv = env;
+			env = "strong"; } }
+}
+/\*/ {
+	while (match($0, /\*/) != 0) {
 		if (env == "emph") {
 			sub(//, "</emph>");
 			env = peenv;
 		}
 		else {
-			sub(/\*\*/, "<emph>");
+			sub(/\*/, "<emph>");
 			peenv = env;
 			env = "emph"; } }
 }

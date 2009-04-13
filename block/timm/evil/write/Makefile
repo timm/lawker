@@ -1,4 +1,12 @@
-Evilrc ?= dotevilrc
+#    ___         
+#  _/ oo\     Evil software demons present
+# ( \  -/__   the Evil Makefile, copyright 2009 
+#  \    \__)  by Tim Menzies, GPL 3.0
+#  /     \
+# /      _\
+# `"""""``  jgs
+
+Evilrc ?= etc/dotevilrc
 include $(Evilrc)
 
 Awk  := $(shell which gawk)#

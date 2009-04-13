@@ -1,11 +1,19 @@
+# This Evil mad softwre 
+#         ___
+#       _/ ..\
+#      ( \  0/__
+#       \    \__)
+#       /     \
+# jgs  /      _\
+#     `"""""`` 
 Work   = $(HOME)/opt/evil#
 Here   = $(HOME)/svns/lawker/block/timm# 
 Evil   = $(Here)/evil# ... root
 
 # stuff to share (in a repository)
 Writes = $(Evil)/write/lib/# .. "Writes" directory, with unique function names
-Base   = $(Write)/app/evil# .. start up utils
-Read   = $(Evil)/doc/read# ... "Writes" directory, flatenned, with markdown converted to html
+Read   = $(Evil)/doc/read#  ... "Writes" directory, flatenned, with markdown converted to html
+Base   = $(Write)/app/evil#  .. start up utils
 
 # stuff to be built (outside the repository)
 Test   = $(Work)/test# ... write directory, flattenned, markdown commented out
