@@ -1,9 +1,11 @@
 ### user config stuff
-Here=$(HOME)/svns/lawker/block/timm# .. Root
-Evil=$(Here)/evil# .... Root
+Work   = $(HOME)/opt/evil
+Here   = $(HOME)/svns/lawker/block/timm# 
+Evil   = $(Here)/evil# ... root
 
-Write=$(Evil)/write# .. Directory of unique function names
-Base=$(Write)/base# ... Start up utils
-Read=$(Evil)/read# .... Html docs, in the repository
-Test=$(Evil)/test# .... Directory, flattenned
-Run=$(Evil)/run# ...... Delivered code.
+Writes = $(Evil)/write# .. directory of unique function names
+Base   = $(Write)/evil# .. start up utils
+Read   = $(Evil)/read# ... html docs, in the repository
+
+Test   = $(Work)/test# ... directory, flattenned
+Run    = $(Work)/run# .... delivered code.
