@@ -1,0 +1,12 @@
+Work   = $(HOME)/opt/evil#
+Here   = $(HOME)/svns/lawker/block/timm# 
+Evil   = $(Here)/evil# ... root
+
+# stuff to share (in a repository)
+Writes = $(Evil)/write# .. "Writes" directory, with unique function names
+Base   = $(Write)/evil# .. start up utils
+Read   = $(Evil)/read# ... "Writes" directory, flatenned, with markdown converted to html
+
+# stuff to be built (outside the repository)
+Test   = $(Work)/test# ... write directory, flattenned, markdown commented out
+Run    = $(Work)/run# .... ready to run, everything included
