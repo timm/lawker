@@ -2,7 +2,6 @@
 stop gaps:
 	- editorial: awkwords?
 	- stuff from sed & awk
-	- towers of hanoi??
 	- more functional stuff
 	- saya
 	- batchrunner
@@ -42,15 +41,28 @@ visual awk
 awkastar
 
 888888888888888888
+awk100: xgawk
+- new section of xml processing and gawk
+	- xgawk
+    - xmlgawk.awk
 
 code testing: kernighan
 spread sheet access: http://www.freakout.de/mc.htm#Piping
 eiso's awk scrits- if i understood what they did
 - fun: my bayes trick
-- cocomo lv
+- cocomo lc
 
 awktemplate
+
+9999999999999999
+awk100: jawk
+new section: more xml with gawk
+- http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
+
+111111111111111
+
 ===================
+
 because it jsut doesn't matter
 i have an ide: emacs.unix
 
