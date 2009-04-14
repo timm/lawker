@@ -24,19 +24,23 @@ stop gaps:
 - awk100: the amazing awk assembler
 - new section on awk interpreters (awk assembler, awklisp)
 - quick sort in awk
-- fun sig generator
+- fun: sig generator
+
+in praise of scripting
 
 visual awk
 
-77777777777777777777
+aaa77777777777777777777
 - akw100 oo in ansi "C" awk packages. axel schreiner
 - new section on operating ssytems and awk (awk linux) and 
 	http://www.icir.org/tfrc/sims1.html
+	share/pdf/awkalert.pdf
+	http://www.icir.org/tfrc/sims1.htmlP
 	awk-linux
 
-- awk for databases
-  http://victor-notes.com/qppro/awk.html
-	dda for awk share/pdf/awkdda.awk
+
+append data to fields, not records
+http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
 
 awkastar
 
@@ -46,20 +50,65 @@ awk100: xgawk
 	- xgawk
     - xmlgawk.awk
 
+xml processing with awk
+http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html#Reading-XML-Data-with-POSIX-AWK
+display awk:
+http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1311a8b04a802265/f5a7d1d714297f00?lnk=gst&q=xml#f5a7d1d714297f00
+xml file using shell script
+http://www.issociate.de/board/post/265610/Parse_an_XML_File_using_Shell_script.html
+
 code testing: kernighan
 spread sheet access: http://www.freakout.de/mc.htm#Piping
-eiso's awk scrits- if i understood what they did
-- fun: my bayes trick
-- cocomo lc
 
+reading tabular data
 awktemplate
+Template-driven interfaces for numerical subroutines
+Full text       PdfPdf (1.28 MB)
+Source  ACM Transactions on Mathematical Software (TOMS) archive
+Volume 19 ,  Issue 3  (September 1993) table of contents
+Pages: 265 - 287
+Year of Publication: 1993
+ISSN:0098-3500
 
 9999999999999999
 awk100: jawk
 new section: more xml with gawk
 - http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
 
-111111111111111
+steve coile's xgawk
+http://groups.google.com/group/comp.lang.awk/msg/8f094ce6f0a32492?&q=xml
+karhs getmxl vs xgawk:
+http://groups.google.com/group/comp.lang.awk/browse_thread/thread/af74e60cb72e119c/38710ddc81e0bbc2?lnk=gst&q=xml#38710ddc81e0bbc2
+
+correlations in gawk
+http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
+
+pdf/awkverify.awk
+
+000000000000000000
+new section on scientific computation and awk:
+eiso's awk scrits- if i understood what they did
+mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
+
+awk100: fsa generator
+http://www.stumbleupon.com/redirect.php?t=i&u=13309825&d=http%3A%2F%2Fsourceforge.net%2Fproject%2Fplatformdownload.php%3Fgroup_id%3D242703&l=2&c=baj1senra2q0xfqs
+uml generator
+http://www.theficks.name/bin/lib/sdml/sdml2txt
+
+111111111111111111
+awk100: plait command line jukebox: http://stephenjungels.com/jungels.net/projects/plait/
+new section: awk for databases
+  http://victor-notes.com/qppro/awk.html
+	dda for awk share/pdf/awkdda.awk
+	Quick and Dirty Databases with Nice Output: AWK and Tex
+		http://mail.google.com/mail/#label/awk.info/1204fa85039f07f7
+
+
+html parser in awk
+http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
+- fun: my bayes trick
+- cocomo lc
+
 
 ===================
 
