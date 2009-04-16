@@ -1,0 +1,278 @@
+#!/usr/bin/gawk -f 
+BEGIN {
+  srand()
+
+  lmargin = 10
+  tmargin = 10
+  height = 300
+  width = 600
+  halfemh = 18
+  halfemw = 12
+
+  MAXDEVP = 20
+
+  TRAILS = 1
+
+  redrgoal = height/2
+  redcgoal = 0
+  greenrgoal = height/2
+  greencgoal = width
+
+  getline whoami
+  # print "i am "whoami
+
+  while (getline < "pos" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dat[$1] = $0
+      color[$1] = $2
+      rdat[$1] = $3
+      cdat[$1] = $4
+      edat[$1] = $5
+      if ($1 == "0") {
+        rball = rdat["0"]
+        cball = cdat["0"]
+        if ($0 ~ /aloft/) notes["0"] = "aloft"
+        if (match($0,/static[0-9]*/)) static["0"] = substr($0,RSTART+6,RLENGTH)
+      }
+    }
+  }
+  close("pos")
+
+  while (getline < "dirs" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dirdat[$1] = $0
+      rdev[$1] = $3
+      cdev[$1] = $4
+      if ($1 == "0") {
+        rrdev[$1] = rdev[$1]
+        ccdev[$1] = cdev[$1]
+      } else {
+        rrdev[$1] = maxdev(rdev[$1])
+        ccdev[$1] = maxdev(cdev[$1])
+      }
+      rkick[$1] = maxkick($6)
+      ckick[$1] = maxkick($7)
+      kick[$1] = $5" "$6" "$7
+    }
+  }
+  close("dirs")
+
+  makedirs()
+
+  for (i in rrdev) {
+    if (color[i] == whoami) print i, color[i], rdev[i], cdev[i], kick[i]
+  }
+
+}
+
+func rok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > height) return height
+  return x
+}
+
+func cok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > width) return width
+  return x
+}
+
+func eok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > 100) return 100
+  return x
+}
+
+func sgn(x) {
+  if (x < 0) return -1
+  if (x > 0) return 1
+  return 0
+}
+
+func abs(x) {
+  if (x < 0) return -x
+  return x
+}
+
+func makedirs() {
+  while (getline < "init") {
+    rinit[$1] = $3
+    cinit[$1] = $4
+  }
+  close("init")
+  if (rand() < .9) chaser["f"] = 1
+  if (rand() < .9) chaser["g"] = 1
+  if (rand() < .7) chaser["F"] = 1
+  if (rand() < .7) chaser["G"] = 1
+  if (rand() < .4) chaser["c"] = 1
+  if (rand() < .4) chaser["C"] = 1
+  if (rand() < .4) chaser["b"] = 1
+  if (rand() < .4) chaser["B"] = 1
+	offense = 1
+
+  # to do:  vision based on direction, speed, ball, player
+  # to do:  call each program
+  for (i in dat) {
+    if (color[i] != whoami) continue
+    key = index("aAbBcCdDeEfFgG",i)
+    if(i == "a" || i == "A") {
+				#if ball is in box... go after it (and kick it..bottom of code)
+				if((rdat["0"] > 130) && (rdat["0"] < 170) && (cdat["0"]< 10)){
+				 	rdev[i] = maxdev((rdat["0"] - rdat[i]) / 2)
+					cdev[i] = maxdev((cdat["0"] - cdat[i]) / 2)		
+				}
+				else{  #defend the net
+					if((rdat["0"] < 130)&&(rdat[i]!=142)) {
+						rdev[i] = maxdev((142-rdat[i]) /2)
+						cdev[i] = maxdev((0-cdat[i])/2)
+					}
+					else if((rdat["0"] > 170)&& (rdat[i]!=158)) {
+						rdev[i] = maxdev((158-rdat[i]) /2)
+					  cdev[i] = maxdev((0-cdat[i])/2)
+					}
+	  			else if((rdat["0"] <= 170) && (rdat["0"] > 160) && (rdat[i]!= 154)) {
+			 	  	rdev[i] = maxdev((154-rdat[i]) /2)
+						cdev[i] = maxdev((0-cdat[i]) /2)
+					}
+					else if((rdat["0"] <= 160) && (rdat["0"] >= 140) && (rdat[i]!= 150)){
+         		 rdev[i] = maxdev((150-rdat[i]) /2)
+						 cdev[i] = maxdev((0-cdat[i])/2)
+					}
+					else if((rdat["0"] < 140) && (rdat["0"] >= 130) && (rdat[i] != 146)){
+						rdev[i] = maxdev((146-rdat[i]) /2)
+						cdev[i] = maxdev((0-cdat[i]) /2)
+					}
+				}
+		}
+		if((color[i] ~ /red/ && ((cdat["0"] < cdat["b"] && cdat["0"] < cdat["c"] && cdat["0"] < cdat["d"] && cdat["0"] < cdat["e"] && cdat["0"] < cdat["f"] && cdat["0"] < cdat["g"]) || (cdat["0"] < 300))) || (color[i] ~ /green/ && ((cdat["0"] > cdat["B"] && cdat["0"] > cdat["C"] && cdat["0"] > cdat["D"] && cdat["0"] > cdat["E"] && cdat["0"] > cdat["F"] && cdat["0"] > cdat["G"]) || (cdat["0"] > 300)))) {offense = 0}
+#if ball behind all players, or ball in defensive side of field... go to defensive positions, OTHERWISE OFFFENSE BABY!
+		if(i == "b" || i == "B") {
+			if(abs(cdat["0"] - cdat[i]) < 50 && abs(rdat["0"] - rdat[i]) < 50) {
+				cdev[i] = maxdev((cdat["0"] - cdat[i]) / 2)
+				rdev[i] = maxdev((rdat["0"] - rdat[i]) / 2) 
+			}
+			else if(offense == 1) {
+				if(i == "b" && cdat[i] != 500) {cdev[i] = maxdev((500 - cdat[i]) / 2)}
+				if(i == "B" && cdat[i] != 100) {cdev[i] = maxdev((100 - cdat[i]) / 2)}
+				if(rdat[i] != 100) {rdev[i] = maxdev((100 - rdat[i]) / 2)}
+			}
+			else if(offense == 0) {
+				if(i == "b" && cdat[i] != 100) {cdev[i] = maxdev((100 - cdat[i]) / 2)}
+				if(i == "B" && cdat[i] != 500) {cdev[i] = maxdev((500 - cdat[i]) / 2)}
+				if(rdat[i] != 150) {rdev[i] = maxdev((150 - rdat[i]) / 2)}
+			}
+		}
+		if(i == "c" || i == "C") {
+			if(abs(cdat["0"] - cdat[i]) < 50 && abs(rdat["0"] - rdat[i]) < 50) {
+				cdev[i] = maxdev((cdat["0"] - cdat[i]) / 2)
+				rdev[i] = maxdev((rdat["0"] - rdat[i]) / 2) 
+			}
+			else if(offense == 1) {
+				if(i == "c" && cdat[i] != 550) {cdev[i] = maxdev((550 - cdat[i]) / 2)}
+				if(i == "C" && cdat[i] != 50) {cdev[i] = maxdev((50 - cdat[i]) / 2)}
+				if(rdat[i] != 150) {rdev[i] = maxdev((150 - rdat[i]) / 2)}
+			}
+			else if(offense == 0) {
+				if(i == "c" && cdat[i] != 200) {cdev[i] = maxdev((200 - cdat[i]) / 2)}
+				if(i == "C" && cdat[i] != 400) {cdev[i] = maxdev((400 - cdat[i]) / 2)}
+				if(rdat[i] != 150) {rdev[i] = maxdev((150 - rdat[i]) / 2)}
+			}
+		}
+		if(i == "d" || i == "D") {
+			if(abs(cdat["0"] - cdat[i]) < 50 && abs(rdat["0"] - rdat[i]) < 50) {
+				cdev[i] = maxdev((cdat["0"] - cdat[i]) / 2)
+				rdev[i] = maxdev((rdat["0"] - rdat[i]) / 2) 
+			}
+			else if(offense == 1) {
+				if(i == "d" && cdat[i] != 450) {cdev[i] = maxdev((450 - cdat[i]) / 2)}
+				if(i == "D" && cdat[i] != 150) {cdev[i] = maxdev((150 - cdat[i]) / 2)}
+				if(rdat[i] != 75) {rdev[i] = maxdev((75 - rdat[i]) / 2)}
+			}
+			else if(offense == 0) {
+				if(i == "d" && cdat[i] != 50) {cdev[i] = maxdev((50 - cdat[i]) / 2)}
+				if(i == "D" && cdat[i] != 550) {cdev[i] = maxdev((550 - cdat[i]) / 2)}
+				if(rdat[i] != 100) {rdev[i] = maxdev((100 - rdat[i]) / 2)}
+			}
+		}
+		if(i == "e" || i == "E") {
+			if(abs(cdat["0"] - cdat[i]) < 50 && abs(rdat["0"] - rdat[i]) < 50) {
+				cdev[i] = maxdev((cdat["0"] - cdat[i]) / 2)
+				rdev[i] = maxdev((rdat["0"] - rdat[i]) / 2) 
+			}
+			else if(offense == 1) {
+				if(i == "e" && cdat[i] != 450) {cdev[i] = maxdev((450 - cdat[i]) / 2)}
+				if(i == "E" && cdat[i] != 150) {cdev[i] = maxdev((150 - cdat[i]) / 2)}
+				if(rdat[i] != 225) {rdev[i] = maxdev((225 - rdat[i]) / 2)}			
+			}
+			else if(offense == 0) {
+				if(i == "e" && cdat[i] != 50) {cdev[i] = maxdev((50 - cdat[i]) / 2)}
+				if(i == "E" && cdat[i] != 550) {cdev[i] = maxdev((550 - cdat[i]) / 2)}
+				if(rdat[i] != 200) {rdev[i] = maxdev((200 - rdat[i]) / 2)}			
+			}
+		}
+		if(i == "f" || i == "F") {
+			if(abs(cdat["0"] - cdat[i]) < 50 && abs(rdat["0"] - rdat[i]) < 50) {
+				cdev[i] = maxdev((cdat["0"] - cdat[i]) / 2)
+				rdev[i] = maxdev((rdat["0"] - rdat[i]) / 2) 
+			}
+		  else if(offense == 1) {
+				if(i == "f" && cdat[i] != 525) {cdev[i] = maxdev((525 - cdat[i]) / 2)}
+				if(i == "F" && cdat[i] != 75) {cdev[i] = maxdev((75 - cdat[i]) / 2)}
+				if(rdat[i] != 100) {rdev[i] = maxdev((100 - rdat[i]) / 2)}
+			}
+			else if(offense == 0) {
+				if(i == "f" && cdat[i] != 150) {cdev[i] = maxdev((150 - cdat[i]) / 2)}
+				if(i == "F" && cdat[i] != 450) {cdev[i] = maxdev((450 - cdat[i]) / 2)}
+				if(rdat[i] != 50) {rdev[i] = maxdev((50 - rdat[i]) / 2)}
+			}
+		}
+		if(i == "g" || i == "G") {
+			if(abs(cdat["0"] - cdat[i]) < 50 && abs(rdat["0"] - rdat[i]) < 50) {
+				cdev[i] = maxdev((cdat["0"] - cdat[i]) / 2)
+				rdev[i] = maxdev((rdat["0"] - rdat[i]) / 2) 
+			}
+		  else if(offense == 1) {
+				if(i == "g" && cdat[i] != 525) {cdev[i] = maxdev((525 - cdat[i]) / 2)}
+				if(i == "G" && cdat[i] != 75) {cdev[i] = maxdev((75 - cdat[i]) / 2)}
+				if(rdat[i] != 200) {rdev[i] = maxdev((200 - rdat[i]) / 2)}
+			}
+			else if(offense == 0) {
+				if(i == "g" && cdat[i] != 150) {cdev[i] = maxdev((150 - cdat[i]) / 2)}
+				if(i == "G" && cdat[i] != 450) {cdev[i] = maxdev((450 - cdat[i]) / 2)}
+				if(rdat[i] != 250) {rdev[i] = maxdev((250 - rdat[i]) / 2)}
+			}
+		}
+		if(abs(rdat["0"] - rdat[i]) <= 2 && abs(cdat["0"] - cdat[i]) <= 2){
+		  if(i == "f" || i == "g" || i == "a") {
+				kick[i] = "kick.aloft " maxkick(greenrgoal - rdat[i]) " " maxkick(greencgoal - cdat[i])
+			}
+			else if(i == "F" || i == "G" || i == "A") {
+				kick[i] = "kick.aloft " maxkick(redrgoal - rdat[i]) " " maxkick(redcgoal - cdat[i])
+			}
+			else if(color[i] ~ /red/) {
+				kick[i] = "kick " maxkick(greenrgoal - rdat[i]) " " maxkick(greencgoal - cdat[i])
+			}
+			else if(color[i] ~ /green/) {
+				kick[i] = "kick " maxkick(redrgoal - rdat[i]) " " maxkick(redcgoal - cdat[i])
+			}
+		}
+		else {
+			kick[i] = ""
+		}
+  }
+}
+
+func maxkick(x) {
+  if (x > 2*MAXDEVP) return 2*MAXDEVP
+  if (x < -2*MAXDEVP) return -2*MAXDEVP
+  return x
+}
+
+func maxdev(x) {
+  if (x > MAXDEVP) return MAXDEVP
+  if (x < -1*MAXDEVP) return -1*MAXDEVP
+  return x
+}

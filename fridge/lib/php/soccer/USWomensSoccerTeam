@@ -1,0 +1,445 @@
+#!/usr/bin/gawk -f
+
+BEGIN {
+#	print "The US Women's Soccer Team is now playing!!!!!!!!"
+	MAX_MOVEMENT = 15  
+	BALL_SPEED_FACTOR = 2
+
+#	print "what color are we?"
+	getline myColor; 
+#	print "we are the " myColor " team"
+
+  aloft=0
+	ballFound=0
+	i=0
+
+	#"egrep -cv \"\w\W\w+\W\w+\W\w+\W100\" pos" | getline result
+        "egrep -cv \"100\" pos" | getline result
+        close ("egrep -cv \"100\" pos")
+	#if (result == 0) print "" > "currentPlays"
+
+	while (getline < "pos" > 0) {
+  	color[$1] = $2
+    row[$1] = $3
+    col[$1] = $4
+    energy[$1] = $5
+    if ($0 ~ /aloft/) aloft=1
+		if ($1 != 0) { players[i]=$1; i++ }
+  }
+	close("pos")
+	ball_row = row["0"];
+	ball_col = col["0"]
+
+#	for(i=i-1; i>=0; i--) {
+#		xVal=ball_row-row[players[i]]
+#		yVal=ball_col-col[players[i]]
+#		print sqrt(xVal*xVal+yVal*yVal) "\t" players[i] >> "distToBall"
+#	}
+
+	#system("sort -g  distToBall > distancesSorted")
+	#system("rm -f distToBall");
+
+  while (getline < "dirs" > 0) {
+  	row_movement[$1] = x_scale($3, $4, MAX_MOVEMENT)
+   	col_movement[$1] = y_scale($3, $4, MAX_MOVEMENT)
+
+    row_kick[$1] = x_scale($6, $7, 2*MAX_MOVEMENT)
+    col_kick[$1] = y_scale($6, $7, 2*MAX_MOVEMENT)
+  }
+	close("dirs")
+  ball_row_movement = row_movement["0"]
+  ball_col_movement = col_movement["0"]
+
+#	addNewPlay("cherryPick")
+	readPlays()
+	roles["1x0"]="receiver"
+	roles["1x1"]=500
+	roles["1x2"]=200
+
+	if (myColor == "red") {
+		player[0]="a"; player[1]="b"; player[2]="c"; player[3]="d";
+		player[4]="e"; player[5]="f"; player[6]="g";
+		otherPlayer[0]="A"; otherPlayer[1]="B";otherPlayer[2]="C";	
+		otherPlayer[3]="D"; otherPlayer[4]="E";otherPlayer[5]="F";
+		otherPlayer[6]="G";
+	}
+
+	else if (myColor == "green") {
+		player[0]="A"; player[1]="B"; player[2]="C"; player[3]="D";
+    player[4]="E"; player[5]="F"; player[6]="G";
+		otherPlayer[0]="a"; otherPlayer[1]="b";otherPlayer[2]="c";	
+		otherPlayer[3]="d"; otherPlayer[4]="e";otherPlayer[5]="f";
+		otherPlayer[6]="g";
+	}
+
+	determinePlays()
+
+	i=0
+	while(1) {
+		if(plays[i "x" 0] == "cherryPick") {
+#			print "cherryPicking...."
+			# DO THE CHERRY PICK THING
+			j=0
+			while(1) {
+				if(roles[j "x" 0] == "receiver") {
+					new_row_movement[player[j]] = roles[j "x" 2] - row[player[j]]
+					new_col_movement[player[j]] = roles[j "x" 1] - col[player[j]]
+					newRoles[j "x" 0] = "receiver"
+					newRoles[j "x" 1] = roles[j "x" 1]
+					newRoles[j "x" 2] = roles[j "x" 2]
+					break;
+				}
+				j++
+			}
+			#addNewPlay("cherryPick")
+		}
+		else if(plays[i "x" 0] == "StandardDefend") {
+			print "defend"
+			standardDefense(3,4)
+		}
+		else if(plays[i "x" 0] == "goalie") {
+			goalie(0)
+		}
+		else if(plays[i "x" 0] == "") break;
+		i++
+	}
+
+	#writePlays()
+
+	for(i=0;i<7;i++) {
+		plyr = player[i]
+		#if (plyr=="a" || plyr=="b" || plyr =="A" || plyr=="B")
+			outputAction(plyr, new_col_movement[plyr], new_row_movement[plyr], new_kick_val[plyr], new_col_kick[plyr], new_row_kick[plyr])
+		#else outputAction(plyr, 0, 0)
+	}
+  
+	#outputAction("a", 0, 0)
+  #outputAction("b", 6, 10)
+  #outputAction("c", 3, -15)
+  #outputAction("d", 0, 15)
+  #outputAction("e", 0, 0)
+  #outputAction("f", 9, 5)
+  #outputAction("g", 0, 0)
+}
+
+# scales the x value of a  vector if it is over length MAX_MOVEMENT or MAX_MOVEMENT*2
+function x_scale(x, y, scalar){
+  if (scalar==0)
+	scalar=MAX_MOVEMENT
+  dist = sqrt(x*x+y*y)
+	if (dist > scalar) return x*scalar/dist
+  return x
+}
+
+# same for y value
+function y_scale(x, y, scalar){
+  if (scalar==0)
+	scalar=MAX_MOVEMENT
+  dist = sqrt(x*x+y*y)
+	if (dist > scalar) return y*scalar/dist
+  return y
+}
+
+function abs(num) {
+	if (num < 0) return -1*num;
+	return num;
+}
+
+function sign(num) {
+	if (num == 0) return 0
+	return num / abs(num)
+}
+
+function outputAction(player, deltaX, deltaY, kick, kickX, kickY){
+        #kick is 0 for no kick, 1 for standard kick, and 2 for aloft kick
+        s = ""
+	newXPos = col[player] + x_scale(deltaX, deltaY)
+	newYPos = row[player] + y_scale(deltaX, deltaY)
+	if (sqrt(((newYPos-ball_row)*(newYPos-ball_row))+((newXPos-ball_col)*(newXPos-ball_col)))<6){
+		if(kick==1)
+                	s = "kick " kickY " " kickX
+        	else if(kick ==2)
+                	s = "kick.aloft " kickY " " kickX
+	}        
+        print player, myColor, deltaY, deltaX, s
+}
+
+function writePlays(){
+  #assume 2 arrays: newroles, and newplays
+ # system("echo > currentPlays")
+  
+	#for(i=0;i<7;i++){
+  #  s = ""
+  #  j = 0
+  #  while(newroles[i "x" j] != ""){
+  #    s = s newroles[i "x" j] " "
+  #    j++
+  #  }
+  #  system("echo " s " >> currentPlays")
+  #}
+  #i = 0
+  #while(newplays[i "x" 0] != ""){
+  #  s = ""
+  #  j = 0
+  #  while(newplays[i "x" j] != ""){
+  #    s = s newplays[i "x" j] " "
+  #    j++
+  #  }
+  #  system("echo " s " >> currentPlays")
+  #  i++
+  #}
+	#close("currentPlays")
+}
+
+function readPlays(){
+  #reads in the current plays file and stores it to the arrays roles and plays
+  #c = 0
+  #while (getline < "currentPlays" > 0){
+  #  if(c < 7)
+  #    for(i = 1;i<=NF;i++)
+  #      roles[c "x" i-1] = $i
+  #  else
+  #    for(i=1;i<=NF;i++)
+  #      plays[c-7 "x" i-1] = $i
+  #  c++
+  #}
+	#close("currentPlays")
+}
+
+function addNewPlay(string){
+  i = 0
+  while(newplays[i "x" 0] != ""){
+    i++
+  }
+  newplays[i "x" 0] = string
+}
+
+function goalie(playerID){
+        #print "in goalie method"
+        Y_GOAL_BOX = 32
+        X_GOAL_BOX = 8
+        MAX_DIST = 8
+        myGoalX = 600*(myColor=="green")
+        myGoalY = 150
+        ballToGoalX = myGoalX - ball_col
+        ballToGoalY = myGoalY - ball_row
+        if (abs(ballToGoalX)>X_GOAL_BOX || abs(ballToGoalY)>Y_GOAL_BOX/2){
+                #outside goal box
+                if (abs(ballToGoalX)>BALL_SPEED_FACTOR*MAX_DIST)
+                        goaliePosX = myGoalX-sign(ballToGoalX)*MAX_DIST
+                else
+                        goaliePosX = (myGoalX*BALL_SPEED_FACTOR+ball_col)/(BALL_SPEED_FACTOR+1)
+                if (ballToGoalX == 0) 
+                        goaliePosY = myGoalY
+                else
+                        goaliePosY = myGoalY-ballToGoalY*(myGoalX-goaliePosX)/ballToGoalX
+                new_row_movement[player[playerID]] = goaliePosY - row[player[playerID]]
+                new_col_movement[player[playerID]] = goaliePosX - col[player[playerID]]
+        } else {
+                #inside goal box
+                goaliePosX = ball_col
+                goaliePosY = ball_row
+                new_row_movement[player[playerID]] = goaliePosY - row[player[playerID]]
+                new_col_movement[player[playerID]] = goaliePosX - col[player[playerID]]
+                new_kick_val[player[playerID]] = 2
+		new_col_kick[player[playerID]] = 300 - ball_col
+		new_row_kick[player[playerID]] = 150 - ball_row
+		#########
+                #   ADD CODE TO KICK THE BALL HERE
+                #########
+       } 
+	print "ballToGoalX: " ballToGoalX " ballToGoalY: "ballToGoalY
+	roles[playerID "x" 0] = "goalie"  
+        print "goalie pos Y: " row[player[playerID]] " and x: " col[player[playerID]]
+        print "goalie move Y: " goaliePosY " and x: " goaliePosX
+}
+
+
+function determinePlays() {
+  # some useful arrays/ booleans
+  i=0;
+  #while (getline < "distancesSorted" > 0) {
+  #  distances[i]=$1
+  #  closestPlayers[i]=$2
+  #  i++
+  #}
+  #if ((closestPlayers[i] ~ /^[A-Z]$/ && myColor == "red") || (closestPlayers[i] ~/^[a-z]$/ && myColor == "green")) theyAreCloser=1
+  #else theyAreCloser=0
+
+  # now we will decide which plays to try to implement
+  #if(theyAreCloser && ball_col <= 300) addNewPlay("getOffenseOpen")
+	#addNewPlay("goalie")
+	#addNewPlay("StandardDefend")
+	
+	defense(3,4)
+	goalie(0)
+	
+	basicOffense()
+
+}
+
+function defense(p1,p2) {
+  myGoal=600*(myColor == "green")
+  distFromGoal = abs(ball_col - myGoal)
+  if (distFromGoal <= 200){
+		defenseDefense(p1,p2)
+		defenseOffense()
+	}
+  else offenseDefense(p1,p2)
+}
+
+
+function defenseDefense(playerID1, playerID2){
+        myGoalX = 600*(myColor=="green")
+        theirGoalX = 600*(myColor=="red")
+        myGoalY = 150
+        ballToGoalX = myGoalX - ball_col
+        ballToGoalY = myGoalY - ball_row
+  #calc distances to the ball for each player
+  player1dist = sqrt((ball_row - row[player[playerID1]])*(ball_row - row[player[playerID1]])+(ball_col - col[player[playerID1]])*(ball_col - col[player[playerID1]]))
+  player2dist = sqrt((ball_row - row[player[playerID2]])*(ball_row - row[player[playerID2]])+(ball_col - col[player[playerID2]])*(ball_col - col[player[playerID2]]))
+  #sort so that player1 is closer than player2
+  if (player2dist < player1dist){
+    temp = playerID1
+    playerID1 = playerID2
+    playerID2 = temp
+    temp = player1dist
+    player1dist = player2dist
+    player2dist = temp
+  }
+  #closest player: go after the ball and kick it to opposite goal
+  player1PosX = ball_col
+  player1PosY = ball_row
+        new_row_movement[player[playerID1]] = player1PosY - row[player[playerID1]]
+        new_col_movement[player[playerID1]] = player1PosX - col[player[playerID1]]
+  new_kick_val[player[playerID1]] = 2
+  new_col_kick[player[playerID1]] = theirGoalX - ball_col
+        new_row_kick[player[playerID1]] = myGoalY - ball_row
+  #farther player: position self between ball and goal
+  player2PosX = (ball_col + myGoalX) / 2
+  player2PosY = (ball_row + myGoalY) / 2
+        new_row_movement[player[playerID2]] = player2PosY - row[player[playerID2]]
+        new_col_movement[player[playerID2]] = player2PosX - col[player[playerID2]]
+        print "near pos Y: " row[player[playerID1]] " and x: " col[player[playerID1]]
+        print "near move Y: " player1PosY " and x: " player1PosX
+        print "far pos Y: " row[player[playerID2]] " and x: " col[player[playerID2]]
+        print "far move Y: " player2PosY " and x: " player2PosX
+}
+
+
+function offenseDefense(playerID1, playerID2){
+        myGoalX = 600*(myColor=="green")
+        theirGoalX = 600*(myColor=="red")
+  #sort so that player1 has small yPos than player2
+  if (row[player[playerID1]] > row[player[playerID2]]){
+    temp = playerID1
+    playerID1 = playerID2
+    playerID2 = temp
+    temp = player1dist
+    player1dist = player2dist
+    player2dist = temp
+  }
+  XPos = (myColor=="red")?(200):(400)
+  player1PosY = 100-(100-ball_row)*200/abs(myGoalX-ball_col)
+  player2PosY = 200-(200-ball_row)*200/abs(myGoalX-ball_col)
+        new_row_movement[player[playerID1]] = player1PosY - row[player[playerID1]]
+        new_col_movement[player[playerID1]] = XPos - col[player[playerID1]]
+        new_row_movement[player[playerID2]] = player2PosY - row[player[playerID2]]
+        new_col_movement[player[playerID2]] = XPos - col[player[playerID2]]
+	print "new Y1: " player1PosY " and y2: " player2PosY
+}
+
+
+
+function basicOffense(){
+  #finds the closest player, and moves that player toward the ball and kicks the ball at the goal
+	myGoalX = 600*(myColor=="green")
+  theirGoalX = 600*(myColor=="red")
+  myGoalY = 150
+
+  cp = findClosestPlayer()
+	if (cp == 0) return;
+  new_row_movement[player[cp]] = ball_row - row[player[cp]]
+  new_col_movement[player[cp]] = ball_col - col[player[cp]]
+
+  new_kick_val[player[cp]] = 2
+  new_col_kick[player[cp]] = theirGoalX - ball_col
+  new_row_kick[player[cp]] = myGoalY - ball_row
+}
+
+function findClosestPlayer(){
+  #returns our closest player to the ball whose energy is above 40
+  c = 0
+  i = 0
+  min_d = sqrt((col[player[i]] - ball_col) * (col[player[i]] - ball_col) +  (row[player[i]] - ball_row) * (row[player[i]] - ball_row))
+  for(i=0;i<7;i++){
+  	d = sqrt((col[player[i]] - ball_col) * (col[player[i]] - ball_col) +  (row[player[i]] - ball_row) * (row[player[i]] - ball_row))
+    if(min_d > d && energy[player[i]] > 40){
+      min_d = d
+      c = i
+    }
+  }
+  return c
+}
+
+function isClearPath(x1, y1, x2, y2, e1, e2){
+  #returns 1 if there is a clear path from pont 1 to point 2
+  #excludes the players e1 and e2 if they are provided
+  #e1 and e2 should be players on our team. 1 corresponds to a.
+  print x1, y1, x2, y2
+  dist = sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1))
+  minD = 12
+  for(i = 0;i<7;i++){
+    if(i == e1 - 1 || i == e2 - 1) continue
+    x3 = col[player[i]]
+    y3 = row[player[i]]
+    d = ((x2-x1)*(y1-y3) - (x1-x3)*(y2-y1)) / dist
+#   print ("d = " d " i = " i);
+    if(abs(d) < minD)
+      return 0;
+  }
+  for(i = 0;i<7;i++){
+    x3 = col[otherPlayer[i]]
+    y3 = row[otherPlayer[i]]
+    d = ((x2-x1)*(y1-y3) - (x1-x3)*(y2-y1)) / dist
+#   print ("d = " d " i = " i " x3 = " x3 " y3 = " y3);
+    if(abs(d) < minD)
+      return 0;
+  }
+  return 1;
+}
+
+function getOpenInRegion(cp, xmin, xmax, ymin, ymax){
+  #if player is not already open:
+  #if(!isClearPath(col[player[cp]], row[player[cp]], ball_col, ball_row,cp,cp)){
+    for(i=xmin ; i <= xmax ; i= i +25){
+      for(j=ymin ; j < ymax; j = j + 15){
+   #     if(isClearPath(i, j, ball_col, ball_row,cp,cp)){
+          new_col_movement[player[cp]] = i - col[player[cp]]
+   	      new_row_movement[player[cp]] = j - row[player[cp]]
+          i=xmax+1;j=ymax+1
+   #     }
+      }
+    }
+  #}
+}
+
+function defenseOffense(){
+  #play that tries to get the offensive players open when our defensive players have the ball or their offense has the ball
+  #handles movements for the players f c and g  (5 2 and 6)
+  newroles["2x0"] = "getopen"
+  newroles["5x0"] = "getopen"
+  newroles["6x0"] = "getopen"
+  addNewPlay("getoffenseopen")
+  #player 2 tries to get as open as possible in the region from x=275 to x=325 and y=100 to y = 200
+  myGoal = 600 * (mycolor == "green")
+	
+ 	new_col_movement["f"] = abs(myGoal-425) - col["f"]
+  new_row_movement["f"] = 175 - row["f"]
+	#getOpenInRegion(5, abs(myGoal-425), abs(600-475), 150, 200)
+  #getOpenInRegion(2, 275, 325, 100, 200)
+  #getOpenInRegion(6, abs(600-425), abs(600-475), 100, 150)
+  new_col_movement["g"] = abs(myGoal-425) - col["g"]
+  new_row_movement["g"] = 125 - row["g"]
+}
+

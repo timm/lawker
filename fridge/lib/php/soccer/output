@@ -1,0 +1,47 @@
+i am rewriting
+we are red
+read their player info: A green 158 599 100 
+read their player info: B green 276 0 100 
+read their player info: C green 0 180 100 
+read their player info: D green 60 600 92 
+read their player info: E green 93 600 100 
+read their player info: F green 0 0 100 
+read their player info: G green 149 142 100 
+read our player info: a red 148 5 100 
+read our player info: b red 110 312 70 
+read our player info: c red 96 575 91 
+read our player info: d red 96 134 96 
+read our player info: e red 190 253 92 
+read our player info: f red 59 600 38 
+read our player info: g red 209 358 100 
+player 0 is letter a with x: 5 and y: 148
+player 1 is letter b with x: 312 and y: 110
+player 2 is letter c with x: 575 and y: 96
+player 3 is letter d with x: 134 and y: 96
+player 4 is letter e with x: 253 and y: 190
+player 5 is letter f with x: 600 and y: 59
+player 6 is letter g with x: 358 and y: 209
+player 0 is letter A with x: 599 and y: 158
+player 1 is letter B with x: 0 and y: 276
+player 2 is letter C with x: 180 and y: 0
+player 3 is letter D with x: 600 and y: 60
+player 4 is letter E with x: 600 and y: 93
+player 5 is letter F with x: 0 and y: 0
+player 6 is letter G with x: 142 and y: 149
+ball is at x: 600 and y: 109
+--player a is the goalie--
+ball is not close to player a
+ball is at 600 109 i am moving 5 143
+a red -5 0
+ball is not close to player b
+b red -1 88
+ball is not close to player c
+c red 13 25
+ball is not close to player d
+d red 4 16
+ball is not close to player e
+e red 10 -103
+ball is not close to player f
+f red 50 0
+ball is not close to player g
+g red -100 142

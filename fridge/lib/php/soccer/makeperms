@@ -1,0 +1,8 @@
+echo try sourcing this file, source makeperms
+chmod a+rw pos dirs tmp/*
+chmod a+rwx . tmp
+chmod a+rx *cgi dummy*
+echo > score.log
+chmod a+rw score.log
+echo sometimes tmp/soc.tmp doesnt get its permissions set
+rm tmp/soc.tmp

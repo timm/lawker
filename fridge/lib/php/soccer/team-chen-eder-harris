@@ -1,0 +1,439 @@
+#!/usr/bin/gawk -f 
+BEGIN{
+    srand();
+    
+
+    G       = "a";
+    M2      = "b";
+    FORWARD = "c";
+    D1      = "d";
+    D2      = "e";
+    M3      = "f";
+    M1      = "g";
+	    
+
+    lmargin = 10;
+    tmargin = 10;
+    height = 300;
+    width = 600;
+    halfemh = 18;
+    halfemw = 12;
+    
+    MAXDEVP = 20;
+    
+    TRAILS = 1;
+    
+    redrgoal = height/2;
+    redcgoal = 0;
+    greenrgoal = height/2;
+    greencgoal = width;
+        
+    getline whoami;
+    
+    if(whoami != "red"){print "puking";exit;}
+
+#put all of our position data into arrays
+    while (getline < "pos" > 0) {
+	if ($1 ~ /^[a-z0]$/) {
+	    dat[$1] = $0;
+	    color[$1] = $2;
+	    rdat[$1] = $3;
+	    cdat[$1] = $4;
+	    edat[$1] = $5;
+	    if ($1 == "0") {
+		rball = rdat["0"];
+		cball = cdat["0"];
+		if ($0 ~ /aloft/) notes["0"] = "aloft";
+		if (match($0,/static[0-9]*/)) static["0"] = substr($0,RSTART+6,RLENGTH);
+	    }
+	}
+    }
+    close("pos");
+
+#put all of our movement data into arrays    
+    while (getline < "dirs" > 0) {
+	if ($1 ~ /^[a-z0]$/) {
+	    dirdat[$1] = $0;
+	    rdev[$1] = $3;
+	    cdev[$1] = $4;
+	    if ($1 == "0") {
+		rrdev[$1] = rdev[$1];
+		ccdev[$1] = cdev[$1];
+	    } else {
+		rrdev[$1] = maxdev(rdev[$1]);
+		ccdev[$1] = maxdev(cdev[$1]);
+	    }
+	    rkick[$1] = maxkick($6);
+	    ckick[$1] = maxkick($7);
+#	    kick[$1] = $5" "$6" "$7;
+	}
+    }
+    close("dirs");
+
+#ok here's some ideas for the guts of our program
+#every player has a 'home' that they like to go to
+#this home is calculated based on what kind of player they are
+    
+#forwards prefer an arc right around the goal as described by 
+#abs(100 - sqrt((row-150)^2 + 8*col^2))
+#when a forward gets a ball, he kicks it at the goal
+
+#midfielders have a high affinity for being near the ball,
+#they weakly prefer the left to right center and are indifferent to
+#where they are top to bottom
+#midfielders always kick the ball towards the forward
+
+#defenders have similar preferences as forwards, but reveresed
+#they always kick the ball straight up field when they get it
+
+#the goalie trys to stay between the ball and the center of the goal
+#like the defenders, he kicks the ball straight upfield
+
+#we are completely indifferent to the opposing players positions
+
+  init();
+  
+  moveForwards();
+  moveMids();
+  moveDefenders();
+  moveGoalie();
+ 
+  for (i in cmoves) {
+      print i, color[i], rmoves[i], cmoves[i], kick[i];
+  }
+}
+
+
+func init(){
+    for(i in rdat){
+	distToBall[i] = dist(cball,rball,cdat[i],rdat[i]);
+	distToMyGoal[i] = dist(redcgoal, redrgoal,cdat[i],rdat[i]);
+	distToTheirGoal[i] = dist(greencgoal, greenrgoal,cdat[i],rdat[i]);
+    }
+}
+
+func moveForwards(){
+    if(distToBall[FORWARD] <= 4){
+	if(distToTheirGoal[FORWARD] < 100)
+	    kick[FORWARD] = "kick "maxkick(greencgoal)" "maxkick(greenrgoal);
+	else
+	    kick[FORWARD] = "kick.aloft "maxkick(greencgoal)" "maxkick(greenrgoal);
+    }
+
+    if(cball > 450){
+	cmoves[FORWARD] = maxdev(cball - cdat[FORWARD]);
+	rmoves[FORWARD] = maxdev(rball - rdat[FORWARD]);
+    }else{
+	score = abs(100 - sqrt((rdat[FORWARD]-150)^2 + 8*(600-cdat[FORWARD])^2));
+	for(i = 0; i < 150; i++){
+	    newRow = rand()*300;
+	    newCol = 300+rand()*300;
+	    newScore = abs(100 - sqrt((newRow-150)^2 + 8*(600-newCol)^2));
+	    if(newScore <= score){
+		cmoves[FORWARD] = maxdev(newCol-cdat[FORWARD]);
+		rmoves[FORWARD] = maxdev(newRow-rdat[FORWARD]);
+		score = newScore;
+	    }
+	}
+    }
+}
+
+func moveMids(){
+    #Mid 1
+    #move towards ball wherever it is and try to kick it to M2, M3, F or Goal,
+    #whichever is closer
+    if(distToBall[M1] <= 4){
+	distToM2 = dist(cdat[M1],rdat[M1],cdat[M2],rdat[M2]);
+	distToM3 = dist(cdat[M1],rdat[M1],cdat[M3],rdat[M3]);
+	distToF  = dist(cdat[M1],rdat[M1],cdat[FORWARD],rdat[FORWARD]);
+	kickingTo = distToTheirGoal[M1];
+	kickX = greencgoal;
+	kickY = greenrgoal;
+	if(kickingTo > distToF){
+	    if(cdat[F] > cdat[M1]){ //F is right of M1
+		kickingTo = distToF;
+		kickX = cdat[F];
+		kickY = rdat[F];
+	    }
+	}
+	if(kickingTo > distToM2){
+	    if(cdat[M2] > cdat[M1]){  //M2 is right of M1
+		kickingTo = distToM2;
+		kickX = cdat[M2];
+		kickY = rdat[M2];
+	    }
+	}
+	if(kickingTo > distToM3){
+	    if(cdat[M3] > cdat[M1]){//M3 is right of M1
+		kickingTo = distToM3;
+		kickX = cdat[M3];
+		kickY = rdat[M3];
+	    }
+	}
+	kick[M1] = "kick.aloft "maxkick(kickY)" "maxkick(kickX);
+    }
+    cmoves[M1] = maxdev(cball - cdat[M1]);
+    rmoves[M1] = maxdev(rball - rdat[M1]);
+    #print "Moving Mid1 toward ball";
+
+    #Mid 2
+    #stay along middle axis and match Y coord for ball
+    #if it comes to within 80 of him, go straight for it and try to kick it to
+    #either M3 or F
+    if(distToBall[M2] <= 4){
+	distToM3 = dist(cdat[M2],rdat[M2],cdat[M3],rdat[M3]);
+	distToF  = dist(cdat[M2],rdat[M2],cdat[FORWARD],rdat[FORWARD]);
+	kickingTo = distToTheirGoal[M2];
+	kickX = greencgoal;
+	kickY = greenrgoal;
+	if(kickingTo > distToF){
+	    if(cdat[F] > cdat[M2]){//F is right of M2
+		kickingTo = distToF;
+		kickX = cdat[F];
+		kickY = rdat[F];
+	    }
+	}
+	if(kickingTo > distToM3){
+	    if(cdat[M3] > cdat[M2]){
+		kickingTo = distToM3;
+		kickX = cdat[M3];
+		kickY = rdat[M3];
+	    }
+	}
+	kick[M2] = "kick.aloft "maxkick(kickY)" "maxkick(kickX);
+    }
+    
+    if(distToBall[M2] <= 80){
+	cmoves[M2] = maxdev(cball - cdat[M2]);
+	rmoves[M2] = maxdev(rball - rdat[M2]);
+	#print "Moving Mid2 toward ball"
+    }else{
+	cmoves[M2] = maxdev(300-cdat[M2]);
+	rmoves[M2] = maxdev(rball-rdat[M2]);
+	#print "Moving Mid2 to sweet spot"
+    }    
+
+    #Mid 3
+    #stay along 450 axis and match Y coord of mid between ball and forward
+    #if it comes within 80 of him, go straight for it and try to kick it to F or goal,
+    #whichever is closer
+    if(distToBall[M3] <= 6){
+	distToF  = dist(cdat[M3],rdat[M3],cdat[FORWARD],rdat[FORWARD]);
+	kickingTo = distToTheirGoal[M3];
+	kickX = greencgoal;
+	kickY = greenrgoal;
+	if(kickingTo > distToF){
+	    if(cdat[F] > cdat[M3]){//F is right of M3
+		kickingTo = distToF;
+		kickX = cdat[F];
+		kickY = rdat[F];
+	    }
+	}
+	kick[M3] = "kick "maxkick(kickY)" "maxkick(kickX);
+    }
+    
+    if(distToBall[M3] <= 80){
+	cmoves[M3] = maxdev(cball - cdat[M3]);
+	rmoves[M3] = maxdev(rball - rdat[M3]);
+	#print "Moving Mid3 toward ball"
+    }else{
+	cmoves[M3] = maxdev(450-cdat[M2]);
+	rmoves[M3] = maxdev(rball-rdat[M2]);
+	#print "Moving Mid3 to sweet spot"
+    }
+
+}
+
+func moveDefenders(){
+    if (cball <=220) #if its inside the zone
+	{
+	    if (distToBall[D1]<distToBall[D2]) #if d1 is closer to the ball
+		{
+		    defendMove(D2);
+
+		    if (distToBall[D1]<=4) #if d1 can kick, will ALWAYS kick to M2
+			{
+		     
+			    if (cdat[M2]>cdat[D1]) #if M2 is further towards center
+				{
+				    playerdist=dist(cdat[D1],rdat[D1], cdat[M2],rdat[M2]) #distance between players
+					if (playerdist <=75) #if its close, kick, not aloft
+					    {
+						kick[D1]="kick " maxkick(rdat[M2]-rdat[D1]) " " maxkick(cdat[M2]-cdat[D1])
+					    }
+					else  #if too far, aloft  
+					{
+					    kick[D1]="kick.aloft "maxkick(rdat[M2]-rdat[D1]) " " maxkick(cdat[M2]-cdat[D1])
+					}
+				}
+			    else  #if M2 is behind D1, D1 kicks toward goal
+				{ 
+				    kick[D1]="kick.aloft " maxkick(greenrgoal) " "maxkick(greencgoal)
+				}
+			}
+		    else   #if cant kick, will move towards the ball
+			{
+			    cmoves[D1] = maxdev(cball-cdat[D1]);
+			    rmoves[D1]=maxdev(rball-rdat[D1]);
+			}
+	      
+		}   
+	    else  #if d2 is closer to the ball
+		{
+		    defendMove(D1);
+		    
+		    if (distToBall[D2]<=4) #if d2 can kick, will ALWAYS kick to M2
+			{
+		     
+			    if (cdat[M2]>cdat[D2]) #if M2 is further towards center
+				{
+				    playerdist=dist(cdat[D2],rdat[D2], cdat[M2],rdat[M2]) #distance between players
+					if (playerdist <=75) #if its close, kick, not aloft
+					    {
+						kick[D2]="kick " maxkick(rdat[M2]-rdat[D2]) " " maxkick(cdat[M2]-cdat[D2])
+					    }
+					else  #if too far, aloft  
+					{
+					    kick[D2]="kick.aloft "maxkick(rdat[M2]-rdat[D2]) " " maxkick(cdat[M2]-cdat[D2])
+					}
+				}
+			    else   #if M2 is behind D2, D2 kicks toward goal
+				{ 
+				    kick[D2]="kick.aloft " maxkick(greenrgoal) " "maxkick(greencgoal)
+				}
+			}
+		    else   #if cant kick, will move towards the ball
+			{
+			    cmoves[D2] = maxdev(cball-cdat[D2]);
+			    rmoves[D2] = maxdev(rball-rdat[D2]);
+			}
+		}
+	}
+
+    else  #once the ball is not in the defender zone, defenders move back to guarding position
+	{
+	    tempdist1=dist(75, 125, cdat[D1], rdat[D1]);
+	    tempdist2=dist(75, 125, cdat[D2], rdat[D2]);
+
+	    if (tempdist1<tempdist2)  
+		{		    
+		    cmoves[D1]=maxdev(75-cdat[D1]);
+		    rmoves[D1]=maxdev(125-rdat[D1]);
+		    cmoves[D2]=maxdev(75-cdat[D2]);
+		    rmoves[D2]=maxdev(175-rdat[D2]);
+		}
+	    else
+		{
+		    cmoves[D2]=maxdev(75-cdat[D2]);
+		    rmoves[D2]=maxdev(125-rdat[D2]);
+		    cmoves[D1]=maxdev(75-cdat[D1]);
+		    rmoves[D2]=maxdev(175-rdat[D1]);
+		}
+	}
+
+}
+
+#the movement of one of defenders that is not moving towards/kicking the ball
+#he will move towards the mid point of the ball and goal(0,150)
+func defendMove(p)
+{
+    cmid=(cball+redcgoal)/2;
+    rmid=(rball+redrgoal)/2;
+    cmoves[p]=maxdev(cmid-cdat[p]);
+    rmoves[p]=maxdev(rmid-rdat[p]);
+}
+
+func moveGoalie(){
+    if(distToBall[G] <= 5){kick[G] = "kick "0" "40;}
+    
+    if(distToBall[G] <= 16){
+	cmoves[G] = maxdev(cball-cdat[G]);
+	rmoves[G] = maxdev(rball-rdat[G]);
+	return;
+    }
+
+    if(cball == 0){slope = 99999;}
+    else{ slope = (rball-150)/cball;}
+
+    idealR = 150 + 6*slope;
+    if(idealR > 158){idealR = 158;}
+    if(idealR < 142){idealR = 142;}
+
+    cmoves[G] = maxdev(4-cdat[G]);
+    rmoves[G] = idealR-rdat[G];
+}
+
+func midY(y1,y2) {
+    deltY = y2+y1;
+    return deltY/2;
+}
+
+
+func dist(x1,y1,x2,y2) {
+    deltX = x2-x1;
+    if(deltX < 0) {
+	deltX = -deltX;
+    }
+    deltY = y2-y1;
+    if(deltY < 0) {
+	deltY = - deltY;
+    }
+    tempDist = sqrt(deltX*deltX+deltY*deltY);
+    return tempDist;
+}
+
+func rok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > height) return height
+  return x
+}
+
+func cok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > width) return width
+  return x
+}
+
+func eok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > 100) return 100
+  return x
+}
+
+func sgn(x) {
+  if (x < 0) return -1
+  if (x > 0) return 1
+  return 0
+}
+
+func abs(x) {
+  if (x < 0) return -x
+  return x
+}
+
+func maxkick(x) {
+  if (x > 1.5*MAXDEVP) return 1.5*MAXDEVP
+  if (x < -1.5*MAXDEVP) return -1.5*MAXDEVP
+  return x
+}
+
+func maxdev(x) {
+  if (x > MAXDEVP) return MAXDEVP
+  if (x < -1*MAXDEVP) return -1*MAXDEVP
+  return x
+}
+
+
+
+
+
+
+
+
+
+
+
+

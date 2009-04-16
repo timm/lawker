@@ -1,0 +1,422 @@
+#!/usr/bin/gawk -f 
+BEGIN {
+  srand()
+
+  lmargin = 10
+  tmargin = 10
+  height = 300
+  width = 600
+  halfemh = 18
+  halfemw = 12
+
+  restricted = 25
+
+  MAXDEVP = 20
+
+  TRAILS = 1
+
+  redrgoal = height/2
+  redcgoal = 0
+  greenrgoal = height/2
+  greencgoal = width
+
+  getline whoami
+  # print "i am "whoami
+
+  if (whoami == "red") {
+    mygoalr = redrgoal; mygoalc = redcgoal
+    hergoalr = greenrgoal; hergoalc = greencgoal
+  } else {
+    mygoalr = greenrgoal; mygoalc = greencgoal
+    hergoalr = redrgoal; hergoalc = redcgoal
+  }
+
+  while (getline < "init" > 0) {
+    initr[$1] = height/2 + 2.5*($3 - height/2)
+    # split it out twice as wide
+    initc[$1] = $4
+  }
+
+  while (getline < "pos" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dat[$1] = $0
+      color[$1] = $2
+      rdat[$1] = $3
+      cdat[$1] = $4
+      edat[$1] = $5
+      if ($1 == "0") {
+        rball = rdat["0"]
+        cball = cdat["0"]
+        if ($0 ~ /aloft/) notes["0"] = "aloft"
+        if (match($0,/static[0-9]*/)) static["0"] = substr($0,RSTART+6,RLENGTH)
+      }
+    }
+  }
+  close("pos")
+
+  while (getline < "dirs" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dirdat[$1] = $0
+      rdev[$1] = $3
+      cdev[$1] = $4
+      if ($1 == "0") {
+        rrdev[$1] = rdev[$1]
+        ccdev[$1] = cdev[$1]
+      } else {
+        rrdev[$1] = maxdev(rdev[$1])
+        ccdev[$1] = maxdev(cdev[$1])
+      }
+      rkick[$1] = maxkick($6)
+      ckick[$1] = maxkick($7)
+      kick[$1] = $5" "$6" "$7
+    }
+  }
+  close("dirs")
+
+  for (i in dirdat) {
+    if (color[i] == whoami) {
+      rkick[i] = ""
+      ckick[i] = ""
+      kick[i] = ""
+    }
+  }
+
+  initrules()
+  # print nr" rules"
+  makedirs()
+
+  for (i in rrdev) {
+    if (color[i] == whoami) print i, color[i], rdev[i], cdev[i], kick[i], notes[i]
+  }
+
+}
+
+func sq(x) {
+  return x*x
+}
+
+func maxkick(x,y,  z,zscale) {
+  z = sqrt(x*x + y*y)
+  if (z > 2*MAXDEVP) zscale = sqrt(z/(2*MAXDEVP))
+  else zscale = 1
+  return x/zscale
+}
+ 
+func maxdev(x,y,  z,zscale) {
+  z = sqrt(x*x + y*y)
+  if (z > MAXDEVP) zscale = sqrt(z/MAXDEVP)
+  else zscale = 1
+  return x/zscale
+}
+
+func rok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > height) return height
+  return x
+}
+
+func cok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > width) return width
+  return x
+}
+
+func eok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > 100) return 100
+  return x
+}
+
+func sgn(x) {
+  if (x < 0) return -1
+  if (x > 0) return 1
+  return 0
+}
+
+func abs(x) {
+  if (x < 0) return -x
+  return x
+}
+
+func makedirs(  i,r) {
+
+  for (i in dirdat) {
+    if (color[i] != whoami) continue
+    for (r=1; r in pre; r++) {
+      # for now, only do first rule that applies!
+      if (app(r,i)) {
+        process(r,i)
+	# special check for goalie area
+	if (restrictedarea(i,rdat[i]+rdev[i],cdat[i]+cdev[i])) {
+	  rdev[i] += rdev[i]*rand()/10 - rdev[i]*rand()/10
+	  cdev[i] += cdev[i]*rand()/10 - cdev[i]*rand()/10
+	}
+	if (restrictedarea(i,rdat[i]+rdev[i]/2,cdat[i]+cdev[i]/2)) {
+	  rdev[i] += rdev[i]*rand()/10 - rdev[i]*rand()/10
+	  cdev[i] += cdev[i]*rand()/10 - cdev[i]*rand()/10
+	}
+        notes[i] = " : : : " pre[r] " ---> " post[r]
+        break 
+      }
+    }
+  }
+}
+
+func restrictedarea(who,rr,cc) {
+  if (who == "A" && cc > width-restricted) return 0
+  if (who == "a" && cc < restricted) return 0
+  if (cc < restricted && abs(rr-mygoalr) < restricted) return 1
+  if (cc > width-restricted && abs(rr-mygoalr) < restricted) return 1
+  return 0
+}
+
+func initrules() {
+  #pre[++nr] = "iamnearestplayer iamdefended"
+  #post[nr] = "passtonearestopenteammate"
+
+  pre[++nr] = "offense iamnearestplayer spry"
+  post[nr] = "movetoball kickatgoal"
+
+  pre[++nr] = "defense iamnearestplayer spry"
+  post[nr] = "movetoball kickaway"
+
+  pre[++nr] = "iamgoalie ballingoal"
+  post[nr] = "movetoball kickaway"
+
+  pre[++nr] = "iamgoalie ballneargoal"
+  post[nr] = "movetoball kickaway"
+
+  pre[++nr] = "iamgoalie ballneargoal ballbelowgoal"
+  post[nr] = "movedowningoal"
+
+  pre[++nr] = "iamgoalie ballneargoal ballabovegoal"
+  post[nr] = "moveupingoal"
+
+  pre[++nr] = "attacker defense quitenear"
+  post[nr] = "movetoball kickaway"
+
+  pre[++nr] = "attacker defense nearestonteam"
+  post[nr] = "movetoball kickaway"
+
+  pre[++nr] = "attacker defense not-near"
+  post[nr] = "reset"
+
+  pre[++nr] = "not-iamgoalie openfield"
+  post[nr] = "attackinrow"
+
+  pre[++nr] = "offense quitenear nearestonteam spry"
+  post[nr] = "movetoball kickatgoal"
+
+  pre[++nr] = "offense not-iamgoalie near spry"
+  post[nr] = "movectogoal"
+
+  pre[++nr] = "defense quitenear nearestonteam spry"
+  post[nr] = "movetoball kickaway"
+
+  pre[++nr] = "defense defender near spry"
+  post[nr] = "block"
+
+  pre[++nr] = "defense not-nearestonteam not-attacker not-iamgoalie spry"
+  post[nr] = "retreatinrow"
+
+  pre[++nr] = "not-iamgoalie near nearestonteam spry"
+  post[nr] = "movetoball kickatgoal"
+
+  pre[++nr] = "not-iamgoalie nearestnongoalieonteam spry"
+  post[nr] = "movetoball"
+
+  pre[++nr] = "iamgoalie defense"
+  post[nr] = "retreatinrow"
+
+  pre[++nr] = "iamgoalie offense"
+  post[nr] = "retreatinrow"
+
+  pre[++nr] = "true"
+  post[nr] = "halt"
+}
+
+func app(r,who, j,predlist) {
+  split(pre[r],predlist," ")
+  for (j in predlist) {
+    if (!applies(predlist[j],who)) return 0
+  }
+  return 1
+}
+
+function applies(predicate,who,  i,mydist,herdist,suffix) {
+  if (predicate ~ /^not-/) {
+    suffix = substr(predicate,5)
+    if (applies(suffix,who)) return 0
+    return 1
+  }
+  if (predicate == "true") return 1
+  else if (predicate == "iamgoalie") {
+    if (whoami == "red" && who == "a") return 1
+    if (whoami == "green" && who == "A") return 1
+    return 0
+  } else if (predicate == "ballabovegoal") {
+    if (rball > mygoalr-10) return 1
+    return 0
+  } else if (predicate == "ballbelowgoal") {
+    if (rball > mygoalr+10) return 1
+    return 0
+  } else if (predicate == "ballneargoal") {
+    if (sqrt(sq(cball - mygoalc)+sq(rball - mygoalr)) < 50) return 1
+    return 0
+  } else if (predicate == "ballingoal") {
+    if (abs(rball - mygoalr) < restricted && abs(cball - mygoalc) < restricted) return 1
+    return 0
+  } else if (predicate == "quitenear") {
+    if (sqrt(sq(cball - cdat[who])+sq(rball - rdat[who])) < 50) return 1
+    return 0
+  } else if (predicate == "near") {
+    if (sqrt(sq(cball - cdat[who])+sq(rball - rdat[who])) < 150) return 1
+    return 0
+  } else if (predicate == "iamnearestplayer") {
+    if (nearestplayer() == who) return 1
+    return 0
+  } else if (predicate == "nearestonteam") {
+    if (whonearest && (whonearest == who)) return 1
+    if (whonearest && (whonearest != who)) return 0
+    mydist = sqrt(sq(cball - cdat[who])+sq(rball - rdat[who]))
+    for (i in dat) {
+      if (color[i]==whoami && i!=who) {
+        herdist = sqrt(sq(cball - cdat[i])+sq(rball - rdat[i]))
+	if (herdist < mydist) { whonearest=i; return 0 }
+      }
+    }
+    return 1
+  } else if (predicate == "nearestnongoalieonteam") {
+    if (whonongoalienearest && (whonongoalienearest == who)) return 1
+    if (whonongoalienearest && (whonongoalienearest != who)) return 0
+    mydist = sqrt(sq(cball - cdat[who])+sq(rball - rdat[who]))
+    for (i in dat) {
+      if (color[i]==whoami && i!=who && i!="a" && i!="A") {
+        herdist = sqrt(sq(cball - cdat[i])+sq(rball - rdat[i]))
+	if (herdist < mydist) { whonongoalienearest=i; return 0 }
+      }
+    }
+    return 1
+  } else if (predicate == "spry") {
+    if (edat[who] > 30) return 1
+    return 0
+  } else if (predicate == "defender") {
+    if (who == "B" || who == "D" || who == "E") return 1
+    if (who == "b" || who == "e" || who == "e") return 1
+    return 0
+  } else if (predicate == "attacker") {
+    if (who == "F" || who == "C" || who == "G") return 1
+    if (who == "f" || who == "c" || who == "g") return 1
+    return 0
+  } else if (predicate == "openfield") {
+    # the other team is regrouping on a deep ball
+    if (nearestteam() == whoami) return 0
+    if (whoami == "red" && cball > 2*width/3) return 1
+    if (whoami == "green" && cball < width/3) return 1
+    return 0
+  } else if (predicate == "offense") {
+    if (nearestteam() != whoami) return 0
+    if (whoami == "red" && cball > .8*width) return 1
+    if (whoami == "green" && cball < .2*width) return 1
+    return 0
+  } else if (predicate == "defense") {
+    if (nearestteam() == whoami) return 0
+    if (whoami == "red" && cball < .8*width) return 1
+    if (whoami == "green" && cball > .2*width) return 1
+    return 0
+  }
+}
+
+func nearestteam(  i,dist,bestdist) {
+  if (nearestteamid) return nearestteamid
+  for (i in dat) {
+    if (i == "0") continue
+    dist = sqrt(sq(cball - cdat[i])+sq(rball - rdat[i]))
+    if (dist < bestdist || bestdist=="") { 
+      bestdist = dist
+      nearestteamid = color[i]
+      nearestplayerid = i
+    }
+  }
+  return nearestteamid
+}
+
+func nearestplayer(  i,dist,bestdist) {
+  if (nearestplayerid) return nearestplayerid
+  for (i in dat) {
+    if (i == "0") continue
+    dist = sqrt(sq(cball - cdat[i])+sq(rball - rdat[i]))
+    if (dist < bestdist || bestdist=="") { 
+      bestdist = dist
+      nearestteamid = color[i]
+      nearestplayerid = i
+    }
+  }
+  return nearestteamid
+}
+
+func process(r,who,  j,predlist,action,cc,dd) {
+  split(post[r],predlist," ")
+  for (j in predlist) {
+    action = predlist[j]
+
+    if (action == "kickatgoal") {
+      cc = hergoalc - cdat[who]
+      dd = hergoalr - rdat[who]
+      kick[who] = "kick.aloft "dd" "cc
+
+    } else if (action == "kickaway") {
+      cc = hergoalc - cdat[who]
+      dd = rand()*2*cc
+      kick[who] = "kick.aloft "dd" "cc
+
+    } else if (action == "block") {
+      targetr = (rball+mygoalr)/2
+      targetc = (cball+mygoalc)/2
+      cdev[who] = targetc - cdat[who]
+      rdev[who] = targetr - rdat[who]
+
+    } else if (action == "reset") {
+        cdev[who] = initc[who] - cdat[who]
+        rdev[who] = initr[who] - rdat[who]
+
+    } else if (action == "retreat") {
+        cdev[who] = mygoalc - cdat[who]
+        rdev[who] = mygoalr - rdat[who]
+
+    } else if (action == "retreatinrow") {
+        cdev[who] = mygoalc - cdat[who]
+        rdev[who] = initr[who] - rdat[who]
+
+    } else if (action == "attackinrow") {
+        cdev[who] = (cball+hergoalc)/2 - cdat[who]
+        rdev[who] = initr[who] - rdat[who]
+
+    } else if (action == "movetogoal") {
+        cdev[who] = hergoalc - cdat[who]
+        rdev[who] = hergoalr - rdat[who]
+
+    } else if (action == "movectogoal") {
+        cdev[who] = hergoalc - cdat[who]
+        rdev[who] = 2*rand()*cdev[who]
+
+    } else if (action == "movetoball") {
+      cdev[who] = cball - cdat[who]
+      rdev[who] = rball - rdat[who]
+
+    } else if (action == "movedowningoal") {
+      cdev[who] = 0; rdev[who] = (mygoalr+restricted) - rdat[who]
+
+    } else if (action == "moveupingoal") {
+      cdev[who] = 0; rdev[who] = (mygoalr-restricted) - rdat[who]
+
+    } else if (action == "halt") {
+      cdev[who] = 0; rdev[who] = 0
+    }
+
+  }
+}
+

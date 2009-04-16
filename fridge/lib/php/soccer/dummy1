@@ -1,0 +1,159 @@
+#!/usr/bin/gawk -f
+BEGIN {
+  srand()
+
+  lmargin = 10
+  tmargin = 10
+  height = 300
+  width = 600
+  halfemh = 18
+  halfemw = 12
+
+  MAXDEVP = 20
+
+  TRAILS = 1
+
+  redrgoal = height/2
+  redcgoal = 0
+  greenrgoal = height/2
+  greencgoal = width
+
+  getline whoami
+  # print "i am "whoami
+
+  while (getline < "pos" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dat[$1] = $0
+      color[$1] = $2
+      rdat[$1] = $3
+      cdat[$1] = $4
+      edat[$1] = $5
+      if ($1 == "0") {
+        rball = rdat["0"]
+        cball = cdat["0"]
+        if ($0 ~ /aloft/) notes["0"] = "aloft"
+        if (match($0,/static[0-9]*/)) static["0"] = substr($0,RSTART+6,RLENGTH)
+      }
+    }
+  }
+  close("pos")
+
+  while (getline < "dirs" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dirdat[$1] = $0
+      rdev[$1] = $3
+      cdev[$1] = $4
+      if ($1 == "0") {
+        rrdev[$1] = rdev[$1]
+        ccdev[$1] = cdev[$1]
+      } else {
+        rrdev[$1] = maxdev(rdev[$1])
+        ccdev[$1] = maxdev(cdev[$1])
+      }
+      rkick[$1] = maxkick($6)
+      ckick[$1] = maxkick($7)
+      kick[$1] = $5" "$6" "$7
+    }
+  }
+  close("dirs")
+
+  makedirs()
+
+  for (i in rrdev) {
+    if (color[i] == whoami) print i, color[i], rdev[i], cdev[i], kick[i]
+  }
+
+}
+
+func rok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > height) return height
+  return x
+}
+
+func cok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > width) return width
+  return x
+}
+
+func eok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > 100) return 100
+  return x
+}
+
+func sgn(x) {
+  if (x < 0) return -1
+  if (x > 0) return 1
+  return 0
+}
+
+func abs(x) {
+  if (x < 0) return -x
+  return x
+}
+
+func makedirs() {
+
+  while (getline < "init") {
+    rinit[$1] = $3
+    cinit[$1] = $4
+  }
+  close("init")
+  if (rand() < .9) chaser["f"] = 1
+  if (rand() < .9) chaser["g"] = 1
+  if (rand() < .7) chaser["F"] = 1
+  if (rand() < .7) chaser["G"] = 1
+  if (rand() < .4) chaser["c"] = 1
+  if (rand() < .4) chaser["C"] = 1
+  if (rand() < .4) chaser["b"] = 1
+  if (rand() < .4) chaser["B"] = 1
+
+  # to do:  vision based on direction, speed, ball, player
+  # to do:  call each program
+  for (i in dat) {
+
+    if (color[i] != whoami) continue
+
+    key = index("aAbBcCdDeEfFgG",i)
+    if (i != "0" && i !="a" && i != "A") {
+      if (edat[i] > 20 && chaser[i] || (abs(cdat["0"]-cdat[i]) < 50 && abs(rdat["0"]-rdat[i]) < 20)) {
+        cdev[i] = maxdev(cdat["0"]-cdat[i])
+        rdev[i] = maxdev(rdat["0"]-rdat[i])
+        if (edat[i] > 20 && abs(cdat["0"]-cdat[i]) < 30 && abs(rdat["0"]-rdat[i]) < 30) {
+	  if (rand() < .8 && (cball < 80 || cball > width-80 || rand() < .25)) {
+            if (color[i] ~ /red/) kick[i] = "kick.aloft " (greenrgoal-rdat[i]) " "greencgoal-cdat[i]
+            if (color[i] ~ /green/) kick[i] = "kick.aloft " (redrgoal-rdat[i]) " "redcgoal-cdat[i]
+	  } else {
+            if (color[i] ~ /red/) kick[i] = "kick.aloft " (300+200*rand()) " "greencgoal-cdat[i]
+            if (color[i] ~ /green/) kick[i] = "kick.aloft " (-300-200*rand()) " "redcgoal-cdat[i]
+	  }
+	} else kick[i] = ""
+      } else if (edat[i] > 50) {
+        cdev[i] = maxdev(cinit[i]-cdat[i])
+        rdev[i] = maxdev(rinit[i]-rdat[i])
+	kick[i] = ""
+      } else {
+	cdev[i] = 0
+	rdev[i] = 0
+	kick[i] = ""
+      }
+    }
+  }
+}
+
+func maxkick(x) {
+  if (x > 2*MAXDEVP) return 2*MAXDEVP
+  if (x < -2*MAXDEVP) return -2*MAXDEVP
+  return x
+}
+
+func maxdev(x) {
+  if (x > MAXDEVP) return MAXDEVP
+  if (x < -1*MAXDEVP) return -1*MAXDEVP
+  return x
+}

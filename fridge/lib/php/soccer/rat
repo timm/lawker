@@ -1,0 +1,681 @@
+#!/usr/local/bin/perl
+
+####Setting some constants 
+$lmargin = 10;
+$tmargin = 10;
+$height = 300;
+$width = 600;
+$halfemh = 18;
+$halfemw = 12;
+
+$MAXDEVP = 20;
+
+$TRAILS = 1;
+
+$redrgoal = height/2;
+$redcgoal = 0;
+$greenrgoal = height/2;
+$greencgoal = width;
+
+
+open(FILEIN1,"../pos") or die "couldn't pos  open file\n";
+open(FILEIN2,"../dirs") or die "couldn't dirs open file\n";
+
+@input1 = <FILEIN1>;
+@dirInput = <FILEIN2>;
+
+#print @input1;
+##Get line from stdin##
+
+$currentPlayer = <STDIN>;
+chomp($currentPlayer);
+
+if($currentPlayer eq "green"){
+    %myPlayers = ("forward1" => "F", "forward2" => "C" , "forward3" => "G", "defender1" => "D", "defender2" =>"B", "defender3" => "E", "goalie" => "A");
+    %theirPlayers = ("forward1" => "f", "forward2" => "c" , "forward3" => "g", "defender1" => "d", "defender2" =>"b", "defender3" => "e", "goalie" => "a");
+}else{
+    %theirPlayers = ("forward1" => "F", "forward2" => "C" , "forward3" => "G", "defender1" => "D", "defender2" =>"B", "defender3" => "E", "goalie" => "A");
+    %myPlayers = ("forward1" => "f", "forward2" => "c" , "forward3" => "g", "defender1" => "d", "defender2" =>"b", "defender3" => "e", "goalie" => "a");
+}
+
+
+%playerLocation;
+##This parses the posistion file into a hash table where you tell it what player you want to lookup like "B" and it returns to you
+##an array with that players row, column, and energy, it also deals with the special parse case begin the ball; 
+foreach $line (@input1){
+    @splitLine = split(" ", $line);
+    if($splitLine[0]==0){
+	##Contains data as row, column, energy(means nothing for the ball), some value like staticn);
+	$playerLocation{$splitLine[0]} = [$splitLine[2],$splitLine[3], $splitLine[4], $splitLine[5], $splitLine[6]];
+    }else{
+	###Contains data as row, column ,energy
+	$playerLocation{$splitLine[0]} = [$splitLine[2],$splitLine[3],$splitLine[4]];
+    }
+}
+close(FILEIN1);
+
+###Parsing the directions
+%playerDirections;
+foreach $line (@dirInput){
+    @splitLine = split(" ", $line);
+    $playerDirections{$splitLine[0]} = [$splitLine[2], $splitLine[3], $splitLine[4], $splitLine[5], $splitLine[6]];
+}
+close(FILEIN2);
+
+#######Set up variables dealing with balls location and direction#####
+$ballRow = $playerLocation{0}[0];
+$ballColumn = $playerLocation{0}[1];
+$ballDirectionRow = $playerDirections{0}[0];
+$ballDirectionColumn = $playerDirections{0}[1];
+
+$forward1Row = $playerLocation{$myPlayers{"forward1"}}[0];
+$forward1Col = $playerLocation{$myPlayers{"forward1"}}[1];
+$forward2Row = $playerLocation{$myPlayers{"forward2"}}[0];
+$forward2Col = $playerLocation{$myPlayers{"forward2"}}[1];
+$forward3Row = $playerLocation{$myPlayers{"forward3"}}[0];
+$forward3Col = $playerLocation{$myPlayers{"forward3"}}[1];
+
+$defend1Row = $playerLocation{$myPlayers{"defend1"}}[0];
+$defend1Col = $playerLocation{$myPlayers{"defend1"}}[1];
+$defend2Row = $playerLocation{$myPlayers{"defend2"}}[0];
+$defend2Col = $playerLocation{$myPlayers{"defend2"}}[1];
+$defend3Row = $playerLocation{$myPlayers{"defend3"}}[0];
+$defend3Col = $playerLocation{$myPlayers{"defend3"}}[1];
+
+$opForward1Row = $playerLocation{$theirPlayers{"forward1"}}[0];
+$opForward1Col = $playerLocation{$theirPlayers{"forward1"}}[1];
+$opForward2Row = $playerLocation{$theirPlayers{"forward2"}}[0];
+$opForward2Col = $playerLocation{$theirPlayers{"forward2"}}[1];
+$opForward3Row = $playerLocation{$theirPlayers{"forward3"}}[0];
+$opForward3Col = $playerLocation{$theirPlayers{"forward3"}}[1];
+
+$opDefend1Row = $playerLocation{$theirPlayers{"defend1"}}[0];
+$opDefend1Col = $playerLocation{$theirPlayers{"defend1"}}[1];
+$opDefend2Row = $playerLocation{$theirPlayers{"defend2"}}[0];
+$opDefend2Col = $playerLocation{$theirPlayers{"defend2"}}[1];
+$opDefend3Row = $playerLocation{$theirPlayers{"defend3"}}[0];
+$opDefend3Col = $playerLocation{$theirPlayers{"defend3"}}[1];
+
+$opGoalieRow = $playerLocation{$theirPlayers{"goalie"}}[0];
+$opGoalieCol = $playerLocation{$theirPlayers{"goalie"}}[1];
+
+
+%newPlayerSpots;
+###Decide where to move goalie
+if($currentPlayer eq "red"){
+    &moveGoalie();
+    &moveForwards();
+    &moveDefenders();
+}else{
+    &moveGoalieGreen();
+    &moveForwardsGreen();
+    &moveDefendersGreen();
+}
+
+print $myPlayers{"goalie"}." ".$currentPlayer." ".$newPlayerSpots{$myPlayers{"goalie"}}[2]." ".$newPlayerSpots{$myPlayers{"goalie"}}[3]." ".$newPlayerSpots{$myPlayers{"goalie"}}[4]." ".$newPlayerSpots{$myPlayers{"goalie"}}[5]." ".$newPlayerSpots{$myPlayers{"goalie"}}[6]."\n";
+																	   print $myPlayers{"forward1"}." ".$currentPlayer." ".$newPlayerSpots{$myPlayers{"forward1"}}[2]." ".$newPlayerSpots{$myPlayers{"forward1"}}[3]." ".$newPlayerSpots{$myPlayers{"forward1"}}[4]." ".$newPlayerSpots{$myPlayers{"forward1"}}[5]." ".$newPlayerSpots{$myPlayers{"forward1"}}[6]."\n";
+
+																	   print $myPlayers{"forward2"}." ".$currentPlayer." ".$newPlayerSpots{$myPlayers{"forward2"}}[2]." ".$newPlayerSpots{$myPlayers{"forward2"}}[3]." ".$newPlayerSpots{$myPlayers{"forward2"}}[4]." ".$newPlayerSpots{$myPlayers{"forward2"}}[5]." ".$newPlayerSpots{$myPlayers{"forward2"}}[6]."\n";
+																	   print $myPlayers{"forward3"}." ".$currentPlayer." ".$newPlayerSpots{$myPlayers{"forward3"}}[2]." ".$newPlayerSpots{$myPlayers{"forward3"}}[3]." ".$newPlayerSpots{$myPlayers{"forward3"}}[4]." ".$newPlayerSpots{$myPlayers{"forward3"}}[5]." ".$newPLayerSpots{$myPlayers{"forward3"}}[6]."\n";
+
+print $myPlayers{"defender1"}." ".$currentPlayer." ".$newPlayerSpots{$myPlayers{"defender1"}}[2]." ".$newPlayerSpots{$myPlayers{"defender1"}}[3]." ".$newPlayerSpots{$myPlayers{"defender1"}}[4]." ".$newPlayerSpots{$myPlayers{"defender1"}}[5]." ".$newPlayerSpots{$myPlayers{"defender1"}}[6]."\n";
+print $myPlayers{"defender2"}." ".$currentPlayer." ".$newPlayerSpots{$myPlayers{"defender2"}}[2]." ".$newPlayerSpots{$myPlayers{"defender2"}}[3]." ".$newPlayerSpots{$myPlayers{"defender2"}}[4]." ".$newPlayerSpots{$myPlayers{"defender2"}}[5]." ".$newPlayerSpots{$myPlayers{"defender2"}}[6]."\n";
+print $myPlayers{"defender3"}." ".$currentPlayer." ".$newPlayerSpots{$myPlayers{"defender3"}}[2]." ".$newPlayerSpots{$myPlayers{"defender3"}}[3]." ".$newPlayerSpots{$myPlayers{"defender3"}}[4]." ".$newPlayerSpots{$myPlayers{"defender3"}}[5]." ".$newPlayerSpots{$myPlayers{"defender3"}}[6]."\n";
+
+
+sub moveGoalie{
+    $goalieRow = $playerLocation{$myPlayers{"goalie"}}[0];
+    $goalieCol = $playerLocation {$myPlayers{"goalie"}}[1];
+    $kickType = "";
+    $kickRow = "";
+    $kickCol = "";
+    if($ballColumn<300){
+	###The ball is on our half the goalie should get on his toes
+	$newGoalieCol = 0;
+	if($ballRow<130){
+	    if($goalieRow<140){
+		$newGoalieRow = 3;
+	    }elsif($goalieRow >155){
+		$newGoalieRow = -5;
+	    }elsif(rand()>.5){
+		$newGoalieRow = -3;
+	    }else{
+		$newGoalieRow = 3;
+	    }
+	}elsif($ballRow < 170){
+	    if($goalieRow<145){
+                $newGoalieRow = 3;
+            }elsif($goalieRow >155){
+                $newGoalieRow = -5;
+            }elsif(rand()>.5){
+                $newGoalieRow = -3;
+            }else{
+                $newGoalieRow = 3;
+            }
+	}else{
+	    if($goalieRow<150){
+                $newGoalieRow = 5;
+            }elsif($goalieRow >163){
+                $newGoalieRow = -3;
+            }elsif(rand()>.5){
+                $newGoalieRow = -3;
+            }else{
+                $newGoalieRow = 3;
+            }
+	}
+	if(($ballColumn<10)&&($ballRow>140)&&($ballRow<160)){
+	    $newGoalieRow = $ballRow- $goalieRow;
+	    $newGoalieCol = $ballColumn - $goalieCol;
+	    $kickType = "kick.aloft";
+	    $kickRow = 0;
+	    $kickCol = 50;
+	}
+    }else{
+	$newGoalieRow = 0;
+	$newGoalieCol = 1;
+    }
+    $newPlayerSpots{$myPlayers{"goalie"}} = [$myPlayers{"goalie"}, $currentPlayer, $newGoalieRow, $newGoalieCol, $kickType, $kickRow, $kickCol];
+}
+
+sub moveForwards(){
+    ###First Determine if ball is on the attacking half of the field... If it is send main closest to ball to the ball.
+    if($ballColumn=>300){
+	#Compute distance from ball for all players 
+	$distFromForward1 = sqrt(&square($ballRow-$forward1Row)+&square($ballColumn-$forward1Col));
+	$distFromForward2 = sqrt(&square($ballRow-$forward2Row)+&square($ballColumn-$forward2Col));
+	$distFromForward3 = sqrt(&square($ballRow-$forward3Row)+&square($ballColumn-$forward3Col));
+	#Forward 1 should go after ball
+	if(rand()>.3){
+	    $kickType = "kick";
+	}else{
+	    $kickType = "kick.aloft";
+	}
+
+	if(($distFromForward1<$distFromForward2) && ($distFromForward1<$distFromForward3)){
+	    ###Job of other players is to get open
+	    getOpenOffense($myPlayers{"forward2"});
+	    getOpenOffense($myPlayers{"forward3"});
+	    ###When we know what player is going for the ball that player must then decide whether or not to kick 
+	    if($ballColumn-$forward1Col+$forward1Col<300){
+		$COL_MOVEMENT = 300 - $forward1Col;
+	    }else{
+		$COL_MOVEMENT = $ballColumn- $forward1Col;
+	    }
+
+	    ####have to decide whether the player should kick on the goal or kick to another player 
+	    ####First since we are guaranteed that the kicker is whithin at least 1/2 the distance to the goal we probably don't
+	    ### if we kick alot.  So I'll say that if the kicker is in front of goal they kick
+	    ###Calculate Distance to corner of goal post Based on goalie posistion
+	    if($opGoalieRow>150){ ###Shoot to lower goal corner
+		$colDistToGoal = 600 - $forward1Col;
+		$rowDistToGoal = 157 - $forward1Row;
+	    }else{  ###Shoot to upper corner
+		$colDistToGoal = 600-$forward1Col;
+		$rowDistToGoal = 143-$forward1Row;
+	    }
+	    $newPlayerSpots{$myPlayers{"forward1"}} = [$myPlayers{"forward1"}, $currentPlayer, $ballRow - $forward1Row, $COL_MOVEMENT, $kickType, $rowDistToGoal, $colDistToGoal];
+	}elsif(($distFromForward2<$distFromForward1) && ($distFromForward1< $distFromForward3)){
+	    getOpenOffense($myPlayers{"forward1"});
+	    getOpenOffense($myPlayers{"forward3"});
+	    if($ballColumn-$forward2Col+$forward2Col<300){
+                $COL_MOVEMENT = 300 - $forward2Col;
+            }else{
+                $COL_MOVEMENT = $ballColumn- $forward2Col;
+            }
+	    if($opGoalieRow>150){ ###Shoot to lower goal corner
+                $colDistToGoal = 600 - $forward2Col;
+                $rowDistToGoal = 157 - $forward2Row;
+            }else{  ###Shoot to upper corner
+                $colDistToGoal = 600-$forward2Col;
+                $rowDistToGoal = 143-$forward2Row;
+            }
+
+	    $newPlayerSpots{$myPlayers{"forward2"}} = [$myPlayers{"forward2"}, $currentPlayer, $ballRow - $forward2Row, $COL_MOVEMENT, $kickType, $rowDistToGoal, $colDistToGoal];
+	    
+	}else{
+	    getOpenOffense($myPlayers{"forward1"});
+            getOpenOffense($myPlayers{"forward2"});
+	    if($ballColumn-$forward3Col+$forward3Col<300){
+                $COL_MOVEMENT = 300 - $forward3Col;
+            }else{
+                $COL_MOVEMENT = $ballColumn- $forward3Col;
+            }
+	    
+	    if($opGoalieRow>150){ ###Shoot to lower goal corner
+                $colDistToGoal = 600 - $forward2Col;
+                $rowDistToGoal = 157 - $forward2Row;
+            }else{  ###Shoot to upper corner
+                $colDistToGoal = 600-$forward2Col;
+                $rowDistToGoal = 143-$forward2Row;
+            }
+
+            $newPlayerSpots{$myPlayers{"forward3"}} = [$myPlayers{"forward3"}, $currentPlayer, $ballRow - $forward3Row, $COL_MOVEMENT, $kickType, $rowDistToGoal, $colDistToGoal];
+	}
+    }else{
+	getOpenOffense($myPlayers{"forward1"});
+	getOpenOffense($myPlayers{"forward2"});
+	getOpenOffense($myPlayers{"forward3"});
+    }
+}
+
+sub square{
+    return $_[0]*$_[0];
+}
+
+sub min
+{
+    my (@numbers);
+
+    @numbers = @_;
+
+    my ($min, $max);
+
+    $min = $numbers[0];
+    $max = $numbers[0];
+
+    foreach my $i (@numbers)
+    {
+        if ($i > $max)
+        {
+            $max = $i;
+        }
+        elsif ($i < $min)
+        {
+            $min = $i;
+        }
+    }
+    return $min;
+    #return ($min, $max);
+}
+
+sub getOpenOffense {
+    $currentRow = $playerLocation{$_[0]}[0];
+    $currentCol = $playerLocation{$_[0]}[1];
+    $distFromDefender1 = sqrt(&square($currentRow-$opDefend1Row)+&square($currentCol-$opDefend1Col));
+    $distFromDefender2 = sqrt(&square($currentRow-$opDefend2Row)+&square($currentCol-$opDefend2Col));
+    $distFromDefender3 = sqrt(&square($currentRow-$opDefend3Row)+&square($currentCol-$opDefend3Col));
+#    print "offender $_[0]    $currentRow    $currentCol \n";
+    $fromDefender = 75;
+    if($currentCol<300){ ###This means my attackers are still on defensive side of field
+	$newCurrentRow = 0;
+	$newCurrentCol = 20;
+    }else{
+	if((distFromDefender1 > $fromDefender) && (distFromDefender2 > $fromDefender) && (distFromDefender3 >$fromDefender)){
+	    $newCurrentRow = 0;
+	    $newCurrentCol = 0;
+	}else{
+	    $count = 0;
+	    while($count!=10){
+		$MaxMoveX = rand(20);
+		$MaxMoveY = rand(20);
+		if(rand() > .5){
+		    $MaxMoveX = -1*$MaxMoveX;
+		}
+		if(($MaxMoveY+$currentCol>=600)||($MaxMoveY+$currentCol<300)){
+		    $MaxMoveY = $MaxMoveY *-1;
+		}
+		if(rand() > .5){
+		    $MaxMoveY = -1*$MaxMoveY;
+		}
+		if(($MaxMoveX+$currentRow>=300)||($MaxMoveX+$currentRow<0)){
+		    $MaxMoveX = $MaxMoveX *-1;
+		}
+		   
+		$newTempCol = $MaxMoveY + $currentCol;
+		$newTempRow = $MaxMoveX + $currentRow;
+		$newCurrentRow = $MaxMoveX;
+		$newCurrentCol = $MaxMoveY;
+		$distFromDefender1 = sqrt(&square($newTempRow-$opDefend1Row)+&square($newTempCol-$opDefend1Col));
+		$distFromDefender2 = sqrt(&square($newTempRow-$opDefend2Row)+&square($newTempCol-$opDefend2Col));
+		$distFromDefender3 = sqrt(&square($newTempRow-$opDefend3Row)+&square($newTempCol-$opDefend3Col));
+		if((distFromDefender1 > $fromDefender) && (distFromDefender2 > $fromDefender) && (distFromDefender3 >$fromDefender)){
+		    $newCurrentRow = $MaxMoveX;
+		    $newCurrentCol = $MaxMoveY;
+		    break;
+		}
+		$count++;
+	    }
+	}
+    }
+    
+    $newPlayerSpots{$_[0]} = [$_[0], $currentPlayer, $newCurrentRow, $newCurrentCol, " "," ", " "];
+}
+
+sub moveDefenders {
+    $kickType = "";
+    $rowDistToGoal = "";
+    $colDistToGoal = "";
+    $kickType1= "";
+    $kickType2 = "";
+    $kickType3 = "";
+    $rowToKick1 = "";
+    $rowToKick2 = "";
+    $rowToKick3 = "";
+    $colToKick1 = "";
+    $colToKick2 = "";
+    $colToKick3 = "";
+    
+    if($ballColumn<300){
+	$distFromDefender1 = sqrt(&square($ballRow-$defend1Row)+&square($ballColumn-$defend1Col));
+        $distFromDefender2 = sqrt(&square($ballRow-$defend2Row)+&square($ballColumn-$defend2Col));
+        $distFromDefender3 = sqrt(&square($ballRow-$defend3Row)+&square($ballColumn-$defend3Col));
+
+	if(($distFromDefender1<$distFromDefender2)&&($distFromDefender1<$distFromDefender3)){
+	    ###Player 2 and 3 go after ball, player 1 stay put
+	    $defender2Row = $ballRow - $defend2Row;
+	    $defender2Col = $ballColumn - $defend2Col;
+	    $defender3Row = $ballRow - $defend3Row;
+	    $defender3Col = $ballColumn - $defend3Row;
+	    if(distFromDefender2<$distFromDefender3){
+		$kickType2 = "kick";
+		$rowToKick2 = $forward1Row-$defend2Row;
+		$colToKick2 = $forward1Co1-$defend2Col;
+	    }else{
+		$kickType3 = "kick";
+		$rowToKick3 = $forward1Row-$defend3Row;
+                $colToKick3 = $forward1Co1-$defend3Col;
+	    }
+	    #need to move player1 to infront of goal;
+	    $defender1Row = 150 - $defend1Row;
+	    $defender1Col = 20 - $defend1Row;
+	    
+	}elsif(($distFromDefender2<$distFromDefender1)&&($distFromDefender2<$distFromDefender3)){
+	    ###Player 1 and 3 go after ball player 2 guard goal
+	    $defender3Row = $ballRow - $defend3Row;
+	    $defender3Col = $ballColumn - $defend3Row;
+	    $defender1Row = $ballRow - $defend1Row;
+	    $defender1Col = $ballColumn - $defend1Col;
+	    if(distFromDefender1<$distFromDefender3){
+                $kickType1 = "kick";
+                $rowToKick1 = $forward2Row-$defend1Row;
+                $colToKick1 = $forward2Co1-$defend1Col;
+            }else{
+                $kickType3 = "kick";
+                $rowToKick3 = $forward2Row-$defend3Row;
+                $colToKick3 = $forward2Co1-$defend3Col;
+            }
+	    ###Need to move player 2 to infront of goal;
+	    $defender1Row = 150 - $defend1Row;
+            $defender1Col = 20 - $defend1Row;
+
+	}else{
+	    ##Player 1 and 2 go after ball player 3 guard goal
+	    $defender2Row = $ballRow - $defend2Row;
+	    $defender2Col = $ballColumn - $defend2Col;
+	    $defender1Row = $ballRow - $defend1Row;
+	    $defender1Col = $ballColumn - $defend1Col;
+	    if(distFromDefender1<$distFromDefender2){
+                $kickType1 = "kick";
+                $rowToKick1 = $forward2Row-$defend1Row;
+                $colToKick1 = $forward2Co1-$defend1Col;
+            }else{
+                $kickType2 = "kick";
+                $rowToKick2 = $forward2Row-$defend2Row;
+                $colToKick2 = $forward2Co1-$defend2Col;
+            }
+
+	    ###Need to move player 3 to in front of goal;
+	    $defender1Row = 150 - $defend1Row;
+            $defender1Col = 20 - $defend1Row;
+	}
+
+	
+    }else{
+	$defender1Row = 0;
+	$defender1Col = 0;
+	$defender2Row = 0;
+	$defender2Col = 0;
+	$defender3Row = 0;
+	$defedner3Col = 0;
+    }
+    ####Play man - to -man and cover every attacker inside our area
+    $newPlayerSpots{$myPlayers{"defender1"}} = [$myPlayers{"defender1"}, $currentPlayer, $defender1Row, $defender1Col, $kickType1, $rowToKick1, $colToKick1];
+    $newPlayerSpots{$myPlayers{"defender2"}} = [$myPlayers{"defender2"}, $currentPlayer, $defender2Row, $defender2Col, $kickType2, $rowToKick2, $colToKick2];
+    $newPlayerSpots{$myPlayers{"defender3"}} = [$myPlayers{"defender3"}, $currentPlayer, $defender3Row, $defender3Col, $kickType3, $rowToKick3, $colToKick3];
+    
+}
+
+sub moveGoalieGreen{
+    $goalieRow = $playerLocation{$myPlayers{"goalie"}}[0];
+    $goalieCol = $playerLocation {$myPlayers{"goalie"}}[1];
+    $kickType = "";
+    $kickRow = "";
+    $kickCol = "";
+    if($ballColumn>300){
+	###The ball is on our half the goalie should get on his toes
+	$newGoalieCol = 0;
+	if($ballRow<130){
+	    if($goalieRow<140){
+		$newGoalieRow = 3;
+	    }elsif($goalieRow >155){
+		$newGoalieRow = -5;
+	    }elsif(rand()>.5){
+		$newGoalieRow = -3;
+	    }else{
+		$newGoalieRow = 3;
+	    }
+	}elsif($ballRow < 170){
+	    if($goalieRow<145){
+                $newGoalieRow = 3;
+            }elsif($goalieRow >155){
+                $newGoalieRow = -5;
+            }elsif(rand()>.5){
+                $newGoalieRow = -3;
+            }else{
+                $newGoalieRow = 3;
+            }
+	}else{
+	    if($goalieRow<150){
+                $newGoalieRow = 5;
+            }elsif($goalieRow >163){
+                $newGoalieRow = -3;
+            }elsif(rand()>.5){
+                $newGoalieRow = -3;
+            }else{
+                $newGoalieRow = 3;
+            }
+	}
+	if(($ballColumn>590)&&($ballRow>140)&&($ballRow<160)){
+	    $newGoalieRow = $ballRow- $goalieRow;
+	    $newGoalieCol = $ballColumn - $goalieCol;
+	    $kickType = "kick.aloft";
+	    $kickRow = 0;
+	    $kickCol = -50;
+	}
+    }else{
+	$newGoalieRow = 0;
+	$newGoalieCol = 1;
+    }
+    $newPlayerSpots{$myPlayers{"goalie"}} = [$myPlayers{"goalie"}, $currentPlayer, $newGoalieRow, $newGoalieCol, $kickType, $kickRow, $kickCol];
+
+
+}
+
+sub moveForwardsGreen{
+###First Determine if ball is on the attacking half of the field... If it is send main closest to ball to the ball.
+    if($ballColumn<=300){
+	#Compute distance from ball for all players 
+	$distFromForward1 = sqrt(&square($ballRow-$forward1Row)+&square($ballColumn-$forward1Col));
+	$distFromForward2 = sqrt(&square($ballRow-$forward2Row)+&square($ballColumn-$forward2Col));
+	$distFromForward3 = sqrt(&square($ballRow-$forward3Row)+&square($ballColumn-$forward3Col));
+	#Forward 1 should go after ball
+	if(rand()>.3){
+	    $kickType = "kick";
+	}else{
+	    $kickType = "kick.aloft";
+	}
+
+	if(($distFromForward1<$distFromForward2) && ($distFromForward1<$distFromForward3)){
+	    ###Job of other players is to get open
+	    getOpenOffense($myPlayers{"forward2"});
+	    getOpenOffense($myPlayers{"forward3"});
+	    ###When we know what player is going for the ball that player must then decide whether or not to kick 
+	    if($ballColumn-$forward1Col+$forward1Col<300){
+		$COL_MOVEMENT = 300 - $forward1Col;
+	    }else{
+		$COL_MOVEMENT = $ballColumn- $forward1Col;
+	    }
+
+	    ####have to decide whether the player should kick on the goal or kick to another player 
+	    ####First since we are guaranteed that the kicker is whithin at least 1/2 the distance to the goal we probably don't
+	    ### if we kick alot.  So I'll say that if the kicker is in front of goal they kick
+	    ###Calculate Distance to corner of goal post Based on goalie posistion
+	    if($opGoalieRow>150){ ###Shoot to lower goal corner
+		$colDistToGoal = 0  - $forward1Col;
+		$rowDistToGoal = 157 - $forward1Row;
+	    }else{  ###Shoot to upper corner
+		$colDistToGoal = 0 -$forward1Col;
+		$rowDistToGoal = 143-$forward1Row;
+	    }
+	    $newPlayerSpots{$myPlayers{"forward1"}} = [$myPlayers{"forward1"}, $currentPlayer, $ballRow - $forward1Row, $COL_MOVEMENT, $kickType, $rowDistToGoal, $colDistToGoal];
+	}elsif(($distFromForward2<$distFromForward1) && ($distFromForward1< $distFromForward3)){
+	    getOpenOffense($myPlayers{"forward1"});
+	    getOpenOffense($myPlayers{"forward3"});
+	    if($ballColumn-$forward2Col+$forward2Col<300){
+                $COL_MOVEMENT = 300 - $forward2Col;
+            }else{
+                $COL_MOVEMENT = $ballColumn- $forward2Col;
+            }
+	    if($opGoalieRow>150){ ###Shoot to lower goal corner
+                $colDistToGoal = 0 - $forward2Col;
+                $rowDistToGoal = 157 - $forward2Row;
+            }else{  ###Shoot to upper corner
+                $colDistToGoal = 0 -$forward2Col;
+                $rowDistToGoal = 143-$forward2Row;
+            }
+
+	    $newPlayerSpots{$myPlayers{"forward2"}} = [$myPlayers{"forward2"}, $currentPlayer, $ballRow - $forward2Row, $COL_MOVEMENT, $kickType, $rowDistToGoal, $colDistToGoal];
+	    
+	}else{
+	    getOpenOffense($myPlayers{"forward1"});
+            getOpenOffense($myPlayers{"forward2"});
+	    if($ballColumn-$forward3Col+$forward3Col<300){
+                $COL_MOVEMENT = 300 - $forward3Col;
+            }else{
+                $COL_MOVEMENT = $ballColumn- $forward3Col;
+            }
+	    
+	    if($opGoalieRow>150){ ###Shoot to lower goal corner
+                $colDistToGoal = 0  - $forward2Col;
+                $rowDistToGoal = 157 - $forward2Row;
+            }else{  ###Shoot to upper corner
+                $colDistToGoal = 0 -$forward2Col;
+                $rowDistToGoal = 143-$forward2Row;
+            }
+
+            $newPlayerSpots{$myPlayers{"forward3"}} = [$myPlayers{"forward3"}, $currentPlayer, $ballRow - $forward3Row, $COL_MOVEMENT, $kickType, $rowDistToGoal, $colDistToGoal];
+	}
+    }else{
+	getOpenOffense($myPlayers{"forward1"});
+	getOpenOffense($myPlayers{"forward2"});
+	getOpenOffense($myPlayers{"forward3"});
+    }
+}
+
+sub moveDefendersGreen{
+    $kickType = "";
+    $rowDistToGoal = "";
+    $colDistToGoal = "";
+    $kickType1= "";
+    $kickType2 = "";
+    $kickType3 = "";
+    $rowToKick1 = "";
+    $rowToKick2 = "";
+    $rowToKick3 = "";
+    $colToKick1 = "";
+    $colToKick2 = "";
+    $colToKick3 = "";
+    
+    if($ballColumn>=300){
+	$distFromDefender1 = sqrt(&square($ballRow-$defend1Row)+&square($ballColumn-$defend1Col));
+        $distFromDefender2 = sqrt(&square($ballRow-$defend2Row)+&square($ballColumn-$defend2Col));
+        $distFromDefender3 = sqrt(&square($ballRow-$defend3Row)+&square($ballColumn-$defend3Col));
+
+	if(($distFromDefender1<$distFromDefender2)&&($distFromDefender1<$distFromDefender3)){
+	    ###Player 2 and 3 go after ball, player 1 stay put
+	    $defender2Row = $ballRow - $defend2Row;
+	    $defender2Col = $ballColumn - $defend2Col;
+	    $defender3Row = $ballRow - $defend3Row;
+	    $defender3Col = $ballColumn - $defend3Row;
+	    if(distFromDefender2<$distFromDefender3){
+		$kickType2 = "kick";
+		$rowToKick2 = $forward1Row-$defend2Row;
+		$colToKick2 = $forward1Co1-$defend2Col;
+	    }else{
+		$kickType3 = "kick";
+		$rowToKick3 = $forward1Row-$defend3Row;
+                $colToKick3 = $forward1Co1-$defend3Col;
+	    }
+	    #need to move player1 to infront of goal;
+	    $defender1Row = 150 - $defend1Row;
+	    $defender1Col = 20 - $defend1Row;
+	    
+	}elsif(($distFromDefender2<$distFromDefender1)&&($distFromDefender2<$distFromDefender3)){
+	    ###Player 1 and 3 go after ball player 2 guard goal
+	    $defender3Row = $ballRow - $defend3Row;
+	    $defender3Col = $ballColumn - $defend3Row;
+	    $defender1Row = $ballRow - $defend1Row;
+	    $defender1Col = $ballColumn - $defend1Col;
+	    if(distFromDefender1<$distFromDefender3){
+                $kickType1 = "kick";
+                $rowToKick1 = $forward2Row-$defend1Row;
+                $colToKick1 = $forward2Co1-$defend1Col;
+            }else{
+                $kickType3 = "kick";
+                $rowToKick3 = $forward2Row-$defend3Row;
+                $colToKick3 = $forward2Co1-$defend3Col;
+            }
+	    ###Need to move player 2 to infront of goal;
+	    $defender1Row = 150 - $defend1Row;
+            $defender1Col = 20 - $defend1Row;
+
+	}else{
+	    ##Player 1 and 2 go after ball player 3 guard goal
+	    $defender2Row = $ballRow - $defend2Row;
+	    $defender2Col = $ballColumn - $defend2Col;
+	    $defender1Row = $ballRow - $defend1Row;
+	    $defender1Col = $ballColumn - $defend1Col;
+	    if(distFromDefender1<$distFromDefender2){
+                $kickType1 = "kick";
+                $rowToKick1 = $forward2Row-$defend1Row;
+                $colToKick1 = $forward2Co1-$defend1Col;
+            }else{
+                $kickType2 = "kick";
+                $rowToKick2 = $forward2Row-$defend2Row;
+                $colToKick2 = $forward2Co1-$defend2Col;
+            }
+
+	    ###Need to move player 3 to in front of goal;
+	    $defender1Row = 150 - $defend1Row;
+            $defender1Col = 20 - $defend1Row;
+	}
+
+	
+    }else{
+	$defender1Row = 0;
+	$defender1Col = 0;
+	$defender2Row = 0;
+	$defender2Col = 0;
+	$defender3Row = 0;
+	$defedner3Col = 0;
+    }
+    ####Play man - to -man and cover every attacker inside our area
+    $newPlayerSpots{$myPlayers{"defender1"}} = [$myPlayers{"defender1"}, $currentPlayer, $defender1Row, $defender1Col, $kickType1, $rowToKick1, $colToKick1];
+    $newPlayerSpots{$myPlayers{"defender2"}} = [$myPlayers{"defender2"}, $currentPlayer, $defender2Row, $defender2Col, $kickType2, $rowToKick2, $colToKick2];
+    $newPlayerSpots{$myPlayers{"defender3"}} = [$myPlayers{"defender3"}, $currentPlayer, $defender3Row, $defender3Col, $kickType3, $rowToKick3, $colToKick3];
+    
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+

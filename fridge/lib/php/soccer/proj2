@@ -1,0 +1,447 @@
+#!/usr/bin/gawk -f 
+BEGIN {
+  srand()
+
+  lmargin = 10
+  tmargin = 10
+  height = 300
+  width = 600
+  halfemh = 18
+  halfemw = 12
+
+  MAXDEVP = 20
+
+  TRAILS = 1
+
+  redrgoal = height/2
+  redcgoal = 0
+  greenrgoal = height/2
+  greencgoal = width
+  largestKick = 2.5*MAXDEVP
+  getline whoami
+  # print "i am "whoami
+
+  while (getline < "pos" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dat[$1] = $0
+      color[$1] = $2
+      rdat[$1] = $3
+      cdat[$1] = $4
+      edat[$1] = $5
+      if ($1 == "0") {
+        rball = rdat["0"]
+        cball = cdat["0"]
+        if ($0 ~ /aloft/) notes["0"] = "aloft"
+        if (match($0,/static[0-9]*/)) static["0"] = substr($0,RSTART+6,RLENGTH)
+      }
+    }
+  }
+  close("pos")
+
+#  while (getline < "dirs" > 0) {
+#    if ($1 ~ /^[a-zA-Z0]$/) {
+#     dirdat[$1] = $0
+#     rdev[$1] = $3
+#     cdev[$1] = $4
+#      if ($1 == "0") {
+#        rrdev[$1] = rdev[$1]
+#        ccdev[$1] = cdev[$1]
+#      } else {
+#        rrdev[$1] = maxdev(rdev[$1])
+#        ccdev[$1] = maxdev(cdev[$1])
+#      }
+#      rkick[$1] = maxkick($6)
+#      ckick[$1] = maxkick($7)
+#      kick[$1] = $5" "$6" "$7
+#    }
+#  }
+#  close("dirs")
+
+  makedirs()
+
+  for (j in dat)  {#(i in rrdev)
+#	for (j in rrdev)
+    if (color[j] == whoami) print j, color[j], rdev[j], cdev[j], kick[j]
+  }
+
+  while (getline < "pos" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dat[$1] = $0
+      color[$1] = $2
+      rdat[$1] = $3
+      cdat[$1] = $4
+      edat[$1] = $5
+      if ($1 == "0") {
+        rball = rdat["0"]
+        cball = cdat["0"]
+        if ($0 ~ /aloft/) notes["0"] = "aloft"
+        if (match($0,/static[0-9]*/)) static["0"] = substr($0,RSTART+6,RLENGTH)
+      }
+    }
+  }
+  close("pos")
+  print "player C is at "rdat["C"]","cdat["C"]
+
+}
+
+func rok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > height) return height
+  return x
+}
+
+func cok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > width) return width
+  return x
+}
+
+func eok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > 100) return 100
+  return x
+}
+
+func sgn(x) {
+  if (x < 0) return -1
+  if (x > 0) return 1
+  return 0
+}
+
+func abs(x) {
+  if (x < 0) return -x
+  return x
+}
+
+func makedirs() {
+
+  while (getline < "init") {
+    rinit[$1] = $3
+    cinit[$1] = $4
+  }
+  close("init")
+
+  # to do:  vision based on direction, speed, ball, player
+  # to do:  call each program
+  for (i in dat) {
+   
+		if (color[i] != whoami) continue
+		kick[i]=""
+		rdev[i]=0
+		cdev[i]=0
+
+    key = index("aAbBcCdDeEfFgG",i)
+
+#b and d are fullbacks
+#e and g are halfbacks
+#f and c are forwards
+
+	
+	print "person closest to ball " closestToBall()
+	if(i == "b" || i== "B" || i=="d" || i=="D" || i=="e" || i=="E" || i=="g" || i=="G"){
+			if(closestToBall() != i){
+				goHome(i)
+			}  
+			else{
+				print i " is chasing the ball"
+			  chaseBall(i)			
+			}
+	} 
+
+		#goalie
+    else if (i=="a" || i=="A"){
+			if(rdat["0"] > 158){
+	    	moveGoalieLow();
+			}
+			else if(rdat["0"] < 142){
+	    	moveGoalieHigh();
+			}
+			else moveGoalieBall();
+			print "goalie's pos: ("rdat[i]","cdat[i]") color: "color[i]
+			print "dist from goalie " i" to ball: "abs(cDist(i, cdat["0"]))
+			if (abs(cDist(i, cdat["0"]))<20){
+				if (whoami=="green")
+					kick[i]="kick.aloft 0, -1000"
+				else
+					kick[i]="kick.aloft 0, 1000"
+			}	
+				
+
+
+    }
+
+		else{#forwards
+			if(closestToBall()!=i){
+					if(onDefense()){
+						goHome(i)
+					}
+					else attackPos(i)
+			}
+			else{
+					print i " is chasing the ball"
+					chaseBall(i)
+			}
+		}
+
+	}
+}
+		
+		#closestToBall(player)
+		func closestToBall(dist,closestPlayer, i){
+				dist = 100000
+				
+  		for (i in dat) {
+    		if (color[i] != whoami || i=="a" || i=="A") continue
+			
+				if(sqrt((cdat["0"]-cdat[i])^2 + (rdat["0"]-rdat[i])^2) < dist){
+						dist = sqrt((cdat["0"]-cdat[i])^2 + (rdat["0"]-rdat[i])^2)
+						closestPlayer = i
+				}
+			}
+			return closestPlayer
+		}
+
+		#chaseBall(i)
+		func chaseBall(player, receiver){
+			print "player " i" is at ("rdat[player]","cdat[player]")"	
+			print "ball is at ("rdat["0"]","cdat["0"]")"
+			rdev[player]=rDist(player, rdat["0"])
+			cdev[player]=cDist(player, cdat["0"])
+		
+			receiver = playersAhead(player)
+		  if (receiver!=-1){
+				passBall(player, receiver)			#ball is being passed to receiver
+			}
+			else shootBall(player)	#ball is being shot from player to goal	
+		}
+
+		func playersAhead(player, bestdist, bestplayer, i){
+			bestdist = 100000
+			bestplayer = -1
+			for (i in dat){
+				if (whoami == "red") {
+					if (cdat[player]<cdat[i] && color[i]!="green" && i!="0"){
+						if (distFormula(player, i)<bestdist){
+							bestdist = distFormula(player, i)
+							bestplayer = i
+						}	
+					}
+						
+				}
+				else {
+					if (cdat[player]>cdat[i] && color[i]!="red" && i!="0"){
+						if (distFormula(player, i)<bestdist){
+              bestdist = distFormula(player, i)
+              bestplayer = i
+            }
+					}
+				} 					
+			}
+			return bestplayer
+		}
+
+		func distFormula(loc1, loc2){
+			print "The dist from ("rdat[loc1]","cdat[loc1]") to ("rdat[loc2]","cdat[loc2]") is "sqrt((rdat[loc1]-rdat[loc2])^2+(cdat[loc1]-cdat[loc2])^2)
+			return (sqrt((rdat[loc1]-rdat[loc2])^2+(cdat[loc1]-cdat[loc2])^2))	
+		}
+	
+		#may want to check if opposing player is in the way
+		func passBall(player, receiver){
+			#receiver = playersAhead()
+			#leave ball on ground to pass
+			print "player: " player " is passing to receiver " receiver
+			if (distFormula(player, receiver)>largestKick){
+				if (whoami=="red")
+					kick[player]="kick 0 " largestKick
+				else
+					kick[player]="kick 0 -" largestKick
+			}
+			else
+				kick[player]= "kick " rDist(player,rdat[receiver]) " " cDist(player,cdat[receiver]) 
+		}
+
+		func shootBall(player){
+			print "player "player" is shooting"
+			if (distToGoal(player)<50){
+				if (whoami=="red")
+					kick[player]= "kick.aloft " rDist(player,greenrgoal) " " cDist(player,greencgoal)
+				else
+					kick[player]= "kick.aloft " rDist(player,redrgoal) " " cDist(player,redcgoal)
+			}
+			else{
+				if (whoami=="red")
+					kick [player]="kick.aloft " maxkick(rDist(player, greenrgoal))" " maxkick(cDist(player,greencgoal))
+				else kick[player]= "kick.aloft " maxkick(rDist(player, redrgoal))" " maxkick(cDist(player,redcgoal))
+			}		
+		}
+	
+		func distToGoal(player){
+			if (whoami=="red")
+				return sqrt((cdat[player]-greencgoal)^2+(rdat[player]-greenrgoal)^2)
+			return sqrt((cdat[player]-redcgoal)^2+(rdat[player]-redrgoal)^2)
+		}
+
+		#onDefense()
+		func onDefense(){
+			if (whoami=="red"){
+				return cdat["0"]<300
+			}
+			else return cdat["0"]>300
+		}
+
+		#goHome(i)
+		func goHome(player){
+				print "player "i" is at ("rdat[player]","cdat[player]")"
+				#Fullbacks
+				if(player =="d"){
+					if(rdat[player] != 75)
+						rdev[player]=rDist(player, 75)
+					else rdev[player]=0
+					if(cdat[player] != 100)
+						cdev[player]=cDist(player,100)
+					else cdev[player] = 0
+				}
+				else if (player =="D"){
+					print "D is moving to (75,500)"	
+					rdev[player]=rDist(player, 75)
+					cdev[player]=cDist(player, 500)
+				}
+				else if (player == "b"){
+					rdev[player]=rDist(player,225)
+					cdev[player]=cDist(player,100)
+				}
+				else if (player == "B"){
+					rdev[player]=rDist(player, 225)
+          cdev[player]=cDist(player, 500)
+        }
+
+		 	#Halfbacks
+        else if (player == "e" || player =="E"){
+          rdev[player]=rDist(player, 75)
+          cdev[player]=cDist(player, 300)
+        }
+       
+        else if (player == "g"|| player == "G"){
+          rdev[player]=rDist(player, 225)
+          cdev[player]=cDist(player,300)
+        }
+
+				#Forwards
+        else if (player == "f"){
+          rdev[player]=rDist(player, 75)
+          cdev[player]=cDist(player, 400)
+        }
+				else if (player == "F"){
+          rdev[player]=rDist(player, 75)
+          cdev[player]=cDist(player,200)
+        }
+        else if (player == "c"){
+          rdev[player]=rDist(player, 225)
+          cdev[player]=cDist(player,400)
+        }
+        else if (player == "C"){
+          rdev[player]=rDist(player, 225)
+          cdev[player]=cDist(player,200)
+        }				
+		}
+
+		func rDist(player, rLoc){
+			print "rDist is returning " rLoc-rdat[player] " for player " player
+			return rLoc-rdat[player]
+		}	
+
+		func cDist(player, cLoc){
+			print "cDist is returning " cLoc-cdat[player] " for player " player
+			return cLoc-cdat[player]
+
+		}
+	
+		func maxMove(player, r,c,rOrig, cOrig){
+			if (sqrt(r^2+c^2)>MAXDEVP){
+				if (sgn(r)==1)
+					r=14 
+				else
+					r=-14
+				if (sgn(c)==1)
+					c=14
+				else
+					c=-14
+			}
+			rdev[player]=r
+			cdev[player]=c
+		}
+
+		#attackPos(i)	
+		func attackPos(player){
+			#forwards
+			if (player == "f"){
+          maxMove(player, rDist(player, 125), cDist(player, 500))						
+        }
+        else if (player == "F"){
+					maxMove(player, rDist(player, 125),cDist(player,100))
+        }
+        else if (player == "c"){
+          maxMove(player, rDist(player, 175), cDist(player, 500))
+        }
+        else if (player == "C"){
+					maxMove(player, rDist(player, 175), cDist(player,100))
+        }
+
+			#fullbacks
+        if(player =="b"){
+					maxMove(player, rDist(player, 75), cDist(player,200))
+        }
+        else if (player =="B"){
+					maxMove(player, rDist(player, 75), cDist(player, 400))
+        }
+        else if (player == "d"){
+					maxMove(player, rDist(player,225), cDist(player,200))
+        }
+        else if (player == "D"){
+					maxMove(player, rDist(player, 225), cDist(player, 400))
+        }
+		}
+
+			
+    #moveGoalieLow()
+		func moveGoalieLow(){
+			if (whoami=="green")
+				rdev["A"]=maxdev(rDist("A",158))
+			else
+				rdev["a"]=maxdev(rDist("a",158))			
+		}
+
+		#moveGoalieHigh()
+    func moveGoalieHigh(){
+      if (whoami=="green")
+        rdev["A"]=maxdev(rDist("A",142))
+      else
+        rdev["a"]=maxdev(rDist("a",142))
+    }
+
+		#moveGoalieBall()
+    func moveGoalieBall(){
+      if (whoami=="green")
+        rdev["A"]=maxdev(rDist("A",rdat["0"]))
+      else
+        rdev["a"]=maxdev(rDist("a",rdat["0"]))
+    }
+
+
+
+
+
+func maxkick(x) {
+  if (x > 2*MAXDEVP) return 2*MAXDEVP
+  if (x < -2*MAXDEVP) return -2*MAXDEVP
+  return x
+}
+
+func maxdev(x) {
+  if (x > MAXDEVP) return MAXDEVP
+  if (x < -1*MAXDEVP) return -1*MAXDEVP
+	return x
+}

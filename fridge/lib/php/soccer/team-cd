@@ -1,0 +1,361 @@
+#!/usr/bin/gawk -f 
+BEGIN {
+  lmargin = 10
+  tmargin = 10
+  height = 300
+  width = 600
+  halfemh = 18
+  halfemw = 12
+
+  MAXDEVP = 20
+
+  TRAILS = 1
+
+  redrgoal = height/2
+  redcgoal = 0
+  greenrgoal = height/2
+  greencgoal = width
+
+  getline whoami
+  print "i am rewriting" > "output"
+  print "we are "  whoami  > "output" 
+	
+  i = 0
+  j = 0
+  while (getline < "pos" > 0) {
+		if (whoami == "green"){
+				if ($1 ~ /^[A-Z]$/){
+  		   	   ourPos[i,0] = $1
+ 			       ourPos[i,1] = $4  #x
+       	     ourPos[i,2] = $3  #y
+             ourPos[i,3] = $5  #stamina
+			
+             print "read our player info: " $0 > "output"
+             i++ 
+         }
+         else if ($1 ~ /^[a-z]$/){
+            theirPos[j,0] = $1
+            theirPos[j,1] = $4  
+            theirPos[j,2] = $3 
+            theirPos[j,3] = $5  
+            
+            print "read their player info: " $0 > "output"
+            j++
+         }
+
+     }
+     else if(whoami == "red"){
+ 		   if($1 ~ /^[a-z]$/){
+            ourPos[i,0] = $1
+            ourPos[i,1] = $4
+            ourPos[i,2] = $3
+            ourPos[i,3] = $5
+
+            print "read our player info: " $0 > "output"
+            i++
+          }
+     		 else if ($1 ~ /^[A-Z]$/){
+       	  	theirPos[j,0] = $1
+     		    theirPos[j,1] = $4  
+	   	    	theirPos[j,2] = $3 
+     		    theirPos[j,3] = $5 
+           
+            print "read their player info: " $0 > "output"
+ 				j++
+          }
+    }
+    
+
+    if($2 == "black"){
+       ball[0] = $4 #x
+       ball[1] = $3 #y
+    }
+   
+  }
+  close("pos")
+
+  for(i = 0; i < 7; i++){
+     print "player " i " is letter " ourPos[i,0] " with x: " ourPos[i,1] " and y: " ourPos[i,2] > "output"
+  }
+
+  for(i = 0; i < 7; i++){
+     print "player " i " is letter " theirPos[i,0] " with x: " theirPos[i,1] " and y: " theirPos[i,2] > "output"
+  }
+
+  
+  print "ball is at x: " ball[0] " and y: " ball[1]  > "output"
+  
+
+  move()
+
+  close("output")
+
+}
+
+func move(){
+   #calculate goal position
+   if(whoami == "green"){
+      dThresh = 400 
+			dInterceptX = 450
+      goalTopPosX = 0
+      goalBotPosX = 0 
+   }else{ #red
+ 			dThresh = 200
+			dInterceptX = 150
+      goalTopPosX = 600
+      goalBotPosX = 600
+   }
+	 dInterceptY1 = 100
+	 dInterceptY2 = 200
+   goalTopPosY = 175
+   goalBotPosY = 125
+  
+	 ourMinDist = 700
+   goalie = 8
+   defense1 = 8
+	 defense2 = 8
+   offense1 = offense2 = offense3 = 8
+   #find goalie
+   for(i = 0; i<7;i++){
+     if(ourPos[i,0] == "a" || ourPos[i,0] == "A"){
+       goalie = i
+     }
+   }
+
+	 #find defenders
+	 for(i = 0; i<7; i++){
+			if(ourPos[i,0] == "d" || ourPos[i,0] == "D"){
+				defense1 = i			
+			}else if( ourPos[i,0] == "e" || ourPos[i,0] == "E"){
+        defense2 = i
+      }
+		
+   }
+
+	#find offense
+  for(i = 0; i<7; i++){
+		if(ourPos[i,0] == "c" || ourPos[i,0] == "C"){	chaser = i }
+		else if(ourPos[i,0] == "f" || ourPos[i,0] == "F"){ offense3 = i }
+		else if(ourPos[i,0] == "g" || ourPos[i,0] == "G") { offense2 = i }
+    else if(ourPos[i,0] == "b" || ourPos[i,0] == "B") { offense1 = i }  
+  }
+
+		#moving players
+	  for(i=0; i<7; i++){
+		
+			 #GOALIE  
+			 if(i == goalie){
+ 				#goalie action, only move up and down and kick ball
+				print "--player " ourPos[i,0] " is the goalie--" > "output"
+				#is ball close?
+ 				if(ballClose(i) != 0){
+						kick(i, goalTopPosX, 150, 1)	#kick ball aloft to other goal
+        }else{  #move to block!
+
+    	    goalMaxH = 157
+					goalMinH = 143		
+		      
+					if (ball[1] >= goalMinH && ball[1] <= goalMaxH) {print "ball is at " ball[0] " " ball[1] " i am moving " ourPos[i,1] " " ball[1] > "output"; moveTo(i, ourPos[i,1], ball[1], .25) }
+          else if (ball[1] > goalMaxH) { print "ball is at " ball[0] " " ball[1] " i am moving " ourPos[i,1] " " goalMaxH > "output"; moveTo(i, ourPos[i,1], goalMaxH, .25) }
+          else if (ball[1] < goalMinH) { print "ball is at " ball[0] " " ball[1] " i am moving " ourPos[i,1] " " goalMinH > "output"; moveTo(i,ourPos[i,1], goalMinH, .25) }
+					else { moveTo(i,ourPos[i,1], ourPos[i,2], 0) }	
+
+ 			  } 	
+      }
+	
+ 			#OFFENSE
+			else if(i == chaser) {
+				if (ballClose(i) != 0) { kick(i,goalTopPox,150,1) }
+#				if(ballClose(i) != 0) { kick(i,ourPos[offense3,1],ourPos[offense3,2],1) }
+				else { moveTo(i,ball[0],ball[1],1) }
+			}
+			else if(i==offense1) {
+				if(ballClose(i) != 0) { kick(i,goalTopPosX,150,1) }
+				else { move1(i) }}
+			else if(i==offense2) { 
+				if(ballClose(i) != 0) { kick(i, goalTopPosX,150,1) }
+				else { move2(i) }}
+			else if(i==offense3) {
+				if (ballClose(i) != 0) { kick(i,goalTopPosX,150,1) }
+				else { move3(i) }
+			}
+
+			#DEFENSE
+			else if(i == defense1 || i == defense2){
+				 if(ballClose(i) != 0){
+						kick(i,ourPos[offense1,1], ourPos[offense1,2], 1)
+         }else{
+						if(whoami == "red"){
+							if(ball[0] < dThresh){
+								#chase ball
+								moveTo(i, ball[0], ball[1], 1)
+              }else{
+								#move to strategic pos
+								if(i == defense1){
+									moveTo(i, dInterceptX, dInterceptY1, .5)
+								}else{
+                	moveTo(i, dInterceptX, dInterceptY2, .5)
+								}
+							}
+	
+            }else{
+
+
+         	 		 if(ball[0] > dThresh){
+          	      #chase ball
+             	   moveTo(i, ball[0], ball[1], 1)
+             	 }else{
+              	  #move to strategic pos
+                	if(i == defense1){
+                 		 moveTo(i, dInterceptX, dInterceptY1, .5)
+             		 }else{
+                 		 moveTo(i, dInterceptX, dInterceptY2, .5)
+               	 }
+             	}
+						}
+         }
+
+
+      }
+		
+
+
+			else{
+				#stay put
+				moveTo(i, ourPos[i,1], ourPos[i,2],0);
+			
+      }  
+    }
+
+}
+func moveO(player, minX, maxX) {
+	if(ball[0] > maxX) { moveTo(player, maxX, ball[1], .5) } #run to maxX, ballY 	
+	else if (ball[0] >= minX && ball[0] <= maxX) { moveTo(player, ball[0], ball[1], 1) } #run to ballX, ballY 
+	else if (ball[0] < minX) { moveTo(player, minX, ball[1], .5) } #run to minX, ballY 
+}
+func move1(i) {
+	if (whoami == "red") {
+		minX = 300
+		maxX = 400
+	}
+	else {
+		minX = 200
+		maxX = 300
+	}
+	moveO(i, minX, maxX)
+}
+func move2(i) {
+	if (whoami == "red") {
+		minX = 400
+		maxX = 500
+	}
+	else {
+		minX = 100
+		maxX = 200
+	}
+	moveO(i, minX, maxX)
+}
+func move3(i) {
+	if (whoami == "red") {
+		minX = 500
+		maxX = 600
+	}
+	else {
+		minX = 0
+		maxX = 100
+	}
+	moveO(i, minX, maxX)
+}
+
+func ballClose(i){  #ball in kicking range for player i !=0 == true
+   if(ourDistFromBall(i) < 20){
+			print "ball is close to player " ourPos[i,0] > "output"
+     return 1
+   }else{
+ 			print "ball is not close to player " ourPos[i,0] > "output"
+     return 0
+   }
+}
+
+
+func kick(i, x, y, aloft){ #non-moving kick
+   deltaX = x - ourPos[i,1]
+   deltaY = y - ourPos[i,2]
+
+   kickString = "" 
+   if(aloft != 0){
+  		kickString = "kick.aloft"
+   }else{
+      kickString = "kick"
+	}
+
+   toPrint = ourPos[i,0] " "  whoami " 0 0 " kickString " " deltaY " " deltaX
+   print toPrint > "output"
+   print toPrint 
+}
+
+
+func moveTo(i, x, y, percentMag){ #move player i to (x,y) with decimal magnitude percentMag, CALL ON ALL SEVEN PLAYERS
+
+	  deltaX = x - ourPos[i,1]
+    deltaY = y - ourPos[i,2]
+  
+ 
+		toPrint = ourPos[i,0]  " " whoami " " deltaY " " deltaX
+    print toPrint >> "output"
+    print toPrint
+}
+
+func ourDistFromBall(i) {  #calculate player i's dist from ball
+	 deltaX = ball[0] - ourPos[i,1]
+    deltaY = ball[1] - ourPos[i,2]
+
+    squarerooted = sqrt(deltaX * deltaX + deltaY * deltaY)
+	 return squarerooted
+}
+
+func ourDistFromPos(i, x, y){ #calculate position from (x,y)
+    deltaX = x - ourPos[i,1]
+    deltaY = y - ourPos[i,2]
+
+    squarerooted = sqrt(deltaX * deltaX + deltaY * deltaY)
+    return squarerooted
+
+
+}
+
+
+func rok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > height) return height
+  return x
+}
+
+func cok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > width) return width
+  return x
+}
+
+func eok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > 100) return 100
+  return x
+}
+
+func sgn(x) {
+  if (x < 0) return -1
+  if (x > 0) return 1
+  return 0
+}
+
+func abs(x) {
+  if (x < 0) return -x
+  return x
+}
+
+
+

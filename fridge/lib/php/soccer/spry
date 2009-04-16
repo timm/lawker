@@ -1,0 +1,393 @@
+#!/usr/bin/gawk -f 
+BEGIN {
+  srand()
+
+  lmargin = 10
+  tmargin = 10
+  height = 300
+  width = 600
+  halfemh = 18
+  halfemw = 12
+
+  MAXDEVP = 20
+
+  TRAILS = 1
+
+  redrgoal = height/2
+  redcgoal = 0
+  greenrgoal = height/2
+  greencgoal = width
+
+  getline whoami
+  # print "i am "whoami
+
+  while (getline < "off") {
+    roff[$1] = $3
+    coff[$1] = $4
+  }
+  close("off")
+
+  while (getline < "def") {
+    rdef[$1] = $3
+    cdef[$1] = $4
+  }
+  close("def")
+
+
+  while (getline < "pos" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dat[$1] = $0
+      color[$1] = $2
+      rdat[$1] = $3
+      cdat[$1] = $4
+      edat[$1] = $5
+      if ($1 == "0") {
+        rball = rdat["0"]
+        cball = cdat["0"]
+        if ($0 ~ /aloft/) notes["0"] = "aloft"
+        if (match($0,/static[0-9]*/)) static["0"] = substr($0,RSTART+6,RLENGTH)
+      }
+    }
+  }
+  close("pos")
+
+  while (getline < "dirs" > 0) {
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      dirdat[$1] = $0
+      rdev[$1] = $3
+      cdev[$1] = $4
+      if ($1 == "0") {
+        rrdev[$1] = rdev[$1]
+        ccdev[$1] = cdev[$1]
+      } else {
+        rrdev[$1] = maxdev(rdev[$1])
+        ccdev[$1] = maxdev(cdev[$1])
+      }
+      rkick[$1] = maxkick($6)
+      ckick[$1] = maxkick($7)
+      kick[$1] = $5" "$6" "$7
+    }
+  }
+  close("dirs")
+
+  makedirs()
+
+  for (i in rrdev) {
+    if (color[i] == whoami) print i, color[i], rdev[i], cdev[i], kick[i]
+  }
+
+}
+
+func rok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > height) return height
+  return x
+}
+
+func cok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > width) return width
+  return x
+}
+
+func eok(x) {
+  x = int(.5+x)
+  if (x < 0) return 0
+  if (x > 100) return 100
+  return x
+}
+
+func sgn(x) {
+  if (x < 0) return -1
+  if (x > 0) return 1
+  return 0
+}
+
+func abs(x) {
+  if (x < 0) return -x
+  return x
+}
+
+
+func makedirs() {
+	
+	dribble = 20
+	move = 10
+	kickit = 35
+	ROWDEV = (.4-rand()) * 8 + .1
+
+	offense = 0	
+
+  if (whoami ~ /red/ && cball > 450) offense = 1
+  if (whoami ~ /green/ && cball < 150) offense = 1
+
+	#print "offense = " offense
+
+  while (getline < "init") {
+    rinit[$1] = $3
+    cinit[$1] = $4
+  }
+  close("init")
+  if (rand() < 1) chaser["f"] = 1
+  if (rand() < 1) chaser["g"] = 1
+  if (rand() < 1) chaser["F"] = 1
+  if (rand() < 1) chaser["G"] = 1
+  if (rand() < .4) chaser["c"] = 1
+  if (rand() < .4) chaser["C"] = 1
+  if (rand() < .4) chaser["b"] = 1
+  if (rand() < .4) chaser["B"] = 1
+	
+	closest = "f"
+	nextClosest = "g"
+	for(i in dat){
+
+		if(  (i != "a" || i != "A" || i != "0")   && color[i] == whoami){		
+			if( distance("0",i) < distance("0",closest) ) closest = i
+			else if( distance("0",i) < distance("0",nextClosest) ) nextClosest = i
+			
+		}
+	
+	}
+
+	#print "closest is " closest
+
+
+  # to do:  vision based on direction, speed, ball, player
+  # to do:  call each program
+  for (i in dat) {
+
+    if (color[i] != whoami) continue
+
+    key = index("aAbBcCdDeEfFgG",i)
+    if (i != "0") {
+
+		if (offense){
+      if (edat[i] > 20 && i == closest || (abs(cdat["0"]-cdat[i]) < 50 && abs(rdat["0"]-rdat[i]) < 20)) {
+        #cdev[i] = maxdev(cball-cdat[i])
+        #rdev[i] = maxdev(rball-rdat[i])
+				if(distance("0",i) < 4){
+				cdev[i] = 0
+				rdev[i] = 0
+				}
+				else{
+					#print i " is movin3"
+					cdev[i] = maxdev2(cball-cdat[i],rball-rdat[i])
+  	      rdev[i] = maxdev2(rball-rdat[i],cball-cdat[i])
+				}
+
+        if (edat[i] > 20 && abs(cdat["0"]-cdat[i]) < kickit && abs(rdat["0"]-rdat[i]) < kickit) {
+
+					if( (cball < 8) || (cball > width-8) ){
+						passBack(i)
+					}
+	 				else if (rand() < .2 ||  (cball < 80 || cball > width-80)) {
+            if (color[i] ~ /red/) kick[i] = "kick " (greenrgoal-rdat[i]) " "greencgoal-cdat[i]
+            if (color[i] ~ /green/) kick[i] = "kick " (redrgoal-rdat[i]) " "redcgoal-cdat[i]
+	 			 	} 
+					else if (rand() < .6){ 	
+            if (color[i] ~ /red/){
+						 kick[i] = "kick " ROWDEV " " dribble
+      			 cdev[i] = move
+       			 rdev[i] = ROWDEV
+						}
+            if (color[i] ~ /green/){
+							kick[i] = "kick " ROWDEV  " " -dribble
+       				cdev[i] = -move
+       				rdev[i] = ROWDEV
+						}
+	 				}
+					else pass(i)				
+
+				}
+				else kick[i] = ""
+      } 
+		else if (edat[i] > 50) {
+				#print i " is movin2"
+        cdev[i] = maxdev(coff[i]-cdat[i])
+        rdev[i] = maxdev(roff[i]-rdat[i])
+				kick[i] = ""
+      }
+		else {
+			cdev[i] = 0
+			rdev[i] = 0
+			kick[i] = ""
+    }
+
+		}
+		else{   ######### DEFENSE #########
+
+			if(i == "a" || i == "A"){
+				goalie(i)
+				continue
+			}
+
+      if (edat[i] > 20 && i == closest ||  (abs(cdat["0"]-cdat[i]) < 50 && abs(rdat["0"]-rdat[i]) < 40)) {
+        #cdev[i] = maxdev(cball-cdat[i])
+        #rdev[i] = maxdev(rball-rdat[i])
+        
+				if(distance("0",i) < 4){
+				cdev[i] = 0
+				rdev[i] = 0
+				}
+				else{
+				#print i " is movin3"
+				cdev[i] = maxdev2(cball-cdat[i],rball-rdat[i])
+        rdev[i] = maxdev2(rball-rdat[i],cball-cdat[i])
+				}
+
+        if ((edat[i] > 20) && (abs(cdat["0"]-cdat[i]) < kickit) && (abs(rdat["0"]-rdat[i]) < kickit)) {
+
+	 				if (cball < 100 || cball > width-100) {
+            if (color[i] ~ /red/) kick[i] = "kick.aloft " (greenrgoal-rdat[i]) " "greencgoal-cdat[i]
+            if (color[i] ~ /green/) kick[i] = "kick.aloft " (redrgoal-rdat[i]) " "redcgoal-cdat[i]
+	 			 	} 
+					else if (rand() < .8){
+            if (color[i] ~ /red/){
+							 kick[i] = "kick " ROWDEV " " dribble
+       				 cdev[i] = move
+       				 rdev[i] = ROWDEV
+						}
+            if (color[i] ~ /green/){
+							 kick[i] = "kick " ROWDEV  " " -dribble
+       				 cdev[i] = -move
+       				 rdev[i] = ROWDEV
+						}
+
+					}
+					else pass(i)
+
+
+
+				}
+				else kick[i] = ""
+
+
+      }
+ 
+		else if (edat[i] > 50) {
+				#print i " movin4"
+        cdev[i] = maxdev(cdef[i]-cdat[i])
+        rdev[i] = maxdev(rdef[i]-rdat[i])
+				kick[i] = ""
+      }
+		else {
+			cdev[i] = 0
+			rdev[i] = 0
+			kick[i] = ""
+		}
+
+
+		}
+    }
+
+  }
+
+
+}
+
+func pass(i){
+  for(j in dat){
+    if ((color[i] != color[j]) || (dat[i] == dat[j])) continue  #not same team or same guy
+    if (whoami == "red"){
+      if (cdat[j]-cdat[i] > -10){
+        kick[i] = "kick " (rdat[j]-rdat[i])  " " (cdat[j]-cdat[i])
+      }
+			else kick[i] = "kick.aloft " (rball-rdat[i]) " " (cball-cdat[i])
+    }
+    else{ #team=green
+       if (cdat[i]-cdat[j] > -10){
+         kick[i] = "kick " (rdat[j]-rdat[i])  " " (cdat[j]-cdat[i])
+       }
+      else kick[i] = "kick.aloft " (rball-rdat[i]) " " (cball-cdat[i])
+
+    }
+	}
+
+}
+
+func passBack(i){
+	minPass = 700
+  for(j in dat){
+
+		if(color[j] == whoami && i != j){
+
+			if( (abs(cdat[i] - cdat[j])) < minPass ) {
+				passTo = j
+				minpass = abs(cdat[i] - cdat[j])
+			}
+		}
+	}
+
+
+	kick[i] = "kick.aloft " (rdat[passTo] - rdat["0"]) " " (cdat[passTo] - cdat["0"])
+
+}
+
+
+func distance(x,y){
+	a = (rdat[y]-rdat[x])^2
+	b = (cdat[y]-cdat[x])^2
+	return sqrt(a+b)
+}
+
+func len(x,y){
+	return sqrt(x^2+y^2)
+}
+
+func goalie(x){
+
+	if (abs(cdat["0"]-cdat[x]) < 30 && abs(rdat["0"]-rdat[x]) < 20) {
+        cdev[x] = maxdev(cball-cdat[x])
+        rdev[x] = maxdev(rball-rdat[x])
+
+    if (abs(cdat["0"]-cdat[x]) < kickit && abs(rdat["0"]-rdat[x]) < kickit) {
+       if (color[i] ~ /red/) kick[x] = "kick.aloft " (greenrgoal-rdat[i]) " "greencgoal-cdat[i]
+       if (color[i] ~ /green/) kick[x] = "kick.aloft " (redrgoal-rdat[i]) " "redcgoal-cdat[i]
+		}
+
+	}
+	else if(whoami ~ /red/ && (rdat["0"] < (-1*cdat["0"] + 150)) ){
+			rdev[x] = maxdev(143 - rdat[x])
+			cdev[x] = maxdev(7 - cdat[x])
+	}
+	else if(whoami ~ /red/ && (rdat["0"] > (cdat["0"] + 150)) ){
+			rdev[x] = maxdev(157 - rdat[x])
+			cdev[x] = maxdev(7 - cdat[x])
+	}
+	else if(whoami ~ /green/ && (rdat["0"] > (-1*cdat["0"] + 750)) ){
+			rdev[x] = maxdev(157 - rdat[x])
+			cdev[x] = maxdev(593 - cdat[x])
+	}
+	else if(whoami ~ /green/ && (rdat["0"] < (cdat["0"] + 750)) ){
+			rdev[x] = maxdev(143 - rdat[x])
+			cdev[x] = maxdev(593 - cdat[x])
+	}
+	else{
+    cdev[x] = maxdev(cdef[x]-cdat[x])
+    rdev[x] = maxdev(rdef[x]-rdat[x])
+		kick[x] = ""
+	}
+
+}
+
+func maxkick(x) {
+  if (x > 2*MAXDEVP) return 2*MAXDEVP
+  if (x < -2*MAXDEVP) return -2*MAXDEVP
+  return x
+}
+
+func maxdev(x){
+	if(x > MAXDEVP) return MAXDEVP
+	if(X < -1*MAXDEVP) return -1*MAXDEVP
+
+	return x
+}
+
+
+func maxdev2(x,k) {
+	if(x > MAXDEVP || x < -1*MAXDEVP)  return ( x/(len(x,k)) )*20
+
+	return  x
+}

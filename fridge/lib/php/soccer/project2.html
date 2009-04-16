@@ -1,0 +1,157 @@
+<pre>
+CS313 PROJECT2
+SOCCER-PLAYING TEAM
+
+You are again to work in MIXED-background pairs.  This project should be
+ready for progress-demonstration as noted below, and for final submission
+in three weeks.
+
+   October 2004
+ S  M Tu  W Th  F  S
+17 18 19 20 21 22 23
+         ^assigned
+24 25 26 27 28 29 30
+         ^first demo:  you can control your players
+   November 2004
+ S  M Tu  W Th  F  S
+31  1  2  3  4  5  6
+         ^second demo:  you have a strategy
+ 7  8  9 10 11 12 13
+	 ^due:  tournament
+14 15 16 17 18 19 20
+
+You are to write a program to be a greenplayer or a redplayer (your
+choice, A/A- if you can do either) in the soc2.cgi simulator (or its later
+version/s).  If you want, you can create a subdirectory in 04-02 for
+your own development.  This is linked into the public_html space, so
+you can see your work and run the cgi simulator from the web.
+The address will be http://k9.cs.wustl.edu/~cs313/04-02/yourname/soc2.cgi.
+You will probably want to click on init, then on params, the specify
+your program.  If you look at the header of soc2.cgi, it says that
+you need a tmp subdirectory which is a+rwx, and dirs and pos should be
+a+rw.  Any player you write should be a+rx, as should be any cgi.  init
+should be a+r.
+
+You might look at the directory on k9.cs.wustl.edu, cs313/soccer,
+and try ./soc4.awk for inspiration.  Our simulator is new this semester
+and has some advantages and some disadvantages compared to the older
+simulator.
+
+Your program will be called repeatedly during a soccer game
+(which for now does not end!).  It will be given the input
+"red" or "green" on /dev/stdin.  It will generate output such as
+
+a red     
+b red -18 20   
+c red -14 20   
+d red 0 0   
+e red 0 0   
+f red -20 -20   
+g red -20 -20   
+
+which specifies a direction (row column) vector for each player.
+You should only output controls for players of your team color.  
+We will ignore any other output, but the effect will be to slow down
+the simulator, hence, to ruin the animation.
+
+You may read the dirs and pos files, but should not alter them.
+The pos file looks like this (for each player or the ball, row, column,
+and energy level, 0-100, 100 is full; you might also see that the ball,
+"0", is staticn, if it has not been given a velocity in n moves, and 
+the word "aloft" if the ball is in the air):
+
+0 black 141 485 100  static1
+A green 150 595 100  
+B green 60 363 74  
+C green 132 448 100  
+D green 124 562 93  
+E green 212 559 95  
+F green 194 535 86  
+G green 139 600 19  
+a red 150 5 100  
+b red 141 95 38  
+c red 137 466 47  
+d red 100 30 100  
+e red 200 30 100  
+f red 164 500 69  
+g red 164 507 70  
+
+This is what the dirs file looks like:
+ 
+0 black 0 0   
+A green     
+B green 0 0   
+C green 2 20   
+D green 20 -20   
+E green -20 -20   
+F green -20 -20   
+G green -16 -20   
+a red     
+b red -18 20   
+c red -14 20   
+d red 0 0   
+e red 0 0   
+f red -20 -20   
+g red -20 -20   
+
+It is easy to "invert" the board for reversing red/green play just by
+subtracting the column value from 600.  The width of the field is 600,
+the height is 300.  The goals are 16 pixels high, centered on the
+midline.  There is no off-sides, and the goalie area is under changing
+specifications at the moment.
+
+Your players may move at most 20 pixels in each direction.  This will soon
+change to a 20-30 pixel maximum vector length.  They tire in proportion to
+how far they move.  The simulator keeps players at the boundaries if they
+try to move beyond the playing area.  Energy and movement profiles will
+be added to cause players to have different inherent properties.
+
+A player may kick the ball by adding "kick" in the fifth field, and a
+row and column vector in the sixth and seventh fields.  The player may
+also specify "kick.aloft".  There is no requirement that the player
+move and kick in the same direction.  Kicking is limited to 2.5x the
+movement limit.  Players tire in proportion to the kicking.  Kicking is  
+effective if the ball is found near a kicking player within approx 6
+pixels (subject to some variation). 
+
+Here is an example of a directive for player f to kick:
+
+f red -2 2 kick.aloft 424.858 302
+
+Players are processed in decreasing order of remaining energy level.
+
+Players control areas around them so that even their teammates may not
+enter where they have moved or where they are positioned in a turn.
+The specification of this is also subject to some change.  Currently,
+a dense radius of about 3 pixels is controlled by a player and a 
+sparse radius of about 8 pixels.
+
+A goal is scored when the ball ends its turn's movement in one of the goals.
+Currently, goals cannot be scored on shots that pass through the goal.
+Goals are less probable when the ball is aloft.  After a goal, the field
+resets to the initial position.
+
+Goalies do not have any special properties (yet), e.g., regarding  the
+ability to kick the ball away.  We will probably be adding the property 
+that only they can move into the goal area, and that they can kick
+with a higher kick limit.
+
+A bounce of balls kicked on the ground into another player or into the goal
+will be added.
+
+At the moment, I want to see you write your player (you may modify
+dummy1 or dummy2 if you choose) so that you can exhibit some control
+over your players.
+
+The goal in the second and third weeks will be to exhibit interesting
+and effective behavior.
+
+Your programs should be "turned in" by placing a subdirectory on
+k9.cs.wustl.edu in the cs313 account "04-02" directory, with your last
+names in lower case.  Your program should be called "team-yourname", and
+should be able to read and write the files "dirs" and "pos" in their
+PARENT directory, or should be able to read "payoffs" and "offers" from
+symbolic links in your subdirectory, which link to the parent directory.
+
+Don't forget that you need an html file describing your work when you do
+the final submission or we cannot assign you a grade.

@@ -1,0 +1,255 @@
+#!/usr/bin/gawk -f 
+BEGIN {
+  srand();
+
+  lmargin = 10;
+  tmargin = 10;
+  height = 300;
+  width = 600;
+  halfemh = 18;
+  halfemw = 12;
+
+  MAXDEVP = 20;
+  MAXDEVP2= 40;
+  TRAILS = 1;
+
+  redrgoal = height/2;
+  redcgoal = 0;
+  greenrgoal = height/2;
+  greencgoal = width;
+
+  denom = exp(1)-1;
+  RIJ = 5;
+
+  getline whoami;
+# print "i am "whoami
+
+  system("cp pos tmp/pos.bak");
+  print "f1 red 150 20\n" "f2 green 150 580">>"tmp/pos.bak";
+  close("tmp/pos.bak");
+
+  while (getline < "tmp/pos.bak" > 0) {  #getline is a function, returns 0 at EOF
+    if ($1 ~ /^[a-zA-Z0]$/ || $1 ~ /^[cf]./) {    #0 is the soccer ball
+      dat[$1] = $0;              #just get all the data stored away
+      color[$1] = $2;            #color data
+      rdat[$1] = $3;             #row data
+      cdat[$1] = $4;             #column data
+      edat[$1] = $5;             #energy data
+      if ($1 == "0") {           #ball data
+        rball = rdat["0"];
+        cball = cdat["0"];
+        if ($0 ~ /aloft/) 
+	  notes["0"] = "aloft";
+        if (match($0,/static[0-9]*/)) 
+	  static["0"] = substr($0,RSTART+6,RLENGTH);
+      }
+    }
+  }
+  close("tmp/pos.bak");
+
+
+  while (getline < "dirs" > 0) { #getline is a function, returns 0 at EOF
+    if ($1 ~ /^[a-zA-Z0]$/) {
+      #important to note -- players in dirs and pos are listed in same order
+      dirdat[$1] = $0;           #store all data
+      rdev[$1] = $3;             #row delta value??
+      cdev[$1] = $4;             #col delta value
+      if ($1 == "0") {
+        rrdev[$1] = rdev[$1];    #the ball's row delta
+        ccdev[$1] = cdev[$1];    #the ball's col vector
+      } 
+      else {
+        rrdev[$1] = maxscalar(rdev[$1]); #maxdev limits movement to 20px in dir
+        ccdev[$1] = maxscalar(cdev[$1]); 
+      }
+    }
+  }
+  close("dirs");
+
+  makedirs();
+}
+
+func makedirs() {
+  for (i in dat) {
+    if (color[i] != whoami || i ~ /^[cf]./) continue;
+    calcVectors_energy(i);
+  }
+  selectForces();
+  printOutput();  
+} 
+
+func printOutput(){
+  for (i in myteam) {
+    if ((rand() * 80 < edat[i]) && (i != "a") && (i != "A"))
+      print i, color[i], selectedForces[i,2], selectedForces[i,3] " "kickIt[i];
+  }
+}
+
+func selectForces(){ #selected forces format: [val <r,c>]
+  system("rm -rf tmp/trash");
+  for (i in myteam)
+    print forces[i,"0",3]"\t"i>>"tmp/trash"; 
+  close("tmp/trash");
+  system("sort -nr tmp/trash > tmp/trash2");
+  i = 0;
+  while (getline < "tmp/trash2" > 0){
+    if (i<2){#select the two closest to the soccer ball to give chase
+      selectedForces[$2,1] = forces[$2,"0",3];
+      selectedForces[$2,2] = forces[$2,"0",1];
+      selectedForces[$2,3] = forces[$2,"0",2];
+      if (distBall[$2] <= 20){
+	if (whoami == "red"){
+	  gx = 600;
+	  if (cdat[$2]>560 && abs(150-rdat[$2]) > 30)
+	    gx = 500;
+	}
+	else{ 
+	  gx = 0;
+	  if (cdat[$2]<40 && abs(150 -rdat[$2]) > 30)
+	    gx = 100;
+	}
+	gy = 150;
+	if (rand()<.5)
+	  gy -= rand()*5;
+	else 
+	  gy += rand()*5;
+	if (rand()<.5)
+	  kickIt[$2] = "kick.aloft " gy-rdat[$2]" "gx-cdat[$2];
+	else
+	  kickIt[$2] = "kick " gy-rdat[$2]" "gx-cdat[$2];
+      }
+    }
+    else
+      defense[$2];#those not going after the soccer ball are added to the defense
+    i++;
+  }
+  for (i in defense){#calculating vector movement of our defense
+    vecr = 0; vecc = 0;
+    for (j in dat){#our defense has a vector for everybody on the field
+      if (j != i && i !~ /[aA]/){#don't want them moving after the ball or influencing themselves.
+	vecr = vecr + forces[i,j,1];
+	vecc = vecc + forces[i,j,2];
+      }
+    }
+    selectedForces[i,1] = lengthVector(vecr,vecc);
+    maxdev(i,vecr,vecc);
+  }
+}
+
+func calcVectors_energy(i){
+  myteam[i];#this simply makes an easy to iterate over list of team members
+  energy = energy + edat[i];#sum energy over my players so i don't have to do it in another loop
+  for (j in dat){
+    if (dat[j]!=dat[i]){
+
+      dist = calcDist(i,j); #each force has a vector dir
+      if (dist == 0)
+	dist =1;
+
+      #first calculate the vector of force's direction
+      forces[i,j,1] = (rdat[j]-rdat[i]);
+      forces[i,j,2] = (cdat[j]-cdat[i]);
+
+      fx = dist/RIJ;
+
+      if (j == "0"){                                #FORCE FROM THE BALL
+	forces[i,j,3] = exp(-.1*fx/10);#1/fx;
+	distBall[i] = dist;
+      }
+# 	if (j ~ /^[f]./){                          #LOCATIONS IN FRONT OF GOALS
+# 	  forces[i,j,3] = 10*exp(-.1*(fx/15));
+# 	}
+      else{                                      #OTHER PlAYERS 
+	forces[i,j,3] = -exp(-.5*(fx/5));
+      }
+
+      maxdev2(i,j);
+      forces[i,j,1] = forces[i,j,3]*forces[i,j,1];
+      forces[i,j,2] = forces[i,j,3]*forces[i,j,2];
+    }
+  }
+}
+
+
+func maxdev(i,x,y) {
+  if (abs(x) > MAXDEVP || abs(y) > MAXDEVP){
+    if (abs(x)>abs(y)){
+      theta = atan2(y,x);
+      x = sign(x)*MAXDEVP;
+      y = tan(theta)*x;
+    }
+    else{
+      theta = atan2(x,y);
+      y = sign(y)*MAXDEVP;
+      x = tan(theta)*y;
+    }	
+  }
+
+  x = int(x);
+  y = int(y);
+
+  selectedForces[i,2] = x;
+  selectedForces[i,3] = y;
+}
+
+
+func maxdev2(i,j) {
+  x = forces[i,j,1];# = forces[i,j,3]*forces[i,j,1];
+  y = forces[i,j,2];# = forces[i,j,3]*forces[i,j,1];
+
+  if (abs(x) > MAXDEVP2 || abs(y) > MAXDEVP2){
+    if (abs(x)>abs(y)){
+      theta = atan2(y,x);
+      x = sign(x)*MAXDEVP2;
+      y = tan(theta)*x;
+    }
+    else{
+      theta = atan2(x,y);
+      y = sign(y)*MAXDEVP2;
+      x = tan(theta)*y;
+    }	
+  }
+
+  x = int(x);
+  y = int(y);
+
+  forces[i,j,1] = x;
+  forces[i,j,2] = y;
+}
+
+func lengthVector(row,col){
+  return sqrt(row*row+col*col);
+}
+
+func calcDist(i, j){
+  x = cdat[i]-cdat[j];
+  y = rdat[i]-rdat[j];
+  return sqrt((x*x + y*y));
+}
+
+func maxkick(x) {
+  if (x > 2*MAXDEVP) return 2*MAXDEVP
+  if (x < -2*MAXDEVP) return -2*MAXDEVP
+  return x
+}
+
+func maxscalar(x){
+  if (abs(x)>MAXDEVP)
+    return sign(x)*MAXDEVP;
+  return x;
+}
+
+func sign(x){
+  if (x<0)
+    return -1;
+  return 1;
+}
+
+func tan(x){
+  return sin(x)/cos(x);
+}
+
+func abs(x) {
+  if (x < 0) return -x;
+  return x;
+}
