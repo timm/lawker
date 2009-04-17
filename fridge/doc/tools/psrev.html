@@ -1,0 +1,101 @@
+<h1><join> psrev</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<P> gawk -f psrev.awk</P>
+<a name=2></a><H2> Download</H2>
+<P> Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/psrev.awk">LAWKER</a></P>
+<a name=3></a><H2> Description</H2>
+<P> Reverse the pages in a postscript file.</P>
+<a name=4></a><H2> Code</H2>
+<PRE>
+BEGIN {
+	# constants
+	TRUE = 1
+	FALSE = 0
+
+	# Initialize global booleans
+	Twoup = FALSE
+
+	# process command line flags
+	for (i = 1; i in ARGV && ARGV[i] ~ /^-/; i++) {
+		if (ARGV[i] == "-2")
+			Twoup = TRUE
+		else
+			printf("psrev: unrecognized option %s\n",
+				ARGV[i]) > "/dev/stderr"
+		delete ARGV[i]
+	}
+}
+
+NR == 1, /^%%Page:/ {
+	if (! /^%%Page/) {
+		Prolog[++nprolog] = $0
+		next
+	}
+}
+
+/^%%Trailer/ || In_trailer {
+	In_trailer = TRUE
+	Epilog[++nepilog] = $0
+	next
+}
+
+/^%%Page: /	{
+	++Npage
+	line = 0
+}
+
+ for all non-special lines
+{
+	Page[Npage, ++line] = $0
+}
+
+END {
+	# print the prologue
+	for (i = 1; i in Prolog; i++)
+		print Prolog[i]
+
+	# print the actual body
+	if (Twoup) {
+		hasodd = (Npage %2 == 1)
+		if (hasodd) {
+			# print last page
+			for (j = 1; (Npage, j) in Page; j++)
+				print Page[Npage, j]
+			# make a fake last page for psnup
+			printf "%%%%Page: %d %d\n", Npage+1, Npage+1
+			printf "showpage\n"
+			print "%%BeginPageSetup"
+			print "BP"
+			print "%%EndPageSetup"
+			print "EP"
+		}
+		lastpage = (hasodd ? Npage - 1 : Npage)
+		for (i = lastpage; i > 0; i -= 2) {
+			for (k = i - 1; k &lt;= i; k++)
+				for (j = 1; (k, j) in Page; j++)
+					print Page[k, j]
+		}
+	} else {
+		# regular 1 up printing
+		for (i = Npage; i > 0; i--)
+			for (j = 1; (i, j) in Page; j++)
+				print Page[i, j]
+	}
+
+	# print the epilog
+	for (i = 1; i in Epilog; i++)
+		print Epilog[i]
+}
+</PRE>
+<a name=5></a><H2> Author</H2>
+<P> Arnold Robbins</P>
+</div><!--- htmlbody --->
