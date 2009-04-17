@@ -13,7 +13,7 @@ stop gaps:
 - new section on postscript manipulation tools
 	- robbin's postscript tools
 
- - bash formatter
+- bash formatter
       http://mail.google.com/mail/#label/awk.info/1201bb25d80abedd
 -tips: getting shell variables into awk. 
 	- config file	
@@ -22,9 +22,14 @@ stop gaps:
 
 66666666666666666
 - awk100: the amazing awk assembler
-- new section on awk interpreters (awk assembler, awklisp)
+- new section on awk interpreters 
+	awk assembler, 
+	awklisp
+	aasl
+	awkastar
 - quick sort in awk
 - fun: sig generator
+    rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
 
 in praise of scripting
 
@@ -42,7 +47,6 @@ aaa77777777777777777777
 append data to fields, not records
 http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
 
-awkastar
 
 888888888888888888
 awk100: xgawk
@@ -69,6 +73,8 @@ Volume 19 ,  Issue 3  (September 1993) table of contents
 Pages: 265 - 287
 Year of Publication: 1993
 ISSN:0098-3500
+
+fun: my bayes stuff
 
 9999999999999999
 awk100: jawk
@@ -98,15 +104,15 @@ http://www.theficks.name/bin/lib/sdml/sdml2txt
 111111111111111111
 awk100: plait command line jukebox: http://stephenjungels.com/jungels.net/projects/plait/
 new section: awk for databases
-  http://victor-notes.com/qppro/awk.html
+	qawk
+  	http://victor-notes.com/qppro/awk.html
 	dda for awk share/pdf/awkdda.awk
 	Quick and Dirty Databases with Nice Output: AWK and Tex
-		http://mail.google.com/mail/#label/awk.info/1204fa85039f07f7
+	http://mail.google.com/mail/#label/awk.info/1204fa85039f07f7
 
 
 html parser in awk
 http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
-- fun: my bayes trick
 - cocomo lc
 
 
