@@ -642,7 +642,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>HenryS</what>
 	</file>
-	<file where="doc/ps.html">
+	<file where="doc/pstricks.html">
 		<title>Postscript tricks</title>
 		<what>Ps</what>
 		<what>Apr</what>
