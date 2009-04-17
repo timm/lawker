@@ -6,7 +6,10 @@
 <h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#4>Example dialogue</a></h3>
 <h2><font color=black>&bull;</font></a> <a href=#5>Code</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#6>Set up</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>ElizaSays</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#8>SetUpEliza</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#9>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -57,6 +60,7 @@ SHUT UP
 WELL, PLEASE PAY YOUR BILL. ITS EXACTLY ... $101
 </PRE>
 <a name=5></a><H2> Code</H2>
+<a name=6></a><H3> Set up</H3>
 <PRE>
 BEGIN {
 	SetUpEliza() 
@@ -67,6 +71,7 @@ BEGIN {
 }
 { print ElizaSays($0) }
 </PRE>
+<a name=7></a><H3> ElizaSays</H3>
 <PRE>
 function ElizaSays(YouSay) {
  if (YouSay == "") {
@@ -112,6 +117,7 @@ function ElizaSays(YouSay) {
  return answer
 }
 </PRE>
+<a name=8></a><H3> SetUpEliza</H3>
 <PRE>
 function SetUpEliza() {
  srand()
@@ -293,6 +299,6 @@ function SetUpEliza() {
  k["ELIZA"]        = "116 117 118"
 }
 </PRE>
-<a name=6></a><H2> Author</H2>
+<a name=9></a><H2> Author</H2>
 <P> Arnold Robbins</P>
 </div><!--- htmlbody --->
