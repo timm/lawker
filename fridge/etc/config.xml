@@ -169,6 +169,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>AlexC</what>
 	</file>
+	<file where="doc/news/davinci.html">
+		<title>Davinci mascot</title>
+		<what>Mascot</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>VenkatesanS</what>
+	</file>
 	<file where="doc/top10.html">
 		<title>Top 10 pages</title>
 		<what>Top10</what>
