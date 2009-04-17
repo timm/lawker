@@ -1,0 +1,70 @@
+<h1><join> indent.awk</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#5>doindent</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Out-denting</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>Worker</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#8>In-denting</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#9>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<P> gawk -f indent.awk file.sh</P>
+<a name=2></a><H2> Download</H2>
+<P> Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/indent.awk">LAWKER</a></P>
+<a name=3></a><h2> Description</h2>
+<P>
+ This is part of Phil's AWK tutorial at 
+<a href="http://www.bolthole.com/AWK.html">http://www.bolthole.com/AWK.html</a>.
+ This program adjusts the indentation level based on which keywords are
+ found in each line it encounters.
+<a name=4></a><h2> Code</h2>
+<a name=5></a><H3> doindent</H3>
+<PRE>
+function doindent(){
+	tmpindent=indent;
+	if(indent&lt;0){
+		print "ERROR; indent level == " indent
+	}
+	while(tmpindent >0){
+		printf("    ");
+		tmpindent-=1;
+	}
+}
+</PRE>
+<a name=6></a><H3> Out-denting</H3>
+<PRE>
+$1 == "done" 	{ indent -=1; }
+$1 == "fi" 	{ indent -=1; }
+$0 ~ /}/	{ if(indent!=0) indent-=1;  }
+</PRE>
+<a name=7></a><H3> Worker</H3>
+<P>
+ This is the 'default' action, that actually prints a line out.
+ This gets called AS WELL AS any other matching clause, in the
+ order they appear in this program.
+ An "if" match is run AFTER we run this clause.
+ A "done" match is run BEFORE we run this clause.
+<PRE>
+		{ 
+		  doindent();
+		  print $0;
+		}
+</PRE>
+<a name=8></a><H3> In-denting</H3>
+<PRE>
+$0 ~ /if.*;[ ]*then/	{ indent+=1; }
+$0 ~ /for.*;[ ]*do/	{ indent+=1; }
+$0 ~ /while.*;[ ]*do/	{ indent+=1; }
+
+$1 == "then"		{ indent+=1; }
+$1 == "do"		{ indent+=1; }
+$0 ~ /{$/		{ indent+=1; }
+</PRE>
+<a name=9></a><H2> Author</H2>
+<P> Philip Brown phil@bolthole.com</P>
+</div><!--- htmlbody --->

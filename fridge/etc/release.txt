@@ -16,11 +16,6 @@ stop gaps:
 - bash formatter
       http://mail.google.com/mail/#label/awk.info/1201bb25d80abedd
 
--tips: getting shell variables into awk. 
-	- config file	
-	- double quotes
-	- the '$' trick
-
 66666666666666666
 - awk100: the amazing awk assembler
 - new section on awk interpreters 
@@ -47,6 +42,11 @@ aaa77777777777777777777
 
 append data to fields, not records
 http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
+
+-tips: getting shell variables into awk. 
+	- config file	
+	- double quotes
+	- the '$' trick
 
 
 888888888888888888
