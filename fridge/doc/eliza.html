@@ -2,20 +2,23 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#2>Description</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#3>Example dialogue</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#4>Example dialogue</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#5>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <H!> Eliza</H!>
 <a name=1></a><H2> Synopsis</H2>
 <P> gawk -f eliza.awk</P>
-<a name=2></a><H2> Description</H2>
+<a name=2></a><H2> Download</H2>
+<P> Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/eliza.awk">LAWKER</a>.</P>
+<a name=3></a><H2> Description</H2>
 <P>
 <EM> From Wikipedia:</EM>
 ELIZA was a computer program and an early example of (by modern standards) primitive natural language processing. ELIZA operated by processing users' responses to scripts, the most famous of which was DOCTOR, a simulation of a Rogerian psychotherapist. In this mode, ELIZA mostly rephrased the user's statements as questions and posed those to the 'patient.' ELIZA was written by Joseph Weizenbaum between 1964 to 1966.
-<a name=3></a><H3> Example dialogue</H3>
+<a name=4></a><H3> Example dialogue</H3>
 <PRE>
 This is a Gawk implementation of the famous ELIZA program by Joseph Weizenbaum.
 To end, type SHUT UP
@@ -54,7 +57,7 @@ WE WERE DISCUSSING YOU -- NOT ME
 SHUT UP
 WELL, PLEASE PAY YOUR BILL. ITS EXACTLY ... $101
 </PRE>
-<a name=4></a><H2> Code</H2>
+<a name=5></a><H2> Code</H2>
 <PRE>
 BEGIN {
 	SetUpEliza() 
@@ -290,6 +293,6 @@ function SetUpEliza() {
  k["ELIZA"]        = "116 117 118"
 }
 </PRE>
-<a name=5></a><H2> Author</H2>
+<a name=6></a><H2> Author</H2>
 <P> Arnold Robbins</P>
 </div><!--- htmlbody --->
