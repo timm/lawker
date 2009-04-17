@@ -642,6 +642,20 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>HenryS</what>
 	</file>
+	<file where="doc/tools/pschoose.html">
+		<title>Print Some Postscript Pages</title>
+		<what>Ps</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
+	</file>
+	<file where="doc/tools/psrev.html">
+		<title>Reverse Postscript pages</title>
+		<what>Ps</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
+	</file>
 	<file where="doc/var/top10posters.html">
 		<title>Top 10 posters</title>
 		<what>Newsgroup</what>

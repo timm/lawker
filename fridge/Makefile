@@ -22,6 +22,8 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
 
 files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
+	    $(Doc)/tools/psrev.html \
+	    $(Doc)/tools/pschoose.html \
 	    $(Doc)/tools/m1.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
@@ -75,6 +77,11 @@ $(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html
 
 $(Doc)/dsl/graph.html : $(Gawk)/misc/graph.awk     
 	cd $(Gawk)/misc && $(Awk2Html)
+
+$(Doc)/tools/pschoose.html : $(Awklib)/pschoose.awk     
+	cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/psrev.html : $(Awklib)/psrev.awk     
+	cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/dsl/markdown.html : $(Gawk)/text/markdown.awk     
 	cd $(Gawk) && $(Awk2Html)

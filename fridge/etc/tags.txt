@@ -77,6 +77,9 @@ doc/tools/m5.html			;WillW	;2009	;Mar	;Tools	;Macros; ;|m5 :  macro processor
 doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project; Wp; Top10	;|awkwords
 doc/tools/awf.html		;HenryS	;2009	;Apr	;Tools ;Wp ;Awk100;Wp		;|Amazing Awk Formatter
 
+doc/tools/pschoose.html		;ArnoldR	;2009	;Apr	;Ps 		;|Print Some Postscript Pages
+doc/tools/psrev.html		;ArnoldR	;2009	;Apr	;Ps 		;|Reverse Postscript pages 
+
 doc/var/top10posters.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 posters
 doc/var/top10subjects.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subjects
 doc/var/top10posterslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 posters last year
