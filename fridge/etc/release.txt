@@ -15,6 +15,7 @@ stop gaps:
 
 - bash formatter
       http://mail.google.com/mail/#label/awk.info/1201bb25d80abedd
+
 -tips: getting shell variables into awk. 
 	- config file	
 	- double quotes
