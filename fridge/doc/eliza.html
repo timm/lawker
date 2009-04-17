@@ -1,4 +1,4 @@
-
+<h1><join> Eliza</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
@@ -9,7 +9,6 @@
 <h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
-<H!> Eliza</H!>
 <a name=1></a><H2> Synopsis</H2>
 <P> gawk -f eliza.awk</P>
 <a name=2></a><H2> Download</H2>
@@ -61,8 +60,9 @@ WELL, PLEASE PAY YOUR BILL. ITS EXACTLY ... $101
 <PRE>
 BEGIN {
 	SetUpEliza() 
-	print "This is a Gawk implementation of the famous ELIZA program by Joseph Weizenbaum.";
-	print "To end, type SHUT UP\n";
+	print "This is a Gawk implementation of the "\
+          "famous ELIZA program by Joseph Weizenbaum. "\
+	      "To end, type SHUT UP\n";
 	print ElizaSays("");
 }
 { print ElizaSays($0) }
