@@ -22,6 +22,7 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
 
 files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
+	    $(Doc)/tools/indent.html \
 	    $(Doc)/tools/psrev.html \
 	    $(Doc)/tools/pschoose.html \
 	    $(Doc)/tools/m1.html \
@@ -78,8 +79,12 @@ $(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html
 $(Doc)/dsl/graph.html : $(Gawk)/misc/graph.awk     
 	cd $(Gawk)/misc && $(Awk2Html)
 
+$(Doc)/tools/indent.html : $(Awklib)/indent.awk     
+	cd $(Awklib) && $(Awk2Html)
+
 $(Doc)/tools/pschoose.html : $(Awklib)/pschoose.awk     
 	cd $(Awklib) && $(Awk2Html)
+
 $(Doc)/tools/psrev.html : $(Awklib)/psrev.awk     
 	cd $(Awklib) && $(Awk2Html)
 
