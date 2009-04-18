@@ -6,16 +6,6 @@ stop gaps:
 	- saya
 	- batchrunner
 
-5555555555555555555
-- awk100:   ronold lou's soccer game
-- fun: eliza.awk
-
-- new section on postscript manipulation tools
-	- robbin's postscript tools
-
-- bash formatter
-      http://mail.google.com/mail/#label/awk.info/1201bb25d80abedd
-
 66666666666666666
 - awk100: the amazing awk assembler
 - new section on awk interpreters 
@@ -27,9 +17,9 @@ stop gaps:
 - fun: sig generator
     rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
 
-in praise of scripting
-
 visual awk
+
+saya
 
 aaa77777777777777777777
 - akw100 oo in ansi "C" awk packages. axel schreiner
