@@ -1,15 +1,15 @@
-A green      
-B green 2 -2    
-C green 0 -34.4972    
-D green -3 -11    
-E green 4 -16    
-F green -4 -20    
-a red 0 0    
-G green 0.860605 -34.4242    
-b red 0 120    
-c red 0 -73    
-d red 0 -15    
-0 black -0.104855 -7.84875    
-e red 0 -15    
-f red 25 160    
-g red -25 60    
+A green 4 0    
+B green 1 0    
+C green 0 0 kick.aloft -33 -15 
+D green -1 -1    
+E green -9 -9    
+F green 0 0 kick -23 -31 
+G green 6 -6    
+a red      
+b red -5 -8    
+c red -6 -5    
+0 black -33.2064 -30.6649    
+d red -2 -8    
+e red 8.83557 -1.96346 kick -18.8213 575 
+f red 1 -6    
+g red -4 7    

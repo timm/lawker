@@ -1,15 +1,15 @@
-A green 150 595 100 
-B green 150 407 100 
-C green 150 294 100 
-D green 50 416 100 
-E green 247 419 99 
-F green 52 319 98 
+A green 162 595 100 
+B green 170 189 100 
+C green 183 15 100 
+D green 113 439 100 
+E green 200 450 100 
+F green 173 28 100 
+G green 185 97 100 
 a red 150 5 100 
-G green 147 298 95 
-b red 150 195 96 
-c red 150 296 100 
-d red 100 150 98 
-0 black 150 207 100  static0 last:150:207
-e red 200 150 96 
-f red 125 354 98 
-g red 175 354 100 
+b red 266 0 100 
+c red 270 72 100 
+0 black 182 23 100 aloft static4 last:182:23
+d red 58 18 100 
+e red 176 25 65 
+f red 83 122 100 
+g red 134 85 100 
