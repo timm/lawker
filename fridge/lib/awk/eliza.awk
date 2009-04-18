@@ -287,4 +287,4 @@ function SetUpEliza() {
 }
 #./PRE
 #.H2 Author
-#.P Arnold Robbins 
+#.P Juergen Kahrs
