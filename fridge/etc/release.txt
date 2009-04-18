@@ -1,3 +1,12 @@
+book random
+
+
+3 The AWK Programming Language  <== give the classics their due
+3 effective awk programming
+2 "sed & awk" after them.
+1  classic shell scripting
+
+
 ????
 stop gaps:
 	- editorial: awkwords?
