@@ -89,6 +89,7 @@ doc/var/top10posterslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 poster
 doc/var/top10subjectslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subjects last year
 
 doc/awk100.html					;Timm	;2009	;Jan	;Awk100	;|Awk100
+doc/awk100/015soccer.html			;Ronl	;2009;Apr	;Awk100		;|Soccer
 doc/awk100/013awklinux.html			;YungC	;2009;Apr	;Awk100	;Top10	;|Awk-Linux
 doc/awk100/spell.html			;ArnoldR ;NelsonB ;2009 ;Mar ;Awk100; Top10	;|spell.awk
 doc/awk100/009yawk.html			;WolfganZ	;2009;Feb	;Awk100	;Yawk	;|Yawk

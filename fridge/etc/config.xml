@@ -716,6 +716,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/awk100/015soccer.html">
+		<title>Soccer</title>
+		<what>Awk100</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Ronl</what>
+	</file>
 	<file where="doc/awk100/013awklinux.html">
 		<title>Awk-Linux</title>
 		<what>Top10</what>
