@@ -298,6 +298,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Ronl</what>
 	</file>
+	<file where="doc/praise.html">
+		<title>In praise of scripting</title>
+		<what>Top10</what>
+		<what>Misc</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Ronl</what>
+	</file>
 	<file where="doc/history.html">
 		<title>History</title>
 		<what>Misc</what>
@@ -665,6 +673,13 @@ pageTracker._trackPageview();
 		<what>Apr</what>
 		<what>2009</what>
 		<what>ArnoldR</what>
+	</file>
+	<file where="doc/tools/indent.html">
+		<title>Format Shell Scripts</title>
+		<what>TenLiners</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>PhilipB</what>
 	</file>
 	<file where="doc/var/top10posters.html">
 		<title>Top 10 posters</title>

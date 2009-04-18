@@ -20,6 +20,7 @@ doc/index.html				;Timm	;2009	;Jan	;Misc	;|Awk.info
 doc/code.html				;Timm	;2009	;Jan	;Misc	;|Coding
 doc/mascot.html				;Timm	;2009	;Jan	;Misc	;Mascot	;|Mascot
 doc/awk4ai.html				;Ronl	;2009	;Jan	;Misc;	Top10	;|Awk for AI
+doc/praise.html				;Ronl	;2009	;Apr	;Misc;	Top10	;|In praise of scripting
 doc/history.html			;Timm	;2009	;Jan	;Misc	;|History
 doc/whygawk.html			;Timm	;2009	;Jan	;Misc	;|Why Gawk?
 
