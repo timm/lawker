@@ -1,0 +1,2 @@
+Here=`pwd`
+(cd $Lawker; make Path="$Here/../saya.awk" weaveTwo)

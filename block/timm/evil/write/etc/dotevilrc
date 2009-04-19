@@ -1,20 +1,31 @@
-# This Evil mad softwre 
-#         ___
-#       _/ ..\
-#      ( \  0/__
-#       \    \__)
-#       /     \
-# jgs  /      _\
-#     `"""""`` 
-Work   = $(HOME)/opt/evil#
-Here   = $(HOME)/svns/lawker/block/timm# 
-Evil   = $(Here)/evil# ... root
+#    ___         
+#  _/ oo\      Evil deeds maketh 
+# ( \  -/__    the Evil Makefile (c) 2009 
+#  \    \__)  
+#  /     \     by Tim Menzies, GPL 3.0
+# /      _\    http://www.gnu.org/licenses/gpl.txt
+# `"""""`` jgs
 
-# stuff to share (in a repository)
-Writes = $(Evil)/write/lib/# .. "Writes" directory, with unique function names
-Read   = $(Evil)/doc/read#  ... "Writes" directory, flatenned, with markdown converted to html
-Base   = $(Write)/app/evil#  .. start up utils
+Work = $(HOME)/opt/evil#
+Here = $(HOME)/svns/lawker/block/timm#
+Evil = $(Here)/evil#
 
-# stuff to be built (outside the repository)
-Test   = $(Work)/test# ... write directory, flattenned, markdown commented out
-Run    = $(Work)/run# .... ready to run, everything included
+######## stuff to share (in a repository)
+
+# "Writes" directory, with unique function names
+Writes = $(Evil)/write/lib/#. 
+
+# "Read" is the "Writes" directory tree flatenned, 
+# with markdown converted to html
+Read = $(Evil)/doc/read#  ... 
+
+# Start up utils
+Base = $(Write)/app/evil#  .. 
+
+######## stuff to be built (outside the repository)
+
+# write directory, flattenned, markdown commented out
+Test = $(Work)/test#
+
+# ready to run, everything included
+Run = $(Work)/run# 
