@@ -23,8 +23,11 @@ stop gaps:
 	aasl
 	awkastar
 - quick sort in awk
-- fun: sig generator
-    rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
+- fun: a little cyrtography
+   sig generator
+      rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
+   hits and blows
+		hb.awk : http://menzies.us/tmp/bf.awk
 
 visual awk
 
