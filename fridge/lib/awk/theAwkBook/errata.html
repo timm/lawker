@@ -1,0 +1,48 @@
+<h4>Errata for <i>The AWK Programming Language</i></h4>
+
+
+<p>
+As of Mon Apr 11 09:00:41 EDT 2005
+ 
+<p>
+p 23: In Summary (6), pattern<sub>2</sub> can match on the same line
+as pattern<sub>1</sub>, which is not clear from the wording.
+
+<p>
+p 43: The third argument in <tt>gsub(/a/, "aba", "banana")</tt>
+should not be a literal string; current versions of AWK will not
+overwrite it.
+<p>
+p 101: The loop fails if there are 10 or more fields.
+Going backwards would fix it.
+<p>
+p 114: There are two expansions, not one, between the third and fourth
+rewritings in the last illustration.
+<p>
+p 130: The two technical reports are numbers 127 and 128 respectively.
+<p>
+p 132: "is" should be "if" in the description of <tt>jz</tt>.
+<p>
+p 141: Delete the assignment <tt>ok=1</tt> in handling negatives;
+it has no effect and is misleading.
+
+<p>
+p 149: In function <tt>eat</tt>, replace <tt>NF</tt> by <tt>NR</tt>.
+<p>
+pp 150-1: Insert spaces before first argument in expr(), rel() and term(),
+to remind that all arguments are locals.
+<p>
+p 159: The <tt>print</tt> should be on the same line as
+<tt>"illegal sort..."</tt>.
+
+<p>
+p 167: The pattern in <tt>makeprof</tt> should be executed
+only if the line has a left brace; 
+precede it by <tt>if ($0 ~ /{/)</tt>.
+<p> 
+p 182: "with a only small increase" should be "with only a small increase".
+<p>
+p 188: A statement may be broken without a backslash after <tt>while</tt>
+as well.
+
+
