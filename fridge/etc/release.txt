@@ -15,7 +15,8 @@ stop gaps:
 	- saya
 	- batchrunner
 
-66666666666666666
+-------------------------------------------------------------------------------
+apr 25: 66666666666666666
 - awk100: the amazing awk assembler
 - new section on awk interpreters 
 	awk assembler, 
@@ -33,7 +34,8 @@ visual awk
 
 saya
 
-aaa77777777777777777777
+-------------------------------------------------------------------------------
+may 2: 77777777777777777777
 - akw100 oo in ansi "C" awk packages. axel schreiner
 - new section on operating ssytems and awk (awk linux) and 
 	http://www.icir.org/tfrc/sims1.html
@@ -51,7 +53,8 @@ http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673a
 	- the '$' trick
 
 
-888888888888888888
+-------------------------------------------------------------------------------
+may 9: 888888888888888888
 awk100: xgawk
 - new section of xml processing and gawk
 	- xgawk
@@ -79,7 +82,9 @@ ISSN:0098-3500
 
 fun: my bayes stuff
 
-9999999999999999
+-------------------------------------------------------------------------------
+may 16: 9999999999999999
+
 awk100: jawk
 new section: more xml with gawk
 - http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
@@ -94,7 +99,8 @@ http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
 
 pdf/awkverify.awk
 
-000000000000000000
+-------------------------------------------------------------------------------
+may 25: 000000000000000000
 new section on scientific computation and awk:
 eiso's awk scrits- if i understood what they did
 mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
@@ -104,7 +110,8 @@ http://www.stumbleupon.com/redirect.php?t=i&u=13309825&d=http%3A%2F%2Fsourceforg
 uml generator
 http://www.theficks.name/bin/lib/sdml/sdml2txt
 
-111111111111111111
+-------------------------------------------------------------------------------
+June 1: 111111111111111111
 awk100: plait command line jukebox: http://stephenjungels.com/jungels.net/projects/plait/
 new section: awk for databases
 	qawk
@@ -118,90 +125,12 @@ html parser in awk
 http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
 - cocomo lc
 
+-------------------------------------------------------------------------------
+june 8: 2222222222222222222
+dates in awk
+	- fiun with cal
+    - bob orlando's dateplus.awk 
+        http://www.orlandokuntao.com/mf_dateplus.html
+    	http://www.orlandokuntao.com/holidays_awk.txt
+	ftp://ftp.armory.com/pub/scripts/lowtide
 
-===================
-
-because it jsut doesn't matter
-i have an ide: emacs.unix
-
-i have development environment:
-- version control, backed up onto the web
-- discussion tools (a google news group, a wikispaces wiki, chat, email)
-- test driven development (eg subdirectory with x.want files)
-- library of functions stored in a directory, indexed by ctags
-- emacs/vim ctags intergration means by code is hyperlinked by function name
-
-what makes me productive is not the language, its the environment
-- unix
-- tdd
-
-addict to tweaking
-- smalltalk environment
-
-because here are the factors that control software economics
-- boehm
-
-bcasue its principles other the code that matter
-- algorhtms O(logn)
-
-because i am not just doing but also constantly explainin to people what i have to do
-- awk exels at the one off report
-- if i wrote in other languages, i'd still be writing the reports with awk scripts
-
-because i teach 3rd year students programming languages and they eat
-awk quickly, chew smalltalk slower, and barph at lisp. the added power
-and functionality of these languages confuses them.
-
-because i do a lot of stochastic stuff and so i've given away overly complex algorithms
-in favor of simpler stochastic ones
-
-because i do a lot of data mining and i keep finding that simple bayes
-approaches consistently do better than anything else- and bayes is a snap in awk (see awk)
-
-----------------
-becasue it drives yu to the core.
-no time lost nterfacing to complex libraries. no clear data structure design. just do it.
-
-
-our software development processes are too complex since we don't acknowledge the following fact. usually,
-we dont know what we are doing. software development isn't some mathematical process of translating
-requirements into an executable, then testing that executable against the requiremetns. instead,
-we never really know the requirements cause we've never really looked hard at that part of the world
-before and, when we doing, looking at it matures our understanding of it so now we are looking at something
-else. premise of agile software development is that up to 50% of the requirements can change each month- a pace
-of change that is anethema to traditional plan-based approaches.
-
-even when we do know what we are doing, we don't tell our software what that is. worked a lot in
-testing and the one problem i kept returning too is "where is the oracle?". the program has produced
-output, now is that the right output? what is our expectations regarding the output? how can we
-judge if this output is better than that? more importantly, given that we generate gigabytes of output
-now (cloud computing , fast CPUs), how can we automatically judge all that output? 
-usually, these questions have no answers cause there is no "ocacle" built into the system.
-
-our premise is that "knowing what (and why) we are doing it" should be a primary concern, all the
-way through the lifecycle. also, we should tell the program what and why it is doing what it is doing
-so it can automtically judge how well it is doing it. further, if we know the what and why of the program,
-this simplifies software development:
-
-- simpler design: wholes and holes. let the machine fill in the gaps
-- simpler testing, certification , etc etc
-
-to test that thesis, here we are going to it as simple as possible. 
-
-this is not tdd (well, at least not traditional tdd). tdd  is usually about
-unit tests. here we do system-level testing to learn inputs that
-are better/worse than others and allow the program to adjust itself
-
-this is not ai (well, at least no traditional ai). we don't assume some
-logic program and delcaractive constraints.  the "keys effect"
-sugggests we don't need the overhead of all that- rather we can
-apply it to standard object-oriented / procedural systems.
-
-this is not agent-based systems (well, at least not traditional agent-based
-systems). yes, we will model user goals and goal interaction and
-negotiaton between goals. and we will represent beliefs, desires,
-and intentions. but we will add in a lot of data mining technology
-to reduce 
-
-
-invisible code. shoul melt away. reveal all.
