@@ -68,6 +68,10 @@ xml file using shell script
 http://www.issociate.de/board/post/265610/Parse_an_XML_File_using_Shell_script.html
 
 code testing: kernighan
+	- http://groups.google.com/group/comp.lang.awk/browse_thread/thread/5f7a9b900258dbde#
+	- http://www.cs.princeton.edu/~bwk/testing.html
+	- my bunit
+
 spread sheet access: http://www.freakout.de/mc.htm#Piping
 
 reading tabular data

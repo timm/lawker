@@ -1,0 +1,111 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+1) Fun with Awk
+
+1a) http://awk.info/?news/davinci
+    - Venkatesan Satish cracks the da Vinci code and
+      proves that Leonardo coded in Awk
+
+1b) http://awk.info/?eliza
+    - Joseph Wizenbaum's classic "Eliza" program, ported
+      to Awk by Juergen Kahrs. The doctor is in!
+
+----------------------------------------------------------
+2) http://awk.info/?Ps
+   - New section: Arnold Robbins's postscript tricks
+
+2a) http://awk.info/?tools/pschoose
+    - how to print selected postscript pages
+
+2b) http://awk.info/?tools/psrev
+    - how to print postscript pages in reverse order
+
+-----------------------------------------------------------
+3) Essays
+
+http://awk.info/?praise
+
+Ronald Loui's classic essay "In Praise of Scripting: 
+Real Programming Pragmatism".
+
+-----------------------------------------------------------
+4) New entries for the Awk100
+(the Awk100  project collects impressive Awk programs.)
+
+http://awk.info/?awk100/015soccer
+
+This is Ronald Loui's AI programming lab, written in
+Awk.  He writes:
+
+"Most people are surprised when I tell them what
+language we use in our undergraduate AI programming
+class. That's understandable. We use GAWK.
+
+"A repeated observation in this class is that only the
+scripting programmers can generate code fast enough to
+keep up with the demands of the class. Even though
+students were allowed to choose any language they
+wanted, and many had to unlearn the Java ways of doing
+things in order to benefit from scripting, there were
+few who could develop ideas into code effectively and
+rapidly without scripting.
+
+"What I have found not only surprising but also hopeful,
+is that when I have approached the AI people who still
+enjoy programming, some of them are not the least bit
+surprised!"
+
+------------------------------------------------------------
+5) Bits and Bytes of awk
+
+http://awk.info/?tools/indent
+
+Philip Brown's shell script formatter.
+	
+----------------------------------------------------------
+6) Page of the week
+
+http://awk.info/?awk100
+
+Google Analytics tells us that the "Awk 100" is out
+page of the week.  Awk is being used all around the
+world for real programming problems, but the news is
+not getting out.  The aim of the Awk100 is to create a
+database of at least one hundred Awk programs which
+will:
+
+  * Identify the tasks that Awk is really being used for
+  * Enable analysis of the benefits of the language 
+    for practical programming
+  * Serve as an information exchange for applications 
+
+----------------------------------------------------------
+7) Link Attack
+
+If you like what you are reading at Awk.info, please
+help increase its PageRank statistics:
+
+- Link to the site from your own pages 
+
+- Or, where appropriate, add comments at other 
+  sites that link to Awk.Info.
+
+But please, no robot storms- reasonable linking only.
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
