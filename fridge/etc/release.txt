@@ -16,21 +16,6 @@ stop gaps:
 	- batchrunner
 
 -------------------------------------------------------------------------------
-apr 25: 66666666666666666
-- new section on awk interpreters 
-	awk assembler, 
-	awklisp
-	aasl
-	awkastar
-- fun: a little cyrtography
-   sig generator
-      rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
-
-visual awk
-
-saya
-
--------------------------------------------------------------------------------
 may 2: 77777777777777777777
 - akw100 oo in ansi "C" awk packages. axel schreiner
 - new section on operating ssytems and awk (awk linux) and 
@@ -47,6 +32,15 @@ http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673a
 	- config file	
 	- double quotes
 	- the '$' trick
+
+aasl
+- fun: a little cyrtography
+   sig generator
+      rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
+
+visual awk
+
+saya
 
 
 -------------------------------------------------------------------------------

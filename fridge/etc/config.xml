@@ -432,7 +432,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>DariusB</what>
 	</file>
-	<file where="doc/dsl/aaa.html">
+	<file where="doc/awk100/aaa.html">
 		<title>Amazing Awk Assembler</title>
 		<what>Awk100</what>
 		<what></what>
