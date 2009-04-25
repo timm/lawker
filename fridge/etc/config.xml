@@ -426,10 +426,22 @@ pageTracker._trackPageview();
 		<what>Eliza</what>
 		<what>Top10</what>
 		<what>AwkLisp</what>
+		<what>Interpreters</what>
 		<what>Dsl</what>
 		<what>Mar</what>
 		<what>2009</what>
 		<what>DariusB</what>
+	</file>
+	<file where="doc/dsl/aaa.html">
+		<title>Amazing Awk Assembler</title>
+		<what>Awk100</what>
+		<what></what>
+		<what>Top10</what>
+		<what>Interpreters</what>
+		<what>Dsl</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>HenryS</what>
 	</file>
 	<file where="doc/dsl/markdown.html">
 		<title>Markdown</title>

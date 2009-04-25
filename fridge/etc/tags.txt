@@ -39,7 +39,8 @@ doc/wp.html					;Timm	;2009	;Apr	;Wp					;|Word-processing in Awk
 
 doc/dsl.html				;Timm	;2009	;Mar	;Dsl	;|Domain-Specific Langauges
 doc/dsl/graph.html			;AlfredA	;PeterW	;BrianK	;2009	;Mar	;Dsl	;|Graph
-doc/dsl/awklisp.html		;DariusB	;2009	;Mar	;Dsl	;AwkLisp	;Top10;Eliza	;|awklisp
+doc/dsl/awklisp.html		;DariusB	;2009	;Mar	;Dsl	;Interpreters ;AwkLisp	;Top10;Eliza	;|awklisp
+doc/dsl/aaa.html			;HenryS	;2009	;Apr	;Dsl		;Interpreters; Top10; ;Awk100 ;|Amazing Awk Assembler
 doc/dsl/markdown.html		;JesusG	;2009	;Mar	;Dsl	;Wp ;Top10	;|Markdown
 doc/dsl/awkplusplus.html	;Jimh	;2009	;Mar	;Dsl	;Awk100	;|Awk++
 
