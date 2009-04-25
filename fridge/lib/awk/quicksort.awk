@@ -1,6 +1,6 @@
 #.H1 Quicksort.awk
 #.H2 Synopsis
-#.P cat numbers | gawk -f quicksort1.awk
+#.P cat numbers | gawk -f quicksort.awk
 #.H2 Download
 #.P 
 #Download from
