@@ -1,0 +1,14 @@
+                       ** Moderator's Readme **
+
+I was able to get the "aaa" program to run on ULTRIX (BSD4.2), with a
+few minor problems.  My system does not have the "getopt" program, so I
+had to comment out line 7 of the aaa script (this makes it impossible
+to enter dash options, if you really need those options and don't have
+getopt(1), you can change the script to parse for them yourself.)  I
+also found that "awk" lived on a different directory on our system
+"/usr/local", so I had to change line 1 of aaa to include that in the
+PATH.
+
+John P. Nelson, Moderator, mod.sources
+(decvax!genrad!panda!jpn  seismo!harvard!wjh12!panda!jpn)
+Send source code to panda!sources, requests to panda!sources-request

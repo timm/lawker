@@ -1,0 +1,44 @@
+"aaa" (the Amazing Awk Assembler) is a primitive assembler written entirely
+in awk and sed.  It was done for fun, to establish whether it was possible.
+It is; it works.  It's quite slow, the input syntax is eccentric and rather
+restricted, and error-checking is virtually nonexistent, but it does work.
+Furthermore it's very easy to adapt to a new machine, provided the machine
+falls into the generic "8-bit-micro" category.  It is supplied "as is",
+with no guarantees of any kind.  I can't be bothered to do any more work on
+it right now, but even in its imperfect state it may be useful to someone.
+
+aaa is the mainline shell file.
+
+aux is a subdirectory with machine-independent stuff.  Anon, 6801, and
+6809 are subdirectories with machine-dependent stuff, choice specified
+by a -m option (default is "anon").  Actually, even the stuff that is
+supposedly machine-independent does have some machine-dependent
+assumptions; notably, it knows that bytes are 8 bits (not serious) and
+that the byte is the basic unit of instructions (more serious).  These
+would have to change for the 68000 (going to 16-bit "bytes" might be
+sufficient) and maybe for the 32016 (harder).
+
+aaa thinks that the machine subdirectories and the aux subdirectory are
+in the current directory, which is almost certainly wrong.
+
+abst is an abstract for a paper.  "card", in each machine directory,
+is a summary card for the slightly-eccentric input language.  There is no
+real manual at present; sorry.
+
+try.s is a sample piece of 6809 input; it is semantic trash, purely for
+test purposes.  The assembler produces try.a, try.defs, and try.x as
+outputs from "aaa try.s".  try.a is an internal file that looks
+somewhat like an assembly listing.  try.defs is another internal file
+that looks somewhat like a symbol table.  These files are preserved
+because of possible usefulness; tmp[123] are non-preserved temporaries.
+try.x is the Intel-hex output.  try.x.good is identical to try.x and is a
+saved copy for regression testing of new work.
+
+01pgm.s is a self-programming program for a 68701, based on the one
+in the Motorola ap note.  01pgm.x.good is another regression-test file.
+
+If your C library (used by awk) has broken "%02x" so it no longer means
+"two digits of hex, *zero-filled*" (as some SysV libraries have), you
+will have to fall back from aux/hex to aux/hex.argh, which does it the
+hard way.  Oh yes, you'll note that aaa feeds settings into awk on the
+command line; don't assume your awk won't do this until you try it.

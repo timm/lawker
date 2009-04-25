@@ -1,0 +1,9 @@
+# Main preprocessing, handling 6801-specific notation (actually none) as
+# well as some more-or-less machine-independent odds and ends (two-byte
+# constants (note byte order known)).
+/^=/ {				# Two-byte constant, in proper byte order.
+	print "\\" substr($0, 2)
+	print "/" substr($0, 2)
+	next
+}
+/./ { print }			# Something else, leave untouched.

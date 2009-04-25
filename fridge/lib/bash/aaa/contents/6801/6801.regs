@@ -1,0 +1,32 @@
+p1ddr
+p2ddr
+p1
+p2
+p3ddr
+p4ddr
+p3
+p4
+tcsr
+th timer
+tl
+ocrh outcmp
+ocrl
+icrh
+icrl
+p3csr
+rmcr
+trcsr
+rd
+td
+ramcr epromcr mcr
+cah
+cal
+tcr1
+tcr2
+tsr
+ocr2h
+ocr2l
+ocr3h
+ocr3l
+icr2h
+icr2l

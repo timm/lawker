@@ -1,0 +1,85 @@
+PATH=/bin:/usr/bin ; export PATH
+
+machdir=.		# Directory holding machine definitions.
+machine=anon		# Default machine.
+lib=aux			# Directory holding machine-independent auxiliaries.
+
+set -- `getopt 'm:s:o:' $*`
+if test $? != 0
+then
+	echo 'Usage: aaa [-m machine] [-s startaddr] [-o offset] [file] ...' >&2
+	exit 2
+fi
+for f
+do
+	case "$f"
+	in
+		-s)		# Runtime start address.
+		startaddr="$2"
+		shift
+		shift
+		;;
+
+		-o)		# Offset for code location counter.
+		offset="$2"
+		shift
+		shift
+		;;
+
+		-m)		# Machine.
+		machine="$2"
+		shift
+		shift
+		;;
+
+		--)
+		shift ; break
+		;;
+	esac
+done
+
+for f
+do
+	echo "$f:"
+	bn=`basename $f .s`
+	# Do we have a machine specification in the file?
+	machline=`sed 1q $f`
+	case "$machline"
+	in
+		'#m'*)
+		machine=`expr "x$machline" : 'x#m[ 	]\(.*\)'`
+		;;
+	esac
+	# Is our machine specification valid?
+	if test -d $machdir/$machine
+	then
+		machine=$machdir/$machine
+	elif test ! -d $machine
+	then
+		echo "aaa: unknown machine $machine" >&2
+		exit 1
+	fi
+	# Unsugar the syntax, change to one byte/line, do base conversions,
+	# cope with machine-specific notation, and assign addresses to code
+	# and values to symbols.
+	sed -f $lib/unsugar $f | tr -s ' 	;' '\012' | awk -f $lib/base |
+		awk -f $machine/notn | awk -f $lib/defs >tmp1
+	# Get symbol definitions, merge with the predefined symbols.
+	sed -n '/=/s//	/p' tmp1 >$bn.defs
+	sort $machine/predef $bn.defs >tmp2
+	# Get code lines, sort by contents.
+	egrep '	' tmp1 | sort +1 >tmp3
+	# Plug definitions into code, sort by location again, postprocess
+	# for byte extraction and PC-relative offset arithmetic.
+	join -a1 -j1 2 -o 1.1 2.2 1.2 '-t	' tmp3 tmp2 | sort -n |
+		awk -f $machine/final >$bn.a
+	# Make a feeble attempt to detect errors.
+	awk '$2 !~ /^[0-9]+$/ || $2 < 0 || $2 > 255' $bn.a
+	# Finally, turn into hex.  The "0\t0" is a kludge to cause a
+	# buffer flush at the end.
+	(cat $bn.a ; echo '0	0') |
+		awk -f $lib/hex start=$startaddr offset=$offset - |
+		tr 'a-f' 'A-F' >$bn.x
+	# Clean up.
+	rm tmp1 tmp2 tmp3
+done

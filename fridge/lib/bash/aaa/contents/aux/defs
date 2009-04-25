@@ -1,0 +1,42 @@
+# The heart of the assembler, interpreting definitions, keeping location
+# counters, and assigning addresses to code.
+BEGIN { locs["d"] = 0 ; locs["b"] = 0; locs["t"] = 0; which = "d" }
+/^[^.].*=.+$/ {			# Symbol definition.
+	n = split($0, bits, "=")
+	it = bits[2]
+	while (it < 0)
+		it += 65536
+	print bits[1] "=" it
+	print "/" bits[1] "=" int(it%256 + 0.001)
+	print "\\" bits[1] "=" int(it/256 + 0.001)
+	print "%" bits[1] "=" "/" bits[2] "%"
+	print "%%" bits[1] "=" "\\" bits[2] "%"
+}
+/^\.=[0-9]+$/ {			# Set location counter.
+	locs[which] = substr($0, 3)
+}
+/^\.=\.\+[0-9]+$/ {		# Bump location counter, allocating space.
+	locs[which] += substr($0, 5)
+}
+/:/ {				# Label.
+	n = split($0, bits, ":")
+	print bits[1] "=" locs[which]
+	print "/" bits[1] "=" int(locs[which]%256 + 0.001)
+	print "\\" bits[1] "=" int(locs[which]/256 + 0.001)
+	print "%" bits[1] "=" "/" locs[which] "%"
+	print "%%" bits[1] "=" "\\" locs[which] "%"
+}
+/^\.text$/ {
+	which = "t"
+}
+/^\.data$/ {
+	which = "d"
+}
+/^\.bss$/ {
+	which = "b"
+}
+/^$/	{ next }
+$0 !~ /[=:]/ && $0 !~ /^\./ {	# Code.
+	print locs[which] which "\t" $0
+	locs[which]++
+}

@@ -1,0 +1,5 @@
+# Dispense with comments and white space around =.  Ensure a byte
+# separator after :.
+s/#.*//
+/=/s/[ 	][ 	]*=[ 	][ 	]*/=/g
+s/:/:;/g

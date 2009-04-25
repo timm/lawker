@@ -1,0 +1,20 @@
+#m anon	what machine this is for (first line only)
+#foo	comment
+x;y	two successive bytes
+x y	two successive bytes
+07	octal
+0x7	hex
+'c	character constant
+'\n	ditto
+foo:	label
+x=100	definition (numbers only)
+.=100	setting location counter (numbers only)
+.=.+5	bumping location counter (numbers only)
+.text	what it says
+.data	ditto
+.bss	ditto
+=thing	two-byte constant
+/thing	lower byte of 16-bit thing
+\thing	upper byte of 16-bit thing
+%thing	lower byte of 16-bit thing as an offset relative to PC
+%%thing	upper byte of 16-bit thing as an offset relative to PC

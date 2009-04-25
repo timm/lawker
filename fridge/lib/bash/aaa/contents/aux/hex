@@ -1,0 +1,81 @@
+# Convert to Intel hex format.  Input lines should have location first
+# and then one-byte decimal value, separated by tabs; any further stuff
+# on the line is ignored.  Blank lines are ignored, as are lines starting
+# with white space followed by a '#'.  If the awk variable "offset" is
+# non-empty, it's the (decimal) offset for the location counter (so code
+# assembled to go at location 010000 can start at 0 for purposes of
+# PROM blowing and such).  If "startaddr" is non-empty, it's the start
+# address to go in the terminator record.
+#
+# Annoying botch:  to avoid repeating all the buffer-flush code twice
+# (laziness on my part), the last line of input should be "0\t0" or
+# something like that (i.e., valid-looking input with an out-of-sequence
+# location) to cause a flush.
+BEGIN {
+	FS = "\t"
+	nbytes = 0
+	loc = 0
+	if (offset == "")
+		offset = 0
+	if (start == "")
+		start = 0
+	hex[0] = "0"
+	hex[1] = "1"
+	hex[2] = "2"
+	hex[3] = "3"
+	hex[4] = "4"
+	hex[5] = "5"
+	hex[6] = "6"
+	hex[7] = "7"
+	hex[8] = "8"
+	hex[9] = "9"
+	hex[10] = "A"
+	hex[11] = "B"
+	hex[12] = "C"
+	hex[13] = "D"
+	hex[14] = "E"
+	hex[15] = "F"
+}
+/^$/ { next }
+/^[ 	]*#/ { next }
+{
+	byteloc = substr($1, 1, length($1)-1)
+	if (byteloc != loc+nbytes || nbytes >= 8) {
+		if (nbytes > 0) {
+			lochi = int((loc+offset)/256 + 0.001)
+			loclo = int((loc+offset)%256 + 0.001)
+			locx = sprintf("%02x%02x", lochi, loclo)
+			cs += nbytes + lochi + loclo
+			while (cs > 255)
+				cs -= 256
+			cs = -cs
+			if (cs < 0)
+				cs += 256
+			csx = sprintf("%02x", cs)
+			print ":0" hex[nbytes] locx "00" datax csx
+		}
+		nbytes = 0
+		datax = ""
+		loc = byteloc
+		cs = 0
+	}
+	nbytes++
+	it = $2
+	if (it < 0)
+		it += 256
+	cs += it
+	datax = sprintf("%s%02x", datax, it);
+}
+END {
+	starthi = int((start+offset)/256 + 0.001)
+	startlo = int((start+offset)%256 + 0.001)
+	startx = sprintf("%02x%02x", starthi, startlo)
+	cs = starthi + startlo + 1
+	while (cs > 255)
+		cs -= 256
+	cs = -cs
+	if (cs < 0)
+		cs += 256
+	csx = sprintf("%02x", cs)
+	print ":00" startx "01" csx
+}

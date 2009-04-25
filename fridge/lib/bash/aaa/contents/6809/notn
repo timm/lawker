@@ -1,0 +1,130 @@
+# Main preprocessing, handling 6809-specific notation (mostly postbytes,
+# notably indexed-mode addressing formulations but also things like register
+# masks) as well as some more-or-less machine-independent odds and ends
+# (two-byte constants (note byte order known)).
+BEGIN {
+	# Bit names for condition-code postbyte.
+	flags["e"] = 128
+	flags["f"] = 64
+	flags["h"] = 32
+	flags["i"] = 16
+	flags["n"] = 8
+	flags["z"] = 4
+	flags["v"] = 2
+	flags["c"] = 1
+	flags["*"] = 255
+	# Bit names for register-mask postbyte.
+	regs["p"] = 128			# pc
+	regs["s"] = 64
+	regs["u"] = 64
+	regs["y"] = 32
+	regs["x"] = 16
+	regs["z"] = 8			# dp
+	regs["b"] = 4
+	regs["a"] = 2
+	regs["c"] = 1			# cc
+	regs["d"] = 4+2
+	regs["*"] = 255
+	# Register numbers for tfr/exg postbyte.
+	tfrexg["d"] = 0
+	tfrexg["x"] = 1
+	tfrexg["y"] = 2
+	tfrexg["u"] = 3
+	tfrexg["s"] = 4
+	tfrexg["p"] = 5
+	tfrexg["a"] = 8
+	tfrexg["b"] = 9
+	tfrexg["c"] = 10
+	tfrexg["z"] = 11
+	# Register codes for index postbyte.
+	ireg["x"] = 0
+	ireg["y"] = 32
+	ireg["u"] = 64
+	ireg["s"] = 96
+	# Postbyte codes for offset indexed addressing modes.
+	ioff["a"] = 128 + 6
+	ioff["b"] = 128 + 5
+	ioff["d"] = 128 + 11
+	ioff["_"] = 128 + 8		# 8-bit offset follows.
+}
+/^%f\(.*\)$/ {			# Flags postbyte.
+	total = 0
+	for (i = length-1; i > 2; i--)
+		total += flags[substr($0, i, 1)]
+	print total
+	next
+}
+/^%r\(.*\)$/ {			# Register-mask postbyte.
+	total = 0
+	for (i = length-1; i > 2; i--)
+		total += regs[substr($0, i, 1)]
+	print total
+	next
+}
+/^.->.$/ {			# Tfr postbyte.
+	print tfrexg[substr($0, 1, 1)]*16 + tfrexg[substr($0, 4, 1)]
+	next
+}
+/^.<-.$/ {			# Tfr postbyte, alternate form.
+	print tfrexg[substr($0, 1, 1)] + tfrexg[substr($0, 4, 1)]*16
+	next
+}
+/^.<->.$/ {			# Exg postbyte.
+	print tfrexg[substr($0, 1, 1)]*16 + tfrexg[substr($0, 5, 1)]
+	next
+}
+/^-?[1-9][0-9]*\([xyus]\)$/ {	# Index postbyte, 5-bit offset.
+	offset = substr($0, 1, length-3)
+	if (offset < 0)
+		offset += 64
+	print offset + ireg[substr($0, length-1, 1)]
+	next
+}
+/^@/ { i = 16 }			# Indirect modifier for rest of index modes.
+/^[^@]/ { i = 0 }		# No indirect modifier.
+/^-[xyus]$/ {			# Autodecrement by 1, no indirection allowed.
+	print 128 + 2 + ireg[substr($0, length, 1)]
+	next
+}
+/^@?--[xyus]$/ {		# Autodecrement by 2.
+	print 128 + 3 + ireg[substr($0, length, 1)] + i
+	next
+}
+/^[xyus]\+$/ {			# Autoincrement by 1, no indirection allowed.
+	print 128 + ireg[substr($0, 0, 1)]
+	next
+}
+/^@?[xyus]\+\+$/ {		# Autoincrement by 2.
+	print 128 + 1 + ireg[substr($0, length-2, 1)] + i
+	next
+}
+/^@?\([xyus]\)$/ {		# Address in register, no offset.
+	print 128 + 4 + ireg[substr($0, length-1, 1)] + i
+	next
+}
+/^@?[abd_]\([xyus]\)$/ {	# Register offset or 8-bit offset.
+	print ioff[substr($0, length-3, 1)] + ireg[substr($0, length-1, 1)] + i
+	next
+}
+/^@?__\([xyus]\)$/ {		# 16-bit offset.
+	print 128 + 9 + ireg[substr($0, length-1, 1)] + i
+	next
+}
+/^\(__\)$/ {			# Indirect extended, no further indirection.
+	print 128 + 31
+	next
+}
+/^@?_\(\.\)$/ {			# 8-bit offset from PC.
+	print 128 + 12 + i
+	next
+}
+/^@?__\(\.\)$/ {		# 16-bit offset from PC.
+	print 128 + 13 + i
+	next
+}
+/^=/ {				# Two-byte constant, in proper byte order.
+	print "\\" substr($0, 2)
+	print "/" substr($0, 2)
+	next
+}
+/./ { print }			# Something else, leave untouched.

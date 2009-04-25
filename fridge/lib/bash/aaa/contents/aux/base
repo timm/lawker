@@ -1,0 +1,113 @@
+BEGIN {
+	# Hex/octal conversion table.
+	hex["0"] = 0
+	hex["1"] = 1
+	hex["2"] = 2
+	hex["3"] = 3
+	hex["4"] = 4
+	hex["5"] = 5
+	hex["6"] = 6
+	hex["7"] = 7
+	hex["8"] = 8
+	hex["9"] = 9
+	hex["a"] = 10
+	hex["b"] = 11
+	hex["c"] = 12
+	hex["d"] = 13
+	hex["e"] = 14
+	hex["f"] = 15
+	hex["A"] = 10
+	hex["B"] = 11
+	hex["C"] = 12
+	hex["D"] = 13
+	hex["E"] = 14
+	hex["F"] = 15
+	# ASCII conversion tables.
+	ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	ascii = ascii "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+	conv["n"] = 10
+	conv["b"] = 8
+	conv["t"] = 9
+	conv["r"] = 13
+	conv["v"] = 11
+	conv["f"] = 12
+	conv["a"] = 7
+}
+/0[xX]?[0-9a-fA-F]/ || /'/ {
+	out = $0
+	place = 1
+	len = length(out)
+	while (place <= len) {
+		if (substr(out, place, 1) ~ /[a-zA-Z_]/) {
+			# Identifier, may contain digits, skip past it.
+			i = place+1
+			while (i <= len) {
+				char = substr(out, i, 1)
+				if (char !~ /[a-zA-Z0-9_]/)
+					break;
+				i++
+			}
+			place = i
+		} else if (substr(out, place, 1) == "'") {
+			# Character constant.
+			ch = substr(out, place+1, 1)
+			i = place + 2
+			if (ch == "\\")	{
+				number = conv[substr(out, place+2, 1)]
+				i++
+			} else {
+				ind = index(ascii, ch)
+				if (ind > 0)
+					number = ind + 31
+				else
+					number = ""
+			}
+			if (number == "")
+				number = 32
+			first = substr(out, 1, place-1)
+			last = substr(out, i)
+			out = first number last
+			len = length(out)
+			place = len - length(last) + 1
+		} else if (substr(out, place) ~ /^0[xX][0-9a-fA-F]+/) {
+			# Hex.
+			total = 0
+			i = place+2
+			while (i <= len) {
+				digit = substr(out, i, 1)
+				if (digit !~ /[0-9a-fA-F]/)
+					break;
+				total = total*16 + hex[digit]
+				i++
+			}
+			first = substr(out, 1, place-1)
+			last = substr(out, i)
+			# out = first total last
+			out = sprintf("%s%.0f%s", first, total, last)
+			len = length(out)
+			place = len - length(last) + 1
+		} else if (substr(out, place) ~ /^0[0-7]+/) {
+			# Octal.
+			total = 0
+			i = place+1
+			while (i <= len) {
+				digit = substr(out, i, 1)
+				if (digit !~ /[0-7]/)
+					break;
+				total = total*8 + hex[digit]
+				i++
+			}
+			first = substr(out, 1, place-1)
+			last = substr(out, i)
+			# out = first total last
+			out = sprintf("%s%.0f%s", first, total, last)
+			len = length(out)
+			place = len - length(last) + 1
+		} else
+			# Something else, ignore.
+			place++
+	}
+	print out
+	next
+}
+/./ { print }

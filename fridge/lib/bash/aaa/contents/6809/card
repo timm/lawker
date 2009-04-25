@@ -1,0 +1,38 @@
+#m 6809	what machine this is for (first line only)
+#foo	comment
+x;y	two successive bytes
+x y	two successive bytes
+07	octal
+0x7	hex
+'c	character constant
+'\n	ditto
+foo:	label
+x=100	definition (numbers only)
+.=100	setting location counter (numbers only)
+.=.+5	bumping location counter (numbers only)
+.text	what it says
+.data	ditto
+.bss	ditto
+=thing	two-byte constant
+/thing	lower byte of 16-bit thing
+\thing	upper byte of 16-bit thing
+%thing	lower byte of 16-bit thing as an offset relative to PC
+%%thing	upper byte of 16-bit thing as an offset relative to PC
+%f(xyz)	condition-code flags literal (all = *)
+%r(xyz)	register mask for psh/pul (pc = p, dpr = z, ccr = c, all of them = *)
+x->y	register pair for tfr
+x<-y	register pair for tfr
+x<->y	register pair for exg
+15(x)	index postbyte, 5-bit offset (cannot be a defined symbol, sorry)
+_(x)	index postbyte, 8-bit offset follows
+@_(x)	index postbyte, 8-bit offset follows, indirect
+__(x)	index postbyte, 16-bit offset follows
+(x)	index postbyte, register indirect
+-y	index postbyte, register autodecrement
+--y	index postbyte, register autodecrement by 2
+y+	index postbyte, register autoincrement
+y++	index postbyte, register autoincrement by 2
+a(y)	index postbyte, offset in A
+_(.)	index postbyte, 8-bit offset from PC follows
+__(.)	index postbyte, 16-bit offset from PC follows
+(__)	index postbyte, indirect extended

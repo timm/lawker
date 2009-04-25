@@ -1,0 +1,45 @@
+# Final postprocessing, to handle high/low byte-extraction operators,
+# and compute PC-relative offsets.  The only thing that is really
+# machine-dependent here is the pcbias's, which reflect the difference
+# between the location of an offset byte and the PC which should be
+# used in computing it (i.e., how far ahead the PC is by the time the
+# byte is used to alter the PC).
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	pcbiaslo = 1
+	pcbiashi = 2
+	if (pcbiaslo > pcbiashi)
+		pcbiasmax = pcbiaslo
+	else
+		pcbiasmax = pcbiashi
+}
+{
+	if ($2 == "") {			# Number or something, not symbol.
+		if ($3 ~ /^\/[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it%256 + 0.001), "# " $3
+		} else if ($3 ~ /^\\[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it/256 + 0.001), "# " $3
+		} else
+			print $1, $3
+	} else if ($2 ~ /^[0-9]+$/)	# Symbol, ordinary value.
+		print $1, $2, "# " $3
+	else if ($2 ~ /%$/) {		# Symbol, PC-relative value.
+		base = substr($1, 1, length($1)-1)
+		it = substr($2, 2, length($2)-2)
+		p = it - base
+		while (p < pcbiasmax)
+			p += 65536
+		if ($2 ~ /^\//)
+			print $1, int((p - pcbiaslo)%256 + 0.001), "# " $3
+		else
+			print $1, int((p - pcbiashi)/256 + 0.001), "# " $3
+	} else				# Something else.
+		print $1, $2, "# " $3
+}

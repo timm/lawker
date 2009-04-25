@@ -1,0 +1,18 @@
+.TL
+Writing Assemblers With Awk And Sed
+.AU
+Henry Spencer
+.AI
+.ZO
+(416)978-6060
+utzoo!henry
+.AB
+Simple assemblers can be written using the shell, \fIawk\fR, and \fIsed\fR,
+with no C code whatsoever.
+They accept a fairly conventional input
+language, and produce Intel hex output.
+(True binary output would require a C program for the final conversion
+to binary.)
+They run quite slowly, their input language is restrictive and contrived,
+and error checking is almost totally absent,
+but they are quick and easy to write and change.

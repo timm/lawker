@@ -1,0 +1,8 @@
+# Tool for building 6801 opcode list.
+BEGIN { opno = 0 }
+{
+	if ($0 != "")
+		for (i = 1; i <= NF; i++)
+			print $i "\t" opno
+	opno++
+}

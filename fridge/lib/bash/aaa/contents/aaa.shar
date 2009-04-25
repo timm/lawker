@@ -1,0 +1,2774 @@
+#Subject: aaa - the amazing awk assembler
+#Newsgroups: mod.sources
+#Approved: jpn@panda.UUCP
+#
+#Mod.sources:  Volume 4, Issue 76
+#Submitted by: decvax!utzoo!henry
+#
+#"aaa" (the Amazing Awk Assembler) is a primitive assembler written entirely
+#in awk and sed.  It was done for fun, to establish whether it was possible.
+#It is; it works.  It's quite slow, the input syntax is eccentric and rather
+#restricted, and error-checking is virtually nonexistent, but it does work.
+#Furthermore it's very easy to adapt to a new machine, provided the machine
+#falls into the generic "8-bit-micro" category.  It is supplied "as is",
+#with no guarantees of any kind.  I can't be bothered to do any more work on
+#it right now, but even in its imperfect state it may be useful to someone.
+#
+#! /bin/sh
+# This is a shell archive, meaning:
+# 1. Remove everything above the #! /bin/sh line.
+# 2. Save the resulting text in a file.
+# 3. Execute the file with /bin/sh (not csh) to create the files:
+#	M_README
+#	README
+#	Makefile
+#	aaa
+#	abst
+#	anon
+#	aux
+#	try.s
+#	try.x.good
+#	01pgm.s
+#	01pgm.x.good
+#	6801
+#	6809
+# This archive created: Tue Apr 22 09:57:43 1986
+export PATH; PATH=/bin:$PATH
+echo shar: extracting "'M_README'" '(711 characters)'
+if test -f 'M_README'
+then
+	echo shar: will not over-write existing file "'M_README'"
+else
+cat << \SHAR_EOF > 'M_README'
+                       ** Moderator's Readme **
+
+I was able to get the "aaa" program to run on ULTRIX (BSD4.2), with a
+few minor problems.  My system does not have the "getopt" program, so I
+had to comment out line 7 of the aaa script (this makes it impossible
+to enter dash options, if you really need those options and don't have
+getopt(1), you can change the script to parse for them yourself.)  I
+also found that "awk" lived on a different directory on our system
+"/usr/local", so I had to change line 1 of aaa to include that in the
+PATH.
+
+John P. Nelson, Moderator, mod.sources
+(decvax!genrad!panda!jpn  seismo!harvard!wjh12!panda!jpn)
+Send source code to panda!sources, requests to panda!sources-request
+SHAR_EOF
+if test 711 -ne "`wc -c < 'M_README'`"
+then
+	echo shar: error transmitting "'M_README'" '(should have been 711 characters)'
+fi
+fi
+echo shar: extracting "'README'" '(2506 characters)'
+if test -f 'README'
+then
+	echo shar: will not over-write existing file "'README'"
+else
+cat << \SHAR_EOF > 'README'
+"aaa" (the Amazing Awk Assembler) is a primitive assembler written entirely
+in awk and sed.  It was done for fun, to establish whether it was possible.
+It is; it works.  It's quite slow, the input syntax is eccentric and rather
+restricted, and error-checking is virtually nonexistent, but it does work.
+Furthermore it's very easy to adapt to a new machine, provided the machine
+falls into the generic "8-bit-micro" category.  It is supplied "as is",
+with no guarantees of any kind.  I can't be bothered to do any more work on
+it right now, but even in its imperfect state it may be useful to someone.
+
+aaa is the mainline shell file.
+
+aux is a subdirectory with machine-independent stuff.  Anon, 6801, and
+6809 are subdirectories with machine-dependent stuff, choice specified
+by a -m option (default is "anon").  Actually, even the stuff that is
+supposedly machine-independent does have some machine-dependent
+assumptions; notably, it knows that bytes are 8 bits (not serious) and
+that the byte is the basic unit of instructions (more serious).  These
+would have to change for the 68000 (going to 16-bit "bytes" might be
+sufficient) and maybe for the 32016 (harder).
+
+aaa thinks that the machine subdirectories and the aux subdirectory are
+in the current directory, which is almost certainly wrong.
+
+abst is an abstract for a paper.  "card", in each machine directory,
+is a summary card for the slightly-eccentric input language.  There is no
+real manual at present; sorry.
+
+try.s is a sample piece of 6809 input; it is semantic trash, purely for
+test purposes.  The assembler produces try.a, try.defs, and try.x as
+outputs from "aaa try.s".  try.a is an internal file that looks
+somewhat like an assembly listing.  try.defs is another internal file
+that looks somewhat like a symbol table.  These files are preserved
+because of possible usefulness; tmp[123] are non-preserved temporaries.
+try.x is the Intel-hex output.  try.x.good is identical to try.x and is a
+saved copy for regression testing of new work.
+
+01pgm.s is a self-programming program for a 68701, based on the one
+in the Motorola ap note.  01pgm.x.good is another regression-test file.
+
+If your C library (used by awk) has broken "%02x" so it no longer means
+"two digits of hex, *zero-filled*" (as some SysV libraries have), you
+will have to fall back from aux/hex to aux/hex.argh, which does it the
+hard way.  Oh yes, you'll note that aaa feeds settings into awk on the
+command line; don't assume your awk won't do this until you try it.
+SHAR_EOF
+if test 2506 -ne "`wc -c < 'README'`"
+then
+	echo shar: error transmitting "'README'" '(should have been 2506 characters)'
+fi
+fi
+echo shar: extracting "'Makefile'" '(270 characters)'
+if test -f 'Makefile'
+then
+	echo shar: will not over-write existing file "'Makefile'"
+else
+cat << \SHAR_EOF > 'Makefile'
+# Regression test.
+r:	aaa 01pgm.s try.s
+	aaa 01pgm.s
+	cmp 01pgm.x 01pgm.x.good
+	aaa try.s
+	cmp try.x try.x.good
+
+clean:
+	rm -f *.a *.defs *.x junk* tmp? dtr
+
+dtr:
+	makedtr README Makefile 01pgm.s 01pgm.x.good 6801/* 6809/* aaa \
+	abst anon/* aux/* try.s try.x.good >dtr
+SHAR_EOF
+if test 270 -ne "`wc -c < 'Makefile'`"
+then
+	echo shar: error transmitting "'Makefile'" '(should have been 270 characters)'
+fi
+fi
+echo shar: extracting "'aaa'" '(2004 characters)'
+if test -f 'aaa'
+then
+	echo shar: will not over-write existing file "'aaa'"
+else
+cat << \SHAR_EOF > 'aaa'
+PATH=/bin:/usr/bin ; export PATH
+
+machdir=.		# Directory holding machine definitions.
+machine=anon		# Default machine.
+lib=aux			# Directory holding machine-independent auxiliaries.
+
+set -- `getopt 'm:s:o:' $*`
+if test $? != 0
+then
+	echo 'Usage: aaa [-m machine] [-s startaddr] [-o offset] [file] ...' >&2
+	exit 2
+fi
+for f
+do
+	case "$f"
+	in
+		-s)		# Runtime start address.
+		startaddr="$2"
+		shift
+		shift
+		;;
+
+		-o)		# Offset for code location counter.
+		offset="$2"
+		shift
+		shift
+		;;
+
+		-m)		# Machine.
+		machine="$2"
+		shift
+		shift
+		;;
+
+		--)
+		shift ; break
+		;;
+	esac
+done
+
+for f
+do
+	echo "$f:"
+	bn=`basename $f .s`
+	# Do we have a machine specification in the file?
+	machline=`sed 1q $f`
+	case "$machline"
+	in
+		'#m'*)
+		machine=`expr "x$machline" : 'x#m[ 	]\(.*\)'`
+		;;
+	esac
+	# Is our machine specification valid?
+	if test -d $machdir/$machine
+	then
+		machine=$machdir/$machine
+	elif test ! -d $machine
+	then
+		echo "aaa: unknown machine $machine" >&2
+		exit 1
+	fi
+	# Unsugar the syntax, change to one byte/line, do base conversions,
+	# cope with machine-specific notation, and assign addresses to code
+	# and values to symbols.
+	sed -f $lib/unsugar $f | tr -s ' 	;' '\012' | awk -f $lib/base |
+		awk -f $machine/notn | awk -f $lib/defs >tmp1
+	# Get symbol definitions, merge with the predefined symbols.
+	sed -n '/=/s//	/p' tmp1 >$bn.defs
+	sort $machine/predef $bn.defs >tmp2
+	# Get code lines, sort by contents.
+	egrep '	' tmp1 | sort +1 >tmp3
+	# Plug definitions into code, sort by location again, postprocess
+	# for byte extraction and PC-relative offset arithmetic.
+	join -a1 -j1 2 -o 1.1 2.2 1.2 '-t	' tmp3 tmp2 | sort -n |
+		awk -f $machine/final >$bn.a
+	# Make a feeble attempt to detect errors.
+	awk '$2 !~ /^[0-9]+$/ || $2 < 0 || $2 > 255' $bn.a
+	# Finally, turn into hex.  The "0\t0" is a kludge to cause a
+	# buffer flush at the end.
+	(cat $bn.a ; echo '0	0') |
+		awk -f $lib/hex start=$startaddr offset=$offset - |
+		tr 'a-f' 'A-F' >$bn.x
+	# Clean up.
+	rm tmp1 tmp2 tmp3
+done
+SHAR_EOF
+if test 2004 -ne "`wc -c < 'aaa'`"
+then
+	echo shar: error transmitting "'aaa'" '(should have been 2004 characters)'
+fi
+chmod +x 'aaa'
+fi
+echo shar: extracting "'abst'" '(530 characters)'
+if test -f 'abst'
+then
+	echo shar: will not over-write existing file "'abst'"
+else
+cat << \SHAR_EOF > 'abst'
+.TL
+Writing Assemblers With Awk And Sed
+.AU
+Henry Spencer
+.AI
+.ZO
+(416)978-6060
+utzoo!henry
+.AB
+Simple assemblers can be written using the shell, \fIawk\fR, and \fIsed\fR,
+with no C code whatsoever.
+They accept a fairly conventional input
+language, and produce Intel hex output.
+(True binary output would require a C program for the final conversion
+to binary.)
+They run quite slowly, their input language is restrictive and contrived,
+and error checking is almost totally absent,
+but they are quick and easy to write and change.
+SHAR_EOF
+if test 530 -ne "`wc -c < 'abst'`"
+then
+	echo shar: error transmitting "'abst'" '(should have been 530 characters)'
+fi
+fi
+if test ! -d 'anon'
+then
+	echo shar: creating directory "'anon'"
+	mkdir 'anon'
+fi
+echo shar: extracting "'anon/card'" '(558 characters)'
+if test -f 'anon/card'
+then
+	echo shar: will not over-write existing file "'anon/card'"
+else
+cat << \SHAR_EOF > 'anon/card'
+#m anon	what machine this is for (first line only)
+#foo	comment
+x;y	two successive bytes
+x y	two successive bytes
+07	octal
+0x7	hex
+'c	character constant
+'\n	ditto
+foo:	label
+x=100	definition (numbers only)
+.=100	setting location counter (numbers only)
+.=.+5	bumping location counter (numbers only)
+.text	what it says
+.data	ditto
+.bss	ditto
+=thing	two-byte constant
+/thing	lower byte of 16-bit thing
+\thing	upper byte of 16-bit thing
+%thing	lower byte of 16-bit thing as an offset relative to PC
+%%thing	upper byte of 16-bit thing as an offset relative to PC
+SHAR_EOF
+if test 558 -ne "`wc -c < 'anon/card'`"
+then
+	echo shar: error transmitting "'anon/card'" '(should have been 558 characters)'
+fi
+fi
+echo shar: extracting "'anon/final'" '(1299 characters)'
+if test -f 'anon/final'
+then
+	echo shar: will not over-write existing file "'anon/final'"
+else
+cat << \SHAR_EOF > 'anon/final'
+# Final postprocessing, to handle high/low byte-extraction operators,
+# and compute PC-relative offsets.  The only thing that is really
+# machine-dependent here is the pcbias's, which reflect the difference
+# between the location of an offset byte and the PC which should be
+# used in computing it (i.e., how far ahead the PC is by the time the
+# byte is used to alter the PC).
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	pcbiaslo = 0
+	pcbiashi = 0
+	if (pcbiaslo > pcbiashi)
+		pcbiasmax = pcbiaslo
+	else
+		pcbiasmax = pcbiashi
+}
+{
+	if ($2 == "") {			# Number or something, not symbol.
+		if ($3 ~ /^\/[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it%256 + 0.001), "# " $3
+		} else if ($3 ~ /^\\[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it/256 + 0.001), "# " $3
+		} else
+			print $1, $3
+	} else if ($2 ~ /^[0-9]+$/)	# Symbol, ordinary value.
+		print $1, $2, "# " $3
+	else if ($2 ~ /%$/) {		# Symbol, PC-relative value.
+		base = substr($1, 1, length($1)-1)
+		it = substr($2, 2, length($2)-2)
+		p = it - base
+		while (p < pcbiasmax)
+			p += 65536
+		if ($2 ~ /^\//)
+			print $1, int((p - pcbiaslo)%256 + 0.001), "# " $3
+		else
+			print $1, int((p - pcbiashi)/256 + 0.001), "# " $3
+	} else				# Something else.
+		print $1, $2, "# " $3
+}
+SHAR_EOF
+if test 1299 -ne "`wc -c < 'anon/final'`"
+then
+	echo shar: error transmitting "'anon/final'" '(should have been 1299 characters)'
+fi
+fi
+echo shar: extracting "'anon/notn'" '(279 characters)'
+if test -f 'anon/notn'
+then
+	echo shar: will not over-write existing file "'anon/notn'"
+else
+cat << \SHAR_EOF > 'anon/notn'
+# Main preprocessing, some more-or-less machine-independent odds and ends
+# (two-byte constants (note byte order known)).
+/^=/ {				# Two-byte constant, low byte first.
+	print "/" substr($0, 2)
+	print "\\" substr($0, 2)
+	next
+}
+/./ { print }			# Something else, leave untouched.
+SHAR_EOF
+if test 279 -ne "`wc -c < 'anon/notn'`"
+then
+	echo shar: error transmitting "'anon/notn'" '(should have been 279 characters)'
+fi
+fi
+echo shar: extracting "'anon/predef'" '(0 character)'
+if test -f 'anon/predef'
+then
+	echo shar: will not over-write existing file "'anon/predef'"
+else
+cat << \SHAR_EOF > 'anon/predef'
+SHAR_EOF
+if test 0 -ne "`wc -c < 'anon/predef'`"
+then
+	echo shar: error transmitting "'anon/predef'" '(should have been 0 character)'
+fi
+fi
+echo shar: done with directory "'anon'"
+if test ! -d 'aux'
+then
+	echo shar: creating directory "'aux'"
+	mkdir 'aux'
+fi
+echo shar: extracting "'aux/base'" '(2362 characters)'
+if test -f 'aux/base'
+then
+	echo shar: will not over-write existing file "'aux/base'"
+else
+cat << \SHAR_EOF > 'aux/base'
+BEGIN {
+	# Hex/octal conversion table.
+	hex["0"] = 0
+	hex["1"] = 1
+	hex["2"] = 2
+	hex["3"] = 3
+	hex["4"] = 4
+	hex["5"] = 5
+	hex["6"] = 6
+	hex["7"] = 7
+	hex["8"] = 8
+	hex["9"] = 9
+	hex["a"] = 10
+	hex["b"] = 11
+	hex["c"] = 12
+	hex["d"] = 13
+	hex["e"] = 14
+	hex["f"] = 15
+	hex["A"] = 10
+	hex["B"] = 11
+	hex["C"] = 12
+	hex["D"] = 13
+	hex["E"] = 14
+	hex["F"] = 15
+	# ASCII conversion tables.
+	ascii = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	ascii = ascii "[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
+	conv["n"] = 10
+	conv["b"] = 8
+	conv["t"] = 9
+	conv["r"] = 13
+	conv["v"] = 11
+	conv["f"] = 12
+	conv["a"] = 7
+}
+/0[xX]?[0-9a-fA-F]/ || /'/ {
+	out = $0
+	place = 1
+	len = length(out)
+	while (place <= len) {
+		if (substr(out, place, 1) ~ /[a-zA-Z_]/) {
+			# Identifier, may contain digits, skip past it.
+			i = place+1
+			while (i <= len) {
+				char = substr(out, i, 1)
+				if (char !~ /[a-zA-Z0-9_]/)
+					break;
+				i++
+			}
+			place = i
+		} else if (substr(out, place, 1) == "'") {
+			# Character constant.
+			ch = substr(out, place+1, 1)
+			i = place + 2
+			if (ch == "\\")	{
+				number = conv[substr(out, place+2, 1)]
+				i++
+			} else {
+				ind = index(ascii, ch)
+				if (ind > 0)
+					number = ind + 31
+				else
+					number = ""
+			}
+			if (number == "")
+				number = 32
+			first = substr(out, 1, place-1)
+			last = substr(out, i)
+			out = first number last
+			len = length(out)
+			place = len - length(last) + 1
+		} else if (substr(out, place) ~ /^0[xX][0-9a-fA-F]+/) {
+			# Hex.
+			total = 0
+			i = place+2
+			while (i <= len) {
+				digit = substr(out, i, 1)
+				if (digit !~ /[0-9a-fA-F]/)
+					break;
+				total = total*16 + hex[digit]
+				i++
+			}
+			first = substr(out, 1, place-1)
+			last = substr(out, i)
+			# out = first total last
+			out = sprintf("%s%.0f%s", first, total, last)
+			len = length(out)
+			place = len - length(last) + 1
+		} else if (substr(out, place) ~ /^0[0-7]+/) {
+			# Octal.
+			total = 0
+			i = place+1
+			while (i <= len) {
+				digit = substr(out, i, 1)
+				if (digit !~ /[0-7]/)
+					break;
+				total = total*8 + hex[digit]
+				i++
+			}
+			first = substr(out, 1, place-1)
+			last = substr(out, i)
+			# out = first total last
+			out = sprintf("%s%.0f%s", first, total, last)
+			len = length(out)
+			place = len - length(last) + 1
+		} else
+			# Something else, ignore.
+			place++
+	}
+	print out
+	next
+}
+/./ { print }
+SHAR_EOF
+if test 2362 -ne "`wc -c < 'aux/base'`"
+then
+	echo shar: error transmitting "'aux/base'" '(should have been 2362 characters)'
+fi
+fi
+echo shar: extracting "'aux/defs'" '(1110 characters)'
+if test -f 'aux/defs'
+then
+	echo shar: will not over-write existing file "'aux/defs'"
+else
+cat << \SHAR_EOF > 'aux/defs'
+# The heart of the assembler, interpreting definitions, keeping location
+# counters, and assigning addresses to code.
+BEGIN { locs["d"] = 0 ; locs["b"] = 0; locs["t"] = 0; which = "d" }
+/^[^.].*=.+$/ {			# Symbol definition.
+	n = split($0, bits, "=")
+	it = bits[2]
+	while (it < 0)
+		it += 65536
+	print bits[1] "=" it
+	print "/" bits[1] "=" int(it%256 + 0.001)
+	print "\\" bits[1] "=" int(it/256 + 0.001)
+	print "%" bits[1] "=" "/" bits[2] "%"
+	print "%%" bits[1] "=" "\\" bits[2] "%"
+}
+/^\.=[0-9]+$/ {			# Set location counter.
+	locs[which] = substr($0, 3)
+}
+/^\.=\.\+[0-9]+$/ {		# Bump location counter, allocating space.
+	locs[which] += substr($0, 5)
+}
+/:/ {				# Label.
+	n = split($0, bits, ":")
+	print bits[1] "=" locs[which]
+	print "/" bits[1] "=" int(locs[which]%256 + 0.001)
+	print "\\" bits[1] "=" int(locs[which]/256 + 0.001)
+	print "%" bits[1] "=" "/" locs[which] "%"
+	print "%%" bits[1] "=" "\\" locs[which] "%"
+}
+/^\.text$/ {
+	which = "t"
+}
+/^\.data$/ {
+	which = "d"
+}
+/^\.bss$/ {
+	which = "b"
+}
+/^$/	{ next }
+$0 !~ /[=:]/ && $0 !~ /^\./ {	# Code.
+	print locs[which] which "\t" $0
+	locs[which]++
+}
+SHAR_EOF
+if test 1110 -ne "`wc -c < 'aux/defs'`"
+then
+	echo shar: error transmitting "'aux/defs'" '(should have been 1110 characters)'
+fi
+fi
+echo shar: extracting "'aux/hex'" '(2010 characters)'
+if test -f 'aux/hex'
+then
+	echo shar: will not over-write existing file "'aux/hex'"
+else
+cat << \SHAR_EOF > 'aux/hex'
+# Convert to Intel hex format.  Input lines should have location first
+# and then one-byte decimal value, separated by tabs; any further stuff
+# on the line is ignored.  Blank lines are ignored, as are lines starting
+# with white space followed by a '#'.  If the awk variable "offset" is
+# non-empty, it's the (decimal) offset for the location counter (so code
+# assembled to go at location 010000 can start at 0 for purposes of
+# PROM blowing and such).  If "startaddr" is non-empty, it's the start
+# address to go in the terminator record.
+#
+# Annoying botch:  to avoid repeating all the buffer-flush code twice
+# (laziness on my part), the last line of input should be "0\t0" or
+# something like that (i.e., valid-looking input with an out-of-sequence
+# location) to cause a flush.
+BEGIN {
+	FS = "\t"
+	nbytes = 0
+	loc = 0
+	if (offset == "")
+		offset = 0
+	if (start == "")
+		start = 0
+	hex[0] = "0"
+	hex[1] = "1"
+	hex[2] = "2"
+	hex[3] = "3"
+	hex[4] = "4"
+	hex[5] = "5"
+	hex[6] = "6"
+	hex[7] = "7"
+	hex[8] = "8"
+	hex[9] = "9"
+	hex[10] = "A"
+	hex[11] = "B"
+	hex[12] = "C"
+	hex[13] = "D"
+	hex[14] = "E"
+	hex[15] = "F"
+}
+/^$/ { next }
+/^[ 	]*#/ { next }
+{
+	byteloc = substr($1, 1, length($1)-1)
+	if (byteloc != loc+nbytes || nbytes >= 8) {
+		if (nbytes > 0) {
+			lochi = int((loc+offset)/256 + 0.001)
+			loclo = int((loc+offset)%256 + 0.001)
+			locx = sprintf("%02x%02x", lochi, loclo)
+			cs += nbytes + lochi + loclo
+			while (cs > 255)
+				cs -= 256
+			cs = -cs
+			if (cs < 0)
+				cs += 256
+			csx = sprintf("%02x", cs)
+			print ":0" hex[nbytes] locx "00" datax csx
+		}
+		nbytes = 0
+		datax = ""
+		loc = byteloc
+		cs = 0
+	}
+	nbytes++
+	it = $2
+	if (it < 0)
+		it += 256
+	cs += it
+	datax = sprintf("%s%02x", datax, it);
+}
+END {
+	starthi = int((start+offset)/256 + 0.001)
+	startlo = int((start+offset)%256 + 0.001)
+	startx = sprintf("%02x%02x", starthi, startlo)
+	cs = starthi + startlo + 1
+	while (cs > 255)
+		cs -= 256
+	cs = -cs
+	if (cs < 0)
+		cs += 256
+	csx = sprintf("%02x", cs)
+	print ":00" startx "01" csx
+}
+SHAR_EOF
+if test 2010 -ne "`wc -c < 'aux/hex'`"
+then
+	echo shar: error transmitting "'aux/hex'" '(should have been 2010 characters)'
+fi
+fi
+echo shar: extracting "'aux/hex.argh'" '(2272 characters)'
+if test -f 'aux/hex.argh'
+then
+	echo shar: will not over-write existing file "'aux/hex.argh'"
+else
+cat << \SHAR_EOF > 'aux/hex.argh'
+# Convert to Intel hex format.  Input lines should have location first
+# and then one-byte decimal value, separated by tabs; any further stuff
+# on the line is ignored.  Blank lines are ignored, as are lines starting
+# with white space followed by a '#'.  If the awk variable "offset" is
+# non-empty, it's the (decimal) offset for the location counter (so code
+# assembled to go at location 010000 can start at 0 for purposes of
+# PROM blowing and such).  If "startaddr" is non-empty, it's the start
+# address to go in the terminator record.
+#
+# Annoying botch:  to avoid repeating all the buffer-flush code twice
+# (laziness on my part), the last line of input should be "0\t0" or
+# something like that (i.e., valid-looking input with an out-of-sequence
+# location) to cause a flush.
+BEGIN {
+	FS = "\t"
+	nbytes = 0
+	loc = 0
+	if (offset == "")
+		offset = 0
+	if (start == "")
+		start = 0
+	hex[0] = "0"
+	hex[1] = "1"
+	hex[2] = "2"
+	hex[3] = "3"
+	hex[4] = "4"
+	hex[5] = "5"
+	hex[6] = "6"
+	hex[7] = "7"
+	hex[8] = "8"
+	hex[9] = "9"
+	hex[10] = "A"
+	hex[11] = "B"
+	hex[12] = "C"
+	hex[13] = "D"
+	hex[14] = "E"
+	hex[15] = "F"
+}
+/^$/ { next }
+/^[ 	]*#/ { next }
+{
+	byteloc = substr($1, 1, length($1)-1)
+	if (byteloc != loc+nbytes || nbytes >= 8) {
+		if (nbytes > 0) {
+			lochi = int((loc+offset)/256 + 0.001)
+			loclo = int((loc+offset)%256 + 0.001)
+			lochx = hex[int(lochi/16+0.01)] hex[int(lochi%16+0.01)]
+			loclx = hex[int(loclo/16+0.01)] hex[int(loclo%16+0.01)]
+			locx = lochx loclx
+			cs += nbytes + lochi + loclo
+			while (cs > 255)
+				cs -= 256
+			cs = -cs
+			if (cs < 0)
+				cs += 256
+			csx = hex[int(cs/16+0.01)] hex[int(cs%16+0.01)]
+			print ":0" hex[nbytes] locx "00" datax csx
+		}
+		nbytes = 0
+		datax = ""
+		loc = byteloc
+		cs = 0
+	}
+	nbytes++
+	it = $2
+	if (it < 0)
+		it += 256
+	cs += it
+	datax = datax hex[int(it/16+0.01)] hex[int(it%16+0.01)]
+}
+END {
+	starthi = int((start+offset)/256 + 0.001)
+	startlo = int((start+offset)%256 + 0.001)
+	starthx = hex[int(starthi/16+0.01)] hex[int(starthi%16+0.01)]
+	startlx = hex[int(startlo/16+0.01)] hex[int(startlo%16+0.01)]
+	startx = starthx startlx
+	cs = starthi + startlo + 1
+	while (cs > 255)
+		cs -= 256
+	cs = -cs
+	if (cs < 0)
+		cs += 256
+	csx = hex[int(cs/16+0.01)] hex[int(cs%16+0.01)]
+	print ":00" startx "01" csx
+}
+SHAR_EOF
+if test 2272 -ne "`wc -c < 'aux/hex.argh'`"
+then
+	echo shar: error transmitting "'aux/hex.argh'" '(should have been 2272 characters)'
+fi
+fi
+echo shar: extracting "'aux/unsugar'" '(133 characters)'
+if test -f 'aux/unsugar'
+then
+	echo shar: will not over-write existing file "'aux/unsugar'"
+else
+cat << \SHAR_EOF > 'aux/unsugar'
+# Dispense with comments and white space around =.  Ensure a byte
+# separator after :.
+s/#.*//
+/=/s/[ 	][ 	]*=[ 	][ 	]*/=/g
+s/:/:;/g
+SHAR_EOF
+if test 133 -ne "`wc -c < 'aux/unsugar'`"
+then
+	echo shar: error transmitting "'aux/unsugar'" '(should have been 133 characters)'
+fi
+fi
+echo shar: done with directory "'aux'"
+echo shar: extracting "'try.s'" '(217 characters)'
+if test -f 'try.s'
+then
+	echo shar: will not over-write existing file "'try.s'"
+else
+cat << \SHAR_EOF > 'try.s'
+#m 6809
+glop = 100
+
+.data
+.=200
+it:	=1024
+	067
+	77
+ 
+.text
+.=700
+main:
+	lda.d glop
+	cmpa.i 55
+	ldx.x -5(u)
+	ldu.x 017(y)
+	ldy.x x++
+	blt %main
+.=.+11
+	pag2 cmpd.i =it
+	cwai %f(inz)
+	cwai 0xff
+	pulu %r(dxy)
+
+.data
+	87
+SHAR_EOF
+if test 217 -ne "`wc -c < 'try.s'`"
+then
+	echo shar: error transmitting "'try.s'" '(should have been 217 characters)'
+fi
+fi
+echo shar: extracting "'try.x.good'" '(126 characters)'
+if test -f 'try.x.good'
+then
+	echo shar: will not over-write existing file "'try.x.good'"
+else
+cat << \SHAR_EOF > 'try.x.good'
+:050014000078374D5794
+:08004600960A8137AE7BEE2F14
+:04004E00AE812DF45E
+:08005D00108300143C1C3CFF61
+:0200650037362C
+:00000001FF
+SHAR_EOF
+if test 126 -ne "`wc -c < 'try.x.good'`"
+then
+	echo shar: error transmitting "'try.x.good'" '(should have been 126 characters)'
+fi
+fi
+echo shar: extracting "'01pgm.s'" '(3450 characters)'
+if test -f '01pgm.s'
+then
+	echo shar: will not over-write existing file "'01pgm.s'"
+else
+cat << \SHAR_EOF > '01pgm.s'
+#m 6801
+# Program to check, program, and verify a 68701.
+# Copied from Motorola ap note AN-832.
+# Timing constants assume 4Mhz crystal.
+
+# Variables for code stolen from 68701 data sheet.
+.=128
+imbeg:	.=.+2			# Start of data block.
+imend:	.=.+2			# End of data block.
+pntr:	.=.+2			# Start of EPROM area to be done.
+wait:	.=.+2			# Counter value.
+
+# Startup code.
+.=0xb850
+start:
+	lds.i =0xff		# Initialize stack.
+	ldaa.i 0x7		# Initialize port 1...
+	staa.d p1ddr		# ...bottom 3 bits outputs...
+	staa.d p1		# ...all LEDs off.
+
+# Check if EPROM has been erased properly.
+	ldx.i =0xf800		# Start of EPROM.
+	stx.d pntr		# Initialize pntr while number is handy.
+	ldab.i 0		# Prepare to compare.  [Why not clrb???]
+erase:	ldaa.x 0		# Pick up EPROM byte.
+	cba
+	bne %error1		# Branch if not zero.
+	cpx.i =0xffff		# Are we done?
+	beq %next		# Branch on done.
+	inx
+	bra %erase
+
+# Turn on "erased" LED.
+next:	ldaa.i 0x6		# First LED on.
+	staa.d p1
+
+# Delay a while (3.5 s) to be sure Vpp is up.
+	stx.d wait		# [this seems useless]
+	ldx.i =70		# 70 times through loop.
+stall1:	dex
+	ldd.i =0xc350		# 50 ms loop.
+	addd.d timer		# Relative to current timer value.
+	clr.e =tcsr		# Clear output-compare bit.
+	std.d outcmp
+	ldaa.i 0x40		# Now wait for bit to come high.
+stall2:	bita.d tcsr
+	beq %stall2		# Branch on bit still 0.
+	cpx.i =0		# 70 times yet?  [Why not tstx???]
+	bne %stall1		# Branch on no.
+	bra %pgint		# Branch on yes.
+
+# Light error LED only.
+error1:	ldaa.i 0x83		# Error LED only.  [Why not just 0x3???]
+	staa.d p1
+	bra %self
+
+# Initialize variables for programming code.
+pgint:	ldx.i =0x7800		# Start of data memory.
+	stx.d imbeg
+	ldx.i =0x7fff		# End of data memory.
+	stx.d imend
+	ldx.i =0xc350		# Programming delay, 50 ms.
+	stx.d wait
+	# pntr has been initialized earlier.
+
+# Basic programming code, from 68701 data sheet.
+eprom:	ldx.d pntr		# Save initial pntr on stack.
+	pshx
+	ldx.d imbeg		# x -> data
+
+# Program a byte.
+epr002:	pshx			# Save data ptr on stack.
+	ldaa.i 0xfe		# Remove Vpp, set latch.
+	staa.d epromcr		# PPC=1, PLC=0.
+	ldaa.x 0		# Pick up data.
+	ldx.d pntr		# x -> dest
+	staa.x 0		# Store into latch.
+	inx			# Update destination addr...
+	stx.d pntr
+	ldaa.i 0xfc		# Fire up Vpp.
+	staa.d epromcr		# PPC=PLC=0.
+
+# Wait 50 ms for programming to happen.
+	ldd.d wait		# d = delay.
+	addd.d timer		# d = time to wake up.
+	clr.e =tcsr		# Clear output-compare flag.
+	std.d outcmp		# Set alarm.
+	ldaa.i 0x40		# Wait for flag.
+epr004:	bita.d tcsr
+	beq %epr004		# Branch on not set yet.
+
+# Set up for next byte.
+	pulx			# x -> data
+	inx
+	cpx.d imend		# Are we done?
+	bls %epr002		# Branch on no, with x -> next data.
+	ldaa.i 0xff		# Turn off Vpp, inhibit latch...
+	staa.d epromcr
+	pulx			# Put pntr back as it was...
+	stx.d pntr
+
+# Verify.  End of datasheet code.
+	ldx.i =0x7800		# x -> data
+verf2:	pshx			# Save data ptr on stack.
+	ldaa.x 0		# a = data
+	ldx.d pntr		# x -> eprom
+	ldab.x 0		# a = eprom data
+	cba			# Same?
+	bne %error2		# Branch on different.
+	inx			# Next...
+	stx.d pntr
+	pulx			# x -> data
+	inx
+	cpx.i =0x8000		# Done yet?
+	bne %verf2		# Branch on no.
+
+# We're done.  Light the verify LED.
+	ldaa.i 0x84		# Erased & verified.  [Why not just 0x4???]
+	staa.d p1
+
+# Branch-to-self loop for completion and errors.
+self:	bra %self
+
+# Verify error.
+error2:	ldaa.i 0x82		# Erased & error LEDS.  [Why not 0x2???]
+	staa.d p1
+	bra %self
+
+# Vectors.
+.=0xbff0
+	=self
+	=self
+	=self
+	=self
+	=self
+	=self
+	=self
+	=start			# Reset vector.
+SHAR_EOF
+if test 3450 -ne "`wc -c < '01pgm.s'`"
+then
+	echo shar: error transmitting "'01pgm.s'" '(should have been 3450 characters)'
+fi
+fi
+echo shar: extracting "'01pgm.x.good'" '(670 characters)'
+if test -f '01pgm.x.good'
+then
+	echo shar: will not over-write existing file "'01pgm.x.good'"
+else
+cat << \SHAR_EOF > '01pgm.x.good'
+:08B850008E00FF8607970097A8
+:08B8580002CEF800DF84C600F7
+:08B86000A6001126298CFFFF50
+:08B8680027030820F386069770
+:08B8700002DF86CE004609CC80
+:08B87800C350D3097F0008DD75
+:08B880000B8640950827FC8CA3
+:08B88800000026EA2006868379
+:08B890009702205DCE7800DF75
+:08B8980080CE7FFFDF82CEC3EA
+:08B8A00050DF86DE843CDE80EF
+:08B8A8003C86FE9714A600DEA9
+:08B8B00084A70008DF8486FC78
+:08B8B8009714DC86D3097F0020
+:08B8C00008DD0B864095082706
+:08B8C800FC38089C8223D9869C
+:08B8D000FF971438DF84CE78E5
+:08B8D800003CA600DE84E6003E
+:08B8E00011261008DF8438086E
+:08B8E8008C800026EC86849799
+:08B8F0000220FE86829702206F
+:01B8F800F857
+:08BFF000B8F1B8F1B8F1B8F1A5
+:08BFF800B8F1B8F1B8F1B8503E
+:00000001FF
+SHAR_EOF
+if test 670 -ne "`wc -c < '01pgm.x.good'`"
+then
+	echo shar: error transmitting "'01pgm.x.good'" '(should have been 670 characters)'
+fi
+fi
+if test ! -d '6801'
+then
+	echo shar: creating directory "'6801'"
+	mkdir '6801'
+fi
+echo shar: extracting "'6801/6801.ops'" '(1340 characters)'
+if test -f '6801/6801.ops'
+then
+	echo shar: will not over-write existing file "'6801/6801.ops'"
+else
+cat << \SHAR_EOF > '6801/6801.ops'
+
+nop
+
+
+lsrd
+asld
+tap
+tpa
+inx
+dex
+clv
+sev
+clc
+sec
+cli
+sei
+sba
+cba
+
+
+
+
+tab
+tba
+
+daa
+
+aba
+
+
+
+
+bra
+brn
+bhi
+bls
+bcc
+bcs
+bne
+beq
+bvc
+bvs
+bpl
+bmi
+bge
+blt
+bgt
+ble
+tsx
+ins
+pula
+pulb
+des
+txs
+psha
+pshb
+pulx
+rts
+abx
+rti
+pshx
+mul
+wai
+swi
+nega
+
+
+coma
+lsra
+
+rora
+asra
+asla
+rola
+deca
+
+inca
+tsta
+hcf1
+clra
+negb
+
+
+comb
+lsrb
+
+rorb
+asrb
+aslb
+rolb
+decb
+
+incb
+tstb
+hcf2
+clrb
+neg.x
+
+
+com.x
+lsr.x
+
+ror.x
+asr.x
+asl.x
+rol.x
+dec.x
+
+inc.x
+tst.x
+jmp.x
+clr.x
+neg.e
+
+
+com.e
+lsr.e
+
+ror.e
+asr.e
+asl.e
+rol.e
+dec.e
+
+inc.e
+tst.e
+jmp.e
+clr.e
+suba.i
+cmpa.i
+sbca.i
+subd.i
+anda.i
+bita.i
+ldaa.i
+
+eora.i
+adca.i
+oraa.i
+adda.i
+cpx.i
+bsr
+lds.i
+
+suba.d
+cmpa.d
+sbca.d
+subd.d
+anda.d
+bita.d
+ldaa.d
+staa.d
+eora.d
+adca.d
+oraa.d
+adda.d
+cpx.d
+jsr.d
+lds.d
+sts.d
+suba.x
+cmpa.x
+sbca.x
+subd.x
+anda.x
+bita.x
+ldaa.x
+staa.x
+eora.x
+adca.x
+oraa.x
+adda.x
+cpx.x
+jsr.x
+lds.x
+sts.x
+suba.e
+cmpa.e
+sbca.e
+subd.e
+anda.e
+bita.e
+ldaa.e
+staa.e
+eora.e
+adca.e
+oraa.e
+adda.e
+cpx.e
+jsr.e
+lds.e
+sts.e
+subb.i
+cmpb.i
+sbcb.i
+addd.i
+andb.i
+bitb.i
+ldab.i
+
+eorb.i
+adcb.i
+orab.i
+addb.i
+ldd.i
+
+ldx.i
+
+subb.d
+cmpb.d
+sbcb.d
+addd.d
+andb.d
+bitb.d
+ldab.d
+stab.d
+eorb.d
+adcb.d
+orab.d
+addb.d
+ldd.d
+std.d
+ldx.d
+stx.d
+subb.x
+cmpb.x
+sbcb.x
+addd.x
+andb.x
+bitb.x
+ldab.x
+stab.x
+eorb.x
+adcb.x
+orab.x
+addb.x
+ldd.x
+std.x
+ldx.x
+stx.x
+subb.e
+cmpb.e
+sbcb.e
+addd.e
+andb.e
+bitb.e
+ldab.e
+stab.e
+eorb.e
+adcb.e
+orab.e
+addb.e
+ldd.e
+std.e
+ldx.e
+stx.e
+SHAR_EOF
+if test 1340 -ne "`wc -c < '6801/6801.ops'`"
+then
+	echo shar: error transmitting "'6801/6801.ops'" '(should have been 1340 characters)'
+fi
+fi
+echo shar: extracting "'6801/6801.regs'" '(179 characters)'
+if test -f '6801/6801.regs'
+then
+	echo shar: will not over-write existing file "'6801/6801.regs'"
+else
+cat << \SHAR_EOF > '6801/6801.regs'
+p1ddr
+p2ddr
+p1
+p2
+p3ddr
+p4ddr
+p3
+p4
+tcsr
+th timer
+tl
+ocrh outcmp
+ocrl
+icrh
+icrl
+p3csr
+rmcr
+trcsr
+rd
+td
+ramcr epromcr mcr
+cah
+cal
+tcr1
+tcr2
+tsr
+ocr2h
+ocr2l
+ocr3h
+ocr3l
+icr2h
+icr2l
+SHAR_EOF
+if test 179 -ne "`wc -c < '6801/6801.regs'`"
+then
+	echo shar: error transmitting "'6801/6801.regs'" '(should have been 179 characters)'
+fi
+fi
+echo shar: extracting "'6801/card'" '(558 characters)'
+if test -f '6801/card'
+then
+	echo shar: will not over-write existing file "'6801/card'"
+else
+cat << \SHAR_EOF > '6801/card'
+#m 6801	what machine this is for (first line only)
+#foo	comment
+x;y	two successive bytes
+x y	two successive bytes
+07	octal
+0x7	hex
+'c	character constant
+'\n	ditto
+foo:	label
+x=100	definition (numbers only)
+.=100	setting location counter (numbers only)
+.=.+5	bumping location counter (numbers only)
+.text	what it says
+.data	ditto
+.bss	ditto
+=thing	two-byte constant
+/thing	lower byte of 16-bit thing
+\thing	upper byte of 16-bit thing
+%thing	lower byte of 16-bit thing as an offset relative to PC
+%%thing	upper byte of 16-bit thing as an offset relative to PC
+SHAR_EOF
+if test 558 -ne "`wc -c < '6801/card'`"
+then
+	echo shar: error transmitting "'6801/card'" '(should have been 558 characters)'
+fi
+fi
+echo shar: extracting "'6801/final'" '(1299 characters)'
+if test -f '6801/final'
+then
+	echo shar: will not over-write existing file "'6801/final'"
+else
+cat << \SHAR_EOF > '6801/final'
+# Final postprocessing, to handle high/low byte-extraction operators,
+# and compute PC-relative offsets.  The only thing that is really
+# machine-dependent here is the pcbias's, which reflect the difference
+# between the location of an offset byte and the PC which should be
+# used in computing it (i.e., how far ahead the PC is by the time the
+# byte is used to alter the PC).
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	pcbiaslo = 1
+	pcbiashi = 2
+	if (pcbiaslo > pcbiashi)
+		pcbiasmax = pcbiaslo
+	else
+		pcbiasmax = pcbiashi
+}
+{
+	if ($2 == "") {			# Number or something, not symbol.
+		if ($3 ~ /^\/[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it%256 + 0.001), "# " $3
+		} else if ($3 ~ /^\\[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it/256 + 0.001), "# " $3
+		} else
+			print $1, $3
+	} else if ($2 ~ /^[0-9]+$/)	# Symbol, ordinary value.
+		print $1, $2, "# " $3
+	else if ($2 ~ /%$/) {		# Symbol, PC-relative value.
+		base = substr($1, 1, length($1)-1)
+		it = substr($2, 2, length($2)-2)
+		p = it - base
+		while (p < pcbiasmax)
+			p += 65536
+		if ($2 ~ /^\//)
+			print $1, int((p - pcbiaslo)%256 + 0.001), "# " $3
+		else
+			print $1, int((p - pcbiashi)/256 + 0.001), "# " $3
+	} else				# Something else.
+		print $1, $2, "# " $3
+}
+SHAR_EOF
+if test 1299 -ne "`wc -c < '6801/final'`"
+then
+	echo shar: error transmitting "'6801/final'" '(should have been 1299 characters)'
+fi
+fi
+echo shar: extracting "'6801/notn'" '(346 characters)'
+if test -f '6801/notn'
+then
+	echo shar: will not over-write existing file "'6801/notn'"
+else
+cat << \SHAR_EOF > '6801/notn'
+# Main preprocessing, handling 6801-specific notation (actually none) as
+# well as some more-or-less machine-independent odds and ends (two-byte
+# constants (note byte order known)).
+/^=/ {				# Two-byte constant, in proper byte order.
+	print "\\" substr($0, 2)
+	print "/" substr($0, 2)
+	next
+}
+/./ { print }			# Something else, leave untouched.
+SHAR_EOF
+if test 346 -ne "`wc -c < '6801/notn'`"
+then
+	echo shar: error transmitting "'6801/notn'" '(should have been 346 characters)'
+fi
+fi
+echo shar: extracting "'6801/opgen'" '(134 characters)'
+if test -f '6801/opgen'
+then
+	echo shar: will not over-write existing file "'6801/opgen'"
+else
+cat << \SHAR_EOF > '6801/opgen'
+# Tool for building 6801 opcode list.
+BEGIN { opno = 0 }
+{
+	if ($0 != "")
+		for (i = 1; i <= NF; i++)
+			print $i "\t" opno
+	opno++
+}
+SHAR_EOF
+if test 134 -ne "`wc -c < '6801/opgen'`"
+then
+	echo shar: error transmitting "'6801/opgen'" '(should have been 134 characters)'
+fi
+fi
+echo shar: extracting "'6801/predef'" '(2985 characters)'
+if test -f '6801/predef'
+then
+	echo shar: will not over-write existing file "'6801/predef'"
+else
+cat << \SHAR_EOF > '6801/predef'
+nop	1
+lsrd	4
+asld	5
+tap	6
+tpa	7
+inx	8
+dex	9
+clv	10
+sev	11
+clc	12
+sec	13
+cli	14
+sei	15
+sba	16
+cba	17
+tab	22
+tba	23
+daa	25
+aba	27
+bra	32
+brn	33
+bhi	34
+bls	35
+bcc	36
+bcs	37
+bne	38
+beq	39
+bvc	40
+bvs	41
+bpl	42
+bmi	43
+bge	44
+blt	45
+bgt	46
+ble	47
+tsx	48
+ins	49
+pula	50
+pulb	51
+des	52
+txs	53
+psha	54
+pshb	55
+pulx	56
+rts	57
+abx	58
+rti	59
+pshx	60
+mul	61
+wai	62
+swi	63
+nega	64
+coma	67
+lsra	68
+rora	70
+asra	71
+asla	72
+rola	73
+deca	74
+inca	76
+tsta	77
+hcf1	78
+clra	79
+negb	80
+comb	83
+lsrb	84
+rorb	86
+asrb	87
+aslb	88
+rolb	89
+decb	90
+incb	92
+tstb	93
+hcf2	94
+clrb	95
+neg.x	96
+com.x	99
+lsr.x	100
+ror.x	102
+asr.x	103
+asl.x	104
+rol.x	105
+dec.x	106
+inc.x	108
+tst.x	109
+jmp.x	110
+clr.x	111
+neg.e	112
+com.e	115
+lsr.e	116
+ror.e	118
+asr.e	119
+asl.e	120
+rol.e	121
+dec.e	122
+inc.e	124
+tst.e	125
+jmp.e	126
+clr.e	127
+suba.i	128
+cmpa.i	129
+sbca.i	130
+subd.i	131
+anda.i	132
+bita.i	133
+ldaa.i	134
+eora.i	136
+adca.i	137
+oraa.i	138
+adda.i	139
+cpx.i	140
+bsr	141
+lds.i	142
+suba.d	144
+cmpa.d	145
+sbca.d	146
+subd.d	147
+anda.d	148
+bita.d	149
+ldaa.d	150
+staa.d	151
+eora.d	152
+adca.d	153
+oraa.d	154
+adda.d	155
+cpx.d	156
+jsr.d	157
+lds.d	158
+sts.d	159
+suba.x	160
+cmpa.x	161
+sbca.x	162
+subd.x	163
+anda.x	164
+bita.x	165
+ldaa.x	166
+staa.x	167
+eora.x	168
+adca.x	169
+oraa.x	170
+adda.x	171
+cpx.x	172
+jsr.x	173
+lds.x	174
+sts.x	175
+suba.e	176
+cmpa.e	177
+sbca.e	178
+subd.e	179
+anda.e	180
+bita.e	181
+ldaa.e	182
+staa.e	183
+eora.e	184
+adca.e	185
+oraa.e	186
+adda.e	187
+cpx.e	188
+jsr.e	189
+lds.e	190
+sts.e	191
+subb.i	192
+cmpb.i	193
+sbcb.i	194
+addd.i	195
+andb.i	196
+bitb.i	197
+ldab.i	198
+eorb.i	200
+adcb.i	201
+orab.i	202
+addb.i	203
+ldd.i	204
+ldx.i	206
+subb.d	208
+cmpb.d	209
+sbcb.d	210
+addd.d	211
+andb.d	212
+bitb.d	213
+ldab.d	214
+stab.d	215
+eorb.d	216
+adcb.d	217
+orab.d	218
+addb.d	219
+ldd.d	220
+std.d	221
+ldx.d	222
+stx.d	223
+subb.x	224
+cmpb.x	225
+sbcb.x	226
+addd.x	227
+andb.x	228
+bitb.x	229
+ldab.x	230
+stab.x	231
+eorb.x	232
+adcb.x	233
+orab.x	234
+addb.x	235
+ldd.x	236
+std.x	237
+ldx.x	238
+stx.x	239
+subb.e	240
+cmpb.e	241
+sbcb.e	242
+addd.e	243
+andb.e	244
+bitb.e	245
+ldab.e	246
+stab.e	247
+eorb.e	248
+adcb.e	249
+orab.e	250
+addb.e	251
+ldd.e	252
+std.e	253
+ldx.e	254
+stx.e	255
+p1ddr	0
+/p1ddr	0
+\p1ddr	0
+p2ddr	1
+/p2ddr	1
+\p2ddr	0
+p1	2
+/p1	2
+\p1	0
+p2	3
+/p2	3
+\p2	0
+p3ddr	4
+/p3ddr	4
+\p3ddr	0
+p4ddr	5
+/p4ddr	5
+\p4ddr	0
+p3	6
+/p3	6
+\p3	0
+p4	7
+/p4	7
+\p4	0
+tcsr	8
+/tcsr	8
+\tcsr	0
+th	9
+/th	9
+\th	0
+timer	9
+/timer	9
+\timer	0
+tl	10
+/tl	10
+\tl	0
+ocrh	11
+/ocrh	11
+\ocrh	0
+outcmp	11
+/outcmp	11
+\outcmp	0
+ocrl	12
+/ocrl	12
+\ocrl	0
+icrh	13
+/icrh	13
+\icrh	0
+icrl	14
+/icrl	14
+\icrl	0
+p3csr	15
+/p3csr	15
+\p3csr	0
+rmcr	16
+/rmcr	16
+\rmcr	0
+trcsr	17
+/trcsr	17
+\trcsr	0
+rd	18
+/rd	18
+\rd	0
+td	19
+/td	19
+\td	0
+ramcr	20
+/ramcr	20
+\ramcr	0
+epromcr	20
+/epromcr	20
+\epromcr	0
+mcr	20
+/mcr	20
+\mcr	0
+cah	21
+/cah	21
+\cah	0
+cal	22
+/cal	22
+\cal	0
+tcr1	23
+/tcr1	23
+\tcr1	0
+tcr2	24
+/tcr2	24
+\tcr2	0
+tsr	25
+/tsr	25
+\tsr	0
+ocr2h	26
+/ocr2h	26
+\ocr2h	0
+ocr2l	27
+/ocr2l	27
+\ocr2l	0
+ocr3h	28
+/ocr3h	28
+\ocr3h	0
+ocr3l	29
+/ocr3l	29
+\ocr3l	0
+icr2h	30
+/icr2h	30
+\icr2h	0
+icr2l	31
+/icr2l	31
+\icr2l	0
+SHAR_EOF
+if test 2985 -ne "`wc -c < '6801/predef'`"
+then
+	echo shar: error transmitting "'6801/predef'" '(should have been 2985 characters)'
+fi
+fi
+echo shar: extracting "'6801/reggen'" '(208 characters)'
+if test -f '6801/reggen'
+then
+	echo shar: will not over-write existing file "'6801/reggen'"
+else
+cat << \SHAR_EOF > '6801/reggen'
+# Program to generate register definitions for 6801.
+BEGIN { regno = 0 }
+{
+	if ($0 != "")
+		for (i = 1; i <= NF; i++) {
+			print $i "\t" regno
+			print "/" $i "\t" regno
+			print "\\" $i "\t0"
+		}
+	regno++
+}
+SHAR_EOF
+if test 208 -ne "`wc -c < '6801/reggen'`"
+then
+	echo shar: error transmitting "'6801/reggen'" '(should have been 208 characters)'
+fi
+fi
+echo shar: extracting "'6801/Makefile'" '(88 characters)'
+if test -f '6801/Makefile'
+then
+	echo shar: will not over-write existing file "'6801/Makefile'"
+else
+cat << \SHAR_EOF > '6801/Makefile'
+predef:	6801.ops 6801.regs
+	( awk -f opgen 6801.ops ; awk -f reggen 6801.regs ) >predef
+SHAR_EOF
+if test 88 -ne "`wc -c < '6801/Makefile'`"
+then
+	echo shar: error transmitting "'6801/Makefile'" '(should have been 88 characters)'
+fi
+fi
+echo shar: done with directory "'6801'"
+if test ! -d '6809'
+then
+	echo shar: creating directory "'6809'"
+	mkdir '6809'
+fi
+echo shar: extracting "'6809/6809.ops'" '(1408 characters)'
+if test -f '6809/6809.ops'
+then
+	echo shar: will not over-write existing file "'6809/6809.ops'"
+else
+cat << \SHAR_EOF > '6809/6809.ops'
+neg.d
+
+
+com.d
+lsr.d
+
+ror.d
+asr.d
+asl.d lsl.d
+rol.d
+dec.d
+
+inc.d
+tst.d
+jmp.d
+clr.d
+pag2
+pag3
+nop
+sync
+
+
+lbra.r
+lbsr.r
+
+daa
+orcc.i
+
+andcc.i
+sex
+exg
+tfr
+bra
+brn
+bhi
+bls
+bhs bcc
+blo bcs
+bne
+beq
+bvc
+bvs
+bpl
+bmi
+bge
+blt
+bgt
+ble
+leax.x
+leay.x
+leas.x
+leau.x
+pshs
+puls
+pshu
+pulu
+
+rts
+abx
+rti
+cwai
+mul
+
+swi
+nega
+
+
+coma
+lsra
+
+rora
+asra
+asla lsla
+rola
+deca
+
+inca
+tsta
+
+clra
+negb
+
+
+comb
+lsrb
+
+rorb
+asrb
+aslb lslb
+rolb
+decb
+
+incb
+tstb
+
+clrb
+neg.x
+
+
+com.x
+lsr.x
+
+ror.x
+asr.x
+asl.x lsl.x
+rol.x
+dec.x
+
+inc.x
+tst.x
+jmp.x
+clr.x
+neg.e
+
+
+com.e
+lsr.e
+
+ror.e
+asr.e
+asl.e lsl.e
+rol.e
+dec.e
+
+inc.e
+tst.e
+jmp.e
+clr.e
+suba.i
+cmpa.i
+sbca.i
+subd.i
+anda.i
+bita.i
+lda.i
+
+eora.i
+adca.i
+ora.i
+adda.i
+cmpx.i
+bsr
+ldx.i
+
+suba.d
+cmpa.d
+sbca.d
+subd.d
+anda.d
+bita.d
+lda.d
+sta.d
+eora.d
+adca.d
+ora.d
+adda.d
+cmpx.d
+jsr.d
+ldx.d
+stx.d
+suba.x
+cmpa.x
+sbca.x
+subd.x
+anda.x
+bita.x
+lda.x
+sta.x
+eora.x
+adca.x
+ora.x
+adda.x
+cmpx.x
+jsr.x
+ldx.x
+stx.x
+suba.e
+cmpa.e
+sbca.e
+subd.e
+anda.e
+bita.e
+lda.e
+sta.e
+eora.e
+adca.e
+ora.e
+adda.e
+cmpx.e
+jsr.e
+ldx.e
+stx.e
+subb.i
+cmpb.i
+sbcb.i
+addd.i
+andb.i
+bitb.i
+ldb.i
+
+eorb.i
+adcb.i
+orb.i
+addb.i
+ldd.i
+
+ldu.i
+
+subb.d
+cmpb.d
+sbcb.d
+addd.d
+andb.d
+bitb.d
+ldb.d
+stb.d
+eorb.d
+adcb.d
+orb.d
+addb.d
+ldd.d
+std.d
+ldu.d
+stu.d
+subb.x
+cmpb.x
+sbcb.x
+addd.x
+andb.x
+bitb.x
+ldb.x
+stb.x
+eorb.x
+adcb.x
+orb.x
+addb.x
+ldd.x
+std.x
+ldu.x
+stu.x
+subb.e
+cmpb.e
+sbcb.e
+addd.e
+andb.e
+bitb.e
+ldb.e
+stb.e
+eorb.e
+adcb.e
+orb.e
+addb.e
+ldd.e
+std.e
+ldu.e
+stu.e
+SHAR_EOF
+if test 1408 -ne "`wc -c < '6809/6809.ops'`"
+then
+	echo shar: error transmitting "'6809/6809.ops'" '(should have been 1408 characters)'
+fi
+fi
+echo shar: extracting "'6809/6809.opsup'" '(468 characters)'
+if test -f '6809/6809.opsup'
+then
+	echo shar: will not over-write existing file "'6809/6809.opsup'"
+else
+cat << \SHAR_EOF > '6809/6809.opsup'
+lbrn	33
+lbhi	34
+lbls	35
+lbhs	36
+lbcc	36
+lbcs	37
+lblo	37
+lbne	38
+lbeq	39
+lbvc	40
+lbvs	41
+lbpl	42
+lbmi	43
+lbge	44
+lblt	45
+lbgt	46
+lble	47
+swi2	63
+cmpd.i	131
+cmpy.i	140
+ldy.i	142
+cmpd.d	147
+cmpy.d	156
+ldy.d	158
+sty.d	159
+cmpd.x	163
+cmpy.x	172
+ldy.x	174
+sty.x	175
+cmpd.e	179
+cmpy.e	188
+ldy.e	190
+sty.e	191
+lds.i	206
+lds.d	222
+sts.d	223
+lds.x	238
+sts.x	239
+lds.e	254
+sts.e	255
+swi3	63
+cmpu.i	131
+cmps.i	140
+cmpu.d	147
+cmps.d	156
+cmpu.x	163
+cmps.x	172
+cmpu.e	179
+cmps.e	188
+SHAR_EOF
+if test 468 -ne "`wc -c < '6809/6809.opsup'`"
+then
+	echo shar: error transmitting "'6809/6809.opsup'" '(should have been 468 characters)'
+fi
+fi
+echo shar: extracting "'6809/card'" '(1367 characters)'
+if test -f '6809/card'
+then
+	echo shar: will not over-write existing file "'6809/card'"
+else
+cat << \SHAR_EOF > '6809/card'
+#m 6809	what machine this is for (first line only)
+#foo	comment
+x;y	two successive bytes
+x y	two successive bytes
+07	octal
+0x7	hex
+'c	character constant
+'\n	ditto
+foo:	label
+x=100	definition (numbers only)
+.=100	setting location counter (numbers only)
+.=.+5	bumping location counter (numbers only)
+.text	what it says
+.data	ditto
+.bss	ditto
+=thing	two-byte constant
+/thing	lower byte of 16-bit thing
+\thing	upper byte of 16-bit thing
+%thing	lower byte of 16-bit thing as an offset relative to PC
+%%thing	upper byte of 16-bit thing as an offset relative to PC
+%f(xyz)	condition-code flags literal (all = *)
+%r(xyz)	register mask for psh/pul (pc = p, dpr = z, ccr = c, all of them = *)
+x->y	register pair for tfr
+x<-y	register pair for tfr
+x<->y	register pair for exg
+15(x)	index postbyte, 5-bit offset (cannot be a defined symbol, sorry)
+_(x)	index postbyte, 8-bit offset follows
+@_(x)	index postbyte, 8-bit offset follows, indirect
+__(x)	index postbyte, 16-bit offset follows
+(x)	index postbyte, register indirect
+-y	index postbyte, register autodecrement
+--y	index postbyte, register autodecrement by 2
+y+	index postbyte, register autoincrement
+y++	index postbyte, register autoincrement by 2
+a(y)	index postbyte, offset in A
+_(.)	index postbyte, 8-bit offset from PC follows
+__(.)	index postbyte, 16-bit offset from PC follows
+(__)	index postbyte, indirect extended
+SHAR_EOF
+if test 1367 -ne "`wc -c < '6809/card'`"
+then
+	echo shar: error transmitting "'6809/card'" '(should have been 1367 characters)'
+fi
+fi
+echo shar: extracting "'6809/final'" '(1299 characters)'
+if test -f '6809/final'
+then
+	echo shar: will not over-write existing file "'6809/final'"
+else
+cat << \SHAR_EOF > '6809/final'
+# Final postprocessing, to handle high/low byte-extraction operators,
+# and compute PC-relative offsets.  The only thing that is really
+# machine-dependent here is the pcbias's, which reflect the difference
+# between the location of an offset byte and the PC which should be
+# used in computing it (i.e., how far ahead the PC is by the time the
+# byte is used to alter the PC).
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	pcbiaslo = 1
+	pcbiashi = 2
+	if (pcbiaslo > pcbiashi)
+		pcbiasmax = pcbiaslo
+	else
+		pcbiasmax = pcbiashi
+}
+{
+	if ($2 == "") {			# Number or something, not symbol.
+		if ($3 ~ /^\/[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it%256 + 0.001), "# " $3
+		} else if ($3 ~ /^\\[0-9]/) {
+			it = substr($3, 2);
+			while (it < 0)
+				it += 65536
+			print $1, int(it/256 + 0.001), "# " $3
+		} else
+			print $1, $3
+	} else if ($2 ~ /^[0-9]+$/)	# Symbol, ordinary value.
+		print $1, $2, "# " $3
+	else if ($2 ~ /%$/) {		# Symbol, PC-relative value.
+		base = substr($1, 1, length($1)-1)
+		it = substr($2, 2, length($2)-2)
+		p = it - base
+		while (p < pcbiasmax)
+			p += 65536
+		if ($2 ~ /^\//)
+			print $1, int((p - pcbiaslo)%256 + 0.001), "# " $3
+		else
+			print $1, int((p - pcbiashi)/256 + 0.001), "# " $3
+	} else				# Something else.
+		print $1, $2, "# " $3
+}
+SHAR_EOF
+if test 1299 -ne "`wc -c < '6809/final'`"
+then
+	echo shar: error transmitting "'6809/final'" '(should have been 1299 characters)'
+fi
+fi
+echo shar: extracting "'6809/notn'" '(3227 characters)'
+if test -f '6809/notn'
+then
+	echo shar: will not over-write existing file "'6809/notn'"
+else
+cat << \SHAR_EOF > '6809/notn'
+# Main preprocessing, handling 6809-specific notation (mostly postbytes,
+# notably indexed-mode addressing formulations but also things like register
+# masks) as well as some more-or-less machine-independent odds and ends
+# (two-byte constants (note byte order known)).
+BEGIN {
+	# Bit names for condition-code postbyte.
+	flags["e"] = 128
+	flags["f"] = 64
+	flags["h"] = 32
+	flags["i"] = 16
+	flags["n"] = 8
+	flags["z"] = 4
+	flags["v"] = 2
+	flags["c"] = 1
+	flags["*"] = 255
+	# Bit names for register-mask postbyte.
+	regs["p"] = 128			# pc
+	regs["s"] = 64
+	regs["u"] = 64
+	regs["y"] = 32
+	regs["x"] = 16
+	regs["z"] = 8			# dp
+	regs["b"] = 4
+	regs["a"] = 2
+	regs["c"] = 1			# cc
+	regs["d"] = 4+2
+	regs["*"] = 255
+	# Register numbers for tfr/exg postbyte.
+	tfrexg["d"] = 0
+	tfrexg["x"] = 1
+	tfrexg["y"] = 2
+	tfrexg["u"] = 3
+	tfrexg["s"] = 4
+	tfrexg["p"] = 5
+	tfrexg["a"] = 8
+	tfrexg["b"] = 9
+	tfrexg["c"] = 10
+	tfrexg["z"] = 11
+	# Register codes for index postbyte.
+	ireg["x"] = 0
+	ireg["y"] = 32
+	ireg["u"] = 64
+	ireg["s"] = 96
+	# Postbyte codes for offset indexed addressing modes.
+	ioff["a"] = 128 + 6
+	ioff["b"] = 128 + 5
+	ioff["d"] = 128 + 11
+	ioff["_"] = 128 + 8		# 8-bit offset follows.
+}
+/^%f\(.*\)$/ {			# Flags postbyte.
+	total = 0
+	for (i = length-1; i > 2; i--)
+		total += flags[substr($0, i, 1)]
+	print total
+	next
+}
+/^%r\(.*\)$/ {			# Register-mask postbyte.
+	total = 0
+	for (i = length-1; i > 2; i--)
+		total += regs[substr($0, i, 1)]
+	print total
+	next
+}
+/^.->.$/ {			# Tfr postbyte.
+	print tfrexg[substr($0, 1, 1)]*16 + tfrexg[substr($0, 4, 1)]
+	next
+}
+/^.<-.$/ {			# Tfr postbyte, alternate form.
+	print tfrexg[substr($0, 1, 1)] + tfrexg[substr($0, 4, 1)]*16
+	next
+}
+/^.<->.$/ {			# Exg postbyte.
+	print tfrexg[substr($0, 1, 1)]*16 + tfrexg[substr($0, 5, 1)]
+	next
+}
+/^-?[1-9][0-9]*\([xyus]\)$/ {	# Index postbyte, 5-bit offset.
+	offset = substr($0, 1, length-3)
+	if (offset < 0)
+		offset += 64
+	print offset + ireg[substr($0, length-1, 1)]
+	next
+}
+/^@/ { i = 16 }			# Indirect modifier for rest of index modes.
+/^[^@]/ { i = 0 }		# No indirect modifier.
+/^-[xyus]$/ {			# Autodecrement by 1, no indirection allowed.
+	print 128 + 2 + ireg[substr($0, length, 1)]
+	next
+}
+/^@?--[xyus]$/ {		# Autodecrement by 2.
+	print 128 + 3 + ireg[substr($0, length, 1)] + i
+	next
+}
+/^[xyus]\+$/ {			# Autoincrement by 1, no indirection allowed.
+	print 128 + ireg[substr($0, 0, 1)]
+	next
+}
+/^@?[xyus]\+\+$/ {		# Autoincrement by 2.
+	print 128 + 1 + ireg[substr($0, length-2, 1)] + i
+	next
+}
+/^@?\([xyus]\)$/ {		# Address in register, no offset.
+	print 128 + 4 + ireg[substr($0, length-1, 1)] + i
+	next
+}
+/^@?[abd_]\([xyus]\)$/ {	# Register offset or 8-bit offset.
+	print ioff[substr($0, length-3, 1)] + ireg[substr($0, length-1, 1)] + i
+	next
+}
+/^@?__\([xyus]\)$/ {		# 16-bit offset.
+	print 128 + 9 + ireg[substr($0, length-1, 1)] + i
+	next
+}
+/^\(__\)$/ {			# Indirect extended, no further indirection.
+	print 128 + 31
+	next
+}
+/^@?_\(\.\)$/ {			# 8-bit offset from PC.
+	print 128 + 12 + i
+	next
+}
+/^@?__\(\.\)$/ {		# 16-bit offset from PC.
+	print 128 + 13 + i
+	next
+}
+/^=/ {				# Two-byte constant, in proper byte order.
+	print "\\" substr($0, 2)
+	print "/" substr($0, 2)
+	next
+}
+/./ { print }			# Something else, leave untouched.
+SHAR_EOF
+if test 3227 -ne "`wc -c < '6809/notn'`"
+then
+	echo shar: error transmitting "'6809/notn'" '(should have been 3227 characters)'
+fi
+fi
+echo shar: extracting "'6809/opgen'" '(134 characters)'
+if test -f '6809/opgen'
+then
+	echo shar: will not over-write existing file "'6809/opgen'"
+else
+cat << \SHAR_EOF > '6809/opgen'
+# Tool for building 6809 opcode list.
+BEGIN { opno = 0 }
+{
+	if ($0 != "")
+		for (i = 1; i <= NF; i++)
+			print $i "\t" opno
+	opno++
+}
+SHAR_EOF
+if test 134 -ne "`wc -c < '6809/opgen'`"
+then
+	echo shar: error transmitting "'6809/opgen'" '(should have been 134 characters)'
+fi
+fi
+echo shar: extracting "'6809/predef'" '(2672 characters)'
+if test -f '6809/predef'
+then
+	echo shar: will not over-write existing file "'6809/predef'"
+else
+cat << \SHAR_EOF > '6809/predef'
+neg.d	0
+com.d	3
+lsr.d	4
+ror.d	6
+asr.d	7
+asl.d	8
+lsl.d	8
+rol.d	9
+dec.d	10
+inc.d	12
+tst.d	13
+jmp.d	14
+clr.d	15
+pag2	16
+pag3	17
+nop	18
+sync	19
+lbra.r	22
+lbsr.r	23
+daa	25
+orcc.i	26
+andcc.i	28
+sex	29
+exg	30
+tfr	31
+bra	32
+brn	33
+bhi	34
+bls	35
+bhs	36
+bcc	36
+blo	37
+bcs	37
+bne	38
+beq	39
+bvc	40
+bvs	41
+bpl	42
+bmi	43
+bge	44
+blt	45
+bgt	46
+ble	47
+leax.x	48
+leay.x	49
+leas.x	50
+leau.x	51
+pshs	52
+puls	53
+pshu	54
+pulu	55
+rts	57
+abx	58
+rti	59
+cwai	60
+mul	61
+swi	63
+nega	64
+coma	67
+lsra	68
+rora	70
+asra	71
+asla	72
+lsla	72
+rola	73
+deca	74
+inca	76
+tsta	77
+clra	79
+negb	80
+comb	83
+lsrb	84
+rorb	86
+asrb	87
+aslb	88
+lslb	88
+rolb	89
+decb	90
+incb	92
+tstb	93
+clrb	95
+neg.x	96
+com.x	99
+lsr.x	100
+ror.x	102
+asr.x	103
+asl.x	104
+lsl.x	104
+rol.x	105
+dec.x	106
+inc.x	108
+tst.x	109
+jmp.x	110
+clr.x	111
+neg.e	112
+com.e	115
+lsr.e	116
+ror.e	118
+asr.e	119
+asl.e	120
+lsl.e	120
+rol.e	121
+dec.e	122
+inc.e	124
+tst.e	125
+jmp.e	126
+clr.e	127
+suba.i	128
+cmpa.i	129
+sbca.i	130
+subd.i	131
+anda.i	132
+bita.i	133
+lda.i	134
+eora.i	136
+adca.i	137
+ora.i	138
+adda.i	139
+cmpx.i	140
+bsr	141
+ldx.i	142
+suba.d	144
+cmpa.d	145
+sbca.d	146
+subd.d	147
+anda.d	148
+bita.d	149
+lda.d	150
+sta.d	151
+eora.d	152
+adca.d	153
+ora.d	154
+adda.d	155
+cmpx.d	156
+jsr.d	157
+ldx.d	158
+stx.d	159
+suba.x	160
+cmpa.x	161
+sbca.x	162
+subd.x	163
+anda.x	164
+bita.x	165
+lda.x	166
+sta.x	167
+eora.x	168
+adca.x	169
+ora.x	170
+adda.x	171
+cmpx.x	172
+jsr.x	173
+ldx.x	174
+stx.x	175
+suba.e	176
+cmpa.e	177
+sbca.e	178
+subd.e	179
+anda.e	180
+bita.e	181
+lda.e	182
+sta.e	183
+eora.e	184
+adca.e	185
+ora.e	186
+adda.e	187
+cmpx.e	188
+jsr.e	189
+ldx.e	190
+stx.e	191
+subb.i	192
+cmpb.i	193
+sbcb.i	194
+addd.i	195
+andb.i	196
+bitb.i	197
+ldb.i	198
+eorb.i	200
+adcb.i	201
+orb.i	202
+addb.i	203
+ldd.i	204
+ldu.i	206
+subb.d	208
+cmpb.d	209
+sbcb.d	210
+addd.d	211
+andb.d	212
+bitb.d	213
+ldb.d	214
+stb.d	215
+eorb.d	216
+adcb.d	217
+orb.d	218
+addb.d	219
+ldd.d	220
+std.d	221
+ldu.d	222
+stu.d	223
+subb.x	224
+cmpb.x	225
+sbcb.x	226
+addd.x	227
+andb.x	228
+bitb.x	229
+ldb.x	230
+stb.x	231
+eorb.x	232
+adcb.x	233
+orb.x	234
+addb.x	235
+ldd.x	236
+std.x	237
+ldu.x	238
+stu.x	239
+subb.e	240
+cmpb.e	241
+sbcb.e	242
+addd.e	243
+andb.e	244
+bitb.e	245
+ldb.e	246
+stb.e	247
+eorb.e	248
+adcb.e	249
+orb.e	250
+addb.e	251
+ldd.e	252
+std.e	253
+ldu.e	254
+stu.e	255
+lbrn	33
+lbhi	34
+lbls	35
+lbhs	36
+lbcc	36
+lbcs	37
+lblo	37
+lbne	38
+lbeq	39
+lbvc	40
+lbvs	41
+lbpl	42
+lbmi	43
+lbge	44
+lblt	45
+lbgt	46
+lble	47
+swi2	63
+cmpd.i	131
+cmpy.i	140
+ldy.i	142
+cmpd.d	147
+cmpy.d	156
+ldy.d	158
+sty.d	159
+cmpd.x	163
+cmpy.x	172
+ldy.x	174
+sty.x	175
+cmpd.e	179
+cmpy.e	188
+ldy.e	190
+sty.e	191
+lds.i	206
+lds.d	222
+sts.d	223
+lds.x	238
+sts.x	239
+lds.e	254
+sts.e	255
+swi3	63
+cmpu.i	131
+cmps.i	140
+cmpu.d	147
+cmps.d	156
+cmpu.x	163
+cmps.x	172
+cmpu.e	179
+cmps.e	188
+SHAR_EOF
+if test 2672 -ne "`wc -c < '6809/predef'`"
+then
+	echo shar: error transmitting "'6809/predef'" '(should have been 2672 characters)'
+fi
+fi
+echo shar: extracting "'6809/Makefile'" '(140 characters)'
+if test -f '6809/Makefile'
+then
+	echo shar: will not over-write existing file "'6809/Makefile'"
+else
+cat << \SHAR_EOF > '6809/Makefile'
+predef:	6809.ops 6809.opsup
+	( awk -f opgen 6809.ops ; cat 6809.opsup ) >predef
+
+pdcheck:	predef
+	awk '{print $$1}' predef | sort | uniq -d
+SHAR_EOF
+if test 140 -ne "`wc -c < '6809/Makefile'`"
+then
+	echo shar: error transmitting "'6809/Makefile'" '(should have been 140 characters)'
+fi
+fi
+echo shar: done with directory "'6809'"
+exit 0
+#	End of shell archive

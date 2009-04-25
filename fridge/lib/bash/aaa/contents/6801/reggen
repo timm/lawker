@@ -1,0 +1,11 @@
+# Program to generate register definitions for 6801.
+BEGIN { regno = 0 }
+{
+	if ($0 != "")
+		for (i = 1; i <= NF; i++) {
+			print $i "\t" regno
+			print "/" $i "\t" regno
+			print "\\" $i "\t0"
+		}
+	regno++
+}
