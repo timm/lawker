@@ -13,17 +13,17 @@ doc/who/arnoldr.html		;ArnoldR	;2009	;Feb;Who	;|Arnold Robbins
 doc/who/steffen.html		;Steffen	;2009	;Feb ;Who	;|Steffen Schuler
 doc/who/greatauk.html		;Timm	;2009	;Feb	;Who	;|Great Auks
 
-doc/advocacy.html			;Timm	;2009	;Jan	;Misc	;|Advocacy
+doc/advocacy.html			;Timm	;2009	;Jan	;WhyAwk ;Misc	;|Advocacy
 doc/community.html			;Timm	;2009	;Jan	;Misc	;|Community
 doc/contact.html			;Timm	;2009	;Jan	;Misc	;|Contact
 doc/index.html				;Timm	;2009	;Jan	;Misc	;|Awk.info
 doc/code.html				;Timm	;2009	;Jan	;Misc	;|Coding
 doc/mascot.html				;Timm	;2009	;Jan	;Misc	;Mascot	;|Mascot
-doc/awk4ai.html				;Ronl	;2009	;Jan	;Misc;	Top10	;|Awk for AI
-doc/praise.html				;Ronl	;2009	;Apr	;Misc;	Top10	;|In praise of scripting
+doc/awk4ai.html				;Ronl	;2009	;Jan	;WhyAwk	;Misc;	Top10	;|Awk for AI
+doc/praise.html				;Ronl	;2009	;Apr	 ;WhyAwk	;Misc;	Top10	;|In praise of scripting
 doc/history.html			;Timm	;2009	;Jan	;Misc	;|History
-doc/whygawk.html			;Timm	;2009	;Jan	;Misc	;|Why Gawk?
-
+doc/whygawk.html			;Timm	;2009	;Jan 	;WhyAwk	;Misc	;|Why Gawk?
+doc/awksys.html				;HenryS ;2009 ;Apr	;WhAwk ;|Awk for system programming
 doc/games.html				;Timm  ;2009  ;Apr    ;Games  ;|Awk Games 
 doc/story.html				;BrianK	;2009	;Mar	;TenLiners	;Top10 ;Games  ;|Writing SciFi 
 doc/montyhall.html			;DonaldM	;2009	;Mar	;TenLiners	 	;|Monty Hall Problem

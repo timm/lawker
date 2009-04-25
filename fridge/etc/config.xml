@@ -253,6 +253,7 @@ pageTracker._trackPageview();
 	<file where="doc/advocacy.html">
 		<title>Advocacy</title>
 		<what>Misc</what>
+		<what>WhyAwk</what>
 		<what>Jan</what>
 		<what>2009</what>
 		<what>Timm</what>
@@ -297,6 +298,7 @@ pageTracker._trackPageview();
 		<title>Awk for AI</title>
 		<what>Top10</what>
 		<what>Misc</what>
+		<what>WhyAwk</what>
 		<what>Jan</what>
 		<what>2009</what>
 		<what>Ronl</what>
@@ -305,6 +307,7 @@ pageTracker._trackPageview();
 		<title>In praise of scripting</title>
 		<what>Top10</what>
 		<what>Misc</what>
+		<what>WhyAwk</what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>Ronl</what>
@@ -319,9 +322,17 @@ pageTracker._trackPageview();
 	<file where="doc/whygawk.html">
 		<title>Why Gawk?</title>
 		<what>Misc</what>
+		<what>WhyAwk</what>
 		<what>Jan</what>
 		<what>2009</what>
 		<what>Timm</what>
+	</file>
+	<file where="doc/awksys.html">
+		<title>Awk for system programming</title>
+		<what>WhAwk</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>HenryS</what>
 	</file>
 	<file where="doc/games.html">
 		<title>Awk Games</title>
