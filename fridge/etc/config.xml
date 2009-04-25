@@ -405,6 +405,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/interpreters.html">
+		<title>Interpreters</title>
+		<what></what>
+		<what>Interpreters</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/dsl.html">
 		<title>Domain-Specific Langauges</title>
 		<what>Dsl</what>
@@ -461,7 +469,7 @@ pageTracker._trackPageview();
 		<what>Jimh</what>
 	</file>
 	<file where="doc/awkastar.html">
-		<title>Build Interpreters</title>
+		<title>Building Interpreters with A*</title>
 		<what>Interpreters</what>
 		<what>Apr</what>
 		<what>2009</what>

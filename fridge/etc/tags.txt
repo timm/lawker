@@ -36,6 +36,7 @@ doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;| Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;| Quicksort2
 
 doc/wp.html					;Timm	;2009	;Apr	;Wp					;|Word-processing in Awk
+doc/interpreters.html			;Timm	;2009	;Apr			;Interpreters; ;|Interpreters
 
 doc/dsl.html				;Timm	;2009	;Mar	;Dsl	;|Domain-Specific Langauges
 doc/dsl/graph.html			;AlfredA	;PeterW	;BrianK	;2009	;Mar	;Dsl	;|Graph
@@ -43,7 +44,7 @@ doc/dsl/awklisp.html		;DariusB	;2009	;Mar	;Dsl	;Interpreters ;AwkLisp	;Top10;Eli
 doc/awk100/aaa.html			;HenryS	;2009	;Apr	;Dsl		;Interpreters; Top10; ;Awk100 ;|Amazing Awk Assembler
 doc/dsl/markdown.html		;JesusG	;2009	;Mar	;Dsl	;Wp ;Top10	;|Markdown
 doc/dsl/awkplusplus.html	;Jimh	;2009	;Mar	;Dsl	;Awk100	;|Awk++
-doc/awkastar.html	;DavidL	;2009	;Apr	;Interpreters		;|Build Interpreters
+doc/awkastar.html	;DavidL	;2009	;Apr	;Interpreters		;|Building Interpreters with A*
 
 doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk 
 doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
