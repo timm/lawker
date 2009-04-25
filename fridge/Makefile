@@ -37,7 +37,8 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/readminds.html\
     	$(Doc)/s2a.html\
     	$(Doc)/spam.html\
-    	$(Doc)/eliza.html 
+    	$(Doc)/eliza.html\
+    	$(Doc)/mastermind.html 
 
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
@@ -45,23 +46,13 @@ awkpp :
 $(Doc)/spam.html : $(Ksh)/spam.ksh
 	cd $(Ksh) && $(Awk2Html)
 
-$(Doc)/story.html : $(Awklib)/grammar/story.awk 
-	cd $(Awklib)/grammar && $(Awk2Html)
-	    
-$(Doc)/eliza.html : $(Awklib)/eliza.awk
-	cd $(Awklib) && $(Awk2Html)
-	    
-$(Doc)/s2a.html : $(Awklib)/s2a.awk
-	cd $(Awklib) && $(Awk2Html)
-	    
-$(Doc)/readminds.html : $(Awklib)/readminds.awk
-	cd $(Awklib) && $(Awk2Html)
-	    
-$(Doc)/hanoi.html : $(Awklib)/hanoi.awk
-	cd $(Awklib) && $(Awk2Html)
-	    
-$(Doc)/tools/m1.html : $(Awklib)/m1.awk
-	cd $(Awklib) && $(Awk2Html)
+$(Doc)/story.html      : $(Awklib)/grammar/story.awk ; cd $(Awklib)/grammar && $(Awk2Html)
+$(Doc)/eliza.html      : $(Awklib)/eliza.awk         ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/mastermind.html : $(Awklib)/mastermind.awk    ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/s2a.html        : $(Awklib)/s2a.awk           ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/readminds.html  : $(Awklib)/readminds.awk     ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/hanoi.html      : $(Awklib)/hanoi.awk         ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/m1.html   : $(Awklib)/m1.awk            ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/mailsort.html : $(Awklib)/mailsort.awk
 	cd $(Awklib) && $(Awk2Html)

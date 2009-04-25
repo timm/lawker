@@ -322,6 +322,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/story.html">
 		<title>Writing SciFi</title>
+		<what>Games</what>
 		<what>Top10</what>
 		<what>TenLiners</what>
 		<what>Mar</what>
@@ -345,6 +346,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/eliza.html">
 		<title>Eliza</title>
+		<what>Games</what>
 		<what>TenLiners</what>
 		<what>Eliza</what>
 		<what>Apr</what>
@@ -360,10 +362,19 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/readminds.html">
 		<title>How to Read Minds</title>
+		<what>Games</what>
 		<what>TenLiners</what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>Anon</what>
+	</file>
+	<file where="doc/mastermind.html">
+		<title>Mastermind</title>
+		<what>Games</what>
+		<what>TenLiners</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Ysa</what>
 	</file>
 	<file where="doc/wp.html">
 		<title>Word-processing in Awk</title>
@@ -718,6 +729,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/awk100/015soccer.html">
 		<title>Soccer</title>
+		<what>Games</what>
 		<what>Awk100</what>
 		<what>Apr</what>
 		<what>2009</what>

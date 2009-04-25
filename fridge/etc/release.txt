@@ -18,6 +18,8 @@ stop gaps:
 -------------------------------------------------------------------------------
 apr 25: 66666666666666666
 - awk100: the amazing awk assembler
+- new section: games in awk
+
 - new section on awk interpreters 
 	awk assembler, 
 	awklisp
