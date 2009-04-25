@@ -20,17 +20,17 @@
 #.H2 Code
 #.PRE
 BEGIN   { 
-	    recurse1 = "gawk -f quicksort2.awk #"  rand()
-		recurse2 = "gawk -f quicksort2.awk #"  rand()
-	    }
+         recurse1 = "gawk -f quicksort2.awk #"  rand()
+         recurse2 = "gawk -f quicksort2.awk #"  rand()
+        }
 NR == 1 { pivot=$0; next }
 NR > 1  { if($0 < pivot) print | recurse1
-		  if($0 > pivot) print | recurse2
-	    }
+          if($0 > pivot) print | recurse2
+        }
 END     { close(recurse1)
           if(NR > 0) print pivot
-	      close(recurse2)
-		}
+          close(recurse2)
+        }
 #./PRE
 #.H2 See also
 #.P
