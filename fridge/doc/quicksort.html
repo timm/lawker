@@ -1,0 +1,64 @@
+<h1><join> Quicksort.awk</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#5>Loading the data</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Sorting the data</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#7>See also</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#8>Authors</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<P> cat numbers | gawk -f quicksort1.awk</P>
+<a name=2></a><H2> Download</H2>
+<P>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/quicksort1.awk">LAWKER.</a>
+<a name=3></a><H2> Description</H2>
+<P>
+Some Awk implementations come with built in sort routines (e.g. Gawk's asort and asorti functions). But it
+can be useful to code these yourself, especially in you are doing data structure tricks.
+<P>
+Quicksort selects a pivot and divides the data into values above and below the pivot. Sorting then
+recurses on these sub-lists.
+<a name=4></a><H2> Code</H2>
+<a name=5></a><H3> Loading the data</H3>
+<PRE>
+BEGIN { RS = ""; FS = "\n" }
+      { A[NR] = $0 } 
+END {
+	qsort(A, 1, NR)
+	for (i = 1; i &lt;= NR; i++) {
+		print A[i]
+		if (i == NR) break
+		print ""
+	}
+}
+</PRE>
+<a name=6></a><H3> Sorting the data</H3>
+<PRE>
+function qsort(A, left, right,   i, last) {
+	if (left >= right)
+		return
+	swap(A, left, left+int((right-left+1)*rand()))
+	last = left
+	for (i = left+1; i &lt;= right; i++)
+		if (A[i] &lt; A[left])
+			swap(A, ++last, i)
+	swap(A, left, last)
+	qsort(A, left, last-1)
+	qsort(A, last+1, right)
+}
+function swap(A, i, j,   t) {
+	t = A[i]; A[i] = A[j]; A[j] = t
+}
+</PRE>
+<a name=7></a><H2> See also</H2>
+<P>
+<a href="http://awk.info/quicksort2.awk">quicksort2.awk</a>
+<a name=8></a><H2> Authors</H2>
+<P> Alfred Aho, Peter Weinberger, Brian Kernighan, 1988.</P>
+</div><!--- htmlbody --->

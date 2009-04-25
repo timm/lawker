@@ -31,12 +31,15 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/dsl/graph.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html \
+    	$(Doc)/awk100/aaa.html \
     	$(Doc)/hanoi.html \
     	$(Doc)/story.html \
     	$(Doc)/mailsort.html\
     	$(Doc)/readminds.html\
     	$(Doc)/s2a.html\
     	$(Doc)/spam.html\
+    	$(Doc)/quicksort.html\
+    	$(Doc)/quicksort2.html\
     	$(Doc)/eliza.html\
     	$(Doc)/mastermind.html 
 
@@ -52,6 +55,8 @@ $(Doc)/mastermind.html : $(Awklib)/mastermind.awk    ; cd $(Awklib) && $(Awk2Htm
 $(Doc)/s2a.html        : $(Awklib)/s2a.awk           ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/readminds.html  : $(Awklib)/readminds.awk     ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/hanoi.html      : $(Awklib)/hanoi.awk         ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/quicksort.html  : $(Awklib)/quicksort.awk     ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/quicksort2.html : $(Awklib)/quicksort2.awk    ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/m1.html   : $(Awklib)/m1.awk            ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/mailsort.html : $(Awklib)/mailsort.awk
@@ -59,6 +64,9 @@ $(Doc)/mailsort.html : $(Awklib)/mailsort.awk
 
 $(Doc)/awk100/spell.html : $(Awklib)/spell.awk
 	cd $(Awklib) && $(Awk2Html)
+
+$(Doc)/awk100/aaa.html : $(Bash)/aaa/contents/aaa.html
+	cp $< $@
 
 $(Doc)/gender.html : $(Awklib)/gender.awk
 	cd $(Awklib) && $(Awk2Html)
