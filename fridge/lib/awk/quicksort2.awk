@@ -20,8 +20,8 @@
 #.H2 Code
 #.PRE
 BEGIN   { 
-         recurse1 = "gawk -f quicksort2.awk #"  rand()
-         recurse2 = "gawk -f quicksort2.awk #"  rand()
+         recurse1 = "gawk -f quicksort2.awk #" rand()
+         recurse2 = "gawk -f quicksort2.awk #" rand()
         }
 NR == 1 { pivot=$0; next }
 NR > 1  { if($0 < pivot) print | recurse1
@@ -29,9 +29,13 @@ NR > 1  { if($0 < pivot) print | recurse1
         }
 END     { close(recurse1)
           if(NR > 0) print pivot
-          close(recurse2)
+	      close(recurse2)
         }
 #./PRE
+#.H2 Bugs
+#.P
+#The output ignores repeated input values. I thought it was a problem with repeating the name of the pipes (hence the "rand()" labelling)
+#but that did not fix the issues.
 #.H2 See also
 #.P
 #.URL http://awk.info/?quicksort quicksort.awk

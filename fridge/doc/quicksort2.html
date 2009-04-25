@@ -5,9 +5,10 @@
 <h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#5>See also</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#6>Copyright</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#7>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Bugs</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#6>See also</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#7>Copyright</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#8>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -31,8 +32,8 @@ to handle very big data sets.
 <a name=4></a><H2> Code</H2>
 <PRE>
 BEGIN   { 
-         recurse1 = "gawk -f quicksort2.awk #"  rand()
-         recurse2 = "gawk -f quicksort2.awk #"  rand()
+         recurse1 = "gawk -f quicksort2.awk #" rand()
+         recurse2 = "gawk -f quicksort2.awk #" rand()
         }
 NR == 1 { pivot=$0; next }
 NR > 1  { if($0 &lt; pivot) print | recurse1
@@ -40,13 +41,17 @@ NR > 1  { if($0 &lt; pivot) print | recurse1
         }
 END     { close(recurse1)
           if(NR > 0) print pivot
-          close(recurse2)
+	      close(recurse2)
         }
 </PRE>
-<a name=5></a><H2> See also</H2>
+<a name=5></a><H2> Bugs</H2>
+<P>
+The output ignores repeated input values. I thought it was a problem with repeating the name of the pipes (hence the "rand()" labelling)
+but that did not fix the issues.
+<a name=6></a><H2> See also</H2>
 <P>
 <a href="http://awk.info/?quicksort">quicksort.awk</a>
-<a name=6></a><H2> Copyright</H2>
+<a name=7></a><H2> Copyright</H2>
 <P>
  Copyright (c) 2009 by David Long.
 <P>
@@ -68,7 +73,7 @@ END     { close(recurse1)
  CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-<a name=7></a><H2> Author</H2>
+<a name=8></a><H2> Author</H2>
 <P>
 Original version: David Long, 2004. Tim Menzies added some modifications in 2009
 to call recursive Gawk pipes on both sides of the pivot.
