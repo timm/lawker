@@ -25,6 +25,8 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/indent.html \
 	    $(Doc)/tools/psrev.html \
 	    $(Doc)/tools/pschoose.html \
+	    $(Doc)/tools/cryptosig.html \
+	    $(Doc)/tools/sigs.html \
 	    $(Doc)/tools/m1.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
@@ -58,6 +60,8 @@ $(Doc)/hanoi.html      : $(Awklib)/hanoi.awk         ; cd $(Awklib) && $(Awk2Htm
 $(Doc)/quicksort.html  : $(Awklib)/quicksort.awk     ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/quicksort2.html : $(Awklib)/quicksort2.awk    ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/m1.html   : $(Awklib)/m1.awk            ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/cryptosig.html : $(Awklib)/cryptosig.awk ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/sigs.html : $(Bash)/sigs ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/mailsort.html : $(Awklib)/mailsort.awk
 	cd $(Awklib) && $(Awk2Html)

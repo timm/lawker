@@ -1,0 +1,82 @@
+<h1><join> Random Signatures</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#5>Pick1</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>The Signatures</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#7>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+ chmod +x sigs; ./sigs
+<a name=2></a><H2> Download</H2>
+<P>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/sigs">LAWKER.</a>
+<a name=3></a><H2> Description</H2>
+<P>
+Generates random signtures. Signatures and generation code included
+in same file so installation is just a matter of calling one file.
+<P>
+Most of the file is a large "here" document. Paragraph 1 of that
+document is always added to the signatures, followed one of
+the folowing paragraphs, selected at radonom.
+<P>
+To add to the signtures, include them in the here document,
+with one preceeding blank line.
+<a name=4></a><H2> Code</H2>
+<a name=5></a><H3> Pick1</H3>
+<PRE>
+pick1() {
+    gawk 'BEGIN { srand(); RS=""    }
+          NR==1 { print $0 "\n"     }
+          NR>1  { Recs[rand()] = $0 }
+          END   { for ( R in Recs ) {print Recs[R]; exit}}
+        ' $1
+}
+</PRE>
+<a name=6></a><H3> The Signatures</H3>
+<PRE>
+cat &lt;&lt; SoMEI_mpOSSIblE_sYMBOl | pick1
+tim.menzies {
+  title:   dr (Ph.D.) and associate professor;
+  align:   csee, west virginia university;
+  cell:   esb 841A; 
+  url:   http://menzies.us;
+  fyi:   unless marked "URGENT", i usually won't get 2 your email b4 5pm; 
+}
+
+Doing a job RIGHT the first time gets the job done. Doing the job WRONG
+fourteen times gives you job security.
+
+Rome did not create a great empire by having meetings, they did it by
+killing all those who opposed them.
+
+INDECISION is the key to FLEXIBILITY.
+
+"When a subject becomes totally obsolete we make it a required
+course."  Peter Drucker
+
+I saw two shooting stars last night but they were only satellites .
+Its wrong to wish on space hardware. I wish, I wish, I wish you cared.
+-- Billy Bragg
+
+Then, in 1995, came the most amazing event in the
+history of programming languages: the introduction
+of Java.  -- Programming Languages: Principles and Practice
+
+Suburbia is where the developer bulldozes out the trees, then names
+the streets after them. --Bill Vaughan
+
+Instant gratification takes too long.
+-- Carrie Fisher
+
+Complexity is easy. Simplicity is hard.
+--Unknown
+</PRE>
+<a name=7></a><H2> Author</H2>
+<P> Tim Menzies</P>
+</div><!--- htmlbody --->

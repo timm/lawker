@@ -659,6 +659,22 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/tools/cryptosig.html">
+		<title>Hiding Email Address</title>
+		<what>Sigs</what>
+		<what>Tools</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Anon</what>
+	</file>
+	<file where="doc/tools/sigs.html">
+		<title>Generating random sigs</title>
+		<what>Sigs</what>
+		<what>Tools</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/project.html">
 		<title>Project Tools</title>
 		<what>Project</what>
