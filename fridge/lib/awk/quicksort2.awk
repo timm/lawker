@@ -12,17 +12,25 @@
 #.P
 #In quicksort2, the pivot is selected from
 #the first line of input. 
-#Recursive gawk processes are called on the divided data.
+#Each data division is handled by a different UNIX pipe
+# and recursive gawk processes are called on the divided data.
 #.P
+#Yes, this is not the fastest way to do it but (in theory anyway) it should be able
+#to handle very big data sets.
 #.H2 Code
 #.PRE
-BEGIN           { recurse = "awk -f quicksort2.awk" }
-NR == 1         { pivot=$0; next }
-NR > 1          { if($0 <= pivot)       print | recurse
-                   else                 high = (high ? high "\n" $0 : $0) }
-END             { close(recurse)
-                   if(NR > 0)           print pivot
-                   if(high)             print high | recurse }
+BEGIN   { 
+	    recurse1 = "gawk -f quicksort2.awk #"  rand()
+		recurse2 = "gawk -f quicksort2.awk #"  rand()
+	    }
+NR == 1 { pivot=$0; next }
+NR > 1  { if($0 < pivot) print | recurse1
+		  if($0 > pivot) print | recurse2
+	    }
+END     { close(recurse1)
+          if(NR > 0) print pivot
+	      close(recurse2)
+		}
 #./PRE
 #.H2 See also
 #.P
@@ -50,5 +58,7 @@ END             { close(recurse)
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #.H2 Author
-#.P David Long, 2004
+#.P 
+#Original version: David Long, 2004. Tim Menzies added some modifications in 2009
+#to call recursive Gawk pipes on both sides of the pivot.
 
