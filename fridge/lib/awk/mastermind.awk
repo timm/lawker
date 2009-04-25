@@ -42,6 +42,9 @@ BEGIN{
 			q[p]=i++;  
 			z=z*10+p; }
 }
+#./PRE
+#.P Note that the range 1023 ... 9876 are the smallest and largerst 4 digit integers with no repeates.
+#.PRE
 { if((n=int($0+0))>=1023 && n<=9876) { 
 		++c;
    		v=0;  
