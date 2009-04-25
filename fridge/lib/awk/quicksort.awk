@@ -46,6 +46,6 @@ function swap(A, i, j,   t) {
 #./PRE
 #.H2 See also
 #.P
-#.URL http://awk.info/quicksort2.awk quicksort2.awk
+#.URL http://awk.info/?quicksort2 quicksort2.awk
 #.H2 Authors
 #.P Alfred Aho, Peter Weinberger,  Brian Kernighan, 1988.

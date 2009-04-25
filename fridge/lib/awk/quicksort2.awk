@@ -26,7 +26,7 @@ END             { close(recurse)
 #./PRE
 #.H2 See also
 #.P
-#.URL http://awk.info/quicksort.awk quicksort.awk
+#.URL http://awk.info/?quicksort quicksort.awk
 #.H2 Copyright
 #.P
 # Copyright (c) 2009 by David Long.
