@@ -17,20 +17,14 @@ stop gaps:
 
 -------------------------------------------------------------------------------
 apr 25: 66666666666666666
-- awk100: the amazing awk assembler
-- new section: games in awk
-
 - new section on awk interpreters 
 	awk assembler, 
 	awklisp
 	aasl
 	awkastar
-- quick sort in awk
 - fun: a little cyrtography
    sig generator
       rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
-   hits and blows
-		hb.awk : http://menzies.us/tmp/bf.awk
 
 visual awk
 

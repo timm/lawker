@@ -1,0 +1,42 @@
+<h1><join>Awk A*</hjoin></h1>
+<p>
+Programmers often take awk "as is", never thinking to use it as a lab in which
+we can explore other language extensions. This is of course, only one way to treat
+the Awk code base.
+<p>
+An alternate approach is to treat the Awk code base as a reusable library
+of parsers, regular expression engines, etc etc and to make modifications
+to the lanugage. This second approach was take by David Ladd and J. Christopher
+Raming in their A* system.
+<p>
+They write:
+<ul>
+While there are a number of systems that will help one construct full-blown metaprograms such as compilers and interpreters, we wanted something with extremely low overhead. 
+We set out to build a something with the property that it would 
+help even inexperienced users build simple meta-programs in a 
+matter of minutes with a few lines of code. A* is the result; it 
+is more than anything else an engineering exercise, as most of 
+its ideas are not new. It is the arrangement of these ideas and 
+the purpose to which they are directed distinguish A* from 
+other tools. 
+<p>
+A* is an experimental language designed to facilitate
+the creation of language-processing tools. It is analogous either to 
+an interpreted yacc with Awk as its statement language, or to a 
+version of Awk which processes programs rather than records. 
+A* offers two principal advantages over the combination of lex, 
+yacc, and C:
+<ol>
+<li> a high-level interpreted base language 
+<li> built-in 
+parse tree construction. 
+</ul>
+A* programmers are thus able to ac- 
+complish many useful tasks with little code. 
+</ul>
+<p>
+Reference:
+<a href="http://lawker.googlecode.com/svn-history/r1281/fridge/share/pdf/awkastar.pdf">A*: a language for implementing language processors</a>
+Ladd, D.A.; Ramming, J.C.;
+Software Engineering, IEEE Transactions on
+Volume 21,  Issue 11,  Nov. 1995 Page(s):894 - 901
