@@ -5,7 +5,7 @@
     <string id="source">http://lawker.googlecode.com/svn/fridge</string>
     <string id="site">http://awk.info</string>
     <string id="default">index</string>
-    <string id="title">awk.info</string>
+    <string id="title">The Awk Community Portal</string>
     <string id="copyright">
       <![CDATA[
            Content &copy; 2009 <a href="http://awk.info/?timm">Tim Menzies</a>
