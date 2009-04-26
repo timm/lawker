@@ -20,10 +20,10 @@ doc/index.html				;Timm	;2009	;Jan	;Misc	;|Awk.info
 doc/code.html				;Timm	;2009	;Jan	;Misc	;|Coding
 doc/mascot.html				;Timm	;2009	;Jan	;Misc	;Mascot	;|Mascot
 doc/awk4ai.html				;Ronl	;2009	;Jan	;WhyAwk	;Misc;	Top10	;|Awk for AI
-doc/praise.html				;Ronl	;2009	;Apr	 ;WhyAwk	;Misc;	Top10	;|In praise of scripting
+doc/praise.html				;Ronl	;2009	;Apr	 ;WhyAwk ;Papers	;Misc;	Top10	;|In praise of scripting
 doc/history.html			;Timm	;2009	;Jan	;Misc	;|History
 doc/whygawk.html			;Timm	;2009	;Jan 	;WhyAwk	;Misc	;|Why Gawk?
-doc/awksys.html				;HenryS ;2009 ;Apr	;WhAwk ;|Awk for system programming
+doc/awksys.html				;HenryS ;2009 ;Apr	;WhyAwk ;Papers ;|Awk for system programming
 doc/games.html				;Timm  ;2009  ;Apr    ;Games  ;|Awk Games 
 doc/story.html				;BrianK	;2009	;Mar	;TenLiners	;Top10 ;Games  ;|Writing SciFi 
 doc/montyhall.html			;DonaldM	;2009	;Mar	;TenLiners	 	;|Monty Hall Problem
@@ -99,7 +99,7 @@ doc/var/top10subjectslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subje
 
 doc/awk100.html					;Timm	;2009	;Jan	;Awk100	;|Awk100
 doc/awk100/015soccer.html			;Ronl	;2009;Apr	;Awk100 ;Games		;|Soccer
-doc/awk100/013awklinux.html			;YungC	;2009;Apr	;Awk100	;Top10	;|Awk-Linux
+doc/awk100/013awklinux.html			;YungC	;2009;Apr	;Papers ;Awk100	;Top10	;|Awk-Linux
 doc/awk100/spell.html			;ArnoldR ;NelsonB ;2009 ;Mar ;Awk100; Top10	;|spell.awk
 doc/awk100/009yawk.html			;WolfganZ	;2009;Feb	;Awk100	;Yawk	;|Yawk
 doc/awk100/008awklisp.html		;DairusB	;2009	;Feb	 ;Awk100	;AwkLisp	;|Awklisp

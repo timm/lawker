@@ -124,7 +124,7 @@ Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.faqs.org/faqs/computer-lang/awk/faq/">FAQ</a><br>
 <hr>Reading<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
-&nbsp;&raquo;&nbsp;  articles
+&nbsp;&raquo;&nbsp;  <a href="?Papers">articles</a>
 
 ]]>
     </string>
@@ -326,6 +326,7 @@ pageTracker._trackPageview();
 		<title>In praise of scripting</title>
 		<what>Top10</what>
 		<what>Misc</what>
+		<what>Papers</what>
 		<what>WhyAwk</what>
 		<what>Apr</what>
 		<what>2009</what>
@@ -348,7 +349,8 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/awksys.html">
 		<title>Awk for system programming</title>
-		<what>WhAwk</what>
+		<what>Papers</what>
+		<what>WhyAwk</what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>HenryS</what>
@@ -836,6 +838,7 @@ pageTracker._trackPageview();
 		<title>Awk-Linux</title>
 		<what>Top10</what>
 		<what>Awk100</what>
+		<what>Papers</what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>YungC</what>
