@@ -316,6 +316,8 @@ pageTracker._trackPageview();
 	<file where="doc/awk4ai.html">
 		<title>Awk for AI</title>
 		<what>Top10</what>
+		<what>Papers</what>
+		<what></what>
 		<what>Misc</what>
 		<what>WhyAwk</what>
 		<what>Jan</what>
