@@ -16,7 +16,7 @@
 <table  border=0>
 <tr>
 <td align=center>
-<a href="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"><img width=75 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
+<a href="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"><img height=172 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
 <br>
 </td>
 <td align=center>
@@ -33,7 +33,7 @@
 The Awk<br> Programming<br> Language
 
 <td>
-Effective<br>Awk Programming
+Effective<br>Awk<br>Programming
 
 <td>
 Sed &amp; Awk
