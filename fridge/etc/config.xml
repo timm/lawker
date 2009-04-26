@@ -17,17 +17,17 @@
 <table padding="30" border=0>
 <tr>
 <td align=center>
-<a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5"><img height=95 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
+<a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5"><img border=1 height=95 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
 <br>
 </td>
 <td align=center>
-<a href="http://www.amazon.com/Effective-awk-Programming-Arnold-Robbins/dp/0596000707/ref=pd_sim_b_1"><img height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/effectiveAwkCover.gif""></a><br>
+<a href="http://www.amazon.com/Effective-awk-Programming-Arnold-Robbins/dp/0596000707/ref=pd_sim_b_1"><img border=1 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/effectiveAwkCover.gif""></a><br>
 </td>
 <td align=center>
-<a href="http://www.amazon.com/sed-awk-2nd-Dale-Dougherty/dp/1565922255/ref=pd_sim_b_3"><img height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/sedAwkCover.gif"></a><br>
+<a href="http://www.amazon.com/sed-awk-2nd-Dale-Dougherty/dp/1565922255/ref=pd_sim_b_3"><img height=100 border=1 src="http://lawker.googlecode.com/svn/fridge/share/img/sedAwkCover.gif"></a><br>
 </td>
 <td align=center>
-<a href="http://www.amazon.com/Classic-Shell-Scripting-Arnold-Robbins/dp/0596005954/ref=pd_sim_b_2"><img height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/classicScripting.gif"></a><br>
+<a href="http://www.amazon.com/Classic-Shell-Scripting-Arnold-Robbins/dp/0596005954/ref=pd_sim_b_2"><img border=1 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/classicScripting.gif"></a><br>
 </td>
 </tr>
 </table>
