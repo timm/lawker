@@ -113,18 +113,18 @@ Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="?Papers">articles</a>
 
 <hr>
-Topics<br>
-&nbsp;&raquo;&nbsp;   <a href="?Project">project tools</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Funky">functional programming</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?TextMining">text mining</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Macros">macro pre-processors</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Mail">advanced mail filtering</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Sed">sed-clones</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Wp">word-processing</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Ps">postscript tricks</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Games">games</a><br>
+Topics (latest on top)<br>
+&nbsp;&raquo;&nbsp;  <a href="?Sigs">email signatures</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?Interpreters">interpreters</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Sigs">email signatures</a>
+&nbsp;&raquo;&nbsp;  <a href="?Games">games</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Ps">postscript tricks</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Wp">word-processing</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Sed">sed-clones</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Mail">advanced mail filtering</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Macros">macro pre-processors</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?TextMining">text mining</a><br>
+&nbsp;&raquo;&nbsp;  <a href="?Funky">functional programming</a><br>
+&nbsp;&raquo;&nbsp;   <a href="?Project">project tools</a>
 
 ]]>
     </string>
