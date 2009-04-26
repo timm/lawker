@@ -12,7 +12,28 @@
              under  <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPL 3.0</a>.
            Design by <a href="http://raykdesign.net">raykdesign.net</a>. 
            Auk images &copy; 2009 <a href="http://awk.info/?doc/who/mikelangman.html">Mike Langman</a>.
-
+<p>
+<table width="100%" border=0>
+<tr>
+<td align=center>
+<a href="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"><img src=""></a>
+<br>
+The Awk Programming Language
+</td>
+<td align=center>
+<a href="http://lawker.googlecode.com/svn/fridge/share/img/effectiveAwkCover.gif"><img src=""></a><br>
+Effective Awk Programming
+</td>
+<td align=center>
+<a href="http://lawker.googlecode.com/svn/fridge/share/img/sedAwkCover.gif"><img src=""></a><br>
+Sed &amp; Awk
+</td>
+<td align=center>
+<a href="http://lawker.googlecode.com/svn/fridge/share/img/classicScripting.gif"><img src=""></a><br>
+Classic Shell Scripting
+</td>
+</tr>
+</table>
 
 ]]>
     </string>
