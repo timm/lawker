@@ -17,7 +17,7 @@ stop gaps:
 
 -------------------------------------------------------------------------------
 may 2: 77777777777777777777
-- akw100 oo in ansi "C" awk packages. axel schreiner
+awk100: xgawk
 - new section on operating ssytems and awk (awk linux) and 
 	http://www.icir.org/tfrc/sims1.html
 	share/pdf/awkalert.pdf
@@ -34,9 +34,6 @@ http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673a
 	- the '$' trick
 
 aasl
-- fun: a little cyrtography
-   sig generator
-      rot13 :http://www.rosettacode.org/wiki/Rot-13#AWK
 
 visual awk
 
@@ -45,7 +42,7 @@ saya
 
 -------------------------------------------------------------------------------
 may 9: 888888888888888888
-awk100: xgawk
+- akw100 oo in ansi "C" awk packages. axel schreiner
 - new section of xml processing and gawk
 	- xgawk
     - xmlgawk.awk
@@ -66,6 +63,7 @@ spread sheet access: http://www.freakout.de/mc.htm#Piping
 
 reading tabular data
 awktemplate
+fun: my bayes stuff
 Template-driven interfaces for numerical subroutines
 Full text       PdfPdf (1.28 MB)
 Source  ACM Transactions on Mathematical Software (TOMS) archive
@@ -74,7 +72,6 @@ Pages: 265 - 287
 Year of Publication: 1993
 ISSN:0098-3500
 
-fun: my bayes stuff
 
 -------------------------------------------------------------------------------
 may 16: 9999999999999999
