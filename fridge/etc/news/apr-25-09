@@ -1,0 +1,93 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+1) Fun and games with Awk
+
+1a) http://awk.info/?Games
+   - New section: Games in Awk
+
+1b) http://awk.info/?mastermind
+   - YSA's implementation of Mastermind
+
+----------------------------------------------------------
+2) New section: interpreters in Awk
+
+2a) http://awk.info/?awk100/aaa
+    - Herbert Spencer's Amazing Awk Assembler
+
+2b) http://awk.info/?doc/awkastar.html
+    - D. Ladd and J.C. Raming use Using Awk as 
+      a laboratory for generating language tools
+
+2c) http://awk.info/?doc/dsl/awklisp.html
+    - Darius Bacon's Lisp interpreter
+
+-----------------------------------------------------------
+3) Essays
+
+3a) http://awk.info/?awksys
+    - Herbert Spencer's essay on "Awk as
+      a systems programming language".
+
+3b) 
+http://lawker.googlecode.com/svn/fridge/share/pdf/awkastar.pdf
+  - A*: a language for implementing language processors 
+    Ladd, D.A.; Ramming, J.C.; IEEE Transactions 
+    on Software Engineering, Volume 21, Issue 11, 
+    Nov. 1995 Page(s):894 - 901 
+
+------------------------------------------------------------
+4) Bits and Bytes of awk
+
+4a) http://awk.info/?quicksort
+    - A standard sorting algorithm
+ 
+4b) http://awk.info/?quicksort2
+    - David Long's ultra-simple sorting method
+
+4c) http://awk.info/?tools/sigs
+    - Tim Menzies random signature generator
+
+4d) http://awk.info/?tools/cryptosig
+    - Hiding email addresses, in plain sight.
+        
+-----------------------------------------------------------
+5) New entries for the Awk100
+(the Awk100 project collects impressive Awk programs.)
+
+http://awk.info/?awk100/aaa
+
+Henry Spencer's Amazing Awk Assembler
+
+"aaa" (the Amazing Awk Assembler) is a primitive
+assembler written entirely in awk and sed. It was done
+for fun, to establish whether it was possible. It is;
+it works. Using "aaa", it's very easy to adapt to a new
+machine, provided the machine falls into the generic
+"8-bit-micro" category.
+
+----------------------------------------------------------
+6) Page of the week
+
+http://awk.info/?Learn
+
+Google Analytics tells us that "Learning Awk" is our
+page of the week. Lots of people wanting to learn our
+favorite language!
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute

@@ -1,0 +1,70 @@
+#.H1 Random Signatures
+#.H2 Synopsis
+# chmod +x sigs; ./sigs
+#.H2 Download
+#.P 
+#Download from
+#.URL http://lawker.googlecode.com/svn/fridge/lib/bash/sigs LAWKER.
+#.H2 Description
+#.P
+#Generates random signtures. Signatures and generation code included
+#in same file so installation is just a matter of calling one file.
+#.P
+#Most of the file is a large "here" document. Paragraph 1 of that
+#document is always added to the signatures, followed one of
+#the folowing paragraphs, selected at radonom.
+#.P
+#To add to the signtures, include them in the here document,
+#with one preceeding blank line.
+#.H2 Code
+#.H3 Pick1
+#.PRE
+pick1() {
+    gawk 'BEGIN { srand(); RS=""    }
+          NR==1 { print $0 "\n"     }
+          NR>1  { Recs[rand()] = $0 }
+          END   { for ( R in Recs ) {print Recs[R]; exit}}
+        ' $1
+}
+#./PRE
+#.H3 The Signatures
+#.PRE
+cat << SoMEI_mpOSSIblE_sYMBOl | pick1
+tim.menzies {
+  title:   dr (Ph.D.) and associate professor;
+  align:   csee, west virginia university;
+  cell:   esb 841A; 
+  url:   http://menzies.us;
+  fyi:   unless marked "URGENT", i usually won't get 2 your email b4 5pm; 
+}
+
+Doing a job RIGHT the first time gets the job done. Doing the job WRONG
+fourteen times gives you job security.
+
+Rome did not create a great empire by having meetings, they did it by
+killing all those who opposed them.
+
+INDECISION is the key to FLEXIBILITY.
+
+"When a subject becomes totally obsolete we make it a required
+course."  Peter Drucker
+
+I saw two shooting stars last night but they were only satellites .
+Its wrong to wish on space hardware. I wish, I wish, I wish you cared.
+-- Billy Bragg
+
+Then, in 1995, came the most amazing event in the
+history of programming languages: the introduction
+of Java.  -- Programming Languages: Principles and Practice
+
+Suburbia is where the developer bulldozes out the trees, then names
+the streets after them. --Bill Vaughan
+
+Instant gratification takes too long.
+-- Carrie Fisher
+
+Complexity is easy. Simplicity is hard.
+--Unknown
+#./PRE
+#.H2 Author
+#.P Tim Menzies
