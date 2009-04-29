@@ -1,0 +1,13 @@
+set size 0.6,0.45
+set terminal postscript eps
+set output "s3xxx.ps"
+#set title "32 TCP + 32 TFRC flows"
+set ylabel "CoV"
+set xlabel "Loss Rate"
+set logscale x
+#set yrange [0.09:1.5]
+set xrange [1.5:25]
+set key 4,1.3
+set xtics (1, 2, 3, 4, 5, " " 6, " " 7, " " 8, " " 9, 10, " " 12, " " 14, " " 16, " " 18, 20, " " 22, " " 24)
+plot "s3xxx.tcpcov" title "TCP CoV" with points ps 0.8 6 6, "s3xxx.tfrmcov" title "TFRC CoV" with points ps 0.8 4 4, "s3xxx.tcpmeancov" title "Mean TCP CoV" with lines, "s3xxx.tfrmmeancov" title "Mean TFRC CoV" with lines
+

@@ -1,0 +1,11 @@
+set size 0.8,0.4
+set terminal postscript eps
+set output "s0.queue.ps"
+set title "RATEMb/s QUEUE"
+set ylabel "Queue (in Pkts)"
+set xlabel "Time (s)" 27,1.5
+set xtics 0,5,25
+set key 27,60
+plot [] [0:] "s0.q" title "queue size" with lines
+###, "s0.a" title "average queue size" with lines
+

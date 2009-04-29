@@ -1,0 +1,33 @@
+#!/usr/local/bin/tclsh8.1
+set ctr [lindex $argv 0]
+set type3 [lindex $argv 1]
+set typeall [lindex $argv 2]
+set flows [lindex $argv 3]
+set rate [lindex $argv 4]
+set stoptime [lindex $argv 5]
+set inserttime [lindex $argv 6]
+set randomflows 4
+if {$argc > 7} {
+  set randomflows [lindex $argv 7]
+}
+set randomsim 1
+if {$argc > 8} {
+  set randomsim [lindex $argv 8]
+}
+set queuefactor 1
+if {$argc > 9} {
+  set queuefactor [lindex $argv 9]
+} 
+
+set ecn 0
+  ## set rate 1.5
+    foreach queue {RED DropTail} {
+      catch {exec rm all.q}
+      catch {exec rm all.tr}
+      eval "exec ./ns queue.tcl $flows $queue $rate $ecn $type3 $typeall $stoptime $inserttime $randomflows $randomsim $queuefactor > graphs/s$ctr.d"
+      ###
+      eval "exec awk -f awk/plotqueue.awk all.q > graphs/s$ctr.q"
+      eval "exec awk -f awk/plotaveq.awk all.q > graphs/s$ctr.a"
+      eval "exec sed \"s/s0/s$ctr/g\" < graphs/s0.queue.mf | sed \"s/QUEUE/$queue/\" | sed \"s/RATE/$rate/\" > graphs/s$ctr.queue.mf"
+      incr ctr
+    }

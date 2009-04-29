@@ -1,0 +1,10 @@
+set size 1.0,0.35
+set terminal postscript eps
+set output "s0.rate.ps"
+set ylabel "TX Rate (KBytes/s)"
+set ytics (0, "100" 100000, "200" 200000, "300" 300000, "400" 400000)
+set xlabel "Time (s)" 34,1.5
+set xtics 0,1,16
+set key 17,80000
+plot [3:18] [0:400000] "s0.rate" title "Transmission Rate" with lines
+

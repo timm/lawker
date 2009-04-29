@@ -1,0 +1,7 @@
+set size 0.8,0.32
+set terminal postscript eps
+set output "s0.packetrate.ps"
+set ylabel "Allowed Rate (pkts)"
+set xlabel "Time"
+plot [9.5:13] [10:20] "s0.rate" title "allowed sending rate in packets per RTT" with linespoints
+

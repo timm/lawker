@@ -1,0 +1,9 @@
+set size 1.0,0.35
+set terminal postscript eps
+set output "s0.ps"
+##set title "TCP Sack1, RATEMb/s QUEUE"
+set ylabel "Loss Interval"
+set xlabel "Time (s)" 34,1.5
+set xtics 0,1,16
+set key left
+plot [3:18] [0:300] "s0.int" title "current loss interval (s0)" with linespoints ps 0.5, "s0.est-int" title "estimated loss interval" with lines

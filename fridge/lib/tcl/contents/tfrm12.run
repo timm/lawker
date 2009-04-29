@@ -1,0 +1,29 @@
+#!/usr/local/bin/tclsh8.1
+# set ctr 250
+set ctr 253
+# foreach ecn {0 1} 
+foreach ecn {0} {
+  # foreach rate {1.5 15} 
+  foreach rate {15} {
+    # foreach queue {DropTail RED} 
+    foreach queue {RED} {
+	catch {exec rm out.$queue.12}
+	catch {exec rm graphs/s$ctr.p}
+	foreach i {1 2 4 8 16 24 32 40 48 56 64} {
+	  if {$ecn == 0 || $queue == "RED"} {
+	    eval "exec ./ns tfrm12.tcl $i $queue $rate $ecn > drops"
+	    eval "exec awk -f awk/plotdrops.awk drops >> graphs/s$ctr.p"
+    	    catch {eval "exec ./bwcnt2 $rate 0 1 all.12.tr >> out.$queue.12"}
+###	    catch {eval "exec ./bwcnt2a $rate 0 1 all.12.tr >> out.$queue.12"}
+	    eval "exec fgrep tcp out.$queue.12 > graphs/s$ctr.tcp.tmp" 
+	    eval "exec fgrep tfrm out.$queue.12 > graphs/s$ctr.tfrm.tmp" 
+	    eval "exec sed \"s/tcp //\" < graphs/s$ctr.tcp.tmp > graphs/s$ctr.tcp"
+	    eval "exec sed \"s/tfrm //\" < graphs/s$ctr.tfrm.tmp > graphs/s$ctr.tfrm"
+	    eval "exec graphs/getmean.tcl graphs/s$ctr.tcp > graphs/s$ctr.tcpmean"
+	    eval "exec graphs/getmean.tcl graphs/s$ctr.tfrm > graphs/s$ctr.tfrmmean"
+	  }
+	}
+	incr ctr
+    }
+  }
+}

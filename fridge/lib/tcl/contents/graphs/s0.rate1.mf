@@ -1,0 +1,7 @@
+set size 0.8,0.32
+set terminal postscript eps
+set output "s0.rate.ps"
+set ylabel "Allowed Rate (KBps)"
+set xlabel "Time"
+plot [8:12] [0:] "s0.rate" title "allowed sending rate" with linespoints
+

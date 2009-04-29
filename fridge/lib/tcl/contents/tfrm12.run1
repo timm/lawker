@@ -1,0 +1,20 @@
+#!/usr/local/bin/tclsh8.1
+# set ctr 250
+set ctr 253
+# foreach ecn {0 1} 
+foreach ecn {0} {
+  # foreach rate {1.5 15} 
+  foreach rate {15} {
+    # foreach queue {DropTail RED} 
+    foreach queue {RED} {
+	catch {exec rm out.$queue.12}
+	foreach i {1 2 4 8 16 24 32 40 48 56 64} {
+	  if {$ecn == 0 || $queue == "RED"} {
+	    eval "exec sed \"s/s0/s$ctr/g\" < graphs/s0.12.mf | sed \"s/QUEUE/$queue/\" | sed \"s/RATE/$rate/\" > graphs/s$ctr.mf"
+	    eval "exec sed \"s/s0/s$ctr/g\" < graphs/s0.loss3.mf | sed \"s/QUEUE/$queue/\" | sed \"s/RATE/$rate/\" > graphs/s$ctr.loss1.mf"
+	  }
+	}
+	incr ctr
+    }
+  }
+}

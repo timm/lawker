@@ -1,0 +1,8 @@
+set size 0.8,0.32
+set terminal postscript eps
+set output "s0.half.ps"
+set ylabel "Roundtrip Times"
+set xlabel "Initial Packet Drop Rate"
+#set logscale x
+plot [] [0:10] "s0.t" title "number of roundtrip time to halve sending rate" with linespoints
+

@@ -1,0 +1,12 @@
+set size 0.6,0.45
+set terminal postscript eps
+set output "s0.ps"
+##set title "50% TFRC vs 50% Sack TCP, RATEMb/s Link, QUEUE Queuing"
+set ylabel "Normalized Throughput"
+##set xlabel "Number of flows (TCP + TFRC)"
+set yrange [0:2.3]
+#set xrange [0:68]
+set key 20,2.10
+#set xtics ("0" 0, "16" 8, "32" 16, "48" 24, "64" 32, "80" 40, "96" 48, "112" 56, "128" 64)
+plot "s0.tcp" title "TCP Flows" with points ps 0.7, "s0.tfrm" title "TFRC Flows" with points ps 0.7, "s0.tcpmean" title "Mean TCP" with lines, "s0.tfrmmean" title "Mean TFRC" with lines
+

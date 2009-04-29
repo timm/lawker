@@ -1,0 +1,28 @@
+#!/usr/local/bin/tclsh8.1
+set ctr 3000
+# foreach ecn {0 1} 
+set ecn 0
+foreach rate {2 4 8 12 16 24 32 48 64 128} {
+  for {set its 0} {$its<10} {incr its} {
+    catch {exec rm out.$queue.$rate.$its.12}
+    foreach queue {RED} {
+      catch {exec rm graphs/s$ctr.$its.p}
+      foreach i {32} {
+	if {$ecn == 0 || $queue == "RED"} {
+	    eval "exec ./ns tfrmvar.tcl $i $queue $rate $ecn > drops"
+	    eval "exec awk -f awk/plotdrops.awk drops >> graphs/s$ctr.$its.p"
+    	    catch {eval "exec ./bwcnt2 $rate 0 1 all.12.tr >> out.$queue.$rate.$its.12"}
+	    eval "exec fgrep tcp out.$queue.$rate.$its.12 > graphs/s$ctr.$its.tcp.tmp" 
+	    eval "exec fgrep tfrm out.$queue.$rate.$its.12 > graphs/s$ctr.$its.tfrm.tmp" 
+	    eval "exec sed \"s/tcp //\" < graphs/s$ctr.$its.tcp.tmp > graphs/s$ctr.$its.tcp"
+	    eval "exec sed \"s/tfrm //\" < graphs/s$ctr.$its.tfrm.tmp > graphs/s$ctr.$its.tfrm"
+	    eval "exec graphs/getmean.tcl graphs/s$ctr.$its.tcp > graphs/s$ctr.$its.tcpmean"
+	    eval "exec graphs/getmean.tcl graphs/s$ctr.$its.tfrm > graphs/s$ctr.$its.tfrmmean"
+	    eval "exec graphs/getvar.tcl graphs/s$ctr.$its.tcp > graphs/s$ctr.$its.tcpcov"	    
+	    eval "exec graphs/getvar.tcl graphs/s$ctr.$its.tfrm > graphs/s$ctr.$its.tfrmcov"
+	}
+      }
+    }
+  }
+  incr ctr
+}

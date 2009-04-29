@@ -1,0 +1,20 @@
+#!/usr/local/bin/tclsh8.1
+set ctr [lindex $argv 0]
+catch {exec rm -f graphs/s$ctr.time}
+foreach interval {4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 25 30 35 40 45 50 55 60 65 70 75 80 85 90 95 100 150 200 250 300 350 400 450 500 1000} {
+  eval "exec echo interval: $interval > out.rate"
+  eval "exec ./ns reduce.tcl $interval >> out.rate"
+  eval "exec awk -f awk/reduce1.awk out.rate >> graphs/s$ctr.time"
+}
+eval "exec awk -f awk/reduce2.awk graphs/s$ctr.time > graphs/s$ctr.t"
+eval "exec sed \"s/s0/s$ctr/g\" < graphs/s0.half.mf > graphs/s$ctr.half.mf"
+
+# out.rate:
+# interval: 100
+# time: 23.55 rate: 8437.52
+
+# graphs/s$ctr.half
+# drop-rate: 0.200
+# rounds: 8
+
+

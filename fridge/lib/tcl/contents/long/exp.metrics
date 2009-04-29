@@ -1,0 +1,204 @@
+#!/usr/local/bin/tcsh -f
+
+set TOOLS = "../tools/"
+
+set simlen = 150
+set slog = 50
+set pktsz = 1000
+set maxtrials = 14 
+
+set tslist = (0.2 0.4 0.5 0.8 1 2 4 5 8 10)
+
+set tot = 0 
+
+foreach bband (15)
+	foreach bdel (50)
+		foreach bbuf (100)
+			foreach fn (16)
+
+				set basekey = $bband.$bdel.$bbuf.$fn
+				set count = 0 
+
+				#
+				# clear all temp data files
+				#
+
+				/bin/rm -f drop.dat
+				touch drop.dat
+
+				foreach ts ($tslist) 
+					foreach proto (tcp tfrc) 
+
+						/bin/rm -f $proto.$ts.eq
+						touch $proto.$ts.eq
+
+						/bin/rm -f $proto.$ts.cov
+						touch $proto.$ts.cov                   
+
+						/bin/rm -f $proto.$ts.intra.eq
+						touch $proto.$ts.intra.eq
+
+					end
+				end
+
+				#
+				# start processing data
+				#
+
+				while ($count < $maxtrials)
+					
+					#
+					# what is the key to idenify this run?
+					#
+
+					set key = $basekey.$count
+					echo $key start
+					gunzip all.tr.$key.tr.gz
+
+
+					#
+					# base files
+					#
+
+					$TOOLS/base.pl $slog < all.tr.$key.tr 
+		
+					/bin/mv t.1.base.dat tcp
+					/bin/mv t.4.base.dat tcp.2
+
+					/bin/mv f.1.base.dat tfrc
+					/bin/mv f.4.base.dat tfrc.2
+
+					#
+					# calc drop rate
+					#
+
+					set drop = `grep -E "^d" all.tr.$key.tr | wc -l`
+					set sent = `grep -E "^+" all.tr.$key.tr | wc -l`
+					set droprate = `echo "$drop $sent" | awk '{printf("%.4f\n", $1/$2)}'`
+					echo $droprate >> drop.dat
+
+					#
+					# zip file again
+					#
+
+					gzip all.tr.$key.tr
+
+
+					#
+					# analyze for each timescale ....
+					#
+		
+					echo doing multi 
+					foreach proto (tcp tfrc)
+						$TOOLS/nm.pl $proto $tslist
+						$TOOLS/nm.pl $proto.2 $tslist
+					end
+
+					foreach ts ($tslist) 
+
+						echo now starting timescale $ts
+
+						#
+						# CoV
+						#
+						
+						echo CoV
+            foreach proto (tcp tfrc)
+              cat $proto.$ts.multi | cut -f2 -d' ' | \
+              $TOOLS/stats.pl | cut -f5 -d ' ' >> $proto.$ts.cov
+						 tail -n1 $proto.$ts.cov 
+             end
+
+						#
+						# Equivalance with TCP 
+						#
+						
+						echo eq
+						foreach proto (tfrc) 
+							$TOOLS/fe.pl tcp.$ts.multi $proto.$ts.multi | cut -f6 -d' ' >> $proto.$ts.eq 
+							 tail -n1 $proto.$ts.eq 
+						end
+
+						#
+						# Intra proto equivalance
+						#
+
+						echo proto eq
+						foreach proto (tcp tfrc) 
+							$TOOLS/fe.pl $proto.$ts.multi $proto.2.$ts.multi | cut -f6 -d' ' >> $proto.$ts.intra.eq 
+							 tail -n1 $proto.$ts.intra.eq 
+						end
+
+					end
+					set count = `expr $count + 1`
+					echo $key done
+				end
+
+				#
+				# now, take averages
+				#
+			
+				#
+				# clear avegare files for this run
+				#
+
+				echo avg
+
+				/bin/rm -f drop.$basekey.avg
+				touch drop.$basekey.avg
+
+				foreach proto (tcp tfrc)
+
+					/bin/rm -f $proto.$basekey.avg.eq
+					touch $proto.$basekey.avg.eq
+
+					/bin/rm -f $proto.$basekey.avg.cov
+					touch $proto.$basekey.avg.cov           
+
+					/bin/rm -f $proto.$basekey.avg.intra.eq
+					touch $proto.$basekey.avg.intra.eq
+
+				end
+
+				#
+				# eq, intra proto eq and cov depend on timescale
+				#
+
+				foreach ts ($tslist)
+
+					echo eq
+					foreach proto (tfrc)
+						# eq 
+						set  eq = `$TOOLS/stats.pl < $proto.$ts.eq`
+						echo $ts $eq >> $proto.$basekey.avg.eq
+					end
+
+					echo cov 
+					foreach proto (tcp tfrc)
+            # cov
+            set cov = `$TOOLS/stats.pl < $proto.$ts.cov`
+            echo $ts $cov >> $proto.$basekey.avg.cov                      
+					end
+
+					echo intra eq
+					foreach proto (tcp tfrc)
+						# intra eq 
+						set  eq = `$TOOLS/stats.pl < $proto.$ts.intra.eq`
+						echo $ts $eq >> $proto.$basekey.avg.intra.eq
+					end
+
+				end	
+
+				#
+				# drop does not
+				#
+				echo drop
+
+				set drop = `$TOOLS/stats.pl < drop.dat`
+				echo $drop >> drop.$basekey.avg
+
+
+			end
+		end
+	end
+end

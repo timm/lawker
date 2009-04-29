@@ -1,0 +1,230 @@
+<h1><join>Simulations for Equation-Based Congestion Control for Unicast Applications</join></h1>
+<p>
+(This page is a mirror of the original 
+<a href="http://www.icir.org/tfrc/sims1.html">web site</a>.)
+<p>
+This page has pointers to the simulation scripts for the following
+paper.  These simulation scripts are also available from a
+<a href="scripts.tar">tar file</a> (plus  
+<a href="scripts/getmean-full.tcl">getmean-full.tcl</a>).
+The 
+<a href="http://www.aciri.org/tfrc/scripts/README">README</a>
+file describes the procedures for running these simulations. 
+
+<p>
+
+Sally Floyd, Mark Handley, Jitendra Padhye, and Joerg Widmer,
+<b>
+Equation-Based Congestion Control for Unicast Applications</b>
+(<a href="tcp-friendly.ps">postscript</a>,
+<a href="tcp-friendly.pdf">PDF</a>), 
+May 2000,
+to appear in SIGCOMM 2000.
+<p>
+These scripts are quick amalgams of shell scripts, awk, tcl, and
+whatever else was handy at the time, so they are not intended as an
+example of good programming style.  They are run in a directory with a
+"graphs" subdirectory for saved output and *.mf files (gnuplot command files),
+and an "awk" subdirectory for awk files.  Some of these scripts use
+supporting *.awk files that are available in the <a
+href="./scripts/awk/">awk directory</a>, but are not listed separately
+below.  Some of the scripts (tfrm12.run) also use "bwcnt" C programs
+for processing output data; the C code for these is in the <a
+href="./scripts/">scripts directory</a>.  Possibly one day we will
+clean this all up to reduce the proliferation of scripts and languages
+involved.
+<p>
+The implementation of TFRC in the NS simulator 
+is still occasionally being modified, so the precise results of
+simulations can change with different versions of NS.
+
+<p>
+Some of these
+simulations must be run with SBSIZE in scoreboard.h set to
+10000 instead of to 1024, to allow larger TCP congestion windows.
+<hr>
+The simulation for Figure 2 on
+"Illustration of the Average Loss Interval"
+(<a href="figures/s600.ps">top</a>, 
+<a href="figures/s600.loss.ps">middle</a>, and 
+<a href="figures/s600.rate.ps">bottom</a>)
+can be run with:<br>
+<a href="scripts/single.com">single.com</a>, 
+with supporting files
+<a href="scripts/single.run">single.run</a>,
+<a href="scripts/single.tcl">single.tcl</a>,
+and
+
+<a href="scripts/queueSize.tcl">queueSize.tcl</a>.
+<p>
+Generating the postscript file also uses the following files:<br>
+graphs/<a href="scripts/graphs/s0.interval.mf">s0.interval.mf</a>,
+<a href="scripts/graphs/s0.loss.mf">s0.loss.mf</a>, and
+<a href="scripts/graphs/s0.rate.mf">s0.rate.mf</a>. 
+<hr>
+Figure 3 on 
+"<a href="figures/divnob_buffer_tfrc.ps">Oscillations of a 
+TFRC flow over Dummynet</a>" and
+Figure 4 on 
+"<a href="figures/div_buffer_tfrc.ps">TFRC flow over Dummynet:</a>".
+
+<hr>
+The simulations for Figure 5 on
+"TCP flow sending rate"
+(<a href="figures/s-full-DropTail.CA.tcp.ps">top</a>,
+<a href="figures/s-full-RED.CA.tcp.ps">bottom</a>) can be run with 
+<a href="scripts/tfrm-full.CA.DropTail.run">tfrm-full.CA.DropTail.run</a>, 
+<a href="scripts/tfrm-full.CA.RED.run">tfrm-full.CA.RED.run</a> 
+with supporting files 
+<a href="scripts/tfrm-full.CA.tcl">tfrm-full.CA.tcl</a>, 
+<a href="scripts/queueSize.tcl">queueSize.tcl</a>,
+<a href="scripts/getmean-full.tcl">getmean-full.tcl</a>.
+
+<P>
+These scripts will produce data files called
+<pre>
+graphs/s-full-RED.CA.tcpmean
+graphs/s-full-DropTail.CA.tcpmean
+</pre>  
+There are three values for
+each data point (from three runs) in these output files.  To merge them, use <a
+href="scripts/merge2.tcl">merge2.tcl</a>:
+<BR>
+<PRE>
+merge2.tcl graphs/graphs/s-full-RED.CA.tcpmean > graphs/s-full-RED.CA.tcp
+merge2.tcl graphs/graphs/s-full-DropTail.CA.tcpmean > graphs/s-full-DropTail.CA.tcp
+</PRE>
+Unfortunately, we no longer have the *.mf gnuplot script for
+generating the postscript from "s-full-RED.CA.tcp" and
+"s-full-DropTail.CA.tcp".
+<!--
+Generating the postscript files using gnuplot also requires the following files:
+graphs/<a href="scripts/s-full-DropTail.CA.tcp.mf">s-full-DropTail.CA.tcp.mf</a>, 
+graphs/<a href="scripts/s-full-RED.CA.tcp.mf">s-full-RED.CA.tcp.mf</a>.
+-->
+<P>
+<small>
+On a 450MHz Xeon, each graph takes about 7 hours to generate
+
+</small>
+<hr>
+The simulations for Figure 6 on
+<a href="figures/s253.ps">"TCP competing with TFRC"</a> can be run
+with:<br>
+<a href="scripts/tfrm12.com">tfrm12.com</a>,
+with supporting files
+<a href="scripts/tfrm12.run">tfrm12.run</a>,
+<a href="scripts/tfrm12.tcl">tfrm12.tcl</a>,
+awk/<a href="scripts/awk/plotdrops.awk">plotdrops.awk</a>.
+and
+<a href="scripts/queueSize.tcl">queueSize.tcl</a>.
+
+<br>
+The supporting programs
+"bwcnt2" and "bwcnt2a" for processing the output data are compiled from
+<a href="scripts/bwcnt2.c">bwcnt2.c</a>
+and <a href="scripts/bwcnt2a.c">bwcnt2a.c</a>.
+<br>
+<small>
+On Sally's computer, this simulation set took 13 minutes.</small>
+<p>
+The following supporting files were also required for generating
+the postscript file:<br>
+<a href="scripts/tfrm12.run1">tfrm12.run1</a>,
+graphs/<a href="scripts/graphs/getmean.tcl">getmean.tcl</a>,
+graphs/<a href="scripts/graphs/s0.12.mf">s0.12.mf</a>,
+graphs/<a href="scripts/graphs/s0.loss3.mf">s0.loss3.mf</a>.
+
+<hr>
+The simulations for Figure 7 on "<a href=figures/s3xxx.ps>Coefficient
+of variation of throughput between flows</a>" can be run with <a
+href="scripts/tfrmvar.run">tfrmvar.run</a> with supporting files <a
+href="scripts/tfrmvar.tcl">tfrmvar.tcl</a>, <a
+href="scripts/queueSize.tcl">queueSize.tcl</a>, and 
+graphs/<a href="scripts/graphs/getvar.tcl">getvar.tcl</a>.
+<P>
+<a href="scripts/fixcov.tcl">fixcov.tcl</a> combines the many output files together, and gnuplot requires <a href="scripts/graphs/s3xxx.mf">s3xxx.mf</a> to generate the postscript.
+
+<hr>
+When we have collected the scripts for Figure 8, we will put them on-line.
+<hr>
+The simulations for Figures 9 and 10 can be run with the
+script
+long/<a href="scripts/long/doit">doit</a>.
+The supporting scripts are in the tar file.
+The simulation takes perhaps one hour.
+<hr> 
+The simulations for Figures 11-13 can be run with the
+script
+short/<a href="scripts/short/doit">doit</a>.
+The simulation takes up to three days.
+<hr>
+The simulations for
+Figure 14 on
+40 long-lived flows
+(<a href="figures/s761.queue.ps">TCP</a>,
+<a href="figures/s771.queue.ps">TFRC</a>)
+can be run with:<br>
+
+<a href="scripts/queue2.com">queue2.com</a>, 
+with supporting files
+<a href="scripts/queue.run">queue.run</a>,
+<a href="scripts/queue.tcl">queue.tcl</a>,
+<a href="scripts/queueSize.tcl">queueSize.tcl</a>,
+<a href="scripts/tracequeue.tcl">tracequeue.tcl</a>,
+awk/<a href="scripts/awk/plotaveq.awk">plotaveq.awk</a>,
+and
+awk/<a href="scripts/awk/plotqueue.awk">plotqueue.awk</a>.
+<p>
+Generating the postscript file also uses the following files:<br>
+
+graphs/<a href="scripts/graphs/s0.queue.mf">s0.queue.mf</a>.
+<hr>
+Figures 15-18 are from experiments.
+<hr>
+The simulations for Figure 19 on
+<a href="figures/s650.packetrate.ps">
+"A TFRC flow with an end to congestion"</a> can be run with:<br>
+<a href="scripts/increase.com">increase.com</a>, 
+with supporting files
+<a href="scripts/increase.run">increase.run</a>,
+<a href="scripts/increase.tcl">increase.tcl</a>,
+
+<a href="scripts/queueSize.tcl">queueSize.tcl</a>,
+awk/<a href="scripts/awk/increase.awk">increase.awk</a>,
+and graphs/<a href="scriptsTR/graphs/s0.packetrate.mf">s0.packetrate.mf</a>.
+<hr>
+The simulations for Figure 20 on
+<a href="figures/s640.rate.ps">"A TFRC flow with persistent congestion"</a>
+can be run with:<br>
+<a href="scripts/reduce.com">reduce.com</a>,
+with supporting files
+<a href="scripts/reduce.run">reduce.run</a>,
+<a href="scripts/reduce.tcl">reduce.tcl</a>,
+
+<a href="scripts/queueSize.tcl">queueSize.tcl</a>,
+awk/<a href="scripts/awk/reduce.awk">reduce.awk</a>,
+and
+awk/<a href="scripts/awk/reduce1.awk">reduce1.awk</a>.
+<p>
+Generating the postscript file also uses the following files:<br>
+graphs/<a href="scripts/graphs/s0.rate1.mf">s0.rate1.mf</a>.
+<hr>
+The simulations for Figure 21 on
+<a href="figures/s641.half.ps">"Number of round-trip times to reduce the
+sending rate"</a> can be run with:
+
+<a href="scripts/reduce1.com">reduce1.com</a>,
+with supporting files
+<a href="scripts/reduce1.run">reduce1.run</a>,
+<a href="scripts/reduce.tcl">reduce.tcl</a>,
+<a href="scripts/queueSize.tcl">queueSize.tcl</a>,
+awk/<a href="scripts/awk/reduce1.awk">reduce1.awk</a>,
+and
+awk/<a href="scripts/awk/reduce2.awk">reduce2.awk</a>.
+<p>
+Generating the postscript file also uses the following files:<br>
+graphs/<a href="scripts/graphs/s0.half.mf">s0.half.mf</a>.
+
+
+

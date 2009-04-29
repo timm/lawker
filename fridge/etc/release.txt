@@ -17,7 +17,7 @@ stop gaps:
 
 -------------------------------------------------------------------------------
 may 2: 77777777777777777777
-awk100: xgawk
+
 - new section on operating ssytems and awk (awk linux) and 
 	http://www.icir.org/tfrc/sims1.html
 	share/pdf/awkalert.pdf

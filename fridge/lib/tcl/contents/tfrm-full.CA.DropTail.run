@@ -1,0 +1,23 @@
+#!/usr/local/bin/tclsh8.1
+set ctr 9000
+set ecn 0
+set queue DropTail
+foreach rate {1 2 4 8 16 32 64 128} {
+    catch {exec rm out.$queue.full}
+    foreach i {1 2 4 8 16 32 64} {
+	for {set j 0} {$j < 3} {incr j} {
+	    eval "exec ./ns tfrm-full.CA.tcl $i $queue $rate $ecn"
+	    catch {eval "exec ./bwcnt2 $rate 0 1 all.full.tr > out.$queue.full"}
+	    eval "exec fgrep tcp out.$queue.full > graphs/s$ctr.tcp.tmp" 
+	    eval "exec fgrep tfrm out.$queue.full > graphs/s$ctr.tfrm.tmp" 
+	    eval "exec sed \"s/tcp //\" < graphs/s$ctr.tcp.tmp > graphs/s$ctr.tcp"
+	    eval "exec sed \"s/tfrm //\" < graphs/s$ctr.tfrm.tmp > graphs/s$ctr.tfrm"
+	    eval "exec graphs/getmean-full.tcl graphs/s$ctr.tcp $rate >> graphs/s-full-$queue.CA.tcpmean"
+	    eval "exec graphs/getmean-full.tcl graphs/s$ctr.tfrm $rate >> graphs/s-full-$queue.CA.tfrmmean"
+	    #	eval "exec sed \"s/s0/s$ctr/g\" < graphs/s0.full.mf | sed \"s/QUEUE/$queue.CA,ecn:$ecn/\" | sed \"s/RATE/$rate/\" > graphs/s$ctr.mf"
+	    incr ctr
+	}
+    }
+    eval "exec echo >> graphs/s-full-$queue.CA.tcpmean"
+    eval "exec echo >> graphs/s-full-$queue.CA.tfrmmean"
+}

@@ -1,0 +1,8 @@
+set size 0.6,0.28
+set terminal postscript eps
+set output "s0.loss1.ps"
+set ylabel "Loss Rate (%)" 
+set xlabel "Number of TCP Flows, Number of TFRC Flows, \nRATEMb/s QUEUE"
+set ytics (0,5,10,15,"   " 0.001)
+set key 15,8
+plot [] [0:15] "s0.p" notitle with linespoints

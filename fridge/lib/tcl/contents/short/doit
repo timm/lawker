@@ -1,0 +1,12 @@
+#!/usr/local/bin/tcsh -f
+
+./exp.csh
+./exp.metrics
+gnuplot < 2d.gp
+ghostview onoff.eq.2d.eps &
+ghostview onoff.drop.eps &
+ghostview onoff.eq.2d.eps &
+ghostview onoff.tcp.cov.2d.eps &
+ghostview onoff.tfrc.cov.2d.eps &
+ghostview onoff.both.cov.2d.eps &
+

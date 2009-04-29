@@ -1,0 +1,182 @@
+#!/usr/local/bin/tcsh -f
+
+set TOOLS = "../tools/"
+
+set simlen = 5000
+set pktsz = 1000
+set maxtrials = 10 
+set bdel = 50
+set bbuf = 200 
+set on = 1 
+set off = 2 
+set rate = 0.5 
+set bband = 15
+
+set tslist = (0.4 0.6 0.8 1 2 4 6 8 10 20 30 40 50 60 70 80 100)
+
+#
+# clear avg files
+#
+		
+foreach proto (tcp tfrc)
+   /bin/rm -f $proto.avg.eq
+    touch $proto.avg.eq
+    /bin/rm -f $proto.avg.cov
+    touch $proto.avg.cov
+ end
+/bin/rm -f drop.avg.dat
+touch drop.avg.dat
+
+foreach numcbr (50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200)
+
+	set basekey = $bband.$bdel.$bbuf.$numcbr
+	set count = 0
+
+	foreach proto (tcp tfrc) 
+		foreach ts ($tslist)
+			/bin/rm -f $proto.$ts.eq ; touch $proto.$ts.eq
+			/bin/rm -f $proto.$ts.cov ; touch $proto.$ts.cov                   
+		end
+	end
+	/bin/rm -f drop ; touch drop
+
+	while ($count < $maxtrials)
+
+		#
+		# what is the key to identify this run?
+		#
+
+		set key = $basekey.$count
+		echo $key start
+
+		#
+		# gunzip the data files
+		#
+
+		gunzip tcp.$key.tr.gz ; gunzip tfrc.$key.tr.gz ; gunzip drop.$key.tr.gz
+
+		/bin/cp tcp.$key.tr tcp ; /bin/cp tfrc.$key.tr tfrc ; /bin/cp drop.$key.tr drop.tr 
+
+		gzip tcp.$key.tr ; gzip tfrc.$key.tr ; gzip drop.$key.tr
+
+		#
+		# analyze for each timescale
+		# note that drop rate has nothing to do with timescale
+		#
+	
+		cat drop.tr | cut -f1 -d' ' >> drop
+		echo doing multi
+		foreach proto (tcp tfrc)
+			$TOOLS/nm.nofixed.pl $proto 0.2 $tslist
+		end
+	
+		foreach ts ($tslist)
+
+			echo now starting timescale $ts
+			
+			#
+			# CoV
+			#
+
+			echo CoV
+	    foreach proto (tcp tfrc)
+	    	cat $proto.$ts.multi | cut -f2 -d' ' | \
+	          $TOOLS/stats.pl | cut -f5 -d ' ' >> $proto.$ts.cov
+				tail -n1 $proto.$ts.cov 
+	    end
+
+			#
+			# equivalance
+			#
+
+			echo eq
+			foreach proto (tfrc) 
+				$TOOLS/fe.pl tcp.$ts.multi $proto.$ts.multi | cut -f6 -d' ' >> $proto.$ts.eq 
+				 tail -n1 $proto.$ts.eq 
+			end
+
+		end  # timescale
+
+		set count = `expr $count + 1`
+		echo $key done 
+
+	end # all trials for given numcbr
+
+	#
+	# take averages
+	#
+
+	echo avg
+
+	#
+	# clear 2D files
+	#
+
+	foreach proto (tcp tfrc)
+		/bin/rm -f $proto.$basekey.avg.eq
+		touch  $proto.$basekey.avg.eq
+		/bin/rm -f $proto.$basekey.avg.cov
+		touch $proto.$basekey.avg.cov
+	end
+
+	#
+	# eq and cov depend on timescale
+	#
+
+	foreach ts ($tslist) 
+		echo eq
+		foreach proto (tfrc)
+			set  eq = `$TOOLS/stats.pl < $proto.$ts.eq`
+
+			#
+			# 3D
+			#
+
+			echo $ts $numcbr $eq >> $proto.avg.eq
+
+			#
+			# 2D
+			#
+
+			echo $ts $eq >> $proto.$basekey.avg.eq
+
+		end
+
+		echo cov 
+		foreach proto (tcp tfrc)
+    	set cov = `$TOOLS/stats.pl < $proto.$ts.cov`
+
+			# 
+			# 3D
+			#
+
+    	echo $ts $numcbr $cov >> $proto.avg.cov                      
+
+			#
+			# 2D
+			#
+
+			echo $ts $cov >> $proto.$basekey.avg.cov
+
+		end
+	end
+
+	#
+	# blank line for 3D plots
+	#
+
+	foreach proto (tfrc)
+		echo "" >> $proto.avg.eq
+	end
+	foreach proto (tcp tfrc)
+		echo "" >> $proto.avg.cov
+	end
+
+	#
+	# drop plot is only 2D
+	#
+
+	set drop = `$TOOLS/stats.pl < drop`	
+	echo $numcbr $drop >> drop.avg.dat
+
+end # given numcbr

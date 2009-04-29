@@ -1,0 +1,11 @@
+# Changes:
+
+# exp.csh:
+set NS = "../ns"
+
+# doit:
+ghostview steady.cov.2d.eps &
+ghostview steady.eq.2d.eps &
+ghostview steady.intra.eq.2d.eps &
+ghostview steady.both.eq.2d.eps &
+

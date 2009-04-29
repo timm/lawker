@@ -1,0 +1,7 @@
+set size 1.0,0.4
+set terminal postscript eps
+set output "s0.loss.ps"
+set ylabel "Loss Rate"
+set xlabel "Time (s)" 34,1.5
+set xtics 0,1,16
+plot [3:18] [0:] "s0.est-loss" title "estimated loss rate" with linespoints ps 0.5, "s0.sqrt-loss" title "square root of estimated loss rate" with lines

@@ -1,0 +1,20 @@
+# To unpack this tar file:
+tar xvf scripts.tar
+cd scripts
+
+# To use these scripts, you must go the following:
+gcc bwcnt2.c -o bwcnt2
+gcc bwcnt2a.c -o bwcnt2a
+# Then, put a copy of "ns" in the current directory, for example:
+ln -s ~/vint/ns-2/ns ns
+
+# To run the tests:
+./single.com
+./tfrm12.com
+./queue2.com
+./increase.com
+./reduce.com
+./reduce1.com
+
+# More information is at:
+# http://www.aciri.org/tfrc/sims1.html
