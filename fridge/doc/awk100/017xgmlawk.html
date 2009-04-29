@@ -1,0 +1,51 @@
+<h1><join>XMLgawk</join></h1>
+
+<h2> Purpose</h2> <p>
+Extends standard Xgwk with built-in XML processing.
+
+<h2> Developers </h2> <p>
+Juergen Kahrs and others.
+
+<h2> Organization </h2><p>
+Directing or sponsoring the work.
+
+<h2> Domain </h2> <p>
+XML processing, plus libraries for other extensions to Gawk.
+
+<h2> Description </h2><p>
+XMLgawk is an experimental extension of the GNU Awk interpreter.
+It includes a small XML parsing library which is built upon the
+Expat XML parser. The parsing library is a very thin layer on top
+of Expat (implementing a pull-interface) and can also be used without
+GNU Awk to read XML data files.
+<p>
+Both, XMLgawk and its XML puller
+library only require an ANSI C compatible compiler (GCC works, as
+do most vendors' ANSI C compilers) and a 'make' program.
+
+<p>
+XMLgawk provides the following functionality including:
+<ul>
+<li> AWK's way of reading data line by line is supplemented by reading XML files node by node.
+   <li> XMLgawk can load .awk file as <em>as well as</em> shared libraries.
+   <li> Adds support for an @include directive in the source code. This is the same feature provided by the current igawk script. 
+</ul>
+<h2> Current</h2> <p>
+3=Released
+
+<h2>  Use </h2><p>
+3=Free/public domain.
+
+<h2> Date Deployed </h2><p>
+November 2003.
+
+<h2> Dated </h2><p>
+April 28, 2009.
+
+<h2> Url</h2><p>
+<ul>
+<li>
+<a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html">Documentation</a>;
+<li>
+<a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">Web site</a>.
+</ul>

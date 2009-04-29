@@ -24,6 +24,7 @@ awk100: xgawk
 	http://www.icir.org/tfrc/sims1.htmlP
 	awk-linux
 
+new sections: books/ articles
 
 append data to fields, not records
 http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
@@ -84,6 +85,7 @@ steve coile's xgawk
 http://groups.google.com/group/comp.lang.awk/msg/8f094ce6f0a32492?&q=xml
 karhs getmxl vs xgawk:
 http://groups.google.com/group/comp.lang.awk/browse_thread/thread/af74e60cb72e119c/38710ddc81e0bbc2?lnk=gst&q=xml#38710ddc81e0bbc2
+
 
 correlations in gawk
 http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
