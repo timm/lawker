@@ -99,6 +99,7 @@ doc/var/top10subjectslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subje
 
 doc/os.html                     ;Timm   ;2009   ;Apr   ;Os   ;|Operating Systems and Awk
 doc/unicast.html                ;SallyF ;2009   ;Apr   ;Os   ;|Simulations Unicast Applications
+doc/alerts.html                ;KimD ;2009   ;Apr   ;Os   ;|Intrusion alert normalization 
 
 doc/awk100.html					;Timm	;2009	;Jan	;Awk100	;|Awk100
 doc/awk100/017xmlgawk.html		;Juergenk  ;2009 ;Apr ;Awk100 ;XML ;|XMLgawk

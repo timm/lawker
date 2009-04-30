@@ -823,6 +823,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>SallyF</what>
 	</file>
+	<file where="doc/alerts.html">
+		<title>Intrusion alert normalization</title>
+		<what>Os</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>KimD</what>
+	</file>
 	<file where="doc/awk100.html">
 		<title>Awk100</title>
 		<what>Awk100</what>
