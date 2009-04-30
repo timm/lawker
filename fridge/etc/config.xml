@@ -816,22 +816,6 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
-	<file where="doc/unicast.html">
-		<title>Simulations Unicast Applications</title>
-		<what>Papers</what>
-		<what>Os</what>
-		<what>Apr</what>
-		<what>2009</what>
-		<what>SallyF</what>
-	</file>
-	<file where="doc/alerts.html">
-		<title>Intrusion alert normalization</title>
-		<what>Papers</what>
-		<what>Os</what>
-		<what>Apr</what>
-		<what>2009</what>
-		<what>KimD</what>
-	</file>
 	<file where="doc/awk100.html">
 		<title>Awk100</title>
 		<what>Awk100</what>
@@ -946,6 +930,22 @@ pageTracker._trackPageview();
 		<what>Jan</what>
 		<what>2009</what>
 		<what>Ronl</what>
+	</file>
+	<file where="doc/unicast.html">
+		<title>Simulations Unicast Applications</title>
+		<what>Papers</what>
+		<what>Os</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>SallyF</what>
+	</file>
+	<file where="doc/alerts.html">
+		<title>Intrusion alert normalization</title>
+		<what>Papers</what>
+		<what>Os</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>KimD</what>
 	</file>
 	<file where="doc/textmining.html">
 		<title>Text Mining</title>

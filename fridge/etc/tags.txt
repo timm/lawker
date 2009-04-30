@@ -98,8 +98,6 @@ doc/var/top10posterslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 poster
 doc/var/top10subjectslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subjects last year
 
 doc/os.html                     ;Timm   ;2009   ;Apr   ;Os   ;|Operating Systems and Awk
-doc/unicast.html                ;SallyF ;2009   ;Apr   ;Os  ;Papers ;|Simulations Unicast Applications
-doc/alerts.html                ;KimD ;2009   ;Apr   ;Os  ;Papers ;|Intrusion alert normalization 
 
 doc/awk100.html					;Timm	;2009	;Jan	;Awk100	;|Awk100
 doc/awk100/017xmlgawk.html		;Juergenk  ;2009 ;Apr ;Awk100 ;XML ;|XMLgawk
@@ -115,6 +113,9 @@ doc/awk100/004sudoku.html		;Jimh	;2009	;Jan	;Awk100	;Sudoku	;|Sudoku
 doc/awk100/003negotiate.html	;Ronl	;2009	;Jan	;Awk100	;Negotiate	;|Negotiate
 doc/awk100/002baseballsim.html	;Ronl	;2009	;Jan	;Awk100	;Baseballsim	;|Basebase Sim
 doc/awk100/001argcol.html		;Ronl	;2009	;Jan	;Awk100	;Argcol	;|Argcol
+
+doc/unicast.html                ;SallyF ;2009   ;Apr   ;Os  ;Papers ;|Simulations Unicast Applications
+doc/alerts.html                ;KimD ;2009   ;Apr   ;Os  ;Papers ;|Intrusion alert normalization 
 
 doc/textmining.html				;Timm	;2009	;Mar	;TextMining	;|Text Mining
 doc/textmine/languageAnalysis.html		;LotharS	;2009	;Mar	;TextMining	;|Language Analysis
