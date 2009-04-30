@@ -809,6 +809,20 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Steffen</what>
 	</file>
+	<file where="doc/os.html">
+		<title>Operating Systems and Awk</title>
+		<what>Os</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
+	<file where="doc/unicast.html">
+		<title>Simulations Unicast Applications</title>
+		<what>Os</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>SallyF</what>
+	</file>
 	<file where="doc/awk100.html">
 		<title>Awk100</title>
 		<what>Awk100</what>
@@ -837,6 +851,7 @@ pageTracker._trackPageview();
 		<what>Top10</what>
 		<what>Awk100</what>
 		<what>Papers</what>
+		<what>Os</what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>YungC</what>
