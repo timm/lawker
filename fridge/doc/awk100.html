@@ -24,6 +24,31 @@ and mail it to <a href="mailto:mail@awk.info?subject=Awk 100 contribution">mail@
 
 <p>(Recent additions are shown first.)
 <ol>
+<li value="18.">Henry Spencer's<a href="http://awk.info/?aasl">Amazing Awk Syntax Language</a> system:
+<ul>
+<li>
+
+Aaslg and aaslr implement the Amazing Awk Syntax Language, AASL
+(pro- nounced ``hassle''). Aaslg (pronounced ``hassling'') takes
+an AASL specification from the concatenation of the file(s) (default
+standard input) and emits the corresponding AASL table on standard
+output. 
+<li>
+The AASL implementation is not large. The scanner is 78 lines of
+awk,the parser is 61 lines of AASL (using a fairly low-density
+paragraphing style and a good manycomments), and the semantics pass
+is 290 lines of awk. The table interpreter is 340 lines, about half
+of which (and most of the complexity) can be attributed to the
+automatic error recovery.
+<li>
+As an experiment with a more ambitious AASL specification, one for
+ANSI C was written. This occupies 374 lines excluding comments and
+blank lines, and with the exception of the messy details of
+C declarators is mostly a fairly straightforward transcription of the
+syntax given in the ANSI standard. 
+</ul>
+
+
 <li value="17.">Juergen Kahrs (and others) 
  <a href="http://awk.info/?awk100/017xmlgawk">XMLgawk</a> system:
 <ul>
