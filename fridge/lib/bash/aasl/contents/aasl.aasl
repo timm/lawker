@@ -1,0 +1,63 @@
+# AASL definition, new version for awk code generation
+
+# token classes for error recovery
+<trivial> "," ";"	;	# tokens that can be discarded without remorse
+<lineterm> ";"		;	# line terminators, for resynchronization
+<endmarker> "EOF"	;	# end of input; also a line terminator
+
+# text to generate for complex tokens when error recovery synthesizes them
+"id" -> "___"
+"string" -> "\"___\""
+
+# top level:  rules, classes, and text definitions
+rules:
+	!begin {
+		"id" !eobegin !name !rule ":" contents ";" !endrule
+		| "<" "id" !class ">" {"string" !element ?} ";"
+		| "string" !complex "->" "string" !repair
+		| "EOF" >>
+	} !checkun !end		# check for undefined rules
+;
+
+# guts of a rule
+contents: {
+	">>" !break			# break out of loop
+	| "<<" !return			# return from rule
+	| "id" !name !callname		# call another rule
+	| "!" "id" !action		# emit an action code
+	| "@%&!" "id" !builtin		# builtins for @%&! C typedefs
+	| "string" !musthave		# token
+	| "(" !choice branches ")" !merge	# choice
+	| "{" !loop branches "}" !endloop	# loop
+	| [*] >>
+};
+
+# guts of a choice or loop
+branches: !fill (
+	# abbreviated choice/loop with negated condition
+	# (![a] b ?) {![c] d ?}   --->   ( [a] | [*] b ) { [c] >> | [*] d }
+	"!" "[" look "]" !loopbreak !more !other contents "?" !nomore
+	| [*] branch (
+		["|"] {"|" !more branch ?} !nomore	# general case
+		| "?" !more !other !loopbreak !nomore	# abbrev unnegated
+		| [*] !nomore				# one plain branch
+	)
+);
+
+# one branch of a choice or loop
+branch: (
+	"string" !case tag contents	# match string
+	| "[" look "]" tag contents	# lookahead
+);
+
+# lookahead for matching
+look: (
+	["string"/"/"] "string" !lookers !aheadahead "/" "string" !second !endlookers
+	| "*" !other		# default case
+	| [*] !lookers looker {"," !another looker ?} !endlookers
+);
+looker: ( "string" !lookahead | "id" !classid ) ;
+
+# tag to mark a choice as preferred error-recovery action
+# deprecated since changes in error-handling logic make usefulness doubtful
+tag: ("^" !tag ?) ;

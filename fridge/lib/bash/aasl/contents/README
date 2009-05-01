@@ -1,0 +1,69 @@
+Welcome to the wonderful world of AASL, the Amazing Awk Syntax Language.
+AASL is pronounced "hassle".
+
+Work on AASL stopped (in late 1993) in the middle of a major change of
+implementation strategy:  instead of generating a table to be interpreted
+by another awk program, generate a parser program written in awk.  The
+advantage of this is that the added layer of interpretation for the tables
+made AASL table-driven parsers glacially slow, while parser programs
+actually run fast enough to be usable.  The disadvantages are that parser
+programs require an awk with user-defined functions (not universally
+available in the early 1990s), and that I never finished porting AASL's
+clever error-recovery system to the new version (so it works only for
+table-driven parsers). 
+
+aaslg's options have changed from those in the manpage; see below. 
+
+"make r" runs a simple regression test.
+
+None of this stuff was ever really finished and polished for release.
+Beware.
+
+					Henry Spencer, April 2009
+
+
+The files are:
+
+aasl.1 is the (incomplete and slightly out of date) manual page.
+
+aasl.aasl is the AASL specification for AASL.  (AASL is, naturally,
+implemented using itself.)  It even has some comments in it. 
+
+taasl.aasl is the old table version of aasl.aasl.
+
+aaslg (pronounced "hassling") is the parser generator, taking an AASL
+program as input and generating table or program as output.  -X enables
+debugging.  -t requests table generation rather than program generation. 
+For program generation, -b specifies which flavor of "builtins" (the code
+that implements `@%&!' actions) should be included in the generated
+program; useful values are `C' for C89 typedef handling, and `0' for none. 
+
+aaslr (pronounced "hassler") is the way to run a table parser, giving it
+as the first argument and input file(s) as successive arguments.  -x turns
+on debugging.  Note that aaslg may invoke aaslr for AASL syntax analysis.
+
+(A program parser is a complete awk program, run by just supplying it to
+awk:  `awk -f parser inputfile ...'.)
+
+interp is the actual table interpreter, invoked by aaslr.
+
+lex is the lexical-analysis pass for aaslg (either version).
+
+syn is the compiled form of aasl.aasl, the parser program for aaslg.
+
+tsyn is the compiled form of taasl.aasl, an aaslr table for aaslg.
+
+sem and tsem are the semantics passes for aaslg (program and table
+versions respectively). 
+
+before, after.0, and after.C are pieces of code incorporated in generated
+parser programs by aaslg.
+
+common and plus.C are used to build after.0 and after.C; the Makefile
+knows how. 
+
+c.aasl is a larger sample:  an AASL syntax for ANSI C (1989 version),
+without semantics.  This syntax is an unfinished work and production use
+is not recommended.  Error recovery, in particular, still has problems. 
+
+todo is some sketchy notes about what wasn't finished.

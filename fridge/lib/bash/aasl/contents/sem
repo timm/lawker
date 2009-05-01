@@ -1,0 +1,219 @@
+# semantic pass of AASL parser generation (program version)
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	goodclass["trivial"] = 1
+	goodclass["lineterm"] = 1
+	goodclass["endmarker"] = 1
+	level = 0
+	kind[level] = ""
+	sawelse[level] = 0
+	errsto = "aaslc.errs"
+	firstrule = ""
+}
+/^[^#]/ {
+	cur1 = $1
+	cur2 = $2
+	next
+}
+$0 == "#!begin" {
+	print "BEGIN {"
+	inbegin = 1
+	next
+}
+$0 == "#!eobegin" {
+	if (inbegin) {
+		print "\tfill()"
+		print "\tfirst()"
+		print "}"
+		inbegin = 0
+	}
+	next
+}
+$0 == "#!end" {
+	print "function first() {"
+	print "\tr_" firstrule "()"
+	print "}"
+	next
+}
+$0 == "#!name" {
+	used[cur2] = 1
+	next
+}
+$0 == "#!rule" {
+	print "function r_" cur2 "() {"
+	indent = "\t"
+	defined[cur2] = 1
+	if (firstrule == "")
+		firstrule = cur2
+	next
+}
+$0 == "#!endrule" {
+	if (length(indent) != 1)
+		print where "indenting foulup (" length(indent) ")" >errsto
+	print "}"
+	next
+}
+$0 == "#!callname" {
+	print indent "r_" cur2 "()"
+	next
+}
+$0 == "#!loopbreak" && kind[level] != "loop" {
+	next			# loopbreak not in a loop
+}
+$0 == "#!loopbreak" || $0 == "#!break" {
+	print indent "break"
+	next
+}
+$0 == "#!loop" {
+	print indent "for (;;) {"
+	kind[++level] = "loop"
+	sawelse[level] = 0
+	indent = indent "\t"
+	next
+}
+$0 == "#!endloop" {
+	level--
+	indent = substr(indent, 1, length(indent)-1)
+	print indent "}"
+	next
+}
+$0 == "#!choice" {
+	print indent "{"
+	indent = indent "\t"
+	kind[++level] = "choice"
+	sawelse[level] = 0
+	next
+}
+$0 == "#!merge" {
+	indent = substr(indent, 1, length(indent)-1)
+	print indent "}"
+	level--
+	next
+}
+$0 == "#!return" {
+	print indent "return"
+	next
+}
+$0 == "#!musthave" {
+	print indent "if (used) fill()"
+	print indent "if ($1 != " cur2 ") fail()"
+	print indent "used = 1"
+	print indent "print"
+	next
+}
+$0 == "#!fill" {
+	print indent "if (used) fill()"
+	next
+}
+$0 == "#!case" {
+	print indent "if ($1 == " cur2 ") {"
+	indent = indent "\t"
+	print indent "used = 1"
+	print indent "print"
+	next
+}
+$0 == "#!more" {
+	indent = substr(indent, 1, length(indent)-1)
+	print indent "} else"
+	next
+}
+$0 == "#!nomore" {
+	indent = substr(indent, 1, length(indent)-1)
+	print indent "}"
+	if (!sawelse[level])
+		print indent "else fail()"
+	next
+}
+$0 == "#!other" {
+	print indent "{"
+	indent = indent "\t"
+	sawelse[level] = 1
+	next
+}
+$0 == "#!aheadahead" {
+	aheadahead = cur2
+	next
+}
+$0 == "#!second" {
+	printf "($1 == %s && see2nd(%s))", aheadahead, cur2
+	next
+}
+$0 == "#!action" {
+	print indent "print \"#!" cur2 "\""
+	next
+}
+$0 == "#!builtin" {
+	print indent "b_" cur2 "()"
+	next
+}
+$0 == "#!checkun" {
+	for (i in used)
+		if (i != "" && !defined[i])
+			print where "rule `" i "' never defined" >errsto
+	next
+}
+$0 == "#!class" {
+	if (!inbegin)
+		print where "class definitions must precede all rules" >errsto
+	if (cur2 ~ /^[a-z]/ && !goodclass[cur2]) {
+		print where "unknown special class `" cur2 "'" >errsto
+		class = "junk"
+	} else
+		class = cur2
+	next
+}
+$0 == "#!element" {
+	print "\tc_" class "[" cur2 "] = 1"
+	next
+}
+$0 == "#!complex" {
+	if (!inbegin)
+		print where "text definitions must precede all rules" >errsto
+	complex = substr(cur2, 2, length(cur2)-2)
+	next
+}
+$0 == "#!repair" {
+	print "\tg_" complex " = " cur2
+	next
+}
+$0 == "#!tag" {
+	next			# ignored, for the moment
+}
+$0 == "#!lookers" {
+	printf "%sif (", indent
+	next
+}
+$0 == "#!another" {
+	printf " || "
+	next
+}
+$0 == "#!endlookers" {
+	printf ") {\n"
+	indent = indent "\t"
+	next
+}
+$0 == "#!lookahead" {
+	printf "$1 == %s", cur2
+	next
+}
+$0 == "#!classid" {
+	printf "($1 in c_%s)", cur2
+	next
+}
+/^#2>\t/ {
+	errsto = $2
+	next
+}
+/^#=/ {
+	lineno = $2
+	filename = $3
+	where = filename "," lineno ": "
+	# fallthrough
+}
+/^#[^!]/ {
+	next
+}
+{
+	print where "unrecognized action token `" $1 "'" >errsto
+}

@@ -1,0 +1,344 @@
+# AASL table interpreter innards
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	pcstack[0] = ""
+	cpstack[0] = ""
+	sp = 1
+	cp = 0			# character position within rule
+	debug = 0
+	seenaasl = 0
+	lencodes = "123456789ABCDEF"
+	maxlen = length(lencodes)
+	for (n = 1; n <= maxlen; n++)
+		len[substr(lencodes, n, 1)] = n
+	err = "aaslr.errs"
+	flushline = 0
+	trivial[""] = 0
+	lineterm[""] = 0
+	endmarker = ""
+	prefix = ""
+	dnest = 0
+	snest = 0
+	scope[""] = ""
+}
+/^[ \t]*$/ {
+	next
+}
+flushline == 1 && lineterm[$1] == 0 {
+	next
+}
+/^[^#]/ {
+	if (pc == "") {
+		# spread the word as widely as possible
+		print "aasl table missing/bad"
+		print "aasl table missing/bad" >err
+		exit 1
+	}
+	flushline = 0
+	usedinput = 0		# 1 used, 0 not, -1 fake precedes real input
+	while (cp != 0 || usedinput < 1) {	# not ready for next input yet
+		while (cp == 0) {	# need to match current input
+			# normally only one iteration; errors add one
+			if (usedinput >= 0) {
+				in1 = $1
+				inall = $0
+				if (in1 == "id" && idtype[$2] == "t") {
+					in1 = "typedefid"
+					inall = "typedef" inall
+				}
+			}
+			target = ";" prefix len[length(in1)] in1
+			if (debug)
+				print "#", "matching `" target "' in " pc
+			if (prefix != "") {
+				in1 = save1
+				inall = saveall
+				usedinput = -1
+				prefix = ""
+			}
+			cp = index(rules[pc], target)
+			if (cp != 0) {
+				# found it
+				cp += length(target)
+				if (substr(rules[pc], cp, 1) == "u") {
+					# it was lookahead, doesn't count
+					cp++
+				} else {
+					# we saw it
+					usedinput++
+					print inall
+				}
+				if (debug)
+					print "#", "hit"
+			} else if (rules[pc] !~ /^;/) {
+				# did not find it, but there is a default
+				cp = 1
+				if (debug)
+					print "#", "missed"
+			} else {
+				# oh oh -- syntax error
+	#########################
+	# error repair
+
+	# general administration
+	if (usedinput < 0) {	# disaster -- repair screwed up
+		print where "error-repair disaster" >err
+		print "rule: " rules[pc] >err
+		print "target: " target >err
+		exit 1
+	}
+	print "#", "syntax", pc
+	nerrs++
+	if (nerrs > 7) {
+		print where "too many syntax errors in one line, aborting" >err
+		print "#!aargh"
+		exit 1
+	}
+
+	# retreat up to highest level at which a choice exists
+	retreat = -1
+	for (i = sp-1; i > 0 && \
+			substr(rules[pcstack[i]], cpstack[i], 1) == "b"; i--)
+		if (rules[pcstack[i]] ~ /;/)	# if rule matches input
+			retreat = i		# potential retreat point
+	if (retreat > 0) {
+		print "#", "retreat " sp - retreat " to " pcstack[retreat]
+		sp = retreat
+		pc = pcstack[sp]
+		cp = 0
+	}
+
+	# determine what we want
+	r = rules[pc]
+	c = substr(r, length(r), 1)
+	if (c == ".") {		# pick the first
+		i = index(r, ";")
+		if (i == 0) {
+			# "can't happen"
+			print where "repair impossible, rule " pc >err
+			exit 1
+		}
+		want = substr(r, i+2, len[substr(r, i+1, 1)])
+	} else {
+		n = len[c]
+		want = substr(r, length(r)-n, n)
+	}
+
+	# prepare for message
+	e = where "syntax error, wanted `" want "'"
+	if (NF > 1)
+		it = $2
+	else
+		it = $1
+
+	# repair strategy
+	wlt = lineterm[want]
+	ilt = lineterm[$1]
+	discard = 0		# 0 nothing, 1 input token, 2 input line
+	if (!wlt && !ilt) {		# ordinary tokens
+		if (trivial[$1])
+			discard = 1	# discard trivial ordinary token
+	} else if (wlt && !ilt)
+		discard = 2		# toss line to get to terminator
+	else if (!wlt && ilt)
+		nop = 1			# continue until want a terminator
+	else {				# hard case:  two line terminators
+		if (trivial[$1])
+			discard = 1	# trivial terminators we can toss
+		else if (want == endmarker)
+			discard = 1	# endmarker makes us toss anything
+		# otherwise, carry on and hope
+	}
+
+	# if appropriate, discard input and start from scratch
+	if (discard == 2) {
+		print "#", "lineflush"
+		e = e ", got `" it "', flushing line"
+		print e >err
+		flushline = 1
+		next
+	} else if (discard == 1) {
+		print "#", "discard", $0
+		e = e ", got `" it "', discarding it"
+		print e >err
+		next
+	}
+
+	# failing anything else, give parser what it wants and retain input
+	print "#", "generate", want
+	usedinput = -1
+	in1 = want
+	e = e ", saw `" it "'"
+	if (repair[want] != "") {
+		e = e ", generating `" repair[want] "'"
+		inall = want "\t" repair[want]
+	} else {
+		e = e ", generating `" want "'"
+		inall = want
+	}
+	print e >err
+	#########################
+				#
+			}
+		}
+
+		c = substr(rules[pc], cp, 1)
+		cp++
+		if (c == "g") {
+			pc = substr(rules[pc], cp, 4)
+			cp = 0
+		} else if (c == "c") {
+			opnd = substr(rules[pc], cp, 4)
+			cp += 4
+			pcstack[sp] = pc
+			cpstack[sp] = cp
+			sp++
+			pc = opnd
+			cp = 0
+		} else if (c == "r") {
+			sp--
+			if (sp == 0)
+				exit 0
+			pc = pcstack[sp]
+			cp = cpstack[sp]
+			if (debug)
+				print "#", "returning to " pc " at " cp
+		} else if (c == "x") {
+			opnd = substr(rules[pc], cp, 4)
+			cp += 4
+			for (;;) {
+				sp--
+				if (sp == 0)
+					exit 0
+				oldpc = pc
+				pc = pcstack[sp]
+				cp = cpstack[sp]
+				if (oldpc == opnd)
+					break	# NOTE BREAK OUT
+			}
+			if (debug)
+				print "#", "exiting to " pc " at " cp
+		} else if (c == "!") {
+			oplen = len[substr(rules[pc], cp, 1)]
+			opnd = substr(rules[pc], cp+1, oplen)
+			cp += 1 + oplen
+			print "#!" opnd
+		} else if (c == "@") {
+			oplen = len[substr(rules[pc], cp, 1)]
+			opnd = substr(rules[pc], cp+1, oplen)
+			cp += 1 + oplen
+			if (debug)
+				print "#", "@", opnd
+			if (opnd == "ds") {
+				dnest++
+				dtype[dnest] = ""
+				did[dnest] = ""
+			} else if (opnd == "de") {
+				dnest--
+			} else if (opnd == "dt") {
+				dtype[dnest] = "t"
+			} else if (opnd == "di") {
+				did[dnest] = $2
+			} else if (opnd == "dd" && did[dnest] != "") {
+				i = did[dnest]
+				if (dtype[dnest] == "t") {
+					oldidtype[snest i] = idtype[i]
+					oldscope[snest i] = scope[i]
+					idtype[i] = "t"
+					scope[i] = snest
+					if (debug)
+						print "#", "@", "typedef", i
+				} else if (idtype[i] == "t") {
+					oldidtype[snest i] = idtype[i]
+					oldscope[snest i] = scope[i]
+					idtype[i] = ""
+					scope[i] = snest
+					if (debug)
+						print "#", "@", "undef", i
+				}
+			} else if (opnd == "ss") {
+				snest++
+			} else if (opnd == "se") {
+				for (id in scope)
+					if (scope[id] == snest) {
+						idtype[id] = oldidtype[snest id]
+						scope[id] = oldscope[snest id]
+						if (debug)
+							print "#", "@", "^" id
+					}
+				snest--
+			}
+		} else if (c == "b") {
+			nop = 0
+		} else if (c == "s") {
+			if (substr(rules[pc], cp, 1) != ";") {
+				print where "bad skip op, rule " pc >err
+				exit 1
+			}
+			oplen = substr(rules[pc], cp+1, 1)
+			cp += 1 + 1 + len[oplen]
+			if (substr(rules[pc], cp, 1) != "u") {
+				print where "bad skip op in rule " pc >err
+				exit 1
+			}
+			cp++
+		} else if (c == "a") {	# the dreaded double lookahead
+			prefix = "Z" substr(target, 2)
+			save1 = in1
+			saveall = inall
+			usedinput++
+			cp = 0
+		} else {
+			print where "unknown table op `" c "'" >err
+			exit 1
+		}
+	}
+	next
+}
+/^#aasldebug\t/ {
+	debug = $2
+	next
+}
+/^#aasl\t/ {
+	rules[$2] = $3
+	next
+}
+/^#aasl@\t/ {
+	pc = $2
+	next
+}
+/^#aasl2>\t/ {
+	err = $2
+	next
+}
+/^#aaslc\t/ {
+	if ($2 == "trivial")
+		trivial[$3] = 1
+	else if ($2 == "lineterm")
+		lineterm[$3] = 1
+	else if ($2 == "endmarker") {
+		endmarker = $3
+		lineterm[$3] = 1
+		trivial[$3] = 0
+	}
+	next
+}
+/^#aaslr\t/ {
+	repair[$2] = $3
+	next
+}
+/^#aasl=\t/ {
+	next
+}
+/^#=/ {
+	lineno = $2
+	filename = $3
+	where = filename "," lineno ": "
+	nerrs = 0
+	# fallthrough
+}
+/^#/ {
+	print
+	next
+}

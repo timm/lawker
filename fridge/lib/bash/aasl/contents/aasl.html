@@ -1,0 +1,463 @@
+<h1><join>AASL: Parser Genrator in Awk</join></h1>
+<h2>Download</h2>
+<p>Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/bash/aasl/">LAWKER</a>
+
+<h2>Synopsis</h2>
+<pre>
+aaslg [ -x ] [ file ... ]
+aaslr [ -x ] table [ file ... ]
+</pre>
+<h2>Description</h2>
+   <p>    Aaslg and aaslr implement the Amazing Awk Syntax Language,  AASL  (pro-
+       nounced	``hassle'').   Aaslg  (pronounced  ``hassling'') takes an AASL
+       specification from the concatenation of the file(s)  (default  standard
+       input)  and  emits  the	corresponding  AASL  table on standard output.
+       Aaslr parses the contents  of  the  file(s)  (default  standard	input)
+       according  to the AASL table in file table, emitting the table's output
+       on standard output.
+<p>
+       Both take a -x option to turn on verbose and cryptic debugging  output.
+       Both  look  in  a  library directory for pieces of the AASL system; the
+       AASLDIR environment variable, if present, overrides the default	notion
+       of the location of this directory.
+<p>
+       Aaslr expects input to consist of input tokens, one per line.  For sim-
+       ple tokens, the line is just the text of  the  token.   For  metatokens
+       like  ``identifier'',  the line is the metatoken's name, a tab, and the
+       text of the token.  [xxx discuss `#' lines]
+<p>
+       Aaslr output, in the absence of syntax errors, consists	of  the  input
+       tokens  plus action tokens, which are lines consisting of `#!' followed
+       immediately by an identifier.  If the syntax  of  the  input  does  not
+       match  that  specified  in  the AASL table, aaslr emits complaint(s) on
+       standard error and attempts to repair the input into a legal form;  see
+       ``ERROR REPAIR'' below.	Unless errors have cascaded to the point where
+       aaslr gives up (in which case it emits the action token ``#!aargh''  to
+       inform  later  passes  of  this), the output will always conform to the
+       AASL syntax given in the table.
+<p>
+       Normally, a complete program using AASL consists of three  passes,  the
+       middle  one  being an invocation of aaslr.  The first pass is a lexical
+       analyzer, which breaks free-form input down into input tokens  in  some
+       suitable  way.	The third pass is a semantics interpreter, which typi-
+       cally responds to input tokens by momentarily remembering them  and  to
+       action  tokens  by  executing  some  action, often using the remembered
+       value of the previous input token.  Aaslg is in fact implemented  using
+       AASL,  following  this  structure;  it implements the -x option by just
+       passing it to aaslr.
+<h2>
+AASL Specifications</h2>
+<p>
+       An AASL specification consists of class definitions, text  definitions,
+       and  rules, in arbitrary order (except that class definitions must pre-
+       cede use of the classes they define).  A `#' (not enclosed in a string)
+       begins  a  comment;  characters	from  it  to  the  end of the line are
+       ignored.  An identifier follows the  same  rules  as  a	C  identifier,
+       except  that  in most contexts it can be at most 16 characters long.  A
+       string is enclosed in double quotes ("") and generally follows  C  syn-
+       tax.   Most  strings  denote  input  tokens,  and references to ``input
+       token'' as part of AASL specification syntax should be read as ``string
+       denoting input token''.
+<p> 
+       A  class  definition  is  an identifier enclosed in angle brackets (&lt;>)
+       followed by one or more input tokens followed by a semicolon  (;).   It
+       gives  a name to a set of input tokens.	Classes whose names start with
+       capital letters are user abbreviations; see below.  Classes whose names
+       start  with  lowercase  letters	are special classes, used for internal
+       purposes.  The current special classes are:
+<p>
+<dl>
+    <dt>   trivial
+	    <dd>   tokens which the parser can discard at will, in the expectation
+	       that  they  might be inserted erroneously; see ``ERROR REPAIR''
+	       for details.
+
+    <dt>   lineterm
+	    <dd>   tokens which terminate a logical line for  purposes  of	resyn-
+	       chronization in error repair; see ``ERROR REPAIR'' for details.
+
+      <dt> endmarker
+	      <dd> xxx
+</dl>
+<P>
+       For example, the class definitions used for AASL itself are:
+<pre>
+&lt;trivial> "," ";"   ;
+&lt;lineterm> ";" ;
+&lt;endmarker> "EOF"   ;
+</pre>
+<p>
+
+       When AASL error repair is invoked, the parser sometimes needs to gener-
+       ate  input  tokens.   In  the case of a metatoken, the parser knows the
+       token's name but needs to generate a text for it as well.  A text defi-
+       nition consists of an input token, an arrow (->), and a string specify-
+       ing what text should be generated for that  token.   For  example,  the
+       text definitions used for AASL itself are:
+<pre>
+"id" -> "___"
+"string" -> "\"___\""
+</pre>
+<p>
+       The  rules  of a specification define the syntax that the parser should
+       accept.	The order of rules is not significant, except that  the  first
+       rule is considered to be the top level of the specification.  The spec-
+       ification is executed by calling the first rule; when execution of that
+       rule  terminates,  execution  of  the specification terminates.	If the
+       user wishes this to occur only at end of input, he should  arrange  for
+       the  lexical  analyzer  to  produce  an endmarker token (conventionally
+       ``EOF'') at the end of the input, and should write the  first  rule  to
+       require that token at the end.
+<p>
+       Note  that  an  input token may be recognized considerably before it is
+       accepted, but the parser emits it to the output only on acceptance.
+<p>
+       A rule consists of an identifier naming it, a colon (:), a sequence  of
+       items  which is the body of the rule, and a semicolon (;).  When a rule
+       is called, it is executed by executing the individual items of the body
+       in  order  (as modified by control structures) until either one of them
+       explicitly terminates execution of the rule or the last	item  is  exe-
+       cuted.
+<p>
+       An  item which is an input token requires that that token appear in the
+       input at that point, and accepts it (causing it to be emitted  as  out-
+       put).
+<p>
+       An  item  which	is an identifier denotes a call to another rule, which
+       executes the body of that rule and then returns to the caller.	It  is
+       an error to call a nonexistent rule.
+<p>
+       An  item  which is an identifier preceded by `!' causes that identifier
+       to be emitted as an action token; the identifier has no other  signifi-
+       cance.
+<p>
+       An item which is `&lt;&lt;' causes execution of the current rule to terminate
+       immediately, returning to the calling rule.
+<p>
+       An item which is `>>' causes the execution of the  innermost  enclosing
+       loop  (see  below)  to terminate immediately, with execution continuing
+       after the end of that loop.  The loop must be within the same rule.
+<p>
+       An item which is an identifier preceded by `@%&!'  causes  an  internal
+       semantic  action  to  be  executed  within the parser; this is normally
+       needed only for bizarre situations like C's typedef.  [xxx should  give
+       details I suppose]
+<p>
+       A  choice  is  a  sequence of branches enclosed in parentheses (()) and
+       separated by vertical bars (|).	The first of the branches that can  be
+       executed,  is,  after  which  execution	continues after the end of the
+       choice.
+<p>
+       A loop is a sequence of branches enclosed in braces ({}) and  separated
+       by  vertical bars (|).  The first of the branches that can be executed,
+       is, and this is done repeatedly until the loop is terminated  by  `>>',
+       after which execution continues after the end of the loop.  (A loop can
+       also be terminated by `&lt;&lt;' terminating execution of the whole rule.)
+<p>
+       A branch is just a sequence of items, like a rule body, except that  it
+       must  begin  with  either  an input token or a lookahead.  If it begins
+       with an input token, it can be executed only when  that	token  is  the
+       next  token  in the input, and execution starts with acceptance of that
+       token.
+<p>
+       A lookahead specifies conditions for execution of  a  branch  based  on
+       recognizing  but  not  accepting  input token(s).  The simplest form is
+       just an input token enclosed in brackets ([]), in which case  execution
+       of  that  branch  is possible only when that token is the next token in
+       the input.  The brackets can also contain multiple input  tokens  sepa-
+       rated  by  commas,  in  which  case  the  parser looks for any of those
+       tokens.	If a user-abbreviation class name appears, either by itself or
+       as  an  element	of  a  comma-separated list, it stands for the list of
+       tokens given in its definition.
+<p>
+       If a lookahead's brackets contain only a `*', this is a default branch,
+       executable regardless of the state of the input.
+<p>
+       As  a  very  special case, a lookahead's brackets can contain two input
+       tokens separated by slash (/), in which case that branch is  executable
+       only  when those two tokens, in sequence, are next in the input.  Warn-
+       ing: this is implemented by a delicate perversion of  the  error-repair
+       machinery,  and	if the first of those tokens is not then accepted, the
+       parser will die in convulsions.	A further restriction is that the same
+       input token may not appear as the first token of a double lookahead and
+       as a normal lookahead token in the same choice/loop.
+<p>
+       Certain simple choice/loop structures appear frequently, and there  are
+       abbreviations for them:
+<pre>
+abbreviation	    expansion
+( items ?)	        ( items  |  [*] )
+{ items ?}	        { items  |  [*] >> }
+( ! [look] items ?) ( [ look]  |  items )
+{ ! [look] items ?} { [ look] >>  |  items }
+</pre>
+<p>
+       For  example,  here  are  the rules of the AASL specification for AASL,
+       minus the actions (which add considerable clutter and are  unintelligi-
+       ble without the third pass):
+<pre>
+	       rules: {
+				   "id" ":" contents ";"
+				   | "&lt;" "id" ">" {"string" ?} ";"
+				   | "string" "->" "string"
+				   | "EOF" >>
+	       };
+	       contents: {
+				   ">>"
+				   | "&lt;&lt;"
+				   | "id"
+				   | "!" "id"
+				   | "@%&!" "id"
+				   | "string"
+				   | "(" branches ")"
+				   | "{" branches "}"
+				   | [*] >>
+	       };
+	       branches: (
+				   "!" "[" look "]" contents "?"
+				   | [*] branch (
+				   ["|"] {"|" branch ?}
+				   | "?" !endbranch
+				   | [*]
+				   )
+	       );
+	       branch: (
+				   "string" contents
+				   | "[" look "]" contents
+	       );
+	       look: (
+				   ["string"/"/"] "string" "/" "string"
+				   | "*"
+				   | [*] looker {"," looker ?}
+	       );
+	       looker: ( "string" | "id" ) ;
+</pre>
+<h2>Error Repair</h2>
+<p>
+       When  the  input  token is not one of those desired, either because the
+       item being executed is an input token and a different token appears  on
+       the  input,  or	because  none of the branches of a choice/loop is exe-
+       cutable, error repair is invoked to try to fix things up.  Sometimes it
+       can  actually  guess  right  and  fix the error, but more frequently it
+       merely supplies a legal output so that later passes will not be	thrown
+       into chaos by a minor syntax error.
+<p>
+       The  general  error-repair  strategy  of  an AASL parser is to give the
+       parser what it wants and then attempt to resynchronize the  input  with
+       the parser.
+<p>
+       [xxx  long discussion of how ``what it wants'' is determined when there
+       are multiple possibilities]
+<p>
+       Resynchronization is  performed	in  three  stages.   The  first  stage
+       attempts to resynchronize within a logical line, and is applied only if
+       neither the input token nor the desired token is a line	terminator  (a
+       member  of  the	``lineterm'' class).  If the input token is trivial (a
+       member of the ``trivial'' class), it is	discarded.   Otherwise	it  is
+       retained,  in hopes that it will be the next token that the parser asks
+       for.
+<p>
+       Either way, an error message is produced, indicating what was  desired,
+       what was seen, and what was handed to the parser.  If too many of these
+       messages have been produced for a single line,  the  parser  gives  up,
+       produces a last despairing message, emits a ``#!aargh'' action token to
+       alert later pases, and exits.  Barring this disaster, parsing then con-
+       tinues.	 If  the  parser  at some point is willing to accept the input
+       token, it is accepted and error repair terminates.  If a line  termina-
+       tor  is seen in input, or the parser requests one, before the parser is
+       willing to accept the input token, the second phase begins.
+<p>
+       The second stage of resynchronization attempts to line both  input  and
+       parser  up on a line terminator.  If the desired token is a line termi-
+       nator and the input token is not, input is discarded until a line  ter-
+       minator appears.  If the desired token is not a line terminator and the
+       input token is, the input token is retained and parsing continues until
+       the  parser  asks  for  a line terminator.  Either way, the third phase
+       then begins.
+<p>
+       The third stage of resynchronization attempts to reconcile line	termi-
+       nators.	If the desired and input tokens are identical, the input token
+       is accepted and error repair terminates.  If they are not identical and
+       the  input  token is trivial (yes, line terminators can be trivial, and
+       ones like `;' probably should be), the input token  is  discarded.   If
+       the  desired token is the endmarker, then the input token is discarded.
+       Otherwise, the input token continues to be retained in  hopes  that  it
+       will  eventually  be  accepted.	 [xxx  this needs more thought] In any
+       case, the second phase begins again.
+<h2>
+Files</h2>
+<pre>
+all in $AASLDIR:
+interp  table interpreter
+lex     first pass of aaslg
+syn     AASL table for aaslg
+sem     third pass of aaslg
+</pre>
+<h2>
+See Also</h2>
+<p>
+       awk(1), yacc(1)
+<h2>
+Diagnostics
+</h2>
+<p>
+       ``error-repair disaster'' means that the first token of a double looka-
+       head could not be accepted and error repair was invoked on it.
+<h2>
+History</h2><p>
+       Written	at  University	of  Toronto  by Henry Spencer, somewhat in the
+       spirit of S/SL (see ACM TOPLAS April 1982).
+<h2>
+Bugs</h2>
+<p>
+       Some of the restrictions on double lookahead are annoying.
+<p>
+       Most of the C string escapes are recognized but disregarded, with  only
+       a backslashed double-quote interpreted properly during text generation.
+<p>
+       Error repair needs further tuning; it has an annoying tendency to infi-
+       nite-loop  in  certain odd situations (although the messages/line limit
+       eventually breaks the loop).
+<p>
+       Complex choices/loops with many branches can result in very long  lines
+       in the table.
+<h2>Assessment</h2>
+<p>
+The implementation of AASL was fairly straight forward, with AASL
+itself used to describe its own syntax. An AASL specification is
+compiled into a table, which is then processed by a table-walking
+interpreter.  The interpreter expects input to be as tokens, one
+per line, much likethe output of a traditional scanner.  A complete
+program using AASL (for example, the AASL table generator) is
+normally three passes: thescanner,the parser (tables plus interpreter),
+and a semantics pass. The first set of tables was generated byhand
+for bootstrapping.
+<p>
+Apart from the minor nuisance of repeated iterations of language
+design, the biggest problem ofimplementing AASL wasthe question of
+semantic actions. Inserting awk semantic routines into the table
+interpreter, in the style of yacc,would not be impossible, but it
+seemed clumsy and inelegant. Awks lack of anyprovision for compile
+time initialization of tables strongly suggested reading them in at
+run time, rather than taking up space with a huge BEGIN action whose
+only purpose was to initialize the tables. This makes insertions into
+the interpreters code awkward.
+<p>
+The problem was solved by a crucial observation: traditional compilers
+(etc.) merge a two-stepprocess, first validating a token stream and
+inserting semantic action cookiesinto it, then interpreting thestream
+and the cookies to interface to semantics. Forexample, yaccs grammar
+notation can be viewed asinserting fragments of C code into a parsed
+output, and then interpreting that output. This approach yieldsan
+extremely natural pass structure for an AASL parser,with the
+parsersoutput stream being (in the absenceof syntax errors) a copy
+of its input stream with annotations. The following semantic pass
+then processesthis, momentarily remembering normal tokens and
+interpreting annotations as operations on the remembered values.
+(The semantic pass is, in fact, a classic pattern+action awk program,
+with a pattern and anaction for each annotation, and a general save
+the value in a variableaction for normal tokens.)
+<p>
+The one difficulty that arises with this method is when the language
+definition involves feedbackloops between semantics and parsing,
+an obvious example being Cs typedef.Dealing with this reallydoes
+require some imbedding of semantics into the interpreter,although
+with care it need not be much: thein-parser code for recognizing C
+typedefs, including the complications introduced by block structure
+andnested redeclarations of type names, is about 40 lines of awk.The
+in-parser actions are invoked by a special variant of the AASL emit
+semantic annotationsyntax.
+<p>
+Aside benefit of top-down parsing is that the context of errors is
+known, and it is relatively easy to implement automatic error
+recovery. When the interpreter is faced with an input token that
+does not appearin the list of possibilities in the parser table,
+it givesthe parser one of the possibilities anyway, and then usessimple
+heuristics to try to adjust the input to resynchronize. The result
+is that the parser,and subsequentpasses, always see a syntactically-correct
+program. (This approach is borrowed from S/SL and its predecessors.)
+Although the detailed error-recovery algorithm is still experimental,
+and the current one is notentirely satisfactory when a complex AASL
+specification does certain things, in general it deals with minorsyntax
+errors simply and cleanly without anyneed for complicating the
+specification with details of errorrecovery.Knowing the context of
+errors also makes it much easier to generate intelligible error
+messagesautomatically.
+<p>
+The AASL implementation is not large. The 
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/aasl//contents/lex">scanner</a> is 78 lines of
+awk,the parser is 61 lines of AASL (using a fairly low-density
+paragraphing style and a good manycomments), and the 
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/aasl/contents/sem">semantics pass</a>
+is 290
+lines of awk. The 
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/aasl/contents/interp">table interpreter</a> is 340 lines, about half
+of which (and most of the complexity) can be attributed to the
+automatic error recovery.
+<p>
+As an experiment with a more ambitious AASL specification, one for
+ANSI C was written. This occupies 374 lines excluding comments and
+blank lines, andwith the exception of the messy details of
+Cdeclaratorsis mostly a fairly straightforward transcription of the
+syntax given in the ANSI standard. Generating tables for this takes
+about three minutes of CPU time on a Sun 3/180; the tables are about
+10K bytes.
+<p>
+The performance of the resulting ANSI C parser is not impressive:
+in very round numbers, averagedoveralarge program, it parses about
+one line of C per CPU second. (The scanner,164 lines of awk, accounts
+for a negligible fraction of this.) Some attention to optimization
+of both the tables and the interpreter might speed this up somewhat,
+but remarkable improvements are unlikely. As things stand in the absence
+of better awk implementations or a rewrite of the table interpreter
+in C, its a cute toy, possibly of some pedagogical value, but not a
+useful production tool. On the other hand, there does not appear
+to be any fundamental reason for the performance shortfall: itspurely
+the result of the slowexecution of awk programs.
+
+<h3>Lessons From AASL 
+</h3>
+<p>
+The scanner would be much 
+faster with better regular-expression matching, because it can use regular expressions to determine whether 
+a string is a plausible token but must use substr
+to extract the string first. Nawk functions would be very
+handy for modularizing code, especially the complicated and seldom-invoked
+error-recovery procedure. A
+switch statement modelled on the pattern+action scheme would be useful in several places. 
+<p>
+Another troublesome issue is that arrays are second-class citizens in awk (and continue to be so in 
+nawk): there is no array assignment. This lack leads to endless repetitions of code like: 
+<pre>
+for (i in array) 
+    arraystack[i ":" sp] = array[i] 
+</pre>
+<p>
+whenever
+block structuring or a stack is desired. Nawk's multi-dimensional arrays supply some syntactic
+sugar for this but don't
+really fix the problem. Not only is this code clumsy, it is woefully inefficient compared 
+to something like 
+<pre>
+arraystack[sp] = array 
+</pre>
+<p>
+even if the implementation is very clever. This significantly reduces the usefulness of arrays as symboltables and the like, a role for which they are otherwise very well suited. 
+<p>
+It would also be of some use if there were some way to initialize arrays as constant tables, or alternatively 
+a guarantee that the BEGIN action would be implemented cleverly and would not occupy space after 
+it had finished executing. 
+<p>
+A
+minor nuisance that surfaces constantly is that getting an error message
+out to the standard-error descriptor is painfully clumsy: one gets to choose between putting error messages
+out to a temporary file and having a shell "wrapper" process them later, or piping them into "cat >&amp;2" (!). 
+<p>
+The multi-pass input-driven
+structure that awk naturally lends itself to produces very
+clean and readable code with different phases neatly separated, but creates substantial difficulties 
+when
+feedback loops appear.
+(In the case of AASL,this perhaps says more about language design than about 
+awk.) <h2>Author</h2>
+<p>Henry Spencer.

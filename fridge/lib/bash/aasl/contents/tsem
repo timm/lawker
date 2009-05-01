@@ -1,0 +1,291 @@
+# semantic pass of AASL parser generation (old table version)
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	stab[""] = ""
+	nextruleno = 1001
+	rulestack[0] = ""
+	rulenostack[0] = 0
+	ruletagstack[0] = ""
+	sp = 1
+	lsp = 1
+	lencodes = "123456789ABCDEF"
+	maxlen = length(lencodes)
+	print "#aasl@", nextruleno
+	errsto = "aaslc.errs"
+	loop = -1
+	goodclass["trivial"] = 1
+	goodclass["lineterm"] = 1
+	goodclass["endmarker"] = 1
+}
+/^[^#]/ {
+	cur1 = $1
+	cur2 = $2
+	next
+}
+$0 == "#!name" {
+	if (stab[cur2] == "") {
+		stab[cur2] = nextruleno
+		nextruleno++
+	}
+	next
+}
+$0 == "#!namedrule" {
+	if (sp != 1)
+		print where "stacking disaster" >errsto
+	rulestack[sp] = rule
+	rulenostack[sp] = ruleno
+	ruletagstack[sp] = tag
+	sp++
+	ruleno = stab[cur2]
+	rule = ""
+	tag = ""
+	defined[cur2] = 1
+	toprule = ruleno
+	print "#aasl=", cur2, toprule
+	next
+}
+$0 == "#!anonrule" {
+	rulestack[sp] = rule
+	rulenostack[sp] = ruleno
+	ruletagstack[sp] = tag
+	sp++
+	ruleno = nextruleno
+	rule = ""
+	tag = ""
+	nextruleno++
+	next
+}
+$0 == "#!endrule" {
+	i = index(rule, ";0")
+	if (i != 0) {
+		rest = substr(rule, i+2)	# 2 = length(";0")
+		len = index(rest, ";")
+		if (len != 0)
+			len--
+		else
+			len = length(rest)
+		r = substr(rest, 1, len)
+		rule = r substr(rule, 1, i-1) substr(rest, len+1)
+		if (index(rule, ";0") != 0)
+			print where "multiple defaults in choice" >errsto
+	}
+	if (substr(rule, 1, 1) == "c")
+		rule = substr(rule, 1, 5) "b" substr(rule, 6)
+	rule = rule "r."
+	if (tag != "")
+		rule = rule tag substr(lencodes, length(tag), 1)
+	print "#aasl", ruleno, rule
+	sp--
+	rule = rulestack[sp]
+	ruleno = rulenostack[sp]
+	tag = ruletagstack[sp]
+	next
+}
+$0 == "#!callname" {
+	n = stab[cur2]
+	if (n == "") {
+		print where "callname on unknown name `" cur2 "'" >errsto
+		exit 1
+	}
+	rule = rule "c" n
+	next
+}
+$0 == "#!callanon" {
+	rule = rule "c" nextruleno
+	next
+}
+$0 == "#!loopbreak" && loop < 0 {
+	next			# loopbreak not in a loop
+}
+$0 == "#!loopbreak" || $0 == "#!break" {
+	dest = loop
+	if (dest < 0) {
+		for (i = lsp - 1; i > 0; i--)
+			if (loopstack[i] >= 0)
+				break
+		if (i == 0) {
+			print where "break not inside loop" >errsto
+			dest = toprule		# *something* valid
+		} else
+			dest = loopstack[i]
+	}
+	rule = rule "x" dest
+	next
+}
+$0 == "#!loop" {
+	loopstack[lsp] = loop
+	lsp++
+	loop = nextruleno
+	next
+}
+$0 == "#!choice" {
+	loopstack[lsp] = loop
+	lsp++
+	loop = -1
+	next
+}
+$0 == "#!endbranch" {
+	if (loop > 0)
+		rule = rule "g" loop
+	else
+		rule = rule "r"
+	next
+}
+$0 == "#!merge" {
+	lsp--
+	loop = loopstack[lsp]
+	next
+}
+$0 == "#!return" {
+	rule = rule "x" toprule
+	next
+}
+$0 == "#!musthave" {
+	s = substr(cur2, 2, length(cur2)-2)
+	if (length(s) > maxlen) {
+		print where "token `" s "' is too long, " \
+						maxlen " chars max" >errsto
+		exit 1
+	}
+	rule = rule ";" substr(lencodes, length(s), 1) s "r"
+	next
+}
+$0 == "#!case" {
+	s = substr(cur2, 2, length(cur2)-2)
+	if (length(s) > maxlen) {
+		print where "token `" s "' is too long, " \
+						maxlen " chars max" >errsto
+		exit 1
+	}
+	rule = rule ";" substr(lencodes, length(s), 1) s
+	maybetag = s
+	next
+}
+$0 == "#!lookahead" {
+	s = substr(cur2, 2, length(cur2)-2)
+	if (length(s) > maxlen) {
+		print where "token `" s "' is too long, " \
+						maxlen " chars max" >errsto
+		exit 1
+	}
+	rule = rule ";" substr(lencodes, length(s), 1) s "u"
+	maybetag = s
+	next
+}
+$0 == "#!classid" {
+	s = classes[cur2]
+	if (s == "") {
+		print where "unknown or empty class `" cur2 "'" >errsto
+		exit 1
+	}
+	rule = rule substr(s, 1, length(s)-1)	# get rid of trailing "s"
+	next
+}
+$0 == "#!other" {
+	rule = rule ";0"
+	next
+}
+$0 == "#!aheadahead" {
+	s = substr(cur2, 2, length(cur2)-2)
+	if (length(s) > maxlen) {
+		print where "token `" s "' is too long, " \
+						maxlen " chars max" >errsto
+		exit 1
+	}
+	rule = rule "a;Z" substr(lencodes, length(s), 1) s
+	next
+}
+$0 == "#!second" {
+	s = substr(cur2, 2, length(cur2)-2)
+	if (length(s) > maxlen) {
+		print where "token `" s "' is too long, " \
+						maxlen " chars max" >errsto
+		exit 1
+	}
+	rule = rule substr(lencodes, length(s), 1) s "u"
+	next
+}
+$0 == "#!action" {
+	if (length(cur2) > maxlen) {
+		print where "action identifier `" cur2 "' is too long, " \
+						maxlen " chars max" >errsto
+		exit 1
+	}
+	rule = rule "!" substr(lencodes, length(cur2), 1) cur2
+	next
+}
+$0 == "#!builtin" {
+	if (length(cur2) > maxlen) {
+		print where "builtin identifier `" cur2 "' is too long, " \
+						maxlen " chars max" >errsto
+		exit 1
+	}
+	rule = rule "@" substr(lencodes, length(cur2), 1) cur2
+	next
+}
+$0 == "#!checkun" {
+	for (i in stab)
+		if (i != "" && !defined[i])
+			print where "rule `" i "' never defined" >errsto
+	next
+}
+$0 == "#!class" {
+	if (cur2 ~ /^[a-z]/ && !goodclass[cur2]) {
+		print where "unknown special class `" cur2 "'" >errsto
+		class = "junk"
+	} else
+		class = cur2
+	next
+}
+$0 == "#!element" {
+	s = substr(cur2, 2, length(cur2)-2)
+	if (class ~ /^[a-z]/)
+		print "#aaslc", class, s
+	else {
+		if (length(s) > maxlen) {
+			print where "token `" s "' is too long, " \
+					maxlen " chars max" >errsto
+			exit 1
+		}
+		r = classes[class]
+		classes[class] = r ";" substr(lencodes, length(s), 1) s "us"
+	}
+	next
+}
+$0 == "#!complex" {
+	complex = substr(cur2, 2, length(cur2)-2)
+	next
+}
+$0 == "#!repair" {
+	cur2 = substr(cur2, 2, length(cur2)-2)
+	# xxx this backslash-quote eliminator isn't really general
+	while ((n = index(cur2, "\\\"")) != 0)
+		cur2 = substr(cur2, 1, n-1) substr(cur2, n+1)
+	print "#aaslr", complex, cur2
+	next
+}
+$0 == "#!tag" {
+	tag = maybetag
+	next
+}
+$0 == "#!skip" {
+	rule = rule "s"
+	next
+}
+/^#2>\t/ {
+	errsto = $2
+	next
+}
+/^#=/ {
+	lineno = $2
+	filename = $3
+	where = filename "," lineno ": "
+	# fallthrough
+}
+/^#[^!]/ {
+	next
+}
+{
+	print where "unrecognized action token `" $1 "'" >errsto
+}

@@ -1,0 +1,31 @@
+function see2nd(des2,   gotit, lastline) {
+	lastline = $0
+	fill()
+	gotit = ($1 == des2) ? 1 : 0
+	nextline = $0
+	havenext = 1
+	$0 = lastline
+	return gotit
+}
+function fail() {
+	print where "syntax error"
+	exit 1
+}
+function fill() {
+	if (havenext) {
+		$0 = nextline
+		havenext = 0
+	} else {
+		getline
+		while ($0 ~ /^#/) {
+			if ($0 ~ /^#=/) {
+				lineno = $2
+				filename = $3
+				where = filename "," lineno ": "
+			}
+			print
+			getline
+		}
+	}
+	used = 0
+}

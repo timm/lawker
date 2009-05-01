@@ -1,0 +1,63 @@
+# AASL definition, old version for table generation
+
+# token classes for error recovery
+<trivial> "," ";"	;	# tokens that can be discarded without remorse
+<lineterm> ";"		;	# line terminators, for resynchronization
+<endmarker> "EOF"	;	# end of input; also a line terminator
+
+# text to generate for complex tokens when error recovery synthesizes them
+"id" -> "___"
+"string" -> "\"___\""
+
+# top level:  rules, classes, and text definitions
+rules:
+	{
+		"id" !name !namedrule ":" contents ";" !endrule
+		| "<" "id" !class ">" {"string" !element ?} ";"
+		| "string" !complex "->" "string" !repair
+		| "EOF" >>
+	} !checkun		# check for undefined rules
+;
+
+# guts of a rule
+contents: {
+	">>" !break			# break out of loop
+	| "<<" !return			# return from rule
+	| "id" !name !callname		# call another rule
+	| "!" "id" !action		# emit an action code
+	| "@%&!" "id" !builtin		# builtins for @%&! C typedefs
+	| "string" !callanon !anonrule !musthave !endrule	# token
+	| "(" !callanon !choice !anonrule branches ")" !merge !endrule	# choice
+	| "{" !callanon !loop !anonrule branches "}" !merge !endrule	# loop
+	| [*] >>
+};
+
+# guts of a choice or loop
+branches: (
+	# abbreviated choice/loop with negated condition
+	# (![a] b ?) {![c] d ?}   --->   ( [a] | [*] b ) { [c] >> | [*] d }
+	"!" "[" look "]" !loopbreak !endbranch !other contents "?" !endbranch
+	| [*] branch !endbranch (
+		["|"] {"|" branch !endbranch ?}		# general case
+		| "?" !other !loopbreak !endbranch	# abbreviated unnegated
+		| [*]					# one plain branch
+	)
+);
+
+# one branch of a choice or loop
+branch: (
+	"string" !case tag contents	# match string
+	| "[" look "]" tag contents	# lookahead
+);
+
+# lookahead for matching
+look: (
+	["string"/"/"] "string" !lookahead !aheadahead "/" "string" !second
+	| "*" !other		# default case
+	| [*] looker {"," !skip looker ?}
+);
+looker: ( "string" !lookahead | "id" !classid ) ;
+
+# tag to mark a choice as preferred error-recovery action
+# deprecated since changes in error-handling logic make usefulness doubtful
+tag: ("^" !tag ?) ;

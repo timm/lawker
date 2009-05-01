@@ -1,0 +1,79 @@
+# AASL lexical analysis
+BEGIN {
+	OFS = "\t"
+	errsto = "aacc.errs"
+}
+/^#=/ {
+	lineno = $2 - 1
+	filename = $3
+	# ignore $4 if present
+	next
+}
+/^#2>\t/ {
+	errsto = $2
+	next
+}
+{
+	lineno++
+	print "#=", lineno, filename
+	print "######" $0
+	s = $0 "#"
+	while (length(s) > 1) {
+		n = 1
+		if (s ~ /^[ \t\f]/) {
+			while (substr(s, 1, n+1) ~ /^[ \t\f]+$/)
+				n++
+			class = "white"
+		} else if (s ~ /^@%&!/) {
+			n = 4
+			class = "self"
+		} else if (s ~ /^(<<|>>|->)/) {
+			n = 2
+			class = "self"
+		} else if (s ~ /^([\][()*!^|:{};<>?,]|\/)/) {
+			class = "self"
+		} else if (s ~ /^[a-zA-Z_]/) {
+			while (substr(s, 1, n+1) ~ /^[a-zA-Z_0-9]+$/)
+				n++
+			class = "id"
+		} else if (s ~ /^"/) {
+			class = "string"
+			while ((c = substr(s, n+1, 1)) ~ /[^"]/) {
+				if (c == "\\") {
+					n++
+					if (substr(s, n+1) !~ \
+						/^(['"?\\abfnrtv0-7]|x[0-9a-fA-F])/)
+						class = "unknown \\ escape"
+				}
+				n++
+			}
+			if (substr(s, n+1, 1) == "\"")
+				n++
+			else
+				class = "unterminated string"
+		} else if (s ~ /^#/) {
+			s = " #"	# ignore balance of line
+			class = "white"
+		} else
+			class = "strange character"
+
+		if (n == length(s))	# oops, swallowed trailing '#'
+			n--
+		if (class == "self")
+			print substr(s, 1, n)
+		else if (class ~ / /)	# error of some kind
+			print filename "," lineno ": " class ": " \
+						substr(s, 1, n) >errsto
+		else if (class != "white") {
+			p = substr(s, 1, n)
+			# get rid of imbedded tabs
+			while ((t = index(p, "\t")) != 0)
+				p = substr(p, 1, t-1) "\\t" substr(p, t+1)
+			print class, p
+		}
+		s = substr(s, n+1)
+	}
+}
+END {
+	print "EOF"
+}

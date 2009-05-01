@@ -1,0 +1,67 @@
+#! /bin/sh
+# AASL parser generator
+# Actually this is just the user interface, for either the new
+# awk-program generator or the old table generator.
+
+AASLDIR=${AASLDIR-./aasl} ; export AASLDIR
+PATH=$AASLDIR:/bin:/usr/bin ; export PATH
+
+debug=
+tables=
+builtins=0
+for dummy
+do
+	case "$1" in
+	-X)	debug="-x"	;;
+	-t)	tables=t	;;
+	-b)	builtins="$2" ; shift	;;
+	--)	break		;;
+	-*)	echo "$0: unknown option \`$1'" >&2 ; exit 2	;;
+	*)	break		;;
+	esac
+	shift
+done
+
+err1=/tmp/aaslg1.$$
+err2=/tmp/aaslg2.$$
+status=1
+trap 'rm -f $err1 $err2 ; trap 0 1 2 15 ; exit $status' 0 1 2 15
+>$err1
+>$err2
+
+if test " $tables" = " "
+then
+	cat $AASLDIR/before
+fi
+(
+	echo "#2>	$err2"
+	(
+		echo "#2>	$err1"
+		if test $# -gt 0
+		then
+			for f
+			do
+				echo "#= 1 \"$f\""
+				cat $f
+			done
+		else
+			echo "#= 1 \"<stdin>\""
+			cat
+		fi
+	) | awk -f $AASLDIR/lex |
+		case "$tables" in
+		t)	aaslr $debug $AASLDIR/tsyn	;;
+		'')	awk -f $AASLDIR/syn		;;
+		esac
+) | awk -f $AASLDIR/${tables}sem
+if test " $tables" = " "
+then
+	cat $AASLDIR/after.$builtins
+fi
+
+if test -s $err1 -o -s $err2
+then
+	cat $err1 $err2 >&2
+else
+	status=0
+fi

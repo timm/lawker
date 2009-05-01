@@ -1,0 +1,42 @@
+#! /bin/sh
+# AASL table interpreter
+# Actually just the user interface for the old table interpreter.
+
+PATH=/bin:/usr/bin ; export PATH
+AASLDIR=${AASLDIR-./aasl} ; export AASLDIR
+
+err=/tmp/aaslr.$$
+status=1
+trap 'rm -f $err; exit $status' 0 1 2 15
+>$err
+
+debug=
+case "$1" in
+-x)	debug="yes" ; shift	;;
+esac
+case $# in
+0)	echo "Usage: aaslr [-x] rules [file] ..." >&2 ; exit 2 ;;
+esac
+
+rules="$1"
+shift
+args="$*"
+case "$args" in
+'')	args="-"	;;
+esac
+
+(
+	echo "#aasl2>	$err"
+	if test " $debug" = " yes"
+	then
+		echo "#aasldebug	1"
+	fi
+	cat $rules $args
+) | awk -f $AASLDIR/interp
+
+if test -s $err
+then
+	cat $err >&2
+else
+	status=0
+fi

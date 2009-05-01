@@ -1,0 +1,350 @@
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	used = 1		# has the current line been used?
+	havenext = 0		# is the next one in nextline?
+	debug = 0
+}
+BEGIN {
+	c_trivial[","] = 1
+	c_trivial[";"] = 1
+	c_lineterm[";"] = 1
+	c_endmarker["EOF"] = 1
+	g_id = "___"
+	g_string = "\"___\""
+	fill()
+	first()
+}
+function r_rules() {
+	print "#!begin"
+	for (;;) {
+		if (used) fill()
+		if ($1 == "id") {
+			used = 1
+			print
+			print "#!eobegin"
+			print "#!name"
+			print "#!rule"
+			if (used) fill()
+			if ($1 != ":") fail()
+			used = 1
+			print
+			r_contents()
+			if (used) fill()
+			if ($1 != ";") fail()
+			used = 1
+			print
+			print "#!endrule"
+		} else
+		if ($1 == "<") {
+			used = 1
+			print
+			if (used) fill()
+			if ($1 != "id") fail()
+			used = 1
+			print
+			print "#!class"
+			if (used) fill()
+			if ($1 != ">") fail()
+			used = 1
+			print
+			for (;;) {
+				if (used) fill()
+				if ($1 == "string") {
+					used = 1
+					print
+					print "#!element"
+				} else
+				{
+					break
+				}
+			}
+			if (used) fill()
+			if ($1 != ";") fail()
+			used = 1
+			print
+		} else
+		if ($1 == "string") {
+			used = 1
+			print
+			print "#!complex"
+			if (used) fill()
+			if ($1 != "->") fail()
+			used = 1
+			print
+			if (used) fill()
+			if ($1 != "string") fail()
+			used = 1
+			print
+			print "#!repair"
+		} else
+		if ($1 == "EOF") {
+			used = 1
+			print
+			break
+		}
+		else fail()
+	}
+	print "#!checkun"
+	print "#!end"
+}
+function r_contents() {
+	for (;;) {
+		if (used) fill()
+		if ($1 == ">>") {
+			used = 1
+			print
+			print "#!break"
+		} else
+		if ($1 == "<<") {
+			used = 1
+			print
+			print "#!return"
+		} else
+		if ($1 == "id") {
+			used = 1
+			print
+			print "#!name"
+			print "#!callname"
+		} else
+		if ($1 == "!") {
+			used = 1
+			print
+			if (used) fill()
+			if ($1 != "id") fail()
+			used = 1
+			print
+			print "#!action"
+		} else
+		if ($1 == "@%&!") {
+			used = 1
+			print
+			if (used) fill()
+			if ($1 != "id") fail()
+			used = 1
+			print
+			print "#!builtin"
+		} else
+		if ($1 == "string") {
+			used = 1
+			print
+			print "#!musthave"
+		} else
+		if ($1 == "(") {
+			used = 1
+			print
+			print "#!choice"
+			r_branches()
+			if (used) fill()
+			if ($1 != ")") fail()
+			used = 1
+			print
+			print "#!merge"
+		} else
+		if ($1 == "{") {
+			used = 1
+			print
+			print "#!loop"
+			r_branches()
+			if (used) fill()
+			if ($1 != "}") fail()
+			used = 1
+			print
+			print "#!endloop"
+		} else
+		{
+			break
+		}
+	}
+}
+function r_branches() {
+	print "#!fill"
+	{
+		if (used) fill()
+		if ($1 == "!") {
+			used = 1
+			print
+			if (used) fill()
+			if ($1 != "[") fail()
+			used = 1
+			print
+			r_look()
+			if (used) fill()
+			if ($1 != "]") fail()
+			used = 1
+			print
+			print "#!loopbreak"
+			print "#!more"
+			print "#!other"
+			r_contents()
+			if (used) fill()
+			if ($1 != "?") fail()
+			used = 1
+			print
+			print "#!nomore"
+		} else
+		{
+			r_branch()
+			{
+				if (used) fill()
+				if ($1 == "|") {
+					for (;;) {
+						if (used) fill()
+						if ($1 == "|") {
+							used = 1
+							print
+							print "#!more"
+							r_branch()
+						} else
+						{
+							break
+						}
+					}
+					print "#!nomore"
+				} else
+				if ($1 == "?") {
+					used = 1
+					print
+					print "#!more"
+					print "#!other"
+					print "#!loopbreak"
+					print "#!nomore"
+				} else
+				{
+					print "#!nomore"
+				}
+			}
+		}
+	}
+}
+function r_branch() {
+	{
+		if (used) fill()
+		if ($1 == "string") {
+			used = 1
+			print
+			print "#!case"
+			r_tag()
+			r_contents()
+		} else
+		if ($1 == "[") {
+			used = 1
+			print
+			r_look()
+			if (used) fill()
+			if ($1 != "]") fail()
+			used = 1
+			print
+			r_tag()
+			r_contents()
+		}
+		else fail()
+	}
+}
+function r_look() {
+	{
+		if (used) fill()
+		if (($1 == "string" && see2nd("/"))) {
+			if (used) fill()
+			if ($1 != "string") fail()
+			used = 1
+			print
+			print "#!lookers"
+			print "#!aheadahead"
+			if (used) fill()
+			if ($1 != "/") fail()
+			used = 1
+			print
+			if (used) fill()
+			if ($1 != "string") fail()
+			used = 1
+			print
+			print "#!second"
+			print "#!endlookers"
+		} else
+		if ($1 == "*") {
+			used = 1
+			print
+			print "#!other"
+		} else
+		{
+			print "#!lookers"
+			r_looker()
+			for (;;) {
+				if (used) fill()
+				if ($1 == ",") {
+					used = 1
+					print
+					print "#!another"
+					r_looker()
+				} else
+				{
+					break
+				}
+			}
+			print "#!endlookers"
+		}
+	}
+}
+function r_looker() {
+	{
+		if (used) fill()
+		if ($1 == "string") {
+			used = 1
+			print
+			print "#!lookahead"
+		} else
+		if ($1 == "id") {
+			used = 1
+			print
+			print "#!classid"
+		}
+		else fail()
+	}
+}
+function r_tag() {
+	{
+		if (used) fill()
+		if ($1 == "^") {
+			used = 1
+			print
+			print "#!tag"
+		} else
+		{
+		}
+	}
+}
+function first() {
+	r_rules()
+}
+function see2nd(des2,   gotit, lastline) {
+	lastline = $0
+	fill()
+	gotit = ($1 == des2) ? 1 : 0
+	nextline = $0
+	havenext = 1
+	$0 = lastline
+	return gotit
+}
+function fail() {
+	print where "syntax error"
+	exit 1
+}
+function fill() {
+	if (havenext) {
+		$0 = nextline
+		havenext = 0
+	} else {
+		getline
+		while ($0 ~ /^#/) {
+			if ($0 ~ /^#=/) {
+				lineno = $2
+				filename = $3
+				where = filename "," lineno ": "
+			}
+			print
+			getline
+		}
+	}
+	used = 0
+}

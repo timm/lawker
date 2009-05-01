@@ -1,0 +1,7 @@
+BEGIN {
+	FS = "\t"
+	OFS = "\t"
+	used = 1		# has the current line been used?
+	havenext = 0		# is the next one in nextline?
+	debug = 0
+}

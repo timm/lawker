@@ -1,0 +1,421 @@
+.TH AASL 1 "23 Nov 1990"
+.BY Zoology
+.SH NAME
+aaslg, aaslr \- table generation and interpreter for Amazing Awk Syntax Language
+.SH SYNOPSIS
+.B aaslg
+[
+.B \-x
+] [ file ... ]
+.br
+.B aaslr
+[
+.B \-x
+] table [ file ... ]
+.SH DESCRIPTION
+.I Aaslg
+and
+.I aaslr
+implement the Amazing Awk Syntax Language, AASL (pronounced ``hassle'').
+.I Aaslg
+(pronounced ``hassling'') takes an AASL specification from the
+concatenation of the
+.IR file (s)
+(default standard input)
+and emits the corresponding AASL table on standard output.
+.I Aaslr
+parses the contents of the
+.IR file (s)
+(default standard input)
+according to the AASL table in file
+.IR table ,
+emitting the table's output on standard output.
+.PP
+Both take a
+.B \-x
+option to turn on verbose and cryptic debugging output.
+Both look in a library directory for pieces of the AASL system;
+the AASLDIR environment variable, if present, overrides the default notion
+of the location of this directory.
+.PP
+.I Aaslr
+expects input to consist of
+.IR "input tokens" ,
+one per line.
+For simple tokens, the line is just the text of the token.
+For
+.I metatokens
+like ``identifier'', the line is the metatoken's name, a tab, and the
+text of the token.
+[xxx discuss `#' lines]
+.PP
+.I Aaslr
+output, in the absence of syntax errors,
+consists of the input tokens plus
+.IR "action tokens" ,
+which are lines consisting of `#!' followed immediately by an identifier.
+If the syntax of the input does not match that specified in the AASL table,
+.I aaslr
+emits complaint(s) on standard error and
+attempts to repair the input into a legal form; see ``ERROR REPAIR'' below.
+Unless errors have cascaded to the point where
+.I aaslr
+gives up (in which case it emits the action token ``#!aargh''
+to inform later passes of this),
+the output will always conform to the AASL syntax given in the table.
+.PP
+Normally, a complete program using AASL consists of three passes, the
+middle one being an invocation of
+.IR aaslr .
+The first pass is a lexical analyzer, which breaks free-form input down
+into input tokens in some suitable way.
+The third pass is a semantics interpreter,
+which typically responds to input tokens
+by momentarily remembering them and to action tokens by executing some
+action, often using the remembered value of the previous input token.
+.I Aaslg
+is in fact implemented using AASL, following this structure;
+it implements the
+.B \-x
+option by just passing it to
+.IR aaslr .
+.SH "AASL SPECIFICATIONS"
+An AASL specification consists of
+.IR "class definitions" ,
+.IR "text definitions" ,
+and
+.IR rules ,
+in arbitrary order (except that class definitions must precede use
+of the classes they define).
+A `#' (not enclosed in a string) begins a comment;
+characters from it to the end of the line are ignored.
+An
+.I identifier
+follows the same rules as a C identifier,
+except that in most contexts it can be at most 16 characters long.
+A
+.I string
+is enclosed in double quotes ("") and generally follows C syntax.
+Most strings denote input tokens, and references to ``input token''
+as part of AASL specification syntax should be read as
+``string denoting input token''.
+.PP
+A
+.I class definition
+is an identifier enclosed in angle brackets (<>) followed by one or more
+input tokens followed by a semicolon (;).
+It gives a name to a set of input tokens.
+Classes whose names start with capital letters are user abbreviations;
+see below.
+Classes whose names start with lowercase letters are
+.IR "special classes" ,
+used for internal purposes.
+The current special classes are:
+.IP trivial 2c
+tokens which the parser can discard at will,
+in the expectation that they might be inserted erroneously;
+see ``ERROR REPAIR'' for details.
+.IP lineterm
+tokens which terminate a logical line for purposes of
+resynchronization in error repair;
+see ``ERROR REPAIR'' for details.
+.IP endmarker
+xxx
+.PP
+For example, the class definitions used for AASL itself are:
+.de ZS
+.sp
+.nf
+.in +2c
+..
+.de ZE
+.in
+.fi
+.sp
+..
+.ZS
+<trivial> "," ";"	;
+<lineterm> ";"	;
+<endmarker> "EOF"	;
+.ZE
+.PP
+When AASL error repair is invoked, the parser sometimes needs to generate
+input tokens.
+In the case of a metatoken, the parser knows the token's name
+but needs to generate a text for it as well.
+A
+.I text definition
+consists of
+an input token, an arrow (\->), and a string specifying what text should
+be generated for that token.
+For example, the text definitions used for AASL itself are:
+.ZS
+"id" \-> "_\|_\|_"
+"string" \-> "\e"_\|_\|_\e""
+.ZE
+.PP
+The
+.I rules
+of a specification define the syntax that the parser should accept.
+The order of rules is not significant, except that the first rule is
+considered to be the top level of the specification.
+The specification is executed by calling the first rule;
+when execution of that rule terminates, execution of the specification
+terminates.
+If the user wishes this to occur only at end of input,
+he should arrange for the lexical analyzer to produce an endmarker
+token (conventionally ``EOF'') at the end of the input,
+and should write the first rule to require that token at the end.
+.PP
+Note that an input token may be recognized considerably before it is
+.IR accepted ,
+but the parser emits it to the output only on acceptance.
+.PP
+A rule consists of an identifier naming it,
+a colon (:),
+a sequence of
+.IR item s
+which is the body of the rule,
+and a semicolon (;).
+When a rule is
+.IR called ,
+it is executed by executing the individual items
+of the body in order (as modified by control structures)
+until either one of them explicitly terminates execution of the rule or
+the last item is executed.
+.PP
+An item which is an input token requires that that token appear in the
+input at that point, and accepts it (causing it to be emitted as output).
+.PP
+An item which is an identifier denotes a call to another rule,
+which executes the body of that rule and then returns to the caller.
+It is an error to call a nonexistent rule.
+.PP
+An item which is an identifier preceded by `!' causes that identifier
+to be emitted as an action token;
+the identifier has no other significance.
+.PP
+An item which is `<<'
+causes execution of the current rule to terminate immediately,
+returning to the calling rule.
+.PP
+An item which is `>>'
+causes the execution of the innermost enclosing loop (see below) to
+terminate immediately, with execution continuing after the end of that loop.
+The loop must be within the same rule.
+.PP
+An item which is an identifier preceded by `@%&!' causes an internal
+semantic action to be executed within the parser; this is normally needed
+only for bizarre situations like C's
+.IR typedef .
+[xxx should give details I suppose]
+.PP
+A
+.I choice
+is a sequence of
+.I branches
+enclosed in parentheses (\|()\|) and separated by vertical bars (|).
+The first of the branches that can be executed, is,
+after which execution continues after the end of the choice.
+.PP
+A
+.I loop
+is a sequence of branches enclosed in braces ({}) and separated by
+vertical bars (|).
+The first of the branches that can be executed, is,
+and this is done repeatedly until the loop is terminated by `>>',
+after which execution continues after the end of the loop.
+(A loop can also be terminated by `<<'
+terminating execution of the whole rule.)
+.PP
+A
+.I branch
+is just a sequence of items, like a rule body,
+except that it must begin with either an input token or a
+.IR lookahead .
+If it begins with an input token, it can be executed only when that
+token is the next token in the input, and execution starts with acceptance
+of that token.
+.PP
+A
+.I lookahead
+specifies conditions for execution of a branch based on
+recognizing but not accepting input token(s).
+The simplest form is just an input token enclosed in brackets ([]),
+in which case execution of that branch is possible only when that
+token is the next token in the input.
+The brackets can also contain multiple input tokens separated by
+commas, in which case the parser looks for any of those tokens.
+If a user-abbreviation class name appears, either by itself or as an
+element of a comma-separated list, it stands for the list of tokens
+given in its definition.
+.PP
+If a lookahead's brackets contain only a `*',
+this is a
+.I default
+branch, executable
+regardless of the state of the input.
+.PP
+As a very special case, a lookahead's brackets can contain two input
+tokens separated by slash (/), in which case that branch is executable
+only when those two tokens, in sequence, are next in the input.
+.B Warning:
+this is implemented by a delicate perversion of the error-repair machinery,
+and if the first of those tokens is not then accepted,
+the parser will die in convulsions.
+A further restriction is that the same input token may not appear as the
+first token of a double lookahead and as a normal lookahead token in the
+same choice/loop.
+.PP
+Certain simple choice/loop structures appear frequently, and there are
+abbreviations for them:
+.sp
+.in +2c
+.ta 5c
+abbreviation	expansion
+.sp 0.5
+.BI "( " items " ?)	( " items "  |  [*] )"
+.br
+.BI "{ " items " ?}	{ " items "  |  [*] >> }"
+.br
+.BI "( ! [" look "] " items " ?)	( ["
+.IB look "]  |  " items " )"
+.br
+.BI "{ ! [" look "] " items " ?}	{ ["
+.IB look "] >>  |  " items " }"
+.in
+.sp
+.PP
+For example, here are the rules of the AASL specification for AASL,
+minus the actions (which add considerable clutter
+and are unintelligible without the third pass):
+.ZS
+rules: {
+	"id" ":" contents ";"
+	| "<" "id" ">" {"string" ?} ";"
+	| "string" "->" "string"
+	| "EOF" >>
+};
+contents: {
+	">>"
+	| "<<"
+	| "id"
+	| "!" "id"
+	| "@%&!" "id"
+	| "string"
+	| "(" branches ")"
+	| "{" branches "}"
+	| [*] >>
+};
+branches: (
+	"!" "[" look "]" contents "?"
+	| [*] branch (
+		["|"] {"|" branch ?}
+		| "?" !endbranch
+		| [*]
+	)
+);
+branch: (
+	"string" contents
+	| "[" look "]" contents
+);
+look: (
+	["string"/"/"] "string" "/" "string"
+	| "*"
+	| [*] looker {"," looker ?}
+);
+looker: ( "string" | "id" ) ;
+.ZE
+.SH "ERROR REPAIR"
+When the input token is not one of those desired,
+either because the item being executed is an input token and a different
+token appears on the input, or because none of the branches of a choice/loop
+is executable,
+error repair is invoked to try to fix things up.
+Sometimes it can actually guess right and fix the error, but more frequently
+it merely supplies a legal output so that later passes will not be thrown
+into chaos by a minor syntax error.
+.PP
+The general error-repair strategy of an AASL parser is to give the parser
+what it wants and then attempt to resynchronize the input with the parser.
+.PP
+[xxx long discussion of how ``what it wants'' is determined when there
+are multiple possibilities]
+.PP
+Resynchronization is performed in three stages.
+The first stage attempts to resynchronize within a logical line,
+and is applied only if neither the input token nor the desired token is a
+.I line terminator
+(a member of the ``lineterm'' class).
+If the input token is
+.I trivial
+(a member of the ``trivial'' class),
+it is discarded.
+Otherwise it is retained, in hopes that it will be the next token that
+the parser asks for.
+.PP
+Either way, an error message is produced, indicating what was desired,
+what was seen, and what was handed to the parser.
+If too many of these messages have been produced for a single line,
+the parser gives up,
+produces a last despairing message,
+emits a ``#!aargh'' action token to alert later pases,
+and exits.
+Barring this disaster, parsing then continues.
+If the parser at some point is willing to accept the input token,
+it is accepted and error repair terminates.
+If a line terminator is seen in input,
+or the parser requests one,
+before the parser is willing to accept the input token,
+the second phase begins.
+.PP
+The second stage of resynchronization attempts to line both input and
+parser up on a line terminator.
+If the desired token is a line terminator and the input token is not,
+input is discarded until a line terminator appears.
+If the desired token is not a line terminator and the input token is,
+the input token is retained and
+parsing continues until the parser asks for a line terminator.
+Either way, the third phase then begins.
+.PP
+The third stage of resynchronization attempts to reconcile line terminators.
+If the desired and input tokens are identical,
+the input token is accepted and error repair terminates.
+If they are not identical and the input token is trivial
+(yes, line terminators can be trivial, and ones like `;' probably should be),
+the input token is discarded.
+If the desired token is the endmarker, then the input token is discarded.
+Otherwise, the input token continues to be retained in hopes that it will
+eventually be accepted.
+[xxx this needs more thought]
+In any case, the second phase begins again.
+.SH FILES
+.nf
+.ta 2c
+all in $AASLDIR:
+interp	table interpreter
+lex	first pass of \fIaaslg\fR
+syn	AASL table for \fIaaslg\fR
+sem	third pass of \fIaaslg\fR
+.fi
+.SH SEE ALSO
+awk(1), yacc(1)
+.SH DIAGNOSTICS
+``error-repair disaster'' means that the first token of a double lookahead
+could not be accepted and error repair was invoked on it.
+.SH HISTORY
+Written at University of Toronto by Henry Spencer,
+somewhat in the spirit of S/SL (see ACM TOPLAS April 1982).
+.SH BUGS
+Some of the restrictions on double lookahead are annoying.
+.PP
+Most of the C string escapes are recognized but disregarded,
+with only a backslashed double-quote interpreted properly during text
+generation.
+.PP
+Error repair needs further tuning;
+it has an annoying tendency to infinite-loop in certain odd situations
+(although the messages/line limit eventually breaks the loop).
+.PP
+Complex choices/loops with many branches can result in very long lines in
+the table.
