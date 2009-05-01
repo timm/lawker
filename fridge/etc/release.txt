@@ -18,8 +18,9 @@ stop gaps:
 -------------------------------------------------------------------------------
 may 2: 77777777777777777777
 
-
 new sections: books/ articles
+
+next section: xml
 
 append data to fields, not records
 http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
@@ -28,8 +29,6 @@ http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673a
 	- config file	
 	- double quotes
 	- the '$' trick
-
-aasl
 
 visual awk
 
