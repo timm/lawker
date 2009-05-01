@@ -37,6 +37,7 @@ doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;| Quicksort2
 
 doc/wp.html					;Timm	;2009	;Apr	;Wp					;|Word-processing in Awk
 doc/interpreters.html			;Timm	;2009	;Apr			;Interpreters; ;|Interpreters
+doc/aasl.html               ;HenryS ;2009 ;Apr ;Interpreters ;|Parser Generator
 
 doc/dsl.html				;Timm	;2009	;Mar	;Dsl	;|Domain-Specific Langauges
 doc/dsl/graph.html			;AlfredA	;PeterW	;BrianK	;2009	;Mar	;Dsl	;|Graph
