@@ -11,7 +11,7 @@ NF < 2 { next }
 END {
 	N=asorti(Titles)
 	print "<h1><join>Table of Contents</join></h1>"
-	print "<p><table>"
+	print "<p><table width=\"100%\">"
 	for(I=1;I<=N;I++)
 		Old=print1(Titles[I],tolower(substr(Titles[I],1,1)),Old)
 	print "</table>"
