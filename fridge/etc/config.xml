@@ -174,7 +174,7 @@ pageTracker._trackPageview();
 		<what>News</what>
 		<what>Mar</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/news/runawk016.html">
 		<title>Runawk 0.16</title>
@@ -197,35 +197,35 @@ pageTracker._trackPageview();
 		<what>Sitemap</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/var/toc.html">
 		<title>Table of Contents</title>
 		<what>Sitemap</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/var/tags.html">
 		<title>List of Tags</title>
 		<what>Sitemap</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/top10.html">
 		<title>Top 10 pages</title>
 		<what>Top10</what>
 		<what>Mar</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/credits.html">
 		<title>Credits</title>
 		<what>Who</what>
 		<what>Feb</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/who/jimh.html">
 		<title>Jim Hart</title>
@@ -281,7 +281,7 @@ pageTracker._trackPageview();
 		<what>Who</what>
 		<what>Feb</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/advocacy.html">
 		<title>Advocacy</title>
@@ -289,35 +289,35 @@ pageTracker._trackPageview();
 		<what>WhyAwk</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/community.html">
 		<title>Community</title>
 		<what>Misc</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/contact.html">
 		<title>Contact</title>
 		<what>Misc</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/index.html">
 		<title>Awk.info</title>
 		<what>Misc</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/code.html">
 		<title>Coding</title>
 		<what>Misc</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/mascot.html">
 		<title>Mascot</title>
@@ -325,7 +325,7 @@ pageTracker._trackPageview();
 		<what>Misc</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/awk4ai.html">
 		<title>Awk for AI</title>
@@ -375,7 +375,7 @@ pageTracker._trackPageview();
 		<what>Games</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/story.html">
 		<title>Writing SciFi</title>
@@ -452,14 +452,14 @@ pageTracker._trackPageview();
 		<what>Wp</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/interpreters.html">
 		<title>Interpreters</title>
 		<what>Interpreters</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/aasl.html">
 		<title>Parser Generator</title>
@@ -474,7 +474,7 @@ pageTracker._trackPageview();
 		<what>Dsl</what>
 		<what>Mar</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/dsl/graph.html">
 		<title>Graph</title>
@@ -550,7 +550,7 @@ pageTracker._trackPageview();
 		<what>Tips</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/tip/superFor.html">
 		<title>Super-For loops</title>
@@ -611,7 +611,7 @@ pageTracker._trackPageview();
 		<what>Contribute</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/prettyprint.html">
 		<title>Pretty print</title>
@@ -632,7 +632,7 @@ pageTracker._trackPageview();
 		<what>Learn</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/teachingawk.html">
 		<title>Teaching Awk</title>
@@ -654,7 +654,7 @@ pageTracker._trackPageview();
 		<what>Learn</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/awk1line.html">
 		<title>Handy One Liners</title>
@@ -670,7 +670,7 @@ pageTracker._trackPageview();
 		<what>Learn</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/tenliners.html">
 		<title>Ten Liners</title>
@@ -678,7 +678,7 @@ pageTracker._trackPageview();
 		<what>Learn</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/samples.html">
 		<title>Samples of AWK</title>
@@ -710,7 +710,7 @@ pageTracker._trackPageview();
 		<what>Function</what>
 		<what>Feb</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/macro.html">
 		<title>Macro pre-processors</title>
@@ -742,7 +742,7 @@ pageTracker._trackPageview();
 		<what>Tools</what>
 		<what>Mar</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/tools/runawk.html">
 		<title>runawk</title>
@@ -795,7 +795,7 @@ pageTracker._trackPageview();
 		<what>Ps</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/tools/pschoose.html">
 		<title>Print Some Postscript Pages</title>
@@ -851,7 +851,7 @@ pageTracker._trackPageview();
 		<what>Os</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/xml.html">
 		<title>XML and Awk</title>
@@ -860,19 +860,12 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Jurgenk</what>
 	</file>
-	<file where="doc/getxml.html">
-		<title>GetXML.awk</title>
-		<what>XML</what>
-		<what>May</what>
-		<what>2009</what>
-		<what>JanW</what>
-	</file>
 	<file where="doc/awk100.html">
 		<title>Awk100</title>
 		<what>Awk100</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/awk100/017xmlgawk.html">
 		<title>XMLgawk</title>
@@ -880,7 +873,7 @@ pageTracker._trackPageview();
 		<what>Awk100</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Juergenk</what>
+		<what>Jurgenk</what>
 	</file>
 	<file where="doc/awk100/015soccer.html">
 		<title>Soccer</title>
@@ -982,6 +975,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Ronl</what>
 	</file>
+	<file where="doc/getxml.html">
+		<title>GetXML.awk</title>
+		<what>XML</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>JanW</what>
+	</file>
 	<file where="doc/unicast.html">
 		<title>Simulations Unicast Applications</title>
 		<what>Papers</what>
@@ -1003,7 +1003,7 @@ pageTracker._trackPageview();
 		<what>TextMining</what>
 		<what>Mar</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/textmine/languageAnalysis.html">
 		<title>Language Analysis</title>
@@ -1039,7 +1039,7 @@ pageTracker._trackPageview();
 		<what>Mail</what>
 		<what>Apr</what>
 		<what>2009</what>
-		<what>Timm</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/spam.html">
 		<title>Spam Filtering</title>
