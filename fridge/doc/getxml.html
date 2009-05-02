@@ -117,7 +117,7 @@ function getXML( file, skipData           \
 			if ( dtd && (q=index(S0,"]")) && (!p || q&lt;p) ) p=q;
             if (p) {
                 if (!skipData) { XTYPE="DAT"; 
-							     XITEM=accu unescapeXML(substr(S0,1,p-1)); }
+                       XITEM=accu unescapeXML(substr(S0,1,p-1)); }
                 S0=substr(S0,p); mode=""; }
             else{ if (!skipData) accu=accu unescapeXML(S0); S0=""; } }
         else if ( mode == "TAG" ) {   
@@ -137,7 +137,7 @@ function getXML( file, skipData           \
 				sub(/^[ \n\r\t]*/,"",S0); if (S0=="") continue;
             if ( substr(S0,1,1)=="=" ) { S0=substr(S0,2); mode="EQ"; }
             else                       { XATTR[att]=att; mode="TAG"; 
-									     XNODE=XNODE att"="att"\001"; } }
+                                         XNODE=XNODE att"="att"\001"; } }
         else if ( mode == "EQ" ) {    
 					sub(/^[ \n\r\t]*/,"",S0); if (S0=="") continue;
             end=substr(S0,1,1);
@@ -196,7 +196,8 @@ Close xml file
 <PRE>
 function closeXML( file ) {
     close(file);
-    delete _XMLIO[file,"S0"]; delete _XMLIO[file,"line"]; delete _XMLIO[file,"path"]; delete _XMLIO[file,"dtd"];
+    delete _XMLIO[file,"S0"]; delete _XMLIO[file,"line"]; 
+    delete _XMLIO[file,"path"]; delete _XMLIO[file,"dtd"];
     delete _XMLIO[file,"open"]; delete _XMLIO[file,"IND"];
 }
 </PRE>
