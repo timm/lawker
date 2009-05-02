@@ -32,7 +32,7 @@ taglist :
 	@ cd etc; \
 	echo "<h1><join>Page Tags</join></h1>";           \
 	echo "<center><table>";                             \
-	echo "<tr><td>Number</td><td>Tag</td></tr>"          \
+	echo "<tr><td>Number</td><td>Tag</td></tr>"  ;       \
 	gawk -f taglist.awk tags.txt | sort -r -n -k 3  -k 5;  \
 	echo "</table></center>" 
 
