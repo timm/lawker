@@ -190,7 +190,6 @@ pageTracker._trackPageview();
 	<file where="doc/topics.html">
 		<title>Topics</title>
 		<what>Sitemap</what>
-		<what></what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>Timm</what>
@@ -198,7 +197,6 @@ pageTracker._trackPageview();
 	<file where="doc/var/sitemap.html">
 		<title>Site map</title>
 		<what>Sitemap</what>
-		<what></what>
 		<what>Apr</what>
 		<what>2009</what>
 		<what>Timm</what>
