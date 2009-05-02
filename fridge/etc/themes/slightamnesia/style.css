@@ -389,3 +389,6 @@ text-decoration:none;
 .clearfix {display: block;}
 /* End hide from IE-mac */
 
+tr.row1 { 
+ background:#EDE9E6;
+}
