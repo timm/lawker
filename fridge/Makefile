@@ -27,7 +27,7 @@ sitemap :
 	@ cd etc; \
 	echo "<h1><join>Site map</join></h1>";           \
 	echo "<center><table>";                          \
-	gawk -f sitemap.awk tags.txt | sort -r -n -k 2  -k 4 \
+	gawk -f sitemap.awk tags.txt | sort -r -n -k 2  -k 4;  \
 	echo "</table></center>" 
 
 files : $(Doc)/dsl/markdown.html \
