@@ -30,7 +30,7 @@ doc/var/tags.html : etc/tags.txt etc/taglist.awk
 
 taglist :
 	@ cd etc; \
-	echo "<h1><join>Site map</join></h1>";           \
+	echo "<h1><join>Navigation Tags</join></h1>";           \
 	echo "<center><table>";                          \
 	gawk -f taglist.awk tags.txt | sort -r -n -k 3  -k 5;  \
 	echo "</table></center>" 
