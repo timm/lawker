@@ -1,0 +1,51 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+New: navigation support
+
+- list of page tags: http://awk.info/?var/tags
+
+- table of contents: http://awk.info/?var/toc
+
+----------------------------------------------------------
+New: XML processing in awk
+
+- Jan Weber's "getXML" tool: http://awk.info/?getxml
+
+- Jurgen Kahrs' (and friends) XMLgawk tool:
+  http://awk.info/?awk100/017xmlgawk
+
+----------------------------------------------------------
+Awk: bits and pieces
+
+- Tim Menzies' generic array printer:
+  http://awk.info/?gawk/array/saya.awk
+
+- Henry Spencer's Amazing Awk Syntax Language parser 
+  generator: http://awk.info/?aasl
+
+----------------------------------------------------------
+New: section on operating systems and Awk.
+
+- Dongyoung Kim (+ friends) use Awk for intrusion alerts:
+  http://awk.info/?alerts
+
+- Sally Floyd (and friends) model congestion control in 
+  Unicast applications:  http://awk.info/?unicast
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
