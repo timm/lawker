@@ -74,8 +74,9 @@ doc/explain1line.html		;Timm	;2009	;Jan	;Learn	;OneLiners	;|Explaining Awk One L
 doc/tenliners.html			;Timm	;2009	;Jan	;Learn	;TenLiners	;|Ten Liners
 doc/samples.html			;Ronl	;2009	;Jan	;Learn	;TenLiners	;|Samples of AWK
 
-gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Functionn	;Arrays	;Timm	;|join.awk
-gawk/array/array.awk		;Timm	;2009	;Feb	;Functionn	;Arrays	;|array.awk
+gawk/array/saya.awk			;Timm	;2009	;Apr		;Arrays	;|Print an Array
+gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
+gawk/array/array.awk		;Timm	;2009	;Feb	;Function	;Arrays	;|array.awk
 
 doc/macro.html				;Timm	;2009	;Mar	;Tools	;Macros	;|Macro pre-processors
 doc/tools/cryptosig.html	;Anon	;2009	;Apr	;Tools	;Sigs	;|Hiding Email Address

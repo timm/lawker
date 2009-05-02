@@ -1,5 +1,3 @@
-# copyright 2009 Tim Menzies, GPL 3.0
-
 #.H1   <join> saya</join>
 #.H2   Synopsis
 #.P       		saya(array [,label,sep,before,after,eq])

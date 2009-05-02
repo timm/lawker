@@ -665,11 +665,18 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Ronl</what>
 	</file>
+	<file where="gawk/array/saya.awk">
+		<title>Print an Array</title>
+		<what>Arrays</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="gawk/array/join.awk">
 		<title>join.awk</title>
 		<what>Timm</what>
 		<what>Arrays</what>
-		<what>Functionn</what>
+		<what>Function</what>
 		<what>Feb</what>
 		<what>2009</what>
 		<what>ArnoldR</what>
@@ -677,7 +684,7 @@ pageTracker._trackPageview();
 	<file where="gawk/array/array.awk">
 		<title>array.awk</title>
 		<what>Arrays</what>
-		<what>Functionn</what>
+		<what>Function</what>
 		<what>Feb</what>
 		<what>2009</what>
 		<what>Timm</what>
