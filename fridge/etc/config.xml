@@ -196,7 +196,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
-	<file where="doc/sitemap.html">
+	<file where="doc/var/sitemap.html">
 		<title>Site map</title>
 		<what>Sitemap</what>
 		<what></what>
