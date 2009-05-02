@@ -2,19 +2,22 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#2>Example</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#3>Details</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#4>External variables:</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#5>Returns</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#6>Private Data</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#7>Code</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#8>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Example</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Details</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#5>External variables:</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Returns</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>Private Data</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#8>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#9>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
 <P>
  gawk -f getXML.awk <xml-file>
-<a name=2></a><H2> Example</H2>
+<a name=2></a><H2> Download</H2>
+<P> Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/getxml.awk">LAWKER</a></P>
+<a name=3></a><H2> Example</H2>
 <PRE>
 BEGIN {
     while ( getXML(ARGV[1],1) ) {
@@ -28,7 +31,7 @@ BEGIN {
     }
 }
 </PRE>
-<a name=3></a><H2> Details</H2>
+<a name=4></a><H2> Details</H2>
 <P>
  Main function, read snext xml-data into XTYPE,XITEM,XATTR
 <PRE>
@@ -40,7 +43,7 @@ getXML( file, skipData ):
 <DT> skipData</DT>
 <DD> flag: do not read "DAT" (data between tags) sections</DD>
 </DL>
-<a name=4></a><H3> External variables:</H3>
+<a name=5></a><H3> External variables:</H3>
 <DL>
 <DT> XTYPE</DT>
 <DD> type of item read, e.g. "TAG"(tag), "END"(end tag), "COM"(comment), "DAT"(data)</DD>
@@ -57,7 +60,7 @@ getXML( file, skipData ):
 <DT> XERROR</DT>
 <DD> error text, set on parse error</DD>
 </DL>
-<a name=5></a><H3> Returns</H3>
+<a name=6></a><H3> Returns</H3>
 <DL>
 <DT>
     1         
@@ -65,12 +68,12 @@ getXML( file, skipData ):
 <DT> ""</DT>
 <DD> at end of file or parse error, XERROR is set on error</DD>
 </DL>
-<a name=6></a><H3> Private Data</H3>
+<a name=7></a><H3> Private Data</H3>
 <DL>
 <DT> _XMLIO</DT>
 <DD> buffer, XLINE, XPATH for open files</DD>
 </DL>
-<a name=7></a><H2> Code</H2>
+<a name=8></a><H2> Code</H2>
 <font size="-3">
 <PRE>
 function getXML( file, skipData           \
@@ -201,6 +204,6 @@ function closeXML( file ) {
     delete _XMLIO[file,"open"]; delete _XMLIO[file,"IND"];
 }
 </PRE>
-<a name=8></a><H2> Author</H2>
+<a name=9></a><H2> Author</H2>
 <P> Jan Weber</P>
 </div><!--- htmlbody --->
