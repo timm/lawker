@@ -71,6 +71,7 @@ getXML( file, skipData ):
 <DD> buffer, XLINE, XPATH for open files</DD>
 </DL>
 <a name=7></a><H2> Code</H2>
+<Tiny>
 <PRE>
 function getXML( file, skipData           ,end,p,q,tag,att,accu,mline,mode,S0,ex,dtd) {
     XTYPE=XITEM=XERROR=XNODE=""; split("",XATTR);
@@ -144,6 +145,7 @@ function getXML( file, skipData           ,end,p,q,tag,att,accu,mline,mode,S0,ex
     else if (XPATH) XERROR=file ":" XLINE ": "  "unclosed tag(s) " XPATH;
 } 
 </PRE>
+<Tiny>
 <P>
  Unescape data and attribute values, used by getXML.
 <PRE>
