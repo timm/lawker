@@ -33,10 +33,10 @@ doc/montyhall.html			;DonaldM	;2009	;Mar	;TenLiners	 	;|Monty Hall Problem
 doc/gender.html				;ScottP	;2009	;Mar	;TenLiners; Top10	;|Predicting Gender
 doc/eliza.html				;JuergenK	;2009	;Apr	;Eliza ;TenLiners ;Games		;|Eliza
 doc/hanoi.html				;AlanL	;2009	;Apr	;TenLiners 			;|Towers of Hanoi
-doc/readminds.html			;Anon	;2009	;Apr	;TenLiners  ;Games			;| How to Read Minds
-doc/mastermind.html			;Ysa	;2009	;Apr	;TenLiners  ;Games			;| Mastermind
-doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;| Quicksort
-doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;| Quicksort2
+doc/readminds.html			;Anon	;2009	;Apr	;TenLiners  ;Games			;|How to Read Minds
+doc/mastermind.html			;Ysa	;2009	;Apr	;TenLiners  ;Games			;|Mastermind
+doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
+doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 
 doc/wp.html					;Timm	;2009	;Apr	;Wp					;|Word-processing in Awk
 doc/interpreters.html		;Timm	;2009	;Apr			;Interpreters ;|Interpreters

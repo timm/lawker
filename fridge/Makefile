@@ -9,7 +9,9 @@ Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
 Awk2Html=$(Bash)/awkwords $< > $@ 
 
-all : config.xml files  doc/var/sitemap.html commit
+all : config.xml files  meta commit
+
+meta : doc/var/taglist.html doc/var/toc.html
 
 commit : 
 	cd $(Lawker); pwd; svn commit
@@ -21,7 +23,7 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
 	mv confignew.xml config.xml
 
 doc/var/toc.html : etc/tags.txt etc/toc.awk 
-	@ cd etc; gawk -f toc.awk taags.txt >  $@
+	@(cd etc; gawk -f toc.awk tags.txt ) >  $@
 
 doc/var/taglist.html : etc/tags.txt etc/taglist.awk 
 	@ make taglist > $@
