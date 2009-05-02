@@ -188,6 +188,22 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>VenkatesanS</what>
 	</file>
+	<file where="doc/topics.html">
+		<title>Topics</title>
+		<what>Sitemap</what>
+		<what></what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
+	<file where="doc/sitemap.html">
+		<title>Site map</title>
+		<what>Sitemap</what>
+		<what></what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/top10.html">
 		<title>Top 10 pages</title>
 		<what>Top10</what>

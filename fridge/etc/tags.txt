@@ -2,6 +2,9 @@ doc/news/theAwkBook.html	;Timm; 2009; Mar; News			;|The Awk Book's Code
 doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
 doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
 
+doc/topics.html				;Timm	;2009	;Apr;	;Sitemap ;|Topics
+doc/sitemap.html			;Timm	;2009	;Apr;	;Sitemap ;|Site map
+
 doc/top10.html				;Timm ;  2009; Mar	;Top10		;|Top 10 pages
 doc/credits.html			;Timm	;2009	;Feb	;Who	;|Credits
 doc/who/jimh.html			;Jimh	;2009	;Feb	;Who	;|Jim Hart

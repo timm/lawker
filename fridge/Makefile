@@ -20,6 +20,16 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
      gawk -f tags.awk tags.txt) > confignew.xml; \
 	mv confignew.xml config.xml
 
+doc/var/sitemap.html : etc/tags.txt etc/sitemap.awk
+	make sitemap > $@
+
+sitemap :
+	cd etc; \
+	echo "<hi><join>Site map</join></h1";           \
+	echo "<center><table>";                          \
+	gawk -f sitemap.awk tags.txt | sort -n -k 2 -k 1; \
+	echo "</table></center>" 
+
 files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
 	    $(Doc)/tools/indent.html \
