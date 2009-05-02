@@ -1,0 +1,170 @@
+<h1><join> getXML.awk</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Example</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Details</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#4>External variables:</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#5>Retruns</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Private Data</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#7>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#8>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<P>
+ gawk -f getXML.awk <xml-file>
+<a name=2></a><H2> Example</H2>
+<PRE>
+BEGIN {
+    while ( getXML(ARGV[1],1) ) {
+        print XTYPE, XITEM;
+        for (attrName in XATTR)
+            print "\t" attrName "=" XATTR[attrName];
+    }
+    if (XERROR) {
+        print XERROR;
+        exit 1;
+    }
+}
+</PRE>
+<a name=3></a><H2> Details</H2>
+<P>
+ Main function, read snext xml-data into XTYPE,XITEM,XATTR
+<PRE>
+getXML( file, skipData ): 
+</PRE>
+<DL>
+<DT> file</DT>
+<DD> path to xml file</DD>
+<DT> skipData</DT>
+<DD> flag: do not read "DAT" (data between tags) sections</DD>
+</DL>
+<a name=4></a><H3> External variables:</H3>
+<DL>
+<DT> XTYPE</DT>
+<DD> type of item read, e.g. "TAG"(tag), "END"(end tag), "COM"(comment), "DAT"(data)</DD>
+<DT> XITEM</DT>
+<DD> value of item, e.g. tagname if type is "TAG" or "END"</DD>
+<DT> XATTR</DT>
+<DD> Map of attributes, only set if XTYPE=="TAG"</DD>
+<DT> XPATH</DT>
+<DD> Path to current tag, e.g. /TopLevelTag/SubTag1/SubTag2</DD>
+<DT> XLINE</DT>
+<DD> current line number in input file</DD>
+<DT> XNODE</DT>
+<DD> XTYPE, XITEM, XATTR combined into a single string</DD>
+<DT> XERROR</DT>
+<DD> error text, set on parse error</DD>
+</DL>
+<a name=5></a><H3> Retruns</H3>
+<DL>
+<DT>
+    1         
+<DD> on successful read: XTYPE, XITEM, XATTR are set accordingly</DD>
+<DT> ""</DT>
+<DD> at end of file or parse error, XERROR is set on error</DD>
+</DL>
+<a name=6></a><H3> Private Data</H3>
+<DL>
+<DT> _XMLIO</DT>
+<DD> buffer, XLINE, XPATH for open files</DD>
+</DL>
+<a name=7></a><H2> Code</H2>
+<PRE>
+function getXML( file, skipData           ,end,p,q,tag,att,accu,mline,mode,S0,ex,dtd) {
+    XTYPE=XITEM=XERROR=XNODE=""; split("",XATTR);
+    S0=_XMLIO[file,"S0"]; XLINE=_XMLIO[file,"line"]; XPATH=_XMLIO[file,"path"]; dtd=_XMLIO[file,"dtd"];
+    while (!XTYPE) {
+        if (S0=="") { if (1!=(getline S0 &lt;file)) break; XLINE++; S0=S0 RS; }
+        if ( mode == "" ) {
+            mline=XLINE; accu=""; p=substr(S0,1,1);
+            if ( p!="&lt;" && !(dtd && p=="]") )         mode="DAT";
+            else if ( p=="]" ) {                      S0=substr(S0,2);  mode="DTE"; end=">"; dtd=0; }
+            else if ( substr(S0,1,4)=="&lt;!--" ) {      S0=substr(S0,5);  mode="COM"; end="-->"; }
+            else if ( substr(S0,1,9)=="&lt;!DOCTYPE" ) { S0=substr(S0,10); mode="DTB"; end=">"; }
+            else if ( substr(S0,1,9)=="&lt;![CDATA[" ) { S0=substr(S0,10); mode="CDA"; end="]]>"; }
+            else if ( substr(S0,1,2)=="&lt;!" ) {        S0=substr(S0,3);  mode="DEC"; end=">"; }
+            else if ( substr(S0,1,2)=="&lt;?" ) {        S0=substr(S0,3);  mode="PIN"; end="?>"; }
+            else if ( substr(S0,1,2)=="&lt;/" ) {        S0=substr(S0,3);  mode="END"; end=">";
+                tag=S0;sub(/[ \n\r\t>].*$/,"",tag);S0=substr(S0,length(tag)+1);
+                ex=XPATH;sub(/\/[^\/]*$/,"",XPATH);ex=substr(ex,length(XPATH)+2);
+                if (tag!=ex) { XERROR="unexpected close tag &lt;" ex ">..&lt;/" tag ">"; break; } }
+            else{                                     S0=substr(S0,2);  mode="TAG";
+                tag=S0;sub(/[ \n\r\t\/>].*$/,"",tag);S0=substr(S0,length(tag)+1);
+                if ( tag !~ /^[A-Za-z:_][0-9A-Za-z:_.-]*$/ ) { # /^[[:alpha:]:_][[:alnum:]:_.-]*$/
+                    XERROR="invalid tag name '" tag "'"; break; }
+                XPATH = XPATH "/" tag; } }
+        else if ( mode == "DAT" ) {                            # terminated by "&lt;" or EOF
+            p=index(S0,"&lt;"); if ( dtd && (q=index(S0,"]")) && (!p || q&lt;p) ) p=q;
+            if (p) {
+                if (!skipData) { XTYPE="DAT"; XITEM=accu unescapeXML(substr(S0,1,p-1)); }
+                S0=substr(S0,p); mode=""; }
+            else{ if (!skipData) accu=accu unescapeXML(S0); S0=""; } }
+        else if ( mode == "TAG" ) {   sub(/^[ \n\r\t]*/,"",S0); if (S0=="") continue;
+            if ( substr(S0,1,2)=="/>" ) {
+                S0=substr(S0,3); mode=""; XTYPE="TAG"; XITEM=tag; S0="&lt;/"tag">"S0; }
+            else if ( substr(S0,1,1)==">" ) {
+                S0=substr(S0,2); mode=""; XTYPE="TAG"; XITEM=tag; }
+            else{
+                att=S0; sub(/[= \n\r\t\/>].*$/,"",att); S0=substr(S0,length(att)+1); mode="ATTR";
+                if ( att !~ /^[A-Za-z:_][0-9A-Za-z:_.-]*$/ ) { # /^[[:alpha:]:_][[:alnum:]:_.-]*$/
+                    XERROR="invalid attribute name '" att "'"; break; } } }
+        else if ( mode == "ATTR" ) {  sub(/^[ \n\r\t]*/,"",S0); if (S0=="") continue;
+            if ( substr(S0,1,1)=="=" ) { S0=substr(S0,2); mode="EQ"; }
+            else                       { XATTR[att]=att; mode="TAG"; XNODE=XNODE att"="att"\001"; } }
+        else if ( mode == "EQ" ) {    sub(/^[ \n\r\t]*/,"",S0); if (S0=="") continue;
+            end=substr(S0,1,1);
+            if ( end=="\"" || end=="'" ) {S0=substr(S0,2);accu="";mode="VALUE";}
+            else{
+                accu=S0; sub(/[ \n\r\t\/>].*$/,"",accu); S0=substr(S0,length(accu)+1);
+                XATTR[att]=unescapeXML(accu); mode="TAG"; XNODE=XNODE att"="XATTR[att]"\001"; } }
+        else if ( mode == "VALUE" ) {                          # terminated by end
+            if ( p=index(S0,end) ) {
+                XATTR[att]=accu unescapeXML(substr(S0,1,p-1)); XNODE=XNODE att"="XATTR[att]"\001";
+                S0=substr(S0,p+length(end)); mode="TAG"; }
+            else{ accu=accu unescapeXML(S0); S0=""; } }
+        else if ( mode == "DTB" ) {                            # terminated by "[" or ">"
+            if ( (q=index(S0,"[")) && (!(p=index(S0,end)) || q&lt;p ) ) {
+                XTYPE=mode; XITEM= accu substr(S0,1,q-1); S0=substr(S0,q+1); mode=""; dtd=1; }
+            else if ( p=index(S0,end) ) {
+                XTYPE=mode; XITEM= accu substr(S0,1,p-1); S0="]"substr(S0,p); mode=""; dtd=1; }
+            else{ accu=accu S0; S0=""; } }
+        else if ( p=index(S0,end) ) {  # terminated by end
+            XTYPE=mode; XITEM= ( mode=="END" ? tag : accu substr(S0,1,p-1) );
+            S0=substr(S0,p+length(end)); mode=""; }
+        else{ accu=accu S0; S0=""; } }
+    _XMLIO[file,"S0"]=S0; _XMLIO[file,"line"]=XLINE; _XMLIO[file,"path"]=XPATH; _XMLIO[file,"dtd"]=dtd;
+    if (mode=="DAT") { mode=""; if (accu!="") XTYPE="DAT"; XITEM=accu; }
+    if (XTYPE) { XNODE=XTYPE"\001"XITEM"\001"XNODE; return 1; }
+    close(file);
+    delete _XMLIO[file,"S0"]; delete _XMLIO[file,"line"]; delete _XMLIO[file,"path"]; delete _XMLIO[file,"dtd"];
+    if (XERROR) XERROR=file ":" XLINE ": " XERROR;
+    else if (mode) XERROR=file ":" mline ": " "unterminated " mode;
+    else if (XPATH) XERROR=file ":" XLINE ": "  "unclosed tag(s) " XPATH;
+} 
+</PRE>
+<P>
+ Unescape data and attribute values, used by getXML.
+<PRE>
+function unescapeXML( text ) {
+    gsub( "&apos;", "'",  text );
+    gsub( "&quot;", "\"", text );
+    gsub( "&gt;",   ">",  text );
+    gsub( "&lt;",   "&lt;",  text );
+    gsub( "&amp;",  "\\&",  text );
+    return text
+}
+</PRE>
+<P>
+Close xml file
+<PRE>
+function closeXML( file ) {
+    close(file);
+    delete _XMLIO[file,"S0"]; delete _XMLIO[file,"line"]; delete _XMLIO[file,"path"]; delete _XMLIO[file,"dtd"];
+    delete _XMLIO[file,"open"]; delete _XMLIO[file,"IND"];
+}
+</PRE>
+<a name=8></a><H2> Author</H2>
+<P> Jan Weber</P>
+</div><!--- htmlbody --->
