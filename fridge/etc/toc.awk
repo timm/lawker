@@ -22,7 +22,7 @@ function print1(title,letter,old,   pre) {
 		pre =  letter 
 		Mode = 1 - Mode
 	}
-	print "<tr class=row" Mode"><td>"toupper(pre)"</td><td><a href=\"http://awk.info/?" \
+	print "<tr class=row" Mode"><td align=center>"toupper(pre)"</td><td><a href=\"http://awk.info/?" \
 			Urls[title] "\">" Raws[title] "</a></td></td>"	
 	return letter
 }
