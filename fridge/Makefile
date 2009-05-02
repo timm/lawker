@@ -25,7 +25,7 @@ doc/var/sitemap.html : etc/tags.txt etc/sitemap.awk
 
 sitemap :
 	@ cd etc; \
-	echo "<hi><join>Site map</join></h1";           \
+	echo "<hi><join>Site map</join></h1>";           \
 	echo "<center><table>";                          \
 	gawk -f sitemap.awk tags.txt | sort -n -k 2 -k 1; \
 	echo "</table></center>" 
