@@ -772,7 +772,6 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/awkwords.html">
 		<title>awkwords</title>
-		<what>Top10</what>
 		<what>Wp</what>
 		<what>Project</what>
 		<what>Tools</what>

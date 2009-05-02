@@ -90,7 +90,7 @@ doc/project.html			;Admin	;2009	;Mar	;Tools	;Project	;|Project Tools
 doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project ;Runawk	;|runawk
 doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros
 doc/tools/m5.html			;WillW	;2009	;Mar	;Tools	;Macros ;|m5 :  macro processor
-doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project; Wp; Top10	;|awkwords
+doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project; Wp	;|awkwords
 doc/tools/awf.html		;HenryS	;2009	;Apr	;Tools ;Wp ;Awk100;Wp		;|Amazing Awk Formatter
 
 doc/pstricks.html			;Admin	;2009	;Apr	;Ps 		;|Postscript tricks
