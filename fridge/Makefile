@@ -20,14 +20,17 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
      gawk -f tags.awk tags.txt) > confignew.xml; \
 	mv confignew.xml config.xml
 
-doc/var/sitemap.html : etc/tags.txt etc/sitemap.awk
-	@ make sitemap > $@
+doc/var/toc.html : etc/tags.txt etc/toc.awk 
+	@ cd etc; gawk -f toc.awk taags.txt >  $@
 
-sitemap :
+doc/var/taglist.html : etc/tags.txt etc/taglist.awk 
+	@ make taglist > $@
+
+taglist :
 	@ cd etc; \
 	echo "<h1><join>Site map</join></h1>";           \
 	echo "<center><table>";                          \
-	gawk -f sitemap.awk tags.txt | sort -r -n -k 3  -k 5;  \
+	gawk -f taglist.awk tags.txt | sort -r -n -k 3  -k 5;  \
 	echo "</table></center>" 
 
 files : $(Doc)/dsl/markdown.html \
