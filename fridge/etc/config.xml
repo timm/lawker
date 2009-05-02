@@ -194,8 +194,15 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
-	<file where="doc/var/sitemap.html">
-		<title>Site map</title>
+	<file where="doc/var/toc.html">
+		<title>Table of Contents</title>
+		<what>Sitemap</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
+	<file where="doc/var/tags.html">
+		<title>List of Tags</title>
 		<what>Sitemap</what>
 		<what>Apr</what>
 		<what>2009</what>

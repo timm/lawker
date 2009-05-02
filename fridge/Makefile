@@ -11,7 +11,7 @@ Awk2Html=$(Bash)/awkwords $< > $@
 
 all : config.xml files  meta commit
 
-meta : doc/var/taglist.html doc/var/toc.html
+meta : doc/var/tags.html doc/var/toc.html
 
 commit : 
 	cd $(Lawker); pwd; svn commit
@@ -25,7 +25,7 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
 doc/var/toc.html : etc/tags.txt etc/toc.awk 
 	@(cd etc; gawk -f toc.awk tags.txt ) >  $@
 
-doc/var/taglist.html : etc/tags.txt etc/taglist.awk 
+doc/var/tags.html : etc/tags.txt etc/taglist.awk 
 	@ make taglist > $@
 
 taglist :

@@ -3,7 +3,8 @@ doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
 doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
 
 doc/topics.html				;Timm	;2009	;Apr	;Sitemap ;|Topics
-doc/var/sitemap.html		;Timm	;2009	;Apr	;Sitemap ;|Site map
+doc/var/toc.html		;Timm	;2009	;Apr	;Sitemap ;|Table of Contents
+doc/var/tags.html		;Timm	;2009	;Apr	;Sitemap ;|List of Tags
 
 doc/top10.html				;Timm ;  2009; Mar	;Top10		;|Top 10 pages
 doc/credits.html			;Timm	;2009	;Feb	;Who	;|Credits
