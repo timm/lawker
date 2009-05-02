@@ -824,6 +824,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/xml.html">
+		<title>XML and Awk</title>
+		<what>XML</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Jurgenk</what>
+	</file>
 	<file where="doc/awk100.html">
 		<title>Awk100</title>
 		<what>Awk100</what>
