@@ -16,30 +16,10 @@ stop gaps:
 	- batchrunner
 
 -------------------------------------------------------------------------------
-may 2: 77777777777777777777
-
-new sections: books/ articles
-
-next section: xml
-
-append data to fields, not records
-http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
-
--tips: getting shell variables into awk. 
-	- config file	
-	- double quotes
-	- the '$' trick
-
-visual awk
-
-saya
-
--------------------------------------------------------------------------------
 may 9: 888888888888888888
 - akw100 oo in ansi "C" awk packages. axel schreiner
-- new section of xml processing and gawk
-	- xgawk
-    - xmlgawk.awk
+
+brainfuck to c
 
 xml processing with awk
 http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html#Reading-XML-Data-with-POSIX-AWK
@@ -66,6 +46,17 @@ Pages: 265 - 287
 Year of Publication: 1993
 ISSN:0098-3500
 
+append data to fields, not records
+http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
+
+-tips: getting shell variables into awk. 
+	- config file	
+	- double quotes
+	- the '$' trick
+
+visual awk
+
+
 
 -------------------------------------------------------------------------------
 may 16: 9999999999999999
@@ -84,7 +75,6 @@ correlations in gawk
 http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
 
 pdf/awkverify.awk
-
 -------------------------------------------------------------------------------
 may 25: 000000000000000000
 new section on scientific computation and awk:
@@ -120,3 +110,25 @@ dates in awk
     	http://www.orlandokuntao.com/holidays_awk.txt
 	ftp://ftp.armory.com/pub/scripts/lowtide
 
+natural langauge parsing
+http://someya-net.com/09-MA/
+
+debugger and assertion checker in awk
+http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.30.2635
+http://portal.acm.org/citation.cfm?id=829920
+
+natural langauge processin:
+http://someya-net.com/09-MA/
+
+games:
+http://agave.garden.org/~aaronh/gnu/awk/checkers.html
+
+real programming with awk:
+http://www.linuxjournal.com/article/6677
+
+bibliograpy processor
+http://ftp.math.utah.edu/pub//tex/bib/comparch.awk
+
+
+tiny awk in c
+http://www.ddj.com/architect/184408136
