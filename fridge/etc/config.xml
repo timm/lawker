@@ -66,17 +66,17 @@
 </form>
 </center>
 <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
-<p>
-Navigation: 
-<a href="?var/toc">contents</a> | 
-<a href="?var/tags">tags</a> | 
-<a href="?topics">topics</a>  
 <hr>
             ]]>
     </string>
     <string id="nav3">
       <![CDATA[
 <p id="in">
+About awk.info<br> 
+&nbsp;&raquo;&nbsp; <a href="?var/toc">table of contents</a> <br> 
+&nbsp;&raquo;&nbsp; <a href="?var/tags">tags</a> <br> 
+&nbsp;&raquo;&nbsp; featured <a href="?topics">topics</a>  
+<hr>
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
 &nbsp;&raquo;&nbsp;  <a href="?Learn">learning</a><br>
