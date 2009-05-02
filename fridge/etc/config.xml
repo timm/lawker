@@ -319,7 +319,6 @@ pageTracker._trackPageview();
 		<title>Awk for AI</title>
 		<what>Top10</what>
 		<what>Papers</what>
-		<what></what>
 		<what>Misc</what>
 		<what>WhyAwk</what>
 		<what>Jan</what>
@@ -445,7 +444,6 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/interpreters.html">
 		<title>Interpreters</title>
-		<what></what>
 		<what>Interpreters</what>
 		<what>Apr</what>
 		<what>2009</what>
@@ -489,7 +487,6 @@ pageTracker._trackPageview();
 	<file where="doc/awk100/aaa.html">
 		<title>Amazing Awk Assembler</title>
 		<what>Awk100</what>
-		<what></what>
 		<what>Top10</what>
 		<what>Interpreters</what>
 		<what>Dsl</what>
@@ -755,7 +752,6 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/m5.html">
 		<title>m5 :  macro processor</title>
-		<what></what>
 		<what>Macros</what>
 		<what>Tools</what>
 		<what>Mar</what>
