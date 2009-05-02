@@ -9,7 +9,7 @@ Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
 Awk2Html=$(Bash)/awkwords $< > $@ 
 
-all : config.xml files  commit doc/var/sitemap.html
+all : config.xml files  doc/var/sitemap.html commit
 
 commit : 
 	cd $(Lawker); pwd; svn commit
