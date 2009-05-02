@@ -55,9 +55,9 @@
     </string>
     <string id="nav1">
       <![CDATA[
+<center><h2>Awk.Info</h2></center>
                <a href="http://www.mikelangman.co.uk/">
 		 <img id="logo" border=0 alt="Little Auk painting from mikelangman.co.uk" src="http://lawker.googlecode.com/svn/fridge/etc/themes/slightamnesia/leaves_brown.jpg" /></a><br clear=all>
-<h2>Awk.Info</h2>
                <div id="left_quote">"Cause a little
                    <strike>auk</strike> awk<br>goes a long way."</div>
 <center><form action="http://www.google.com/cse" id="cse-search-box">
