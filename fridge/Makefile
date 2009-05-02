@@ -21,10 +21,10 @@ config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk
 	mv confignew.xml config.xml
 
 doc/var/sitemap.html : etc/tags.txt etc/sitemap.awk
-	make sitemap > $@
+	@ make sitemap > $@
 
 sitemap :
-	cd etc; \
+	@ cd etc; \
 	echo "<hi><join>Site map</join></h1";           \
 	echo "<center><table>";                          \
 	gawk -f sitemap.awk tags.txt | sort -n -k 2 -k 1; \
