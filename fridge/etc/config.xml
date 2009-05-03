@@ -48,8 +48,8 @@
 		 <li><a href="?Funky">Funky</a></li>
                  <li><a href="?contribute">Contribute</a> </li>
                 <li><a href="mailto:mail@awk.info">Contact</a></li>
-                <li><a href="http://lawker.blogspot.com">Blog</a></li>
 		<li><a href="http://tinyurl.com/rss4awk"><img src="http://lawker.googlecode.com/svn/fridge/share/img/rss.gif"></a> </li>
+                <li><a href="http://lawker.blogspot.com">Blog</a></li>
               
                  </ul>
               ]]>
@@ -128,11 +128,13 @@ Online doc<br>
     </string>
     <string id="beforeRss">
       <![CDATA[
-<img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif">
+<a href="http://lawker.blogspot.com"><img   src="http://lawker.googlecode.com/svn/fridge/share/img/icoNews.gif"></a>
  ]]>
     </string>
     <string id="afterRss">
             <![CDATA[
+<p>
+<a href="http://lawker.blogspot.com">[More]</a>
 <hr>
 <p>FACT: Auks  eat
 polar bear <a href="http://en.wikipedia.org/wiki/Little_Auk#Habitat_and_ecology">leftovers</a>.</p>
