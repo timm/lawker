@@ -78,8 +78,8 @@ src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
 <p id="in">
 About awk.info<br> 
 &nbsp;&raquo;&nbsp; table of <a href="?var/toc">contents</a> <br> 
-&nbsp;&raquo;&nbsp; page <a href="?var/tags">tags</a> <br> 
-&nbsp;&raquo;&nbsp; featured <a href="?topics">topics</a>  
+&nbsp;&raquo;&nbsp; featured <a href="?topics">topics</a>  <br>
+&nbsp;&raquo;&nbsp; page <a href="?var/tags">tags</a>  
 <hr>
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
