@@ -17,27 +17,28 @@ stop gaps:
 
 -------------------------------------------------------------------------------
 may 9: 888888888888888888
-- akw100 oo in ansi "C" awk packages. axel schreiner
 
-brainfuck to c
+1) akw100 oo in ansi "C" awk packages. axel schreiner
+8) awk100: aasl
+9) awk100: astar
+
+2) brainfuck to c
+
+3) xmlgawk tut
+
+4)display awk:
+http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1311a8b04a802265/f5a7d1d714297f00?lnk=gst&q=xml#f5a7d1d714297f00
+
+5) spread sheet access: http://www.freakout.de/mc.htm#Piping
 
 xml processing with awk
 http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html#Reading-XML-Data-with-POSIX-AWK
-display awk:
-http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1311a8b04a802265/f5a7d1d714297f00?lnk=gst&q=xml#f5a7d1d714297f00
-xml file using shell script
-http://www.issociate.de/board/post/265610/Parse_an_XML_File_using_Shell_script.html
 
-code testing: kernighan
-	- http://groups.google.com/group/comp.lang.awk/browse_thread/thread/5f7a9b900258dbde#
-	- http://www.cs.princeton.edu/~bwk/testing.html
-	- my bunit
+7) correlations in gawk
+http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
 
-spread sheet access: http://www.freakout.de/mc.htm#Piping
-
-reading tabular data
+6)reading tabular data
 awktemplate
-fun: my bayes stuff
 Template-driven interfaces for numerical subroutines
 Full text       PdfPdf (1.28 MB)
 Source  ACM Transactions on Mathematical Software (TOMS) archive
@@ -46,8 +47,22 @@ Pages: 265 - 287
 Year of Publication: 1993
 ISSN:0098-3500
 
-append data to fields, not records
-http://groups.google.com/group/comp.lang.awk/browse_thread/thread/38ae5bede3673abf/53966eded19904ca#53966eded19904ca
+9) tinyawk
+tiny awk in c
+http://www.ddj.com/architect/184408136
+
+10) Quiktrim Awk
+http://www.quiktrim.org/QTawk.html
+
+xml file using shell script
+http://www.issociate.de/board/post/265610/Parse_an_XML_File_using_Shell_script.html
+
+code testing: kernighan
+	- http://groups.google.com/group/comp.lang.awk/browse_thread/thread/5f7a9b900258dbde#
+	- http://www.cs.princeton.edu/~bwk/testing.html
+	- my bunit
+
+fun: my bayes stuff
 
 -tips: getting shell variables into awk. 
 	- config file	
@@ -71,17 +86,14 @@ karhs getmxl vs xgawk:
 http://groups.google.com/group/comp.lang.awk/browse_thread/thread/af74e60cb72e119c/38710ddc81e0bbc2?lnk=gst&q=xml#38710ddc81e0bbc2
 
 
-correlations in gawk
-http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
-
 pdf/awkverify.awk
 -------------------------------------------------------------------------------
 may 25: 000000000000000000
-new section on scientific computation and awk:
+anew section on scientific computation and awk:
 eiso's awk scrits- if i understood what they did
 mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
 
-awk100: fsa generator
+wk100: fsa generator
 http://www.stumbleupon.com/redirect.php?t=i&u=13309825&d=http%3A%2F%2Fsourceforge.net%2Fproject%2Fplatformdownload.php%3Fgroup_id%3D242703&l=2&c=baj1senra2q0xfqs
 uml generator
 http://www.theficks.name/bin/lib/sdml/sdml2txt
@@ -95,6 +107,7 @@ new section: awk for databases
 	dda for awk share/pdf/awkdda.awk
 	Quick and Dirty Databases with Nice Output: AWK and Tex
 	http://mail.google.com/mail/#label/awk.info/1204fa85039f07f7
+	spawk
 
 
 html parser in awk
@@ -130,5 +143,4 @@ bibliograpy processor
 http://ftp.math.utah.edu/pub//tex/bib/comparch.awk
 
 
-tiny awk in c
-http://www.ddj.com/architect/184408136
+
