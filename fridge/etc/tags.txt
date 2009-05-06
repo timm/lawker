@@ -107,7 +107,7 @@ doc/os.html                     ;Admin   ;2009   ;Apr   ;Os   ;|Operating System
 doc/xml.html					;Jurgenk  ;2009 ;Apr ;XML ;|XML and Awk
 
 doc/awk100.html					;Admin	;2009	;Jan	;Awk100	;|Awk100
-doc/awk100/017xmlgawk.html		;Jurgenk  ;2009 ;Apr ;Awk100 ;XML ;|XMLgawk
+doc/awk100/017xmlgawk.html		;Jurgenk  ;2009 ;Apr ;Awk100 ;XML ;XGawk ;|XMLgawk
 doc/awk100/015soccer.html		;Ronl	;2009;Apr	;Awk100 ;Games		;|Soccer
 doc/awk100/013awklinux.html		;YungC	;2009;Apr	;Os ;Papers ;Awk100	;Top10	;|Awk-Linux
 doc/awk100/spell.html			;ArnoldR ;NelsonB ;2009 ;Mar ;Awk100; Top10	;|spell.awk
@@ -120,6 +120,8 @@ doc/awk100/004sudoku.html		;Jimh	;2009	;Jan	;Awk100	;Sudoku	;|Sudoku
 doc/awk100/003negotiate.html	;Ronl	;2009	;Jan	;Awk100	;Negotiate	;|Negotiate
 doc/awk100/002baseballsim.html	;Ronl	;2009	;Jan	;Awk100	;Baseballsim	;|Basebase Sim
 doc/awk100/001argcol.html		;Ronl	;2009	;Jan	;Awk100	;Argcol	;|Argcol
+
+doc/xgawk/wellformed.html     ;JergenK ;2009    ;May    ;XML ;Xgawk ;|Checking for Well-Formed XML
 
 doc/getxml.html					;JanW  ;2009 ;May ;XML ;|GetXML.awk
 doc/unicast.html                ;SallyF ;2009   ;Apr   ;Os  ;Papers ;|Simulations Unicast Applications

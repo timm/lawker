@@ -876,6 +876,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/awk100/017xmlgawk.html">
 		<title>XMLgawk</title>
+		<what>XGawk</what>
 		<what>XML</what>
 		<what>Awk100</what>
 		<what>Apr</what>
@@ -981,6 +982,14 @@ pageTracker._trackPageview();
 		<what>Jan</what>
 		<what>2009</what>
 		<what>Ronl</what>
+	</file>
+	<file where="doc/xgawk/wellformed.html">
+		<title>Checking for Well-Formed XML</title>
+		<what>Xgawk</what>
+		<what>XML</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>JergenK</what>
 	</file>
 	<file where="doc/getxml.html">
 		<title>GetXML.awk</title>

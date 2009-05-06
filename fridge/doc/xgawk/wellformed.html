@@ -1,0 +1,40 @@
+<h1><join> XML Well-Formedness</join></h1>
+<p><em>(This page comes from the <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html">XML Gawk</a> tutorial.)</em>)
+<p>
+One of the advantages of using the XML format for storing data is that there are formalized methods of checking correctness of the data. Whether the data is written by hand or it is generated automatically, it is always advantageous to have tools for finding out if the new data obeys certain rules (is a tag misspelt ? another one missing ? a third one in the wrong place ?).
+<p>
+These mechanisms for checking correctness are applied at different levels. The lowest level being well-formedness. The next higher levels of correctness-check are the level of the DTD  and (even higher, but not required yet by standards) the Schema. If you have a DTD (or Schema) specification for your XML file, you can hand it over to a validation tool, which applies the specification, checks for conformance and tells you the result. A simple tool for validation against a DTD is xmllint, which is part of libxml and therefore installed on most GNU/Linux systems. Validation against a Schema can be done with more recent versions of xmllint or with the xsv tool.
+<p>
+There are two reasons why validation is currently not incorporated into the gawk interpreter.
+<ol>
+<li>
+    Validation is not trivial and only DTD-validation has reached a proper level of standardization, support and stability.
+<li>
+    We want a tool that can process all well-formed XML files, not just a tool for processing clean data. A good tool is one that you can rely on and use for fixing problems. What would you think of a car that rejected to drive outside just because there is some mud on the street and the sun isn't shining ? 
+</ol>
+Here is a script for testing well-formedness of XML data. The real work of checking well-formedness is done by the XML parser incorporated into gawk. We are only interested in the result and some details for error diagnostic and recovery.
+<pre>
+     @load xml
+     END {
+       if (XMLERROR)
+         printf("XMLERROR '%s' at row %d col %d len %d\n",
+                 XMLERROR, XMLROW, XMLCOL, XMLLEN)
+       else
+         print "file is well-formed"
+     }
+</pre>
+<p>
+As usual, the script starts with switching gawk into XML mode. We are not interested in the content of the nodes being traversed, therefore we have no action to be triggered for a node. Only at the end (when the XML file is already closed) we look at some variables reporting success or failure. If the variable XMLERROR ever contains anything other than 0 or the empty string, there is an error in parsing and the parser will stop tree traversal at the place where the error is. An explanatory message is contained in XMLERROR (whose contents depends on the specific parser used on this platform). The other variables in the example contain the line number and the column in which the XML file is formed badly. 
+<h3>Author</h3>
+Jurgen Kahrs 
+<h3>Copyright</h3>
+<p>
+Copyright (C) 2000, 2001, 2002, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+<p>
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with the Invariant Sections being ?GNU General Public License?, the Front-Cover texts being (1) (see below), and with the Back-Cover Texts being (2) (see below). 
+<ul>
+<li>
+   A GNU Manual
+<li>
+   You have freedom to copy and modify this GNU Manual, like GNU software. Copies published by the Free Software Foundation raise funds for GNU development. 
+</ul>
