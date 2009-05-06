@@ -1,4 +1,6 @@
 #MAKEFLAGS +=  -s
+Lawker ?= $(shell pwd)
+
 Doc=$(Lawker)/doc
 Gawk=$(Lawker)/gawk
 Bash=$(Lawker)/lib/bash
