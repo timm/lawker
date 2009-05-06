@@ -989,7 +989,7 @@ pageTracker._trackPageview();
 		<what>XML</what>
 		<what>May</what>
 		<what>2009</what>
-		<what>JergenK</what>
+		<what>JurgenK</what>
 	</file>
 	<file where="doc/getxml.html">
 		<title>GetXML.awk</title>

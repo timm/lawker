@@ -121,7 +121,7 @@ doc/awk100/003negotiate.html	;Ronl	;2009	;Jan	;Awk100	;Negotiate	;|Negotiate
 doc/awk100/002baseballsim.html	;Ronl	;2009	;Jan	;Awk100	;Baseballsim	;|Basebase Sim
 doc/awk100/001argcol.html		;Ronl	;2009	;Jan	;Awk100	;Argcol	;|Argcol
 
-doc/xgawk/wellformed.html     ;JergenK ;2009    ;May    ;XML ;Xgawk ;|Checking for Well-Formed XML
+doc/xgawk/wellformed.html     ;JurgenK ;2009    ;May    ;XML ;Xgawk ;|Checking for Well-Formed XML
 
 doc/getxml.html					;JanW  ;2009 ;May ;XML ;|GetXML.awk
 doc/unicast.html                ;SallyF ;2009   ;Apr   ;Os  ;Papers ;|Simulations Unicast Applications
