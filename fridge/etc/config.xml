@@ -876,7 +876,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/awk100/017xmlgawk.html">
 		<title>XMLgawk</title>
-		<what>XGawk</what>
+		<what>Xgawk</what>
 		<what>XML</what>
 		<what>Awk100</what>
 		<what>Apr</what>

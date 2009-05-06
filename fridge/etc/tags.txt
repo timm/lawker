@@ -107,7 +107,7 @@ doc/os.html                     ;Admin   ;2009   ;Apr   ;Os   ;|Operating System
 doc/xml.html					;JurgenK  ;2009 ;Apr ;XML ;|XML and Awk
 
 doc/awk100.html					;Admin	;2009	;Jan	;Awk100	;|Awk100
-doc/awk100/017xmlgawk.html		;JurgenK  ;2009 ;Apr ;Awk100 ;XML ;XGawk ;|XMLgawk
+doc/awk100/017xmlgawk.html		;JurgenK  ;2009 ;Apr ;Awk100 ;XML ;Xgawk ;|XMLgawk
 doc/awk100/015soccer.html		;Ronl	;2009;Apr	;Awk100 ;Games		;|Soccer
 doc/awk100/013awklinux.html		;YungC	;2009;Apr	;Os ;Papers ;Awk100	;Top10	;|Awk-Linux
 doc/awk100/spell.html			;ArnoldR ;NelsonB ;2009 ;Mar ;Awk100; Top10	;|spell.awk
