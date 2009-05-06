@@ -1,5 +1,5 @@
 <h1><join> XML Well-Formedness</join></h1>
-<p><em>(This page comes from the <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html">XML Gawk</a> tutorial.)</em>)
+<p><em>(This page comes from the <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html">XML Gawk</a> tutorial.)</em>
 <p>
 One of the advantages of using the XML format for storing data is that there are formalized methods of checking correctness of the data. Whether the data is written by hand or it is generated automatically, it is always advantageous to have tools for finding out if the new data obeys certain rules (is a tag misspelt ? another one missing ? a third one in the wrong place ?).
 <p>
@@ -26,7 +26,7 @@ Here is a script for testing well-formedness of XML data. The real work of check
 <p>
 As usual, the script starts with switching gawk into XML mode. We are not interested in the content of the nodes being traversed, therefore we have no action to be triggered for a node. Only at the end (when the XML file is already closed) we look at some variables reporting success or failure. If the variable XMLERROR ever contains anything other than 0 or the empty string, there is an error in parsing and the parser will stop tree traversal at the place where the error is. An explanatory message is contained in XMLERROR (whose contents depends on the specific parser used on this platform). The other variables in the example contain the line number and the column in which the XML file is formed badly. 
 <h3>Author</h3>
-Jurgen Kahrs 
+<p>Jurgen Kahrs 
 <h3>Copyright</h3>
 <p>
 Copyright (C) 2000, 2001, 2002, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
