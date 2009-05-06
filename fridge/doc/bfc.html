@@ -1,0 +1,79 @@
+<h1><join>Brainfuck to C</join></h1>
+<em>
+<p>(Editor's note: One of the benefits of gawk is its ability to quickly code filters that convert artifacts from one form to another.
+For example, 
+here's a BrainFuck to C translator.)</em>
+<h2>About BrainFuck</h2>
+<p>(From <a href="http://en.wikipedia.org/wiki/Brainfuck">Wikipeidia</a>.)
+<p>
+The BrainFuck programming language is an esoteric programming language noted for its extreme minimalism. It is a Turing tarpit, designed to challenge and amuse programmers, and is not suitable for practical use
+<p>
+Urban Muller created BrainFuck in 1993 with the intention of designing a language which could be implemented with the smallest possible compiler, inspired by the 1024-byte compiler for the FALSE programming language. Several BrainFuck compilers have been made smaller than 200 bytes. The classic distribution is Muller's version 2, containing a compiler for the Amiga, an interpreter, example programs, and a readme document.
+<p>
+The language consists of eight commands:
+<dl>
+<dt>> 	<dd>increment the data pointer (to point to the next cell to the right).
+<dt>&lt; 	<dd>decrement the data pointer (to point to the next cell to the left).
+<dt>+ 	<dd>increment (increase by one) the byte at the data pointer.
+<dt>- 	<dd>decrement (decrease by one) the byte at the data pointer.
+<dt>. 	<dd>output the value of the byte at the data pointer.
+<dt>, 	<dd>accept one byte of input, storing its value in the byte at the data pointer.
+<dt>[ 	<dd>if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command.
+<dt>] 	<dd>if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command.
+</dl>
+<p>A Brainfuck program is a sequence of these commands, possibly interspersed with other characters (which are ignored). The commands are executed sequentially, except as noted below; an instruction pointer begins at the first command, and each command it points to is executed, after which it normally moves forward to the next command. The program terminates when the instruction pointer moves past the last command.
+<h2>The Translator</h2>
+<p>
+I wrote a BrainFuck to C translator in awk. It only takes a few minutes and I noticed that no awk version of this 
+<a href="http://esoteric.sange.fi/brainfuck/impl/compilers/">existed</a>.
+<p>
+I haven't run it through it's paces (I just wrote a few small BrainFuck programs to test it out) so if you find a bug, please let me know.
+<pre>
+#!/sw/bin/awk -f
+# a brainfuck to C translator.
+# Needs a recent version of gawk, if on OS X,
+# try using Fink's version.
+#
+# steve jenson
+
+BEGIN {
+  print "#include &lt;stdio.h&gt;\n";
+  print "int main() {";
+  print "  int c = 0;";
+  print "  static int b[30000];\n";
+}
+
+{
+  #Note: the order in which these are
+  #substituted is very important.
+  gsub(/\]/, "  }\n");
+  gsub(/\[/, "  while(b[c] != 0) {\n");
+  gsub(/\+/, "  ++b[c];\n");
+  gsub(/\-/, "  --b[c];\n");
+  gsub(/&gt;/, "  ++c;\n");
+  gsub(/&lt;/, "  --c;\n");
+  gsub(/\./, "  putchar(b[c]);\n");
+  gsub(/\,/, "  b[c] = getchar();\n");
+  print $0
+}
+
+END {
+  print "\n  return 0;";
+  print "}";
+}
+</pre>
+<h2>Updates</h2>
+<ul>
+<li> You can blame this on Evan Martin, <a href="http://www.livejournal.com/users/evan_tech/85802.html">his recent post</a> wherein half the universe decided to weigh in about PHP had a mention of <a href="http://modbf.sourceforge.net/">mod_bf</a>. Am I easily distracted or what?
+<li>
+
+Last update, I swear. <a href="http://accesscom.com/~darius/">Darius</a>
+said that I don't need to initialize  <tt>b</tt> if I declare it
+<tt>static</tt>. Also, I realized that my previous version wouldn't
+understand if you had multiple operators on the same line since it
+was matching records and not fields. This version works on all of
+the programs I tried in the BrainFuck archive (as long as you strip
+comments).
+</ul>
+<h2>Author</h2>
+<p>Steve Johnson <a href="http://saladwithsteve.com/">http://saladwithsteve.com/</a>
