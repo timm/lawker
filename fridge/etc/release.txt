@@ -21,6 +21,7 @@ may 9: 888888888888888888
 3) xmlgawk tut
 2) brainfuck to c
 ------------
+Mastermind, round 2
 
 1) akw100 oo in ansi "C" awk packages. axel schreiner
 8) awk100: aasl
