@@ -41,6 +41,7 @@ my guess #5 15432 +----
 my guess #6 12345 +++++
 </PRE>
 <a name=5></a><H2> Code</H2>
+<PRE>
 BEGIN{ 
 	srand();  
 	if (index(ARGV[1],"br")) {
@@ -71,7 +72,7 @@ function smudge(ins,n,ch) {
 }
 function grade(val, guess, 	i, rtn, t){ 
  return + for exact hits, - for "close" for all 5 digits
-	for (i = 1;i < 6; i++) {
+	for (i = 1;i &lt; 6; i++) {
 		if (substr(val, i, 1) == substr(guess, i, 1)) {
 			#exact match
 			rtn = rtn "+"
@@ -80,7 +81,7 @@ function grade(val, guess, 	i, rtn, t){
 			#print i, val, guess, rtn
 		}
 	}
-	for (i = 1;i < 6; i++) {
+	for (i = 1;i &lt; 6; i++) {
 		t = index(val, substr(guess, i, 1))
 		if (t) {
 			rtn = rtn "-"
@@ -107,7 +108,7 @@ function incr(old,	new) {
 	return substr(new, length(new) -4)
 }
 function alignres(res, 	tem) {
-	for (i=1;i<=length(res);i++) {
+	for (i=1;i&lt;=length(res);i++) {
 		if (substr(res, i, 1) == "+") tem = "+" tem
 		else tem = tem "-"
 	}
@@ -119,7 +120,7 @@ function breaker(g1,	guess, res, hisinput, tries){
 	do {
 		printf("my guess #%d %s ", ++tries, guess)
 		do {
-			if (getline hisinput <= 0) {
+			if (getline hisinput &lt;= 0) {
 				print "whoa, some error, giving up"
 				exit
 			}
@@ -145,7 +146,7 @@ function maker(original,	his, tries)
 { 
 	#print original," cheater!"
 	do {
-		if (getline his <= 0) {
+		if (getline his &lt;= 0) {
 			print "whoa, some error, giving up"
 			exit
 		}
@@ -154,6 +155,7 @@ function maker(original,	his, tries)
 		if (res == "+++++") return tries
 	} while (1)
 }
+</PRE>
 <a name=6></a><H2> See Also</H2>
 <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/mastermind.awk">mastermind.awk.</a>
 <a name=7></a><H2> Author</H2>

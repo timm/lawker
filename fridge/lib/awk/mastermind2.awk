@@ -30,6 +30,7 @@
 #my guess #6 12345 +++++
 #./PRE
 #.H2 Code
+#.PRE
 BEGIN{ 
 	srand();  
 	if (index(ARGV[1],"br")) {
@@ -143,6 +144,7 @@ function maker(original,	his, tries)
 		if (res == "+++++") return tries
 	} while (1)
 }
+#./PRE
 #.H2 See Also
 #.URL http://lawker.googlecode.com/svn/fridge/lib/awk/mastermind.awk mastermind.awk.
 #.H2 Author
