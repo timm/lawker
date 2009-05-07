@@ -61,6 +61,6 @@ END{
 }
 #./PRE
 #.H2 See Also
-#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/mastermind2.awk mastermind2.awk.
+#.URL http://awk.info/?mastermind2  mastermind2.awk.
 #.H2 Author
 #.P The author's name is YSA.

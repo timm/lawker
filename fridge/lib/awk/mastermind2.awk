@@ -146,6 +146,6 @@ function maker(original,	his, tries)
 }
 #./PRE
 #.H2 See Also
-#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/mastermind.awk mastermind.awk.
+#.URL http://awk.info?mastermind mastermind.awk.
 #.H2 Author
 #.P Steve Calfee, USA.
