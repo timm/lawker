@@ -991,12 +991,19 @@ pageTracker._trackPageview();
 		<what>Ronl</what>
 	</file>
 	<file where="doc/xgawk/wellformed.html">
-		<title>Checking for Well-Formed XML</title>
+		<title>XML: Checking for Well-Formednes</title>
 		<what>Xgawk</what>
 		<what>XML</what>
 		<what>May</what>
 		<what>2009</what>
 		<what>JurgenK</what>
+	</file>
+	<file where="doc/dumpxml.html">
+		<title>XML: Display components</title>
+		<what>XML</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>MarkB</what>
 	</file>
 	<file where="doc/getxml.html">
 		<title>GetXML.awk</title>
