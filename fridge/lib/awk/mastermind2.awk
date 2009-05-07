@@ -20,7 +20,7 @@
 #.h2 Example
 #.P In the following example, the goal is "12345".
 #.PRE
-#gawik -f mastermind2.awk  br
+#gawk -f mastermind2.awk  br
 #I'll start, I'll break your code, you respond with +-
 #my guess #1 12413 ++--
 #my guess #2 12531 ++--
