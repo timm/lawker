@@ -60,5 +60,7 @@ END{
 	printf("\n  %s  (%d)\n", (v==40)?"Congratulations !!":"Over times", z); 
 }
 #./PRE
+#.H2 See Also
+#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/mastermind2.awk mastermind2.awk.
 #.H2 Author
 #.P The author's name is YSA.

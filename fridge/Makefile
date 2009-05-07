@@ -58,6 +58,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/readminds.html\
     	$(Doc)/s2a.html\
     	$(Doc)/spam.html\
+    	$(Doc)/dumpxml.html\
     	$(Doc)/getxml.html\
     	$(Doc)/quicksort.html\
     	$(Doc)/quicksort2.html\
@@ -67,8 +68,8 @@ files : $(Doc)/dsl/markdown.html \
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
     	
-$(Doc)/spam.html : $(Ksh)/spam.ksh
-	cd $(Ksh) && $(Awk2Html)
+$(Doc)/spam.html       : $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
+$(Doc)/dumpxml.html    : $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
 
 $(Doc)/story.html      : $(Awklib)/grammar/story.awk ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/eliza.html      : $(Awklib)/eliza.awk         ; cd $(Awklib) && $(Awk2Html)
