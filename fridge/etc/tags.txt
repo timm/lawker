@@ -36,6 +36,7 @@ doc/eliza.html				;JuergenK	;2009	;Apr	;Eliza ;TenLiners ;Games		;|Eliza
 doc/hanoi.html				;AlanL	;2009	;Apr	;TenLiners 			;|Towers of Hanoi
 doc/readminds.html			;Anon	;2009	;Apr	;TenLiners  ;Games			;|How to Read Minds
 doc/mastermind.html			;Ysa	;2009	;Apr	;TenLiners  ;Games			;|Mastermind
+doc/mastermind2.html			;SteveL	;2009	;May	 ;Games			;|Mastermind (again)
 doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 

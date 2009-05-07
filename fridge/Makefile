@@ -63,6 +63,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/quicksort.html\
     	$(Doc)/quicksort2.html\
     	$(Doc)/eliza.html\
+    	$(Doc)/mastermind2.html\
     	$(Doc)/mastermind.html 
 
 awkpp :  
@@ -73,6 +74,7 @@ $(Doc)/dumpxml.html    : $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
 
 $(Doc)/story.html      : $(Awklib)/grammar/story.awk ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/eliza.html      : $(Awklib)/eliza.awk         ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/mastermind2.html : $(Awklib)/mastermind2.awk    ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/mastermind.html : $(Awklib)/mastermind.awk    ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/s2a.html        : $(Awklib)/s2a.awk           ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/readminds.html  : $(Awklib)/readminds.awk     ; cd $(Awklib) && $(Awk2Html)
