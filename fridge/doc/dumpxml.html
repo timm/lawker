@@ -15,6 +15,12 @@
 Displays components within a set of named XML files.
 With no options, displays the XML files much like that cat command.
 When options are supplied, displays only the selected components.
+<P>
+<EM>
+Editor's note: for those who do not want to take the plunge into <a href="http://awk.info/?Xgawk">xgawk</a>, dumpxml
+shows that shows standard Awk supports XML. For a discussion of this file, see
+<a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1311a8b04a802265/f5a7d1d714297f00?lnk=gst&q=xml#f5a7d1d714297f00">comp.lang.awk.</a>
+</em>
 <a name=1></a><H2> Synopsis</H2>
 <P> xmldump -[cdit] file</P>
 <a name=2></a><H2> Download</H2>
@@ -25,13 +31,7 @@ chmod +x dumpxml
 </PRE>
 <a name=3></a><H2> Description</H2>
 <P>
-<EM>
-Editor's note: for those who do not want to take the plunge into <a href="http://awk.info/?Xgawk">xgawk</a>, there's a little tool
-that shows XML processing in standard Awk. For a discussion of this file, see
-<a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1311a8b04a802265/f5a7d1d714297f00?lnk=gst&q=xml#f5a7d1d714297f00">comp.lang.awk.</a>
-</em>
-<P>
-One reasson I have a distinct loathing for XML, esp. in configuration
+One reason I have a distinct loathing for XML, esp. in configuration
 files, is it's very difficult to parse (with line-based editors) and
 it's not very readable either.  In my book, this breaks both of the
 fundamental tests for a useable configuration standard .... whoever
