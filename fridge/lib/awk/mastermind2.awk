@@ -60,7 +60,7 @@ function smudge(ins,n,ch) {
 	return substr(ins, 1, n-1) ch substr(ins, n+1)
 }
 function grade(val, guess, 	i, rtn, t){ 
-# return + for exact hits, - for "close" for all 5 digits
+## return + for exact hits, - for "close" for all 5 digits
 	for (i = 1;i < 6; i++) {
 		if (substr(val, i, 1) == substr(guess, i, 1)) {
 			#exact match
@@ -81,8 +81,8 @@ function grade(val, guess, 	i, rtn, t){
 	}
 	return rtn
 }
-#passed guess and old guess array
-#A good guess matches all previous scores with the new guess
+##passed guess and old guess array
+##A good guess matches all previous scores with the new guess
 function checkguess(g, oldg,	i,score) {
 	#print "guess " g
 	for (i in oldg) {
