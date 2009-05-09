@@ -44,6 +44,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/psrev.html \
 	    $(Doc)/tools/pschoose.html \
 	    $(Doc)/tools/cryptosig.html \
+	    $(Doc)/tools/ooc.html \
 	    $(Doc)/tools/sigs.html \
 	    $(Doc)/tools/m1.html \
 	    $(Doc)/fun/enumerate.html \
@@ -68,7 +69,11 @@ files : $(Doc)/dsl/markdown.html \
 
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
-    	
+    
+
+$(Doc)/tools/ooc.html  :  $(Bash)/ooc/ooc.html
+	echo "$> $@"
+
 $(Doc)/spam.html       : $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    : $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
 
