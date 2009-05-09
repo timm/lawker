@@ -72,7 +72,7 @@ awkpp :
     
 
 $(Doc)/tools/ooc.html  :  $(Bash)/ooc/ooc.html
-	echo "$> $@"
+	echo "$< $@"
 
 $(Doc)/spam.html       : $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    : $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
