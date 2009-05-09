@@ -29,6 +29,7 @@ http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1311a8b04a8022
 6) awk100: aasl
 7) awk100: astar
 
+new section: OO tools in awk
 
 
 --------------------------------------
