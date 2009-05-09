@@ -49,10 +49,6 @@ Pages: 265 - 287
 Year of Publication: 1993
 ISSN:0098-3500
 
-9) tinyawk
-tiny awk in c
-http://www.ddj.com/architect/184408136
-
 10) Quiktrim Awk
 http://www.quiktrim.org/QTawk.html
 

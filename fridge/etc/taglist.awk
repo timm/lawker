@@ -32,7 +32,7 @@ function trim(s) {
 }
 END {
 	for(i in what)
-		print "<tr><td align=right> " what[i] " </td><td><a href=\"http://awk.info/?" i "\">" i " </a></td><td>" \
+		print "<tr><td align=right> " what[i] " </td><td align=left><a href=\"http://awk.info/?" i "\">" i " </a></td><td align=left>" \
 			  "<img src=\"http://menzies.us/csx72/img/gray.gif\"" \
               " height=\"10px\" width=\"" Xpand*what[i]*100/N "\"></a></td></tr>"
 }
