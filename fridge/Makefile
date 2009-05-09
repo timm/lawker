@@ -44,11 +44,11 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/psrev.html \
 	    $(Doc)/tools/pschoose.html \
 	    $(Doc)/tools/cryptosig.html \
-	    $(Doc)/tools/ooc.html \
 	    $(Doc)/tools/sigs.html \
 	    $(Doc)/tools/m1.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
+	    $(Doc)/dsl/ooc.html \
 	    $(Doc)/dsl/graph.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html \
@@ -71,7 +71,7 @@ awkpp :
 	cd $(Bash)/awk++ && zip -r awk++.zip *
     
 
-$(Doc)/tools/ooc.html  :  $(Bash)/ooc/ooc.html
+$(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 	cp $< $@
 
 $(Doc)/spam.html       : $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)

@@ -540,10 +540,20 @@ pageTracker._trackPageview();
 	<file where="doc/dsl/awkplusplus.html">
 		<title>Awk++</title>
 		<what>Awk100</what>
+		<what>Oo</what>
 		<what>Dsl</what>
 		<what>Mar</what>
 		<what>2009</what>
 		<what>Jimh</what>
+	</file>
+	<file where="doc/dsl/ooc.html">
+		<title>Awk + Ansi-C = OO</title>
+		<what>Awk100</what>
+		<what>Oo</what>
+		<what>Dsl</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>AlexS</what>
 	</file>
 	<file where="doc/awkastar.html">
 		<title>Building Interpreters with A*</title>

@@ -50,8 +50,9 @@ doc/dsl/graph.html			;AlfredA	;PeterW	;BrianK	;2009	;Mar	;Dsl	;|Graph
 doc/dsl/awklisp.html		;DariusB	;2009	;Mar	;Dsl	;Interpreters ;AwkLisp	;Top10;Eliza	;|awklisp
 doc/awk100/aaa.html			;HenryS	;2009	;Apr	;Dsl		;Interpreters; Top10 ;Awk100 ;|Amazing Awk Assembler
 doc/dsl/markdown.html		;JesusG	;2009	;Mar	;Dsl	;Wp ;Top10	;|Markdown
-doc/dsl/awkplusplus.html	;Jimh	;2009	;Mar	;Dsl	;Awk100	;|Awk++
-doc/awkastar.html	;DavidL	;2009	;Apr	;Interpreters		;|Building Interpreters with A*
+doc/dsl/awkplusplus.html	;Jimh	;2009	;Mar	;Dsl	;Oo	;Awk100	;|Awk++
+doc/dsl/ooc.html			;AlexS	;2009	;May	;Dsl	;Oo	;Awk100	;|Awk + Ansi-C = OO
+doc/awkastar.html			;DavidL	;2009	;Apr	;Interpreters		;|Building Interpreters with A*
 
 doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk 
 doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
