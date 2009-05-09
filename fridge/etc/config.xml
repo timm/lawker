@@ -221,6 +221,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
+	<file where="doc/awk100.html">
+		<title>Awk100</title>
+		<what>Awk100</what>
+		<what>Jan</what>
+		<what>2009</what>
+		<what>Admin</what>
+	</file>
 	<file where="doc/top10.html">
 		<title>Top 10 pages</title>
 		<what>Top10</what>
@@ -895,13 +902,6 @@ pageTracker._trackPageview();
 		<title>XML and Awk</title>
 		<what>XML</what>
 		<what>Apr</what>
-		<what>2009</what>
-		<what>Admin</what>
-	</file>
-	<file where="doc/awk100.html">
-		<title>Awk100</title>
-		<what>Awk100</what>
-		<what>Jan</what>
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
