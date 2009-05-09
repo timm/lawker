@@ -18,19 +18,16 @@ stop gaps:
 -------------------------------------------------------------------------------
 may 9: 888888888888888888
 
-3) xmlgawk tut
+7) awk100#19:  astar
+
+5) awk100#20: akw100 oo in ansi "C" awk packages. axel schreiner
+8)new section: OO tools in awk
+
+3) XML: checking for well-formed XML
+4) XML: dump xml files http://awk.info/?doc/dumpxml.html
+
 2) brainfuck to c
-4)display awk:
-http://groups.google.com/group/comp.lang.awk/browse_thread/thread/1311a8b04a802265/f5a7d1d714297f00?lnk=gst&q=xml#f5a7d1d714297f00
 1) mastermind2.awk
-5) akw100 oo in ansi "C" awk packages. axel schreiner
-
-
-6) awk100: aasl
-7) awk100: astar
-
-new section: OO tools in awk
-
 
 --------------------------------------
 
