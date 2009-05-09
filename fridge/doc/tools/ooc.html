@@ -1,0 +1,214 @@
+<h1><join> Awk + ANSI-C = OO </join></h1>
+<h2>Description</h2>
+<p>ooc is an awk program which reads
+class descriptions and performs the
+routine coding tasks necessary to do
+object-oriented coding in ANSI C. 
+<p>
+The tool is exceptionally well documented in 
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/ooc/contents/ASchreinerBook1993.pdf">
+Object oriented programming with ANSI-C</a>.
+<H2>Download</h2>
+<p>Download from <a 
+href="http://lawker.googlecode.com/svn/fridge/lib/bash/ooc">LAWKER</a>.
+
+<h2>Description</h2>
+<p>
+ooc is a technique to do object-oriented programming (classes,
+methods, dynamic linkage, simple inheritance, polymorphisms,
+persistent objects, method existence testing, message forwarding,
+exception handling, etc.) using ANSI-C.
+<p>
+ooc is a preprocessor to simplify the coding task by converting
+class descriptions and method implementations into ANSI-C as required
+by the technique. You implement the algorithms inside the methods
+and the ooc preprocessor produces the boilerplate.
+<p>
+ooc consists of a shell script driving a modular awk script (with
+provisions for debugging), a set of reports -- code generation
+templates -- interpreted by the script, and the source of a root
+class to provide basic functionality.  Everything is designed to
+be changed if desired. There are manual pages, lots of examples,
+among them a calculator based on curses and X11, and you can ask
+me about the book.
+<p>
+ooc as a technique requires an ANSI-C system -- classic C would
+necessitate substantial changes. The preprocessor needs a healthy
+Bourne-Shell and "new" awk as described in Aho, Weinberger, and
+Kernighan's book.
+<p>
+ooc was developed primarily to teach about object-oriented programming
+without having to learn a new language. If you see how it is done
+in a familiar setting, it is much easier to grasp the concepts and
+to know what miracles to expect from the technique and what not.
+Conceivably, the preprocessor can be used for production programming
+but this was not the original intent. Being able to roll your own
+object-oriented coding techniques has its possibilities, however...
+<h2> Technical Details</h2>
+<p>Most sources should be viewed with tab stops set at 4 characters.
+<p>
+The original system ran on NeXTSTEP 3.2 and older, ESIX (System
+V) 4.0.4, and Linux 0.99.pl4-49. This rerelease was tested on MacOS X
+version 10.1.2 and Solaris version 5.8. You need to review paths in the
+script 'ooc/ooc' before running anything. Make sure the first line
+of this script points to a Bourne-style shell. Also make sure that
+the first line of '09/munch' points to a (new) awk.
+<p>
+The rereleased 'ooc' awk-programs have been tested with GNU awk versions
+3.0.1 and 3.0.3. Previous versions did not support AWKPATH properly
+(but this is not essential).
+<p>
+The makefiles could be smarter but they are naive enough for all
+systems.  This is a heterogeneous system -- set the environment
+variable $OSTYPE to an architecture-specific name. 'make' in the current
+directory will create everything by calling 'make' in the various
+subdirectories. Each 'makefile' includes 'make/Makefile.$OSTYPE', review
+your 'make/Makefile.$OSTYPE' before you start.
+<P>
+The following make calls are supported throughout:
+<pre>
+make [all]	create examples
+make test	[make and] run examples
+make clean	remove all but sources
+make depend	make dependencies (if makefile.$OSTYPE supports it)
+</pre>
+<p>
+Make dependencies can be built with the -MM option of the GNU C
+compiler.  They are stored in a file 'depend' in each subdirectory.
+They should apply to all systems. 'makefile.$OSTYPE' may include a target
+'depend' to recreate 'depend' -- check 'makefile.darwin1.4' for an
+example.
+<h2>Contents</h2>
+<p>
+The following is a walk through the file hierarchy in the order of
+the book:
+<dl>
+<dt>
+makefile	<dd>dispatch standard make calls to known directories
+<dt>
+make/
+    <dd>Makefile:	boilerplate code for makefiles
+<dt>
+01/*<dd>		chapter 1: abstract data types
+	<ul>
+    <li>sets:	Set demo
+    <li>bags:	Bag demo: Set with reference count
+	</ul>
+<dt>
+02/*<dd>		chapter 2: dynamic linkage
+	<ul>
+    <li>strings:	String demo
+    <li>atoms:	Atom demo: unique String
+	</ul>
+<dt>
+03/*	<dd>	chapter 3: manipulating expressions with dyn. linkage
+	<ul>
+    <li>postfix:	postfix output of expression
+    <li>value:	expression evaluation
+    <li>infix:	infix output of expression
+	</ul>
+<dt>
+04/*<dd>		chapter 4: inheritance
+	<ul>
+    <li>points:	Point demo
+    <li>circles:	Circle demo: Circle: Point with radius
+	</ul>
+<dt>
+05/*<dd>		chapter 5: symbol table with inheritance
+    <ul>
+	<li>value:	expression evaluation with vars, consts, functions
+	</ul>
+<dt>
+06/*<dd>		chapter 6: class hierarchy and meta classes
+	<ul>
+    <li>any:		objects that do not differ from any object
+	</ul>
+<dt>
+07/*<dd>		chapter 7: ooc preprocessor; use ooc -7
+	<ul>
+    <li>points:	Point demo: PointClass is a new metaclass
+    <li>circles:	Circle demo: Circle is a new class
+    <li>queue:	Queue demo: List is an abstract base class
+    <li>stack:	Stack demo: another subclass of List
+	</ul>
+<dt>
+08/*<dd>		chapter 8: dynamic type checking; use ooc -8
+    <ul><li>circles:	Circle demo: nothing changed
+    <li>list:	List demo: traps insertion of numbers or strings
+	</ul>
+<dt>
+09/*<dd>		chapter 9: automatic initialization; use ooc -9
+	<ul>
+	<li>
+    munch:	awk program to collect class list from nm -p output
+    <li>circles:	Circle demo: no more init calls
+    <li>list:	List demo: no more init calls
+	</ul>
+<dt>
+10/*<dd>		chapter 10: respondsTo method; use ooc -10
+    <ul><li>cmd:		Filter demo: how flags and options are handled
+    <li>wc:		word count filter
+    <li>sort:	sorting filter, adds sort method to List
+	</ul>
+<dt>
+11/*<dd>		chapter 11: class methods
+    <ul><li>value:	expression evaluator, based on class hierarchy
+    <li>value: x	memory reclamation enabled
+	</ul>
+<dt>
+12/*<dd>		chapter 12: persistent objects
+    <ul><li>value:	expression evaluator, with save and load
+	</ul>
+<dt>
+13/*	<dd>	chapter 13: exception handling
+    <ul><li>value:	expression evaluator with exception handler
+    <li>except:	Exception demo
+	</ul>
+<dt>
+14/*	<dd>	chapter 14: message forwarding
+    <ul><li>makefile.etc: (naive) generated rules for the library
+    <li>Xapp:	resources for X11-based programs
+    <li>hello:	LineOut demo: hello, world
+    <li>button:	Button demo
+    <li>run:		terminal-oriented calculator
+    <li>cbutton:	Crt demo: hello, world changes into a
+    <li>crun:	curses-based caluclator
+    <li>xhello:	XLineOut demo: hello, world
+    <li>xbutton:	XButton demo with XawBox and XawForm
+    <li>xrun:	X11-based calculator with callbacks
+    </ul>
+<dt>
+man/*	<dd>	manual pages
+	<ul><li>
+    *.1:		tools
+    <li>*.2:		functions
+    <li>*.3:		some classes
+    <li>*.4:		classes in chapter 14
+	</ul>
+<dt>
+ooc/*<dd>		ooc preprocessor
+    <ul><li>ooc:		command script; review 'home' 'OOCPATH' 'AWKPATH'
+    <li>awk/*.awk:	modules
+    <li>awk/*.dbg:	debugging modules
+    <li>rep/*.rep:	reports
+    <li>rep-*/*.rep:	reports for early chapters
+    </ul>
+</dl>
+<h2>Copyright</h2>
+<p>
+Copyright (c) 1993 
+<p>
+While you may use this software package, neither I nor my employers can
+be made responsible for whatever problems you might cause or encounter.
+<p>
+While you may give away this package and/or software derived with
+it, you should not charge for it, you should not claim that ooc is
+your work, and I have published my own book about ooc before you did.
+<p>
+The same restrictions apply to whoever might get this package from
+you.
+<h2>Author</h2>
+Axel T. Schreiner, 
+<a href="http://www.cs.rit.edu/~ats/">http://www.cs.rit.edu/~ats/</a>
+
+
