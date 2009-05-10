@@ -1,0 +1,54 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+New: fun and games
+
+- It had to happen: Brainf*ck come to Awk: 
+  http://awk.info/?bfc
+
+- Steve Calfee shows us how to win at MasterMind
+  http://awk.info/?mastermind2
+
+----------------------------------------------------------
+New: XML processing in awk
+
+- Mark Bannister's "dumpXML" tool: 
+  http://awk.info/?dumpxml
+
+- Xgawking: testing well-formedness
+  http://awk.info/?xgawk/wellformed
+
+----------------------------------------------------------
+New section: OO tools in Awk: http://awk.info/?Oo
+
+- Axel Schreiner shows how to add OO to Ansi-C (with Awk)
+  http://awk.info/?dsl/ooc
+
+- And, an old favorite, Jim Hart's Awk++
+  http://awk.info/?dsl/awkplusplus
+
+----------------------------------------------------------
+Page of the week:
+
+http://awk.info/?XML
+
+Google Analytics tells us that the Awk.Info pages on
+XML are our "pages of the week". Given our web-centric
+world, is anyone surprised?
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
