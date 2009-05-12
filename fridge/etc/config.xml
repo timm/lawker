@@ -82,8 +82,12 @@ About awk.info<br>
 &nbsp;&raquo;&nbsp; featured <a href="?topics">topics</a>  <br>
 &nbsp;&raquo;&nbsp; page <a href="?var/tags">tags</a>  
 
-<p><a href="?Learn"><img width=150 border=1 src="http://lawker.googlecode.com/svn/fridge/share/img/wantolearnawk.png"></a>
-
+<center>
+<table border=5>
+<tr><td bgcolor="Orange"> New to Awk? Click
+<a href="?Learn">here</a>!
+</td></tr></table>
+</center>
 <hr>
 About Awk<br>
 &nbsp;&raquo;&nbsp;  <a href="http://awk.info/?advocacy">advocacy</a><br>
