@@ -122,7 +122,7 @@ Online doc<br>
     </string>
     <string id="beforeRss">
       <![CDATA[
-<h2>News</h2> ]]>
+<h3>News</h3><p> ]]>
     </string>
     <string id="afterRss">
             <![CDATA[
