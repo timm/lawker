@@ -250,9 +250,9 @@ text-decoration:none;
 h1 {
 xbackground-image:url(leafs_brown.jpg);
 xbackground-repeat:no-repeat;
-background-position:.1em .1em;
-margin:0 0 -.3em 0;
-padding:.0em 0 .5em 3.3em;
+xbackground-position:.1em .1em;
+xmargin:0 0 -.3em 0;
+xpadding:.0em 0 .5em 3.3em;
 }
 
 h2 {
