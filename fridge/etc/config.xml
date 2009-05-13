@@ -102,8 +102,9 @@ Online doc<br>
 <hr>Reading<br>
 &nbsp;&raquo;&nbsp;  <a href="?Papers">articles</a><br>
 &nbsp;&raquo;&nbsp;  books:
-<center>
-<table padding="30" border="1">
+<p>
+&nbsp;&raquo;&nbsp;  
+<table padding="30" border="0">
 <tr>
 <td align=center>
 <a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
@@ -127,7 +128,6 @@ Online doc<br>
 </td>
 </tr>
 </table>
-</center>
 ]]>
     </string>
     <string id="beforeRss">
