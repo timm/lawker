@@ -49,7 +49,6 @@
 		 <li><a href="?Funky">Funky</a></li>
                  <li><a href="?contribute">Contribute</a> </li>
 		<li><a href="http://tinyurl.com/rss4awk"><img src="http://lawker.googlecode.com/svn/fridge/share/img/rss.gif"></a> </li>
-                <li><a href="http://lawker.blogspot.com">Blog</a></li>
               
                  </ul>
               ]]>
@@ -138,6 +137,7 @@ Online doc<br>
       <![CDATA[
 <p>Contact:<a href="mailto:mail@awk.info">mail@awk.info</a>
 <hr>
+<p><b>NEWS:</b>
  ]]>
     </string>
     <string id="afterRss">
