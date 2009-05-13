@@ -135,8 +135,8 @@ Online doc<br>
     </string>
     <string id="beforeRss">
       <![CDATA[
-<p>Contact:<a href="mailto:mail@awk.info">mail@awk.info</a>
-<hr>
+<p><b>EMAIL:</b><br>
+<a href="mailto:mail@awk.info">mail@awk.info</a>
 <p><b>NEWS:</b>
  ]]>
     </string>
