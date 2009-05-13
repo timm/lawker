@@ -104,7 +104,7 @@ Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="?Papers">articles</a><br>
 &nbsp;&raquo;&nbsp;  books:
 <p>
-<table border="0" padding="0">
+<table width="150px" border="0" padding="0">
 <tr><td align="right"><a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5">
 <img border=0 height=80 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
 </td>
