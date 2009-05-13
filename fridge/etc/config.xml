@@ -105,7 +105,7 @@ Online doc<br>
 &nbsp;&raquo;&nbsp;  books:
 <p>
 <table>
-<tr><td><a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
+<tr><td align="right"><a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
 </td>
 <td>
 <a href="http://www.amazon.com/Effective-awk-Programming-Arnold-Robbins/dp/0596000707/ref=pd_sim_b_1"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/effectiveAwkCover.gif""></a>
