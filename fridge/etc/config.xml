@@ -13,29 +13,7 @@
            Design by <a href="http://raykdesign.net">raykdesign.net</a>. 
 <br>           Auk images &copy; 2009 <a href="http://awk.info/?doc/who/mikelangman.html">Mike Langman</a>.
 <p>&nbsp;
-<center>
-<table padding="30" border="1">
-<tr>
-<td align=center>
-<a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
-<br>
-</td>
-<td align=center>
-<a href="http://www.amazon.com/Effective-awk-Programming-Arnold-Robbins/dp/0596000707/ref=pd_sim_b_1"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/effectiveAwkCover.gif""></a><br>
-</td>
-<td align=center>
-<a href="http://www.amazon.com/sed-awk-2nd-Dale-Dougherty/dp/1565922255/ref=pd_sim_b_3"><img height=100 border=0 src="http://lawker.googlecode.com/svn/fridge/share/img/sedAwkCover.gif"></a><br>
-</td>
-<td align=center>
-<a href="http://www.amazon.com/Classic-Shell-Scripting-Arnold-Robbins/dp/0596005954/ref=pd_sim_b_2"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/classicScripting.gif"></a><br>
-</td>
-<td align=center>
-<a href="http://www.amazon.com/Mastering-Regular-Expressions-Jeffrey-Friedl/dp/0596528124/ref=sr_1_1?ie=UTF8&s=books&qid=1240798787&sr=1-1"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/masteringReCover.gif" border=0>
-</td>
-</tr>
-</table>
-</center>
-<p>&nbsp;
+
 ]]>
     </string>
     <string id="menu1">
@@ -122,15 +100,41 @@ Online doc<br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.nrl.navy.mil/code5595/online-software/manpages/gawk-manpage.html">manual pages</a><br>
 &nbsp;&raquo;&nbsp;  <a href="http://www.faqs.org/faqs/computer-lang/awk/faq/">FAQ</a><br>
 <hr>Reading<br>
-&nbsp;&raquo;&nbsp;  <a href="http://www.amazon.com/s/ref=nb_ss_b?url=search-alias%3Dstripbooks&field-keywords=awk&x=0&y=0">books</a><br>
-&nbsp;&raquo;&nbsp;  <a href="?Papers">articles</a>
+&nbsp;&raquo;&nbsp;  <a href="?Papers">articles</a><br>
+&nbsp;&raquo;&nbsp;  books:
+<center>
+<table padding="30" border="1">
+<tr>
+<td align=center>
+<a href="http://www.amazon.com/AWK-Programming-Language-Alfred-Aho/dp/020107981X/ref=pd_sim_b_5"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/theAwkBookCover.gif"></a>
+<br>
+</td>
+<tr>
+<td align=center>
+<a href="http://www.amazon.com/Effective-awk-Programming-Arnold-Robbins/dp/0596000707/ref=pd_sim_b_1"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/effectiveAwkCover.gif""></a><br>
+</td>
+<tr>
+<td align=center>
+<a href="http://www.amazon.com/sed-awk-2nd-Dale-Dougherty/dp/1565922255/ref=pd_sim_b_3"><img height=100 border=0 src="http://lawker.googlecode.com/svn/fridge/share/img/sedAwkCover.gif"></a><br>
+</td>
+<tr>
+<td align=center>
+<a href="http://www.amazon.com/Classic-Shell-Scripting-Arnold-Robbins/dp/0596005954/ref=pd_sim_b_2"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/classicScripting.gif"></a><br>
+</td>
+<tr>
+<td align=center>
+<a href="http://www.amazon.com/Mastering-Regular-Expressions-Jeffrey-Friedl/dp/0596528124/ref=sr_1_1?ie=UTF8&s=books&qid=1240798787&sr=1-1"><img border=0 height=100 src="http://lawker.googlecode.com/svn/fridge/share/img/masteringReCover.gif" border=0>
+</td>
+</tr>
+</table>
+</center>
 ]]>
     </string>
     <string id="beforeRss">
       <![CDATA[
-<p><b>EMAIL:</b><br>
+<p>Contact:
 <a href="mailto:mail@awk.info">mail@awk.info</a>
-<p><b>NEWS:</b>
+<h3>News</h3>
  ]]>
     </string>
     <string id="afterRss">
