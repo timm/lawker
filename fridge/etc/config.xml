@@ -28,7 +28,7 @@
                  <li><a href="?contribute">Contribute</a> </li>
 		<li><a href="http://tinyurl.com/rss4awk"><img src="http://lawker.googlecode.com/svn/fridge/share/img/rss.gif"></a> </li>
               
-<a href="mailto:mail@awk.info">mail@awk.info</a>
+<small><a href="mailto:mail@awk.info">mail@awk.info</a></small>
                  </ul>
               ]]>
     </string>
@@ -122,8 +122,6 @@ Online doc<br>
     </string>
     <string id="beforeRss">
       <![CDATA[
-<p>Contact:
-<a href="mailto:mail@awk.info">mail@awk.info</a>
 <h2>News</h2>
  ]]>
     </string>
