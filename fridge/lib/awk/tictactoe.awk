@@ -1,9 +1,12 @@
 #.H1 Tic-Tac-Toe
 #.H2 Synopsis
 #.P To let the computer play first, run:
-#.PRE awk -f 15.awk -v start=1
+#.PRE 
+#awk -f 15.awk -v start=1
+#./PRE
 #.P To play first, run:
-#.PRE $ awk -f 15.awk -v start=2
+#.PRE 
+#awk -f 15.awk -v start=2
 #./PRE
 #.H2 Description
 #.P
