@@ -26,6 +26,8 @@ http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html#Reading-XML-Data-with-
 7) correlations in gawk
 http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
 
+
+
 6)reading tabular data
 awktemplate
 Template-driven interfaces for numerical subroutines

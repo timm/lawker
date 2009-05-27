@@ -1056,6 +1056,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>SallyF</what>
 	</file>
+	<file where="doc/templates.html">
+		<title>Template-driven programming</title>
+		<what>Papers</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>JonB</what>
+	</file>
 	<file where="doc/alerts.html">
 		<title>Intrusion alert normalization</title>
 		<what>Papers</what>

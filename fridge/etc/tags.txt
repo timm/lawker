@@ -132,6 +132,7 @@ doc/dumpxml.html               ;MarkB   ; 2009   ;May    ;XML        ;|XML: Disp
 
 doc/getxml.html					;JanW  ;2009 ;May ;XML ;|GetXML.awk
 doc/unicast.html                ;SallyF ;2009   ;Apr   ;Os  ;Papers ;|Simulations Unicast Applications
+doc/templates.html                ;JonB ;2009   ;May   ;Papers ;|Template-driven programming
 doc/alerts.html                ;KimD ;2009   ;Apr   ;Os  ;Papers ;|Intrusion alert normalization 
 
 doc/textmining.html				;Admin	;2009	;Mar	;TextMining	;|Text Mining

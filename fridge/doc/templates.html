@@ -1,0 +1,26 @@
+<h1><join> Template-Driven Interfaces for Numerical Subroutines </h1></join>
+<p>
+Jon L. Bentley, Mary F. Fernandez, Brian W. Kernighan, and 
+Norman L. Schryer, 
+<em>ACM Transactions on Mathematical Software</em>, Vol. 19, No. 3, September 1993, Pages 265-287
+<p>
+This paper describes a set of interfaces for numerical subroutines. Typing a short (often one-line) 
+description allows one to solve problems in application domains including least-squares data 
+fitting, differential equations, minimization, root finding, and integration. Our approach of 
+"template-driven programming" makes it easy to build such an interface: a simple one takes a 
+few hours to construct, while a few days suffice to build the most complex program we describe. 
+<p>
+It is straightforward to implement this approach on many systems. We 
+have tailored our implementation to our computing environment: 
+our numerical routines are from the Port library, we call the routines from
+Fortran programs, and our interfaces are implemented in Awk. 
+<p>
+An appendix to the paper describes
+"L2fit". This program 
+performs only the least-squares regression to calculate the 
+parameters; it does not prepare the graphical summary. It is implemented as 
+a 50-line Awk program and a 40-line Fortran template. The complete L2fit is 
+a 330-line Awk program that uses a 45-line Fortran template; it also uses a 
+60-line Troff and Grap template to produce the output. 
+<p>
+<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/awktemplates.pdf">Download pdf</a>.
