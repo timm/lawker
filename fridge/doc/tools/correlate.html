@@ -1,0 +1,64 @@
+<h1><join> Correlate.awk</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Notes</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#3>Example</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<PRE>
+cat data | gawk -f correlate.awk 
+</PRE>
+<a name=2></a><H2> Notes</H2>
+<P>
+This script calculates the correlation between two columns of numbers.
+<P>
+For more Sherwood scripts, see 
+<a href="http://www.cs.ucsb.edu/~sherwood/awk/">Some useful Awk scripts.</a>
+<a name=3></a><H3> Example</H3>
+<PRE>
+cat &lt;&lt;EOF | gawk -f correlate.awk
+1	1.417600305
+2	2.265271781
+3	3.241368347
+4	4.367711955
+5	5.390612315
+6	6.296879718
+7	7.43218197
+8	8.117831008
+9	9.338019481
+10	10.01823657
+EOF
+</PRE>
+<P> This outputs</P>
+<PRE>
+NR=10
+ssx=82.5
+ssy=79.0584
+ssxy=80.6985
+r=0.999227
+</PRE>
+<a name=4></a><H2> Code</H2>
+<PRE>
+{   xy+=($1*$2); 
+	x+=$1; 
+	y+=$2; 
+	x2+=($1*$1); 
+	y2+=($2*$2);
+} 
+END { 
+	print "NR=" NR; 
+	ssx=x2-((x*x)/NR); 
+	print "ssx=" ssx; 
+	ssy=y2-((y*y)/NR); 
+	print "ssy=" ssy; 
+	ssxy = xy - ((x*y)/NR); 
+	print "ssxy=" ssxy; 
+	r=ssxy/sqrt(ssx*ssy); 
+	print "r=" r; 
+}
+&lt;H2> Author&lt;/H2>
+&lt;P> Tim Sherwood&lt;/P>
+</div><!--- htmlbody --->

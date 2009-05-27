@@ -82,7 +82,6 @@ doc/awk1line.html			;EricP	;2009	;Jan	;Learn	;OneLiners	;|Handy One Liners
 doc/explain1line.html		;Admin	;2009	;Jan	;Learn	;OneLiners	;|Explaining Awk One Liners
 doc/tenliners.html			;Admin	;2009	;Jan	;Learn	;TenLiners	;|Ten Liners
 doc/samples.html			;Ronl	;2009	;Jan	;Learn	;TenLiners	;|Samples of AWK
-
 gawk/array/saya.awk			;Timm	;2009	;Apr		;Arrays	;|Print an Array
 gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
@@ -90,6 +89,7 @@ gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 doc/macro.html				;Timm	;2009	;Mar	;Tools	;Macros	;|Macro pre-processors
 doc/tools/cryptosig.html	;Anon	;2009	;Apr	;Tools	;Sigs	;|Hiding Email Address
 doc/tools/sigs.html			;Timm	;2009	;Apr	;Tools	;Sigs	;|Generating random sigs
+doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;|Correlation between numbers
 
 doc/project.html			;Admin	;2009	;Mar	;Tools	;Project	;|Project Tools
 doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project ;Runawk	;|runawk
@@ -97,6 +97,7 @@ doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros
 doc/tools/m5.html			;WillW	;2009	;Mar	;Tools	;Macros ;|m5 :  macro processor
 doc/tools/awkwords.html		;Timm	;2009	;Mar	;Tools	;Project; Wp	;|awkwords
 doc/tools/awf.html		;HenryS	;2009	;Apr	;Tools ;Wp ;Awk100;Wp		;|Amazing Awk Formatter
+doc/tools/spreadsheet2awk.html	;AlexR	;2009	;May	;Tools				;|Spreadsheets and Awk.
 
 doc/pstricks.html			;Admin	;2009	;Apr	;Ps 		;|Postscript tricks
 doc/tools/pschoose.html		;ArnoldR	;2009	;Apr	;Ps 		;|Print Some Postscript Pages
@@ -126,6 +127,7 @@ doc/awk100/002baseballsim.html	;Ronl	;2009	;Jan	;Awk100	;Baseballsim	;|Basebase 
 doc/awk100/001argcol.html		;Ronl	;2009	;Jan	;Awk100	;Argcol	;|Argcol
 
 doc/xgawk/wellformed.html     ;JurgenK	;2009    ;May    ;XML ;Xgawk ;|XML: Checking for Well-Formednes 
+doc/xgawk/outline.html     ;JurgenK	;2009    ;May    ;XML ;Xgawk ;|XML: printing an outline
 doc/dumpxml.html               ;MarkB   ; 2009   ;May    ;XML        ;|XML: Display components 
 
 doc/getxml.html					;JanW  ;2009 ;May ;XML ;|GetXML.awk

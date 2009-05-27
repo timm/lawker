@@ -772,6 +772,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/tools/correlate.html">
+		<title>Correlation between numbers</title>
+		<what>Tools</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>TimS</what>
+	</file>
 	<file where="doc/project.html">
 		<title>Project Tools</title>
 		<what>Project</what>
@@ -824,6 +831,13 @@ pageTracker._trackPageview();
 		<what>Apr</what>
 		<what>2009</what>
 		<what>HenryS</what>
+	</file>
+	<file where="doc/tools/spreadsheet2awk.html">
+		<title>Spreadsheets and Awk.</title>
+		<what>Tools</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>AlexR</what>
 	</file>
 	<file where="doc/pstricks.html">
 		<title>Postscript tricks</title>
@@ -1006,6 +1020,14 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/xgawk/wellformed.html">
 		<title>XML: Checking for Well-Formednes</title>
+		<what>Xgawk</what>
+		<what>XML</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>JurgenK</what>
+	</file>
+	<file where="doc/xgawk/outline.html">
+		<title>XML: printing an outline</title>
 		<what>Xgawk</what>
 		<what>XML</what>
 		<what>May</what>

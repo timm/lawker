@@ -9,7 +9,7 @@ Config=$(Lawker)/etc
 Awklib=$(Lawker)/lib/awk
 Fun=$(Lawker)/gawk/fun
 Awkwords=$(Bash)/awkwords
-Awk2Html=$(Bash)/awkwords $< > $@ 
+Awk2Html=$(Bash)/awkwords $< > $@ ; svn add $@
 
 all : config.xml files  meta commit
 
@@ -40,6 +40,7 @@ taglist :
 
 files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/awkwords.html \
+	    $(Doc)/tools/correlate.html \
 	    $(Doc)/tools/indent.html \
 	    $(Doc)/tools/psrev.html \
 	    $(Doc)/tools/pschoose.html \
@@ -74,8 +75,9 @@ awkpp :
 $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 	cp $< $@
 
-$(Doc)/spam.html       : $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
-$(Doc)/dumpxml.html    : $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
+$(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
+$(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
+$(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/story.html      : $(Awklib)/grammar/story.awk ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/eliza.html      : $(Awklib)/eliza.awk         ; cd $(Awklib) && $(Awk2Html)
