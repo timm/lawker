@@ -47,6 +47,17 @@ toictactoe
 uml generator
 http://www.theficks.name/bin/lib/sdml/sdml2txt
 
+------------------
+scientific comuting in awk
+
+eiso's awk scrits- if i understood what they did
+http://www.nmr.chem.uu.nl/~eiso/help/index.html
+mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
+
+
+natural langauge parsing
+http://someya-net.com/09-MA/
+
 
 -----------------
 
@@ -84,9 +95,6 @@ pdf/awkverify.awk
 -------------------------------------------------------------------------------
 may 25: 000000000000000000
 anew section on scientific computation and awk:
-eiso's awk scrits- if i understood what they did
-mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
-
 wk100: fsa generator
 http://www.stumbleupon.com/redirect.php?t=i&u=13309825&d=http%3A%2F%2Fsourceforge.net%2Fproject%2Fplatformdownload.php%3Fgroup_id%3D242703&l=2&c=baj1senra2q0xfqs
 
@@ -115,15 +123,10 @@ dates in awk
     	http://www.orlandokuntao.com/holidays_awk.txt
 	ftp://ftp.armory.com/pub/scripts/lowtide
 
-natural langauge parsing
-http://someya-net.com/09-MA/
-
 debugger and assertion checker in awk
 http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.30.2635
 http://portal.acm.org/citation.cfm?id=829920
 
-natural langauge processin:
-http://someya-net.com/09-MA/
 
 real programming with awk:
 http://www.linuxjournal.com/article/6677

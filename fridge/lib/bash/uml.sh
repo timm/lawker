@@ -3,7 +3,7 @@
 #.PRE
 #gawk -f uml.sh  file.sdml >  sequence_diagram
 #./PRE
-#.H2 Description
+#.H2  Description
 #.P
 #  This program will turn SDML into simple ascii text uml sequence
 #  diagrams.  SDML is an extremely simplistic uml Sequence Diagram
