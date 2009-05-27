@@ -446,6 +446,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>SteveL</what>
 	</file>
+	<file where="doc/checkers.html">
+		<title>Checkers</title>
+		<what>Games</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>AaronH</what>
+	</file>
 	<file where="doc/quicksort.html">
 		<title>Quicksort</title>
 		<what>TenLiners</what>
