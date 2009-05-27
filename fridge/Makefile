@@ -19,7 +19,7 @@ commit :
 	cd $(Lawker); pwd; svn commit
 
 config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk 	
-	cd $(Config); \
+	@cd $(Config); \
 	(gawk -f things.awk config.xml ;\
      gawk -f tags.awk tags.txt) > confignew.xml; \
 	mv confignew.xml config.xml
