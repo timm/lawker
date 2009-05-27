@@ -16,7 +16,7 @@ all : config.xml files  meta commit
 meta : doc/var/tags.html doc/var/toc.html
 
 commit : 
-	cd $(Lawker); pwd; svn commit
+	@cd $(Lawker); svn commit
 
 config.xml :	$(Config)/tags.txt $(Config)/things.awk $(Config)/tags.awk 	
 	@cd $(Config); \
