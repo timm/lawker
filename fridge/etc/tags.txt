@@ -52,6 +52,7 @@ doc/bfc.html                ;SteveJ	;2009	;May	;Interpreters	;|Brainfuck to C
 doc/oo.html					;Admin	;2009	;May			;Oo ;|OO tools in Awk
 doc/dsl.html				;Admin	;2009	;Mar	;Dsl	;|Domain-Specific Langauges
 doc/dsl/graph.html			;AlfredA	;PeterW	;BrianK	;2009	;Mar	;Dsl	;|Graph
+doc/dsl/uml.html			;MartinF	;2009	;April	;Dsl	;|UML: sequence diagrams
 doc/dsl/awklisp.html		;DariusB	;2009	;Mar	;Dsl	;Interpreters ;AwkLisp	;Top10;Eliza	;|awklisp
 doc/awk100/aaa.html			;HenryS	;2009	;Apr	;Dsl		;Interpreters; Top10 ;Awk100 ;|Amazing Awk Assembler
 doc/dsl/markdown.html		;JesusG	;2009	;Mar	;Dsl	;Wp ;Top10	;|Markdown

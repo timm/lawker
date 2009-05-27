@@ -532,6 +532,13 @@ pageTracker._trackPageview();
 		<what>PeterW</what>
 		<what>AlfredA</what>
 	</file>
+	<file where="doc/dsl/uml.html">
+		<title>UML: sequence diagrams</title>
+		<what>Dsl</what>
+		<what>April</what>
+		<what>2009</what>
+		<what>MartinF</what>
+	</file>
 	<file where="doc/dsl/awklisp.html">
 		<title>awklisp</title>
 		<what>Eliza</what>

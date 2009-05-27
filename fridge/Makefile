@@ -50,6 +50,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
 	    $(Doc)/dsl/ooc.html \
+	    $(Doc)/dsl/uml.html \
 	    $(Doc)/dsl/graph.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html \
@@ -108,8 +109,8 @@ $(Doc)/gender.html : $(Awklib)/gender.awk
 	cd $(Awklib) && $(Awk2Html)
 
 
-$(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html
-	cd $(Bash) && $(Awk2Html)
+$(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html;  cd $(Bash) && $(Awk2Html)
+$(Doc)/dsl/uml.html : $(Bash)/uml.sh ;  cd $(Bash) && $(Awk2Html)
 
 $(Doc)/dsl/graph.html : $(Gawk)/misc/graph.awk     
 	cd $(Gawk)/misc && $(Awk2Html)

@@ -41,6 +41,12 @@ http://www.quiktrim.org/QTawk.html
 11) games:
 http://agave.garden.org/~aaronh/gnu/awk/checkers.html
 
+11) tictactoe:
+toictactoe
+
+uml generator
+http://www.theficks.name/bin/lib/sdml/sdml2txt
+
 
 -----------------
 
@@ -83,8 +89,6 @@ mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htm
 
 wk100: fsa generator
 http://www.stumbleupon.com/redirect.php?t=i&u=13309825&d=http%3A%2F%2Fsourceforge.net%2Fproject%2Fplatformdownload.php%3Fgroup_id%3D242703&l=2&c=baj1senra2q0xfqs
-uml generator
-http://www.theficks.name/bin/lib/sdml/sdml2txt
 
 -------------------------------------------------------------------------------
 June 1: 111111111111111111
