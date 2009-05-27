@@ -10,7 +10,7 @@
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
 <PRE>
-gawk -f iml.sh  file.sdml >  sequence_diagram
+gawk -f uml.sh  file.sdml >  sequence_diagram
 </PRE>
 <a name=2></a><H2> Description</H2>
 <P>
@@ -19,6 +19,7 @@ gawk -f iml.sh  file.sdml >  sequence_diagram
   Markup Language.  SDML is specified as:
 <UL>
 <LI>
+ Lines starting with a [ are a comma separated list of actors (bar headers)
 <LI>
 Events are defined easily by the following symbols:
 <DL>

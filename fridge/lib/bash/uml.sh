@@ -1,7 +1,7 @@
 #.H1 UML in Awk
 #.H2 Synopsis
 #.PRE
-#gawk -f iml.sh  file.sdml >  sequence_diagram
+#gawk -f uml.sh  file.sdml >  sequence_diagram
 #./PRE
 #.H2 Description
 #.P
@@ -10,7 +10,7 @@
 #  Markup Language.  SDML is specified as:
 #.UL
 #.LI
-#Lines starting with a [ are a comma separated list of actors (bar headers)
+# Lines starting with a [ are a comma separated list of actors (bar headers)
 #.LI
 #Events are defined easily by the following symbols:
 #.DL
