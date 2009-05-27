@@ -22,11 +22,8 @@ stop gaps:
 xml processing with awk
 http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html#Reading-XML-Data-with-POSIX-AWK
 
-
 7) correlations in gawk
 http://www.cs.ucsb.edu/~sherwood/awk/corrcoef.awk.txt
-
-
 
 6)reading tabular data
 awktemplate
@@ -40,6 +37,9 @@ ISSN:0098-3500
 
 10) Quiktrim Awk
 http://www.quiktrim.org/QTawk.html
+
+
+-----------------
 
 xml file using shell script
 http://www.issociate.de/board/post/265610/Parse_an_XML_File_using_Shell_script.html

@@ -459,6 +459,12 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Awk</what>
 	</file>
+	<file where="doc/qtawk.html">
+		<title>QTawk</title>
+		<what>May</what>
+		<what>2009</what>
+		<what>TerryB</what>
+	</file>
 	<file where="doc/wp.html">
 		<title>Word-processing in Awk</title>
 		<what>Wp</what>
