@@ -65,6 +65,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/quicksort.html\
     	$(Doc)/quicksort2.html\
     	$(Doc)/eliza.html\
+    	$(Doc)/tictactoe.html\
     	$(Doc)/mastermind2.html\
     	$(Doc)/mastermind.html 
 
@@ -83,6 +84,7 @@ $(Doc)/story.html      : $(Awklib)/grammar/story.awk ; cd $(Awklib)/grammar && $
 $(Doc)/eliza.html      : $(Awklib)/eliza.awk         ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/mastermind2.html : $(Awklib)/mastermind2.awk    ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/mastermind.html : $(Awklib)/mastermind.awk    ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tictactoe.html : $(Awklib)/tictactoe.awk    ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/s2a.html        : $(Awklib)/s2a.awk           ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/readminds.html  : $(Awklib)/readminds.awk     ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/hanoi.html      : $(Awklib)/hanoi.awk         ; cd $(Awklib) && $(Awk2Html)

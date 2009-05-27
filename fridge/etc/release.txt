@@ -38,6 +38,9 @@ ISSN:0098-3500
 10) Quiktrim Awk
 http://www.quiktrim.org/QTawk.html
 
+11) games:
+http://agave.garden.org/~aaronh/gnu/awk/checkers.html
+
 
 -----------------
 
@@ -117,9 +120,6 @@ http://portal.acm.org/citation.cfm?id=829920
 
 natural langauge processin:
 http://someya-net.com/09-MA/
-
-games:
-http://agave.garden.org/~aaronh/gnu/awk/checkers.html
 
 real programming with awk:
 http://www.linuxjournal.com/article/6677
