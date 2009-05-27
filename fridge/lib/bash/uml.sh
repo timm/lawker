@@ -11,7 +11,8 @@
 #.UL
 #.LI
 #Lines starting with a [ are a comma separated list of actors (bar headers)
-#.LI Events are defined easily by the following symbols:
+#.LI
+#Events are defined easily by the following symbols:
 #.DL
 #.DT    >  
 #.DD rightward event
