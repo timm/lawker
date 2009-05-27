@@ -1,0 +1,33 @@
+<h1><join>Linking Awk to Spreadsheets</join></h1>
+<P>Axel Renihold's 
+<a href="http://www.freakout.de/mc.htm#Contents">MacroCALC</a> (mc) interactive spreadhsheet calculator 
+is an interactive, macro-programmable tool. mc has no graphic features, but therefore it can run also on terminals. It uses a convenient, well-known user interface and has some special features especially interesting in the UNIX environment.
+<p>
+mc has an elaborate operating 
+system via piping. 
+That is, mc and Unix tools like Awk can be easily intergrated.
+<p>
+A "cell" statement has the syntax:
+<pre>
+cell<command
+</pre>
+(and "command" is any Unix script, e.g. using Awk).  When such a
+cell is entered, it will:
+<ul>
+<Li> execute the command
+<li>put the command's output into the range
+of cells starting with cell as the upper-left corner.
+</ul> 
+<p>The output
+ is read line by line into the rows of the range. The columns, which
+ have to be separated by "tab" in the output of the command, are
+ placed into the columns of the range. 
+<p>
+At the end of the data a
+special cell value designated 'EOF' (end of file) is placed in the
+cell below the data.
+This offers great flexibility based upon the Unix operating
+system's piping mechanism
+<p>For more details, see  the
+<a href="http://www.freakout.de/mc.htm#Contents">MacroCALC</a>
+home page.

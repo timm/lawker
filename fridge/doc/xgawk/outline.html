@@ -1,0 +1,113 @@
+<h1><join> Printing an Outline of an XML file </join></h1>
+<p><em>(This page comes from the <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html">XML Gawk</a> tutorial.)</em>
+
+
+<p>When working with XML files, it is sometimes necessary
+to gain some oversight over the structure an XML file. 
+Ordinary editors confront us with a view that is not-so-pretty.
+For example:
+<pre class="example">     
+     &lt;book id="hello-world" lang="en"&gt;
+     
+     &lt;bookinfo&gt;
+     &lt;title&gt;Hello, world&lt;/title&gt;
+     &lt;/bookinfo&gt;
+
+     
+     &lt;chapter id="introduction"&gt;
+     &lt;title&gt;Introduction&lt;/title&gt;
+     
+     &lt;para&gt;This is the introduction. It has two sections&lt;/para&gt;
+     
+     &lt;sect1 id="about-this-book"&gt;
+     &lt;title&gt;About this book&lt;/title&gt;
+
+     
+     &lt;para&gt;This is my first DocBook file.&lt;/para&gt;
+     
+     &lt;/sect1&gt;
+     
+     &lt;sect1 id="work-in-progress"&gt;
+     &lt;title&gt;Warning&lt;/title&gt;
+     
+     &lt;para&gt;This is still under construction.&lt;/para&gt;
+
+     
+     &lt;/sect1&gt;
+     
+     &lt;/chapter&gt;
+     &lt;/book&gt;
+</pre>
+<p>Software developers
+are used to reading text files with proper indentation
+like this:
+<pre class="example">     book lang='en' id='hello-world'
+       bookinfo
+         title
+       chapter id='introduction'
+         title
+         para
+         sect1 id='about-this-book'
+           title
+           para
+         sect1 id='work-in-progress'
+           title
+           para
+</pre>
+   <p>Here, it is a bit
+harder to recognize hierarchical dependencies among the
+nodes. But proper indentation allows you to oversee files
+with more than 100 elements (a purely graphical view of
+such large files gets unbearable). 
+<p>
+The <code>outline</code> tool produces such an indented output
+and we will now write a script that imitates this kind
+of output. 
+<pre class="example">     @load xml
+     XMLSTARTELEM {
+       printf("%*s%s", 2*XMLDEPTH-2, "", XMLSTARTELEM)
+       for (i=1; i&lt;=NF; i++)
+         printf(" %s='%s'", $i, XMLATTR[$i])
+       print ""
+     }
+</pre>
+<p>For the first time, we don't
+just check if the <code>XMLSTARTELEM</code> variable contains
+a tag name, but we also print the name out, properly indented
+with a <code>printf</code> format statement (two blank characters
+for each indentation level).
+   <p>Note the use of the
+associative
+array <code>XMLATTR</code>. Whenever we enter a markup block
+(and <code>XMLSTARTELEM</code> is non-empty), the array <code>XMLATTR</code>
+contains all the attributes of the tag. You can find out the
+value of an attribute by accessing the array with the attribute's
+name as an array index. In a well-formed XML file, all the attribute
+names of one tag are distinct, so we can be sure that each attribute
+has its own place in the array. The only thing that's left to do is
+to iterate over all the entries in the array and print name and value
+in a formatted way. Earlier versions of this script really iterated
+over the associative array with the <samp><span class="command">for (i in XMLATTR)</span></samp>
+loop. Doing so is still an option, but in this case we wanted to
+make sure that attributes are printed in exactly the same oder
+that is given in the original XML data. The exact order of attribute
+names is reproduced in the fields <code>$1 .. $NF</code>. So the
+<code>for</code> loop can iterate over the attributes <em>names</em> in the
+fields <code>$1 .. $NF</code> and print the attribute <em>values</em>
+<code>XMLATTR[$i]</code>.
+
+
+
+<h3>Author</h3>
+<p>Jurgen Kahrs 
+<h3>Copyright</h3>
+<p>
+Copyright (C) 2000, 2001, 2002, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+<p>
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with the Invariant Sections being ?GNU General Public License?, the Front-Cover texts being (1) (see below), and with the Back-Cover Texts being (2) (see below). 
+<ul>
+<li>
+   A GNU Manual
+<li>
+   You have freedom to copy and modify this GNU Manual, like GNU software. Copies published by the Free Software Foundation raise funds for GNU development. 
+</ul>
