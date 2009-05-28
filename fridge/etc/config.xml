@@ -802,6 +802,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/correlate.html">
 		<title>Correlation between numbers</title>
+		<what>Stats</what>
 		<what>Tools</what>
 		<what>May</what>
 		<what>2009</what>

@@ -93,7 +93,7 @@ gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 doc/macro.html				;Timm	;2009	;Mar	;Tools	;Macros	;|Macro pre-processors
 doc/tools/cryptosig.html	;Anon	;2009	;Apr	;Tools	;Sigs	;|Hiding Email Address
 doc/tools/sigs.html			;Timm	;2009	;Apr	;Tools	;Sigs	;|Generating random sigs
-doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;|Correlation between numbers
+doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;Stats	;|Correlation between numbers
 
 doc/project.html			;Admin	;2009	;Mar	;Tools	;Project	;|Project Tools
 doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project ;Runawk	;|runawk
