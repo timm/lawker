@@ -1,0 +1,47 @@
+=== Q1 =====================
+Why is it called "evil"?
+
+Cause we have this evil idea  that:
+
+1) there is no evidence that supposedly better
+programming languages increase productivity
+
+2) we can write better programmers, faster, if we
+jettison much of that research
+
+3) the key factor in programmer productivity is
+not the programming language. rather it
+  is the programmer, the organizational context,
+  etc etc.
+
+Now this could be a really evil idea since, if true,
+you've been buying bogus tools from the vendors. 
+
+And, heh, we could be wrong- in the literature, evil
+geniuses are usually defeated by super heroes
+using the latest and greatest gadgets.  
+
+But here,
+the forces of evil will use their 1970s UNIX
+scripting skills to make one last stand against
+the forces of perpetual "evolution" of programming
+language.
+
+=== Q2 =====================
+What you limit the application of these techniques 
+if you call them something silly like evil"?
+
+Hey- don't knock silly. Silly is fun. Silly is
+motivating. Silly makes you try and try again and
+try crazy things
+that have never been attempted before.
+
+Also, we call this work "evil" to attract the attention of the programmers who are questionning current practice and
+seek an alternative. 
+Thomas Kuhn once said  that scientists rarely change their views when new ideas come along, rather only when
+the older generation dies out. It is highly unlikely that the current generation of software engineering industrial and
+research instituions will apbondon their current profit models that require, every year, a bight new shiny
+product. However, there is some hope that the next generation might heed our call and reduce the intracy of their development
+tools. 
+
+

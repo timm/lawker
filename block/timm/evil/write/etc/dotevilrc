@@ -1,26 +1,29 @@
 #    ___         
-#  _/ oo\      Evil deeds maketh 
-# ( \  -/__    the Evil Makefile (c) 2009 
+#  _/ oo\      An evil idea:  
+# ( \  -/__    the dotEvilrc config file
 #  \    \__)  
-#  /     \     by Tim Menzies, GPL 3.0
+#  /     \     by Tim Menzies, 2009, GPL 3.0
 # /      _\    http://www.gnu.org/licenses/gpl.txt
 # `"""""`` jgs
 
+Tmp  = $(HOME)/tmp#
 Work = $(HOME)/opt/evil#
 Here = $(HOME)/svns/lawker/block/timm#
 Evil = $(Here)/evil#
 
 ######## stuff to share (in a repository)
 
-# "Writes" directory, with unique function names
-Writes = $(Evil)/write/lib/#. 
+Write = $(Evil)/write# 
+
+# "Lib" directory, with unique function names
+Lib   = $(Write)/lib
 
 # "Read" is the "Writes" directory tree flatenned, 
 # with markdown converted to html
-Read = $(Evil)/doc/read#  ... 
+Read = $(Evil)/doc/read#   
 
 # Start up utils
-Base = $(Write)/app/evil#  .. 
+Base = $(Write)/app/evil#  
 
 ######## stuff to be built (outside the repository)
 
@@ -29,3 +32,8 @@ Test = $(Work)/test#
 
 # ready to run, everything included
 Run = $(Work)/run# 
+
+
+####### and finally
+Dirs = $(Tmp)    $(Work) $(Here) $(Evil) \
+       $(Write) $(Lib) $(Read) $(Base) $(Test) $(Run)#
