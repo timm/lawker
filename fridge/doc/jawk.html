@@ -1,0 +1,177 @@
+<h1><join>Jawk: Awk in Java</join></h1>
+
+<h2>Download</h2>
+<p>Download from <a href="http://jawk.sourceforge.net/">Source Forge</a>.
+<h2>Description</h2>
+<strong>Jawk</strong>
+ parses, analyzes, and interprets and/or compiles
+AWK scripts.  Compilation is targetted for the JVM.
+<p>
+<strong>Jawk</strong>
+ runs on any platform which supports, at minimum,
+J2SE 5.
+
+<h2>Usage</h2>
+
+To use, simply download the application, copy the release jar to the
+jawk.jar file and execute the following command:
+<pre>
+java -jar jawk.jar <em>{command-line-arguments}</em>
+</pre>
+<p>
+To view the command line argument usage summary, execute
+<blockquote><pre>
+
+java -jar jawk.jar -h
+</pre></blockquote>
+The output of this command is shown below:
+
+<blockquote><pre>
+java ... org.jawk.Awk [-F fs_val] [-f script-filename] 
+                      [-o output-filename] [-c] [-z] [-Z] 
+                      [-d dest-directory] [-S] [-s] [-x] [-y] [-r] 
+                      [-ext] [-ni] [-t] [-v name=val]... 
+                      [script] [name=val | input_filename]...
+
+ -F fs_val = Use fs_val for FS.
+ -f filename = Use contents of filename for script.
+ -v name=val = Initial awk variable assignments.
+
+ -t = (extension) Maintain array keys in sorted order.
+ -c = (extension) Compile to intermediate file. (default: a.ai)
+ -o = (extension) Specify output file.
+ -z = (extension) | Compile for JVM. (default: AwkScript.class)
+ -Z = (extension) | Compile for JVM and execute it. (default: AwkScript.class)
+ -d = (extension) | Compile to destination directory.  (default: pwd)
+ -S = (extension) Write the syntax tree to file. (default: syntax_tree.lst)
+ -s = (extension) Write the intermediate code to file. (default: avm.lst)
+ -x = (extension) Enable _sleep, _dump as keywords, and exec as a builtin func.
+                  (Note: exec enabled only in interpreted mode.)
+ -y = (extension) Enable _INTEGER, _DOUBLE, and _STRING casting keywords.
+ -r = (extension) Do NOT hide IllegalFormatExceptions for [s]printf.
+-ext= (extension) Enable user-defined extensions. (default: not enabled)
+-ni = (extension) Do NOT process stdin or ARGC/V through input rules.
+                  (Useful for blocking extensions.)
+                  (Note: -ext &amp; -ni available only in interpreted mode.)
+
+ -h or -? = (extension) This help screen.
+</pre></blockquote>
+<h2>Extensions</h2>
+Jawk addresses a drawback with standard Awk.
+For example, in standard Awk, it us be impossible to create a socket or display a simple GUI without external assistance either from the shell or via extensions to Awk itself (i.e., gawk). To overcome this limitation, an extension facility is added to Jawk .
+<p>
+The Jawk extension facility allows for arbitrary Java code to be called as Awk functions in a Jawk script. These extensions can come from the user (developer) or 3rd party providers (i.e., the Jawk project team). And, Jawk extensions are opt-in. In other words, the -ext flag is required to use Jawk extensions and extensions must be explicitly registered to the Jawk instance via the -Djawk.extensions property (except for core extensions bundled with Jawk ).
+<p>
+Also, Jawk extensions support blocking. You can think of blocking as a tool for extension event management. A Jawk script can block on a collection of blockable services, such as socket input availability, database triggers, user input, GUI dialog input response, or a simple fixed timeout, and, together with the -ni option, action rules can act on block events instead of input text, leveraging a powerful AWK construct originally intended for text processing, but now can be used to process blockable events. A sample enhanced echo server script is included in this article. It uses blocking to handle socket events, standard input from the user, and timeout events, all within the 47-line script (including comments). 
+<h2>Example</h2>
+
+The example script implements a simple echo server which also allows broadcast
+messaging via stdin input from the server process:
+
+<blockquote><pre>
+<strong><em>## to run: java ... -jar jawk.jar -ext -ni -f {filename}</em></strong>
+BEGIN {
+	css = CServerSocket(7777);
+	print "(echo server socket created)"
+}
+<strong><em>## note: default input processing disabled by -ni</em></strong>
+$0 = SocketAcceptBlock(css,
+	SocketInputBlock(sockets,
+		SocketCloseBlock(css, sockets,
+			StdinBlock(
+				Timeout(1000)))));
+				<strong><em>## note: default action { print } disabled by -ni</em></strong>
+<strong><em># $1 = "SocketAccept", $2 = socket handle</em></strong>
+$1 == "SocketAccept" {
+	socket = SocketAccept($2)
+	sockets[socket] = 1
+}
+
+<strong><em># $1 = "SocketInput", $2 = socket handle</em></strong>
+$1 == "SocketInput" {
+	<strong><em>## echo server action:</em></strong>
+
+	socket = $2
+	line = SocketRead(socket)
+	SocketWrite(socket, line)
+}
+
+<strong><em># $1 = "SocketClose", $2 = socket handle</em></strong>
+$1 == "SocketClose" {
+	socket = $2
+	SocketClose(socket)
+	delete sockets[socket]
+}
+<strong><em>## display a . for every second the server is running</em></strong>
+$0 == "Timeout" {
+	printf "."
+}
+<strong><em>## stdin block is last because StdinGetline writes directly to $0</em></strong>
+<strong><em>## $0 == "Stdin"</em></strong>
+$0 == "Stdin" {
+	<strong><em>## broadcast message to all sockets</em></strong>
+	retcode = StdinGetline()
+	if (retcode != 1)
+		exit
+	for (socket in sockets)
+		SocketWrite(socket, "From server : " $0)
+	print "(message sent)"
+}
+
+</pre></blockquote>
+
+Each extension function used in the script above is covered in
+some detail below:
+<ul>
+<li><strong>CServerSocket</strong> - Creates a <em>character-based</em> server socket.
+SocketRead for character-based sockets return lines of text (with
+newlines stripped), while SocketRead returns blocks of bytes
+(converted to a String) for sockets accepted by ServerSocket.
+Use character-based sockets for interactive or line-based input,
+and use ordinary sockets to achieve high-throughput since arbitrary
+byte blocks are returned.
+To create a client socket, use CSocket for character-based sockets,
+or Socket for byte-block-based sockets.
+<li><strong>SocketAcceptBlock/SocketInputBlock/SocketCloseBlock/StdinBlock/Timeout</strong> -
+Each of these extensions is a <strong>blocking</strong> extension,
+blocking for particular events, such as a server socket is ready
+to accept an incoming socket, or a connected socket has input to
+be read, or a certain amount of time has elapsed, etc.
+Socket*Block extension functions come from SocketExtension,
+StdinBlock comes from StdinExtension, and Timeout comes from CoreExtension.
+Each Socket*Block extension returns a string of the format:
+<blockquote><pre>
+
+<em>extension-label-prefix</em> <strong>OFS</strong> <em>parameter</em>
+</pre></blockquote>
+while StdinBlock and Timeout returns
+<blockquote><pre>
+<em>extension-label-prefix</em>
+</pre></blockquote>
+<li><strong>SocketAccept/SocketRead/SocketWrite/SocketClose</strong> -
+Socket operations, as the names of the extension functions suggest.
+Each will block until it is able to complete the operation.
+<li><strong>StdinGetline</strong> - Get a line of input from stdin.  If there is no
+stdin, block until input is available.  This is why blocking is
+a valuable tool.  This way, the script can wait for other events
+while waiting for stdin, bringing AWK out of the focused text
+processing domain into a powerful event processing language.
+
+</ul>
+As stated by the comments, <code><strong>-ni</strong></code> disables stdin processing (as provided
+by Jawk
+ itself, not the StdinExtension) and the default blank rule of
+<code> { print } </code>.  Disabling stdin processing is paramount to extension
+processing because, otherwise,
+it would be confusing, if not completely impossible, to multiplex
+extension blocking with Jawk
+'s default stdin processing.  And, disabling
+the default blank rule allows for easy-to-read blocking statements
+(like the one provided in the sample script) without the wierd side
+effect of printing the result.
+
+
+
+<h2>Author</h2>
+<p>Dan:
+ddaglas at users.sourceforge.net.

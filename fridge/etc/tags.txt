@@ -116,6 +116,7 @@ doc/var/top10subjectslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subje
 doc/os.html                     ;Admin   ;2009   ;Apr   ;Os   ;|Operating Systems and Awk
 doc/xml.html					;Admin  ;2009 ;Apr ;XML ;|XML and Awk
 
+doc/awk100/021jawk.html		;Dab  ;2009 ;May ;Awk100 ;XML	;|Jawk
 doc/awk100/017xmlgawk.html		;JurgenK  ;2009 ;Apr ;Awk100 ;XML ;Xgawk ;|XMLgawk
 doc/awk100/015soccer.html		;Ronl	;2009;Apr	;Awk100 ;Games		;|Soccer
 doc/awk100/013awklinux.html		;YungC	;2009;Apr	;Os ;Papers ;Awk100	;Top10	;|Awk-Linux
