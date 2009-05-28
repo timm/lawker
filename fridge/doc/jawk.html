@@ -68,7 +68,7 @@ Also, Jawk extensions support blocking. You can think of blocking as a tool for 
 The example script implements a simple echo server which also allows broadcast
 messaging via stdin input from the server process:
 
-<pre>
+<small><pre>
 <strong><em>## to run: java ... -jar jawk.jar -ext -ni -f {filename}</em></strong>
 BEGIN {
 	css = CServerSocket(7777);
@@ -119,7 +119,8 @@ $0 == "Stdin" {
 }
 
 </pre>
-
+</small>
+<p>
 Each extension function used in the script above is covered in
 some detail below:
 <ul>
@@ -157,7 +158,7 @@ while waiting for stdin, bringing AWK out of the focused text
 processing domain into a powerful event processing language.
 
 </ul>
-As stated by the comments, <code><strong>-ni</strong></code> disables stdin processing (as provided
+<p>As stated by the comments, <code><strong>-ni</strong></code> disables stdin processing (as provided
 by Jawk
  itself, not the StdinExtension) and the default blank rule of
 <code> { print } </code>.  Disabling stdin processing is paramount to extension
