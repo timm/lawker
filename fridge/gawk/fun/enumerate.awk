@@ -144,7 +144,7 @@ function do_inject(        all,less,arr1,arr2,i) {
 
 #.H2 Code
 #.P
-# Note one design principle in the following: any newly geneated arrays have indexes <em>1..max</em>
+# Note one design principle in the following: any newly generated arrays have indexes <em>1..max</em>
 # where <em>max</em> is the number of elements in that array.
 #.H3 all
 #.PRE
