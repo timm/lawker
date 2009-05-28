@@ -20,13 +20,13 @@ java -jar jawk.jar <em>{command-line-arguments}</em>
 </pre>
 <p>
 To view the command line argument usage summary, execute
-<blockquote><pre>
+<pre>
 
 java -jar jawk.jar -h
-</pre></blockquote>
+</pre>
 The output of this command is shown below:
 
-<blockquote><pre>
+<pre>
 java ... org.jawk.Awk [-F fs_val] [-f script-filename] 
                       [-o output-filename] [-c] [-z] [-Z] 
                       [-d dest-directory] [-S] [-s] [-x] [-y] [-r] 
@@ -55,7 +55,7 @@ java ... org.jawk.Awk [-F fs_val] [-f script-filename]
                   (Note: -ext &amp; -ni available only in interpreted mode.)
 
  -h or -? = (extension) This help screen.
-</pre></blockquote>
+</pre>
 <h2>Extensions</h2>
 Jawk addresses a drawback with standard Awk.
 For example, in standard Awk, it us be impossible to create a socket or display a simple GUI without external assistance either from the shell or via extensions to Awk itself (i.e., gawk). To overcome this limitation, an extension facility is added to Jawk .
@@ -68,7 +68,7 @@ Also, Jawk extensions support blocking. You can think of blocking as a tool for 
 The example script implements a simple echo server which also allows broadcast
 messaging via stdin input from the server process:
 
-<blockquote><pre>
+<pre>
 <strong><em>## to run: java ... -jar jawk.jar -ext -ni -f {filename}</em></strong>
 BEGIN {
 	css = CServerSocket(7777);
@@ -118,7 +118,7 @@ $0 == "Stdin" {
 	print "(message sent)"
 }
 
-</pre></blockquote>
+</pre>
 
 Each extension function used in the script above is covered in
 some detail below:
@@ -140,14 +140,14 @@ be read, or a certain amount of time has elapsed, etc.
 Socket*Block extension functions come from SocketExtension,
 StdinBlock comes from StdinExtension, and Timeout comes from CoreExtension.
 Each Socket*Block extension returns a string of the format:
-<blockquote><pre>
+<pre>
 
 <em>extension-label-prefix</em> <strong>OFS</strong> <em>parameter</em>
-</pre></blockquote>
+</pre>
 while StdinBlock and Timeout returns
-<blockquote><pre>
+<pre>
 <em>extension-label-prefix</em>
-</pre></blockquote>
+</pre>
 <li><strong>SocketAccept/SocketRead/SocketWrite/SocketClose</strong> -
 Socket operations, as the names of the extension functions suggest.
 Each will block until it is able to complete the operation.
