@@ -21,12 +21,11 @@ java -jar jawk.jar <em>{command-line-arguments}</em>
 <p>
 To view the command line argument usage summary, execute
 <pre>
-
 java -jar jawk.jar -h
 </pre>
 The output of this command is shown below:
 
-<pre>
+<small><pre>
 java ... org.jawk.Awk [-F fs_val] [-f script-filename] 
                       [-o output-filename] [-c] [-z] [-Z] 
                       [-d dest-directory] [-S] [-s] [-x] [-y] [-r] 
@@ -56,6 +55,7 @@ java ... org.jawk.Awk [-F fs_val] [-f script-filename]
 
  -h or -? = (extension) This help screen.
 </pre>
+</small>
 <h2>Extensions</h2>
 Jawk addresses a drawback with standard Awk.
 For example, in standard Awk, it us be impossible to create a socket or display a simple GUI without external assistance either from the shell or via extensions to Awk itself (i.e., gawk). To overcome this limitation, an extension facility is added to Jawk .
@@ -141,7 +141,6 @@ Socket*Block extension functions come from SocketExtension,
 StdinBlock comes from StdinExtension, and Timeout comes from CoreExtension.
 Each Socket*Block extension returns a string of the format:
 <pre>
-
 <em>extension-label-prefix</em> <strong>OFS</strong> <em>parameter</em>
 </pre>
 while StdinBlock and Timeout returns
