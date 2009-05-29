@@ -1,7 +1,7 @@
 #.H1  NBC: a naive bayes classifier
 #.P 
 #<em>(Editor's note: this pape describes an experiment with Gawk vs Java on  machine learning task conducted in 2004.)</em>
-#.H2 Synopsus
+#.H2 Synopsis
 #.PRE
 # ./nbc -[hlx] train test
 #./PRE
@@ -28,6 +28,7 @@
 #this "naive" strategy works remarkably well- often performs as well as other schemes that try to model
 #interactions between frequencies.
 #.H3 Summary of Results
+#.P
 #In summary, the performance on this simple gawk-based Naive Bayes classifier is quite remarkable.
 #.UL
 #.LI
