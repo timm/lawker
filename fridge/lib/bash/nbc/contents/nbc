@@ -132,6 +132,7 @@
 #We have run this small Awk script on 100s of megabytes of data, without crashes or core dumps.
 #The code is very memory effecient- unlike the WEKA which loads all the data into RAM.
 #.H3 Discussion
+#.P
 #It is hardly surprising that a state-of-the-art tool kit built and optimized
 #by JAVA gurus can out-perform awk code on large examples. However, what is surprising is
 #that an 32 line AWK script built and debugged in a weekend often works nearly
@@ -149,8 +150,8 @@
 #.P
 #To check the download, unzip the contents.zip then
 #.PRE
-#chmod +x nbc
-#./nbc nbceg.train nbceg.test  | 
+# chmod +x nbc
+# ./nbc nbceg.train nbceg.test  | 
 # gawk -F, '{print $0  "\t " ($1 !=$2 ? " <== bad" : "")}' 
 #./PRE
 #.P This should print:
