@@ -1,0 +1,11 @@
+Main file: nbc
+
+To test:
+
+	chmod +x nbc
+	./nbc nbceg.train nbceg.test  
+
+To score the test output:
+
+	./nbc nbceg.train nbceg.test | 
+    gawk -F, '{N++; if( $1==$2) Yes ++ } END {print Yes*100/N}' 

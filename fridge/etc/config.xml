@@ -927,6 +927,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Steffen</what>
 	</file>
+	<file where="doc/tools/nbc.html">
+		<title>Naive Bayes Classifier</title>
+		<what>DataMining</what>
+		<what>May</what>
+		<what>2009</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/os.html">
 		<title>Operating Systems and Awk</title>
 		<what>Os</what>

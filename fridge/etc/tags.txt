@@ -112,6 +112,7 @@ doc/var/top10posters.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 posters
 doc/var/top10subjects.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subjects
 doc/var/top10posterslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 posters last year
 doc/var/top10subjectslastyear.html	;Steffen	;2009	;Jan	;Newsgroup	;|Top 10 subjects last year
+doc/tools/nbc.html			;Timm  ;2009 ;May 	;DataMining	;|Naive Bayes Classifier
 
 doc/os.html                     ;Admin   ;2009   ;Apr   ;Os   ;|Operating Systems and Awk
 doc/xml.html					;Admin  ;2009 ;Apr ;XML ;|XML and Awk

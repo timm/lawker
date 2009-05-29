@@ -39,6 +39,7 @@ taglist :
 	echo "</table></center>" 
 
 files : $(Doc)/dsl/markdown.html \
+	    $(Doc)/tools/nbc.html \
 	    $(Doc)/tools/awkwords.html \
 	    $(Doc)/tools/correlate.html \
 	    $(Doc)/tools/indent.html \
@@ -81,20 +82,21 @@ $(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html
 $(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)
 
-$(Doc)/story.html      : $(Awklib)/grammar/story.awk ; cd $(Awklib)/grammar && $(Awk2Html)
-$(Doc)/eliza.html      : $(Awklib)/eliza.awk         ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/mastermind2.html : $(Awklib)/mastermind2.awk    ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/mastermind.html : $(Awklib)/mastermind.awk    ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/tictactoe.html : $(Awklib)/tictactoe.awk    ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/s2a.html        : $(Awklib)/s2a.awk           ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/readminds.html  : $(Awklib)/readminds.awk     ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/hanoi.html      : $(Awklib)/hanoi.awk         ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/quicksort.html  : $(Awklib)/quicksort.awk     ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/quicksort2.html : $(Awklib)/quicksort2.awk    ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/getxml.html     : $(Awklib)/getxml.awk        ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/tools/m1.html   : $(Awklib)/m1.awk            ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/story.html      : $(Awklib)/grammar/story.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
+$(Doc)/eliza.html      : $(Awklib)/eliza.awk          ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/mastermind2.html : $(Awklib)/mastermind2.awk   ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/mastermind.html : $(Awklib)/mastermind.awk     ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tictactoe.html : $(Awklib)/tictactoe.awk       ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/s2a.html        : $(Awklib)/s2a.awk            ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/readminds.html  : $(Awklib)/readminds.awk      ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/hanoi.html      : $(Awklib)/hanoi.awk          ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/quicksort.html  : $(Awklib)/quicksort.awk      ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/quicksort2.html : $(Awklib)/quicksort2.awk     ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/getxml.html     : $(Awklib)/getxml.awk         ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/m1.html   : $(Awklib)/m1.awk             ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/cryptosig.html : $(Awklib)/cryptosig.awk ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/tools/sigs.html : $(Bash)/sigs ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/sigs.html : $(Bash)/sigs                 ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/nbc.html : $(Bash)/nbc/contents/nbc      ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/mailsort.html : $(Awklib)/mailsort.awk
 	cd $(Awklib) && $(Awk2Html)
