@@ -1,4 +1,4 @@
-<h1><join> NBC: a naive bayes classifier</join></h1>
+<h1><join> NBC: a not-so-naive Bayes Classifier</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
@@ -21,8 +21,6 @@
 <h2><font color=black>&bull;</font></a> <a href=#18>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
-<P>
-<em>(Editor's note: this pape describes an experiment with Gawk vs Java on  machine learning task conducted in 2004.)</em>
 <a name=1></a><H2> Synopsis</H2>
 <PRE>
  ./nbc -[hlx] train test
@@ -45,9 +43,17 @@ to test if less is indeed more.
 <P>
 A Naive Bayes classifier collects frequency counts of old events, grouped into "classes".
 Then, if a new event arrives without a classification, it checks through the old list of classes
-looking for the one with the highest frequency counts for this new event. The method is called "naive"
+looking for the one with the highest frequency counts for this new event. 
+<P>
+The method is called "naive"
+This assumption allows us to collect frequency counts just on each attribute value (and not
+pairs, or triples, or quads of values).
+<P>
+In practice,
 this "naive" strategy works remarkably well- often performs as well as other schemes that try to model
 interactions between frequencies.
+<P>
+Hence, we call this system a not-so-naive Bayes Classifier.
 <a name=4></a><H3> Summary of Results</H3>
 <P>
 In summary, the performance on this simple gawk-based Naive Bayes classifier is quite remarkable.
@@ -157,7 +163,9 @@ The code is very memory effecient- unlike the WEKA which loads all the data into
 It is hardly surprising that a state-of-the-art tool kit built and optimized
 by JAVA gurus can out-perform awk code on large examples. However, what is surprising is
 that an 32 line AWK script built and debugged in a weekend often works nearly
-as well, or better.
+as well, or better. 
+<P>
+Perhaps "nbc" is not-so-naive after all.
 <a name=9></a><H2> Options</H2>
 <DL>
 <DT> -x</DT>
