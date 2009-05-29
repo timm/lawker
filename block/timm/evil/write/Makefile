@@ -19,18 +19,18 @@ Uses  = $(Awk) -f $(Base)/uses.awk -u -f#
 # standard util
 Dirp  = if [ ! -d "$D" ]; then echo "making $D"; mkdir $D; fi#
 
-all : dirs
+ready : dirs
 
 dirs     : ; @$(foreach D, $(Dirs), $(Dirp); )
 dirsTest : ; @find $(Dirs) -type d | egrep -v 'tmp|svn'
 
-weaves :
-	$(foreach One, $(Awks), make Path="$(One)" weaveOne; )
+weaves : ready $(File) 
+	$(foreach F,$(shell $(Uses) $(File)), $(MAKE) File=$F weave;)
 
-weaveOne : 
-	make Path="$(One)" File="`basename $(One)`" weaveTwo
+weave : 
+	echo $(File)
 
-weaveTwo :  $(Test)/$(Stem).awk $(Read)/$(Stem).html
+#weaveTwo :  $(Test)/$(Stem).awk $(Read)/$(Stem).html
 
 #$(Test)/$(Stem).awk : $(shell cat $(Write)/$(Path)) | $(Uses) )  
 #	cat $?                     |\
@@ -42,3 +42,6 @@ weaveTwo :  $(Test)/$(Stem).awk $(Read)/$(Stem).html
 #	gawk -f $(Base)/markdown.awk  |\
 #	gawk -f $(Base)/pres.awk       |\
 #	gawk -f $(base)/toc.awk         > $@
+
+#add comments to markdown files and move them into test
+# need to specifty root

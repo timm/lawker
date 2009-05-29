@@ -1,0 +1,3 @@
+
+cd 2dir
+gawk -f ../../app/evil/uses.awk  -u -i -p 2a.awk 

@@ -1,0 +1,6 @@
+if   [ -z "$Evilrc" ] 
+then echo needs Evilrc set
+else 
+	cd 2dir
+	make -f ../../Makefile File=2a.awk weaves
+fi
