@@ -15,55 +15,21 @@ stop gaps:
 	- saya
 	- batchrunner
 
---------------------------------------
+----------
+jawk
+awk100: jawk
 
-xml processing with awk
-printing an outline
-http://awk.info/?doc/xgawk/outline.html
-
-uml generator
-http://awk.info/?doc/dsl/uml.html
-
-11) games: checkers
-http://awk.info/?doc/checkers.html
-
-fast array loading
-http://groups.google.com/group/comp.lang.awk/browse_thread/thread/04f4ca50508c5fb1#
-
-5) spread sheet access: 
-http://awk.info/?doc/tools/spreadsheet2awk.html
-
-6)template-driven programming in awk
-http://awk.info/?doc/templates.html
-
-10) Quiktrim Awk
-http://awk.info/?qtawk
-
-11) tictactoe:
-http://awk.info/?doc/tictactoe.html
-
-7) correlations in gawk
-http://awk.info/?doc/tools/correlate.html
-
-constant folding in awk
-http://groups.google.com/group/comp.lang.awk/browse_thread/thread/706839f577bd677d#
-
-------------------
-robbins new stuff
-
+-----------
 scientific comuting in awk
 
 eiso's awk scrits- if i understood what they did
 http://www.nmr.chem.uu.nl/~eiso/help/index.html
 mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
 
-
 natural langauge parsing
 http://someya-net.com/09-MA/
 
-
 -----------------
-
 
 code testing: kernighan
 	- http://groups.google.com/group/comp.lang.awk/browse_thread/thread/5f7a9b900258dbde#
@@ -79,12 +45,9 @@ fun: my bayes stuff
 
 visual awk
 
-
-
 -------------------------------------------------------------------------------
 may 16: 9999999999999999
 
-awk100: jawk
 new section: more xml with gawk
 - http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
 
