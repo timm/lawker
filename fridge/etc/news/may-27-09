@@ -1,0 +1,63 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+New in Awk
+
+- constant folding
+  http://groups.google.com/group/comp.lang.awk/browse_thread/thread/706839f577bd677d#
+
+- fast array loading
+  http://groups.google.com/group/comp.lang.awk/browse_thread/thread/04f4ca50508c5fb1#
+
+----------------------------------------------------------
+XML and Awk
+
+- outline generation from XML
+  http://awk.info/?doc/xgawk/outline.html
+
+----------------------------------------------------------
+UML and Awk
+
+- Martin Fink's UML diagram generator 
+  http://awk.info/?doc/dsl/uml.html
+
+----------------------------------------------------------
+Aaron Hawley's game programming in Awk
+
+- Checkers : http://awk.info/?doc/checkers.html
+
+- Tic-Tac-Toe : http://awk.info/?doc/tictactoe.html
+
+----------------------------------------------------------
+Template-driven programming in Awk
+
+- http://awk.info/?templates
+
+----------------------------------------------------------
+Bits and Pieces
+
+- Awk and spreadsheets
+  http://awk.info/?doc/tools/spreadsheet2awk.html
+
+- QTawk
+  http://awk.info/?qtawk
+
+- Computing correlation
+  http://awk.info/?doc/tools/correlate.html
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute

@@ -1,5 +1,5 @@
 #    ___         
-#  _/ oo\     An evil idea: 
+#  _/ oo\     Evil ideas: 
 # ( \  -/__   the Evil Makefile 
 #  \    \__)  
 #  /     \    by Tim Menzies, (c) 2009, GPL 3.0 

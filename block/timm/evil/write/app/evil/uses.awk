@@ -18,7 +18,7 @@
 # -u     = explore contents of included used files
 # -f     = print file name
 
- BEGIN	{ str2opt("R,.,p,,i,,u,,f,,S,1",Opt) }
+ BEGIN	{ options("R,.,p,,i,,u,,f,,S,1",Opt) }
         { xpand(opt("S"))  }
  END    { if (opt("f")) print FILENAME }
 
@@ -78,7 +78,7 @@
  #Upper case flags have parameters
  #After grabbing all the command-line flags, 
  #ARGV/ARGC is set to the remaining command-line vars
- function str2opt(str,opt,  key,i,j,k,n,tmp1,tmp2) {
+ function options(str,opt,  key,i,j,k,n,tmp1,tmp2) {
 	# first: split "str" to initialize "opt"
 	n=split(str,tmp1,/,/)
 	for(i=1;i<=n;i += 2) 
@@ -94,7 +94,7 @@
 			else print "? unknown key ["key"]" >"/dev/stderr"
 		} else { i--; break }
 	}
-	# third: clear the flags fro ARGC, ARGV 
+	# third: clear the flags from ARGC, ARGV 
 	for(j=i+1;j<=ARGC;j++) 
 		tmp2[j-i]=ARGV[j]
 	split("",ARGV,"")

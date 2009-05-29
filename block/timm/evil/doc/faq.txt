@@ -1,18 +1,37 @@
-=== Q1 =====================
+#    ___         
+#  _/ oo\     Questions about evil code. 
+# ( \  -/__   
+#  \    \__)  
+#  /     \    by Tim Menzies, (c) 2009, GPL 3.0 
+# /      _\   http://www.gnu.org/licenses/gpl.txt
+# `"""""``  jgs
+
+= Q1 =====================
 Why is it called "evil"?
 
-Cause we have this evil idea  that:
+Cause we have three evil ideas  that:
 
-1) there is no evidence that supposedly better
+1) most programming languages are over-elaborated
+
+1a) there is no evidence that supposedly better
 programming languages increase productivity
 
-2) we can write better programmers, faster, if we
+1a) we can write better programmers, faster, if we
 jettison much of that research
 
-3) the key factor in programmer productivity is
+1c) the key factor in programmer productivity is
 not the programming language. rather it
   is the programmer, the organizational context,
   etc etc.
+
+2) most complex things, aren't. they can't be.
+
+2a) If the universe was as complex as we fear,
+then there is no way that dumb apes like the authors
+could have achieved what we have achieved.
+
+2b) A repeated empirical observation is that
+most models contain key points.
 
 Now this could be a really evil idea since, if true,
 you've been buying bogus tools from the vendors. 
