@@ -1,6 +1,6 @@
 #    ___         
 #  _/ oo\     An evil idea: 
-# ( \  -/__   the Evil not-so-Naive Bayes classifier/anomaly detector
+# ( \  -/__   the not-so-Naive Bayes classifier/anomaly detector
 #  \    \__)  
 #  /     \    by Tim Menzies, (c) 2009, GPL 3.0 
 # /      _\   http://www.gnu.org/licenses/gpl.txt
@@ -13,17 +13,16 @@ function usage() {
 	prints("Usage: nb -[MKLTCDFAWhca] [train] [test]", " ",
     "'train' and test' are csv files.", 
 	" ",
-	" -L file  Learning csv file. Currently, L="opt("L")",", 
-    " -T file  Training csv file. Currently, T="opt("T")",",
+	" -L file  Learning csv file. L='"opt("L")"'.", 
+    " -T file  Training csv file. T='"opt("T")"'.",
 	" -C num   Index of class column in csv files. If negative,",
-	"          the count is back from the right-hand-side.",
-	"          Currently, C="opt("C")".",
-    " -F char  Deliminter for columns in csv file. Currently, F="opt("F")".",
-	" -M num   Handles low frequency counts. Currently M="opt("M")".".
-	" -K num   Hanldes low class counts. Currently, K="opt("K")",",
-    " -D char The 'missing value' marker. Currently, D="opt("D")".",
+	"          the count is back from the right-hand-side. C='"opt("C")"'.",
+    " -F char  Deliminter for columns in csv file. F='"opt("F")"'.",
+	" -M num   Handles low frequency counts. F='"opt("M")"'.".
+	" -K num   Hanldes low class counts. K='"opt("K")'",",
+    " -D char The 'missing value' marker. D='"opt("D")'".",
 	" -A word  The name of the 'all' class. No input line can have",
-	"          this name. Currently, A="opt("A")".",
+	"          this name. A='"opt("A")'".",
 	" -w       Weird mode. Alert if the test instance is unlikely.",
     "          Disabled by default",
 	" -c       Show copyright notice (long).".
@@ -69,7 +68,7 @@ BEGIN {start(   "What	=	nb v0.1		;"\
 	while((getline < f) > 0) test(h,n) 
 	close(f)
  }
- function train(h,f,n,  i,k) {
+ function train(h,n,  i,k) {
    k = $klass()
    if (++h[k]==1) H++
    for(i=1;i<=NF;i++)
