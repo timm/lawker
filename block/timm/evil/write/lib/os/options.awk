@@ -22,13 +22,13 @@
  function opt(x) {
 	return (x in Opt) ? Opt[x] : bad("option ["x"] unknown")
  }
- function started(str,opt) { # returns 0 if bad options
+ function ok2go(opt,str) { # returns 0 if bad options
 	s2a("a=,c=,h=" str,opt,"[=;]")
 	ARGC = options(opt,ARGV,ARGC)
 	if (opt("c")) { copyleft(); exit }
 	if (opt("a")) { about();    exit }
-	if (opt("h")) { return 1;        }
-	return 0
+	if (opt("h")) { return 0;        }
+	return 1
  }
  function options(opt,input,n,  key,i,j,k,tmp) {
 	# first: explore the arguments till no more flags

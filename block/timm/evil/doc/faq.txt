@@ -63,4 +63,8 @@ research instituions will apbondon their current profit models that require, eve
 product. However, there is some hope that the next generation might heed our call and reduce the intracy of their development
 tools. 
 
+Q3?
+
+what is "Opt"
+Opt are write once options set from the command lines. By convention, it is never updated after the initial entry into the code.
 

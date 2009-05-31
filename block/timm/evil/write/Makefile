@@ -13,22 +13,27 @@ Awk     := $(shell which gawk)#
 Debug   := $(shell which pgawk) --dump-variables=$(Tmp)/vars.out#
 Profile := $(shell which pgawk) --profile=$(Tmp)/profile.out#  
 
-Stem := $(subst .awk,,$(File))#
+Stem  = $(subst .awk,,$(Src))#
 Uses  = $(Awk) -f $(Base)/uses.awk -u -f#
 
 # standard util
 Dirp  = if [ ! -d "$D" ]; then echo "making $D"; mkdir $D; fi#
 
-ready : dirs
+ready : dirs norepeats
+	@echo "Ready for evil.">&2
 
 dirs     : ; @$(foreach D, $(Dirs), $(Dirp); )
 dirsTest : ; @find $(Dirs) -type d | egrep -v 'tmp|svn'
 
-weaves : ready $(File) 
-	$(foreach F,$(shell $(Uses) $(File)), $(MAKE) File=$F weave;)
+norepeats :
+	 bash $(Base)/awkcopies $(Lib)
+
+weaves : ready $(Src) 
+	echo $(shell $(Uses) $(Src))
+	$(foreach F,$(shell $(Uses) $(Src)), $(MAKE) Src=$F weave;)
 
 weave : 
-	echo $(File)
+	echo $(Src)
 
 #weaveTwo :  $(Test)/$(Stem).awk $(Read)/$(Stem).html
 

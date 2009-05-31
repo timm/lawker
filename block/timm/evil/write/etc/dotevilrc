@@ -23,7 +23,7 @@ Lib   = $(Write)/lib
 Read = $(Evil)/doc/read#   
 
 # Start up utils
-Base = $(Lib)/app/evil#  
+Base = $(Write)/Base#  
 
 ######## stuff to be built (outside the repository)
 
