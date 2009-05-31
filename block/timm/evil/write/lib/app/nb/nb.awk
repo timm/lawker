@@ -18,16 +18,16 @@ function usageNb() {
 	" -C num       Index of class column in csv files. If negative,",
 	"              the count is back from the right-hand-side. C='"opt("C")"'.",
     " -F char      Deliminter for columns in csv file. F='"opt("F")"'.",
-	" -M num       Handles low frequency counts. F='"opt("M")"'.".
-	" -K num       Hanldes low class counts. K='"opt("K")'",",
-    " -D char      The 'missing value' marker. D='"opt("D")'".",
+	" -M num       Handles low frequency counts. F='"opt("M")"'.",
+	" -K num       Hanldes low class counts. K='"opt("K")"'.",
+    " -D char      The 'missing value' marker. D='"opt("D")"'.",
 	" -A word      The name of the 'all' class. No input line can have",
 	"              this name. A='"opt("A")"'.",
     " --Inf num    Largest number. Inf='"opt("Inf")"'.",
 	" -w           Weird mode. Alert if the test instance is unlikely.",
     "              Disabled by default",
 	" -a           Show about notice (short).",
-	" -c           Show copyright notice (long).".
+	" -c           Show copyright notice (long).",
 	" -h           Help." )
 }
 
@@ -68,7 +68,7 @@ function usageNb() {
 
 ###################################
 # training
- function trains(learnData,h,n,   learnData, instances) {
+ function trains(h,n,   learnData, instances) {
 	learnData = opt("L")
 	while((getline < learnData) > 0) { 
 		instances++;  

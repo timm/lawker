@@ -12,21 +12,34 @@ include $(Evilrc)
 Awk     := $(shell which gawk)#
 Debug   := $(shell which pgawk) --dump-variables=$(Tmp)/vars.out#
 Profile := $(shell which pgawk) --profile=$(Tmp)/profile.out#  
+Go      = $(Awk)
 
-Stem  = $(subst .awk,,$(Src))#
-Uses  = $(Awk) -f $(Base)/uses.awk -u -f#
+Fs    = $(subst .awk ,.awk -f ,$?)#
+App   = $(shell dirname $(Src))#
+Where = $(Test):$(AWKPATH)# 
+Uses  = $(Awk) -f $(Base)/uses.awk -u -f -R $(Test) #
+Awks  = bash $(Base)/awkFiles.sh $(Lib)#
 
 # standard util
 Dirp  = if [ ! -d "$D" ]; then echo "making $D"; mkdir $D; fi#
 
-ready : dirs norepeats
+ready : dirs noRepeats copies awkPath
 	@echo "Ready for evil.">&2
 
 dirs     : ; @$(foreach D, $(Dirs), $(Dirp); )
 dirsTest : ; @find $(Dirs) -type d | egrep -v 'tmp|svn'
 
-norepeats :
-	 bash $(Base)/awkcopies $(Lib)
+noRepeats : 
+	@$(Awks) | bash $(Base)/fileCopies.sh
+
+copies : $(shell $(Awks))
+	@cp  $? $(Test) 
+
+awkPath : 
+	@export AWKPATH=`echo $(Where) | $(Awk) -f $(Base)/prunePath.awk` 
+
+run : $(shell $(Uses) $(Src))#
+	$(Go) -f $(Fs)
 
 weaves : ready $(Src) 
 	echo $(shell $(Uses) $(Src))

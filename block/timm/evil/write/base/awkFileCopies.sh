@@ -1,6 +1,3 @@
-cd $1
-find . -name "*.awk" |  
-grep -v "/[A-Z].*/"  |
 gawk -F/ ' 
     { Seen[$NF]++
       Path[$NF]= Path[$NF] "  \n\t" Dir "/" $0 }
@@ -10,4 +7,4 @@ END { for(I in Seen)
 			print "Warning : " Seen[I] " repeats of " I  " at " Path[I]
 	}
 	if (Bad) exit -1
-}'  Dir=$1
+}'  Dir=$1 -

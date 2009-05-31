@@ -18,6 +18,7 @@
 #
 #uses copyleft.awk
 #uses bad.awk
+#uses s2a.awk
 
  function opt(x) {
 	return (x in Opt) ? Opt[x] : bad("option ["x"] unknown")
