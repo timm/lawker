@@ -1,0 +1,112 @@
+
+<h1><join> Pulling data from an XML file </join></h1>
+<p><em>(This page comes from the <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html">XML Gawk</a> tutorial.)</em>
+
+
+<p>
+In
+a procedural language, the software developer expects that he
+himself determines control flow within a program. He writes
+down what has to be done first, second, third and so on. 
+In the <em>pattern-action</em> model of AWK, the novice software
+developer often has the oppressive feeling that
+     <ul>
+<li>she is not <em>in control</em>
+
+<li>events seem to crackle down on her from nowhere
+<li>data flow seems chaotic and invariants don't exist
+<li>assertions seem impossible
+</ul>
+
+   <p>This feeling is characteristic for a whole class of
+programming environments. Most people would never think
+of the following programming environments to have something
+in common, but they have. It is the absence of a static
+control flow which unites these environments under one roof:
+
+     <ul>
+<li>In GUI frameworks like the X Window system, the main program
+is a trivial <em>event loop</em> &ndash; the main program does
+nothing but wait for events and invoke event-handlers. 
+<li>In the Prolog programming language, the main program
+has the form of a <em>query</em> &ndash; and then the Prolog
+interpreter decides which rules to apply to solve the
+query. 
+
+<li>When writing a compiler with the <code>lex</code> and <code>yacc</code>
+tools, the main program only invokes a function <code>yyparse()</code>
+and the exact control flow depends on the input source which
+controls invocation of certain rules. 
+<li></a>When writing an XML parser with the
+<a href="http://expat.sourceforge.net">Expat</a> XML parser,
+the main program registers some callback handler functions,
+passes the XML source to the Expat parser and the detailed
+invocation of callback function depends on the XML source. 
+<li>Finally, AWK's <em>pattern-action</em> encourages writing
+scripts that have no main program at all. 
+
+</ul>
+
+   <p>Within the context of XML, a terminology has been invented
+which distinguishes the procedural <em>pull</em> style from
+the event-guided <em>push</em> style. The script in the previous
+section was an example of a <em>push</em>-style script. 
+Recognizing that most developers don't like their program's
+control flow to be pushed around, we will now present a script
+which pulls one item after the other from the XML file and
+decides what to do next in a more obvious way.
+
+   <p><a name="index-g_t_0040code_007bXMLATTR_007d-54"></a>
+<pre class="example">     @load xml
+     BEGIN {
+       while (getline &gt; 0) {
+         switch (XMLEVENT) {
+           case "STARTELEM": {
+             printf("%*s%s", 2*XMLDEPTH-2, "", XMLSTARTELEM)
+             for (i=1; i&lt;=NF; i++)
+               printf(" %s='%s'", $i, XMLATTR[$i])
+             print ""
+           }
+         }
+       }
+     }
+
+</pre>
+   <p>One XML event after the other is pulled out of the data
+with the <samp><span class="command">getline</span></samp> command. It's like feeling each grain
+of sand pour through your fingers. Users who prefer this style
+of reading input will also appreciate another novelty: The variable
+<code>XMLEVENT</code>.  While the <em>push-style</em> script in
+<a href="http://awk.info/?xgawk/outline">another page</a> used the event-specific variable
+<samp><span class="command">XMLSTARTELEM</span></samp> to detect the occurrence of a new XML element,
+our <em>pull-style</em> script always looks at the value of the same
+universal variable <code>XMLEVENT</code> to detect a new XML element. 
+
+   <p>Formally, we have a script that consists of one <code>BEGIN</code>
+
+pattern followed by an action which is always invoked. You
+see, this is a corner case of the <em>pattern-action</em> model
+which has been reduced so wide that its essence has disappeared. 
+Instead of the patterns you now see the cases of <samp><span class="command">switch</span></samp>
+statement, embedded into a <code>while</code> loop (for reading the
+file item-wise). 
+Obviously, we have explicite conditionals now, instead of the
+implicite ones we used formerly. The actions invoked within
+the <code>case</code> conditions are the same we have seen in the
+<em>push</em> approach.
+
+
+
+<h3>Author</h3>
+<p>Jurgen Kahrs 
+<h3>Copyright</h3>
+<p>
+Copyright (C) 2000, 2001, 2002, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+<p>
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with the Invariant Sections being ?GNU General Public License?, the Front-Cover texts being (1) (see below), and with the Back-Cover Texts being (2) (see below). 
+<ul>
+<li>
+   A GNU Manual
+<li>
+   You have freedom to copy and modify this GNU Manual, like GNU software. Copies published by the Free Software Foundation raise funds for GNU development. 
+</ul>
