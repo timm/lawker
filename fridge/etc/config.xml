@@ -948,7 +948,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
-	<file where="doc/awk100/021jawk.html">
+	<file where="doc/jawk.html">
 		<title>Jawk</title>
 		<what>XML</what>
 		<what>Awk100</what>
