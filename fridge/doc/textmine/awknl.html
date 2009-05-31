@@ -1,0 +1,339 @@
+<h1><join>Lexical and Grammar Analysis</join></h1>
+<p>Yasumasa Someya
+describes an entire natural langauge processing kit, 
+written in Awk at <a href="http://someya-net.com/09-MA/">http://someya-net.com/09-MA/</a>.
+<p>In this sense, the toolkit is an excellent example of Awk-in-the-large. 
+Appendix C1 of that documentation lists the Awk programs used in that study. It is a fascinating combination
+of tiny filters and complex code, which can be combined in multiple ways to result in an instricate analysis:
+<ul>
+<li>63 Awk files...
+<Li>... used in 11 batch files ...
+<li>... that utilize data in  8 dictionary and other files
+</ul>
+<p>The Awk file list is shown below.
+<small>
+<table>
+<tr style="background-color: #EDE9E6;"><td>Num</td><td>File</td><td>Dated</td><td>Description</td></tr>
+
+<tr>
+<td>1</td>
+<td>ad_sp_ed.awk</td>
+<td>980628</td>
+<td>Insert space before the return mark </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>2</td>
+<td>add.awk</td>
+<td>980820</td>
+<td>Adds all the values contained in $1 through $n respectively. </td></tr>
+<tr>
+<td>3</td>
+<td>bun_fre2.awk</td>
+<td>980724</td>
+<td>The main program of "Sentence Profiler (Ver.1)." Print sentence- length profile table and graph. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>4</td>
+<td>bun_fre4.awk</td>
+<td>980730</td>
+<td>Revised version of "bun_fre2.awk" </td></tr>
+<tr>
+<td>5</td>
+<td>cnt_freq.awk</td>
+<td>Counts</td>
+<td>the number of each tag sequence and to produce a list of modal verb-structures with frequency information. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>6</td>
+<td>capital.awk</td>
+<td>980622</td>
+<td>Prints text lines beginning with a capital letter (for extracting proper nouns from a wordlist). </td></tr>
+<tr>
+<td>7</td>
+<td>chikan.awk</td>
+<td>980814</td>
+<td>Compares an input file and a specified dictionary. If the words in $1 of the dictionary matches words in the input file, the latter will be replaced with the $2 data in the former. (See "fmatch. awk"). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>8</td>
+<td>cleantag.awk</td>
+<td>980818</td>
+<td>Cleans up a file tagged with the Brill Tagger, and replaces the default slash symbol (/) with the underbar (_). </td></tr>
+<tr>
+<td>9</td>
+<td>countme.awk</td>
+<td>981002</td>
+<td>Counts the number of words in a text , either as type or token. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>10</td>
+<td>del_hyph.awk</td>
+<td>971117</td>
+<td>Deletes line-end hyphens. </td></tr>
+<tr>
+<td>11</td>
+<td>del_nbr.awk</td>
+<td>980623</td>
+<td>Deletes line-initial numbers and symbols. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>12</td>
+<td>del_null.awk</td>
+<td>980205</td>
+<td>Deletes excess blank lines, leaving only one blank line. </td></tr>
+<tr>
+<td>13</td>
+<td>del_rtn.awk</td>
+<td>980518</td>
+<td>Deletes the return mark at the end of each record </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>14</td>
+<td>del{_}.awk</td>
+<td>981007</td>
+<td>Deletes the idiom mark from the output of "dmfreq. awk".
+<td></tr>
+<tr>
+<td>15</td>
+<td>delblank.awk</td>
+<td>980601</td>
+<td>Deletes all blank lines. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>16</td>
+<td>delkigou.awk</td>
+<td>980721</td>
+<td>Deletes all symbols and marks in $2. </td></tr>
+<tr>
+<td>17</td>
+<td>delslash.awk</td>
+<td>970831</td>
+<td>Replaces the slash with a space. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>18</td>
+<td>ex_there.awk</td>
+<td>980628</td>
+<td>Extract all the "Ex-There" constructions. </td></tr>
+<tr>
+<td>19</td>
+<td>f1_del.awk</td>
+<td>980417</td>
+<td>Print all the data except those in $1. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>20</td>
+<td>fmatch.awk</td>
+<td>980814</td>
+<td>The main program of "Collocation and Idiom Finder (Ver.1)." Marks all the matched strings in the format of "{ idiom }_IDM." </td></tr>
+<tr>
+<td>21</td>
+<td>hv_vbn.awk</td>
+<td>980628</td>
+<td>Extracts all the present perfect constructions from a tagged corpus. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>22</td>
+<td>ichigyo.awk</td>
+<td>980205</td>
+<td>Same as "del_null.awk" </td></tr>
+<tr>
+<td>23</td>
+<td>idmfreq.awk</td>
+<td>981007</td>
+<td>Produces a frequency comparison table of specified collocations and idioms. Used as part of Collocation and Idiom Finder (Ver.1). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>24</td>
+<td>if$2none.awk</td>
+<td>980821</td>
+<td>Prints records whose $2 is not blank. </td></tr>
+<tr>
+<td>25</td>
+<td>if_md.awk</td>
+<td>980628</td>
+<td>Extracts all the IF+MD constructions from a tagged corpus. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>26</td>
+<td>JJ.awk</td>
+<td>980912</td>
+<td>Extracts all the adjectives from a tagged wordlist. </td></tr>
+<tr>
+<td>27</td>
+<td>kaihi-1.awk</td>
+<td>980523</td>
+<td>Prints the data as is, except for those marled by #. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>28</td>
+<td>kaihi-2.awk</td>
+<td>980730</td>
+<td>Prints the data as is if marked marked by #. If not, adds sentence ID numbers before printing. </td></tr>
+<tr>
+<td>29</td>
+<td>karamoji.awk</td>
+<td>980417</td>
+<td>Deletes sentence-initail space. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>30</td>
+<td>kensaku.awk</td>
+<td>980201</td>
+<td>Regular expression search from the command line. </td></tr>
+<tr>
+<td>31</td>
+<td>l_sp_del.awk</td>
+<td>971004</td>
+<td>Deletes excess line-initial space. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>32</td>
+<td>line_nbr.awk</td>
+<td>980518</td>
+<td>Adds sentence numbers. </td></tr>
+<tr>
+<td>33</td>
+<td>makeline.awk</td>
+<td>980201</td>
+<td>Inserts a return code at the end of sentence-initial punctuation marks and symbols, except at specified abbreviations (used in conjunction with "txt_id.awk"). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>34</td>
+<td>matching.awk</td>
+<td>980620</td>
+<td>Replaces each entry word in the input file with a corresponding WL tag as defined in the WL-tag dictionary file. Non-match strings are printed as is (used as part of "Word Level Checker"). </td></tr>
+<tr>
+<td>35</td>
+<td>matchnew.awk</td>
+<td>980825</td>
+<td>Replaces each entry word in the input file with a corresponding WL tag as defined in the WL-tag dictionary file (See endnote 8, Chapter 3). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>36</td>
+<td>merge0.awk</td>
+<td>980623</td>
+<td>Merges two wordlists (Add FILE1 to FILE2, and prints FILE3, for $0). </td></tr>
+<tr>
+<td>37</td>
+<td>merge1.awk</td>
+<td>980703</td>
+<td>Merges two wordlists (Add FILE1 to FILE2, and prints FILE3, for $1). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>38</td>
+<td>nandoprn.awk</td>
+<td>980624</td>
+<td>Sorts and prints the results of "matching.awk" (used as part of "wlc.bat" and "w_nando.bat"). </td></tr>
+<tr>
+<td>39</td>
+<td>NN.awk</td>
+<td>980915</td>
+<td>Extracts all the words with NN tags. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>40</td>
+<td>non_cap.awk</td>
+<td>980624</td>
+<td>Prints all lines starting with a lower case letter (for extracting data other than proper nouns from a wordlist). </td></tr>
+<tr>
+<td>41</td>
+<td>open_con.awk</td>
+<td>980529</td>
+<td>Opens contractions (e.g. I'm, we'd, we'll, couldn't, etc.) . Used before executing the Brill Tagger. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>42</td>
+<td>predcnt1.awk</td>
+<td>980725</td>
+<td>Counts the number of predications (mentioned in End note 19, Chapter </td></tr>
+<tr>
+<td>2)</td></tr>
+<tr>
+<td>43</td>
+<td>prn_!tag.awk</td>
+<td>980825</td>
+<td>Prints text data only from a POS-tagged text. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>44</td>
+<td>prn_tag.awk</td>
+<td>980601</td>
+<td>Extracts POS tag data from a tagged text, and prints them onto a separate file (See Endnote 6, Chapter 2). </td></tr>
+<tr>
+<td>45</td>
+<td>prn{_}.awk</td>
+<td>981007</td>
+<td>Prints lines that include strings marked "{É}_IDM" (used as part of "fmatch1.bat" and "fmatch2.bat"). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>46</td>
+<td>prn_MD.awk</td>
+<td>980601</td>
+<td>Extracts all MD tags from a tagged text, and prints them onto a separate file (See Endnote 30, Chapter 4). </td></tr>
+<tr>
+<td>47</td>
+<td>r_sp_del.awk</td>
+<td>980207</td>
+<td>deletes space between the return code and the last word of each sentence. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>48</td>
+<td>RB.awk</td>
+<td>980912</td>
+<td>Extracts all the words with RB tags. </td></tr>
+<tr>
+<td>49</td>
+<td>rtn@}.awk</td>
+<td>981007</td>
+<td>Inserts a return code at the X mark to the output of "prn{_}.awk.".
+<td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>50</td>
+<td>sentence.awk</td>
+<td>980718</td>
+<td>Main program of "Sentence Profiler (Ver.1)." Counts the numbers of words and sentences, and the average number of words per sentence, and print the result. </td></tr>
+<tr>
+<td>51</td>
+<td>shiage.awk</td>
+<td>980107</td>
+<td>Deletes unnecessary data from the output of "prn{_{.awk tp rtn@}.awk" and prints the result after sorting.
+</td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>52</td>
+<td>sp_kigou.awk</td>
+<td>980523</td>
+<td>Adds space before and/or after specified punctuation marks and symbols (used in conjunction with the Brill Tagger). </td></tr>
+<tr>
+<td>53</td>
+<td>tagme.awk</td>
+<td>980623</td>
+<td>Experimental tagging program. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>54</td>
+<td>TagToSyn.awk</td>
+<td>980720</td>
+<td>Extract syntactic information from POS tag data. </td></tr>
+<tr>
+<td>55</td>
+<td>tokei.awk</td>
+<td>980801</td>
+<td>Calculates sum, mean, variance, SD, dispersion and usage. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>56</td>
+<td>txt_id.awk</td>
+<td>980623</td>
+<td>Adds "Sentence ID and Number" to a plain running text. </td></tr>
+<tr>
+<td>57</td>
+<td>VB.awk</td>
+<td>980830</td>
+<td>Extracts all the words with VB tags (See Endnote 25, Chapter 3). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>58</td>
+<td>voc_lev1.awk</td>
+<td>980823</td>
+<td>Processed input data for "voc_lev2.awk" </td></tr>
+<tr>
+<td>59</td>
+<td>voc_lev2.awk</td>
+<td>980823</td>
+<td>Prints the results of "matching.awk to nandoprn. awk" with a graph and a table (used as part of "wlc.bat"). </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>60</td>
+<td>mk_list.awk</td>
+<td>980801</td>
+<td>A multi-function wordlist compiler, mk_list.awk. Mentioned in Endnote 14, Chapter 3. See Appendix C2 for program source. </td></tr>
+<tr>
+<td>61</td>
+<td>word.awk</td>
+<td>980828</td>
+<td>Produces a simple wordlist from a plain running text file. </td></tr>
+<tr style="background-color: #EDE9E6;">
+<td>62</td>
+<td>wordlist.awk</td>
+<td>980718</td>
+<td>Produces a simple wordlist with frequency information from a plain running text file. </td></tr>
+<tr>
+<td>63</td>
+<td>wrdlevel.awk</td>
+<td>980623</td>
+<td>Replaces entries in a wordlist with WL tags. </td></tr>
+</table>
+</small>

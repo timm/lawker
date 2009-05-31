@@ -25,6 +25,8 @@ scientific comuting in awk
 eiso's awk scrits- if i understood what they did
 http://www.nmr.chem.uu.nl/~eiso/help/index.html
 mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
+2B
+2B
 
 natural langauge parsing
 http://someya-net.com/09-MA/
