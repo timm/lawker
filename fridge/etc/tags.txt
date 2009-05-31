@@ -117,7 +117,7 @@ doc/tools/nbc.html			;Timm  ;2009 ;May 	;DataMining	;|Naive Bayes Classifier
 doc/os.html                     ;Admin   ;2009   ;Apr   ;Os   ;|Operating Systems and Awk
 doc/xml.html					;Admin  ;2009 ;Apr ;XML ;|XML and Awk
 
-doc/jawk.html		;Dab  ;2009 ;May ;Awk100 ;XML	;|Jawk
+doc/jawk.html		;Dab  ;2009 ;May ;Awk100	;|Jawk
 doc/awk100/017xmlgawk.html		;JurgenK  ;2009 ;Apr ;Awk100 ;XML ;Xgawk ;|XMLgawk
 doc/awk100/015soccer.html		;Ronl	;2009;Apr	;Awk100 ;Games		;|Soccer
 doc/awk100/013awklinux.html		;YungC	;2009;Apr	;Os ;Papers ;Awk100	;Top10	;|Awk-Linux

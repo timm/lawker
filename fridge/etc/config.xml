@@ -950,7 +950,6 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/jawk.html">
 		<title>Jawk</title>
-		<what>XML</what>
 		<what>Awk100</what>
 		<what>May</what>
 		<what>2009</what>
