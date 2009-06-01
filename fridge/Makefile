@@ -61,6 +61,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/mailsort.html\
     	$(Doc)/readminds.html\
     	$(Doc)/s2a.html\
+		$(Doc)/tools/shuffle.html\
     	$(Doc)/spam.html\
     	$(Doc)/dumpxml.html\
     	$(Doc)/getxml.html\
@@ -94,6 +95,7 @@ $(Doc)/quicksort.html  : $(Awklib)/quicksort.awk      ; cd $(Awklib) && $(Awk2Ht
 $(Doc)/quicksort2.html : $(Awklib)/quicksort2.awk     ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/getxml.html     : $(Awklib)/getxml.awk         ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/m1.html   : $(Awklib)/m1.awk             ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/shuffle.html   : $(Awklib)/shuffle.awk   ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/cryptosig.html : $(Awklib)/cryptosig.awk ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/sigs.html : $(Bash)/sigs                 ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/nbc.html : $(Bash)/nbc/contents/nbc      ; cd $(Awklib) && $(Awk2Html)
