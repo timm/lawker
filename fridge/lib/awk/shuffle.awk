@@ -222,3 +222,5 @@ function pop(a,   x,i) {
 #
 #.P
 #This will always print out the same ordering.
+#.H2 Author
+#.P Tim Menzies
