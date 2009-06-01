@@ -91,7 +91,7 @@ function round(x) { return int(x + 0.5) }
 #./PRE
 #.P
 #<EM>nshuffle</EM> is fast, but rearranges the order of 
-#items in the original list
+#items in the original list.
 #<EM>shuffle</EM> generates a new
 #copy of the list with the items in a random order.
 #.PRE
