@@ -1,6 +1,19 @@
 #.H1 shuffle.awk
 #.H2 Synopsis
-#.P shuffle(Array1,Array2)
+#.P To rearrange the items in the input list:
+#.PRE
+# nshuffle(Array)
+#./PRE
+#.P To rearrange the items in a copy of the input list:
+#.PRE
+# shuffle(Array,Copy)
+#./PRE
+#.P 
+#The above calls assumes that array item zero stores the length of the array.
+#If this is not the case, use:
+#.PRE
+# shuffles(Array,Copy)
+#./PRE
 #.H2 Download
 #.P Download from <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/shuffle.awk">LAWKER</a>.
 #.H2 Description
@@ -131,11 +144,12 @@ function shuffles(a,b,   c,n) {
 #One way to use the above is to run down a list in a random order. For example:
 #
 #.PRE
-BEGIN {if (ShuffleDemo) {
-  if (Seed) { srand(Seed) } else { srand() };
-  s2i(ShuffleDemo,L1," ");
-  shuffles(L1,L2);
-  while(Item =pop(L2)) print Item;
+BEGIN {
+  if (ShuffleDemo) {
+  		if (Seed) { srand(Seed) } else { srand() };
+  		s2i(ShuffleDemo,L1," ");
+  		shuffles(L1,L2);
+  		while(Item =pop(L2)) print Item;
   }
 }
 function s2i(str,a,sep,   n,i,tmp) {
@@ -143,6 +157,10 @@ function s2i(str,a,sep,   n,i,tmp) {
   for(i=1;i<=n;i++) a[i]=tmp[i];
   return n;
 }
+function pop(a,   x,i) {
+  i=a[0]--;  
+  if (!i) {return ""} else {x=a[i]; delete a[i]; return x}
+} 
 #./PRE
 #
 #.P
