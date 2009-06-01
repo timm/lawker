@@ -821,6 +821,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/shuffle.html">
 		<title>Shuffle.awk</title>
+		<what>TenLiners</what>
 		<what>Tools</what>
 		<what>May</what>
 		<what>2009</what>
