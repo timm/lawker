@@ -6,7 +6,6 @@
 # /      _\   http://www.gnu.org/licenses/gpl.txt
 # `"""""``  jgs
 #use options.awk
-#uses array.awk
 
 function usageNb() {
 	about()	
@@ -50,90 +49,90 @@ function usageNb() {
 				"Inf    =   100000000000000000000000000000000	;"\
 				"w      =               "))  
        {
-			H=0 
 	   		FS=opt("F")
 	   		OFS=","
 	   		mainNb() 
 		} else usageNb()
  }
- function mainNb(    h,n, instances) {
-	if (instances = trains(h,n))
-		tests(h,n,instances, 
-				  tooWeird(h,n,instances))
-	else
-		bad("no training data")
+ function mainNb(    h,n) {
+	trains(h,n) ? tests(h,n,tooWeird(h,n)) : bad("no training data")
  }	
 
  #selectors
- function h()         { return -1 }
- function all()       { return 0  }
- function klass(   n) { n = opt("C"); return n < 0 ? NF + n : n }
+ function klass(   n) { n = opt("C"); return n < 0 ? NF + n +1 : n }
+ function instances(h) { return h[opt("A")] }
 
 ###################################
 # training
- function trains(h,n,   learnData, instances) {
+ function trains(h,n,   learnData) {
 	learnData = opt("L")
-	while((getline < learnData) > 0) { 
-		instances++;  
+	while((getline < learnData) > 0)  
 		train(h,n) 
-	}
 	close(learnData)
-	return instances
+	return instances(h)
  }
- function train(h,n,   i,k) {
-   k = $klass()
-   if (++h[k]==1) H++
+ function train(h,n,   i,k,class) {
+   k     = klass()
+   class = $k
+   h[opt("A")]++
+   if(++h[class] == 1) H++ # without the gawk bug, length(H) should do the same
    for(i=1;i<=NF;i++)
-     if ($i != opt("D") ) {
-   		n[k,i,$i]++
-   		n[opt("A"),i,$i]++
+     if (i != k)
+        if ( $i != opt("D") ) {
+   			n[class,   i,$i]++
+   			n[opt("A"),i,$i]++
 	 }
  }
  ###################################
  # testing
- function tests(h,n,instances,w,   testData) {
+ function tests(h,n,w,   testData) {
 	testData = opt("T")
 	while((getline < testData) > 0) 
-		test(n,h,instances, w) 
+		test(h,n, w) 
 	close(testData)
  }
- function test(n,h,instances,w,   l,klass,report) {
-	klass = likelihoods(n,h,instances,l)
+ function test(h,n,w,   l,klass,report) {
+	klass = likelihoods(h,n,l)
 	report = l[klass] < w ? "?" : ""
-	print $NF, klass report
+	print  $NF, klass report
  }
  ##################################
  # learning what is weird
- function tooWeird(h,n,instances) {
-	return opt("w") ? averageLikely(h,n,instances) : -1 * opt("Inf")
+ function tooWeird(h,n) {
+	return opt("w") ? averageLikely(h,n) : -1 * opt("Inf")
  }
- function averageLikely(h,n,instances,  data,sum,total) {
+ function averageLikely(h,n,     data,sum,total) {
 	data = opt("L")
 	while((getline < data) > 0) {
-		sum += likely(n,h,instances)
+		sum += likely(h,n)
 		total++
 	}
 	close(data)
 	return (total ? sum/total : 0)
  }
- function likely(n,h,instances,  l,klass) {
-	likelihoods(n,h,instances,l)
+ function likely(h,n,  l,klass) {
+	likelihoods(h,n,l)
 	return l[opt("A")]
  }
  ##################################
  # worker
-  function likelihoods(n,h,instances,l,         klass,i,inc,temp,prior,what,like) {
-   like = -1 * opt("Inf");    # smaller than any log
-   for(klass in h) {
-      prior=(h[klass]+opt("K"))/(instances + opt("K")*H);
-      temp= log(prior)
+  function likelihoods(h,n,l,    k,class,i,inc,temp,prior,what,like) {
+   like = -1 * opt("Inf");    # smaller than any log,
+   k = klass()
+   for(class in h) {
+      prior = (h[class]+opt("K"))/(instances(h) + opt("K")*H);
+      temp  = log(prior)
       for(i=1;i<=NF;i++) {
-         if (i != klass)
+         if (i != k)
             if ( $i != opt("D") )
-                temp += log((n[klass,i,$i]+opt("M")*prior)/(h[klass]+opt("M")))
+                temp += log((n[class,i,$i]+opt("M")*prior)/(h[class]+opt("M")))
       }
-      l[klass]= temp
-      if ( temp >= like ) {like = temp; what=klass}
+      l[class]= temp
+      if ( temp >= like ) 
+		if (class != opt("A")) {
+			like = temp
+			what=class
+	  }
    }
    return what
  }

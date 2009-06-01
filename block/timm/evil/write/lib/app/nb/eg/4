@@ -1,7 +1,7 @@
 cd ../../../..
 Nb=lib/app/nb
 make 	Src=$Nb/nb.awk \
-		Args="-L $Nb/eg/train -T $Nb/eg/test " \
+		Args="-L $Nb/eg/trainTiny -T $Nb/eg/test " \
 		run |
 gawk -F, '{printf("%s", $0)} 
            {All++ 
