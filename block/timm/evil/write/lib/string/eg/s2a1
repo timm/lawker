@@ -1,0 +1,4 @@
+gawk -f ../s2a.awk -f ../trim.awk -f ../../array/saya.awk --source 'BEGIN {
+	s2a("1,2,3,4",a)
+	saya(a,"a")
+}'	

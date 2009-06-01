@@ -1,0 +1,5 @@
+gawk -f ../s2a.awk -f ../trim.awk -f ../../array/saya.awk --source 'BEGIN {
+	div="[=;]"
+	s2a("a=1;b=2;c=3",a,div)
+	saya(a,"a")
+}'	

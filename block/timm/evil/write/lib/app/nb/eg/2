@@ -1,0 +1,5 @@
+cd ../../../..
+Nb=lib/app/nb
+make 	Src=$Nb/nb.awk \
+		Args="-L $Nb/eg/train -T $Nb/eg/test " \
+		run

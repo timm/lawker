@@ -19,12 +19,14 @@
 #uses copyleft.awk
 #uses bad.awk
 #uses s2a.awk
+#uses prints.awk
+#uses saya.awk
 
  function opt(x) {
-	return (x in Opt) ? Opt[x] : bad("option ["x"] unknown")
+	return (x in Opt) ? Opt[x] : bad(Opt["What"] " option ["x"] unknown")
  }
  function ok2go(opt,str) { # returns 0 if bad options
-	s2a("a=,c=,h=" str,opt,"[=;]")
+	s2a("a=;c=;h=;" str,opt,"[=;]")
 	ARGC = options(opt,ARGV,ARGC)
 	if (opt("c")) { copyleft(); exit }
 	if (opt("a")) { about();    exit }

@@ -11,24 +11,27 @@
 function usageNb() {
 	about()	
 	prints("Usage: nb -[MKLTCDFAWhca] [train] [test]", " ",
-    "'train' and test' are csv files.", 
+    "'train' and test' are csv files.", " ",
+	"In the following, the options below the line are internal",
+	"varaibles that you probably will never change.",
 	" ",
 	" -L file      Learning csv file. L='"opt("L")"'.", 
     " -T file      Training csv file. T='"opt("T")"'.",
+	" -w           Weird mode. Alert if the test instance is unlikely.",
+    "              Disabled by default.",
+    " -F char      Deliminter for columns in csv file. F='"opt("F")"'.",
+    " -D char      The 'missing value' marker. D='"opt("D")"'.",
 	" -C num       Index of class column in csv files. If negative,",
 	"              the count is back from the right-hand-side. C='"opt("C")"'.",
-    " -F char      Deliminter for columns in csv file. F='"opt("F")"'.",
-	" -M num       Handles low frequency counts. F='"opt("M")"'.",
-	" -K num       Hanldes low class counts. K='"opt("K")"'.",
-    " -D char      The 'missing value' marker. D='"opt("D")"'.",
-	" -A word      The name of the 'all' class. No input line can have",
-	"              this name. A='"opt("A")"'.",
-    " --Inf num    Largest number. Inf='"opt("Inf")"'.",
-	" -w           Weird mode. Alert if the test instance is unlikely.",
-    "              Disabled by default",
 	" -a           Show about notice (short).",
 	" -c           Show copyright notice (long).",
-	" -h           Help." )
+	" -h           Help." ,
+	" -------------------------------------------------",
+	" -M num       Handles low frequency counts. F='"opt("M")"'.",
+	" -K num       Handles low class counts. K='"opt("K")"'.",
+	" -A word      The name of the 'all' class. No input line can have",
+	"              this name. A='"opt("A")"'.",
+    " --Inf num    Largest number. Inf='"opt("Inf")"'.")
 }
 
  BEGIN {if (ok2go(Opt,
@@ -89,25 +92,25 @@ function usageNb() {
  ###################################
  # testing
  function tests(h,n,instances,w,   testData) {
-	testData = ord("T")
+	testData = opt("T")
 	while((getline < testData) > 0) 
 		test(n,h,instances, w) 
 	close(testData)
  }
  function test(n,h,instances,w,   l,klass,report) {
 	klass = likelihoods(n,h,instances,l)
-	report = log(l[klass]) < w ? "?" : ""
-	print $0, klass report
+	report = l[klass] < w ? "?" : ""
+	print $NF, klass report
  }
  ##################################
  # learning what is weird
  function tooWeird(h,n,instances) {
-	return opt("w") ? averageLogLikely(h,n,instances) : -1 * opt("Inf")
+	return opt("w") ? averageLikely(h,n,instances) : -1 * opt("Inf")
  }
- function averageLogLikely(h,n,instances,  data,sum,total) {
+ function averageLikely(h,n,instances,  data,sum,total) {
 	data = opt("L")
 	while((getline < data) > 0) {
-		sum += log(likely(n,h,instances))
+		sum += likely(n,h,instances)
 		total++
 	}
 	close(data)

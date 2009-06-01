@@ -14,8 +14,7 @@ function copyleft() {
     print "License along with this program; if not write to the Free Software"
     print "Foundation Inc. 51 Franklin St Fifth Floor Boston MA 02110-1301 USA."
 }
-function about() { about(Opt["Who"],Opt["What"],Opt["When"],Opt["Why"]) }
-function about1(who,what,when,why) {
-    print what " : " why;
-    print "Copyright " when " " who ;
+function about() {
+    print Opt["What"] " : " Opt["Why"];
+    print "Copyright " Opt["When"] " " Opt["Who"] " (GPL version 3)";
 }

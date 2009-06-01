@@ -1,0 +1,8 @@
+hello v0.1 : hello world
+Copyright 2009 Tim Menzies (GPL version 3)
+Usage: hello [-W] 
+        
+        -W string    who we shall greet. W='world'.
+        -a           Show about notice (short).
+        -c           Show copyright notice (long).
+        -h           Help.

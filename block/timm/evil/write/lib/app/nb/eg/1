@@ -1,0 +1,2 @@
+cd ../../../..
+make Src=lib/app/nb/nb.awk Args="-h" run
