@@ -1,0 +1,98 @@
+<h1><join>Gawk for Chemical Engineers</join></h1>
+<p>
+A style seen in many Awk libraries is lots of small scripts, each handling a very specific task.
+<p>
+A good example of this style is <a href="http://www.nmr.chem.uu.nl/~eiso">Eiso Ab</a>'s library of scripts for chemical engineering.
+Shown below are dozens of his scripts. His library is an interesting example of real-world Awk programming.
+<p>
+  You can download a tgz  of all awk
+  and other scripts from <a href="http://www.nmr.chem.uu.nl/~eiso/scripts.tgz">http://www.nmr.chem.uu.nl/~eiso/scripts.tgz</a>.
+Please direct all
+ bugs and , questions to eiso@nmr.chem.uu.nl
+
+<p><small>
+<table border=1>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/ass2shift.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/ass2shift.awk>ass2shift.awk</a> </td><td>(Jan-23-2008)</td><td> purpose: read in anything with assignments or chemical shifts check consistency and write a shift list</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/ppm2prot.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/ppm2prot.awk>ppm2prot.awk</a> </td><td>(Jun-12-12:15)</td><td> generate an xeasy .prot file from another shift.list or ppm.out file</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/xpk2peaks.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/xpk2peaks.awk>xpk2peaks.awk</a> </td><td>(Sep-20-2007)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/pdb2iupac.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/pdb2iupac.awk>pdb2iupac.awk</a> </td><td>(Feb-11-2005)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/pdb2pdb.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/pdb2pdb.awk>pdb2pdb.awk</a> </td><td>(Jun-12-12:17)</td><td> purpose: - reformat ATOM records for various conventions - set B-factors for residues and/or atoms</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/seq2shift.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/seq2shift.awk>seq2shift.awk</a> </td><td>(Nov-21-2007)</td><td> fill shift list with chemical shift statistics from a database , currently the cyana lib file.</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/predict.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/predict.awk>predict.awk</a> </td><td>(Jun-12-12:16)</td><td> purpose   : make list of predicted peaks from shift-lists</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/addass.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/addass.awk>addass.awk</a> </td><td>(Feb-11-2005)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/reref.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/reref.awk>reref.awk</a> </td><td>(Jun-12-12:18)</td><td> compare referencing for one or two peaklists in a 2D-histogram see also plotpeaks.awk</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/plotpeaks.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/plotpeaks.awk>plotpeaks.awk</a> </td><td>(Jun-12-12:15)</td><td> plot peaks in a 2D graph useful for comparing referencing between peak files or within domains of one peakfile, see also reref.awk</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/calib.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/calib.awk>calib.awk</a> </td><td>(Jul-13-2005)</td><td> determining calibration parameters from bruker acqu file use: calib.awk temp=298 acqu [1] Wishart, D.S; Sykes, B.D. (1995) J. Biomol. NMR., 6, 135-140 1H, 13C and 15N chemical shift referencing in biomolecular NMR</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/mergeshift.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/mergeshift.awk>mergeshift.awk</a> </td><td>(Jun-12-12:12)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/gmx2nmr.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/gmx2nmr.awk>gmx2nmr.awk</a> </td><td>(Jun-12-12:10)</td><td> opposite of nmr2gmx.awk convert gmx topology distance and orientation restraints </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/nmr2gmx.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/nmr2gmx.awk>nmr2gmx.awk</a> </td><td>(Jun-16-13:55)</td><td> make gromacs topology files for distance restraints and dipolar coupling data                                          </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/diffshift.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/diffshift.awk>diffshift.awk</a> </td><td>(Apr-23-10:33)</td><td> compare shift lists e.g.   diffshift.awk [ options ] shiftlist1 shiftlist2</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/complete_assignments.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/complete_assignments.awk>complete_assignments.awk</a> </td><td>(Sep-20-2007)</td><td> adds assignments in xeasy peaklist where one atom of a proton-heteroatom couple is assigned and the remaining assignment is clear.</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/peaks-project.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/peaks-project.awk>peaks-project.awk</a> </td><td>(Jun-12-12:13)</td><td> make lower dimension projections from xeasy peak files</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/peaks-unfold.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/peaks-unfold.awk>peaks-unfold.awk</a> </td><td>(Jun-12-12:14)</td><td> unfolds peaks in xeasy peaks files  </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/unwatergate.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/unwatergate.awk>unwatergate.awk</a> </td><td>(Feb-14-2005)</td><td> undo the effect of watergate water suppression on peak intensities in nmrview xpk files</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/colorchain2mac.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/colorchain2mac.awk>colorchain2mac.awk</a> </td><td>(Feb-15-2005)</td><td> make molmol macro for rainbow-colored spline</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/seq2seq.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/seq2seq.awk>seq2seq.awk</a> </td><td>(Sep-20-2007)</td><td> convert protein aminoacid sequence files from oneletter to threeletter format and vice versa.</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/seq2shift.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/seq2shift.awk>seq2shift.awk</a> </td><td>(Nov-21-2007)</td><td> fill shift list with chemical shift statistics from a database , currently the cyana lib file.</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/makehbonds.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/makehbonds.awk>makehbonds.awk</a> </td><td>(Feb-11-2005)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/sparkysave2peaks.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/sparkysave2peaks.awk>sparkysave2peaks.awk</a> </td><td>(Sep-21-2006)</td><td> convert sparky save files to xeasy peakslist </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/peaks2sparky.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/peaks2sparky.awk>peaks2sparky.awk</a> </td><td>(Jun-12-12:14)</td><td> create sparky readable peaklists (.list) example: peaks2sparky.awk protein.seq protein.prot c13-cycle7.peaks</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/addass2sparkysave.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/addass2sparkysave.awk>addass2sparkysave.awk</a> </td><td>(Feb-11-2005)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/shifts2sparky-rl.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/shifts2sparky-rl.awk>shifts2sparky-rl.awk</a> </td><td>(Sep-20-2007)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/check_hetero_atom.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/check_hetero_atom.awk>check_hetero_atom.awk</a> </td><td>(May-15-2007)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/splitass.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/splitass.awk>splitass.awk</a> </td><td>(Feb-11-2005)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/splitnoa.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/splitnoa.awk>splitnoa.awk</a> </td><td>(Feb-11-2005)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/pdb2ariapdb.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/pdb2ariapdb.awk>pdb2ariapdb.awk</a> </td><td>(Feb-11-2005)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/tblcount.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/tblcount.awk>tblcount.awk</a> </td><td>(Aug-15-2005)</td><td> make a table with numbers of ambiguous and unambiguous intra/seq/medium/long/inter-dom restraints it needs a2ps to format the output.</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/upl2tbl.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/upl2tbl.awk>upl2tbl.awk</a> </td><td>(Jun-12-12:20)</td><td> very simple converter for xeasy .upl files to xplor/cns .tbl files</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/tbl2upl.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/tbl2upl.awk>tbl2upl.awk</a> </td><td>(Apr-22-2005)</td><td> convert (ambiguous) distance restraints in xplor *.tbl file to xeasy/cyana .upl/lol file Use: tbl2upl.awk name.(seq|pdb) unambig.tbl > out.upl </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/filterpeaks.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/filterpeaks.awk>filterpeaks.awk</a> </td><td>(May-26-2005)</td><td> filter peaklist for diagonal,water,lowest/highest intensities </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/tabstat.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/tabstat.awk>tabstat.awk</a> </td><td>(Jun-12-12:21)</td><td> get stats on values in columns of tables</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/linestat.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/linestat.awk>linestat.awk</a> </td><td>(Jun-12-12:10)</td><td> perform statistic on a certain number of columns of each line </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/qual-col.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/qual-col.awk>qual-col.awk</a> </td><td>(Jun-12-12:17)</td><td> purpose: color residues according to whatcheck bad/poor scores.  creates molmol macros    </td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/make_IDR.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/make_IDR.awk>make_IDR.awk</a> </td><td>(Jun-12-12:11)</td><td> purpose: create restraints for working with proxy residues</td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/add-linkers.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/add-linkers.awk>add-linkers.awk</a> </td><td>(Sep-20-2007)</td><td></td></tr>
+<tr><td><a href=http://www.nmr.chem.uu.nl/~eiso/help/cyana-renum-lib.txt>help
+</a></td><td> <a href=http://www.nmr.chem.uu.nl/~eiso/bin/cyana-renum-lib.awk>cyana-renum-lib.awk</a> </td><td>(Sep-20-2007)</td><td> renumber the atoms a cyana residue library entry </td></tr>
+</table>
+</small>

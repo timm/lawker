@@ -1197,5 +1197,12 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>ArnoldR</what>
 	</file>
+	<file where="doc/chem.html">
+		<title>Gawk for Chemical Engineers</title>
+		<what>Science</what>
+		<what>June</what>
+		<what>2009</what>
+		<what>EisaA</what>
+	</file>
   </files>
 </things>
