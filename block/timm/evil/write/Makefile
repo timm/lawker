@@ -9,13 +9,14 @@
 Evilrc  ?= etc/dotevilrc#
 include $(Evilrc)
 
+Begin   = 
 Src     = $(Lib)/app/hello/hello.awk
 Awk     := $(shell which gawk)#
 Debug   := $(shell which pgawk) --dump-variables=$(Tmp)/vars.out#
 Profile := $(shell which pgawk) --profile=$(Tmp)/profile.out#  
 Go      = $(Awk)
 
-Fs    = $(subst .awk ,.awk -f ,$(shell $(Uses) $(Src)))#
+Com   = $(subst .awk ,.awk -f ,$(shell $(Uses) $(Src)))#
 App   = $(shell dirname $(Src))#
 Where = $(Test):$(AWKPATH)# 
 Uses  = $(Awk) -f $(Base)/uses.awk -u -f -R $(Test) #
@@ -38,8 +39,8 @@ copies : $(shell $(Awks))
 awkPath : 
 	@export AWKPATH=`echo $(Where) | $(Awk) -f $(Base)/prunePath.awk` 
 
-run : ready
-	 @$(Go) -f $(Fs) -- $(Args)
+test : ready
+	 @$(Go) -f $(Com) --source '$(Begin)' -- $(Args)
 
 weaves : ready $(Src) 
 	echo $(shell $(Uses) $(Src))

@@ -1,0 +1,3 @@
+Base="../../../../base"
+
+$Base/nopara1 ../hello.awk | gawk -f $Base/markdown.awk

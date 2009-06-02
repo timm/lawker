@@ -6,6 +6,7 @@
 # /      _\   http://www.gnu.org/licenses/gpl.txt
 # `"""""``  jgs
 #use options.awk
+#use hist.awk
 
 function usageNb() {
 	about()	
@@ -16,7 +17,9 @@ function usageNb() {
 	" ",
 	" -L file      Learning csv file. L='"opt("L")"'.", 
     " -T file      Training csv file. T='"opt("T")"'.",
-	" -w           Weird mode. Alert if the test instance is unlikely.",
+	" -W num       Weird mode. Alert if the test instance is the bottom",
+    "              'num' percent. To disable the weird report, use -W 0.",
+    "              W='"opt("W")"'.",
     "              Disabled by default.",
     " -F char      Deliminter for columns in csv file. F='"opt("F")"'.",
     " -D char      The 'missing value' marker. D='"opt("D")"'.",
@@ -47,7 +50,7 @@ function usageNb() {
 				"F      =   ,			;"\
 				"A      =   _all		;"\
 				"Inf    =   100000000000000000000000000000000	;"\
-				"w      =               "))  
+				"W      =   0          "))  
        {
 	   		FS=opt("F")
 	   		OFS=","
@@ -62,8 +65,7 @@ function usageNb() {
  function klass(   n) { n = opt("C"); return n < 0 ? NF + n +1 : n }
  function instances(h) { return h[opt("A")] }
 
-###################################
-# training
+##### training
  function trains(h,n,   learnData) {
 	learnData = opt("L")
 	while((getline < learnData) > 0)  
@@ -83,8 +85,8 @@ function usageNb() {
    			n[opt("A"),i,$i]++
 	 }
  }
- ###################################
- # testing
+
+ #### testing
  function tests(h,n,w,   testData) {
 	testData = opt("T")
 	while((getline < testData) > 0) 
@@ -93,29 +95,31 @@ function usageNb() {
  }
  function test(h,n,w,   l,klass,report) {
 	klass = likelihoods(h,n,l)
-	report = l[klass] < w ? "?" : ""
+	report = l[klass] < w ? " (weird)" : ""
 	print  $NF, klass report
  }
- ##################################
- # learning what is weird
- function tooWeird(h,n) {
-	return opt("w") ? averageLikely(h,n) : -1 * opt("Inf")
+
+ #### learning what is weird
+ function tooWeird(h,n, 	w) {
+	w= opt("W") ? averageLikely(h,n) : -1 * opt("Inf")
+	print "# weird if likelihood < " w
+	return w
  }
- function averageLikely(h,n,     data,sum,total) {
+ function averageLikely(h,n,     data,all,i) {
 	data = opt("L")
-	while((getline < data) > 0) {
-		sum += likely(h,n)
-		total++
-	}
+	while((getline < data) > 0) 
+		all[++i] = likely(h,n)
 	close(data)
-	return (total ? sum/total : 0)
+	histogram(all,"log likelihoods",1)
+	asort(all)
+	return all[int(i*opt("W")/100)]
  }
  function likely(h,n,  l,klass) {
 	likelihoods(h,n,l)
 	return l[opt("A")]
  }
- ##################################
- # worker
+
+ ##### worker
   function likelihoods(h,n,l,    k,class,i,inc,temp,prior,what,like) {
    like = -1 * opt("Inf");    # smaller than any log,
    k = klass()

@@ -2,7 +2,7 @@ cd ../../../..
 Nb=lib/app/nb
 make 	Src=$Nb/nb.awk \
 		Args="-L $Nb/eg/trainTiny -T $Nb/eg/test " \
-		run |
+		test |
 gawk -F, '{printf("%s", $0)} 
            {All++ 
             if ($1==$2) {Right++;print ""} else {print " <== ?"} 

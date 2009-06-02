@@ -42,7 +42,7 @@
 				# if flag begins with upper case, 
                 # then take value from command line 
 				opt[key] = (key ~ /^[A-Z]/) ? input[++i] : 1
-			else bad("#option -"key" unknown. Try -h for help.")
+			else bad("-"key" unknown. Try -h for help.")
 		} else { i--; break }
 	}
 	# second: clear the flags from n, input 

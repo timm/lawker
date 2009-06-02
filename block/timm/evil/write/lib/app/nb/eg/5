@@ -1,5 +1,5 @@
 cd ../../../..
 Nb=lib/app/nb
 make 	Src=$Nb/nb.awk \
-		Args="-W 10 -L $Nb/eg/train -T $Nb/eg/test " \
+		Args="-X"\
 		test

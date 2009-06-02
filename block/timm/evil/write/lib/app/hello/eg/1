@@ -1,2 +1,2 @@
 cd ../../../..
-make Src=lib/app/hello/hello.awk Args="-c" run
+make Src=lib/app/hello/hello.awk Args="-c" test

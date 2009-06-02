@@ -1,0 +1,50 @@
+<h1>Hello world</h1>
+
+<h2>Synopsis</h2>
+
+<pre>  hello [-ach][-W who]    </pre>
+
+<h2>Description</h2>
+
+<p>Hello.awk is the simplest known Evil program. It prints out
+"hello Who" where "Who" can can be specified from the command line.</p>
+
+<h2>Usage</h2>
+
+<dl>
+<dt> -W who   </dt><dd>Sets the "Who" inside "hello Who". Without this flag the 
+            default "who" is "world"</dd>
+<dt> -a       </dt><dd>Prints a short "about" string for this program.
+<dt> -c       </dt><dd>Prints the (long) copyright notice for this program.
+<dt> -h       </dt><dd>Print help text.
+</dl>
+
+<h2>Code</h2>
+
+<pre> function usageHello() {
+        about()        
+        prints("Usage: hello [-W] ",
+        " ",
+        " -W string    who we shall greet. W='"opt("W")"'.",
+        " -a           Show about notice (short).",
+        " -c           Show copyright notice (long).",
+        " -h           Help." )
+ } 
+ BEGIN {
+            if (ok2go(Opt,
+                      "What  =  hello v0.1  ;"\
+                      "When  =  2009        ;"\
+                      "Who   =  Tim Menzies ;"\
+                      "Why   =  hello world ;"\
+                      "W     =  world        "))  
+                { mainHello() }
+             else usageHello()
+ }
+ function mainHello() {
+        print "hello " opt("W")
+ }        </pre>
+
+<h2>Author</h2>
+
+<p>Tim Menzies</p>
+

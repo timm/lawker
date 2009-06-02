@@ -1,0 +1,2 @@
+gawk '/^[ \t]*$/ { if (!Ready) { Ready=1; next } }
+      Ready      { print   } ' $1

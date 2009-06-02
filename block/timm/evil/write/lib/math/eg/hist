@@ -1,0 +1,2 @@
+cd ../../../.
+make Src=lib/math/hist.awk Begin="BEGIN { srand("$RANDOM"); histogramTest()}" test
