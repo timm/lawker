@@ -1,0 +1,79 @@
+<h1><join>Gawk for Mechanical Engineers</join></h1>
+<p>
+<em>(Editor's note:
+This page is adapted from David Leo's excellent <a href="http://www.tikmark.com/awkeng/awkscripts.html">mechanical engineering using Awk scripts</a>
+ website.)</em>
+<p>
+Here is yet another Awk library for engineering applications.
+Elsewhere, we have seen  an extensive
+ library of <a href="http://awk.info/?chem">chemical engineering scripts</a>. Here, David Leo applies Awk to numerous mechanical engineering tasks.
+Interestingly, the style of David's code
+is similar to that seen in the chemical engineering library; i.e.  lots of small scripts, each doing a different specific task.
+<h2>Library</h2>
+Shown below are lists  of David's scripts. This library is an interesting example of real-world Awk programming.
+<p>
+To learn more about these scripts, go to David's <a href="http://www.tikmark.com/awkeng/awkscripts.html">Awk scripts</a> site.
+At that site, you will find sample input/output files for all these scripts as well as mini-tutorials on the science behind
+each script.
+<h3>
+Heat Transfer Through a Multi-Layered Wall or Flat Plate
+</h3>
+<p>
+This <a href="http://www.tikmark.com/awkeng/laminplate/lamplate.awk">script</a> calculates the heat transfer through a flat wall or plate made up of several material layers and having convection heat transfer on both sides of the wall or plate.
+
+<h3>
+Heat Transfer From a House  
+</h3>
+<p>
+This <a href="http://www.tikmark.com/awkeng/homeheat/homeheat.awk">script</a> calculates the overall average heat transfer out of a house through a winter. It also calculates and compares oil heat to a geothermal heat pump.
+
+<h3>External Flat Plate Flow (Laminar-to-Turbulent HTC's)
+</h3>
+<p>
+This <a href="http://www.tikmark.com/awkeng/flatplate/flatplate.awk">script</a> calculates the convection heat transfer coefficient on the surface of a flat plate with fluid flowing over it. The boundary layer may transition from laminar to turbulent, as established by the critical Reynold's number (a user input value). 
+
+<h3>Heat Transfer Through The Wall a Multi-Layered Pipe, Tube or Duct
+</h3><p>
+This <a href="http://www.tikmark.com/awkeng/laminpipe/lampipe.awk">script</a> calculates the heat transfer through a pipe, tube or duct made up of several material layers and having convection heat transfer on both sides of the wall.
+
+<h3>
+Internal Forced Convection Coefficients in a Pipe, Tube or Duct
+</h3>
+<p>
+This <a href="http://www.tikmark.com/awkeng/internalpipe/internalpipe.awk">script</a> calculates the internal heat transfer coefficients for flow through an intenal passage (pipe, tube, duct). It includes an "entrance effect" where the coefficients are larger at the inlet, as the boundary layer builds up. It also includes the effects of fluid being heated or cooled, and uses a laminar boundary layer if the Reynold's number is below 2300. 
+
+<h3>External Forced Convection Coefficients on a Pipe, Tube or Duct
+</h3>
+<p>
+This <a href="http://www.tikmark.com/awkeng/externalpipe/externalpipe.awk">script</a> calculates the average heat transfer coefficient on the external wall of a pipe, with forced convection (fluid flowing across the pipe at some prescribed velocity).
+
+<h3>Impingement Jet Heat Transfer Coefficients</h2>
+<p><a href="http://www.tikmark.com/awkeng/impingement/impinge.awk">Script</a>.
+
+<h3>1DOF Vibrations</h2>
+<P>
+This <a href="http://www.tikmark.com/awkeng/1DOF/1DOFvibes.awk">script</a>  calculates the forced, damped response of a 1 degree of freedom mass & spring system. Input file, script file, sample output file
+<p>
+This is the classic textbook 1DOF response to an applied force of fixed magnitude and varying frequency. A crude bar chart is plotted for a quick visual check. 
+
+<h3>Beam Vibration Frequencies</h2>
+<p>
+This <a href="http://www.tikmark.com/awkeng/beamvibes/beamvibes.awk">script</a> calculates the first few natural frequencies of beams with common end conditions. It allows added distributed weight and a G-level for simulating static shock, and calculates the resulting peak deflection and peak stress. Input file, script file, sample output file
+
+<h3>Rotor Shaft Vibrations</h2>
+<p>
+This <a href="http://www.tikmark.com/awkeng/beamvibes/beamvibes.awk">script</a> calculates the first natural frequency of a uniform rotor shaft on resilient bearings. A distributed weight may be added. It also calculates the damped, forced response to a specified (oz-in) unbalance at the midspan of the shaft. Input file, script file, sample output file
+<p>
+The unbalance force is F = m*r*(RPM * pi / 30)<sup>2</sup>, which increases with speed. The m*r term is converted from the commonly specified oz-in to the correct units for the calculation. The response is calculated as a function of frequency ratio, using the classic textbook equation for a 1 degree of freedom system.
+<p>
+Critical frequencies are explicitly calculated as well.
+Finally, a crude bar chart is plotted for a quick visual check. 
+
+
+<h3>Basic Heat Exchanger Sizing</h2>
+<p>
+This <a href="http://www.tikmark.com/awkeng/heatxchngr/heatxchngr.awk">script</a> is a simple calculation of the heat transfer requirements for a heat exchanger. This is taken as U * A, where U = the overall heat transfer coefficient of the design, and A = the total heat transfer area between the two fluids.
+<p>
+The user can tweak any or all of the input variables until Qhot = Qcool. At that condition, the total heat lost by one fluid equals the total heat gained by the other fluid. This equality must be achieved (by user input variables) or the resulting answers will be incorrect. The script was written this way to allow the user infinite latitude for tweaking whatever variables desired. But the requirement that Qhot = Qcool must be met.
+
+

@@ -155,4 +155,7 @@ doc/mail.html				;Admin	;2009;	Apr;	Mail	;|Awk and Mail
 doc/spam.html				;StevenH	;2009;	Apr;	Mail	;|Spam Filtering
 doc/mailsort.html				;ArnoldR	;2009;	Apr;	Mail	;|Mail sort
 
-doc/chem.html		;EisaA	;2009	;June	;Science	;|Gawk for Chemical Engineers
+doc/eng.html		;Admin	;2009	;June	;Engineering	;|Awk for Engineering
+doc/chem.html		;EisaA	;2009	;June	;Engineering	;|Awk for Chemical Engineers
+doc/mecheng.html		;DavidL	;2009	;June	;Engineering	;|Awk for Mechanical Engineers
+
