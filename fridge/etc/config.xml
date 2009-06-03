@@ -957,7 +957,7 @@ pageTracker._trackPageview();
 		<what>Admin</what>
 	</file>
 	<file where="doc/jawk.html">
-		<title>Jawk</title>
+		<title>Jawk = Java + Awk</title>
 		<what>Awk100</what>
 		<what>May</what>
 		<what>2009</what>
