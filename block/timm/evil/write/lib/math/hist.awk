@@ -1,6 +1,6 @@
 #use chars.awk
 
-function histogram(a,title,\
+ function histogram(a,title,\
                    bin,width1,width2,width3,fs,char,nosort,\
 				   n,i,h,fmt,mini,maxi,max,mult,one) {
 	bin    = bin    ? bin  : 1
@@ -32,9 +32,9 @@ function histogram(a,title,\
 			printf(fmt,i*bin,h[i],chars(h[i]*mult,char))
 		else 
 			printf(fmt,i*bin,0,"")
-}
-function histogramTest(  n,a,i) {
+ }
+ function histogramTest(  n,a,i) {
 	n=1000
 	while(n--) a[++i]=rand() ^ 3
 	histogram(a,"random numbers",0.1)
-}
+ } 

@@ -6,6 +6,7 @@
 # /      _\    http://www.gnu.org/licenses/gpl.txt
 # `"""""`` jgs
 
+Author="Tim Menzies"
 Tmp  = $(HOME)/tmp#
 Work = $(HOME)/opt/evil#
 Here = $(HOME)/svns/lawker/block/timm#

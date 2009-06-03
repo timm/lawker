@@ -1,11 +1,3 @@
-#    ___         
-#  _/ oo\     An evil idea: 
-# ( \  -/__   the Evil options processor
-#  \    \__)  
-#  /     \    by Tim Menzies, (c) 2009, GPL 3.0 
-# /      _\   http://www.gnu.org/licenses/gpl.txt
-# `"""""``  jgs
-#
 #----------------------------------------
 #begin world's simplest options parser. 
 #Upper case flags have parameters

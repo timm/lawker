@@ -11,6 +11,7 @@ include $(Evilrc)
 
 Begin   = 
 Src     = $(Lib)/app/hello/hello.awk
+Stem    = $(subst .awk,,$(shell basename $(Src)))
 Awk     := $(shell which gawk)#
 Debug   := $(shell which pgawk) --dump-variables=$(Tmp)/vars.out#
 Profile := $(shell which pgawk) --profile=$(Tmp)/profile.out#  
@@ -41,6 +42,24 @@ awkPath :
 
 test : ready
 	 @$(Go) -f $(Com) --source '$(Begin)' -- $(Args)
+
+needs : 
+	@$(Uses) $(Src) | $(Awk) -f $(Base)/tac.awk
+
+buildforce : unbuild build
+
+unbuild :
+	@if [ -f $(Run)/$(Stem) ]; then rm $(Run)/$(Stem); fi
+
+build : ready $(Run)/$(Stem)
+
+$(Run)/$(Stem) : $(shell $(Uses) $(Src))
+	@(echo "#!$(Awk) -f "; \
+      $(Base)/header $(Stem) "$(Author)" ; \
+      gawk -f $(Base)/comment.awk $?  \
+     ) > $@
+	@chmod +x $@
+	@ls -lsa $@
 
 weaves : ready $(Src) 
 	echo $(shell $(Uses) $(Src))

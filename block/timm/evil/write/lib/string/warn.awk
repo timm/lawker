@@ -1,3 +1,3 @@
-function warn(str) {
+ function warn(str) {
 	print str >"/dev/stderr"
-}
+ }

@@ -13,18 +13,18 @@ Hello world
 Synopsis
 -------- 
 
-  hello [-ach][-W who]    
+  hello [-ach][-P who]    
 
 Description
 ----------- 
 
-Hello.awk is the simplest known Evil program. It prints out
+Hello.awk  is the simplest known Evil program. It prints out
 "hello Who" where "Who" can can be specified from the command line.
 
 Usage
 -----
 
-+ -W who   :Sets the "Who" inside "hello Who". Without this flag the 
++ -P who   :Sets the "Who" inside "hello Who". Without this flag the 
             default "who" is "world"
 + -a       :Prints a short "about" string for this program.
 + -c       :Prints the (long) copyright notice for this program.
@@ -35,25 +35,25 @@ Code
 
  function usageHello() {
         about()        
-        prints("Usage: hello [-W] ",
+        prints("Usage: hello [-P] ",
         " ",
-        " -W string    who we shall greet. W='"opt("W")"'.",
+        " -P string    who we shall greet. P='"opt("P")"'.",
         " -a           Show about notice (short).",
         " -c           Show copyright notice (long).",
         " -h           Help." )
  } 
  BEGIN {
-            if (ok2go(Opt,
+			if (ok2go(Opt,
                       "What  =  hello v0.1  ;"\
                       "When  =  2009        ;"\
                       "Who   =  Tim Menzies ;"\
                       "Why   =  hello world ;"\
-                      "W     =  world        "))  
+                      "P     =  world        "))  
                 { mainHello() }
              else usageHello()
  }
  function mainHello() {
-        print "hello " opt("W")
+        print "hello " opt("P")
  }        
 
 Author

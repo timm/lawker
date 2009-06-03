@@ -1,3 +1,1 @@
-function array(a) {
-	split("",a,"")
-}
+ function array(a) { split("",a,"") }

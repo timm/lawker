@@ -1,5 +1,5 @@
-function trim(s) {
+ function trim(s) {
 	sub(/^[ \t]*/,"",s)
 	sub(/[ \t]*$/,"",s)
 	return s
-}
+ } 

@@ -19,28 +19,28 @@
 # -f     = print file name
 
  BEGIN	{ options("R,.,p,,i,,u,,f,,S,1",Opt) }
-        { xpand(opt("S"))  }
- END    { if (opt("f")) print FILENAME }
+        { xpand(1,opt("S"))  }
+ END    { if (opt("f")) print "   " FILENAME }
 
- function xpand(skippingPara1, skipped,i) {
+ function xpand(n,skippingPara1, skipped,i) {
 	if (opt("i") && ($1 ~ "^#SHOW"))  
-		xpands($2) 
+		xpands(n+1,$2) 
 	else if (opt("i") && ($1 ~ "^#show"))  
-		xpands($2,opt("S"))
+		xpands(n+1,$2,opt("S"))
 	else if (opt("i") && ($1 ~ "^#list"))  {
 		print "<PRE>"
-		xpands($2)
+		xpands(n+1,$2)
 		print "</PRE>"                 
       }
 	else if (opt("u") && ($1 ~ "^#use"))  
-		xpands($2)
+		xpands(n+1,$2)
 	else if (opt("p"))  {
 	 	  if  (skippingPara1) {
 				if (skipped) print $0
 		  } else print $0 
 	   } 
  }
- function xpands(f,skippingPara1,  skipped, missing) {
+ function xpands(n,f,skippingPara1,  skipped, missing) {
 	gsub(/"/,"",f)
 	if (newFile(f,Seen)) {
 		f = opt("R") "/" f
@@ -50,14 +50,15 @@
 			missing = 0 
 			if (!skipped && ($0 ~ /^[\t ]*$/))
 				skipped = 1
-			xpand(skippingPara1,skipped) 
+			xpand(n+1,skippingPara1,skipped) 
 		}
 		close(f) 
 		if (missing)
 			warn("?? [" Stack[Stack[0]-1] \
                   "] references missing file [" f \
                   "].")
-	    else  { if (opt("f")) print f }
+	    else  { if (opt("f")) 
+                     print chars(n*3," ") f }
 		Stack[0]--
 	}
  }
@@ -65,10 +66,11 @@
  function opt(x) {
 	return (x in Opt) ? Opt[x] : warn("option ["x"] unknown")
  }
- function newFile(f,seen) { return (++seen[f])==1 }
- function saya(str,a,  i) { for(i in a) print str "[" i "]="  a[i]}
- function barph(s)        { warn(s); exit }
- function warn(s)         { print s >"/dev/stderr"; return 0 } 
+ function newFile(f,seen)  { return (++seen[f])==1 }
+ function chars(n,c,  str) { while((n--)> 0) str=str c ; return str }
+ function saya(str,a,  i)  { for(i in a) print str "[" i "]="  a[i]}
+ function barph(s)         { warn(s); exit }
+ function warn(s)          { print s >"/dev/stderr"; return 0 } 
  function s2a(str,a, tmp,i,n) {
 	n=split(str,tmp,/,/)
 	for(i=1;i<=n;i += 2) a[tmp[i]]=tmp[i+1]
