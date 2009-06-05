@@ -70,6 +70,7 @@ entry is a file describing a project of the GanttProject application.
 There is only a tag name for the root element specified, a DTD
 does not seem to exist.
 
+<small>
 <pre>     data/dbfile.xml
        version    ''
        encoding   ''
@@ -97,7 +98,7 @@ does not seem to exist.
        system id  ''
        intsubset  ''
 </pre>
-
+</small>
    <p>You may wish to make changes to this script if you need it in
 daily work. For example, the script currently reports nothing
 for files which have no DTD declaration in them. You can easily
@@ -109,7 +110,7 @@ top, before the root element. Parsing the root element is
 unnecessary and you can improve the speed of the script significantly
 if you tell it to stop parsing when the first element (the root
 element) comes in.
-<pre>     <tt> XMLSTARTELEM { nextfile } </tt>
+<pre>  XMLSTARTELEM { nextfile } 
 </pre>
 <h3>Author</h3>
 <p>Jurgen Kahrs 
