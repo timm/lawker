@@ -1080,6 +1080,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JurgenK</what>
 	</file>
+	<file where="doc/dtd.html">
+		<title>XML: Dealing with DTDs</title>
+		<what>XML</what>
+		<what>June</what>
+		<what>2009</what>
+		<what>JurgenK</what>
+	</file>
 	<file where="doc/xgawk/outline.html">
 		<title>XML: printing an outline</title>
 		<what>Xgawk</what>

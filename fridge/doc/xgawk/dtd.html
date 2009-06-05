@@ -1,0 +1,126 @@
+<h1><join>Dealing with DTDs</join></h2>
+
+<p><em>(This page comes from the <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/xmlgawk.html">XML Gawk</a> tutorial.)</em>
+<p>The declaration of a document
+type in the header of an XML file is an optional part of the data,
+not a mandatory one. If such a declaration is present,
+the reference to the DTD will not be
+resolved and its contents will not be parsed. However, the presence
+of the declaration will be reported by <tt>gawk</tt>. When the declaration
+starts, the variable <tt>XMLSTARTDOCT</tt> contains the name of the
+root element's tag; and later, when the declaration ends, the variable
+
+<tt>XMLENDDOCT</tt> is set to 1. In between, the array variable <tt>XMLATTR</tt>
+<a name="index-g_t_0040code_007bXMLATTR_007d-76"></a><a name="index-g_t_0040code_007bXMLATTR_005b_0022VERSION_0022_005d_007d-77"></a><a name="index-g_t_0040code_007bXMLATTR_005b_0022ENCODING_0022_005d_007d-78"></a><a name="index-g_t_0040code_007bXMLATTR_005b_0022STANDALONE_0022_005d_007d-79"></a><a name="index-g_t_0040code_007bXMLATTR_005b_0022PUBLIC_0022_005d_007d-80"></a><a name="index-g_t_0040code_007bXMLATTR_005b_0022SYSTEM_0022_005d_007d-81"></a><a name="index-g_t_0040code_007bXMLATTR_005b_0022INTERNAL_005fSUBSET_0022_005d_007d-82"></a>will be populated with the values of the public identifier
+of the DTD (if any) and the value of the system's identifier of the DTD
+(if any). Other parts of the declaration (elements, attributes and entities)
+will not be reported.
+
+<pre>     @load xml
+     XMLDECLARATION {
+       version    = XMLATTR["VERSION"        ]
+       encoding   = XMLATTR["ENCODING"       ]
+       standalone = XMLATTR["STANDALONE"     ]
+     }
+     XMLSTARTDOCT {
+       root       = XMLSTARTDOCT
+       pub_id     = XMLATTR["PUBLIC"         ]
+       sys_id     = XMLATTR["SYSTEM"         ]
+       intsubset  = XMLATTR["INTERNAL_SUBSET"]
+     }
+     XMLENDDOCT {
+       print FILENAME
+       print "  version    '" version    "'"
+       print "  encoding   '" encoding   "'"
+       print "  standalone '" standalone "'"
+       print "  root   id '" root   "'"
+       print "  public id '" pub_id "'"
+       print "  system id '" sys_id "'"
+       print "  intsubset '" intsubset "'"
+       print ""
+       version = encoding = standalone = ""
+       root = pub_id = sys_id = intsubset ""
+     }
+</pre>
+
+   <p>Most users can safely ignore these variables if they are only
+interested in the data itself. But some users may take advantage
+of these variables for checking requirements of the XML data. 
+If your data base consists of thousands of XML file of diverse
+origins, the public identifier of their DTDs will help you gain
+an oversight over the kind of data you have to handle and over
+potential version conflicts. The script shown above
+will assist you in analyzing your data files. It searches for the
+variables mentioned above and evaluates their content. At the
+start of the DTD, the tag name of the root element is stored; the
+identifiers are also stored and finally, those values are printed
+along with the name of the file which was analyzed. After each DTD,
+the remembered values are set to an empty string until the DTD of
+the next file arrives.
+
+   <p>In the following, you can see an example output of
+the script shown above. Obviously, the first
+entry is a DocBook file (English version 4.2) containing a
+<tt>book</tt> element which has to be validated against a local
+copy of the DTD at CERN in Switzerland. The second file is a
+
+<tt>chapter</tt> element of DocBook (English version 4.1.2) to
+be validated against a DTD on the Internet. Finally, the third
+entry is a file describing a project of the GanttProject application. 
+There is only a tag name for the root element specified, a DTD
+does not seem to exist.
+
+<pre>     data/dbfile.xml
+       version    ''
+       encoding   ''
+       standalone ''
+       root   id  'book'
+       public id  '-//OASIS//DTD DocBook XML V4.2//EN'
+       system id  '/afs/cern.ch/sw/XML/XMLBIN/share/www.oasis-open.org/docbook/xmldtd-4.2/docbookx.dtd'
+       intsubset  ''
+     
+     data/docbook_chapter.xml
+       version    ''
+       encoding   ''
+       standalone ''
+       root   id  'chapter'
+       public id  '-//OASIS//DTD DocBook XML V4.1.2//EN'
+       system id  'http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd'
+       intsubset  ''
+     
+     data/exampleGantt.gan
+       version    '1.0'
+       encoding   'UTF-8'
+       standalone ''
+       root   id  'ganttproject.sourceforge.net'
+       public id  ''
+       system id  ''
+       intsubset  ''
+</pre>
+
+   <p>You may wish to make changes to this script if you need it in
+daily work. For example, the script currently reports nothing
+for files which have no DTD declaration in them. You can easily
+change this by appending an action for the <tt>END</tt> rule which
+reports in case all the variables <tt>root</tt>, <tt>pub_id</tt>
+and <tt>sys_id</tt> are empty. As it is, the script parses the
+entire XML file, although the DTD is always positioned at the
+top, before the root element. Parsing the root element is
+unnecessary and you can improve the speed of the script significantly
+if you tell it to stop parsing when the first element (the root
+element) comes in.
+<pre>     <tt> XMLSTARTELEM { nextfile } </tt>
+</pre>
+<h3>Author</h3>
+<p>Jurgen Kahrs 
+<h3>Copyright</h3>
+<p>
+Copyright (C) 2000, 2001, 2002, 2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+<p>
+Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with the Invariant Sections being ?GNU General Public License?, the Front-Cover texts being (1) (see below), and with the Back-Cover Texts being (2) (see below). 
+<ul>
+<li>
+   A GNU Manual
+<li>
+   You have freedom to copy and modify this GNU Manual, like GNU software. Copies published by the Free Software Foundation raise funds for GNU development. 
+</ul>
