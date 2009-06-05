@@ -134,7 +134,7 @@ doc/awk100/002baseballsim.html	;Ronl	;2009	;Jan	;Awk100	;Baseballsim	;|Basebase 
 doc/awk100/001argcol.html		;Ronl	;2009	;Jan	;Awk100	;Argcol	;|Argcol
 
 doc/xgawk/wellformed.html     ;JurgenK	;2009    ;May    ;XML ;Xgawk ;|XML: Checking for Well-Formednes 
-doc/dtd.html               ;JurgenK   ; 2009   ;June    ;XML        ;|XML: Dealing with DTDs
+doc/xgawk/dtd.html               ;JurgenK   ; 2009   ;June    ;XML        ;|XML: Dealing with DTDs
 doc/xgawk/outline.html     ;JurgenK	;2009    ;May    ;XML ;Xgawk ;|XML: printing an outline
 doc/xgawk/pulling.html     ;JurgenK	;2009    ;May    ;XML ;Xgawk ;|XML: pulling out data
 doc/dumpxml.html               ;MarkB   ; 2009   ;May    ;XML        ;|XML: Display components 
