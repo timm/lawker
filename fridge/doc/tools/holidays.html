@@ -1,0 +1,239 @@
+<h1><join>holidays.awk</join></h1>
+
+<h2>Synopsis</h2>
+<pre>
+[gn]awk -f holidays.awk  "opts" holidayfile"
+</pre>
+
+<H2> Download</H2>
+<P> Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/holiday/">LAWKER</a>.
+<h2>Description</h2>
+<p>Job scheduling around holidays has always been a pain.  To prevent messing around with crons several times a year, I used to place a "holidays" file in, for example, /usr/local/bin.  The file contained the holiday date in yyyymmdd format, followed by the holiday name.  (See Dateplus  program for easy date manipulation.)  That worked, but every year I had to refresh the file with those dates that fall on, for example, the last Monday in May.  This meant remembering to edit the holidays file after the company calendar was set for the year.  
+<p>Then, I came across the American Secular Holidays web site by Marcos J. Montes. 
+<p>Montes cites Claus Tondering as his primary source, and Timothy Barmann, and Bobby Cossum for their contributions in simplifying the equations used in the alorithms.  This is significant for these algorithms provide a robust yet elegant method for identifying whether a given date is a holiday without constantly updating a configuration file. 
+<p>
+To make these algorithms and routines as portable as possible (as long as the porting OS has nawk or gawk), I rewrote the whole thing in [gn]awk.  Now practically any program with access to AWK can avail itself of these holiday date capabilities.  The AWK version of the program can return the nth business day, a multi-line yyyymmdd date list, or a single line of yyyymmdd holiday dates.  With those, you can easily determine whether the date you have is a holiday or specific business day. 
+<p>
+In the following code, none of my holiday work is possible without
+the algorithms presented by Montes, Tondering, Barmann, and Cossum.
+The holidays file  and the logic to process that, are my contributions.
+
+<h2>Options</h2>
+<dl>
+<dt> --           </dt><dd>Allows passing script opts and args.  </dd>
+                 -B           </dt><dd> Return true if today is a business    
+                                day.                                  </dd>
+<dt>                 -b nn        </dt><dd> Return nn business day as yyyymmdd    
+                                (nn may also be specified as "last"   
+                                for that business day of the month,   
+                                or -n (minus n) for nth business day  
+                                from end of the month).               </dd>
+<dt>                 -d n.Www.OoA </dt><dd> Return nth weekday (Www = Sun-Sat,    
+                                and "n" may also be given as "last"   
+                                for the last "Www" day of the month). </dd>
+<dt>                 -d n.w.OoA   </dt><dd> Alternate suntax for the above only   
+                                the ".w" is 0-6 for Sun-Sat.  The     
+                                ".OoA" is an optional on-or-after     
+                                day of the month that says the date   
+                                want must be on or after the OoA'th   
+                                day of the month.                     </dd>
+<dt>                 -H           </dt><dd> Full formal documentation (functions  
+                                only when the current working         
+                                directory is the program directory).  </dd>
+<dt>                 -h           </dt><dd> Summary help (Usage).          </dd>       
+<dt>                 -l           </dt><dd> Return multiline yyyymmdd date list.  </dd>
+<dt>                 -s           </dt><dd> Return a single line of yyyymmdd's.   </dd>
+<dt>                 -t           </dt><dd> Test resultant date against today     
+                                (works with -b and -d options).      </dd>
+<dt>                 -y yyyy      </dt><dd> Use yyyy for the year.        </dd>        
+<dt>                 -m mm        </dt><dd> Use the mm that follows as the month  
+                                (for business day calculations).      </dd>
+<dt>               holidayfile    </dt><dd> Calculation directives file (neither  
+                                used nor needed with "-d" option).    
+                                The file lays out as follows.    </dd>
+</dl>
+<H2>The Holidays File</h3>
+<p> 
+Although second to the algorithms, the holidays file is central to this system. The file's directives allow for the handling of, for example, the Friday after U.S. Thanksgiving Day (Thursday).  For those organizations and companies that grant a Friday holiday when a day like Christmas or New Year's Day falls on a Saturday, or give a Monday holiday when those holidays fall on a Sunday, the holidays file provides the necessary vehicle.
+<p>
+After a brief description of holidays file layout, I'll discuss the the file itself, and see how three holidays are handled: Memorial Day, Thanksgiving Day (including the Friday after), and Christmas.
+<p>
+The file itself is a simple ASCII file available to to all programs.  It contains values that allow the calling program to calculate holidays either by given (fixed) month and day, or by day of a given week.  The general layout is as follows:
+<pre>
+  # Mm N.Day Adj Holiday name # Comments
+
+    Mm           = Month number (leading zeros NOT required)
+    N.day        = Nth day (1-5 and "last") "." weekday (0-6)
+                   (Not every part is required.)
+    Adj          = Can be either a +|- n days,
+                   or weekday followed immediately by a +|- n days,
+    Holiday name = How you want it spelled out--your call.
+    Comments     = ignored.
+</pre>
+<p>
+Leading white space is ignored, as is everything following and including the octothorpe (#-sign). Here are the entries for the three holidays:
+<pre>
+  #-----------------------------------------------------------------------#
+  # Mm N.Day.OnOrA Adj Holiday name                     # Comments        #
+  # -- ----------- --- -------------------------------- ----------------- #
+    05 last.1          Memorial Day                     # Last Mon in May
+    11 4.4             Thanksgiving Day (US)            # 4th Thu in Nov
+    11 4.4          +1 Thanksgiving Day II (US)
+    12 25              Christmas Day                    # M-F
+    12 25          6-1 Christmas Day (pre-holiday obs)  # Sat?  Use Fri
+    12 25          0+1 Christmas Day (post-holiday obs) # Sun?  Use Mon
+</pre>
+<h3>
+Memorial Day</h3>
+<p> 
+Memorial Day is the last Monday in May.  In the table the month is "05" (again, leading zero is unnecessary).  The last Monday is specified by the word "last" and not a 5 because the last Monday may not be the 5th Monday (there is no 5th Monday in May, 2003).  Monday is identified by the 1 following the dot (".1").  This is based on the 0-6 convention for representing Sunday through Saturday.
+<h3>
+Thanksgiving Day </h3>
+<p>
+Thanksgiving Day (U.S. observance) is the forth Thursday in November.  November is identified by the "11".  The fourth (nth) day is the first "4".  Thursday is the ".4".  Same method as was used for Memorial Day.  The day after Thanksgiving, Friday, is a little tricky.
+<h3>
+Friday After Thanksgiving [Thurs]Day </h3>
+<p>
+Contrary to what you might think, you cannot specify:
+<pre>
+  11 4.5 Thanksgiving Day II (Friday)
+</pre>
+<p>
+since the fourth Friday might not follow the fourth Thursday of a given month.  Consider Thanksgiving Day, 2002--the fourth Thursday was November 28.  The fourth Friday fell on the 22nd.  So, to accurately capture the Friday after Thanksgiving Day, specify the same parameters for Thanksgiving, and an adjustment of +1:
+<Pre>
+  11 4.5 +1 Thanksgiving Day II (Friday)
+</pre>
+<h3>Christmas </h3>
+Christmas is December 25.  Like New Year's Day (January 1) and Independence Day (July 4), Christmas is a fixed date.  Simply specifying  "12 25 Christmas Day"  in the holidays file returns "yyyy1225".  However, with many companies, if Christmas falls on a Saturday (day 6), the Friday before is observed by adjusting it by -1.  If it falls on a Sunday (day 0), the Monday following is observed by adjusting it by +1.  Hence, the three entries:
+<pre>
+  12 25     Christmas Day                     # M-F
+  12 25 6-1 Christmas Day (pre-holiday obs)   # Sat? Use Fri
+  12 25 0+1 Christmas Day (post-holiday obs)  # Sun? Use Mon
+</pre>
+<h3>
+New Year's Day
+</h3>
+<p> 
+New Year's Day is a fixed date, January 1, and like Christmas and Independence Day, it can be observed on the Friday before a Saturday occurrence or the Monday after a Sunday occurrence simply by setting it up like the Christmas example above.  However, some organizations use a post-holiday observance of New Year's Day when it falls on a Saturday simply so the holiday falls in the correct year.  You can do that by specifying New Year's Day as follows:
+<pre>
+  01 01     New Year's Day                    # M-F
+  01 01 6+2 New Year's Day (post-holiday obs) # Sat? Use Mon
+  01 01 0+1 New Year's Day (post-holiday obs) # Sun? Also Mon
+</pre>
+<p>
+Remember, the  "6"  in our  "6+2"  means the actual date, January 1st, falls on a Saturday (day 6 in the 0-6 day-numbering schema), so adjust that date by +2 days (i.e. Saturday's date (01/01) plus two days (01/03).
+<h3>
+Daylight Savings Time </h3>
+<p>
+While the program is incapable of handling Daylight Savings dates in Iran where DST starts on the first day of Farvardin and ends the first day of Mehr, holidays.awk (v1.22) is capable of handling at least one set of unique Daylight Savings Time (DST) dates.  In the Falkland Islands, DST begins on the first Sunday on or after September 8th and ends on the first Sunday on or after April 6th.  Those exceptions (starting on or after a date in the month) are handled by specifying a holidays line like this:
+<pre>
+  04 1.0.6 Falklands ST  # 1st Sun on/after Apr 6
+  09 1.0.8 Falklands DST # 1st Sun on/after Sep 8
+</pre>
+<p>
+The  ".6"  in our  "1.0.6"  means Standard Time (ST) begins on the first Sunday (1.0) in April that falls on or after the 6th of April. Likewise, the  ".8"  in our  "1.0.8"  means DST begins on the first Sunday in September that comes on or after the 8th of September.
+<p>
+Since Daylight Savings dates are not usually holidays, you can also retrieve the Daylight Savings Time dates via the  -d option and bypass the need for the holidays file altogether.  Here are Daylight Savings Times for the United States (begins the second Sunday in March) and the Faulklands (begins on the first Sunday on/after September 8).
+<pre>
+  holidays.awk -- -d 2.0   -m 3
+  holidays.awk -- -d 1.0.8 -m 9
+</pre>
+<p>You can even set up a cron to test for Daylight Savings Time and perform some action if true.
+<pre>
+  05 00 * 03 * [ `/usr/local/bin/holidays.awk -- -d 2.0 -m 3 -t` -eq 1 ] \
+    && ... Some action ...
+</pre>
+
+<h2>Examples</h2>
+<h3>Calculating Business Days </h3>
+<p>
+I incorporated the business day calculation into my date routines because of a need to run a given process on the second business day of the month.  Once the holidays are known, business day calculation is relatively simple--just grab the month's days and remove holidays, Saturdays and Sundays.  For example, to provide the second business day, just pass a  "-b 2"  option to the program:
+<pre>
+   bizday=`nawk -f holidays.awk -- -b 2 holidays`
+   if [ `date "+%Y%m%d"` = $bizday ]; then
+      echo "Today is the 2nd business day of the month."
+      # Do whatever
+   fi
+</pre>
+<p>
+Last business day and business day offset from the last business day (negative numbers) is also available in holidays.awk.  To retrieve the last business day of the month, specify the "last" option argument (optarg) for -b option (i.e., "-b last").  For the next-to-last business day of the month, provide "-b -1" as an option and optarg.
+<p>
+Holidays.awk is a well-behaved program in that it uses exit status to indicate success or failure.  As indicated in the documentation, all options except business day (-b), returning a zero status means the program completed successfully; non-zero indicates failure.  However, with the business day option, non-zero indicates success because it is the day of the month on which the business day falls.  Therefore, use the holidays.awk the exit status as the test comparand:
+<pre>
+   nawk -f holidays.awk -- -b last holidays > /dev/null 2>&1
+
+   if [ $? -eq `date +%d` ]; then
+      echo "Today is the last business day of the month."
+      # Do whatever
+   fi
+</pre>
+<p>
+You can also combine -b with -m and -y to return the nth business day for a given month and year.  If you request a business day (positive or negative) that is not found in the month, you receive an error message, and a 0 exit status indicating an error.
+<p>
+For those needing only an indication that today is a given business day, you can use the -t option in conjunction with -b.  For example, using Unix cron (scheduler) we combine those options to set up a job to run only on the second business day of the month with as little as the following:
+<pre>
+    00 02 2-5 * * /usr/local/bin/holidays.awk -- -b 2 -t \
+      || some_program > some_program.out 2>&1
+ </pre><p> 
+
+In this example, no holidays file is specified because we use the default, /usr/local/bin/holidays (you can change the program to point to wherever you wish to locate the file).  No nawk -f is used because the first line of holidays.awk uses the shebang syntax (#!/usr/bin/nawk -f) to execute itself.  (Obviously, the program must have the necessary execution permissions to run this way.)  With the -t option, holidays.awk returns true or false (which is not the same as success or failure), only running the called program if the day is, indeed, the second business day of the month.
+
+<h3>Returning The Nth Weekday </h3>
+<p>There appears to be as much interest in determining the nth weekday day as there is in business days, so I added an option to holidays.awk to return that.  To get the first Monday in the current month, simply pass a  "-d 1.Mon"  option to the program:
+<pre>
+   fst_monday=`nawk -f holidays.awk -- -d 1.Mon`
+</pre>
+<p>An alternative syntax is also provided: 
+<pre>
+nawk -f holidays.awk -- -d 1.1
+</pre>
+
+<P>
+You can expand this to report the first Monday in any month and year like this.
+<pre>
+   yyyy=2005
+   for mm in 1 2 3 4 5 6 7 8 9 10 11 12
+   do
+      nawk -f holidays.awk -- -y $yyyy -m $mm -d 1.1
+   done
+
+</pre>
+<P>
+For the last Sunday in a month use 
+<pre>
+   nawk -f holidays.awk -- -d last.Sun
+</pre>
+<p>
+For those preferring a simpler syntax: If your OS recognizes the  #!  (shebang) syntax, you can place a  #!/usr/bin/nawk -f  (or gawk) at the start of holidays.awk, thereby allowing you skip the  [gn]awk -f  during invocation and simply call it like this,
+<pre>
+   holidays.awk -- -d last.Sun
+   holidays.awk -- -d last.0
+   holidays.awk -- -d 5.0
+</pre>
+
+<h2>Testing with Holidays.sh</h2> 
+<p><a href="http://lawker.googlecode.com/svn/fridge/lib/awk/holiday/holiday.sh">Holidays.sh</a>
+executes holidays.awk, providing examples of holiday and business day testing.  Provided the holidays file is located properly, executing  holidays.sh  on June 21, 2003 displays:
+<pre>
+   Today's no holiday, get busy. :-((
+   20030101 Wed. New Year's Day
+   20030120 Mon. M.L.King Jr. Birthday
+   20030526 Mon. Memorial Day
+   20030704 Fri. Independence Day
+   20030901 Mon. Labor Day
+   20031127 Thu. Thanksgiving Day (US)
+   20031128 Fri. Thanksgiving Day II (US)
+   20031225 Thu. Christmas Day
+   Today is NOT the 2nd business day (20030603) of the month.
+   Today is NOT the last business day (20030630) of the month.
+   Today is NOT the next-to-the-last business day (20030627) of the month.
+</pre>
+<p>
+As a real acid test, I include the next-to-last and last business days of every month from 2000 to 2010.  The  holidays.sh  script concludes with a report for all holidays for the 21st century. 
+
+<h2>For more information</h2>
+See <a href="http://www.orlandokuntao.com/mf_dateplus.html">http://www.orlandokuntao.com/mf_dateplus.html</a>.
+<h2>Author</h2>
+<p>
+ Bob Orlando

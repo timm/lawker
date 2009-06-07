@@ -963,6 +963,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Steffen</what>
 	</file>
+	<file where="doc/tools/holidays.html">
+		<title>Holiday date routines</title>
+		<what>Dates</what>
+		<what>June</what>
+		<what>2009</what>
+		<what>BobO</what>
+	</file>
 	<file where="doc/tools/nbc.html">
 		<title>Naive Bayes Classifier</title>
 		<what>DataMining</what>
