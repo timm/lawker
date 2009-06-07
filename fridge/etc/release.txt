@@ -22,6 +22,7 @@ code testing: kernighan
 	- http://www.cs.princeton.edu/~bwk/testing.html
 	- my bunit
 
+tawk
 
 -tips: getting shell variables into awk. 
 	- config file	
@@ -51,7 +52,6 @@ http://www.stumbleupon.com/redirect.php?t=i&u=13309825&d=http%3A%2F%2Fsourceforg
 
 -------------------------------------------------------------------------------
 June 1: 111111111111111111
-awk100: plait command line jukebox: http://stephenjungels.com/jungels.net/projects/plait/
 new section: awk for databases
 	qawk
   	http://victor-notes.com/qppro/awk.html
