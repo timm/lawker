@@ -7,11 +7,11 @@
 
 <H2> Download</H2>
 <P> Download from
-<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/holiday/">LAWKER</a>.
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/holidays/">LAWKER</a>.
 <h2>Description</h2>
 <p>Job scheduling around holidays has always been a pain.  To prevent messing around with crons several times a year, I used to place a "holidays" file in, for example, /usr/local/bin.  The file contained the holiday date in yyyymmdd format, followed by the holiday name.  (See Dateplus  program for easy date manipulation.)  That worked, but every year I had to refresh the file with those dates that fall on, for example, the last Monday in May.  This meant remembering to edit the holidays file after the company calendar was set for the year.  
 <p>Then, I came across the American Secular Holidays web site by Marcos J. Montes. 
-<p>Montes cites Claus Tondering as his primary source, and Timothy Barmann, and Bobby Cossum for their contributions in simplifying the equations used in the alorithms.  This is significant for these algorithms provide a robust yet elegant method for identifying whether a given date is a holiday without constantly updating a configuration file. 
+Montes cites Claus Tondering as his primary source, and Timothy Barmann, and Bobby Cossum for their contributions in simplifying the equations used in the alorithms.  This is significant for these algorithms provide a robust yet elegant method for identifying whether a given date is a holiday without constantly updating a configuration file. 
 <p>
 To make these algorithms and routines as portable as possible (as long as the porting OS has nawk or gawk), I rewrote the whole thing in [gn]awk.  Now practically any program with access to AWK can avail itself of these holiday date capabilities.  The AWK version of the program can return the nth business day, a multi-line yyyymmdd date list, or a single line of yyyymmdd holiday dates.  With those, you can easily determine whether the date you have is a holiday or specific business day. 
 <p>
@@ -105,7 +105,7 @@ since the fourth Friday might not follow the fourth Thursday of a given month.  
   11 4.5 +1 Thanksgiving Day II (Friday)
 </pre>
 <h3>Christmas </h3>
-Christmas is December 25.  Like New Year's Day (January 1) and Independence Day (July 4), Christmas is a fixed date.  Simply specifying  "12 25 Christmas Day"  in the holidays file returns "yyyy1225".  However, with many companies, if Christmas falls on a Saturday (day 6), the Friday before is observed by adjusting it by -1.  If it falls on a Sunday (day 0), the Monday following is observed by adjusting it by +1.  Hence, the three entries:
+<p>Christmas is December 25.  Like New Year's Day (January 1) and Independence Day (July 4), Christmas is a fixed date.  Simply specifying  "12 25 Christmas Day"  in the holidays file returns "yyyy1225".  However, with many companies, if Christmas falls on a Saturday (day 6), the Friday before is observed by adjusting it by -1.  If it falls on a Sunday (day 0), the Monday following is observed by adjusting it by +1.  Hence, the three entries:
 <pre>
   12 25     Christmas Day                     # M-F
   12 25 6-1 Christmas Day (pre-holiday obs)   # Sat? Use Fri
@@ -234,6 +234,29 @@ As a real acid test, I include the next-to-last and last business days of every 
 
 <h2>For more information</h2>
 See <a href="http://www.orlandokuntao.com/mf_dateplus.html">http://www.orlandokuntao.com/mf_dateplus.html</a>.
+<h2>Copyright</h2>
+<p>
+ Copyright (c) 1995-2005 by Bob Orlando.  All rights reserved.      
+  <p>                                                                    
+   Permission to use, copy, modify and distribute this software       
+   and its documentation for any purpose and without fee is hereby    
+   granted, provided that the above copyright notice appear in all    
+   copies, and that both the copyright notice and this permission     
+   notice appear in supporting documentation, and that the name of    
+   Bob Orlando not be used in advertising or publicity pertaining     
+   to distribution of the software without specific, written prior    
+   permission.  Bob Orlando makes no representations about the        
+   suitability of this software for any purpose.  It is provided      
+   "as is" without express or implied warranty.                       
+     <p>                                                                 
+   Bob Orlando disclaims all warranties with regard to this           
+   software, including all implied warranties of merchantability      
+   and fitness.  In no event shall Bob Orlando be liable for any      
+   special, indirect or consequential damages or any damages          
+   whatsoever resulting from loss of use, data or profits, whether    
+   in an action of contract, negligence or other tortious action,     
+   arising out of or in connection with the use or performance of     
+   this software.                               
 <h2>Author</h2>
 <p>
  Bob Orlando
