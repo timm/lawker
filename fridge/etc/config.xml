@@ -819,6 +819,16 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
+	<file where="doc/tools/plait.html">
+		<title>Playing music</title>
+		<what>Awk100</what>
+		<what></what>
+		<what>Music</what>
+		<what>Tools</what>
+		<what>June</what>
+		<what>2009</what>
+		<what>StephenJ</what>
+	</file>
 	<file where="doc/tools/shuffle.html">
 		<title>Shuffle.awk</title>
 		<what>TenLiners</what>

@@ -1,0 +1,74 @@
+<h1><join>Plaiter: a music player</join></h1>
+
+
+
+<h2>
+Synopsis</h2>
+<pre>
+plaiter [options] [file, playlist, directory or stream ...]"
+</pre>
+<h2>Download</h2>
+<P>Download from 
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/plait">LAWKER</a>
+or, for the latest version, from 
+<a href="http://sourceforge.net/projects/plait/">SourceForge</a>
+<h2>Description</h2>
+
+
+<p>
+Plaiter (pronounced "player") is a command line front end to command
+line music players.  It uses shell scripting to try to create the
+command line music player that Plait would have used if it already
+existed.  It complements Plait but is also quite useful on its own,
+especially if you already use mpg123 or similar programs and find
+yourself wanting more features.
+<p>
+What does Plaiter do that (say) mpg123 can't already?  It queues tracks,
+first of all.  Secondly, it understands commands like play, plause,
+stop, next and prev.  Finally, unlike most of the command line music
+players out there, Plaiter can handle a play list with more than one
+type of audio file, selecting the proper helper app to handle each
+type of file you throw at it.
+<p>
+Plaiter will automatically configure itself to use ogg123, mpg123,
+and/or mpg321, if they are installed on your system.  If you have a
+helper application that plays other types of audio, Plaiter can be
+configured to use it as well.
+<p>
+Like many of us, Plaiter is part daemon and part controller.  The
+controller builds a play list from the files you provide on the
+command line and forwards commands to the daemon.  The daemon reads
+commands and executes them by running helper applications.
+
+
+
+<h2>Options</h2>
+<dl>
+<dt>       --daemon,-d      </dt><dd>daemon mode</dd>
+<dt>       --queue,-q       </dt><dd>add tracks to queue</dd>
+<dt>       --enqueue        </dt><dd>add tracks to queue</dd>
+<dt>       --random         </dt><dd>random shuffle</dd>
+<dt>       --play           </dt><dd>play</dd>
+<dt>       --pause          </dt><dd>toggle pause mode</dd>
+<dt>       --stop,-s        </dt><dd>stop</dd>
+<dt>       --latch [on|off] </dt><dd>toggle or set stop after current track</dd>
+<dt>       --next,-n [n]    </dt><dd>skip forward [n tracks]</dd>
+<dt>       --prev [n]       </dt><dd>skip backward [n tracks]</dd>
+<dt>       --search <str>   </dt><dd>search in playlist</dd>
+<dt>       --rsearch <str>  </dt><dd>reverse search in playlist</dd>
+<dt>       --reset,-r       </dt><dd>play track 1</dd>
+<dt>       --loop [on|off]  </dt><dd>toggle or set loop mode</dd>
+<dt>       --quit           </dt><dd>quit daemon</dd>
+<dt>       --status         </dt><dd>show status</dd>
+<dt>       --list,-l        </dt><dd>show playlist</dd>
+<dt>       --help           </dt><dd>show help</dd>
+<dt>       --version        </dt><dd>show version</dd>
+<dt>       -v               </dt><dd>be verbose</dd>
+</dl>
+<h2>Copyright</h2>
+<p>
+       Copyright  (C)  2005, 2006 by Stephen Jungels.  Released under the GPL.<h2>Author</h2>
+<p>
+       Written by Stephen Jungels (sjungels@gmail.com)
+
+

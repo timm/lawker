@@ -1,0 +1,265 @@
+README for Plaiter v 1.4.2
+==========================
+
+
+0. Introduction
+---------------
+
+Plaiter (pronounced "player") is a command line front end to command
+line music players.  It uses shell scripting to try to create the
+command line music player that Plait would have used if it already
+existed.  It complements Plait but is also quite useful on its own,
+especially if you already use mpg123 or similar programs and find
+yourself wanting more features.
+
+What does Plaiter do that mpg123 can't already?  It queues tracks,
+first of all.  Secondly, it understands commands like play, plause,
+stop, next and prev.  Finally, unlike most of the command line music
+players out there, Plaiter can handle a play list with more than one
+type of audio file, selecting the proper helper app to handle each
+type of file you throw at it.
+
+Plaiter will automatically configure itself to use ogg123, mpg123,
+and/or mpg321, if they are installed on your system.  If you have a
+helper application that plays other types of audio, Plaiter can be
+configured to use it as well.
+
+Like many of us, Plaiter is part daemon and part controller.  The
+controller builds a play list from the files you provide on the
+command line and forwards commands to the daemon.  The daemon reads
+commands and executes them by running helper applications.
+
+
+0.1. What's new
+---------------
+
+Release 1.4.2 fixes a security flaw related to temp files.  Upgrading
+is highly recommended.
+
+
+1. Playing music
+----------------
+
+The simplest way to use Plaiter is to invoke it with a list of music
+you want to play, for example
+
+    plaiter foo.mp3 bar.ogg baz.flac
+
+or
+
+    plaiter http://205.234.188.20:80/
+
+Plaiter also understands directories as arguments, in which case it
+tries to play every file in the directory.  If some of the files are
+not music files, that's all right because Plaiter will discover it
+doesn't have a helper application for that type of file and skip it.
+An example would be
+
+    plaiter "/music/Disco Hits of the 70s"
+
+Plaiter also understands play lists, for example,
+
+    plaiter list.m3u
+
+It is the .m3u extension which identifies a file as a play list and
+nothing else will be treated as a play list.  Plaiter does not
+currently understand directories of play lists, but you can use shell
+globbing to get the same effect, for example
+
+    plaiter /music/partylists/*.m3u 
+
+The shell will expand this to a list of play lists, which Plaiter
+*does* understand.  You can also use globbing to expand a directory
+that contains a combination of play lists and music files.
+
+When you invoke Plaiter in this way it runs in controller mode, which
+is not capable of actually playing music.  Behind the scenes the
+controller will start another instance of Plaiter in daemon mode, if
+one is not running already, and forward commands to it.
+
+
+2. Sending commands
+-------------------
+
+A variety of commands are available to control the daemon.  You
+specify a command as a two dash option, for example
+
+    plaiter --play
+
+The seven basic commands are: play, pause, stop, next, prev, reset and
+quit.  They do pretty much what you would expect.  Reset sets the
+current track to 1 and starts playing.  It is the command that Plaiter
+sends automatically whenever it creates a new play list.
+
+Next and prev take optional numeric arguments that specify how many
+tracks to skip, counting the current track.  The default is one.
+
+There is a search command that provides a search-in-playlist feature.
+For example,
+
+    plaiter --search fly
+
+looks for a track that contains the string "fly" and plays it if
+found.  Search proceeds forwards from the current track until the
+first match is found, wrapping at the end of the playlist.  If no
+match is found the current track continues playing.  The search string
+can be a regular expression.
+
+There is also an rsearch command that does reverse search.  It
+proceeds backwards from the current track until the first match is
+found, wrapping at the beginning of the list.  For example,
+
+    plaiter --rsearch one
+
+The loop command toggles or sets loop mode.  When loop mode is on
+and the end of the playlist is reached, play continues on the first
+track.  When loop mode is off and the end of the playlist is reached,
+play stops.  Loop mode also affects the behavior of the next and prev
+commands.  The loop command looks like this:
+
+    plaiter --loop
+    plaiter --loop on
+    plaiter --loop off
+
+The latch command toggles or sets a latch which will cause playback to
+stop when the current track ends.  The latch command looks like this:
+
+    plaiter --latch
+    plaiter --latch on
+    plaiter --latch off
+
+
+3. Options
+----------
+
+
+### --status.  
+
+This option just prints basic information about what Plaiter is doing:
+the number of tracks in the playlist, the current track, and whether
+Plaiter is playing, paused, or stopped.
+
+### --list
+
+This option displays the playlist.
+
+### --random
+
+The --random option shuffles the playlist as it is added.  Thus if you
+use it with the --queue option, only the new tracks are shuffled.
+
+### --queue, -q, --enqueue
+
+The --queue option causes tracks to be queued on an existing playlist
+rather than replacing it.  --enqueue is for compatibility with players
+like BMP, amaroK, and XMMS.
+
+### --daemon, -d
+
+The --daemon option selects daemon mode.  See the next section.
+
+### --help
+
+This option shows brief help.
+
+### --version
+
+This option shows information about the version, the license, and the
+author. 
+
+### --play, --pause, --stop, --next, --prev, --reset, --quit
+
+These commands are forwarded to the daemon.
+
+### --loop, --search, --rsearch, --latch
+
+These commands are forwarded to the daemon.
+
+### --install
+
+This option rewrites the helper file.  See Section 5.
+
+
+4. Daemon mode
+--------------
+
+The Plaiter daemon will be started for you automatically if necessary,
+but there are times when you may want to start it manually.  Why is
+that?  Well, the Plaiter daemon (and the helper applications it calls)
+tend to be quite verbose, so the controller discards their output.  If
+you want to see the output, you can dedicate a separate console to
+this purpose.  This gives you a nice clean command line interface to
+Plaiter in the main console, with complete information, including the
+current track, in the daemon console.
+
+You start Plaiter in daemon mode by typing
+
+    plaiter --daemon
+
+The proper way to kill the daemon is to send it the command "quit" or
+type Ctrl-c in its console.  If you `kill -9` it, the daemon will not
+get a chance to clean up after itself.  You can do this manually by
+typing 
+
+    rm -f ~/.plait/pdaemon
+
+If you don't, Plaiter will try to clean up the next time it runs.
+
+
+5. Helper applications
+----------------------
+
+Plaiter stores a list of file types and associated helper applications
+in ~/.plait/helpers.  This file will be created automatically the
+first time Plaiter is run, but you can edit it to select the helper
+applications you prefer.  If you don't edit it, Plaiter will look for
+ogg123, mpg123-esd, mpg123, and mpg321.  If it is present on your
+system, ogg123 will be associated with ogg files, flac files, and ogg
+streams.  For mp3 files, mp3 streams, and all streams whose type can't
+be identified from the URL, mpg123-esd will be chosen if present, then
+mpg123, then mpg321.
+
+Each line of ~/.plait/helpers consists of a "key" and a helper,
+separated by a colon, for example
+
+    mp3:mpg123-esd
+
+The key corresponding to a file is just the file suffix.  For http
+streams it's a little more complicated.  A URL with no particular file
+suffix, like http://192.168.1.2:80, will have the key "http".  Plaiter
+assumes that streams like this can be played by mpg123.  If the URL
+has an mp3 or ogg suffix, that is included in the key, so the key for
+http://192.168.1.2:80/stream.ogg would be "httpogg".  Plaiter assumes
+that ogg123 can play a stream like this.
+
+Adding your own helper applications is just a matter of following
+these rules to create an appropriate key, followed by a colon,
+followed by the command line required to play that type of file.
+
+If you want Plaiter to configure itself automatically, you should
+install the helper applications before running it for the first time.
+If you didn't do that, you can run
+
+    plaiter --install
+
+to force Plaiter to detect helper applications and write the helper
+file again.
+
+
+6. Odds and ends
+----------------
+
+Plaiter requires Bash.  It uses standard versions of basic commands
+including find, awk and sed and should be compatible with most
+versions of Unix.  It requires a wake up call when the signal SIGCHLD
+is received, which seems to rule out Cygwin for now.  That's all right
+because Cygwin users have Winamp.
+
+
+7. What's next
+--------------
+
+It's not known at this time what features will be in the next release.
+
+
+Copyright (c) 2005, 2006 by Stephen Jungels

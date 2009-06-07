@@ -1,0 +1,920 @@
+#!/bin/bash
+
+# Plaiter -- front end to mpg123 et al
+#
+# Copyright (C) 2005, 2006 Stephen Jungels
+# 
+#
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.  
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# See COPYING for the full text of the license.
+#
+# See README.plaiter for supported platforms and installation
+# instructions.
+#
+# To contact the author: sjungels@gmail.com
+
+usage ()
+{
+  echo "Usage is:"
+  echo "  \"plaiter [options] [file, playlist, directory or stream ...]\""
+  echo "Options:"
+  echo "  --daemon,-d      -- daemon mode"
+  echo "  --queue,-q       -- add tracks to queue"
+  echo "  --enqueue        -- add tracks to queue"
+  echo "  --random         -- random shuffle"
+  echo "  --play           -- play"
+  echo "  --pause          -- toggle pause mode"
+  echo "  --stop,-s        -- stop"
+  echo "  --latch [on|off] -- toggle or set stop after current track"
+  echo "  --next,-n [n]    -- skip forward [n tracks]"
+  echo "  --prev [n]       -- skip backward [n tracks]"
+  echo "  --search <str>   -- search in playlist"
+  echo "  --rsearch <str>  -- reverse search in playlist"
+  echo "  --reset,-r       -- play track 1"
+  echo "  --loop [on|off]  -- toggle or set loop mode"
+  echo "  --quit           -- quit daemon"
+  echo "  --status         -- show status"
+  echo "  --list,-l        -- show playlist"
+  echo "  --help           -- show help"
+  echo "  --version        -- show version"
+  echo "  -v               -- be verbose"
+}
+
+
+version ()
+{
+  echo "Plaiter v 1.4.2"
+  echo "Written by Stephen Jungels (sjungels@gmail.com)"
+  echo ""
+  echo "Copyright (c) 2005, 2006 by Stephen Jungels.  Released under the GPL."
+  echo "Latest version and more info at http://jungels.net/projects/plait/"
+}
+
+
+maybe_install ()
+{
+  mkdir -p "$HOME/.plait"
+  if ! test -f "$HOME/.plait/helpers" || test $INSTALL -gt 0
+  then
+    echo Detecting helper applications...
+    rm -f "$HOME/.plait/helpers"
+    touch "$HOME/.plait/helpers"
+    ogg=`which ogg123 2>/dev/null`
+    if ! test "-$ogg-" = "--"
+    then
+      echo "ogg:ogg123" >> "$HOME/.plait/helpers"
+      echo "httpogg:ogg123" >> "$HOME/.plait/helpers"
+      echo "flac:ogg123" >> "$HOME/.plait/helpers"
+    fi
+    mpg=`which mpg123-esd 2>/dev/null`
+    if ! test "-$mpg-" = "--"
+    then
+      echo "mp3:mpg123-esd" >> "$HOME/.plait/helpers"
+      echo "httpmp3:mpg123-esd" >> "$HOME/.plait/helpers"
+      echo "http:mpg123-esd" >> "$HOME/.plait/helpers"
+    else
+      mpg=`which mpg123 2>/dev/null`
+      if ! test "-$mpg-" = "--"
+      then
+        echo "mp3:mpg123" >> "$HOME/.plait/helpers"
+        echo "httpmp3:mpg123" >> "$HOME/.plait/helpers"
+        echo "http:mpg123" >> "$HOME/.plait/helpers"
+      else
+        mpg=`which mpg321 2>/dev/null`
+        if ! test "-$mpg-" = "--"
+        then
+          echo "mp3:mpg321" >> "$HOME/.plait/helpers"
+          echo "httpmp3:mpg321" >> "$HOME/.plait/helpers"
+          echo "http:mpg321" >> "$HOME/.plait/helpers"
+        fi
+      fi
+    fi
+    echo Wrote $HOME/.plait/helpers
+  fi
+
+  if ! test -f "$HOME/.plait/key.awk" || test $INSTALL -gt 0
+  then
+    cat > "$HOME/.plait/key.awk" <<EOF
+{
+  n = split (\$0, protocol, "://");
+  if (n > 1) {
+    mime = protocol[1];
+    n = split (\$0, suffix, ".");
+    if (suffix[n]=="mp3" || suffix[n]=="ogg") {
+      mime = mime suffix[n];
+    }
+  } else {
+    n = split (\$0, suffix, ".");
+    mime = suffix[n];
+  }
+  print mime
+}
+EOF
+  fi
+}
+
+
+next_track ()
+{
+  if test "-$1-" = "--"
+  then
+    jump=1
+  else
+    jump=$1
+  fi
+  maxindex=`cat "$HOME/.plait/plaiter.m3u" | wc -l`
+  j2=`expr $jump % $maxindex`
+  if test $j2 -ne 0
+  then
+    track=`expr $listindex + $j2`
+    if test $track -gt $maxindex
+    then
+      if test $loopmode = 0
+      then
+        track=$maxindex
+      else
+        track=`expr $track % $maxindex`
+      fi
+    fi
+  else
+    track=$listindex
+  fi
+}
+
+
+prev_track ()
+{
+  if test "-$1-" = "--"
+  then
+    jump=1
+  else
+    jump=$1
+  fi
+  maxindex=`cat "$HOME/.plait/plaiter.m3u" | wc -l`
+  j2=`expr $jump % $maxindex`
+  if test $j2 -ne 0
+  then
+    track=`expr $listindex - $j2`
+    if test $track -lt 1
+    then
+      if test $loopmode = 0
+      then
+        track=1
+      else
+        track=`expr $maxindex + $track`
+      fi
+    fi
+  else
+    track=$listindex
+  fi
+}
+
+
+play_current_song ()
+{
+  while true
+  do
+    song=`cat "$HOME/.plait/plaiter.m3u" | awk "{if (FNR==$listindex) print}"`
+    if ! test "-$song-" = "--"
+    then
+      key=`echo "$song" | awk -f "$HOME/.plait/key.awk"`
+      HELPER=`cat "$HOME/.plait/helpers" | awk -v key=$key \
+        'BEGIN{FS=":"}{if (tolower(key) ~ tolower($1)) {print $2; exit}}'`
+
+      if ! test "-$HELPER-" = "--"
+      then
+        $HELPER "$song" &
+        playerpid=$!
+        HELPERNAME=`echo "$HELPER" | awk '{print $1}'`  
+        if test $VERBOSE -gt 0
+        then
+          echo Ran command $HELPER $song
+          echo "playerpid = $playerpid"
+          echo helpername = $HELPERNAME
+        fi
+        break
+      else
+        if test $VERBOSE -gt 0
+        then
+          echo "I don't have a helper for the key $key"
+        fi
+        next_track
+        if test $listindex = $track
+        then
+          paused=1
+          break
+        else
+          listindex=$track
+        fi
+      fi
+    else
+      if test $VERBOSE -gt 0
+      then
+        echo No current song
+      fi
+      paused=1
+      break
+    fi
+  done
+}
+
+
+handle_interrupt ()
+{
+  # if HELPER exited, restart it on the next track
+  if test $paused = 0 && ! test $playerpid = 0 
+  then
+    tries=0
+    while true
+    do
+      tmpfile="$(mktemp /tmp/plait.XXXXXX)"
+      ps -p $playerpid > $tmpfile
+      foo=`grep "$HELPERNAME" $tmpfile`
+      if test "-$foo-" = "--"
+      then
+        if test $VERBOSE -gt 0
+        then
+          echo Did not find $HELPERNAME
+          echo Selecting next track
+        fi
+        playerpid=0
+  
+        next_track
+        if test $listindex = $track
+        then
+          if test $VERBOSE -gt 0
+          then
+            echo Reached end of playlist
+          fi
+          paused=1
+        else
+          listindex=$track
+          if test $stoplatch = 0
+          then
+            play_current_song
+          else
+            stoplatch=0
+            paused=1
+          fi
+        fi
+        break
+      else
+        if test $tries -ge 1
+        then
+          if test $VERBOSE -gt 0
+          then
+            echo Found $HELPERNAME, giving up after second try
+          fi
+          break
+        else
+          if test $VERBOSE -gt 0
+          then
+            echo Found $HELPERNAME, trying again
+          fi
+          tries=`expr $tries + 1`
+          sleep 1
+        fi
+      fi
+    done
+  fi
+}
+
+
+maybe_kill_player ()
+{
+  if ! test $playerpid = 0
+  then
+    kill -9 >/dev/null 2>&1 $playerpid
+    playerpid=0
+    return 1
+  else
+    return 0
+  fi
+}
+
+
+do_quit ()
+{
+  maybe_kill_player
+  rm -f $HOME/.plait/pdaemon
+  exit 0
+}
+
+
+write_status ()
+{
+  if test -e "$HOME/.plait/plaiter.m3u"
+  then
+    numtracks=`cat "$HOME/.plait/plaiter.m3u" | wc -l`
+    song=`cat "$HOME/.plait/plaiter.m3u" | awk "{if (FNR==$listindex) print}"`
+  else
+    numtracks = 0
+    song = ""
+  fi
+  if test $playerpid = 0
+  then
+    status="STOPPED on track $listindex of $numtracks"
+  elif test $paused = 1
+  then
+    status="PAUSED on track $listindex of $numtracks"
+  else
+    status="PLAYING track $listindex of $numtracks"
+  fi
+  if test $loopmode = 1
+  then 
+    status="$status -- Loop on"
+  fi
+  if test $stoplatch = 1
+  then 
+    status="$status -- Latch on"
+  fi
+  echo $status > "$HOME/.plait/status"
+  echo $song >> "$HOME/.plait/status"
+}
+
+
+daemon_mode ()
+{
+  if test -e "$HOME/.plait/pdaemon"
+  then
+    echo Daemon seems to be running
+    sleep 3 &
+    echo nop > "$HOME/.plait/pdaemon"
+    if test $? = 0
+    then
+      kill $!
+      echo Yes, it is running, exiting
+      exit 1
+    else
+      echo No response from daemon, cleaning up
+      rm "$HOME/.plait/pdaemon"
+    fi
+  fi
+  mkfifo "$HOME/.plait/pdaemon"
+
+  trap "echo Got SIGINT, cleaning up; do_quit" INT
+
+  stoplatch=0
+  loopmode=0
+  playerpid=0
+  listindex=1
+  paused=1
+  while true
+  do
+    write_status
+    while true
+    do
+      read cmd args < $HOME/.plait/pdaemon
+      if test $? -ne 0
+      then
+        if test $VERBOSE -gt 0
+        then
+          echo Got interrupt
+        fi
+        handle_interrupt
+        write_status
+      else
+        break
+      fi
+    done
+    if test $VERBOSE -gt 0
+    then
+      echo Read command $cmd
+    fi
+    case "$cmd" in
+      play)
+        if test $playerpid = 0
+        then
+          play_current_song
+          paused=0
+        elif test $paused = 1
+        then
+          paused=0
+          kill -s CONT $playerpid
+        fi
+      ;;
+
+      pause)
+        if ! test $playerpid = 0
+        then
+          if test $paused = 0
+          then
+            paused=1
+            kill -s STOP $playerpid
+            if test $VERBOSE -gt 0
+            then
+              echo Pausing
+            fi
+          else
+            paused=0
+            kill -s CONT $playerpid
+            if test $VERBOSE -gt 0
+            then
+              echo Unpausing
+            fi
+          fi
+        fi
+
+      ;;
+
+      stoplatch)
+        if test "-$args-" = "-on-"
+        then
+          stoplatch=1
+        elif test "-$args-" = "-off-"
+        then
+          stoplatch=0
+        elif test $stoplatch = 0
+        then
+          stoplatch=1
+        else
+          stoplatch=0
+        fi
+        if test $VERBOSE -gt 0
+        then
+          echo Setting stop latch: $stoplatch
+        fi
+
+      ;;
+
+      stop)
+        maybe_kill_player
+        if test $? = 1
+        then
+          paused=1
+          if test $VERBOSE -gt 0
+          then
+            echo Stopping
+          fi
+        fi
+
+      ;;
+
+      next)
+        maybe_kill_player
+        if test $? = 1
+        then
+          next_track $args
+          if test $track = $listindex
+          then
+            paused=1
+          else
+            listindex=$track
+            play_current_song
+          fi
+        else
+          next_track $args
+          listindex=$track
+        fi
+        if test $VERBOSE -gt 0
+        then
+          echo New track: $listindex
+        fi
+
+      ;;
+
+      prev)
+        maybe_kill_player
+        if test $? = 1
+        then
+          prev_track $args
+          if test $listindex = $track
+          then
+            paused=1
+          else
+            listindex=$track
+            play_current_song
+          fi
+        else
+          prev_track $args
+          listindex=$track
+        fi
+        if test $VERBOSE -gt 0
+        then
+          echo New track: $listindex
+        fi
+
+      ;;
+
+
+      search)
+        track=`cat "$HOME/.plait/plaiter.m3u" | awk -v a="$args" -v li=$listindex \
+        '{if (tolower($0) ~ tolower(a) && (track==0 || (track<=li && FNR > li)) && FNR!=li) track=FNR}END{print track}'`
+        if ! test $track = 0
+        then
+          maybe_kill_player
+          listindex=$track
+          if test $VERBOSE -gt 0
+          then
+            echo New track: $listindex
+          fi
+          play_current_song
+        fi
+
+      ;;
+
+
+      rsearch)
+        track=`cat "$HOME/.plait/plaiter.m3u" | awk -v a="$args" -v li=$listindex \
+        '{if (tolower($0) ~ tolower(a) && (FNR<li || track==0 || track>li) && FNR!=li) track=FNR}END{print track}'`
+        if ! test $track = 0
+        then
+          maybe_kill_player
+          listindex=$track
+          if test $VERBOSE -gt 0
+          then
+            echo New track: $listindex
+          fi
+          play_current_song
+        fi
+
+      ;;
+
+
+      reset)
+        maybe_kill_player
+        listindex=1
+        paused=0
+        stoplatch=0
+        play_current_song
+        if test $VERBOSE -gt 0
+        then
+          echo New track: $listindex
+        fi
+
+      ;;
+
+      loop)
+        if test "-$args-" = "-on-"
+        then
+          loopmode=1
+        elif test "-$args-" = "-off-"
+        then
+          loopmode=0
+        elif test $loopmode = 0
+        then
+          loopmode=1
+        else
+          loopmode=0
+        fi
+        if test $VERBOSE -gt 0
+        then
+          echo Setting loop mode: $loopmode
+        fi
+
+      ;;
+
+      quit)
+        if test $VERBOSE -gt 0
+        then
+          echo Quitting
+        fi
+        do_quit
+
+      ;;
+
+      nop)
+
+      ;;
+
+      *)
+        if test $VERBOSE -gt 0
+        then
+          echo Ignoring unknown command $cmd
+        fi
+
+      ;;
+
+    esac
+  done
+}
+
+
+start_daemon ()
+{
+  if test $VERBOSE -gt 0
+  then
+    echo Starting daemon
+  fi
+  plaiter --daemon > /dev/null 2>&1 &
+  # pause a moment to let the daemon start up
+  for i in 1 2 3 4; do for j in 1 2 3 4; do echo > /dev/null; done; done
+  while true
+  do
+    if test -e "$HOME/.plait/pdaemon"
+    then
+      break
+    fi
+    sleep 1
+  done
+}
+
+
+controller_mode ()
+{
+  if test $QUEUE = 0 && ! test "-$1-" = "--"
+  then
+    rm -f "$HOME/.plait/plaiter.m3u"
+  fi
+  rm -f "$HOME/.plait/plaiter0.m3u" 
+
+  while test $# -gt 0
+  do
+    if test $VERBOSE -gt 0
+    then
+      echo Adding $1 to playlist
+    fi
+    if test -d "$1"
+    then
+      odir="`pwd`"
+      cd "$1"
+      dir="`pwd`"
+      cd "$odir"
+      find "$dir" -type f | sort >> "$HOME/.plait/plaiter0.m3u"
+    elif test -f "$1"
+    then
+      case "$1" in
+        *.m3u|*.M3U|*.m3U|*.M3u)
+          cat "$1" | awk '{if ($0 !~ /^#/) print}' >> "$HOME/.plait/plaiter0.m3u"
+        ;;
+  
+        *)
+          odir="`pwd`"
+          cd "`dirname \"$1\"`"
+          dir="`pwd`"
+          cd "$odir"
+          file="`basename \"$1\"`"
+          echo "$dir/$file" >> "$HOME/.plait/plaiter0.m3u"
+        ;;
+      esac
+    else
+      case "$1" in
+        http*)
+          echo "$1" >> "$HOME/.plait/plaiter0.m3u"
+        ;;
+      esac
+    fi
+    shift
+  done
+  touch "$HOME/.plait/plaiter0.m3u"
+
+  # possibly shuffle the playlist
+  if test $ORDER = "random"
+  then
+    tmpfile="$(mktemp /tmp/plait.XXXXXX)"
+    cat "$HOME/.plait/plaiter0.m3u" | awk 'BEGIN{srand()} {print rand() "\t" $0}' | \
+      sort -n | cut -f "2-" > $tmpfile
+    mv $tmpfile "$HOME/.plait/plaiter0.m3u"
+  fi
+
+  cat "$HOME/.plait/plaiter0.m3u" >> "$HOME/.plait/plaiter.m3u"
+
+  # before sending a command, make sure daemon is active
+  if ! test -e "$HOME/.plait/pdaemon"
+  then
+    start_daemon
+  fi
+
+  # --status is a pseudo command that doesn't get sent to the daemon
+  if test $DOSTATUS -gt 0
+  then
+    if test -e "$HOME/.plait/status"
+    then
+      cat "$HOME/.plait/status"
+    fi
+  fi
+
+  # --list is a pseudo command that doesn't get sent to the daemon
+  if test $DOLIST -gt 0
+  then
+    if test -e "$HOME/.plait/plaiter.m3u"
+    then
+      cat "$HOME/.plait/plaiter.m3u"
+    fi
+  fi
+
+  # there are default commands in certain cases
+  if test $QUEUE = 0 && test "-$COMMAND-" = "--" && test $DOSTATUS = 0 && test $DOLIST = 0
+  then
+    COMMAND=reset
+  elif test $QUEUE -gt 0 && test "-$COMMAND-" = "--" && test $DOSTATUS = 0 && test $DOLIST = 0
+  then
+    COMMAND=play
+  fi
+  if ! test "-$COMMAND-" = "--"
+  then
+    while true
+    do
+      if test $VERBOSE -gt 0
+      then
+        echo Sending command $COMMAND
+      fi
+      sleep 3 &
+      echo $COMMAND > "$HOME/.plait/pdaemon"
+      if test $? = 0
+      then
+        kill $!
+        break
+      else
+        if test $VERBOSE -gt 0
+        then
+          echo Had to clean up pipe, trying again
+        fi
+        rm "$HOME/.plait/pdaemon"
+        start_daemon
+      fi
+    done
+  fi
+
+}
+
+QUEUE=0
+DAEMONMODE=0
+COMMAND=""
+VERBOSE=0
+INSTALL=0
+DOSTATUS=0
+DOLIST=0
+ORDER="sort"
+
+while test $# -gt 0
+do
+  case "$1" in
+
+    --queue|--enqueue|-q)
+      QUEUE=1
+      shift
+    ;;
+
+    --play)
+      COMMAND=play
+      shift
+    ;;
+
+    --pause)
+      COMMAND=pause
+      shift
+    ;;
+
+    --latch)
+      if test "-$2-" = "-on-" || test "-$2-" = "-off-"
+      then
+        COMMAND="stoplatch $2"
+        shift
+      else
+        COMMAND=stoplatch
+      fi
+      shift
+    ;;
+
+    --stop|-s)
+      COMMAND=stop
+      shift
+    ;;
+
+    --next|-n)
+      if test "-$2-" = "--"
+      then
+        COMMAND="next"
+      else
+        if test 2>/dev/null $2 -gt -1
+        then
+          COMMAND="next $2"
+          shift
+        else
+          COMMAND=next
+        fi
+      fi
+      shift
+    ;;
+
+    --prev)
+      if test "-$2-" = "--"
+      then
+        COMMAND="prev"
+      else
+        if test 2>/dev/null $2 -gt -1
+        then
+          COMMAND="prev $2"
+          shift
+        else
+          COMMAND=prev
+        fi
+      fi
+      shift
+    ;;
+
+    --search)
+      COMMAND="search $2"
+      shift
+      shift
+    ;;
+
+    --rsearch)
+      COMMAND="rsearch $2"
+      shift
+      shift
+    ;;
+
+    --reset|-r)
+      COMMAND=reset
+      shift
+    ;;
+
+    --loop)
+      if test "-$2-" = "-on-" || test "-$2-" = "-off-"
+      then
+        COMMAND="loop $2"
+        shift
+      else
+        COMMAND=loop
+      fi
+      shift
+    ;;
+
+    --quit)
+      COMMAND=quit
+      shift
+    ;;
+
+    --random)
+      ORDER=random
+      shift
+    ;;
+
+    --status)
+      DOSTATUS=1
+      shift
+    ;;
+
+    --list|-l)
+      DOLIST=1
+      shift
+    ;;
+
+    --daemon|-d)
+      DAEMONMODE=1
+      shift
+    ;;
+
+    --install)
+      INSTALL=1
+      shift
+    ;;
+
+    --help)
+      usage
+      exit 0
+    ;;
+
+    --version)
+      version
+      exit 0
+    ;;
+
+    -v)
+      VERBOSE=1
+      shift
+    ;;
+
+    -*)
+      echo Ignoring bad option $1
+      shift
+    ;;
+
+    *)
+      break
+    ;;
+
+  esac
+done
+
+CYGWIN=`uname -s | grep -ic CYGWIN`
+if test $CYGWIN -ge 1
+then
+  echo Sorry, plaiter does not run on Cygwin
+  exit 0
+fi
+
+maybe_install
+if test $INSTALL = 1
+then
+  exit 0
+elif test $DAEMONMODE = 1
+then
+  daemon_mode
+  exit 0
+else
+  controller_mode "$@"
+  exit 0
+fi

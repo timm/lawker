@@ -1,0 +1,1309 @@
+README for Plait v 1.6.2
+========================
+
+
+0. Introduction
+---------------
+
+Plait (pronounced "play") can do two things for you: find and play
+music from your personal music library, and find and play Shoutcast
+radio streams.  In order to actually play the music it finds, Plait
+hands off a play list to one of the supported music players (iTunes,
+Winamp, Beep Media Player, Xmms, amaroK, mpg123, ogg123, mpg321, XSPF
+Web Music Player, or Plaiter).  The end result is that you can type,
+for example,
+
+    plait "miles davis"
+
+and any music by Miles Davis that you own will begin playing in your
+music player.  More complex commands allow you to play mixes of
+several albums or artists, read complex mixes from files, reorder the
+play list according to one of several patterns, select a certain
+number of tracks, queue tracks, send commands to the music player, and
+more.
+
+I wrote Plait because I was looking for an alternative to tedious
+point and click digging through my music library, on the one hand, and
+tedious typing of long file names, on the other.  The solution used by
+Plait is based on "hints", which are basically fragments of song
+titles, artist's names, or album names.  You specify as many hints as
+needed to get exactly the music you want.  For example, rather than
+typing out the complete file name
+
+    "/music/Billie Holiday/Ken Burns Jazz/Solitude.wav"
+
+or digging through a file requester to find this file, with Plait one
+types
+
+    plait billie solitude
+
+When you already know exactly what you want to hear, this is really
+the quickest and easiest way to let the computer know (and when you
+don't know exactly what you want to hear, Plait has an interactive
+mode that allows you to browse tracks, albums, artists, and radio
+streams.)
+
+Even though it searches the entire music library every time it creates
+a play list, Plait is optimized for these types of queries (it caches
+your music directory) and can perform them very quickly.  With a
+medium sized music collection of about 3,000 tracks, queries take less
+than a second.  On Cygwin, which can be slow, queries take a little
+longer-- about 2.5 seconds on a 700 mhz system.
+
+
+0.1  What's new
+---------------
+
+Release 1.6.2 is a security upgrade which cleans up all security flaws
+related to temp files.
+
+Release 1.6.1 is a maintenance release to track recent changes in the
+Shoutcast.com web site.  You will need it if you want to continue
+running stream queries.
+
+
+1.  About that name...
+----------------------
+
+"Plait" is French for "it pleases," because it is so pleasing to use.
+It also suggests the soundalike English word "play," which describes
+what it actually does.  You might say it's a plait on words.  At one
+point in the misty past, Plait was known as "play," but that name was
+taken.
+
+
+2. Searching your music library
+-------------------------------
+
+Plait doesn't make any assumptions about the layout of your music
+library, but the better organized it is, the more useful the searches
+you can do.  Ideally your file paths contain artists, albums, and song
+titles.  In that case you can provide a hint about an artist and get
+all the material by that artist:
+
+    plait mingus
+
+You can provide a hint which matches just one album:
+
+    plait "kind of blue"
+
+Or you can match a single song
+
+    plait "blue in green"
+
+(Although examples like these will typically "just work," keep in mind
+that Plait doesn't actually know that "Kind of Blue" is an album or
+Mingus is an artist.  If you have a song named "Mingus", it will play
+also.  Other options were considered, but this method is the easiest
+to use, and it seems to work very well.  In fact, it is almost always
+possible to create a hint that picks exactly the music you want.  See
+the section on advanced hinting for more information.)
+
+Because Plait scans your entire music library when matching hints, you
+are not limited to results from one directory.  So if you have a
+compilation album that is distributed by artist throughout your
+collection, you can play the whole thing by searching for the album
+name.  Similarly, you can play an entire album series, as in
+
+    plait --random "ken burns jazz"
+
+This type of matching is also useful when you want to play several
+cover versions of the same song.
+
+Querying the entire music library for songs rather than finding files
+by directory also helps resolve some problems of categorization that
+come up when ripping a CD collection.  If you rip Cecilia Bartoli's
+"Vivaldi Album," for example, do you store that as
+
+    /music/Vivaldi/The Vivaldi Album feat. Cecilia Bartoli
+
+so that you can play it as Vivaldi music, or
+
+    /music/Cecilia Bartoli/The Vivaldi Album
+
+so that you can play it as Cecilia Bartoli music?  With Plait, it
+doesn't matter because, either way, the album will turn up when you
+type `plait cecilia` or `plait vivaldi`.
+
+Sometimes one hint is not enough to say exactly what you mean, so
+Plait does not place any limit on the number of hints you can specify.
+This comes in handy when you have a song title that is used by more
+than one artist.  In my music collection, for example, if I type
+
+    plait "walk on"
+
+I will hear "Walk On" by Neil Young, "Walk On" by U2, and the album
+"Walk On" by John Hiatt (which includes a song named "Walk On").
+Additional hints allow me to disambiguate:
+
+    plait "walk on" neil    # Neil Young's version
+    plait "walk on" u2      # by u2
+    plait "walk on/"        # the album by John Hiatt
+    plait "walk on[.]" hiatt # just the song
+
+(The last two examples are a little tricky.  They work by matching the
+path separator or the dot in ".mp3".  See the section on advanced
+hinting for more ideas.)
+
+This feature also comes in handy when you want to avoid typing a long
+song title, but the short hints available are ambiguous.  If I use the
+hint "someday" for example, I get "Someday" by the Strokes, and
+"Someday We'll All Be Free" by Charlie Hunter.  The command
+
+    plait charlie someday
+
+gives me exactly what I want.  Feel free to use hints that are easy to
+remember rather than trying to be efficient.  That is one of the
+purposes of hinting, beyond just putting you on a first name basis
+with your favorite artists (or you could type `plait someday be` and
+save a few keystrokes; it's up to you).
+
+There is an implicit logical "and" between the hints in these
+commands, although you do not need to think of it that way if you are
+a non-programmer.  In any case, you get just the songs that match
+*all* the hints, rather than any of the hints.  (As we will see later,
+there is another type of search in which there is an implicit "or" and
+you get songs that match *any* of the hints.)
+
+Sometimes positive assertions about the music you want to hear are not
+sufficient to say exactly what you mean.  For these situations the
+`not` keyword, which allows you to exclude songs that match a hint, is
+provided.  As an example, the following command plays some music by
+Herbie Hancock, leaving out one track that I set aside for special
+occasions:
+
+    plait herbie not rockit
+
+You can use as many "not" hints as you like, but you have to make at
+least one positive assertion about the music you want to hear, and it
+has to be the first hint on the command line.  Therefore
+
+    plait not miles
+
+will look for a song named "not" by Miles Davis.  This is intentional.
+If you really want to hear random selections from almost your entire
+collection, you can just use a very broad positive assertion, as in
+
+    plait --random ".*" not miles
+
+(".*" is a regular expression that matches anything.  See the section
+on advanced hinting.)
+
+The features explained so far allow you to pick out a particular
+track, artist, album, or series, but sometimes you are interested in
+mixing together material from several artists or albums.  In that case
+you will want the `--mix` option, which picks tracks that match *any*
+of your hints rather than all of them.  For example
+
+    plait --mix metheny hunter "tj kirk" "broun fellinis"
+
+will create a play list with a selection of jazz artists.  Because it
+allows me to do something that would be totally impractical with CDs,
+the ability to make mixes has changed my listening habits more than
+any other feature of Plait.
+
+
+3.  Playing radio streams
+-------------------------
+
+Plait can search the Shoutcast web site, find stations matching your
+query, and play them in your music player.  If you are interested in
+hearing trance music, for example, you might try
+
+    plait --stream trance
+
+You can use a hint that contains spaces by enclosing it in quote
+marks, as in
+
+    plait --stream "modern jazz"
+
+As of Plait 0.53, stream queries support multiple hints and the `not`
+keyword, just like music library queries.  This allows you to search
+for radio stations much more selectively than before.  The `--mix`
+keyword is also supported, but not the `as` keyword or mix files.  The
+current thinking is that these features would be of limited usefulness
+with streams.
+
+Genre hints work well, because the Shoutcast directory includes a
+genre in the description of each radio station, but you can try other
+types of search, including by station name, call letters, artist or
+country.
+
+By default, you get the most popular stations matching your query, but
+if you don't like the popular stations in a certain genre, you can mix
+things up with the `--random` option (see below).  For performance
+reasons, Plait limits you to ten streams (because they take a while to
+load into the music player), but you can request more with the
+`--tracks` option.  In interactive mode, the number of streams is
+unlimited.
+
+Examples:
+
+    plait --stream --random --tracks 5 jazz not smooth
+    plait --stream 70s
+    plait --stream bachata
+    plait --stream NPR -i
+
+
+4.  Mix Files
+-------------
+
+As you make more complex mixes you may begin to use so many hints that
+they become inconvenient to type.  At this point you will be ready for
+mix files.  Once you have created an appropriate mix file with a hint
+for each jazz artist in your collection, for example, you can type
+
+    plait --mixfile jazz --random
+
+to play random selections from your entire jazz collection.  Creating
+mix files is easy because they are just text files with lists of
+hints, but Plait is also capable of creating mix files for you.  First
+let's look at creating a mix file by hand.  Mix files are stored in a
+subdirectory of your music directory.  Specifically, if your music
+directory is /music, the mixfiles are at /music/.plait/mixfiles.
+(Storing them here rather than in plait's working directory allows you
+to continue using your mix files when you are accessing your music
+collection as a guest on someone else's computer.)  To create a mix
+file for jazz, then, you might type the following into
+/music/.plait/mixfiles/jazz:
+
+    "billie" "blakey" "brubeck" "coltrane" "dolphy" "getz"
+    "hunter" "metheny" "miles" "mingus" "ornette" "rollins"
+    "scofield" "stanton" "surman" "thelonious"
+
+(The hints should be separated by spaces or line feeds.  It is only
+necessary to enclose a hint in quote marks if it contains a space.)
+That's all there is to it.
+
+Plait also has a simple syntax for creating mix files automatically,
+using the `as` keyword.  For example, the following command creates a
+mix file and plays some cuts from it simultaneously:
+
+    plait --mix galactic "scott amendola" "oranj symphonette"
+      as postjazz
+
+The `as` keyword also comes in handy when you need to maintain mix
+files.  Let's say you have a jazz mix file and you acquire some new
+music by Herbie Hancock.  You can add him to the jazz mix as follows:
+
+    plait --mixfile jazz herbie as jazz
+
+If Herbie Hancock were already in your jazz mix, no harm would be
+done--Plait makes sure that each hint occurs exactly once.
+
+You can use more than one mix file with a `plait` command.  This allows
+you to create a "mix of mixes," for example:
+
+    plait --mixfile jazz --mixfile postjazz as alljazz 
+
+In general, you can combine mix files and hints freely on the command
+line, allowing you to play variations on a given mix depending on your
+mood:
+
+    plait --mixfile jazz not miles not ornette
+
+Because they are based on hints, mix files have some of the features
+of play lists and some of the features of genres.  As with play lists,
+a given artist can be included in as many mix files as you like.  This
+allows you to create free form, overlapping categories for artists,
+rather than being forced to assign each artist to a single fixed
+category.  As with genres, on the other hand, once an artist belongs
+to a mix, any new music you purchase by that artist is automatically
+added to the mix.  In this sense mix files are more dynamic than play
+lists.
+
+(By the way, nothing said here should be taken to mean that mix files
+always have to consist of artist hints.  That is probably the typical
+case, but there is nothing to prevent you from using album hints or
+song hints in your mix files.)
+
+Since you create mix files yourself, they require a little more work
+than genres, which can probably be assigned using automated tools.
+But it really doesn't take long to create mix files, and you will find
+that the added flexibility is worth the effort.
+
+
+5.  Playlist optimization
+-------------------------
+
+When you create a mix featuring two artists, it is most likely that
+you would like to hear approximately the same number of tracks from
+each artist.  But if, for example, you have 6 albums by artist A and
+only 2 by artist B, tracks by artist A will dominate the playlist
+Plait creates.  As of Plait 1.2 there is a playlist optimizer which
+addresses this problem by balancing the playlist.  It has other nice
+features as well.
+
+You need to enable the playlist balancer by setting a track count with
+the `--tracks` option; otherwise you get the old behavior where Plait
+selects all the tracks that match your hints.  There are special
+symbolic track counts which control the behavior of the playlist
+balancer.  Some examples will clarify:
+
+    plait -l --mix "miles davis" "charles mingus" --tracks all
+
+This command creates a playlist with all the available tracks from
+Miles Davis and Charles Mingus.  This is also the default behavior if
+you don't specify a track count.
+
+    plait -l --mix "miles davis" "charles mingus" --tracks min
+
+This command determines the number of tracks in the smallest hint
+group and then creates a balanced playlist by selecting that number of
+tracks from each group.  Some tracks from larger hint groups will be
+skipped.
+
+    plait -l --mix "miles davis" "charles mingus" --tracks max
+
+This command determines the number of tracks in the largest hint group
+and then creates a balanced playlist by selecting that number of
+tracks from each group.  Some tracks from smaller hint groups will be
+repeated. 
+
+    plait -l --mix "miles davis" "charles mingus" --tracks avg
+
+This command determines the average number of tracks per group and
+then creates a balanced playlist by selecting that number of tracks
+from each group.  Some tracks may be skipped and some tracks may be
+repeated. 
+
+    plait -l --mix "miles davis" "charles mingus" --tracks 20
+
+This command creates a balanced playlist with approximately 20 tracks.
+Tracks may be skipped or repeated depending on the particular count
+you specify and the number of tracks in the source playlist.
+
+Because Plait is designed to create unique playlists every time you
+run it, there is a lot of random fudge in the algorithm that balances
+playlists.  The track counts you specify are just goals; they are
+translated into a probability that tracks from each group will be
+selected and this is combined with a random number to determine
+whether each track is selected.  As a result, the playlist will
+contain a number of tracks close to the goal you specify but not
+necessarily exactly the same.
+
+
+#### Weighting the balance
+
+It's not always the case that you want to hear exactly equal amounts
+of music from each artist, and Plait provides a simple way to weight
+the balance when you don't, by repeating hints.  The following command
+creates a mix with more tracks by Miles Davis than John Coltrane:
+
+    plait -l --mix davis davis coltrane --tracks 15
+
+This sets a 2:1 ratio between Miles Davis tracks and John Coltrane
+tracks as a goal.  Depending on the content of the source playlist,
+the goal may or may not be achieved exactly.  Tracks will not be
+repeated in order to achieve the goal; the effect of repeating hints
+is just to give each track a "second chance" in the case where it is
+not printed the first time it matches a hint.
+
+This technique can be used to generate a playlist with a featured
+artist or featured album, for example
+
+    plait -l --mixfile jazz 58 58 --tracks 30 --stripe
+
+This command creates a playlist with a variety of Jazz tracks, but
+featuring the album "'58 Sessions" by Miles Davis.
+
+
+#### Patterns
+
+The playlist optimizer also allows you to order the tracks in the
+playlist according to one of several patterns:
+
+    plait -l --mix "miles davis" "charles mingus" --tracks 15 --sort
+
+The --sort option causes the tracks to appear in sorted order
+
+    plait -l --mix "miles davis" "charles mingus" --tracks 15 --stripe
+
+The --stripe option picks one track matching hint a and then one track
+matching hint b, in an alternating pattern.  Within the stripes, the
+tracks appear in sorted order.
+
+    plait -l --mix "miles davis" "charles mingus" --tracks 15 --stripe2
+
+--stripe2 is similar to --stripe, but within the stripes the tracks
+appear in random order.
+
+    plait -l --mix "miles davis" "charles mingus" --tracks 15 --fade
+
+The --fade option arranges the tracks matching each hint according to
+a gaussian distribution.  The effect is that tracks matching each hint
+are clustered around a certain position in the playlist and appear
+less frequently as you move away from that position.  Thus each
+section of the playlist focuses on one artist, but there are no rigid
+boundaries between the sections.
+
+    plait -l --mix "miles davis" "charles mingus" --tracks 15 --random
+
+In this case tracks are arranged randomly.
+
+    plait -l --mix "miles davis" "charles mingus" --tracks 15 --group
+
+The --group option groups the tracks by hint and shuffles randomly
+within each group.
+
+
+#### Target devices
+
+The final new feature of the playlist optimizer is intended to help
+people with a mixture of lossy and lossless encodings in their music
+libraries.  It filters the playlist so that the encoding types you
+specify are either preferred or used exclusively, allowing you to
+create playlists that are suitable for a variety of target devices,
+including Hi-Fi stereos, disk-based portable music players, and
+flash-based portable music players.  Examples:
+
+    plait doors --device hifi
+
+This command selects tracks in both lossless and lossy formats.  If a
+given track is available in more than one format, the lossless
+encoding is preferred.  It is suitable for a home stereo with high
+quality audio.  This is also the default device.
+
+    plait doors --device medium
+
+This command selects tracks in both lossless and lossy formats.  If a
+given track is available in more than one format, the lossy
+encoding is preferred.  It is suitable for a disk-based portable music
+player.
+
+    plait doors --device compact
+
+This command selects tracks in the mp3 format only.  It is suitable
+for a flash-based portable music player like the iPod Shuffle.
+
+You can define your own target devices or change the default device in
+the config file.  See section 10.
+
+In all cases, two files are considered to be the same track in
+different formats if the file paths are identical except for the
+extension.  Thus the following two files are considered to be the same
+track in two different formats:
+
+    /music/Miles Davis/Kind of Blue/Blue in Green.wav
+    /music/Miles Davis/Kind of Blue/Blue in Green.mp3
+
+The following two files are not considered to be the same track in two
+different formats:
+
+    /music/WAV/Miles Davis/Kind of Blue/Blue in Green.wav
+    /music/MP3/Miles Davis/Kind of Blue/Blue in Green.mp3
+
+
+6.  Options
+-----------
+
+These options provide finer control over the music you play:
+
+
+### --list, -l
+
+Learning to use hints involves trial and error.  The `--list` option
+facilitates this by allowing you to see what songs a hint will play
+without actually playing them.  Its use is self-explanatory.  If you
+like the songs listed, you don't have to run the query again to play
+them.  Simply typing
+
+    plait
+
+without any hints plays the list returned by the last query.
+
+
+### --queue, -q
+
+Normally the songs found by a `plait` command will play instantly,
+interrupting whatever was playing when you typed the command.  If you
+want the songs to be added to the play list, use `--queue`.  They will
+begin playing after the previous play list completes (mpg123 and
+mpg321 do not support queuing, but Plaiter, which is a front end to
+those programs, supports queuing and several more features.)
+
+
+### --random, -r
+
+By default, songs are sorted by file path.  If your music library is
+organized by artist, album, and title, your playlists will be
+organized the same way.  If your song names are preceded by track
+numbers, they will play in album order.  `--random` is for those times
+when you want a little variety.  It shuffles the play list before
+sending it to your music player.
+
+
+### --sort
+
+Plays tracks in sorted order.  --sort is also the default.
+
+
+### --stripe
+
+Arranges tracks in an alternating pattern with one track matching hint
+a, followed by one track matching hint b, and so on until all of the
+hints have been used; then the pattern repeats.  Within the stripes,
+tracks appear in sorted order.  This option does not apply to stream
+queries. 
+
+
+### --stripe2
+
+Arranges tracks in an alternating pattern with one track matching hint
+a, followed by one track matching hint b, and so on until all of the
+hints have been used; then the pattern repeats.  Within the stripes,
+tracks appear in random order.  The hints themselves are also
+shuffled, so you get a different pattern every time.  This option does
+not apply to stream queries.
+
+
+### --fade
+
+Clusters the tracks matching each hint around a particular position in
+the playlist, in a gaussian distribution.  Thus each section of the
+playlist is focused on tracks matching one hint, but there are no
+rigid boundaries between the sections.  Within each cluster, tracks
+are distributed randomly.  This option does not apply to stream
+queries.
+
+
+### --group
+
+Groups tracks by hint.  Within hint groups, tracks appear in random
+order.  This option does not apply to stream queries.
+
+
+### --stream, -s
+
+Plays Shoutcast radio streams (see Section 3).  Examples:
+
+    plait --stream --random --tracks 5 salsa
+    plait --stream kplu
+    plait --stream chinese
+    plait --stream --random reggaeton
+
+
+### --tracks, -t
+
+Normally, Plait plays at most ten radio stations at a time, or an
+unlimited number of tracks.  More than that and your music player will
+freeze for a while, which can seem broken.  This option allows you to
+override the default values.  For example
+
+    plait --mix --tracks 10 "nick cave" "nick drake"
+    plait --stream --tracks 20 industrial
+
+As of Plait 1.2, this option behaves differently depending on whether
+or not you are doing a stream query.  For stream queries, the track
+count must be a number and it is a simple limit on the number of
+stations that will be selected.
+
+For library queries, the track count is a goal for the playlist
+balancer.  In addition to particular numbers, there are symbolic track
+counts which control the behavior of the balancer, including min, max,
+avg, and all.  See Section 5.
+
+
+### --mix, -m
+
+This option selects songs which match *any* of the hints you provide
+rather than *all* of them.  As an example,
+
+    plait --mix "broun fellinis" "stanton moore" motherbug
+
+creates a play list with tracks by three bands.  This option does not
+effect negative assertions.
+
+
+### --mixfile, -f
+
+This option causes Plait to read hints from a file.  Tracks are then
+selected from the music library just as if you had typed the hints on
+the command line with the `--mix` option.  See Section 4.  You can use
+this option multiple times to specify more than one mix file:
+
+    plait -f punk -f rock
+    plait --mixfile punk --mixfile rock
+
+Just as `--mixfile` causes Plait to read hints from a file, the `as`
+keyword causes Plait to write hints to a file, for example:
+
+    plait "neil young" "john hiatt" "nick drake" "john cale" \
+      as folkrock
+
+In naming mix files, it is best not to use spaces.  You can force
+Plait to accept a mix file with a space in its name by enclosing the
+name in quote marks, but in this case Plait will just replace the
+space with a dash.  So
+
+    plait --mix belafonte strummer as "calypso punk"
+
+will actually create a mix file named "calypso-punk".  The same
+logic applies to the --mixfile option, so 
+
+    plait --mixfile "calypso punk"
+
+will correctly find the file you created.  The only time you need to
+be aware of this rule is when you create mix files by hand--don't use
+spaces in their names.
+
+
+### --device, -d
+
+This option specifies a target device for the playlist.  The target
+device determines what kinds of files will be selected or preferred.
+There are three predefined target devices: "hifi" accepts all file
+types but prefers lossless encodings when a given track is available
+in more than one encoding; "medium" accepts all file types but prefers
+lossy; and "compact" accepts lossy encodings (mp3) only.  It is
+possible to define your own target devices; see the section on
+customization.
+ 
+
+### --cache, -c
+
+You need to run `plait` with this option whenever the contents of your
+music directory changes.  Plait will rescan the entire music directory
+and find every new piece of music.  Keep in mind that each guest
+configuration has its own cache.  As of Plait 0.53 this option has an
+optional directory argument which causes the rescanning to be
+restricted to a subdirectory of your music library, useful for doing a
+quick update when you have added, renamed, or deleted music by a
+single artist.  For example, if your music directory is /music,
+
+    plait -c "David Kane Quartet"
+
+will rescan only the `/music/David Kane Quartet` directory.  It only
+takes about a minute to scan a 3,000 track music library, so if you
+lose track of which directories you have scanned, you may simply want
+to rescan everything.
+
+Important note: if you rename an artist or album, you may have to run
+two cache commands to register the change correctly.  If, for example,
+you moved music by the band R.E.M from the directory R.E.M to the
+directory REM, you would run the commands
+
+    plait -c R.E.M
+    plait -c REM
+
+The first command will delete old cache entries that point to songs
+which no longer exist.  The second command will register the songs in
+their new location.
+
+
+### --guest, -g
+
+This option provides support for multiple, named configurations.  The
+main reason you would want this is that each configuration can have a
+different music directory.  So if a friend has a music collection that
+is accessible on your LAN, he will be able to play his music from your
+computer.  To use this feature, just provide a guest name, for example
+
+    plait --guest mypal "einsturzende neubauten"
+
+The first time you use a new guest name, Plait will ask for the
+location of that guest's music directory.  Subsequently, the location
+will be remembered.  It is up to you to mount the guest music
+directory, if that is necessary.  This feature should be particularly
+useful if you have a VPN set up, but I have not had a chance to test
+that.
+
+When you use a guest configuration you also get the guest's mix files
+(and lose your own mix files temporarily).  It is done this way
+because mix files tend to be compatible with the collection for which
+they were created.
+
+
+### --platform
+
+This option allows you to temporarily override the default platform.
+The single argument can be any of the values allowed for the variable
+PLATFORM.
+
+
+### --coverart
+
+This option allows you to temporarily override the cover art setting.
+"--coverart 1" causes cover art to be located on the Amazon.com web
+site when creating XSPF playlists.  "--coverart 0" turns off this
+feature. 
+
+
+### --interactive, -i
+
+This option selects interactive mode, in which each track or station
+in the playlist is presented for you to vote yes or no on.  When
+editing tracks, the available responses are:
+
+* y or yes: play this track
+* n or no: don't play this track
+* Y or Yes: play this track and all remaining tracks
+* N or No: don't play this track or any of the remaining tracks
+* u or up: move up one level in the hierarchy (from tracks
+  to albums, for example). 
+* d or down: move down one level in the hierarchy
+* /: search forward
+
+By moving up one or two levels you can vote on albums or artists all
+at once.  When searching, you may enter a search term immediately
+after the slash.  A slash by itself repeats the prior search.  If
+there was no prior search you will be prompted for a search term.
+
+For the purpose of moving through the hierarchy, the character "/" is
+used to separate the levels.  If your music library is laid out
+differently, you can set this to something else in the config file,
+for example,
+
+    LEVELSEP=" - "
+
+In more complex cases, you may want to use a regular expression, for
+example,
+
+    LEVELSEP="(/| - )"
+
+For display purposes, the "/" character will be used as the separator,
+but the regular expression will be used internally.
+
+When editing radio streams, the available responses are:
+
+* y or yes: play this stream
+* n or no: don't play this stream
+* Y or Yes: play this stream and all remaining streams
+* N or No: don't play this stream or any of the remaining streams
+* /: search forward
+
+Plait does its best to present a helpful description of each stream,
+but sometimes the Shoutcast web page will outwit Plait's regular
+expression-fu and you will see HTML gunk in the description.
+
+
+### --play
+
+This option forwards the command "play" to the music player.
+
+
+### --pause
+
+This option forwards the command "pause" to the music player.
+
+
+### --stop
+
+This option forwards the command "stop" to the music player.
+
+
+### --next
+
+This option forwards the command "next track" to the music player.
+
+
+### --prev
+
+This option forwards the command "previous track" to the music player.
+
+
+### --install
+
+This option installs Plait.  You will normally need to do this only
+once, but it may also come in handy if Plait stops working because an
+important file is deleted.  To do a complete reinstall, run this
+command from the install directory.  You should run this option as
+root, using the `su` or `sudo` command.
+
+
+### --uninstall
+
+This option uninstalls Plait.  It is up to you to uninstall any
+prerequisites you had to install to make it work, if you don't want
+them anymore.  If you installed Plait as root, you should run this
+option as root, using the `su` or `sudo` command.
+
+
+### --help
+
+Shows brief help text.
+
+
+### --version
+
+Shows information about the version of `plait` you are using, the
+license, and the author.
+
+
+7.  Advanced hinting
+--------------------
+
+Plait hints are actually extended regular expressions that will be
+executed by a `grep` command, which fact enables certain advanced
+queries.  If you are familiar with regular expressions, some examples
+have probably occurred to you already.  This section provides some
+ideas for the uninitiated.
+
+Simplicity is one of Plait's goals and as a result a division is drawn
+between simple queries, which include several hints that must all be
+matched, usually narrowing the results to a song or an album, and mix
+queries, which match any of their hints.  But sometimes you would like
+a query which combines a little of both.  For example, what if you
+want to hear "Solitude" by Billie Holiday (but not by Marc Ribot) and
+"Walk On" by Neil Young (but not by U2).  One solution is to use two
+queries:
+
+    plait billie solitude
+    plait -q "walk on" neil
+
+However, there is a one line solution which depends on the fact that
+in regular expressions, the string ".*" matches anything.  By
+exploiting this fact we can combine two hints into one complex hint.
+The resulting command is
+
+    plait --mix "billie.*solitude" "neil.*walk on"
+
+In this way the "and" part of each query is built into a single hint
+and then the two complex hints are "or"-ed together with the `--mix`
+option.  A variation on this idea is to combine the "or" parts of a
+query into a complex hint and then "and" it with another hint.  For
+example, the following query plays three of my favorite tracks by
+Charlie Hunter:
+
+    plait charlie "flau|dersu|revo"
+
+The fact that ".*" means "anything" is also useful if you are simply
+looking for a way to play a little of everything from your
+collection.  For example, the following query plays 17 random tracks:
+
+    plait --tracks 17 ".*" --random
+
+Some of the more interesting regular expressions will rely on the
+naming conventions you use in your music library.  Here's one that
+works if your tracks are numbered.  It will play the first two tracks
+of each John Coltrane album in a collection:
+
+    plait coltrane "0[1-2]"
+
+
+#### Eponyms
+
+The fact that Plait uses whole path matching occasionally results in
+ambiguous hints when albums and songs are named eponymously.  However,
+it is generally easy to come up with a precise hint with a little
+thought.  The following suggestions assume that your music library is
+organized by Artist/Album/Song, but similar techniques would apply to
+other layouts.  An example of an album and song with the same title is
+"Walk On" by John Hiatt.  Here the trick is to match the path
+separator, in order to pick the album, or the dot before the file
+type, in order to pick the song:
+
+    plait "walk on/"    # the album
+    plait "walk on[.]"  # the song
+
+The brackets are necessary around the dot because dot is a regular
+expression matching any single character.  The brackets tell Plait
+that we really mean a literal dot.
+
+Distinguishing an eponymous album from the artist is a little trickier
+because they will both end with the path separator.  For example,
+Charlie Hunter has a self-titled album which appears in my music
+collection as
+
+    /music/Charlie Hunter/Charlie Hunter/
+
+Typing `plait "charlie hunter"` will give me everything by that
+artist, not just the album I am interested in.  In this case the
+secret is to match a combination of artist and title which is unique
+to the album "Charlie Hunter," for example
+
+    plait "Charlie Hunter/Charlie Hunter"
+
+or just
+
+    plait "Hunter/Charlie"
+
+(or `plait ter/cha` for the terse-minded).
+
+
+#### Using precise hints
+
+Many of the examples in this document use a relaxed form of hinting
+which is convenient and easy.  Most of the time hints like these will
+"just work".  Every once in a while, though, this approach breaks
+down.  For example,
+
+    plait miles
+
+may get you
+
+    /music/Byrds/Eight Miles High
+    /music/Who/I Can See for Miles
+
+rather than the Miles Davis music you might have been looking for.
+Likewise,
+
+    plait rem
+
+may get you
+
+    /music/Talking Heads/Remain in Light
+
+rather than music by the band R.E.M.  In cases like this you should
+just use a more precise hint, ie
+
+    plait "/miles davis/"
+
+or
+
+    plait /rem/
+
+
+8.  Installation
+----------------
+
+Since Plait is glue ware, it has several dependencies.  Follow these
+instructions to make it all work.
+
+
+### Uninstallation
+
+As of Plait 1.5.2, it is possible to install Plait to a directory of
+your choice.  Since this could lead to a situation where you have
+multiple versions of Plait installed in different directories, it's a
+good idea to uninstall any old versions of Plait prior to upgrading.
+But if you know you are installing to the same directory as the old
+version of Plait, this isn't really necessary.
+
+
+### Windows/Cygwin prerequisites
+
+Running Plait on Windows requires that you install Cygwin, the open
+source UNIX compatibility layer for Windows.  Follow the instructions
+at Cygwin.com to download and install Cygwin.  Plait also requires two
+optional packages, wget and gawk.  Be sure to select these packages
+when you run Cygwin Setup.
+
+For those who are using Winamp, you may need to install it.  Get
+Winamp at Winamp.com.
+
+In order to control Winamp, Plait uses a COM object written by John
+Adcock.  To install it:
+
+* Download gen_com.zip from www.adcock8.freeserve.co.uk/winamp.htm
+* Unzip.
+* Copy gen_com.dll into the C:\Program Files\Winamp\Plugins directory.
+* Restart Winamp.  Winamp will detect and install the new plugin.
+
+For those using iTunes, a standard installation of that program should
+work without any additional steps, but you need to edit the file
+~/.plait/config to make iTunes your music player.  Change the line
+that defines PLATFORM to read
+
+    PLATFORM=cygwin-itunes
+
+
+### OS X prerequisites
+
+Running Plait on OS X requires one package that isn't part of the
+default install: wget.  You can compile wget from source and install
+it yourself, if you know how to do that sort of thing.  The easier
+option is to install "fink" and have fink install wget for you:
+
+* Download fink from fink.sourceforge.net.  Follow the instructions
+provided there to install it.
+
+* Now install wget.  Type 
+
+        sudo apt-get install wget
+
+    and enter your administrator password when prompted.
+
+(Users of Plait 0.53 and earlier also need to take the following step:
+
+* Install gawk and findutils.  Type
+
+        sudo apt-get install gawk findutils
+
+Newer versions of Plait don't depend on these packages.)
+
+
+### GNU/Linux prerequisites
+
+On GNU/Linux, Plait works with ogg123, mpg123, mpg321, Xmms, Beep
+Media Player, or amaroK.  If you are using Xmms, xmms-shell is also
+required.  Installation varies depending on your distro.  Be sure to
+install the package esound if you want to play via esd.
+
+Xmms, Beep Media Player, or amaroK will be used if they are present.
+If not, Plaiter will be used as a front end to any command line
+players that are present.  Otherwise Plait will work in "list only"
+mode unless you configure your own player.
+
+
+### Finishing up (all operating systems)
+
+You now have all the prerequisites to run Plait.  The last step is
+installing Plait itself:
+
+* Untar the package:
+
+        tar xvzf plait-x.xx.tar.gz
+        cd plait
+
+* Tell `plait` to install itself.  You may run this command as a
+  non-root user, in which case Plait will default to installing in
+  your home directory; you may run it as root, in which case Plait
+  will default to installing in /usr/local; or you may set the install
+  directory to anything you like by providing an argument.  Examples:
+
+        su -c "./plait --install"
+
+    or
+
+        sudo ./plait --install
+
+    or
+
+        ./plait --install
+
+    or
+
+        sudo ./plait --install /usr
+
+If you install Plait as a non-root user, you may have to add ~/bin to
+your path.  On Cygwin, the install routine does not actually check
+whether you are root, but rather whether or not you have permission to
+touch root's files.  This works well because a typical install of
+Cygwin creates a non-root user with root permissions, and there is no
+su command.  Thus (on Cygwin only), as long as you have permission to
+touch root's files, install will default to /usr/local.
+
+Plait is now ready to run.  The first time you run it, Plait will do
+some additional self-installation which involves asking for the
+location of your music directory.  You only have to do this once.
+
+
+### Setting up for XSPF
+
+If you want to use the XSPF web publishing feature, you will need to
+install the XSPF Web Music Player
+(http://musicplayer.sourceforge.net).  Download and unpack the player
+from that address and then copy the file xspf_player.swf to
+~/.plait/xspf.
+
+If your music library is located on a web server, you also need to set
+the variable BASEURL, for example:
+
+    BASEURL=http://www.example.com/mp3/
+
+Otherwise, leave BASEURL set to the empty string.
+
+If your music directory is laid out as Artist/Album/Song, you're all
+set.  Otherwise, you may need to set the three variables ARTISTIDX,
+ALBUMIDX, and SONGIDX in the config file.  For Example, if your music
+directory is laid out as Artist/Year/Album/Song, set
+
+    ARTISTIDX=1
+    ALBUMIDX=3
+    SONGIDX=4
+
+If your music directory is laid out as Artist/Artist - Album - Song,
+set
+
+    LEVELSEP="(/| - )"
+    ARTISTIDX=1
+    ALBUMIDX=3
+    SONGIDX=4
+
+
+9.  Uninstallation
+------------------
+
+If you installed Plait as root, you must be root to uninstall it;
+otherwise you must be the same user as you were during installation.
+
+Type 
+
+    su -c "plait --uninstall"
+
+or
+
+    sudo plait --uninstall
+
+or just
+
+    plait --uninstall
+
+to uninstall Plait.  See the instructions that came with gen_com if
+you want to remove that plugin.  To remove wget, gawk or findutils,
+follow the package removal technique for Cygwin or Fink, as
+appropriate.  If you are updating Plait, and you decide to install it
+into a different directory this time, uninstall the old version before
+installing the new one.  Otherwise two versions of Plait will be
+installed and you can't be sure which one will run.
+
+
+10.  Customization
+------------------
+
+There are a few changes you can make to ~/.plait/config to customize
+the behavior of Plait.
+
+
+#### File types
+
+By default Plait looks for files of type mp3, wav, aif, ogg and flac.
+You can change this by setting the variable TYPES, for example:
+
+    TYPES=".ogg .mp3 .flac"
+
+You may need to run `plait --cache` to rebuild the cache after
+changing the file types.
+
+As of Plait 1.2, you are advised to set the variable TYPES once to a
+very broad set of file types, and then use target devices to customize
+your playlists for different devices.  You can either redefine one of
+the built-in target devices, or define a new one.  For example, to
+define a target device that supports the same file types as an iPod,
+add the following line to the config file:
+
+    ipod="m4a M4A mp3 MP3 wav WAV"
+
+In contrast to the TYPES variable, with devices you don't include the
+dot in the file extension, and you must repeat each extension twice,
+in upper and lower case.  In this list, order is important; thus the
+ipod device will prefer mp3 files to wav files.
+
+To use this device to build a playlist, select it on the command line:
+
+    plait britney --device ipod
+
+You can also set the default device in the config file:
+
+    DEVICE="$ipod"
+
+Important note: if you redefine the default device (hifi), you should
+then reassign DEVICE to it in the config file, ie:
+
+    hifi="wav WAV flac FLAC"
+    DEVICE="$hifi"
+
+Otherwise DEVICE will continue to have the old value of hifi from
+before it was redefined.
+
+
+#### Alternate players
+
+Although there is a default player on each operating system, some OSs
+support several players.  You can pick something besides the default
+by setting the variable PLATFORM, for example:
+
+    PLATFORM=linux-plaiter
+
+The currently supported platforms are: cygwin-winamp, cygwin-itunes,
+osx-itunes, linux-xmms, linux-beep-media-player, linux-amarok,
+linux-mpg123, linux-mpg123-esd, linux-mpg321, linux-mpg321-esd,
+linux-ogg123, linux-ogg123-esd, linux-plaiter, any-xspf and
+any-xspf-copy.  In the interest of accuracy, there are also "unix-"
+synonyms for all the "linux-" players.  The "esd" platforms play via
+the Enlightened Sound Daemon, which can stream audio across the
+network to an esd server.  You specify which server by setting
+ESPEAKER, for example:
+
+    ESPEAKER=192.168.1.2:16001
+
+See README.plaiter for information on Plaiter, which is the ideal
+platform choice if you currently use a command line player like
+mpg123.
+
+
+11.  XSPF Playlists
+-------------------
+
+Plait can generate a complete web site with an embedded MP3 playlist,
+including an XSPF playlist, a web page that embeds the XSPF Web Music
+Player (http://musicplayer.sourceforge.net), and MP3 files.
+
+The steps are as follows:
+
+1. Download and unpack the web music player from the site above.  Copy
+   the file xspf_player.swf to ~/.plait/xspf.
+
+2. Customize the file /usr/share/plait/playlist.html, if you like.  It
+   is a template file in which the special text string "%TITLE%" will
+   be replaced by the playlist title generated automatically by Plait.
+
+3. Set the variable BASEURL appropriately in the config file (see
+   below).  You may also need to set the variables ARTISTIDX,
+   ALBUMIDX, and SONGIDX.  See the section on installation.
+
+4. Run an appropriate Plait command to generate a playlist (see
+   below).
+
+5. Upload the directory ~/.plait/xspf to a new directory on your web
+   server. 
+
+6. Test the playlist by loading the file playlist.html from the upload
+   directory into your browser.
+
+The Plait command you run depends on where your music library is
+located: if it is located on your web server where MP3 files can be
+loaded via a URL, the MP3s can be accessed in place.  In this case,
+set the variable BASEURL in the Plait config file to the base address
+of your MP3 directory, for example
+
+    BASEURL=http://www.example.com/mp3/
+
+Then generate a playlist with a command like the following:
+
+    plait "Dire Straits" --tracks 7 --platform any-xspf --device compact --coverart 1
+
+and upload the directory ~/.plait/xspf to your web server.  The flag
+"--coverart 1" is optional and causes Plait to look up album cover art
+on Amazon.  You can turn this feature on permanently by setting
+
+    COVERART=1
+
+in the config file (in which case you can turn it off temporarily with
+the flag "--coverart 0").
+
+If your music library is not on a web server, you will need to upload
+the MP3 files in the playlist to your server as well.  In that case,
+leave BASEURL set to the empty string.  Then generate a playlist with
+a command like the following:
+
+    plait "Dire Straits" --tracks 7 --platform any-xspf-copy --device compact
+
+This form of the command actually copies MP3 files into the directory
+~/.plait/xspf, which you then upload.  You may want to clean old MP3
+files out of this directory periodically to avoid unnecessary
+uploads. 
+ 
+Of course, you can always pick and choose which files to upload
+depending upon your application.  The file playlist.html can be used
+as an example if you prefer to embed the playlist in a preexisting web
+page. 
+
+
+12.  Bugs
+---------
+
+Plait does a poor job of handling file names with various accent
+characters.  iTunes refuses to play these files at all, because
+Applescript can't translate them into Macintosh file paths.  On other
+platforms you should be able to play these files, but it is still
+difficult to search for them, because Plait doesn't know how to ignore
+accent marks when making string comparisons.  The problem does not
+just involve comparing characters that could be considered equivalent
+in the current locale, which would be resolved by equivalence classes;
+here the problem is to compare characters which could be considered
+equivalent in any locale.  There is a version of `agrep` for OS/2 and
+Windows which can do this type of accent-insensitive comparison, so if
+you are interested in this problem, bug the authors of `agrep` about
+back-porting this feature to UNIX.
+
+
+13.  What's next
+----------------
+
+Who knows?
+
+
+
+Copyright (c) 2005-2008 by Stephen Jungels

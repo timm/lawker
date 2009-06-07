@@ -1,0 +1,1472 @@
+#! /bin/sh
+
+# Plait -- Search music library or Shoutcast radio streams and make
+# one of the supported music players play the results.
+#
+# Copyright (C) 2005-200* Stephen Jungels
+# 
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.  
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+#
+# See COPYING for the full text of the license.
+#
+# See README for supported platforms and installation instructions.
+#
+# To contact the author: sjungels@gmail.com
+
+
+usage ()
+{
+  echo "Usage is:"
+  echo "  \"plait <hint about artist or album or song> [[not] <hint>]...[as <mix>]\", or" 
+  echo "  \"plait --stream <hint> [[not] <hint>]...\"" 
+  echo "Options:"
+  echo "  --list,-l         -- show matching tracks but don't play"
+  echo "  --mix,-m          -- play tracks matching any hint (make a mix)"
+  echo "  --queue,-q        -- add tracks to queue"
+  echo "  --random,-r       -- play in random order"
+  echo "  --sort            -- play in sorted order"
+  echo "  --stripe          -- play in alternating order"
+  echo "  --stripe2         -- play in random alternating order"
+  echo "  --fade            -- play in gaussian fade order"
+  echo "  --group           -- play randomly in groups"
+  echo "  --tracks,-t       -- play n tracks, if possible"
+  echo "  --stream,-s       -- play Shoutcast radio streams"
+  echo "  --mixfile,-f      -- read hints from mixfile"
+  echo "  --device,-d       -- choose target device"
+  echo "  --platform        -- choose platform"
+  echo "  --coverart        -- cover art mode (0 or 1)"
+  echo "  --guest,-g        -- use guest configuration"
+  echo "  --interactive,-i  -- interactive mode"
+  echo "  --cache,-c        -- rebuild cache"
+  echo "  --install         -- install Plait"
+  echo "  --uninstall       -- uninstall Plait"
+  echo "  --play            "
+  echo "  --pause           "
+  echo "  --stop            "
+  echo "  --next            "
+  echo "  --prev            "
+  echo "  --help            -- show help"
+  echo "  --version         -- show version"
+}
+
+
+version ()
+{
+  echo "Plait v 1.6.2"
+  echo "Written by Stephen Jungels (http://stephenjungels.com/contact)"
+  echo ""
+  echo "Copyright (c) 2005-2008 by Stephen Jungels.  Released under the GPL."
+  echo "Latest version and more info at http://plait.sourceforge.net/"
+}
+
+
+create_winamp_scripts ()
+{
+  if ! test -f "$HOME/.plait/commands/cmd-play.vbs"
+  then
+    echo 1>&2 Installing Winamp scripts
+    mkdir -p "$HOME/.plait/commands"
+    PLAYLIST="`cygpath -aw \"$HOME/.plait/playlist2.m3u\"`"
+    cat > "$HOME/.plait/commands/play.vbs" <<EOF
+Dim oWinCom
+set oWinCom = CreateObject("WinampCOM.Application")
+oWinCom.Stop
+oWinCom.ClearPlaylist
+oWinCom.AddFile("$PLAYLIST")
+oWinCom.Play
+EOF
+
+    cat > "$HOME/.plait/commands/queue.vbs" <<EOF
+Dim oWinCom
+set oWinCom = CreateObject("WinampCOM.Application")
+oWinCom.AddFile("$PLAYLIST")
+EOF
+
+    cat > "$HOME/.plait/commands/cmd-play.vbs" <<EOF
+Dim oWinCom
+set oWinCom = CreateObject("WinampCOM.Application")
+oWinCom.Play
+EOF
+
+    cat > "$HOME/.plait/commands/cmd-pause.vbs" <<EOF
+Dim oWinCom
+set oWinCom = CreateObject("WinampCOM.Application")
+oWinCom.Pause
+EOF
+
+    cat > "$HOME/.plait/commands/cmd-stop.vbs" <<EOF
+Dim oWinCom
+set oWinCom = CreateObject("WinampCOM.Application")
+oWinCom.Stop
+EOF
+
+    cat > "$HOME/.plait/commands/cmd-next.vbs" <<EOF
+Dim oWinCom
+set oWinCom = CreateObject("WinampCOM.Application")
+oWinCom.FastForward
+EOF
+
+    cat > "$HOME/.plait/commands/cmd-prev.vbs" <<EOF
+Dim oWinCom
+set oWinCom = CreateObject("WinampCOM.Application")
+oWinCom.Rewind
+EOF
+
+  fi
+}
+
+
+create_itunes_scripts ()
+{
+  if ! test -e "$HOME/.plait/commands/itunes-cmd-play.js"
+  then
+    echo 1>&2 Installing iTunes scripts
+    mkdir -p "$HOME/.plait/commands"
+    PLAYLIST="`cygpath -am \"$HOME/.plait/playlist2.m3u\"`"
+
+    cat > "$HOME/.plait/commands/itunes-play.js" <<EOF
+var iTunesApp = WScript.CreateObject("iTunes.Application");
+var lists = iTunesApp.LibrarySource.Playlists;
+var list;
+list = lists.ItemByName("%PL%");
+while (list != null)
+{
+  list.Delete();
+  list = lists.ItemByName("%PL%");
+}
+
+list = iTunesApp.CreatePlaylist("%PL%");
+list.AddFile("$PLAYLIST");
+try
+{
+  list.PlayFirstTrack();
+}
+catch (err) {}
+EOF
+
+    cat > "$HOME/.plait/commands/itunes-queue.js" <<EOF
+var iTunesApp = WScript.CreateObject("iTunes.Application");
+var lists = iTunesApp.LibrarySource.Playlists;
+var list;
+list = lists.ItemByName("%PL%");
+if (list == null)
+{
+  list = iTunesApp.CreatePlaylist("%PL%");
+}
+list.AddFile("$PLAYLIST");
+EOF
+
+    cat > "$HOME/.plait/commands/itunes-cmd-play.js" <<EOF
+var iTunesApp = WScript.CreateObject("iTunes.Application");
+iTunesApp.Play();
+EOF
+    cat > "$HOME/.plait/commands/itunes-cmd-pause.js" <<EOF
+var iTunesApp = WScript.CreateObject("iTunes.Application");
+iTunesApp.Pause();
+EOF
+    cat > "$HOME/.plait/commands/itunes-cmd-stop.js" <<EOF
+var iTunesApp = WScript.CreateObject("iTunes.Application");
+iTunesApp.Stop();
+EOF
+    cat > "$HOME/.plait/commands/itunes-cmd-next.js" <<EOF
+var iTunesApp = WScript.CreateObject("iTunes.Application");
+iTunesApp.NextTrack()
+EOF
+    cat > "$HOME/.plait/commands/itunes-cmd-prev.js" <<EOF
+var iTunesApp = WScript.CreateObject("iTunes.Application");
+iTunesApp.PreviousTrack()
+EOF
+
+  fi
+}
+
+
+install ()
+{
+  if ! test "-$1-" = "--"
+  then
+    INSTALLDIR="$1"
+  else
+    if test $CYGWIN -ge 1
+    then
+      touch 2>/dev/null /etc/motd
+      if test $? = 0
+      then
+        INSTALLDIR=/usr/local
+      else
+        INSTALLDIR="$HOME"
+      fi
+    else
+      if test $(id -u) = 0
+      then
+        INSTALLDIR=/usr/local
+      else
+        INSTALLDIR="$HOME"
+      fi
+    fi
+  fi
+
+  echo Installing in $INSTALLDIR
+  mkdir -p $INSTALLDIR/bin
+  mkdir -p $INSTALLDIR/share/man/man1
+  mkdir -p $INSTALLDIR/share/plait
+  mkdir -p $INSTALLDIR/share/doc/plait
+
+  if test -f plait
+  then
+    sed "s:%INSTALLDIR%:$INSTALLDIR:g" plait > $INSTALLDIR/bin/plait
+    chmod +x $INSTALLDIR/bin/plait
+  fi
+  if test -f plait.1
+  then
+    cp plait.1 $INSTALLDIR/share/man/man1
+  fi
+  if test -f plaiter
+  then
+    cp plaiter $INSTALLDIR/bin
+  fi
+  if test -f plaiter.1
+  then
+    cp plaiter.1 $INSTALLDIR/share/man/man1
+  fi
+  if test -f querystream.awk
+  then
+    cp querystream.awk $INSTALLDIR/share/plait
+  fi
+  if test -f postprocess.awk
+  then
+    cp postprocess.awk $INSTALLDIR/share/plait
+  fi
+  if test -f device.awk
+  then
+    cp device.awk $INSTALLDIR/share/plait
+  fi
+  if test -f interactive.awk
+  then
+    cp interactive.awk $INSTALLDIR/share/plait
+  fi
+  if test -f interactivestream.awk
+  then
+    cp interactivestream.awk $INSTALLDIR/share/plait
+  fi
+  if test -f robots.awk
+  then
+    cp robots.awk $INSTALLDIR/share/plait
+  fi
+  if test -f xspf.awk
+  then
+    cp xspf.awk $INSTALLDIR/share/plait
+  fi
+  if test -f treecopy.awk
+  then
+    cp treecopy.awk $INSTALLDIR/share/plait
+  fi
+  if test -f coverart.awk
+  then
+    cp coverart.awk $INSTALLDIR/share/plait
+  fi
+  if test -f playlist.html
+  then
+    cp playlist.html $INSTALLDIR/share/plait
+  fi
+
+  if test -f README
+  then
+    cp README $INSTALLDIR/share/doc/plait
+  fi
+  if test -f README.plaiter
+  then
+    cp README.plaiter $INSTALLDIR/share/doc/plait
+  fi
+  if test -f COPYING
+  then
+    cp COPYING $INSTALLDIR/share/doc/plait
+  fi
+  if test -f INSTALL
+  then
+    cp INSTALL $INSTALLDIR/share/doc/plait
+  fi
+
+  # always force rewrite of scripts
+  rm -f "$HOME/.plait/commands/itunes-cmd-play.js"
+  rm -f "$HOME/.plait/commands/cmd-play.vbs"
+
+  # clean up junk from old versions of plait
+  rm -fr /etc/plait
+
+  echo "1.6.2" > $INSTALLDIR/share/plait/version
+}
+
+
+uninstall ()
+{
+  echo Uninstall "plait"\?  Type "yes" to continue, "no" to cancel.
+  read yes
+  if test "-$yes-" = "-yes-"
+  then
+    rm -fr $INSTALLDIR/share/plait
+    if test $? != 0
+    then
+      echo You need root privileges to uninstall, try su or sudo
+      exit 1
+    fi
+    rm -fr $INSTALLDIR/share/doc/plait
+    rm -f $INSTALLDIR/share/man/man1/plait.1
+    rm -f $INSTALLDIR/share/man/man1/plaiter.1
+    rm -f $INSTALLDIR/bin/plait
+    rm -f $INSTALLDIR/bin/plaiter
+    echo Uninstall complete.
+  else
+    echo Uninstall cancelled
+  fi
+}
+
+
+docache ()
+{
+  echo 1>&2 Caching music directory $MUSICDIR/$SUBDIR
+
+  if test "-$SUBDIR-" = "--"
+  then
+    rm -f "$HOME/.plait/$CACHE"
+    dir="$MUSICDIR"
+  else
+    touch "$HOME/.plait/$CACHE"
+    dir="$MUSICDIR/$SUBDIR"
+    cat "$HOME/.plait/$CACHE" | grep -v "$dir" > "$HOME/.plait/cache2"
+    mv "$HOME/.plait/cache2" "$HOME/.plait/$CACHE"
+  fi
+  if test -d "$dir"
+  then
+    eval "find \"$dir\" -follow -type f" >> "$HOME/.plait/$CACHE"
+    sort "$HOME/.plait/$CACHE" | uniq > "$HOME/.plait/$CACHE-tmp"
+    mv "$HOME/.plait/$CACHE-tmp" "$HOME/.plait/$CACHE"
+  else
+    echo 1>&2 The directory $dir was not found 
+  fi
+  touch "$HOME/.plait/$CACHE"
+}
+
+
+querylibrary ()
+{
+  rm -f "$HOME/.plait/mixfile"
+  OUTMIXFILE=mix0
+  QUERY=""
+  NOTQUERY=""
+  bar=""
+  awkhints=""
+  colons=""
+  while test $# -gt 0
+  do
+    if test "-$1-" = "-as-" && ! test "-$2-" = "--" && test "-$bar-" = "-|-"
+    then
+      OUTMIXFILE=`echo "$2" | sed "s/ /-/g"`
+      shift; shift
+    elif test "-$1-" = "-not-" && ! test "-$2-" = "--" && test "-$bar-" = "-|-"
+    then
+      NOTQUERY="$NOTQUERY | grep -Eiv \"$2\""
+      echo "not \"$2\"" >> "$HOME/.plait/mixfile"
+      shift; shift
+    else
+      if test $MIX = 1 || test "-$colons-" = "--"
+      then
+        awkhints="${awkhints}${colons}$1"
+        colons="::"
+      fi
+      if test $MIX = 0 
+      then
+        QUERY="$QUERY | grep -Ei \"$1\""
+      else
+        QUERY="${QUERY}${bar}$1"
+      fi
+      echo "\"$1\"" >> "$HOME/.plait/mixfile"
+      shift
+    fi
+    bar="|"
+  done
+  if test $MIX = 1 
+  then
+    QUERY="| grep -Ei \"$QUERY\""
+  fi
+  eval cat "$HOME/.plait/$CACHE" $QUERY $NOTQUERY > "$HOME/.plait/playlist.m3u"
+  if test -e "$HOME/.plait/mixfile" && test -d "$MUSICDIR"
+  then
+    sort "$HOME/.plait/mixfile" | uniq > "$MUSICDIR/.plait/mixfiles/$OUTMIXFILE"
+  fi
+
+  # select device-appropriate tracks
+
+  awk -f $INSTALLDIR/share/plait/device.awk types="$DEVICE" \
+    "$HOME/.plait/playlist.m3u" > "$HOME/.plait/playlist0.m3u"
+
+  # optionally process the list interactively
+
+  if test $INTERACTIVE = 1
+  then
+    awk -f $INSTALLDIR/share/plait/interactive.awk prefix="$MUSICDIR/" levelsep="$LEVELSEP" \
+      "$HOME/.plait/playlist0.m3u" > "$HOME/.plait/playlist.m3u"
+    mv "$HOME/.plait/playlist.m3u" "$HOME/.plait/playlist0.m3u"
+  fi
+
+  # balance and sort
+
+  if test $ORDER = "sort"
+  then
+    awk -f $INSTALLDIR/share/plait/postprocess.awk hints="$awkhints" order=$ORDER tracks=$TRACKS \
+      "$HOME/.plait/playlist0.m3u" state=2 "$HOME/.plait/playlist0.m3u" \
+      > "$HOME/.plait/playlist.m3u"
+  else 
+    awk -f $INSTALLDIR/share/plait/postprocess.awk hints="$awkhints" order=$ORDER tracks=$TRACKS \
+      "$HOME/.plait/playlist0.m3u" state=2 "$HOME/.plait/playlist0.m3u" \
+      | sort -n | cut -f "2-" > "$HOME/.plait/playlist.m3u"
+  fi
+}
+
+
+querystream ()
+{
+  wget >/dev/null 2>&1 -O "$HOME/.plait/robots.txt" -r \
+    -U "Plait \(http://plait.sourceforge.net/bot.html\)" \
+    "http://classic.shoutcast.com/robots.txt"
+  if test -f "$HOME/.plait/robots.txt"
+  then
+    ok=`cat "$HOME/.plait/robots.txt" | awk -f $INSTALLDIR/share/plait/robots.awk`
+    if test $ok = "NOT OK"
+    then
+      echo 1>&2 "The Plait bot was excluded by Shoutcast's robots.txt file, exiting"
+      exit 1
+    fi
+  fi
+
+  if test $MIX = 0
+  then
+    wget >/dev/null 2>&1 -O "$HOME/.plait/shoutcast.html" \
+      -U "Plait (http://plait.sourceforge.net/bot.html)" \
+      "http://classic.shoutcast.com/directory/?s=$HINT1&numresult=100&orderby=listeners"
+  else
+    rm -f "$HOME/.plait/shoutcast.html"
+  fi
+  awkhints=""
+  space=""
+  while test $# -gt 0
+  do
+    awkhints="${awkhints}${space}`echo "$1" | sed "s/ /_/g"`"
+    space=" "
+    if test $MIX = 1
+    then
+      if test "-$1-" = "-not-" && ! test "-$2-" = "--"
+      then
+        shift
+        awkhints="${awkhints}${space}`echo "$1" | sed "s/ /_/g"`"
+      else
+        wget >/dev/null 2>&1 -O "$HOME/.plait/shoutcast2.html" \
+          -U "Plait (http://plait.sourceforge.net/bot.html)" \
+          "http://classic.shoutcast.com/directory/?s=$1&numresult=100&orderby=listeners"
+        cat "$HOME/.plait/shoutcast2.html" >> "$HOME/.plait/shoutcast.html"
+      fi
+    fi
+    shift
+  done
+
+  awk -f $INSTALLDIR/share/plait/querystream.awk hints="$awkhints" mix=$MIX interactive=$INTERACTIVE \
+    "$HOME/.plait/shoutcast.html" > "$HOME/.plait/playlist.m3u"
+
+  # optionally process the list interactively
+
+  if test $INTERACTIVE = 1
+  then
+    awk -f $INSTALLDIR/share/plait/interactivestream.awk \
+      "$HOME/.plait/playlist.m3u" > "$HOME/.plait/playlist0.m3u"
+    mv "$HOME/.plait/playlist0.m3u" "$HOME/.plait/playlist.m3u"
+  fi
+
+  if test $ORDER = "random"
+  then
+    tmpfile="$(mktemp /tmp/plait.XXXXXX)"
+    cat "$HOME/.plait/playlist.m3u" | awk 'BEGIN{srand()} {print rand() "\t" $0}' | \
+      sort -n | cut -f "2-" > $tmpfile
+    mv $tmpfile "$HOME/.plait/playlist.m3u"
+  fi
+
+  # trim the playlist if it has not been edited interactively
+  if test $INTERACTIVE = 0
+  then
+    tmpfile="$(mktemp /tmp/plait.XXXXXX)"
+    head -n $TRACKS > $tmpfile "$HOME/.plait/playlist.m3u"
+    mv $tmpfile "$HOME/.plait/playlist.m3u"
+  fi
+}
+
+
+listmixfiles ()
+{
+  if test -d "$MUSICDIR"
+  then
+    echo Mixfiles available:
+    mkdir -p "$MUSICDIR/.plait/mixfiles"
+    rm -f "$MUSICDIR/.plait/mixfiles/*~"
+    ls "$MUSICDIR/.plait/mixfiles"
+  else
+    echo 1>&2 The music directory is unavailable
+  fi
+}
+
+
+prefetch_stream_urls ()
+{
+  rm -f "$HOME/.plait/playlists.pls"
+  cat "$HOME/.plait/playlist.m3u" | grep -i "^http" | awk \
+    '{ print "wget >/dev/null 2>&1 -O \"$HOME/.plait/playlist.pls\" \"" \
+     $0 "\"; cat \"$HOME/.plait/playlist.pls\" >> \"$HOME/.plait/playlists.pls\""}' \
+     > "$HOME/.plait/xme"
+  . "$HOME/.plait/xme"
+
+  # make sure there is a trailing slash, for mpg321:
+  cat "$HOME/.plait/playlists.pls" | awk 'BEGIN {FS="="} \
+    /File1/ {if ($2 ~ /\/$/) print $2; else print $2 "/"}' \
+    > "$HOME/.plait/playlist2.m3u"
+}
+
+
+translate_to_windows_file_paths_old ()
+{
+  # translate to windows file paths.  cygpath is very slow, so
+  # run it just once for the top two directories (enough to
+  # cover /cygdrive/c), then do a simple replace for the rest of
+  # each file path
+
+  root="`head -n 1 \"$HOME/.plait/playlist.m3u\" | awk \
+    '{match($0, "/*[^/]*/[^/]*/"); print substr($0, RSTART, RLENGTH)}'`"
+  root="`cygpath -am $root`"
+  tmpfile="$(mktemp /tmp/plait.XXXXXX)"
+  cat "$HOME/.plait/playlist.m3u" | awk > $tmpfile -v r="$root" \
+    'BEGIN { if (r !~ /\/$/) r = r "/"; gsub (/\//, "\\", r) } \
+     { s = $0; sub ("^/*[^/]*/[^/]*/", "", s); gsub (/\//, "\\", s); print r s}'
+  mv $tmpfile "$HOME/.plait/playlist2.m3u"
+}
+
+
+translate_to_windows_file_paths ()
+{
+  if test $SLOW_PATH_TRANSLATION = 1
+  then 
+    cat "$HOME/.plait/playlist.m3u" | xargs > "$HOME/.plait/playlist2.m3u" -i cygpath -am "{}"
+  else
+    root="`cygpath -am \"$MUSICDIR\"`"
+    tmpfile="$(mktemp /tmp/plait.XXXXXX)"
+    cat "$HOME/.plait/playlist.m3u" | awk > $tmpfile -v r="$root" -v d="$MUSICDIR" \
+      'BEGIN {if (r !~ /\/$/) r = r "/"; gsub (/\//, "\\", r)} \
+       {s = $0; sub (d "/", "", s); gsub (/\//, "\\", s); print r s}'
+    mv $tmpfile "$HOME/.plait/playlist2.m3u"
+  fi
+}
+
+
+prefetch_or_copy ()
+{
+  hasurl=`grep -ci http "$HOME/.plait/playlist.m3u"`
+  if test $hasurl -gt 0
+  then
+    prefetch_stream_urls
+  else
+    cp "$HOME/.plait/playlist.m3u" "$HOME/.plait/playlist2.m3u"
+  fi
+}
+
+
+prefetch_or_translate ()
+{
+  hasurl=`grep -ci http "$HOME/.plait/playlist.m3u"`
+  if test $hasurl = 0
+  then
+    translate_to_windows_file_paths
+  else
+    prefetch_stream_urls
+  fi
+}
+
+
+translate_or_copy ()
+{
+  hasurl=`grep -ci http "$HOME/.plait/playlist.m3u"`
+  if test $hasurl = 0
+  then
+    translate_to_windows_file_paths
+  else
+    cp "$HOME/.plait/playlist.m3u" "$HOME/.plait/playlist2.m3u"
+  fi
+}
+
+
+CYGWIN=`uname -s | grep -ic CYGWIN`
+DARWIN=`uname -s | grep -ic Darwin`
+LINUX=`uname -s | grep -ic Linux`
+INSTALLDIR="%INSTALLDIR%"
+
+# file types and devices
+TYPES=".mp3 .wav .flac .aif .aiff .ogg"
+compact="mp3 MP3"
+medium="mp3 MP3 ogg OGG wav WAV flac FLAC aif AIF aiff AIFF"
+hifi="wav WAV flac FLAC aif AIF aiff AIFF mp3 MP3 ogg OGG"
+DEVICE="$hifi"
+SETDEVICE=""
+
+# option flags
+SHOW=0
+QUEUE=0
+ORDER="sort"
+SETORDER=""
+STREAM=0
+CONFIG=config
+CACHE=cache
+DOCACHE=0
+MIX=0
+TRACKS=-4
+SETTRACKS=-5
+MIXFILES=""
+DOMIXFILE=0
+DOLISTMIXFILES=0
+HINTS=""
+HINT1=""
+SUBDIR=""
+COMMAND=""
+SLOW_PATH_TRANSLATION=0
+INTERACTIVE=0
+LEVELSEP="/"
+SETPLATFORM=""
+ARTISTIDX=1
+ALBUMIDX=2
+SONGIDX=3
+BASEURL=""
+COVERART=0
+SETCOVERART=-1
+
+
+while test $# -gt 0
+do
+  case "$1" in
+    --install)
+      install "$2"
+      exit 0
+    ;;
+
+    --uninstall)
+      uninstall
+      exit 0
+    ;;
+
+    --list|-l)
+      SHOW=1
+      shift
+    ;;
+
+    --queue|-q)
+      QUEUE=1
+      shift
+    ;;
+
+    --random|-r)
+      SETORDER="random"
+      shift
+    ;;
+
+    --stripe)
+      SETORDER="stripe"
+      shift
+    ;;
+
+    --stripe2)
+      SETORDER="stripe2"
+      shift
+    ;;
+
+    --sort)
+      SETORDER="sort"
+      shift
+    ;;
+
+    --fade)
+      SETORDER="fade"
+      shift
+    ;;
+
+    --group)
+      SETORDER="group"
+      shift
+    ;;
+
+    --cache|-c)
+      DOCACHE=1
+      if ! test "-$2-" = "--"
+      then
+        SUBDIR="$2"
+        shift
+      fi
+      shift
+    ;;
+
+    --coverart)
+      if ! test "-$2-" = "--"
+      then
+        test 2> /dev/null $2 -gt -1
+        if test $? -ne 0
+        then
+          echo 1>&2 Bad value for --coverart, ignoring $1
+        else
+          SETCOVERART=$2
+          shift
+        fi
+      else
+        echo 1>&2 No value for --coverart, ignoring
+      fi
+      shift
+    ;;
+
+    --stream|-s)
+      STREAM=1
+      TRACKS=10
+      shift
+    ;;
+
+    --guest|-g)
+      if ! test "-$2-" = "--"
+      then
+        prefix=`echo "$2" | sed "s/ /-/g"`
+        CONFIG="$prefix-$CONFIG"
+        CACHE="$prefix-$CACHE"
+        shift
+      else
+        echo 1>&2 No guest name provided, ignoring $1
+      fi
+      shift
+    ;;
+
+    --device|-d)
+      if ! test "-$2-" = "--"
+      then
+        SETDEVICE="$2"
+        shift
+      else
+        echo 1>&2 No device name provided, ignoring $1
+      fi
+      shift
+    ;;
+
+    --platform)
+      if ! test "-$2-" = "--"
+      then
+        SETPLATFORM="$2"
+        shift
+      else
+        echo 1>&2 No platform provided, ignoring $1
+      fi
+      shift
+    ;;
+
+    --mix|-m)
+      MIX=1
+      shift
+    ;;
+
+    --tracks|-t)
+      if ! test "-$2-" = "--"
+      then
+        if test $2 = "avg"
+        then 
+          SETTRACKS=-1
+        elif test $2 = "min"
+        then
+          SETTRACKS=-2
+        elif test $2 = "max"
+        then
+          SETTRACKS=-3
+        elif test $2 = "all"
+        then
+          SETTRACKS=-4
+        else
+          test 2> /dev/null $2 -gt -1
+          if test $? -ne 0
+          then
+            echo 1>&2 Bad track count, ignoring $1
+          else
+            SETTRACKS=$2
+          fi
+        fi
+        shift
+      else
+        echo 1>&2 No track count provided, ignoring $1
+      fi
+      shift
+    ;;
+
+    --mixfile|-f)
+      if ! test "-$2-" = "--"
+      then
+        MIXFILES="$MIXFILES `echo "$2" | sed "s/ /-/g"`"
+        DOMIXFILE=1
+        MIX=1
+        shift
+      else
+        echo 1>&2 No mix file name provided, ignoring $1
+      fi
+      shift
+    ;;
+
+    --play)
+      COMMAND=play
+      shift
+    ;;
+
+    --pause)
+      COMMAND=pause
+      shift
+    ;;
+
+    --stop)
+      COMMAND=stop
+      shift
+    ;;
+
+    --next)
+      COMMAND=next
+      shift
+    ;;
+
+    --prev)
+      COMMAND=prev
+      shift
+    ;;
+
+    --interactive|-i)
+      INTERACTIVE=1
+      shift
+    ;;
+
+    --dump)
+      DOLISTMIXFILES=1
+      shift
+    ;;
+
+    --help)
+      usage
+      exit 0
+    ;;
+
+    --version)
+      version
+      exit 0
+    ;;
+
+    -*)
+      echo 1>&2 Ignoring unknown option $1
+      shift
+    ;;
+
+    *)
+      if test "-$HINT1-" = "--"
+      then
+        HINT1="$1"
+      fi
+      HINTS="$HINTS \"$1\""
+      shift
+    ;;
+
+  esac
+done
+
+mkdir -p "$HOME/.plait/xspf"
+if test -f "$HOME/.plait/$CONFIG"
+then
+  . "$HOME/.plait/$CONFIG"
+fi
+
+if test "-$MUSICDIR-" = "--"
+then
+  echo 1>&2 Please enter the directory where your music is stored.
+  while test 1 -gt 0
+  do
+    read a
+    if test -d "$a"
+    then 
+      MUSICDIR="$a"
+      echo >> "$HOME/.plait/$CONFIG" "MUSICDIR=\"$a\""
+      echo 1>&2 Configuration complete
+      break
+    else
+      echo 1>&2 Directory $a not found, try again
+    fi
+  done
+fi
+
+if ! test "-$SETPLATFORM-" = "--"
+then
+  PLATFORM=$SETPLATFORM
+fi
+
+if test "-$PLATFORM-" = "--"
+then
+  if test $CYGWIN -ge 1
+  then
+    PLATFORM=cygwin-winamp
+  elif test $DARWIN -ge 1
+  then
+    PLATFORM=osx-itunes
+  else
+    xmms=`which xmms 2>/dev/null`
+    if ! test "-$xmms-" = "--"
+    then
+      PLATFORM=unix-xmms
+    else
+      bmp=`which beep-media-player 2>/dev/null`
+      if ! test "-$bmp-" = "--"
+      then
+        PLATFORM=unix-beep-media-player
+      else
+        amarok=`which amarok 2>/dev/null`
+        if ! test "-$amarok-" = "--"
+        then
+          PLATFORM=unix-amarok
+        else 
+          mpg=`which mpg123 2>/dev/null`
+          ogg=`which ogg123 2>/dev/null`
+          mpg3=`which mpg321 2>/dev/null`
+          if ! test "-${mpg}${ogg}${mpg3}-" = "--"
+          then
+            PLATFORM=unix-plaiter
+          else
+            PLATFORM=any-listonly
+            echo 1>&2 No player is selected.  Edit $HOME/.plait/config to select one.
+          fi
+        fi
+      fi
+    fi
+  fi
+  echo 1>&2 Platform $PLATFORM selected.
+  echo >> "$HOME/.plait/$CONFIG" "PLATFORM=$PLATFORM"
+fi
+
+export ESPEAKER
+MUSICDIR=`echo "$MUSICDIR" | sed "s:/$::"`
+
+if test -d "$MUSICDIR"
+then
+  mkdir -p "$MUSICDIR/.plait/mixfiles"
+fi
+
+if test $SETTRACKS -ge -4
+then
+  TRACKS=$SETTRACKS
+fi
+
+if ! test "-$SETDEVICE-" = "--"
+then
+  eval DEVICE="\$$SETDEVICE"
+fi
+
+if ! test "-$SETORDER-" = "--"
+then
+  ORDER=$SETORDER
+fi
+
+if test $SETCOVERART -ge 0
+then
+  COVERART=$SETCOVERART
+fi
+
+if test $STREAM = 1 && test $DOMIXFILE = 1
+then
+  STREAM=0
+  echo 1>&2 Mix file selected, ignoring --stream
+fi
+
+if test $STREAM = 1 && test $TRACKS -lt 0
+then
+  TRACKS=10
+  echo 1>&2 "Stream query selected, ignoring symbolic track count"
+fi
+
+#if test $STREAM = 1 && test $INTERACTIVE = 1
+#then
+#  INTERACTIVE=0
+#  echo 1>&2 "Stream query selected, disabling interactive mode"
+#fi
+
+if test $DOCACHE -eq 1
+then
+  docache
+  exit 0
+fi
+
+if test $DOLISTMIXFILES -eq 1
+then
+  listmixfiles
+  exit 0
+fi
+
+if test "$PLATFORM" = "cygwin-winamp"
+then
+  create_winamp_scripts
+fi
+
+if test "$PLATFORM" = "cygwin-itunes"
+then
+  create_itunes_scripts
+fi
+
+
+# if there is a command, forward it to the player and quit
+if ! test "-$COMMAND-" = "--"
+then
+  case $PLATFORM in
+    cygwin-winamp)
+      cygstart "$HOME/.plait/commands/cmd-$COMMAND.vbs"
+      ;;
+
+    cygwin-itunes)
+      cygstart "$HOME/.plait/commands/itunes-cmd-$COMMAND.js"
+      ;;
+
+    linux-plaiter|unix-plaiter)
+      plaiter --$COMMAND
+      ;;
+
+    osx-itunes)
+      case $COMMAND in
+        play)
+          osascript -e 'tell application "iTunes" to play' > /dev/null 2>&1
+          ;;
+
+        pause)
+          osascript -e 'tell application "iTunes" to pause' > /dev/null 2>&1
+          ;;
+
+        stop)
+          osascript -e 'tell application "iTunes" to stop' > /dev/null 2>&1
+          ;;
+
+        next)
+          osascript -e 'tell application "iTunes" to next track' > /dev/null 2>&1
+          ;;
+
+        prev)
+          osascript -e 'tell application "iTunes" to previous track' > /dev/null 2>&1
+          ;;
+
+      esac
+      ;;
+
+    linux-xmms|unix-xmms|unix_xmms)
+      case $COMMAND in
+        play)
+          xmms-shell -e play > /dev/null 2>&1
+          ;;
+
+        pause)
+          xmms-shell -e pause > /dev/null 2>&1
+          ;;
+
+        stop)
+          xmms-shell -e stop > /dev/null 2>&1
+          ;;
+
+        next)
+          xmms-shell -e next > /dev/null 2>&1
+          ;;
+
+        prev)
+          xmms-shell -e previous > /dev/null 2>&1
+          ;;
+
+      esac
+      if ! test $? = 0
+      then
+        echo 1>&2 Platform $PLATFORM requires the package xmms-shell to send command $COMMAND
+      fi
+      ;;
+
+    linux-beep-media-player|unix-beep-media-player)
+      case $COMMAND in
+        play)
+          beep-media-player --play > /dev/null 2>&1
+          ;;
+
+        pause)
+          beep-media-player --play-pause > /dev/null 2>&1
+          ;;
+
+        stop)
+          beep-media-player --stop > /dev/null 2>&1
+          ;;
+
+        next)
+          beep-media-player --fwd > /dev/null 2>&1
+          ;;
+
+        prev)
+          beep-media-player --rew > /dev/null 2>&1
+          ;;
+
+      esac
+      ;;
+
+    linux-amarok|unix-amarok)
+      case $COMMAND in
+        play)
+          amarok --play > /dev/null 2>&1
+          ;;
+
+        pause)
+          amarok --pause > /dev/null 2>&1
+          ;;
+
+        stop)
+          amarok --stop > /dev/null 2>&1
+          ;;
+
+        next)
+          amarok --next > /dev/null 2>&1
+          ;;
+
+        prev)
+          amarok --previous > /dev/null 2>&1
+          ;;
+
+      esac
+      ;;
+
+    linux-mplayer|unix-mplayer)
+      case $COMMAND in
+        stop)
+          killall mplayer > /dev/null 2>&1
+          ;;
+      esac
+      ;;
+
+    *)
+      echo 1>&2 Platform $PLATFORM does not support command $COMMAND
+      ;;
+
+  esac
+  exit 0
+fi
+
+if ! test "-$HINTS-" = "--" || test $DOMIXFILE = 1
+then
+
+  if test $STREAM = 0
+  then
+    if ! test -f "$HOME/.plait/$CACHE"
+    then
+      docache
+    fi
+
+    if test $DOMIXFILE = 1
+    then
+      LISTNAME="`echo \"$MIXFILES\" | sed \"s/^ //\"` tracks"
+    else
+      LISTNAME="$HINT1 tracks"
+    fi
+    echo "LISTNAME=\"$LISTNAME\"" > "$HOME/.plait/listname"
+
+    if test $DOMIXFILE -eq 0
+    then
+      eval querylibrary $HINTS
+    else
+      filehints=""
+      for MIXFILE in $MIXFILES
+      do
+        if test -e "$MUSICDIR/.plait/mixfiles/$MIXFILE"
+        then
+          filehints="$filehints `cat "$MUSICDIR/.plait/mixfiles/$MIXFILE" | awk '{printf "%s ", $0}'`"
+        else
+          echo 1>&2 Mixfile $MIXFILE not found
+        fi
+      done
+      if test "-$HINTS-" = "--" && test "-$filehints-" = "--"
+      then
+        echo 1>&2 No hints, exiting
+        exit 0
+      else
+        eval querylibrary $filehints $HINTS
+      fi
+    fi
+
+  else
+    LISTNAME="$HINT1 streams"
+    echo "LISTNAME=\"$LISTNAME\"" > "$HOME/.plait/listname"
+    eval querystream $HINTS
+  fi
+else
+  # make sure there's at least an empty playlist
+  touch "$HOME/.plait/playlist.m3u"
+fi
+
+if test "-$LISTNAME-" = "--"
+then 
+  if test -f "$HOME/.plait/listname"
+  then 
+    . "$HOME/.plait/listname"
+  fi
+  if test "-$LISTNAME-" = "--"
+  then 
+    if test $STREAM = 0
+    then
+      LISTNAME="plait tracks"
+    else
+      LISTNAME="plait streams"
+    fi
+    echo "LISTNAME=\"$LISTNAME\"" > "$HOME/.plait/listname"
+  fi
+fi
+
+if test $SHOW = 1
+then
+  cat "$HOME/.plait/playlist.m3u"
+else
+  cuts=`cat "$HOME/.plait/playlist.m3u" | wc -l`
+  if test $cuts = 0
+  then
+    echo 1>&2 Playlist empty, try --list or --help
+  else
+    if ! test -d "$MUSICDIR" && test $STREAM = 0
+    then
+      echo 1>&2 The music directory is unavailable, exiting
+      exit 1
+    fi
+    case $PLATFORM in
+
+      cygwin-winamp)
+
+        translate_or_copy
+        if test $QUEUE = 0
+        then
+          cygstart "$HOME/.plait/commands/play.vbs"
+        else
+          cygstart "$HOME/.plait/commands/queue.vbs"
+        fi
+
+        ;;
+
+      cygwin-itunes)
+
+        prefetch_or_translate
+        ln2=`echo "$LISTNAME" | sed "s:/:-:g"`
+        if test $QUEUE = 0
+        then
+          sed "s/%PL%/$ln2/g" "$HOME/.plait/commands/itunes-play.js" > "$HOME/.plait/commands/itunes-play-2.js"
+          cygstart "$HOME/.plait/commands/itunes-play-2.js"
+        else
+          sed "s/%PL%/$ln2/g" "$HOME/.plait/commands/itunes-queue.js" > "$HOME/.plait/commands/itunes-queue-2.js"
+          cygstart "$HOME/.plait/commands/itunes-queue-2.js"
+        fi
+
+        ;;
+
+      osx-itunes)
+
+        if test $QUEUE -eq 1
+        then
+          echo  > "$HOME/.plait/play.osa" "tell application \"iTunes\""
+          echo >> "$HOME/.plait/play.osa" "if not (exists user playlist \"$LISTNAME\") then"
+          echo >> "$HOME/.plait/play.osa" "make user playlist with properties {name:\"$LISTNAME\"}"
+          echo >> "$HOME/.plait/play.osa" "end if"
+        else
+          echo  > "$HOME/.plait/play.osa" "tell application \"iTunes\""
+          echo >> "$HOME/.plait/play.osa" "if (exists user playlist \"$LISTNAME\") then"
+          echo >> "$HOME/.plait/play.osa" "delete user playlist \"$LISTNAME\""
+          echo >> "$HOME/.plait/play.osa" "end if"
+          echo >> "$HOME/.plait/play.osa" "make user playlist with properties {name:\"$LISTNAME\"}"
+        fi
+        hasurl=`grep -ci http "$HOME/.plait/playlist.m3u"`
+        if test $hasurl = 0
+        then
+          cat "$HOME/.plait/playlist.m3u" | awk >> "$HOME/.plait/play.osa" -v pl="$LISTNAME" \
+            '{print "set f to \"" $0 "\""; \
+              print "try"; \
+              print "set f2 to (POSIX file f) as string"; \
+              print "add f2 to playlist \"" pl "\"";
+              print "end try"}'
+        else
+          prefetch_stream_urls
+          pl="$HOME/.plait/playlist2.m3u"
+  	  echo >> "$HOME/.plait/play.osa" "set f to \"$pl\""
+  	  echo >> "$HOME/.plait/play.osa" "set f2 to (POSIX file f) as string"
+  	  echo >> "$HOME/.plait/play.osa" "add f2 to playlist \"$LISTNAME\""
+        fi
+        if test $QUEUE = 0
+        then
+          echo >> "$HOME/.plait/play.osa" "play track 1 of playlist \"$LISTNAME\""
+        fi
+        echo >> "$HOME/.plait/play.osa" "end tell"
+        osascript > /dev/null 2>&1 "$HOME/.plait/play.osa"
+
+        ;;
+
+      linux-xmms|unix-xmms|unix_xmms)
+
+        prefetch_or_copy
+        if test $QUEUE -eq 0
+        then
+          xmms "$HOME/.plait/playlist2.m3u" &
+        else
+          xmms --enqueue "$HOME/.plait/playlist2.m3u" &
+        fi
+
+        ;;
+
+      linux-mpg321|unix-mpg321)
+
+        prefetch_or_copy
+        killall > /dev/null 2>&1 mpg321
+        mpg321 -q --list "$HOME/.plait/playlist2.m3u" &
+
+        ;;
+
+      linux-mpg321-esd|unix-mpg321-esd)
+
+        prefetch_or_copy
+        killall > /dev/null 2>&1 mpg321
+        if ! test "-$ESPEAKER-" = "--"
+        then
+          SERVEROPT="-a $ESPEAKER"
+        fi
+        mpg321 -q -o esd $SERVEROPT --list "$HOME/.plait/playlist2.m3u" &
+
+        ;;
+
+      linux-mpg123|unix-mpg123)
+
+        prefetch_or_copy
+        killall > /dev/null 2>&1 mpg123
+        mpg123 -q --list "$HOME/.plait/playlist2.m3u" &
+
+        ;;
+
+      linux-ogg123|unix-ogg123)
+
+        prefetch_or_copy
+        killall > /dev/null 2>&1 ogg123
+        ogg123 -q --list "$HOME/.plait/playlist2.m3u" &
+
+        ;;
+
+      linux-ogg123-esd|unix-ogg123-esd)
+
+        prefetch_or_copy
+        killall > /dev/null 2>&1 ogg123
+        ogg123 -d esd -q --list "$HOME/.plait/playlist2.m3u" &
+
+        ;;
+
+      linux-mpg123-esd|unix-mpg123-esd)
+
+        prefetch_or_copy
+        killall > /dev/null 2>&1 mpg123-esd
+        mpg123-esd -q --list "$HOME/.plait/playlist2.m3u" &
+
+        ;;
+
+      linux-plaiter|unix-plaiter)
+
+        prefetch_or_copy
+        if test $QUEUE = 0
+        then
+          plaiter "$HOME/.plait/playlist2.m3u" &
+        else
+          plaiter --queue "$HOME/.plait/playlist2.m3u" &
+        fi
+
+        ;;
+
+      linux-beep-media-player|unix-beep-media-player)
+
+        prefetch_or_copy
+        if test $QUEUE = 0
+        then
+          beep-media-player "$HOME/.plait/playlist2.m3u" &
+        else
+          beep-media-player --enqueue "$HOME/.plait/playlist2.m3u" &
+        fi
+
+        ;;
+
+      linux-amarok|unix-amarok)
+
+        prefetch_or_copy
+        if test $QUEUE = 0
+        then
+          amarok "$HOME/.plait/playlist2.m3u" &
+        else
+          amarok --enqueue "$HOME/.plait/playlist2.m3u" &
+        fi
+
+        ;;
+
+      any-listonly)
+
+        cat "$HOME/.plait/playlist.m3u"
+
+        ;;
+
+      cygwin-listonly)
+
+        prefetch_or_translate
+        cat "$HOME/.plait/playlist2.m3u"
+
+        ;;
+
+      any-xspf)
+
+        prefetch_or_copy
+        awk -f $INSTALLDIR/share/plait/xspf.awk -v title="$LISTNAME" art=$COVERART \
+          plait="$HOME/.plait" coverprog="$INSTALLDIR/share/plait/coverart.awk" \
+          sep="$LEVELSEP" d="$MUSICDIR" ar=$ARTISTIDX al=$ALBUMIDX so=$SONGIDX url="$BASEURL" \
+          "$HOME/.plait/playlist2.m3u" > "$HOME/.plait/xspf/playlist.xspf"
+        sed -e "s:%TITLE%:$LISTNAME:" $INSTALLDIR/share/plait/playlist.html \
+          > "$HOME/.plait/xspf/index.html" 
+
+        echo 1>&2 "Playlist directory $HOME/.plait/xspf ready for upload"
+
+        ;;
+
+      any-xspf-copy)
+
+        prefetch_or_copy
+        awk -f $INSTALLDIR/share/plait/xspf.awk -v title="$LISTNAME" art=$COVERART \
+          plait="$HOME/.plait" coverprog="$INSTALLDIR/share/plait/coverart.awk" \
+          sep="$LEVELSEP" d="$MUSICDIR" ar=$ARTISTIDX al=$ALBUMIDX so=$SONGIDX url="$BASEURL" \
+          "$HOME/.plait/playlist2.m3u" > "$HOME/.plait/xspf/playlist.xspf"
+        sed -e "s:%TITLE%:$LISTNAME:" $INSTALLDIR/share/plait/playlist.html \
+          > "$HOME/.plait/xspf/playlist.html" 
+
+        if ! test $hasurl -gt 0
+        then
+          echo 1>&2 "Copying mp3 files to $HOME/.plait/xspf"
+          awk -f $INSTALLDIR/share/plait/treecopy.awk d="$MUSICDIR/" to="$HOME/.plait/xspf/" \
+            "$HOME/.plait/playlist2.m3u" | sh
+        fi
+        echo 1>&2 "Playlist directory $HOME/.plait/xspf ready for upload"
+
+        ;;
+
+      linux-mplayer|unix-mplayer)
+
+        prefetch_or_copy
+        killall > /dev/null 2>&1 mplayer
+        mplayer -really-quiet -playlist "$HOME/.plait/playlist2.m3u" &
+
+        ;;
+
+    esac
+  fi
+fi

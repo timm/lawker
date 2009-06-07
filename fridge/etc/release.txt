@@ -15,22 +15,6 @@ stop gaps:
 	- saya
 	- batchrunner
 
-----------
-jawk
-awk100: jawk
-
------------
-scientific comuting in awk
-
-eiso's awk scrits- if i understood what they did
-http://www.nmr.chem.uu.nl/~eiso/help/index.html
-mechanical engineering ask scripts: http://www.tikmark.com/awkeng/awkscripts.htmldomain specific langauges
-2B
-2B
-
-natural langauge parsing
-http://someya-net.com/09-MA/
-
 -----------------
 
 code testing: kernighan
@@ -38,7 +22,6 @@ code testing: kernighan
 	- http://www.cs.princeton.edu/~bwk/testing.html
 	- my bunit
 
-fun: my bayes stuff
 
 -tips: getting shell variables into awk. 
 	- config file	
