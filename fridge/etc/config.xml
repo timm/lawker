@@ -811,7 +811,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TimS</what>
 	</file>
-	<file where="doc/tools/music.html">
+	<file where="doc/music.html">
 		<title>Music tools and Awk</title>
 		<what></what>
 		<what>Music</what>
