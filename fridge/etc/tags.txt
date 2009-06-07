@@ -95,8 +95,11 @@ doc/tools/cryptosig.html	;Anon	;2009	;Apr	;Tools	;Sigs	;|Hiding Email Address
 doc/tools/sigs.html			;Timm	;2009	;Apr	;Tools	;Sigs	;|Generating random sigs
 doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;Stats	;|Correlation between numbers
 
+doc/tools/music.html			;Admin	;2009	;June	;Tools	;Music; 	;|Music tools and Awk
+
 doc/project.html			;Admin	;2009	;Mar	;Tools	;Project	;|Project Tools
 doc/tools/plait.html			;StephenJ	;2009	;June	;Tools	;Music; ;Awk100	;|Playing music
+doc/tools/humdrum.html			;DavidH	;2009	;June	;Tools	;Music; 	;|Music analysis workbench
 doc/tools/shuffle.html		;Timm	;2009	;June	;Tools	;TenLiners	;|Shuffle.awk
 doc/tools/runawk.html		;AlexC	;2009	;Mar	;Tools	;Project ;Runawk	;|runawk
 doc/tools/m1.html			;JonB	;2009	;Mar	;Tools	;Macros; Awk100	;|m1 : simple macros

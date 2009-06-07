@@ -811,6 +811,15 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TimS</what>
 	</file>
+	<file where="doc/tools/music.html">
+		<title>Music tools and Awk</title>
+		<what></what>
+		<what>Music</what>
+		<what>Tools</what>
+		<what>June</what>
+		<what>2009</what>
+		<what>Admin</what>
+	</file>
 	<file where="doc/project.html">
 		<title>Project Tools</title>
 		<what>Project</what>
@@ -828,6 +837,15 @@ pageTracker._trackPageview();
 		<what>June</what>
 		<what>2009</what>
 		<what>StephenJ</what>
+	</file>
+	<file where="doc/tools/humdrum.html">
+		<title>Music analysis workbench</title>
+		<what></what>
+		<what>Music</what>
+		<what>Tools</what>
+		<what>June</what>
+		<what>2009</what>
+		<what>DavidH</what>
 	</file>
 	<file where="doc/tools/shuffle.html">
 		<title>Shuffle.awk</title>
