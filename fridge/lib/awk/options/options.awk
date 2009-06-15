@@ -1,6 +1,6 @@
 #!/sw/bin/gawk -f 
 
-#.H1 Simpler Handler of Command-Line Options
+#.H1 Better Handler of Command-Line Options
 #.H2 Synposis
 #.PRE
 #gawk -f lib.awk -f options.awk -f ok.awk -f hello.awk [-h][-c][-a][-P who] 
@@ -63,6 +63,7 @@
 #It introduces five global variables into Awk. Lately I've been building lots
 #of library code in Awk and I have become obsessive about <em>not</em> polluting
 #the global name space with new variables. 
+#.LI Arnold's code does not satisfy "DRY"; i.e. don't repeat yourself.
 #./UL 
 #.P
 #Also, Arnold's "getopt" is  perhaps too complex. 
@@ -188,9 +189,9 @@ function options(opt,input,n0,               n,key,i,j,k,tmp) {
 #.PRE
   
  function builtInOptions(opt) {
-	opt["dumpOptions"]=""
+	opt["dumpOptions"]=0
  }
- function _dumpOptions(opt) {
+ function dumpOptions(opt) {
 	print "BEGIN {"
 	for(i in opt)
 		print "\tOpt[\""i"\"]\t=\t\""opt[i]"\";"
@@ -233,7 +234,7 @@ function options(opt,input,n0,               n,key,i,j,k,tmp) {
 	for(i in opt) 
 	  	if (i !~ /^_/)
 			ok(i,opt["_" i "?"], opt[i])
-	if (opt("dumpOptions")) { _dumpOptions(opt);  exit 0 }
+	if (opt("dumpOptions")) { dumpOptions(opt);  exit 0 }
 	if (opt("c")) { copyleft(about); exit -1 }
 	if (opt("a")) { print about;     exit 0  }
 	if (opt("h")) { print about "\n" usage;     exit 0  }

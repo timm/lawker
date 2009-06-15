@@ -47,6 +47,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/pschoose.html \
 	    $(Doc)/tools/cryptosig.html \
 	    $(Doc)/tools/sigs.html \
+	    $(Doc)/tools/options.html \
 	    $(Doc)/tools/m1.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
@@ -82,6 +83,7 @@ $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 $(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/options.html : $(Awklib)/optionsDemo.awk 	  ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/story.html      : $(Awklib)/grammar/story.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/eliza.html      : $(Awklib)/eliza.awk          ; cd $(Awklib) && $(Awk2Html)

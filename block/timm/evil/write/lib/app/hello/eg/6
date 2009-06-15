@@ -1,2 +1,2 @@
-cd ../../../..; make Src=lib/app/hello/hello.awk buildforce
+cd ../../../..; make Src=lib/app/hello/hello.awk ready buildforce
 /Users/timm/opt/evil/run/hello -h
