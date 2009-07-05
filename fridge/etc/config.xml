@@ -998,7 +998,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
-	<file where="doc/xmlparse.html">
+	<file where="doc/tools/xmlparse.html">
 		<title>xmlparse.awk</title>
 		<what>XML</what>
 		<what>June</what>
