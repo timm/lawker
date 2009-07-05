@@ -15,34 +15,7 @@ stop gaps:
 	- saya
 	- batchrunner
 
------------------
-
-code testing: kernighan
-	- http://groups.google.com/group/comp.lang.awk/browse_thread/thread/5f7a9b900258dbde#
-	- http://www.cs.princeton.edu/~bwk/testing.html
-	- my bunit
-
-tawk
-
--tips: getting shell variables into awk. 
-	- config file	
-	- double quotes
-	- the '$' trick
-
-visual awk
-
--------------------------------------------------------------------------------
-may 16: 9999999999999999
-
-new section: more xml with gawk
-- http://chiranth.blogspot.com/2007/02/using-awk-to-parse-html.html
-
-steve coile's xgawk
-http://groups.google.com/group/comp.lang.awk/msg/8f094ce6f0a32492?&q=xml
-karhs getmxl vs xgawk:
-http://groups.google.com/group/comp.lang.awk/browse_thread/thread/af74e60cb72e119c/38710ddc81e0bbc2?lnk=gst&q=xml#38710ddc81e0bbc2
-
-
+awk RE very fast
 pdf/awkverify.awk
 -------------------------------------------------------------------------------
 may 25: 000000000000000000
@@ -86,4 +59,6 @@ bibliograpy processor
 http://ftp.math.utah.edu/pub//tex/bib/comparch.awk
 
 
+============
 
+ http://groups.google.com/group/comp.lang.awk/browse_thread/thread/af74e60cb72e119c/38710ddc81e0bbc2?lnk=gst&q=xml#38710ddc81e0bbc2
