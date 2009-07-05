@@ -71,6 +71,7 @@ doc/tip/noforloops.html		;Jimh	;2009	;Jan	;Tips	;Forloop	;|Forloops
 doc/tip/moving.html			;ArnoldR	;2009	;Apr	;Tips		;|Moving Files with Awk
 doc/tip/awksed.html			;ArnoldR	;2009	;Apr	;Tips ;Sed		;|Simple Stream Editor
 doc/s2a.html			;JamesL	;2009	;Apr	;Tips ;Sed		;|Sed to Awk
+doc/visualawk.html		;JiirL	;2009	;Jul	  ;Papers	;|Visual Awk
 
 doc/fun/enumerate.html		;Timm	;2009	;Mar	;Funky	;|Functional Enumeration
 

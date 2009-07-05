@@ -666,6 +666,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JamesL</what>
 	</file>
+	<file where="doc/visualawk.html">
+		<title>Visual Awk</title>
+		<what>Papers</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>JiirL</what>
+	</file>
 	<file where="doc/fun/enumerate.html">
 		<title>Functional Enumeration</title>
 		<what>Funky</what>
