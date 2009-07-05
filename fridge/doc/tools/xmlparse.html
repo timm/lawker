@@ -2,44 +2,47 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#2>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Description:</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <P> A simple XML parser for awk</P>
 <a name=1></a><H2> Synopsis</H2>
-<PRE> awk -f xmlparse.awk [FILESPEC]...</PRE>
-&lt;H2> Download&lt;/H2>
-&lt;P>
+<P> awk -f xmlparse.awk [FILESPEC]...</P>
+<a name=2></a><H2> Download</H2>
+<P>
 From
-&lt;a href="http://lawker.googlecode.com/svn/fridge/lib/awk/xmlparse.awk">LAWKER.&lt;/a>
-&lt;H2> Description:&lt;/H2>
-&lt;P>
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/xmlparse.awk">LAWKER.</a>
+<a name=3></a><H2> Description:</H2>
+<P>
        This script is a simple XML parser for (modern variants of) awk.
        Input in XML format is saved to two arrays, "type" and "item".
-&lt;P>
+<P>
        The term, "item", as used here, refers to a distinct XML element,
        such as a tag, an attribute name, an attribute value, or data.
-&lt;P>
+<P>
        The indexes into the arrays are the sequence number that a
        particular item was encountered.  For example, the third item's
        type is described by type[3], and its value is stored in item[3].
-&lt;P>
+<P>
        The "type" array contains the type of the item encountered for
        each sequence number.  Types are expressed as a single word:
        "error" (invalid item or other error), "begin" (open tag),
        "attrib" (attribute name), "value" (attribute value), "end"
        (close tag), and "data" (data between tags).
-&lt;P>
+<P>
        The "item" array contains the value of the item encountered
        for each sequence number.  For types "begin" and "end", the
        item value is the name of the tag.  For "error", the value is
        the text of the error message.  For "attrib", the value is the
        attribute name.  For "value", the value is the attribute value.
        For "data", the value is the raw data.
-&lt;P>
+<P>
        WARNING: XML-quoted values ("entities") in the data and attribute
        values are *NOT* unquoted; they are stored as-is.
-&lt;H2> Code&lt;/H2>
+<a name=4></a><H2> Code</H2>
 <PRE>
 BEGIN {
 </PRE>
@@ -561,6 +564,6 @@ END {
 <PRE>
 }
 </PRE>
-<a name=2></a><H2> Author</H2>
+<a name=5></a><H2> Author</H2>
 <P> Steve Coile</P>
 </div><!--- htmlbody --->
