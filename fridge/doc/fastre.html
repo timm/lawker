@@ -8,7 +8,7 @@ Let's use superscripts to denote string repetition, so that a?<sup>3</sup>a<sup>
 define experiments where we
 conduct timing experiments on using regular expressions to match the a?<sup>n</sup>a<sup>n</sup> against the string a<sup>n</sup>.
 <p>
-If we conduct those experiments, Perl requires over sixty seconds to match a 29-character string. The other approach, labeled Thompson NFA for reasons that will be explained later, requires <b>twenty microseconds<b> to match the string. <em>That's not a typo</em>. ...
+If we conduct those experiments, Perl requires over sixty seconds to match a 29-character string. The other approach, labeled Thompson NFA for reasons that will be explained later, requires <u>twenty microseconds</u> to match the string. <b>That's not a typo</b>. ...
 the Thompson NFA implementation is a million times faster than Perl when running on a miniscule 29-character string. 
 This  trends grows as we increase "n": the Thompson NFA handles a 100-character string in under 200 microseconds, while Perl would require over 1015 years. (Perl is only the most conspicuous example of a large number of popular programs that use the same algorithm; the above graph could have been Python, or PHP, or Ruby, or many other languages.).
 </ul>
