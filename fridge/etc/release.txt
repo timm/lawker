@@ -15,7 +15,6 @@ stop gaps:
 	- saya
 	- batchrunner
 
-awk RE very fast
 pdf/awkverify.awk
 -------------------------------------------------------------------------------
 may 25: 000000000000000000
