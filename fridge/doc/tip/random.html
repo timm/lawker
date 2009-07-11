@@ -1,0 +1,109 @@
+<h1><join>Random Numbers in Gawk</join></h1>
+
+<p><em>(Summarized and extended from a <a href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/a5af2e65bd179961#">recent discussion at comp.lang.awk</a>.)</em><p>
+
+<h2>Background </h2>
+
+<p>A standard idiom in Gawk is to reset the random number generator in a BEGIN block.
+<pre>
+BEGIN {srand() }
+</pre>
+<p>Sadly,  when called with no arguments, this "reseeding" uses time-in-seconds. So if the same "random"
+task runs multiple times in the same second, it will get the same random number seed.
+
+<h2>Houston, We Have a  Problem</h2>
+<p>
+<b>"Ben" writes:</b>
+<p>
+I have a Gawk script that puts random comments into a file. It is run 3
+times in a row in quick succession. I found that seeding the random
+number generator using gawk did not work because all 3 times it was run
+was done within the same second (and it uses the time). 
+
+<p>I was wondering if anyone could give me some suggestions as to
+ what can be done to get around this
+problem.
+
+<h2>Solution #1: Persistent Memory</h2>
+		
+<p><b>Kenny McCormack  writes:</b>
+<p>
+When last I ran into this problem, what I did was to save the last value
+returned by rand() to a file, then on the next run, read that in and use
+that value as the arg to srand().  Worked well.
+	
+	
+<p><em>(Editor's comment: Kenny's solution does work well but incurs the cost of maintaining and reading/writing that
+"last value"   file.)</em></p>
+
+<h2>Solution #2: Use Bash</h2>
+
+<p><b>Tim Menzies writes:</b>
+
+<p>How about setting the seed using the BASH $RANDOM variable:
+<pre>
+gawk -v Seed=$RANDOM --source 'BEGIN { srand(Seed ? Seed : 1) }' 
+</pre>
+<p>If referenced multiple times in a second, it always generates
+a different number. 
+
+<p>In the above usage, if we have a seed, use it. Else, no seed so start all "random"  at the same place. If you prefer to
+use the default "seed from time-in-seconds" then use:
+<pre>
+BEGIN { if (Seed) { srand(Seed) } else { srand() } }
+</pre>
+
+<p><em>(Editor's comment: Tim's solution incurs the overhead of additional command-line syntax. However, it does allow
+the process calling Gawk to control the seed. This is important when trying to, say, debug code by recreating the sequence
+of random numbers that lead to the bug.)</em>
+
+<h2>Solution #3: Query the OS</h2>
+
+<p><b>Thomas Weidenfeller writes:</b>
+
+<p>Is that good enough (random enough) for your task?
+<pre>
+BEGIN {
+        "od -tu4 -N4 -A n /dev/random" | getline
+        srand(0+$0)
+}
+</pre>
+
+
+<p><em>(Editor's comment: Nice. Thomas' solution reminds us that "Gawk" can access a whole host of operating system 
+facilities.)</em>
+
+<h2>Solution #4: Use the Process Id</h2>
+
+<p><b>Aharon Robbins   	writes:</b>
+
+<p>You could so something like add PROCINFO["pid"] to the value of the time,
+or use that as the seed.
+<pre>
+$ gawk 'BEGIN { srand(systime() + PROCINFO["pid"]); print rand() }'
+0.405889
+$ gawk 'BEGIN { srand(systime() + PROCINFO["pid"]); print rand() }'
+0.671906
+</pre>
+
+<p><em>(Editor's comment: Aharon's solution is the fastest of all the ones shown here. For example, on Mac OS/X, his
+solution takes 6ms to run:</em>
+<pre>
+$ time gawk 'BEGIN { srand(systime() + PROCINFO["pid"]) }'
+
+real    0m0.006s
+user    0m0.002s
+sys     0m0.004s
+</pre>
+<p><em>while Thomas' solution is somewhat  slower:</em>
+<pre>
+$ time gawk 'BEGIN { "od -tu4 -N4 -A n /dev/random" | getline; srand($0+0) }'
+
+real    0m0.039s
+user    0m0.004s
+sys     0m0.034s
+</pre>
+<p><em>Note that while Aharon's solution is the fastest, it does not let some master process set the seed for the Gawk process (e.g. as in Tim's approach).</em>)
+<h2>Conclusion</h2>
+<p>If you want raw speed, use Aharon's approach. 
+<p>If you want seed control, see Tim's approach.
