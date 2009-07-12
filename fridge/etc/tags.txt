@@ -95,6 +95,7 @@ gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 
 doc/macro.html				;Timm	;2009	;Mar	;Tools	;Macros	;|Macro pre-processors
+doc/tools/fsm.html			;WmM	;2009	;Jul	;Tools			;|Finite State Machine Generator
 doc/tools/cryptosig.html	;Anon	;2009	;Apr	;Tools	;Sigs	;|Hiding Email Address
 doc/tools/sigs.html			;Timm	;2009	;Apr	;Tools	;Sigs	;|Generating random sigs
 doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;Stats	;|Correlation between numbers

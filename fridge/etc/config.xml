@@ -814,6 +814,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Timm</what>
 	</file>
+	<file where="doc/tools/fsm.html">
+		<title>Finite State Machine Generator</title>
+		<what>Tools</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>WmM</what>
+	</file>
 	<file where="doc/tools/cryptosig.html">
 		<title>Hiding Email Address</title>
 		<what>Sigs</what>
