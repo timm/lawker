@@ -1,0 +1,183 @@
+// fsm.c
+// $Revision: 1.12 $
+//
+// ======================================================================
+// Copyright 2008 Wm Miller
+//
+// This file is part of fsm-gen, and is distributed under the terms of the
+// GNU Lesser General Public License .
+//
+// Copies of the GNU General Public License and the GNU Lesser General Public
+// License are included with this distrubution in the files COPYING and
+// COPYING.LESSER, respectively.
+//
+// Fsm-gen is free software: you can redistribute it and/or modify it under the
+// terms of the GNU Lesser General Public License as published by the Free
+// Software Foundation, either version 3 of the License, or (at your option)
+// any later version.
+// 
+// Fsm-gen is distributed in the hope that it will be useful, but WITHOUT ANY
+// WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+// FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+// more details.
+// 
+// You should have received a copy of the GNU Lesser General Public License
+// along with fsm-gen.  If not, see <http://www.gnu.org/licenses/>.
+//
+// The author may be contacted at wmmsf at users.sourceforge.net.
+// ======================================================================
+// 
+//
+// this file provides 4 functions which implement the state transitions.
+//   theres nothing here to change really unless fsm_invalid_event() 
+//   doesn't meet your requirements.
+//
+// unsigned int fsminit(void)
+//   call this once.  not once per fsm, just once.
+//
+// bool fsm_invalid_event(void)
+//   this gets called only if you include it in your xxx.fsm file - your
+//   needs may vary.
+//
+// unsigned int fsm_allocFsm(struct fsm_s (*tablep)[], state_t initialState, 
+//                unsigned int states, unsigned int events)
+//   fsm supports multiple callers, multiple state machines.
+//   call this to allocate a context.  it returns an int which is an index
+//   into fsmContexts[].  
+//   the first param is the name of your fsm table.  if you named your fsm
+//   spec file xxx.fsm and called fsm.awk xxx.fsm, tablep will be fsm_xxx.
+//   the second param is the state you want the fsm to start in.
+//   the third and fourth params, states and events, will be  
+//   STATES_COUNT, EVENTS_COUNT as defined in fsm_xxx.h.
+//   See the example test.fsm and test_driver.c
+//
+// unsigned int fsm(unsigned int handle, event_t event)
+//   call this as often as you receive new events.  
+//   the first param is the handle to the context returned by fsm_allocFsm.
+//   the second param is the event.
+//   See the example test.fsm and test_driver.c
+//
+
+#include <string.h>
+
+#include "fsm.h"
+#include "utils.h"
+
+// // TODO remove this
+// #include "fsm_test.h"
+
+bool fsm_invalid_event(void)
+{
+    //printf("invalid event %0x", (unsigned)event);
+    //printf("invalid event %0x", event);
+    printf("invalid event ");
+    return false;
+}
+
+
+
+// array of fsm contexts
+struct fsmContext_s fsmContexts[FSM_MAXCONTEXTS];
+
+/********************************************/
+// call this once at startup
+unsigned int fsminit(void)
+{
+    struct fsmContext_s;
+
+    // clear out all contexts
+    (void)memset(fsmContexts, 0, sizeof(fsmContexts));
+
+    return 0;
+}
+
+
+/********************************************/
+// after determining a fsm transition is needed, 
+//  figure out the event and call this fcn with the event and the
+//  handle supplied via the call to fsm_allocFsm
+//
+//  this fcn does some ptr trickery to get generalized pointers to 
+//  various sized arrays of struct fsm_s.  handle is passed as a ptr to
+//  a _whole_ 2-dim'l array. 
+unsigned int fsm(unsigned int handle, event_t event)
+{
+    struct fsmContext_s *cp = &fsmContexts[handle];
+    struct fsm_s *t2p;
+
+    state_t cs;
+    unsigned int i;
+    
+    cs = cp->currentState;
+    i = cs * cp->maxevent + event;
+    t2p = ((struct fsm_s *)(struct fsm_s **)cp->fsmp + i);
+
+
+    // sanitize handle and event
+    // return early if anything is out of whack
+    RET_IF(handle >= FSM_MAXCONTEXTS, FSM_NOCTX);
+    RET_IF(event >= cp->maxevent, FSM_UNKEVENT);
+    RET_IF(cs >= cp->maxstate, FSM_UNKSTATE);
+    
+
+    // if the indicated action for this event and state is not NULL, do it
+    // else transition to newstate_true
+    if (NULL != t2p->action) {
+        cp->currentState =
+            t2p->action() ? t2p->newstate_true : t2p->newstate_false;
+    } else {
+        cp->currentState = t2p->newstate_true;
+    }
+
+    if (cp->traceEnable) {
+        cp->trace[cp->traceIndex % NUMBEROFELEMENTSIN(cp->trace)].event = event;
+        cp->trace[cp->traceIndex % NUMBEROFELEMENTSIN(cp->trace)].state =
+                                                            cp->currentState;
+        cp->traceIndex++;
+        cp->traceIndex = cp->traceIndex % NUMBEROFELEMENTSIN(cp->trace);
+    }
+    
+    return ERR_SUCCESS;
+}
+
+    
+/********************************************/
+// call this fcn to allocate a fsm context
+// tablep points to the table generated by fsm.awk in fsm_xxx.c
+// initialState is the state you wanna start in (duh)
+// states is STATES_COUNT, events is EVENTS_COUNT, both from fsm_xxx.h
+unsigned int fsm_allocFsm(struct fsm_s (*tablep)[], state_t initialState, 
+                unsigned int states, unsigned int events)
+{
+    // find unused context - for now, assume contexts[0];
+    struct fsmContext_s *cp;
+    unsigned int ii = 0;
+
+    
+    // look for a context that is unused
+    while ((fsmContexts[ii].fsmp != 0)
+                            && (ii < NUMBEROFELEMENTSIN(fsmContexts)))
+        ii++;
+
+    if (ii == NUMBEROFELEMENTSIN(fsmContexts)) {
+        // no more unused contexts
+        return FSM_NOCTX;
+
+    }
+
+    cp = &fsmContexts[ii];
+    //cp->fsmp = tablep;
+    cp->fsmp = (fsm_aap)tablep;
+    cp->currentState = initialState;
+    cp->traceIndex = 0;
+    (void)memset(cp->trace, 0, sizeof(cp->trace));
+    cp->traceEnable = true;
+
+    // record max values for runtime sanity checking
+    // NB: max value, not max index
+    cp->maxstate = states;
+    cp->maxevent = events;
+
+    return ii; // return context number
+}
+

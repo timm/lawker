@@ -1,0 +1,26 @@
+# $Revision: 1.2 $
+# current     event     action          next            next
+# state                                  state (ok)      state (fail)
+#                                          (action ret      (action ret
+#                                            true)            false)
+# ------------+---------+---------------+---------------+-------------------
+s1          a           fsm_s1_a        s1              s1
+            b           fsm_s1_b        s2              s2
+            c,d         fsm_invalid_event
+# note that if events c and d are not specified here, we don't know whether
+# there are only two events or that events other than a and b are invalid
+# hence all events must be listed for each state.
+                                        
+
+# TODO detect if ok and fail next states are diff when action is NULL
+# if the action is specified as "-", the next state fail is ignored
+s2          a,b         fsm_s2_ab       s1              -
+            c           -               s2              -
+            d           fsm_s2_d        s3              -
+                                        
+s3          a,b,c,d         fsm_s3_def      s1              s4
+
+# leave new state blank same as stay in same state
+# blank  or "-" action is equiv to nullAction
+s4          a,b,c,d         - s5        -
+s5          a,b,c,d         - s1        -
