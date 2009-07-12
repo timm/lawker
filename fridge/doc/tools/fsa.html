@@ -1,3 +1,8 @@
+
+<h2>Contents</h2>
+<div id="htmltoc">
+</div><!--- htmltoc --->
+<div id="htmlbody">
 .h1 Finite State Machine Generator
 .H2 Download
 .P
@@ -129,9 +134,9 @@ struct fsm_s fsm_fsmName [STATES_COUNT][EVENTS_COUNT].
     In its purist form, a fsm specifies state, event, action, new state.
     For example, a rudimentary ftp server might be specified as follows:
 .PRE
-# current     event     action          next 
-# state                                  state
-# --------------+----------+---------------+------------
+ current     event     action          next 
+ state                                  state
+ --------------+----------+---------------+------------
 IDLE            CONN_REQ   makeConnection  CONNECTED
 CONNECTED       GET_REQ    sendBuffer      SENDING
 SENDING         FILE_SENT  closeFile       IDLE
@@ -143,10 +148,10 @@ SENDING         FILE_SENT  closeFile       IDLE
     it would be useful to specify a different state if sendFile() returns
     fail (indicating EOF).
 .PRE
-# current     event     action     next         next 
-# state                             state        state
-#                                    ok           fail
-# --------------+----------+----------+---------+-----
+ current     event     action     next         next 
+ state                             state        state
+                                    ok           fail
+ --------------+----------+----------+---------+-----
 CONNECTED       GET_REQ    sendBuffer SENDING   IDLE
 ./PRE
 .P
@@ -162,10 +167,10 @@ CONNECTED       GET_REQ    sendBuffer SENDING   IDLE
             events that all result in the same action and same next state.
             For example, the specification
 .PRE
-# current     event     action     next         next 
-# state                             state        state
-#                                    ok           fail
-# --------------+----------+----------+---------+-----
+ current     event     action     next         next 
+ state                             state        state
+                                    ok           fail
+ --------------+----------+----------+---------+-----
 S1              EVENT_1    action_1   S2        S3
 ./PRE
 .P            means, when receiving event EVENT_1 or EVENT_2 in state S1,
@@ -191,10 +196,10 @@ S1              EVENT_1    action_1   S2        S3
          a fail next state specified as "-" means the fail next state is 
             the same as the success next state.  That is, in the specification
 .PRE
-# current     event     action     next         next 
-# state                             state        state
-#                                    ok           fail
-# --------------+----------+----------+---------+-----
+ current     event     action     next         next 
+ state                             state        state
+                                    ok           fail
+ --------------+----------+----------+---------+-----
 S1              EVENT_1    action_1   S2        -
 ./PRE
             means, when receiving event EVENT_1 in state S1, execute action
@@ -278,3 +283,4 @@ Copyright 2008 Wm Miller
 Wm Miller.
 The author may be contacted at wmmsf at users.sourceforge.net.
 
+</div><!--- htmlbody --->

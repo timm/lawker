@@ -4,6 +4,7 @@ Lawker ?= $(shell pwd)
 Doc=$(Lawker)/doc
 Gawk=$(Lawker)/gawk
 Bash=$(Lawker)/lib/bash
+Cee=$(Lawker)/c
 Ksh=$(Lawker)/lib/ksh
 Config=$(Lawker)/etc
 Awklib=$(Lawker)/lib/awk
@@ -48,6 +49,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/tools/xmlparse.html \
 	    $(Doc)/tools/cryptosig.html \
 	    $(Doc)/tools/sigs.html \
+	    $(Doc)/tools/fsa.html \
 	    $(Doc)/tools/m1.html \
 	    $(Doc)/fun/enumerate.html \
 	    $(Doc)/dsl/awkplusplus.html\
@@ -83,6 +85,7 @@ $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 $(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/fsa.html : $(Cee)/fsa/contents/readme.html 	  ; cd $> && $(Awk2Html)
 #$(Doc)/tools/options.html : $(Awklib)/optionsDemo.awk 	  ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/tools/xmlparse.html      : $(Awklib)/xmlparse.awk   ; cd $(Awklib)/grammar && $(Awk2Html)
