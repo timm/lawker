@@ -1,0 +1,86 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+XML AND AWK
+
+- Steve Coile parses XML using standard Awk
+  http://awk.info/?tools/xmlparse
+
+----------------------------------------------------------
+NEW SECTION: Awk for Music
+http://awk.info/?Music
+
+- Stephen Jungels' music player
+  http://awk.info/?tools/plait
+
+- David Huron's music analysis toolkit
+  http://awk.info/?tools/humdrum
+
+----------------------------------------------------------
+TEXT MATCHING
+
+- Russ Cox shows why Awk's regular expressions runs
+  thousands of times faster than Ruby, Python, and Perl
+  http://awk.info/?fastre
+
+----------------------------------------------------------
+VISUAL AWK
+
+- Don't code it; show it
+  http://awk.info/?visualawk
+
+----------------------------------------------------------
+BITS AND PIECES
+
+- Seeding random numbers is trickier than you might think
+  http://awk.info/?tip/random
+
+- Date manipulation rountes.
+  http://awk.info/?tools/holidays
+ 
+-----------------------------------------------------------
+NEW ENTRIES FOR THE Awk100
+(the Awk100  project collects impressive Awk programs.)
+
+Stephen Jungels' Plaiter program (pronounced "player") is a
+command line front end to command line music players. What
+does Plaiter do that (say) mpg123 can't already? It queues
+tracks, first of all.  Secondly, it understands commands
+like play, pause, stop, next and previous.  Finally, unlike
+most of the command line music players out there, Plaiter
+can handle a play list with more than one type of audio
+file, selecting the proper helper app to handle each type of
+file you throw at it.
+
+For more info, see
+
+	http://awk.info/?tools/plait
+
+-----------------------------------------------------------
+PAGE OF THE WEEK
+
+Google Analytics tells us that awk.info's page of the week
+is the Awk random story generator:
+
+	http://awk.info/?story
+
+The code write a story by randomly selecting rewrites from
+a set of production rules. The code comes with a large
+worked example (writing a sci-fi story).
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
