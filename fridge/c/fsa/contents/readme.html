@@ -1,280 +1,280 @@
-.h1 Finite State Machine Generator
-.H2 Download
-.P
-Download from
-.URL  http://lawker.googlecode.com/svn/fridge/c/fsa/contents.zip LAWKER
-.h2 Usage
-.P   
-For an example of the proper usage of fsm, see the file 
-	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm_driver.c">fsm_driver.c</a>.
-.P
-    In general, specify the state machine in FILE.fsm and define the
-    action functions in FILE_actions.c. Then run 
-	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsa.awk">fsa.awk</a>
-    compile and link 
-	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsa.c">fsa.c</a>
-	fsm_FILE.c and any driver file. Thats it.
-.P
-    Multiple fsms may be built and run in the same application using the
-    function fsm_allocFsm().  Moreover, calls to fsm() may be nested
-    using the same state machine as long as a different context is used.
-    fsm_allocFsm() returns a context number that must be stored and passed
-    to fsm() on each invoction.  In the provided sample, the context is
-    stored in myContext in test_driver.c.
-.P
-    Fsm() may be called either by polling for events or from inside an
-    interrupt service routine.  If fsm() is called from an interrupt
-    service routine, it must be protected from nested calls using the
-    same context.  Interrupting calls using other contexts is permitted.
-.P
-    Note that the function fsminit() is called only once and should not
-    be called for each fsm.  If there are special requirements for a
-    given fsm, an appropriate init function should be provided and
-    called for that particular fsm.
-.P
-    Currently, fsm traceEnable is set to true and cannot be disbled
-    (without changing fsm_allocFsm()).  An array is maintained within
-    each fsm context wherein each state and event are recorded for each
-    call to fsm().
-
-.H2 DESCRIPTION
-.P
-    Fsm.awk is an awk script designed to read a finite state machine (fsm)
-    specification and produce C files which implement that fsm.  The file 
-    <a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.c">fsm.c</a>, 
-	included in the distribution, provides the actual state transition
-    function, and the user provides the state transition "action" functions
-    and any special initialization.
-.P
-    The fsm distribution consists mainly of 
-	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.awk">fsm.awk</a> and 
-	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.c">fsm.c</a>, although
-    there are a number of header files for declarations - doesn't get
-    much simpler than that.
-.P
-    Typically, the fsm specification is named in the form fsm_name.fsm, but 
-    may be named any legal filename.  The action functions may be placed in
-    any number of files by any name the user chooses.  Each function should
-    return either true or false so that the appropriate next state may be
-    chosen.
-.P
-    The chief benefit of using <a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.awk">fsm.awk</a> 
-	is easy to read, consistent state
-    machine specifications and reuse of existing, tested code.  Multiple
-    tables and multiple users are happily accommodated. It's not hi-tech,
-    but in provides an easy avenue to generalization and consistency where
-    fsms are required.
-.P
-    This distribution represents a rewrite of an earlier version written
-    many years ago - rewritten with newer versions of awk and gcc in mind.
-    Consequently, it has not been tested using other compiler suites.
-    There are no known bugs, but, it IS a rewrite. 
-.P
-    Although a good candidate for C++, C was used because C++ was not being
-    used in any of the systems currently using fsm-gen.  Maybe a C++ version
-    will be in a subsequent release.
-.H2 Building the Sample FSM
-.P
-    The distribution provides the following files:
- .PRE
-COPYING and      FSF licenses
-COPYING.LESSER
-filelist         the "packing list"
-fsm.awk          the code generator
-fsm.c            the context and transition code
-fsm.h            definitions for the API
-makefile         simple makefile for the test driver code
-utils.h          error and utility definitions
-test.fsm         a sample fsm specification named "test"
-test_actions.c   action functions for the sample
-./PRE
-.P
-To build the sample,
-.OL
-.LI
-Download the
-.URL  http://lawker.googlecode.com/svn/fridge/c/fsa/contents.zip .zip
-.LI
- extract the files from the zip - unzip contents.zip
-.LI
- build the example fsm - ./fsm.awk test.fsm
-            This step will produce fsm_test.c and fsm_test.h.
-.LI
-compile and link the executable (test) using make
-.LI
-run the sample - the executable produced by the
-            makefile is "test".  See the section <em>THE EXAMPLE FSM</em>
-            below for information on using the example.
-.P
-    When fsm.awk is run, (run via fsm.awk fsmName.fsm) it produces two
-    files, fsm_fsmName.c and fsm_fsmName.h.  Fsm_fsmName.c will contain
-    an array of struct fsm_s tagged as fsm_fsmName, eg.,
-<pre>
-struct fsm_s fsm_fsmName [STATES_COUNT][EVENTS_COUNT].
-</pre>
-.P
-    In the fsm distribution, the files fsm_test.c, fsm_test.h and
-    test_actions.c may be built as an executable sample.
-.P
-    The file fsm.c should be compiled and linked with the final executable 
-    as it contains the C code necessary to read the generated tables and 
-    update context.  
-. P
-    Building the example should compile error free with the exception of
-    a warning about using "gets()" in the sample driver.  Hey - it's just
-    a driver for a test.
-
-.H2 Example FSM Specification File
-.P
-    In its purist form, a fsm specifies state, event, action, new state.
-    For example, a rudimentary ftp server might be specified as follows:
-.PRE
-# current     event     action          next 
-# state                                  state
-# --------------+----------+---------------+------------
-IDLE            CONN_REQ   makeConnection  CONNECTED
-CONNECTED       GET_REQ    sendBuffer      SENDING
-SENDING         FILE_SENT  closeFile       IDLE
-./PRE
-.P
-    It is useful on occasion to make the next state depend on the success
-    or failure of the action function.  Here, "ok" and "fail" mean "true"
-    and "false", respectively.  For example, as each buffer is sent
-    it would be useful to specify a different state if sendFile() returns
-    fail (indicating EOF).
-.PRE
-# current     event     action     next         next 
-# state                             state        state
-#                                    ok           fail
-# --------------+----------+----------+---------+-----
-CONNECTED       GET_REQ    sendBuffer SENDING   IDLE
-./PRE
-.P
-    State, event, action, and new state may be specified according to the
-    same rules as C variables/functions.  In the above table, the words
-    CONNECTED, GET_REQ, SENDING, and IDLE are used to generate #defines, 
-    and the action sendBuffer is the name of a user supplied function.
-
-.P The file test.fsm illustrates several idioms:
-.UL
-.LI
-         an event may be a single event or a comma separated list of 
-            events that all result in the same action and same next state.
-            For example, the specification
-.PRE
-# current     event     action     next         next 
-# state                             state        state
-#                                    ok           fail
-# --------------+----------+----------+---------+-----
-S1              EVENT_1    action_1   S2        S3
-./PRE
-.P            means, when receiving event EVENT_1 or EVENT_2 in state S1,
-            execute action action_1 and go to state S2 if the return value
-            of action_1() is true; go to state S3 if the return value of
-            action_1 is false.
-.LI
-         note that all events must be specified for each state.  See the
-            example specification file, test.fsm.
-.LI
-         an action specified as "-" means, "do nothing".  fsm.awk will
-            generate a NULL in the state transition tables which will 
-            be treated as "do nothing".  When so specified, the next state
-            will always be the next-state-ok state.
-.LI
-         an action specified as fsm_invalid_event will call the function
-            fsm_invalid_event(void) which always returns false.  This 
-            function may be edited to suit the situation at hand.  When
-            fsm_invalid_event is specified, the next state (both) may be 
-            left unspecified - fsm.awk will generate next state information
-            as being the current state (ie., no change in the current state).
-.lI
-         a fail next state specified as "-" means the fail next state is 
-            the same as the success next state.  That is, in the specification
-.PRE
-# current     event     action     next         next 
-# state                             state        state
-#                                    ok           fail
-# --------------+----------+----------+---------+-----
-S1              EVENT_1    action_1   S2        -
-./PRE
-            means, when receiving event EVENT_1 in state S1, execute action
-            action_1 and go to state S2 irrespective of the return value of 
-            action_1().
-./UL
-.H2 The Example FSM
-.P
-    Included in the distribution are test.fsm and test_actions.c which
-    implement a very simple state machine called "test".  After the
-    executable "test" is produced (via make), it may be used to show the
-    behavior of the fsm.
-.P
-    The example fsm was built and tested with gcc version 4.0.2 and awk
-    version 3.1.4.
-
-.h2 Example Output from the Sample
-.P
-      On running "test", first the line "testing fsm test" is printed, then a
-    line indicating the initial state.  It then asks for the next event.
-    All events in the example are the lowercase letters 'a' thru 'd',
-    entered from the keyboard. A special event 'z' will cause the trace to
-    be dumped.  Entering 'q' will cause test to exit.  Note that to keep
-    the example simple, other than special events 'z' and 'q', there is no
-    checking of input for being outside the known set of events.  A sample
-    session might look like this:
-.PRE
-$>
-$> ./test
-testing fsm test
-
-starting in state 1
-next event: a
-got a (0)  ----> called fsm_s2_ab ----> ,went to state 0
-next event: d
-got d (3)  ----> invalid eventwent to state 0
-next event: b
-got b (1)  ----> called fsm_s1_b ----> ,went to state 1
-next event: c
-got c (2)  ----> went to state 1
-next event: z
-trace index is 4
-event      state
-0          0
-3          0
-1          1
-2          1
-0          0 <-- next/oldest
-0          0
-0          0
-0          0
-
-next event: q
-bye
-$>
-./PRE
-.h2 Copyright
-.P
-Copyright 2008 Wm Miller
-.P
- This file is part of fsm-gen, and is distributed under the terms of the
- GNU Lesser General Public License .
-.P
- Copies of the GNU General Public License and the GNU Lesser General Public
- License are included with this distrubution in the files COPYING and
- COPYING.LESSER, respectively.
-.P
- Fsm-gen is free software: you can redistribute it and/or modify it under the
- terms of the GNU Lesser General Public License as published by the Free
- Software Foundation, either version 3 of the License, or (at your option)
- any later version.
-.P
- Fsm-gen is distributed in the hope that it will be useful, but WITHOUT ANY
- WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
- more details.
-.P
- You should have received a copy of the GNU Lesser General Public License
- along with fsm-gen.  If not, see <http://www.gnu.org/licenses/>.
-.h2 Author
-Wm Miller.
-The author may be contacted at wmmsf at users.sourceforge.net.
-
+#.h1 Finite State Machine Generator
+#.H2 Download
+#.P
+#Download from
+#.URL  http://lawker.googlecode.com/svn/fridge/c/fsa/contents.zip LAWKER
+#.h2 Usage
+#.P   
+#For an example of the proper usage of fsm, see the file 
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm_driver.c">fsm_driver.c</a>.
+#.P
+#    In general, specify the state machine in FILE.fsm and define the
+#    action functions in FILE_actions.c. Then run 
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsa.awk">fsa.awk</a>
+#    compile and link 
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsa.c">fsa.c</a>
+#	fsm_FILE.c and any driver file. Thats it.
+#.P
+#    Multiple fsms may be built and run in the same application using the
+#    function fsm_allocFsm().  Moreover, calls to fsm() may be nested
+#    using the same state machine as long as a different context is used.
+#    fsm_allocFsm() returns a context number that must be stored and passed
+#    to fsm() on each invoction.  In the provided sample, the context is
+#    stored in myContext in test_driver.c.
+#.P
+#    Fsm() may be called either by polling for events or from inside an
+#    interrupt service routine.  If fsm() is called from an interrupt
+#    service routine, it must be protected from nested calls using the
+#    same context.  Interrupting calls using other contexts is permitted.
+#.P
+#    Note that the function fsminit() is called only once and should not
+#    be called for each fsm.  If there are special requirements for a
+#    given fsm, an appropriate init function should be provided and
+#    called for that particular fsm.
+#.P
+#    Currently, fsm traceEnable is set to true and cannot be disbled
+#    (without changing fsm_allocFsm()).  An array is maintained within
+#    each fsm context wherein each state and event are recorded for each
+#    call to fsm().
+#
+#.H2 DESCRIPTION
+#.P
+#    Fsm.awk is an awk script designed to read a finite state machine (fsm)
+#    specification and produce C files which implement that fsm.  The file 
+#    <a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.c">fsm.c</a>, 
+#	included in the distribution, provides the actual state transition
+#    function, and the user provides the state transition "action" functions
+#    and any special initialization.
+#.P
+#    The fsm distribution consists mainly of 
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.awk">fsm.awk</a> and 
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.c">fsm.c</a>, although
+#    there are a number of header files for declarations - doesn't get
+#    much simpler than that.
+#.P
+#    Typically, the fsm specification is named in the form fsm_name.fsm, but 
+#    may be named any legal filename.  The action functions may be placed in
+#    any number of files by any name the user chooses.  Each function should
+#    return either true or false so that the appropriate next state may be
+#    chosen.
+#.P
+#    The chief benefit of using <a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.awk">fsm.awk</a> 
+#	is easy to read, consistent state
+#    machine specifications and reuse of existing, tested code.  Multiple
+#    tables and multiple users are happily accommodated. It's not hi-tech,
+#    but in provides an easy avenue to generalization and consistency where
+#    fsms are required.
+#.P
+#    This distribution represents a rewrite of an earlier version written
+#    many years ago - rewritten with newer versions of awk and gcc in mind.
+#    Consequently, it has not been tested using other compiler suites.
+#    There are no known bugs, but, it IS a rewrite. 
+#.P
+#    Although a good candidate for C++, C was used because C++ was not being
+#    used in any of the systems currently using fsm-gen.  Maybe a C++ version
+#    will be in a subsequent release.
+#.H2 Building the Sample FSM
+#.P
+#    The distribution provides the following files:
+# .PRE
+#COPYING and      FSF licenses
+#COPYING.LESSER
+#filelist         the "packing list"
+#fsm.awk          the code generator
+#fsm.c            the context and transition code
+#fsm.h            definitions for the API
+#makefile         simple makefile for the test driver code
+#utils.h          error and utility definitions
+#test.fsm         a sample fsm specification named "test"
+#test_actions.c   action functions for the sample
+#./PRE
+#.P
+#To build the sample,
+#.OL
+#.LI
+#Download the
+#.URL  http://lawker.googlecode.com/svn/fridge/c/fsa/contents.zip .zip
+#.LI
+# extract the files from the zip - unzip contents.zip
+#.LI
+# build the example fsm - ./fsm.awk test.fsm
+#            This step will produce fsm_test.c and fsm_test.h.
+#.LI
+#compile and link the executable (test) using make
+#.LI
+#run the sample - the executable produced by the
+#            makefile is "test".  See the section <em>THE EXAMPLE FSM</em>
+#            below for information on using the example.
+#.P
+#    When fsm.awk is run, (run via fsm.awk fsmName.fsm) it produces two
+#    files, fsm_fsmName.c and fsm_fsmName.h.  Fsm_fsmName.c will contain
+#    an array of struct fsm_s tagged as fsm_fsmName, eg.,
+#<pre>
+#struct fsm_s fsm_fsmName [STATES_COUNT][EVENTS_COUNT].
+#</pre>
+#.P
+#    In the fsm distribution, the files fsm_test.c, fsm_test.h and
+#    test_actions.c may be built as an executable sample.
+#.P
+#    The file fsm.c should be compiled and linked with the final executable 
+#    as it contains the C code necessary to read the generated tables and 
+#    update context.  
+#. P
+#    Building the example should compile error free with the exception of
+#    a warning about using "gets()" in the sample driver.  Hey - it's just
+#    a driver for a test.
+#
+#.H2 Example FSM Specification File
+#.P
+#    In its purist form, a fsm specifies state, event, action, new state.
+#    For example, a rudimentary ftp server might be specified as follows:
+#.PRE
+## current     event     action          next 
+## state                                  state
+## --------------+----------+---------------+------------
+#IDLE            CONN_REQ   makeConnection  CONNECTED
+#CONNECTED       GET_REQ    sendBuffer      SENDING
+#SENDING         FILE_SENT  closeFile       IDLE
+#./PRE
+#.P
+#    It is useful on occasion to make the next state depend on the success
+#    or failure of the action function.  Here, "ok" and "fail" mean "true"
+#    and "false", respectively.  For example, as each buffer is sent
+#    it would be useful to specify a different state if sendFile() returns
+#    fail (indicating EOF).
+#.PRE
+## current     event     action     next         next 
+## state                             state        state
+##                                    ok           fail
+## --------------+----------+----------+---------+-----
+#CONNECTED       GET_REQ    sendBuffer SENDING   IDLE
+#./PRE
+#.P
+#    State, event, action, and new state may be specified according to the
+#    same rules as C variables/functions.  In the above table, the words
+#    CONNECTED, GET_REQ, SENDING, and IDLE are used to generate #defines, 
+#    and the action sendBuffer is the name of a user supplied function.
+#
+#.P The file test.fsm illustrates several idioms:
+#.UL
+#.LI
+#         an event may be a single event or a comma separated list of 
+#            events that all result in the same action and same next state.
+#            For example, the specification
+#.PRE
+## current     event     action     next         next 
+## state                             state        state
+##                                    ok           fail
+## --------------+----------+----------+---------+-----
+#S1              EVENT_1    action_1   S2        S3
+#./PRE
+#.P            means, when receiving event EVENT_1 or EVENT_2 in state S1,
+#            execute action action_1 and go to state S2 if the return value
+#            of action_1() is true; go to state S3 if the return value of
+#            action_1 is false.
+#.LI
+#         note that all events must be specified for each state.  See the
+#            example specification file, test.fsm.
+#.LI
+#         an action specified as "-" means, "do nothing".  fsm.awk will
+#            generate a NULL in the state transition tables which will 
+#            be treated as "do nothing".  When so specified, the next state
+#            will always be the next-state-ok state.
+#.LI
+#         an action specified as fsm_invalid_event will call the function
+#            fsm_invalid_event(void) which always returns false.  This 
+#            function may be edited to suit the situation at hand.  When
+#            fsm_invalid_event is specified, the next state (both) may be 
+#            left unspecified - fsm.awk will generate next state information
+#            as being the current state (ie., no change in the current state).
+#.lI
+#         a fail next state specified as "-" means the fail next state is 
+#            the same as the success next state.  That is, in the specification
+#.PRE
+## current     event     action     next         next 
+## state                             state        state
+##                                    ok           fail
+## --------------+----------+----------+---------+-----
+#S1              EVENT_1    action_1   S2        -
+#./PRE
+#            means, when receiving event EVENT_1 in state S1, execute action
+#            action_1 and go to state S2 irrespective of the return value of 
+#            action_1().
+#./UL
+#.H2 The Example FSM
+#.P
+#    Included in the distribution are test.fsm and test_actions.c which
+#    implement a very simple state machine called "test".  After the
+#    executable "test" is produced (via make), it may be used to show the
+#    behavior of the fsm.
+#.P
+#    The example fsm was built and tested with gcc version 4.0.2 and awk
+#    version 3.1.4.
+#
+#.h2 Example Output from the Sample
+#.P
+#      On running "test", first the line "testing fsm test" is printed, then a
+#    line indicating the initial state.  It then asks for the next event.
+#    All events in the example are the lowercase letters 'a' thru 'd',
+#    entered from the keyboard. A special event 'z' will cause the trace to
+#    be dumped.  Entering 'q' will cause test to exit.  Note that to keep
+#    the example simple, other than special events 'z' and 'q', there is no
+#    checking of input for being outside the known set of events.  A sample
+#    session might look like this:
+#.PRE
+#$>
+#$> ./test
+#testing fsm test
+#
+#starting in state 1
+#next event: a
+#got a (0)  ----> called fsm_s2_ab ----> ,went to state 0
+#next event: d
+#got d (3)  ----> invalid eventwent to state 0
+#next event: b
+#got b (1)  ----> called fsm_s1_b ----> ,went to state 1
+#next event: c
+#got c (2)  ----> went to state 1
+#next event: z
+#trace index is 4
+#event      state
+#0          0
+#3          0
+#1          1
+#2          1
+#0          0 <-- next/oldest
+#0          0
+#0          0
+#0          0
+#
+#next event: q
+#bye
+#$>
+#./PRE
+#.h2 Copyright
+#.P
+#Copyright 2008 Wm Miller
+#.P
+# This file is part of fsm-gen, and is distributed under the terms of the
+# GNU Lesser General Public License .
+#.P
+# Copies of the GNU General Public License and the GNU Lesser General Public
+# License are included with this distrubution in the files COPYING and
+# COPYING.LESSER, respectively.
+#.P
+# Fsm-gen is free software: you can redistribute it and/or modify it under the
+# terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option)
+# any later version.
+#.P
+# Fsm-gen is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for
+# more details.
+#.P
+# You should have received a copy of the GNU Lesser General Public License
+# along with fsm-gen.  If not, see <http://www.gnu.org/licenses/>.
+#.h2 Author
+#Wm Miller.
+#The author may be contacted at wmmsf at users.sourceforge.net.
+#
