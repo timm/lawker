@@ -2,14 +2,14 @@
 #.H2 Download
 #.P
 #Download from
-#.URL  http://lawker.googlecode.com/svn/fridge/c/fsa/contents.zip LAWKER
+#.URL  http://lawker.googlecode.com/svn/fridge/c/fsm/contents.zip LAWKER
 #.h2 Usage
 #.P   
 #    In general, specify the state machine in FILE.fsm and define the
 #    action functions in FILE_actions.c. Then run 
-#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsa.awk">fsa.awk</a>
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsm/contents/fsm.awk">fsm.awk</a>
 #    compile and link 
-#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsa.c">fsa.c</a>
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsm/contents/fsm.c">fsm.c</a>
 #	fsm_FILE.c and any driver file. Thats it.
 #.P
 #    Multiple fsms may be built and run in the same application using the
@@ -38,14 +38,14 @@
 #.P
 #    Fsm.awk is an awk script designed to read a finite state machine (fsm)
 #    specification and produce C files which implement that fsm.  The file 
-#    <a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.c">fsm.c</a>, 
+#    <a href="http://lawker.googlecode.com/svn/fridge/c/fsm/contents/fsm.c">fsm.c</a>, 
 #	included in the distribution, provides the actual state transition
 #    function, and the user provides the state transition "action" functions
 #    and any special initialization.
 #.P
 #    The fsm distribution consists mainly of 
-#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.awk">fsm.awk</a> and 
-#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.c">fsm.c</a>, although
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsm/contents/fsm.awk">fsm.awk</a> and 
+#	<a href="http://lawker.googlecode.com/svn/fridge/c/fsm/contents/fsm.c">fsm.c</a>, although
 #    there are a number of header files for declarations - doesn't get
 #    much simpler than that.
 #.P
@@ -55,7 +55,7 @@
 #    return either true or false so that the appropriate next state may be
 #    chosen.
 #.P
-#    The chief benefit of using <a href="http://lawker.googlecode.com/svn/fridge/c/fsa/contents/fsm.awk">fsm.awk</a> 
+#    The chief benefit of using <a href="http://lawker.googlecode.com/svn/fridge/c/fsm/contents/fsm.awk">fsm.awk</a> 
 #	is easy to read, consistent state
 #    machine specifications and reuse of existing, tested code.  Multiple
 #    tables and multiple users are happily accommodated. It's not hi-tech,
@@ -90,7 +90,7 @@
 #.OL
 #.LI
 #Download the
-#.URL  http://lawker.googlecode.com/svn/fridge/c/fsa/contents.zip .zip
+#.URL  http://lawker.googlecode.com/svn/fridge/c/fsm/contents.zip .zip
 #.LI
 # extract the files from the zip - unzip contents.zip
 #.LI
