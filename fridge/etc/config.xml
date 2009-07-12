@@ -686,6 +686,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JiirL</what>
 	</file>
+	<file where="doc/verifyawk.html">
+		<title>Results Verification</title>
+		<what>Papers</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>BalkhisB</what>
+	</file>
 	<file where="doc/fun/enumerate.html">
 		<title>Functional Enumeration</title>
 		<what>Funky</what>

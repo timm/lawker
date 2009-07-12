@@ -1,0 +1,49 @@
+<h1><join>Automated Result Verification with Awk</join></h1>
+<h2>Source</h2>
+<p>
+From B.A. Bakar, T. Janowski, 
+<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/verifyawk.pdf">Automated 
+Result Verification with AWK</a> iceccs, pp.0188, 
+Sixth IEEE International Conference on Complex Computer Systems (ICECCS'00), 2000
+<h2>Download</h2>
+<p>
+Download from <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/verifyawk.pdf">LAWKER</a>.
+<H2>Abstract</h2>
+The goal of result-verification is to prove that one execution 
+run of a program satisfies its specification. Compared 
+with implementation-verification, 
+result-verification has a 
+larger scope for applications in practice, 
+gives more opportunities for automation and, based on the execution record 
+not the implementation, is particularly suitable for complex 
+systems. 
+<p>This paper proposes a technical framework to apply this technique 
+in practice. We show how to write formal 
+result-based specifications, how to generate a verifier program to check a given specification and 
+to carry out result-verification according to the generated program. 
+<p>The execution result is written as a text file, the verifier is written 
+in AWK (special-purpose language for text processing) and 
+verification is done automatically by the AWK interpreter; 
+given the verifier and the execution result as inputs. 
+<h2>In this paper...</h2>
+
+
+In this paper we propose a technical framework to carry 
+out automated result-verification in practice.  
+ Its main features are: 
+<ul>
+<Li>
+The execution result is a simple text file. Many pro- 
+grams produce such (log) files during their normal 
+operations, for administrative purposes. A general 
+technique to record exactly the information needed 
+for verification, is to introduce a program wrapper. 
+<li>
+The execution result is given as input to the verifier 
+program, which does the actual verification. Given 
+the execution result in a text file, we consider result-verification as the text-processing task. Accordingly, 
+the verifier is written in AWK, which is a special-purpose language for text processing, 
+implemented for most computing platforms. Verification 
+is done by the AWK interpreter, given the execution 
+result and the verifier program as inputs. 
+</ul>
