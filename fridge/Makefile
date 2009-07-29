@@ -73,7 +73,8 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/eliza.html\
     	$(Doc)/tictactoe.html\
     	$(Doc)/mastermind2.html\
-    	$(Doc)/mastermind.html 
+    	$(Doc)/mastermind.html \
+		$(Doc)/tip/awk4db.html
 
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
@@ -105,7 +106,7 @@ $(Doc)/tools/shuffle.html   : $(Awklib)/shuffle.awk   ; cd $(Awklib) && $(Awk2Ht
 $(Doc)/tools/cryptosig.html : $(Awklib)/cryptosig.awk ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/sigs.html : $(Bash)/sigs                 ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/nbc.html : $(Bash)/nbc/contents/nbc      ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/tips/awk4db.html : $(Awklib)/awk4db/contents/readme.awk
+$(Doc)/tip/awk4db.html : $(Awklib)/awk4db/contents/readme.awk
 	 cd $(Awklib)/awk4db && zip -u contents.zip && cd contents && $(Awk2Html)
 
 $(Doc)/mailsort.html : $(Awklib)/mailsort.awk

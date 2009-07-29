@@ -1,0 +1,5 @@
+# titles - Print the titles of all the cards in the
+# index card file.
+
+BEGIN { RS = ""; FS = "\n" }
+	{ print $1 } 
