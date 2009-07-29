@@ -1,8 +1,3 @@
-doc/news/theAwkBook.html	;Admin; 2009; Mar; News			;|The Awk Book's Code
-doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
-doc/news/awkeye.html		;DickL	;2009	;Jul	;Mascot		;|New Awk Mascot ('AWK-eye the Dwarf)?
-doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
-
 doc/topics.html				;Admin	;2009	;Apr	;Sitemap ;|Topics
 doc/var/toc.html		;Admin	;2009	;Apr	;Sitemap ;|Table of Contents
 doc/var/tags.html		;Admin	;2009	;Apr	;Sitemap ;|List of Tags
@@ -44,6 +39,12 @@ doc/tictactoe.html			;AaronH	;2009	;May	 ;Games			;|Tic-tac-toe
 doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
+
+doc/news/awkeye.html		;DickL	;2009	;Jul	;Mascot		;|New Awk Mascot ('AWK-eye the Dwarf)?
+doc/news/theAwkBook.html	;Admin; 2009; Mar; News			;|The Awk Book's Code
+doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
+doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
+
 
 doc/wp.html					;Admin	;2009	;Apr	;Wp					;|Word-processing in Awk
 doc/interpreters.html		;Admin	;2009	;Apr			;Interpreters ;|Interpreters

@@ -171,36 +171,6 @@ pageTracker._trackPageview();
 
 
  <files>
-	<file where="doc/news/theAwkBook.html">
-		<title>The Awk Book's Code</title>
-		<what>News</what>
-		<what>Mar</what>
-		<what>2009</what>
-		<what>Admin</what>
-	</file>
-	<file where="doc/news/runawk016.html">
-		<title>Runawk 0.16</title>
-		<what>Runawk</what>
-		<what>Project</what>
-		<what>Tools</what>
-		<what>Apr</what>
-		<what>2009</what>
-		<what>AlexC</what>
-	</file>
-	<file where="doc/news/awkeye.html">
-		<title>New Awk Mascot ('AWK-eye the Dwarf)?</title>
-		<what>Mascot</what>
-		<what>Jul</what>
-		<what>2009</what>
-		<what>DickL</what>
-	</file>
-	<file where="doc/news/davinci.html">
-		<title>Davinci mascot</title>
-		<what>Mascot</what>
-		<what>Apr</what>
-		<what>2009</what>
-		<what>VenkatesanS</what>
-	</file>
 	<file where="doc/topics.html">
 		<title>Topics</title>
 		<what>Sitemap</what>
@@ -489,6 +459,36 @@ pageTracker._trackPageview();
 		<what>May</what>
 		<what>2009</what>
 		<what>TerryB</what>
+	</file>
+	<file where="doc/news/awkeye.html">
+		<title>New Awk Mascot ('AWK-eye the Dwarf)?</title>
+		<what>Mascot</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>DickL</what>
+	</file>
+	<file where="doc/news/theAwkBook.html">
+		<title>The Awk Book's Code</title>
+		<what>News</what>
+		<what>Mar</what>
+		<what>2009</what>
+		<what>Admin</what>
+	</file>
+	<file where="doc/news/runawk016.html">
+		<title>Runawk 0.16</title>
+		<what>Runawk</what>
+		<what>Project</what>
+		<what>Tools</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>AlexC</what>
+	</file>
+	<file where="doc/news/davinci.html">
+		<title>Davinci mascot</title>
+		<what>Mascot</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>VenkatesanS</what>
 	</file>
 	<file where="doc/wp.html">
 		<title>Word-processing in Awk</title>
