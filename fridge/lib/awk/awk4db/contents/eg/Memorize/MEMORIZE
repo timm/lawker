@@ -1,0 +1,32 @@
+# memorize - randomly display an index card title, ask user to
+# press return, then display the corresponding body of the card
+
+BEGIN { RS=""; FS="\n" }
+
+      { A[NR] = $0 } 
+
+END   {
+	RS="\n"; FS=" "
+	shuffle(A, NR)
+	for (i = 1; i <= NR; i++) {
+		print "\nQUESTION: ", substr(A[i], 1, index(A[i], "\n")-1)
+		printf "\nPress return for the answer: "
+		getline < "-"
+		print "\nANSWER: "
+		print substr(A[i], index(A[i], "\n")+1)
+		if (i == NR) break
+		printf "\nPress return to continue, or 'q' to quit: "
+		getline < "-"
+		if ($1 == "q") break
+	}
+      }
+
+# Shuffle the array
+function shuffle(A, n,   t) {
+	srand()
+	# Moses/Oakford shuffle algorithm
+	for (i = n; i > 1; i--) {
+		j = int((i-1) * rand()) + 1
+		t = A[j]; A[j] = A[i]; A[i] = t
+	}
+}

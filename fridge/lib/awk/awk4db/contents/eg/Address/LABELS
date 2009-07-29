@@ -1,0 +1,12 @@
+# labels - Format the addresses for printing labels
+# Source: blocklist.awk from "Sed & Awk", by Dale Dougherty, p.148
+
+BEGIN { FS = "," }
+
+{
+	print ""	# blank line
+	print $1	# name
+	print $2	# company
+	print $3	# street
+	print $4, $5	# city, state zip
+}
