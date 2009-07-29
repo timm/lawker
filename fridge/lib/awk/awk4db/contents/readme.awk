@@ -979,7 +979,7 @@
 #
 #.P
 #The info file will give our database a title and describe the fields of
-#each record.
+#each record.  
 #In grades.csv, the first field is the student's last name, the second field
 #is the student's first name,
 #and the other six fields are the grades.
