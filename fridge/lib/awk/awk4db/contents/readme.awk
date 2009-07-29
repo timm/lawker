@@ -716,9 +716,6 @@
 #	Deposits: $500.00, Checks: $418.95
 #	[B:\]
 #./PRE
-#
-#.P
-#The script took six seconds to run.
 #.H2 Importing and Exporting Data
 #.H3 Importing Data for use by Awk
 #.P
