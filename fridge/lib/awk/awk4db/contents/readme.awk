@@ -7,15 +7,9 @@
 #.H3 Introduction
 #
 #.P
-#The QuickPAD Pro comes with a text editor
-#and it runs DOS text mode programs fairly well.
-#That means that scripting languages like Awk and Perl can be used
-#to create custom text-based database applications.
-#
-#.P
 #This page contains a set of sample Awk scripts
 #to manage different kinds of databases.
-#In all cases, we'll use edit.exe to create and edit the data files,
+#In all cases, we'll use a text editor such as edit.exe to create and edit the data files,
 #and Awk scripts will be used to query and manipulate the data.
 #
 #.P
@@ -235,8 +229,8 @@
 #And here is a sample run:
 #.PRE
 #	[B:\] awk -f sort cards.txt > new.txt
-#	[B:\] ren cards.txt cards.bak
-#	[B:\] ren new.txt cards.txt
+#	[B:\] rename cards.txt cards.bak
+#	[B:\] rename new.txt cards.txt
 #	[B:\] type cards.txt
 #	Solve the problems of society
 #	This might take
@@ -257,15 +251,6 @@
 #Note that we renamed our old data file to cards.bak,
 #instead of deleting the file.
 #It's always good to keep backups of old databases.
-#
-#.H4 Large files
-#
-#The 'search' and 'titles' script worked fine with a large
-#110K data file (1000 cards of 10 lines each).
-#Since the files are read in sequentially and those two scripts only
-#process the current record,
-#I would think that the only limitation is the execution speed
-#of the QuickPAD Pro.
 #
 #.P
 #However, the 'sort' script had some trouble with large files
@@ -397,12 +382,7 @@
 #	[B:\] 
 #./PRE
 #
-#.H4 Large files
-#.P
-#The 'memorize' script reads in the entire data file into an array in RAM,
-#so the size of the data file will be limited.
-#In my tests, the largest data file I was able to run was only 110K.
-#
+
 #.H2 Custom Databases
 #
 #.H3 Address Book
@@ -520,15 +500,6 @@
 #	Boston MA 01760
 #	[B:\] 
 #./PRE
-#
-#.H4 Large files
-#
-#All of these address book scripts run through the data sequentially,
-#and they never store the entire data file in memory.
-#I didn't do any large file tests, 
-#but I would think that these scripts could handle a data file of any
-#size.
-#The size of the data file would only affect the execution time.
 #
 #
 #.H3 Grading Program

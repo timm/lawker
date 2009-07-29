@@ -8,21 +8,18 @@
 <h3><font color=black>&bull;</font></a> <a href=#5>Using the Scripts</a></h3>
 <h2><font color=black>&bull;</font></a> <a href=#6>Index Card Databases</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#7>Card File</a></h3>
-<h4><font color=black>&bull;</font></a> <a href=#8>Large files</a></h4>
-<h3><font color=black>&bull;</font></a> <a href=#9>"Flash Cards" for Memorization</a></h3>
-<h4><font color=black>&bull;</font></a> <a href=#10>Large files</a></h4>
-<h2><font color=black>&bull;</font></a> <a href=#11>Custom Databases</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#12>Address Book</a></h3>
-<h4><font color=black>&bull;</font></a> <a href=#13>Large files</a></h4>
-<h3><font color=black>&bull;</font></a> <a href=#14>Grading Program</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#15>Checkbook Program</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#16>Importing and Exporting Data</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#17>Importing Data for use by Awk</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#18>Exporting Data to Microsoft Excel</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#19>Exporting Data to a Web Page</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#20>Exporting Data to a Palm Pilot</a></h3>
-<h4><font color=black>&bull;</font></a> <a href=#21>On Your Windows PC</a></h4>
-<h2><font color=black>&bull;</font></a> <a href=#22>Author</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#8>"Flash Cards" for Memorization</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#9>Custom Databases</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#10>Address Book</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#11>Grading Program</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#12>Checkbook Program</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#13>Importing and Exporting Data</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#14>Importing Data for use by Awk</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#15>Exporting Data to Microsoft Excel</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#16>Exporting Data to a Web Page</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#17>Exporting Data to a Palm Pilot</a></h3>
+<h4><font color=black>&bull;</font></a> <a href=#18>On Your Windows PC</a></h4>
+<h2><font color=black>&bull;</font></a> <a href=#19>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2>Download</H2>
@@ -33,15 +30,9 @@ Download all the following example code and support data files from
 <a name=3></a><H3> Introduction</H3>
 
 <P>
-The QuickPAD Pro comes with a text editor
-and it runs DOS text mode programs fairly well.
-That means that scripting languages like Awk and Perl can be used
-to create custom text-based database applications.
-
-<P>
 This page contains a set of sample Awk scripts
 to manage different kinds of databases.
-In all cases, we'll use edit.exe to create and edit the data files,
+In all cases, we'll use a text editor such as edit.exe to create and edit the data files,
 and Awk scripts will be used to query and manipulate the data.
 
 <P>
@@ -259,8 +250,8 @@ and array and then uses the QuickSort algorithm to sort it:
 And here is a sample run:
 <PRE>
 	[B:\] awk -f sort cards.txt > new.txt
-	[B:\] ren cards.txt cards.bak
-	[B:\] ren new.txt cards.txt
+	[B:\] rename cards.txt cards.bak
+	[B:\] rename new.txt cards.txt
 	[B:\] type cards.txt
 	Solve the problems of society
 	This might take
@@ -282,21 +273,13 @@ Note that we renamed our old data file to cards.bak,
 instead of deleting the file.
 It's always good to keep backups of old databases.
 
-<a name=8></a><H4> Large files</H4>
-
-The 'search' and 'titles' script worked fine with a large
-110K data file (1000 cards of 10 lines each).
-process the current record,
-I would think that the only limitation is the execution speed
-of the QuickPAD Pro.
-
 <P>
 However, the 'sort' script had some trouble with large files
 because it reads in all the cards into an array in RAM.
 In my tests, 
 the largest file I was able to sort was only about 100K.
 
-<a name=9></a><H3> "Flash Cards" for Memorization</H3>
+<a name=8></a><H3> "Flash Cards" for Memorization</H3>
 <P>
 
 Index cards can also be used for memorization.
@@ -420,15 +403,10 @@ or until the user enters a 'q' to quit.
 	[B:\] 
 </PRE>
 
-<a name=10></a><H4> Large files</H4>
-<P>
-The 'memorize' script reads in the entire data file into an array in RAM,
-so the size of the data file will be limited.
-In my tests, the largest data file I was able to run was only 110K.
 
-<a name=11></a><H2> Custom Databases</H2>
+<a name=9></a><H2> Custom Databases</H2>
 
-<a name=12></a><H3> Address Book</H3>
+<a name=10></a><H3> Address Book</H3>
 <P>
 
 The databases above used a simple 'index card' analogy.
@@ -544,17 +522,8 @@ Here is a sample run:
 	[B:\] 
 </PRE>
 
-<a name=13></a><H4> Large files</H4>
 
-All of these address book scripts run through the data sequentially,
-and they never store the entire data file in memory.
-I didn't do any large file tests, 
-but I would think that these scripts could handle a data file of any
-size.
-The size of the data file would only affect the execution time.
-
-
-<a name=14></a><H3> Grading Program</H3>
+<a name=11></a><H3> Grading Program</H3>
 <P>
 Awk can also be used for mathematical computation of fields.
 Let's demonstrate this with a data file called 'grades.txt' that contains 
@@ -694,7 +663,7 @@ And here is the sample run:
 <P>
 The output shows that there were six grades,
 and most of them were in the 80-89 range.
-<a name=15></a><H3> Checkbook Program</H3>
+<a name=12></a><H3> Checkbook Program</H3>
 <P>
 
 This program takes a data file which lists your checkbook entries
@@ -771,8 +740,8 @@ And this is a sample run:
 
 <P>
 The script took six seconds to run.
-<a name=16></a><H2> Importing and Exporting Data</H2>
-<a name=17></a><H3> Importing Data for use by Awk</H3>
+<a name=13></a><H2> Importing and Exporting Data</H2>
+<a name=14></a><H3> Importing Data for use by Awk</H3>
 <P>
 Awk works well with data files that are stored in text files.
 Awk assumes that the data file is organized into records,
@@ -814,7 +783,7 @@ Another way to format data for use by Awk is to use the "multiline"
 format, which is what we used for our index card databases above.
 Awk will treat each line as a field, and a blank line is the
 record separator.
-<a name=18></a><H3> Exporting Data to Microsoft Excel</H3>
+<a name=15></a><H3> Exporting Data to Microsoft Excel</H3>
 <P>
 
 To export data to Excel,
@@ -879,7 +848,7 @@ and Excel will open it as if it were a spreadsheet:
 You can then do a "Save As" in Excel to save it as the regular 
 Excel binary format.
 
-<a name=19></a><H3> Exporting Data to a Web Page</H3>
+<a name=16></a><H3> Exporting Data to a Web Page</H3>
 <P>
 
 To export our data to a web page,
@@ -956,7 +925,7 @@ And here is a link to the
 <A HREF=grades.html>grades.htm file</A>
 so you can see what the web page looks like in your browser.
 
-<a name=20></a><H3> Exporting Data to a Palm Pilot</H3>
+<a name=17></a><H3> Exporting Data to a Palm Pilot</H3>
 
 <P>
 First, we will need to install a database program on the Palm.
@@ -1061,7 +1030,7 @@ be backed up at every hotsync.
 <P>
 From this point on, the rest of the steps must be done on your Windows PC.
 
-<a name=21></a><H4> On Your Windows PC</H4>
+<a name=18></a><H4> On Your Windows PC</H4>
 
 Now we create the PDB file on our PC with this command line:
 <P>
@@ -1089,7 +1058,7 @@ at the top-right corner of the screen):
 As you can see, storing data as text files gives you a lot of flexibility
 in manipulating the data and exporting it to other formats.
 
-<a name=22></a><H2> Author</H2>
+<a name=19></a><H2> Author</H2>
 <P>
 Victor Alvarado 
 </div><!--- htmlbody --->
