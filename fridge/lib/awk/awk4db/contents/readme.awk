@@ -1066,6 +1066,6 @@
 #As you can see, storing data as text files gives you a lot of flexibility
 #in manipulating the data and exporting it to other formats.
 #
-#.H1 Author
+#.H2 Author
 #.P
 #Victor Alvarado 
