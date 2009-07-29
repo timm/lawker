@@ -2,7 +2,7 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Download</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#2>General Informationi</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>General Information</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#3>Introduction</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#4>Introduction to Awk</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#5>Using the Scripts</a></h3>
@@ -26,9 +26,9 @@
 <div id="htmlbody">
 <a name=1></a><H2>Download</H2>
 <P>
-Download from
+Download all the following example code and support data files from
 <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/awk4db/contents.zip">LAWKER</a>
-<a name=2></a><H2> General Informationi</H2>
+<a name=2></a><H2> General Information</H2>
 <a name=3></a><H3> Introduction</H3>
 
 <P>
@@ -78,7 +78,7 @@ writing "one-time use" programs.
 
 <P>
 All the files on this page are available in the ZIP archive
-<A HREF=awk.zip>available at this link</A>.
+<A HREF=http://lawker.googlecode.com/svn/fridge/lib/awk/awk4db/contents.zip">at this link</A>.
 Feel free to reuse and customize them.
 
 <P>
@@ -334,6 +334,7 @@ It will read the data file into an array,
 randomly shuffle the array, 
 and then it will loop through the array and
 display each question and answer.
+<SMALL>
 <PRE>
 	# memorize - randomly display an index card title, ask user to
 	# press return, then display the corresponding body of the card
@@ -368,6 +369,7 @@ display each question and answer.
 		}
 	}
 </PRE>
+</SMALL>
 
 <P>
 Here is a sample run.
@@ -454,8 +456,8 @@ and we'll need a rule that commas cannot appear within a field.
 <P>
 Here is a sample data file called 'address.txt':
 <PRE>
-	John Robinson,Koren Inc.,978 4th Ave,Boston,MA 01760,617-696-0987
-	Phyllis Chapman,GVE Corp.,34 Sea Drive,Amesbury,MA 01881,781-879-0900
+John Robinson,Koren Inc.,978 4th Ave,Boston,MA 01760,617-696-0987
+Phyllis Chapman,GVE Corp.,34 Sea Drive,Amesbury,MA 01881,781-879-0900
 </PRE>
 
 Here is the script called 'labels' which will print all the data and
@@ -770,7 +772,7 @@ And this is a sample run:
 The script took six seconds to run.
 <a name=16></a><H2> Importing and Exporting Data</H2>
 <a name=17></a><H3> Importing Data for use by Awk</H3>
-
+<P>
 Awk works well with data files that are stored in text files.
 Awk assumes that the data file is organized into records,
 within each record the data is divided into fields,
@@ -1080,7 +1082,7 @@ Here is a screen shot of the Palm Pilot running Pilot-DB
 with our grades database.
 (Make sure you have selected the blank unnamed view from menu
 at the top-right corner of the screen):
-<center><img src="http://lawker.googlecode.com/svn/fridge/lib/awk/awk4ai/img/awkpalm.jpg"></center>
+<center><img src="http://lawker.googlecode.com/svn/fridge/lib/awk/awk4db/contents/img/awkpalm.jpg"></center>
 
 <P>
 As you can see, storing data as text files gives you a lot of flexibility

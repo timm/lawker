@@ -1,9 +1,9 @@
 #.H1 Using Awk for Databases
 #<H2>Download</H2>
 #.P
-#Download from
+#Download all the following example code and support data files from
 #.URL  http://lawker.googlecode.com/svn/fridge/lib/awk/awk4db/contents.zip LAWKER
-#.H2 General Informationi
+#.H2 General Information
 #.H3 Introduction
 #
 #.P
@@ -53,7 +53,7 @@
 #
 #.P
 #All the files on this page are available in the ZIP archive
-#<A HREF=awk.zip>available at this link</A>.
+#<A HREF=http://lawker.googlecode.com/svn/fridge/lib/awk/awk4db/contents.zip">at this link</A>.
 #Feel free to reuse and customize them.
 #
 #.P
@@ -312,6 +312,7 @@
 #randomly shuffle the array, 
 #and then it will loop through the array and
 #display each question and answer.
+#.SMALL
 #.PRE
 #	# memorize - randomly display an index card title, ask user to
 #	# press return, then display the corresponding body of the card
@@ -346,6 +347,7 @@
 #		}
 #	}
 #./PRE
+#./SMALL
 #
 #.P
 #Here is a sample run.
@@ -432,8 +434,8 @@
 #.P
 #Here is a sample data file called 'address.txt':
 #.PRE
-#	John Robinson,Koren Inc.,978 4th Ave,Boston,MA 01760,617-696-0987
-#	Phyllis Chapman,GVE Corp.,34 Sea Drive,Amesbury,MA 01881,781-879-0900
+#John Robinson,Koren Inc.,978 4th Ave,Boston,MA 01760,617-696-0987
+#Phyllis Chapman,GVE Corp.,34 Sea Drive,Amesbury,MA 01881,781-879-0900
 #./PRE
 #
 #Here is the script called 'labels' which will print all the data and
@@ -748,7 +750,7 @@
 #The script took six seconds to run.
 #.H2 Importing and Exporting Data
 #.H3 Importing Data for use by Awk
-#
+#.P
 #Awk works well with data files that are stored in text files.
 #Awk assumes that the data file is organized into records,
 #within each record the data is divided into fields,
@@ -1058,7 +1060,7 @@
 #with our grades database.
 #(Make sure you have selected the blank unnamed view from menu
 #at the top-right corner of the screen):
-#<center><img src="http://lawker.googlecode.com/svn/fridge/lib/awk/awk4ai/img/awkpalm.jpg"></center>
+#<center><img src="http://lawker.googlecode.com/svn/fridge/lib/awk/awk4db/contents/img/awkpalm.jpg"></center>
 #
 #.P
 #As you can see, storing data as text files gives you a lot of flexibility
