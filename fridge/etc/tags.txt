@@ -1,5 +1,6 @@
 doc/news/theAwkBook.html	;Admin; 2009; Mar; News			;|The Awk Book's Code
 doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
+doc/news/awkeye.html		;DickL	;2009	;Jul	;Mascot		;|New Awk Mascot ('AWK-eye the Dwarf)?
 doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
 
 doc/topics.html				;Admin	;2009	;Apr	;Sitemap ;|Topics

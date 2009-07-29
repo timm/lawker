@@ -187,6 +187,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>AlexC</what>
 	</file>
+	<file where="doc/news/awkeye.html">
+		<title>New Awk Mascot ('AWK-eye the Dwarf)?</title>
+		<what>Mascot</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>DickL</what>
+	</file>
 	<file where="doc/news/davinci.html">
 		<title>Davinci mascot</title>
 		<what>Mascot</what>
