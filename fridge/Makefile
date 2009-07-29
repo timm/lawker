@@ -108,6 +108,7 @@ $(Doc)/tools/sigs.html : $(Bash)/sigs                 ; cd $(Awklib) && $(Awk2Ht
 $(Doc)/tools/nbc.html : $(Bash)/nbc/contents/nbc      ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tip/awk4db.html : $(Awklib)/awk4db/contents/readme.awk
 	 cd $(Awklib)/awk4db && zip -u contents.zip && cd contents && $(Awk2Html)
+		svn add $@
 
 $(Doc)/mailsort.html : $(Awklib)/mailsort.awk
 	cd $(Awklib) && $(Awk2Html)
