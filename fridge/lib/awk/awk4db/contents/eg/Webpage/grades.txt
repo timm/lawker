@@ -1,6 +1,0 @@
-Allen Mona 70 77 85 83 70 89
-Baker John 85 92 78 94 88 91
-Jones Andrea 89 90 85 94 90 95
-Smith Jasper 84 88 80 92 84 82
-Turner Dunce 64 80 60 60 61 62
-Wells Ellis 90 98 89 96 96 92

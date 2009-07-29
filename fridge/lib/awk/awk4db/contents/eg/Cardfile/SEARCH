@@ -1,5 +1,0 @@
-# search - Print the index card that contains a string
-
-BEGIN	{ RS = ""; FS = "\n"; IGNORECASE=1 }
-
-/write/	{ print $0, "\n" } 

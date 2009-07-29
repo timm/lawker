@@ -1,6 +1,0 @@
-# phones
-# Source: phonelist.awk, from "Sed & Awk", by Dale Dougherty, p.148
-
-BEGIN { FS="," }
-
-{ print $1 ", " $6 }
