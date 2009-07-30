@@ -1,0 +1,62 @@
+<h1><join>Quick and Dirty Databases with Nice Output: AWK and TEX </join></h1>
+<p>
+<em>Erich Neuwirth</em> Proceedings of TEX9O. Download from 
+<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/awkfastdb.pdf">LAWKER</a>.</em> 
+<h2>Description</h2>
+<p>This paper describes an easy-to-use set of tools which enables 
+moderately to well experienced m-users to produce formatted 
+output from flat data files. Usually all you need is AWK, TEX, and a sort program. 
+<h2>A Simple Example</h2>
+<p>
+Let us assume we have a text file containing 
+addresses in more or less random order. Let us 
+further assume that the main purpose of the file is to 
+produce a printed address list and directory, possible 
+in different versions sorted according to different 
+criteria. Let us further assume that the data file 
+has a very simple structure, namely a number of 
+lines for each address and different addresses being 
+separated by blank lines. Additionally, we assume 
+that the items to be used in sorting occur on the 
+same line in every address block, e.g. the surname 
+is always on the first line, the city on the third line, 
+and so on. 
+<p>
+Now we would like to format this material into 
+a two-column format for an address book to be 
+typeset by TEX.  
+For the first step, let us assume 
+that the data already are sorted in the sequence we 
+need for the printed version. Then the following 
+little AWK program does the trick: 
+<pre>
+BEGIN { 
+	RS="" 
+	FS="\n" 
+	printf "\\documentstyle [twocolumn] " 
+	printf "{article)\nl' 
+	printf "\\begin{document)\n\n" 
+} 
+{ for(i=l;i<=NF-l;i++) 
+	printf "%s \\\\ \n", $i 
+  printf "%s \n\nN, $NF 
+}
+END { 
+	print "" 
+	printf "\% %d records transferred \n\nl" ,NR
+	print "\\end{document)" 
+}
+</pre>
+<p>
+If you keep the program in a file <em>address.awk</em> 
+and execute the following command, 
+<pre>
+auk -f address.awk address.dat > address.tex 
+</pre>
+<p>
+then the file <em>address.tex</em> will contain a LATEX file 
+which prints the address book. 
+<h2>For More Information</h2>
+<p>
+Read  
+<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/awkfastdb.pdf">the paper</a>.
