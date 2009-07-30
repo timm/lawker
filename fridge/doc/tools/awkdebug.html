@@ -52,8 +52,8 @@ BEGIN { FS= "\t"; OFS= "\t" # fields separated by tabs
 		                     # state $1 
 		print $1"\t" color[i] # assign that color 
 		for (j=2; j&lt;=NF; j++) a[$j,i]=1	# make that color 
-										# unacceptable for 
-										# states $2..$NF 
+                                            # unacceptable for 
+                                            # states $2..$NF 
 } 
 </pre>
 <p>
@@ -71,6 +71,6 @@ We can check the correctness of the coloring using the following assertion:
 			) 
 		)		 
 SAY "Map colored correctly" 
-ONFAIL 	SAY r1.$1 "and" r1.$i "are of the same color" 
-		SAY "although they are neighboring states" 
+ONFAIL  SAY r1.$1 "and" r1.$i "are of the same color" 
+        SAY "although they are neighboring states" 
 </pre>
