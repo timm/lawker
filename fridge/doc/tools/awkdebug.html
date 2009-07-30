@@ -1,0 +1,75 @@
+<h1><join>An AWK Debugger and Assertion Checker</join></h1>
+<p>
+<em>
+From "AUI - the Debugger and Assertion Checker 
+for the Awk Programming Language"  by Mikhail Auguston, Subhankar Banerjee, Manish Mamnani, Ghulam Nabi, Juris Reinfelds, 
+ Ugis Sarkans, and Ivan Strnad 
+</em>
+<p>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/awkdebug.pdf">LAWKER</a>.
+
+<p>Abstract</p>
+<p>This paper describes the design of Awk User Interface (AUI). AUI is a graphical 
+programming environment for editing, running, testing and debugging of Awk 
+programs. The AUI environment supports tracing of Awk programs, setting 
+breakpoints, and inspection of variable values. 
+
+<p>An assertion language to describe 
+relationship between input and output of Awk program is provided. Assertions can 
+be checked after the program run, and if violated, informative and readable 
+messages can be generated. The assertions and debugging rules for the Awk 
+program are written in a separate text file. Assertions are useful not only for 
+testing and debugging but can be considered as a mean for program formal 
+specification and documentation. 
+
+<h2>Example</h2>
+<p>
+The input file contains a list of all states of U.S.A. There are 50 records separated by newlines, 
+one for each of the states. The number of fields in a record is variable. The first field is the name of 
+the state, and the subsequent fields are names of neighbor states. Fields are separated by tabs. For 
+example, the first two records in the database are 
+<pre>
+Alabama Mississippi Tennessee Georgia Florida 
+Alaska 
+</pre>
+<p>
+The task is to color the U.S.A. map in such a way that any two neighboring states are in different 
+colors. We will do it in a greedy manner (without backtracking), assigning to every state the ?rst 
+possible color. The Awk program for this task is the following: 
+<pre>
+# Greedy map coloring 
+BEGIN { FS= "\t"; OFS= "\t" # fields separated by tabs 
+		color[0]= "yellow"  # color names 
+		color[1]= "blue" 
+		color[2]= "red" 
+		color[3]= "green" 
+		color[4]= "black" 
+} 
+{ 		i=0 
+		while (a[$1,i] ) i++ # find first acceptable color for 
+		                     # state $1 
+		print $1"\t" color[i] # assign that color 
+		for (j=2; j&lt;=NF; j++) a[$j,i]=1	# make that color 
+										# unacceptable for 
+										# states $2..$NF 
+} 
+</pre>
+<p>
+We can check the correctness of the coloring using the following assertion: 
+<pre>
+/* Checks the correctness of map coloring - any two neighbor
+   states should be colored in different colors */
+	FOREACH r1: RECORD FROM FILE input 
+		(EXISTS r2: RECORD FROM FILE output 
+			(r1.$1 == r2.$1 AND 
+ 			FOREACH i IN 2..FIELD_NUM(r1) 
+				(EXISTS r3: RECORD FROM FILE output 
+					(r3.$1 == r1.$i ANDr3.$2!=r2.$2) 
+				) 
+			) 
+		)		 
+SAY "Map colored correctly" 
+ONFAIL 	SAY r1.$1 "and" r1.$i "are of the same color" 
+		SAY "although they are neighboring states" 
+</pre>

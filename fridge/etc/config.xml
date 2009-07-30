@@ -731,6 +731,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>GerardH</what>
 	</file>
+	<file where="doc/tools/awkdebug.html">
+		<title>Debugger and Assertion Checker</title>
+		<what>Papers</what>
+		<what>Verification</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>MikhailA</what>
+	</file>
 	<file where="doc/verifyawk.html">
 		<title>Automated Results Verification</title>
 		<what>Papers</what>

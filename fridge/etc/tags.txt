@@ -81,6 +81,7 @@ doc/tip/awksed.html			;ArnoldR	;2009	;Apr	;Tips ;Sed		;|Simple Stream Editor
 doc/s2a.html			;JamesL	;2009	;Apr	;Tips ;Sed		;|Sed to Awk
 doc/visualawk.html		;JiirL	;2009	;Jul	  ;Papers	;|Visual Awk
 doc/microtracer.html		;GerardH	;2009	;Jul  ;Verification ;Papers	;|MicroTracer
+doc/tools/awkdebug.html ;MikhailA	;2009	;Jul	;Verification	;Papers ;|Debugger and Assertion Checker
 doc/verifyawk.html		;BalkhisB	;2009	;Jul	  ;Verification ;Papers	;|Automated Results Verification
 
 doc/fun/enumerate.html		;Timm	;2009	;Mar	;Funky	;|Functional Enumeration
