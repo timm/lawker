@@ -723,7 +723,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JiirL</what>
 	</file>
-	<file where="doc/microtraver.html">
+	<file where="doc/microtracer.html">
 		<title>MicroTracer</title>
 		<what>Papers</what>
 		<what>Verification</what>
