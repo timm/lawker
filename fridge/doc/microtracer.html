@@ -28,6 +28,7 @@ is to make the search efficient, to support a useful logic,
 and a sensible specification language... (see the
 <a href="http://spinroot.com/spin/whatispin.html">Spin</a>
 homepage.)
+<small>
 <pre>
 $1 == "init"	{	proc[$2] = $3	}
 $1 == "inp"	{	move[$2,$3]=move[$2,$3] $1 "/" $4 "/" $5 "/" $6 "/;" }
@@ -79,6 +80,7 @@ function unwrap(state, m)
 	for (m in proc) { proc[m] = arr[++nxt]; signal[m] = arr[++nxt] }
 }
 </pre>
+</small>
 <p>The first three lines of the script deal with the
 input. Data are stored in two arrays. The initial state of machine A
 is stored in array element proc[A]. The transitions
