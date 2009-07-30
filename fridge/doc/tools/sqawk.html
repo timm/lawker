@@ -1,0 +1,73 @@
+<h1><join>SQL Powered AWK</join></h1>
+<h2>Download</h2>
+<a href="http://sites.google.com/site/spawkinfo/Home/download">http://sites.google.com/site/spawkinfo/Home/download</a>.
+<h2>Author</h2>
+Panos I. Papadopoulos
+(<a href="mail:panos1962@gmail.com">panos1962@gmail.com</a>).
+<h2>Description</h2>
+<p>
+SPAWK is an elegant collection of functions for accessing and
+updating MySQL databases from within GNU awk programs. The SPAWK
+module consists of a single awk extension library, namely libspawk.so,
+which may be loaded in awk programs using the standard extension
+awk function:
+
+<pre>
+BEGIN {
+   extension("libspawk.so", "dlload")
+   ...
+</pre>
+<p>
+You can read or download some examples, or download the library and
+write your own awk programs. A thread-safe library is also available
+under the libspawk_r.so  tag.
+<h2>A Short Example</h2>
+<p>
+Here's a short example of using SPAWK (for more details, see 
+<a href="http://sites.google.com/site/spawkinfo/Home/manual">http://sites.google.com/site/spawkinfo/Home/manual</a>).
+<p>
+
+When calling <em>spawk_select</em>, SPAWK sends the query already given
+(maybe some <em>spawk_query</em> calls preceeded the <em>spawk_select</em>) to the
+current server (remind you that "server" in SPAWK's point of view
+is a connection to the actual MySQL server mysqld). After calling
+<em>spawk_select</em>, the server is ready to return the results to the awk
+process via <em>spawk_data</em>, <em>spawk_first</em> or <em>spawk_last</em> calls. Alternatively,
+at any time we can clear the results' set and release the server
+with a <em>spawk_clear</em> function call.  <p>
+
+The main data receiver is <em>spawk_data</em> function. This function is
+usually called with one or two arguments. The first argument is an
+array to be used as a data transfer vehicle, while the second
+argument may be used optionally to hold the null valued columns.
+<em>spawk_data</em> returns the number of columns of each returned data row
+or zero if there are no more data to return (EOD). <em>spawk_first</em>
+function's arguments and return values are exactly the same as those
+of <em>spawk_data</em> arguments and returns values, but the rest of the
+data will be lost, that is get the next available data row and
+release the server. Similar is the <em>spawk_last</em> function, but the row
+returned is the last row of the results' set. By the way, the
+<em>spawk_last</em> function is less efficient than <em>spawk_first</em>; actually,
+there is no particular reason to call spawk_last at all! Let's see
+some examples:
+
+<pre>
+    BEGIN {
+        extension("libspawk.so", "dlload")
+        SPAWKINFO["database"] = "information_schema"
+        spawk_select("SELECT TABLE_SCHEMA, TABLE_NAME FROM TABLES")
+        while (spawk_data(data))
+            print data[0]
+
+        exit(0)
+    }
+</pre>
+<p>
+Things need to be explained:
+<ul>
+    <li> extension is used to load the SPAWK module.
+    <li> SPAWKINFO array is used to specify the default database (schema) to connect. Index "database" denotes default database.
+    <li> <em>spawk_select</em> is used to execute the desired query.
+    <li> <em>spawk_data</em> is used repeatedly to get the results, row by row. 
+<em>spawk_data</em> returns 2 as there are results to be retuned and 0 on EOD.
+</ul>
