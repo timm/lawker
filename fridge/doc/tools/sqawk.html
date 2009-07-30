@@ -1,6 +1,6 @@
 <h1><join>SQL Powered AWK</join></h1>
-<h2>Download</h2>
-<a href="http://sites.google.com/site/spawkinfo/Home/download">http://sites.google.com/site/spawkinfo/Home/download</a>.
+<h2>Website</h2>
+<a href="http://sites.google.com/site/spawkinfo">http://sites.google.com/site/spawkinfo</a>.
 <h2>Author</h2>
 Panos I. Papadopoulos
 (<a href="mail:panos1962@gmail.com">panos1962@gmail.com</a>).
@@ -52,15 +52,14 @@ there is no particular reason to call spawk_last at all! Let's see
 some examples:
 
 <pre>
-    BEGIN {
-        extension("libspawk.so", "dlload")
-        SPAWKINFO["database"] = "information_schema"
-        spawk_select("SELECT TABLE_SCHEMA, TABLE_NAME FROM TABLES")
-        while (spawk_data(data))
-            print data[0]
-
-        exit(0)
-    }
+BEGIN {
+     extension("libspawk.so", "dlload")
+     SPAWKINFO["database"] = "information_schema"
+     spawk_select("SELECT TABLE_SCHEMA, TABLE_NAME FROM TABLES")
+     while (spawk_data(data))
+          print data[0]
+     exit(0)
+}
 </pre>
 <p>
 Things need to be explained:
