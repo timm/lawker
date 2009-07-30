@@ -25,6 +25,7 @@ doc/praise.html				;Ronl	;2009	;Apr	 ;WhyAwk ;Papers	;Misc;	Top10	;|In praise of
 doc/history.html			;Timm	;2009	;Jan	;Misc	;|History
 doc/whygawk.html			;Timm	;2009	;Jan 	;WhyAwk	;Misc	;|Why Gawk?
 doc/awksys.html				;HenryS ;2009 ;Apr	;WhyAwk ;Papers ;|Awk for system programming
+doc/databases.html				;Admin  ;2009  ;Jul    ;Databases  ;|Databases 
 doc/games.html				;Admin  ;2009  ;Apr    ;Games  ;|Awk Games 
 doc/story.html				;BrianK	;2009	;Mar	;TenLiners	;Top10 ;Games  ;|Writing SciFi 
 doc/montyhall.html			;DonaldM	;2009	;Mar	;TenLiners	 	;|Monty Hall Problem
