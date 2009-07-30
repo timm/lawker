@@ -356,6 +356,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>HenryS</what>
 	</file>
+	<file where="doc/verify.html">
+		<title>Verification</title>
+		<what>Verification</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>Admin</what>
+	</file>
 	<file where="doc/databases.html">
 		<title>Databases</title>
 		<what>Databases</what>
@@ -716,9 +723,18 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JiirL</what>
 	</file>
+	<file where="doc/microtraver.html">
+		<title>MicroTracer</title>
+		<what>Papers</what>
+		<what>Verification</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>GerardH</what>
+	</file>
 	<file where="doc/verifyawk.html">
 		<title>Automated Results Verification</title>
 		<what>Papers</what>
+		<what>Verification</what>
 		<what>Jul</what>
 		<what>2009</what>
 		<what>BalkhisB</what>

@@ -25,6 +25,7 @@ doc/praise.html				;Ronl	;2009	;Apr	 ;WhyAwk ;Papers	;Misc;	Top10	;|In praise of
 doc/history.html			;Timm	;2009	;Jan	;Misc	;|History
 doc/whygawk.html			;Timm	;2009	;Jan 	;WhyAwk	;Misc	;|Why Gawk?
 doc/awksys.html				;HenryS ;2009 ;Apr	;WhyAwk ;Papers ;|Awk for system programming
+doc/verify.html				;Admin  ;2009  ;Jul    ;Verification  ;|Verification 
 doc/databases.html				;Admin  ;2009  ;Jul    ;Databases  ;|Databases 
 doc/games.html				;Admin  ;2009  ;Apr    ;Games  ;|Awk Games 
 doc/story.html				;BrianK	;2009	;Mar	;TenLiners	;Top10 ;Games  ;|Writing SciFi 
@@ -79,7 +80,8 @@ doc/tip/moving.html			;ArnoldR	;2009	;Apr	;Tips		;|Moving Files with Awk
 doc/tip/awksed.html			;ArnoldR	;2009	;Apr	;Tips ;Sed		;|Simple Stream Editor
 doc/s2a.html			;JamesL	;2009	;Apr	;Tips ;Sed		;|Sed to Awk
 doc/visualawk.html		;JiirL	;2009	;Jul	  ;Papers	;|Visual Awk
-doc/verifyawk.html		;BalkhisB	;2009	;Jul	  ;Papers	;|Automated Results Verification
+doc/microtraver.html		;GerardH	;2009	;Jul  ;Verification ;Papers	;|MicroTracer
+doc/verifyawk.html		;BalkhisB	;2009	;Jul	  ;Verification ;Papers	;|Automated Results Verification
 
 doc/fun/enumerate.html		;Timm	;2009	;Mar	;Funky	;|Functional Enumeration
 

@@ -1,0 +1,383 @@
+<h1><join>MicroTrace</join></h1>
+<p>
+<em>by Gerard Holzmann</em>
+<h2>Description</h2>
+<p>
+Micro-tracer is a  little awk-script for verifying state machines; quite possibly the
+world's smallest working verifier.
+Some comments on the working of the script, plus a sample input
+for the X.21 protocol, are given below.
+<p>
+Reproduce and use freely, at your own risk of course.
+The micro-tracer was first described in this report:
+<ul>
+<li>
+<a href="http://spinroot.com/gerard/">Gerard Holzmann,</a>
+<i>X.21 Analysis Revisited: the Micro-Tracer</i>,
+AT&amp;T Bell Laboratories, Technical Memorandum 11271-8710230-12,
+October 23, 1987.
+
+<i><a href="http://lawker.googlecode.com/svn/fridge/share/pdf/micro87.pdf">(PDF)</a></i>
+</ul>
+<h2>Code</h2>
+<p>
+This script was written to show how little code is
+needed to write a working verifier for safety properties.
+The hard problem in writing a practical verifier
+is to make the search efficient, to support a useful logic,
+and a sensible specification language... (see the
+<a href="http://spinroot.com/spin/whatispin.html">Spin</a>
+homepage.)
+<pre>
+$1 == "init"	{	proc[$2] = $3	}
+$1 == "inp"	{	move[$2,$3]=move[$2,$3] $1 "/" $4 "/" $5 "/" $6 "/;" }
+$1 == "out"	{	move[$2,$3]=move[$2,$3] $1 "/" $4 "/" $5 "/" $6 "/;" }
+END		{	verbose=0; for (i in proc) signal[i] = "-"
+			run(mkstate(state))
+			for (i in space) nstates++;
+			print nstates " states, " deadlocks " deadlocks"
+		}
+
+function run(state,  i,str,moved)	# 1 parameter, 3 local vars
+{
+	if (space[state]++) return	# been here before
+
+	level++; moved=0
+	for (i in proc)
+	{	str = move[i,proc[i]]
+		while (str)
+		{	v = substr(str, 1, index(str, ";"))
+			sub(v, "", str)
+			split(v, arr, "/")
+			if (arr[1] == "inp" && arr[3] == signal[arr[4]])
+			{	Level[level] = i " " proc[i] " -> " v
+				proc[i] = arr[2]
+				run(mkstate(k))
+				unwrap(state); moved=1
+			} else if (arr[1] == "out")
+			{	Level[level] = i " " proc[i] " -> " v
+				proc[i] = arr[2]; signal[arr[4]] = arr[3]
+				run(mkstate(k))
+				unwrap(state); moved=1
+	}	}	}
+	if (!moved)
+	{	deadlocks++
+		print "deadlock " deadlocks ":"
+		for (i in proc) print "\t" i, proc[i], signal[i]
+		if (verbose)
+			for (i = 1; i &lt; level; i++) print i, Level[i]
+	}
+	level--
+}
+function mkstate(state, m)
+{	state = ""
+	for (m in proc) state = state " " proc[m] " " signal[m]
+	return state
+}
+function unwrap(state, m)
+{	split(state, arr, " "); nxt=0
+	for (m in proc) { proc[m] = arr[++nxt]; signal[m] = arr[++nxt] }
+}
+</pre>
+<p>The first three lines of the script deal with the
+input. Data are stored in two arrays. The initial state of machine A
+is stored in array element proc[A]. The transitions
+that machine A can make from state s are stored in
+move[A,s]. All data are stored as strings, and most arrays are
+also indexed with strings. All valid moves for A in state s,
+for instance, are concatenated into the same array element move[A,s],
+and later unwound as needed in function run().
+<p>
+The line starting with END is executed when the end of the
+input file has been reached and the complete protocol specification
+has been read. It initializes the signals
+and calls the symbolic execution routine run().
+<p>
+
+The program contains three function definitions: run(), mkstate(),
+and unwrap(). 
+The global system state, state, is represented as a concatenation
+of strings encoding process and signal states. The function
+mkstate() creates the composite, and the function unwrap()
+restores the arrays proc and signal to the contents that correspond
+to the description in state. (The recursive step in run()
+alters their contents.) Function run() uses three local variables,
+but only one real parameter state that is passed by the calling
+routine.
+<p>
+The analyzer runs by inspecting the possible moves for each
+process in turn, checking for valid inp or out moves,
+and performing a complete depth-first search. Any state that
+has no successors is flagged as a deadlock. A backtrace of
+transitions leading into a deadlock is maintained in array Level
+and can be printed when a deadlock is found.
+<p>
+The first line in run() is a complete state space handler. The
+composite state is used to index a large array space. If the
+array element was indexed before it returns a count larger than zero:
+the state was analyzed before, and the search can be truncated.
+<p>
+After the analysis completes, the contents of array space is
+available for other types of probing. In this case, the micro tracer
+just counts the number of states and prints it as a statistic,
+together with the number of deadlocks
+found.
+<h2>A Sample Application -- X21 </h2>
+The transition rules are based on the classic two-process model
+for the call establishment phase of CCITT Recommendation X.21.
+Interface signal pairs T, C and R, I
+are combined. Each possible combination of values on these
+line pairs is represented by a distinct lower-case ASCII
+character below. Note that since the lines are modeled as
+true signals, the receiving process can indeed miss signals
+if the sending process changes them rapidly and does not wait
+for the peer process to respond.
+<h3>Transition rules for the `dte' process.</h3>
+<pre>
+inp dte state01 state08 u dte
+inp dte state01 state18 m dte
+inp dte state02 state03 v dte
+inp dte state02 state15 u dte
+inp dte state02 state19 m dte
+inp dte state04 state19 m dte
+inp dte state05 state19 m dte
+inp dte state05 state6A r dte
+inp dte state07 state19 m dte
+inp dte state07 state6B r dte
+inp dte state08 state19 m dte
+inp dte state09 state10B q dte
+inp dte state09 state19 m dte
+inp dte state10 state19 m dte
+inp dte state10 state6C r dte
+inp dte state10B state19 m dte
+inp dte state10B state6C r dte
+inp dte state11 state12 n dte
+inp dte state11 state19 m dte
+inp dte state12 state19 m dte
+inp dte state14 state19 m dte
+inp dte state15 state03 v dte
+inp dte state15 state19 m dte
+inp dte state16 state17 m dte
+inp dte state17 state21 l dte
+inp dte state18 state01 l dte
+inp dte state18 state19 m dte
+inp dte state20 state21 l dte
+inp dte state6A state07 q dte
+inp dte state6A state19 m dte
+inp dte state6B state07 q dte
+inp dte state6B state10 q dte
+inp dte state6B state19 m dte
+inp dte state6C state11 l dte
+inp dte state6C state19 m dte
+out dte state01 state02 d dce
+out dte state01 state14 i dce
+out dte state01 state21 b dce
+out dte state02 state16 b dce
+out dte state03 state04 e dce
+out dte state04 state05 c dce
+out dte state04 state16 b dce
+out dte state05 state16 b dce
+out dte state07 state16 b dce
+out dte state08 state09 c dce
+out dte state08 state15 d dce
+out dte state08 state16 b dce
+out dte state09 state16 b dce
+out dte state10 state16 b dce
+out dte state10B state16 b dce
+out dte state11 state16 b dce
+out dte state12 state16 b dce
+out dte state14 state01 a dce
+out dte state14 state16 b dce
+out dte state15 state16 b dce
+out dte state18 state16 b dce
+out dte state19 state20 b dce
+out dte state21 state01 a dce
+out dte state6A state16 b dce
+out dte state6B state16 b dce
+out dte state6C state16 b dce
+</pre>
+<h3>Transition rules for the `dce' process.</h3>
+
+<pre>
+inp dce state01 state02 d dce
+inp dce state01 state14 i dce
+inp dce state01 state21 b dce
+inp dce state02 state16 b dce
+inp dce state03 state04 e dce
+inp dce state04 state05 c dce
+inp dce state04 state16 b dce
+inp dce state05 state16 b dce
+inp dce state07 state16 b dce
+inp dce state08 state09 c dce
+inp dce state08 state15 d dce
+inp dce state08 state16 b dce
+inp dce state09 state16 b dce
+inp dce state10 state16 b dce
+inp dce state10B state16 b dce
+inp dce state11 state16 b dce
+inp dce state12 state16 b dce
+inp dce state14 state01 a dce
+inp dce state14 state16 b dce
+inp dce state15 state16 b dce
+inp dce state18 state16 b dce
+inp dce state19 state20 b dce
+inp dce state21 state01 a dce
+inp dce state6A state16 b dce
+inp dce state6B state16 b dce
+inp dce state6C state16 b dce
+out dce state01 state08 u dte
+out dce state01 state18 m dte
+out dce state02 state03 v dte
+out dce state02 state15 u dte
+out dce state02 state19 m dte
+out dce state04 state19 m dte
+out dce state05 state19 m dte
+out dce state05 state6A r dte
+out dce state07 state19 m dte
+out dce state07 state6B r dte
+out dce state08 state19 m dte
+out dce state09 state10B q dte
+out dce state09 state19 m dte
+out dce state10 state19 m dte
+out dce state10 state6C r dte
+out dce state10B state19 m dte
+out dce state10B state6C r dte
+out dce state11 state12 n dte
+out dce state11 state19 m dte
+out dce state12 state19 m dte
+out dce state14 state19 m dte
+out dce state15 state03 v dte
+out dce state15 state19 m dte
+out dce state16 state17 m dte
+out dce state17 state21 l dte
+out dce state18 state01 l dte
+out dce state18 state19 m dte
+out dce state20 state21 l dte
+out dce state6A state07 q dte
+out dce state6A state19 m dte
+out dce state6B state07 q dte
+out dce state6B state10 q dte
+out dce state6B state19 m dte
+out dce state6C state11 l dte
+out dce state6C state19 m dte
+</pre>
+<h3>Initialization</h3>
+<pre>
+init dte state01
+init dce state01
+</pre>
+<h3>Error Listings (verbose mode)</h3>
+The error listings give with each step number, the name of the
+executing machine followed by its state and an arrow.
+Behind the arrow is the transition rule: inp or out, the
+new state, the required or provided signal value, and
+the signal name.
+<pre>
+deadlock 1:
+	dce state21 b
+	dte state16 l
+1 dce state01 -> out/state08/u/dte/;
+2 dce state08 -> out/state19/m/dte/;
+3 dte state01 -> inp/state18/m/dte/;
+4 dte state18 -> inp/state19/m/dte/;
+5 dte state19 -> out/state20/b/dce/;
+6 dce state19 -> inp/state20/b/dce/;
+7 dce state20 -> out/state21/l/dte/;
+8 dte state20 -> inp/state21/l/dte/;
+9 dte state21 -> out/state01/a/dce/;
+10 dce state21 -> inp/state01/a/dce/;
+11 dce state01 -> out/state08/u/dte/;
+12 dce state08 -> out/state19/m/dte/;
+13 dte state01 -> inp/state18/m/dte/;
+14 dte state18 -> out/state16/b/dce/;
+15 dce state19 -> inp/state20/b/dce/;
+16 dce state20 -> out/state21/l/dte/;
+deadlock 2:
+	dce state03 b
+	dte state16 v
+1 dce state01 -> out/state08/u/dte/;
+2 dce state08 -> out/state19/m/dte/;
+3 dte state01 -> inp/state18/m/dte/;
+4 dte state18 -> inp/state19/m/dte/;
+5 dte state19 -> out/state20/b/dce/;
+6 dce state19 -> inp/state20/b/dce/;
+7 dce state20 -> out/state21/l/dte/;
+8 dte state20 -> inp/state21/l/dte/;
+9 dte state21 -> out/state01/a/dce/;
+10 dce state21 -> inp/state01/a/dce/;
+11 dce state01 -> out/state08/u/dte/;
+12 dce state08 -> out/state19/m/dte/;
+13 dte state01 -> out/state21/b/dce/;
+14 dce state19 -> inp/state20/b/dce/;
+15 dte state21 -> out/state01/a/dce/;
+16 dte state01 -> inp/state18/m/dte/;
+17 dce state20 -> out/state21/l/dte/;
+18 dce state21 -> inp/state01/a/dce/;
+19 dce state01 -> out/state18/m/dte/;
+20 dte state18 -> inp/state19/m/dte/;
+21 dce state18 -> out/state01/l/dte/;
+22 dte state19 -> out/state20/b/dce/;
+23 dte state20 -> inp/state21/l/dte/;
+24 dce state01 -> out/state08/u/dte/;
+25 dce state08 -> inp/state16/b/dce/;
+26 dte state21 -> out/state01/a/dce/;
+27 dte state01 -> inp/state08/u/dte/;
+28 dce state16 -> out/state17/m/dte/;
+29 dce state17 -> out/state21/l/dte/;
+30 dce state21 -> inp/state01/a/dce/;
+31 dce state01 -> out/state08/u/dte/;
+32 dte state08 -> out/state15/d/dce/;
+33 dce state08 -> inp/state15/d/dce/;
+34 dce state15 -> out/state03/v/dte/;
+35 dte state15 -> inp/state03/v/dte/;
+36 dte state03 -> out/state04/e/dce/;
+37 dte state04 -> out/state05/c/dce/;
+38 dte state05 -> out/state16/b/dce/;
+deadlock 3:
+	dce state03 b
+	dte state20 v
+1 dce state01 -> out/state08/u/dte/;
+2 dce state08 -> out/state19/m/dte/;
+3 dte state01 -> inp/state18/m/dte/;
+4 dte state18 -> inp/state19/m/dte/;
+5 dte state19 -> out/state20/b/dce/;
+6 dce state19 -> inp/state20/b/dce/;
+7 dce state20 -> out/state21/l/dte/;
+8 dte state20 -> inp/state21/l/dte/;
+9 dte state21 -> out/state01/a/dce/;
+10 dce state21 -> inp/state01/a/dce/;
+11 dce state01 -> out/state08/u/dte/;
+12 dce state08 -> out/state19/m/dte/;
+13 dte state01 -> out/state21/b/dce/;
+14 dce state19 -> inp/state20/b/dce/;
+15 dte state21 -> out/state01/a/dce/;
+16 dte state01 -> inp/state18/m/dte/;
+17 dce state20 -> out/state21/l/dte/;
+18 dce state21 -> inp/state01/a/dce/;
+19 dce state01 -> out/state18/m/dte/;
+20 dte state18 -> inp/state19/m/dte/;
+21 dce state18 -> out/state01/l/dte/;
+22 dte state19 -> out/state20/b/dce/;
+23 dte state20 -> inp/state21/l/dte/;
+24 dce state01 -> out/state08/u/dte/;
+25 dce state08 -> inp/state16/b/dce/;
+26 dte state21 -> out/state01/a/dce/;
+27 dte state01 -> inp/state08/u/dte/;
+28 dce state16 -> out/state17/m/dte/;
+29 dce state17 -> out/state21/l/dte/;
+30 dce state21 -> inp/state01/a/dce/;
+31 dce state01 -> out/state18/m/dte/;
+32 dte state08 -> out/state15/d/dce/;
+33 dte state15 -> inp/state19/m/dte/;
+34 dce state18 -> out/state01/l/dte/;
+35 dce state01 -> inp/state02/d/dce/;
+36 dce state02 -> out/state03/v/dte/;
+37 dte state19 -> out/state20/b/dce/;
+deadlock 4:
+	dce state21 b
+	dte state16 -
+1 dte state01 -> out/state02/d/dce/;
+2 dte state02 -> out/state16/b/dce/;
+3 dce state01 -> inp/state21/b/dce/;
+307 states, 4 deadlocks
+</pre>
