@@ -1,0 +1,28 @@
+<h1><join>NoSQL </join></h1>
+<p>
+<em> By Carlo Strozzi </em> (carlo@strozzi.it).
+<p>
+NoSQL is a fast, portable, relational database management system
+without arbitrary limits, (other than memory and processor speed)
+that runs under, and interacts with, the UNIX Operating System.
+It uses the "Operator-Stream Paradigm" described in <em>Unix Review</em>
+(March, 1991, page 24, "A 4GL Language") where there  are a number
+of "operators" that each perform a unique function on the data.
+These operators are written in Awk and C, designed to be lightweight
+Operators will have to be lightweight ones (have a small memory footprint and allows fast startup of the command).
+<p>
+The main reason why NoSQL decided to turn an original RDB system
+into NoSQL is precisely that the former is entirely written in Perl.
+Perl is a good programming language for writing self-contained
+programs, but its pre-compilation phase and long start-up time are
+worth paying only if once the program has loaded it can do everything
+in one go. This contrasts sharply with the Operator-stream Paradigm,
+where operators are chained together in pipelines of two, three or
+more programs. The overhead associated with initializing Perl at
+every stage of the pipeline makes pipelining Perl inefficient. A
+better way of manipulating structured ASCII files is to use the AWK
+programming language, which is much smaller than Perl, is more
+specialized for this task, and is very fast at startup.
+<p>
+For more information on NoSQL, see the
+<a href="http://www.strozzi.it/cgi-bin/CSA/tw7/I/en_US/NoSQL/Home%20Page">NoSQL home page</a>.

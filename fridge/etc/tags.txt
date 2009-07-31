@@ -113,6 +113,7 @@ doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;Stats	;|Correlation between nu
 doc/music.html			;Admin	;2009	;June	;Tools	;Music; 	;|Music tools and Awk
 
 doc/project.html			;Admin	;2009	;Mar	;Tools	;Project	;|Project Tools
+doc/tools/nosql.html			;CarloS	;2009	;Jul	 ;Databases	;|NoSQL
 doc/tools/plait.html			;StephenJ	;2009	;June	;Tools	;Music; ;Awk100	;|Playing music
 doc/tools/humdrum.html			;DavidH	;2009	;June	;Tools	;Music; 	;|Music analysis workbench
 doc/tools/shuffle.html		;Timm	;2009	;June	;Tools	;TenLiners	;|Shuffle.awk
