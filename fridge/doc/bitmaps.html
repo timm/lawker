@@ -1,0 +1,83 @@
+<h1><join> Processing Binary (BMP) files in Gawk </join></h1>
+<p>
+<em>by Ted Davis</em>
+<h2>Description</h2>
+<p>
+My boss wants to put NOAA weather radar images in a looping presentation
+that is displayed as 720 video on the 1040 LCD TV in the atrium.  He
+couldn't figure out how to download the various layers needed, so he gave
+me the task. Of course, I had a sample composite image for him in half an
+hour.  It looked terrible on the TV: the writing came out as just a blur
+and the county and state lines (single pixel mostly) were essentially
+invisible.  Obviously, I could make my own 'cities' overlay, but no tools
+I had would convert the 'counties' image to any usable vector format for
+line resizing.
+<p>
+This afternoon, I wrote a gawk script that widens the lines in a 256 color
+BMP version of the image - I can convert it back to a transparent
+background GIF later.
+<p>
+The power and range of gawk never ceases to amaze me - a 42 line (pretty
+printed) program was all it took. 
+<p>
+The script uses FS="" to convert the entire file into 331 078 single byte
+fields.  The first 1078 went into a header string and printf()ed to the
+outfile.  The rest went into a a pair of 550 row by 600 column arrays.
+Then I looked at each pixel in the A array, and if it was not the
+background color, made the four surrounding pixels in the B array the same
+color, provided they were background color (not part of an existing line).
+ Then I read out the array in order and printf()ed it to the outfile.  The
+resulting overlay should be readable after changing the colors to make the
+dark lines brighter and moving its location in the stack to be on top of
+the other images.
+<p>
+There is one known flaw that I have no intention of addressing: lines that
+do not intersect other lines grow longer by one pixel for each pass
+through the program.
+<h2>Code Fragments</h2>
+<p>
+While the actual code is proprietary, the following code snippets show most of the
+idioms required to handle binaries.
+<pre>
+function Bytes2Number( String,  x, y, z, Number ) {
+      x = split( String, Scratch, "" )
+      Number = 0
+      for( y = 1; y <= x; y++ ) {
+              z = index( CharString, Scratch[ y ] ) -1
+              Number = Number + z * (256^(x - y))
+      }
+      return Number
+}
+</pre>
+<p>
+The following code initializes the CharString variable needed by Bytes2Number.
+<pre>
+BEGIN{
+     for( x = 0; x <= 255; x++ ) {
+          CharString = CharString sprintf( "%c", x )
+</pre>
+<p>
+The above code generates the list of bytes for the Bytes2Number function.
+<pre>
+     FS= ""
+     RS = /ABC/
+}
+</pre>
+<p>
+Mote that the string "ABC" does not appear in any of the image files processed by this code. Hence, the above lines
+means that the whole image ends up in one record.
+<p>
+The next block analyzes the header to extract useful information.
+<pre>
+    {     Width   = Bytes2Number( $22 $21 $20 $19 )
+          Height  = Bytes2Number( $26 $25 $24 $23 )
+          Data    = Bytes2Number( $14 $13 $12 $11 )
+          Size    = Bytes2Number( $6 $5 $4 $3 )
+          Depth   = Bytes2Number( $30 $29 ) / 8
+          ImgSize = Bytes2Number( $38 $37 $36 $35 )
+           ....
+    }
+</pre>
+<p>
+(note: I found that the image size in the header may be wrong, notably in files resized by Paint Shop Pro. Calculating it proved more reliable.)
+
