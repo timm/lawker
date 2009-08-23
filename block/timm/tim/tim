@@ -1,0 +1,331 @@
+#!/usr/bin/env bash
+#/* vim: set filetype=sh : */ 
+
+version() { cat <<-EOF
+	TIM (Tim's interchange mechanism), version 1.0
+	Copyright 2009, Tim Menzies, GPL v3.0
+EOF
+}
+copyleft() { version; echo ""; cat<<-EOF
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+	
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+	
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+EOF
+}
+help() { version;  echo ""; cat<<'EOF'
+    -a dir        Output directory for exectutable awk files.
+    -c file       Write, to standard output,  a 'tim' file 
+                  converted to executable awk.
+    -C file       Write, to the awk output directory,  a 'tim' file 
+                  converted to executable awk.
+    -D            Dump some debug information.
+    -h            Help.
+    -K            Print copyright information.
+    -l dir        Directory for log files.
+    -m file       Write, to standard output,  a 'tim' file 
+                  converted to html.
+    -M file       Write, to the awk output directory,  a 'tim' file 
+                  converted to html.
+    -o file       Load the options in the config 'file'. Valid options shown below.
+    -r file       Write, to standard output,  the files referenced by 'file'.
+    -R file       Sames as -r, but add ' -f ' before each name.
+    -s file       If generating an html file, include in-line the CSS 
+                  styles in 'file'.
+    -S file       If generating an html file, include a link to a CSS styles 
+                  in 'file' as an in-line header.
+    -t dir        Directory for the 'tim' source files.
+    -T string     If generating an html file, use 'string' as the title.
+    -w dir        Output directory for html files.
+    -X            When generating execitable awks, expand all source code, in-line.
+
+Valid config file options:
+
+      TimSrc="Directory to store the tim files. Also set by -t."
+      TimWeb="Directory to store the web files. Also set by -w."
+      TimLog="Directory to store the log files. Also set by -l."
+     TimCode="Directory to store the awk files. Also set by -a."
+      TimCSS="Style sheet URL. Also set by -S."
+    TimTitle="Title for html pages. Also set by -T."
+    TimXpand="If set, include nested source. Also set by -X."
+TimInLineCSS="In-line style sheet file. Also set by -s."
+EOF
+}
+#### start up
+usage() { echo usage: tim -[cCmMsSo] file -[aw] dir -T string -[DKh]; }
+
+#### utils
+dir!()  { Dir=$1; [ ! -d "$1" ] && mkdir -p $1; }
+dir?()  { Dir=$1; [ ! -d "$1" ] && (echo "$1 is not a file."; exit 2);  }
+file?() { 
+	if [ -f "$1" ] 
+	then 
+		File=$1
+		Stem=`basename $1`
+		Stem=${Stem%.*}
+	else echo "$1 is not a file."
+		 exit 1
+	fi
+}
+#### workers
+c() {
+	echo "#!`which gawk` -f "
+	local uses=`includes $File`
+	#arguments $File > $TimSrc/${Stem}Args.awk
+	if 	[ -n "$TimXpand" ]
+	then 
+		(date ; copyleft) | sed 's/^/# /'
+		for file in $uses
+	    do	printf  "\n---| $file |--------------------------\n"
+			cat $TimSrc/$file
+		done
+	fi
+	gawk '/^[ \t]*$/   { dump(); next; }
+                       { text = (text ? text "\n" : "" ) $0 }
+          END          { dump() }
+          function dump() {
+             if (text) {
+                 if (text ~ /^[ \t][^ \t]/)
+                         print text "\n"
+                 else  {
+                        gsub(/\n/,"\n#",text)
+                        print "#" text "\n" } }
+             text = "";
+         }' -
+	dir! $TimLog
+	echo $uses > $TimLog/$Stem.f
+}
+includes() {
+	gawk '{ ruses($0) } 
+          function ruses(line,    name,file,x,a) {
+   		     if (  line ~ /@uses/ ) { 
+   		     	split(line,a)
+			 	name=a[2]
+				gsub(/\"/,"",name)
+				file = Base "/" name
+     			while ((getline x < file) > 0) 
+					ruses(x);
+				printf(" %s", name) 
+     			close(file) }
+		  } ' Base=${TimSrc} $1
+	echo " $Stem.awk"
+}
+m() {
+	if [ -n "$TimTitle" ]
+	then
+		echo "<html><header><title>$TimTitle</title>"
+		if [ -n "$TimCSS" ]
+		then 
+           echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$TimCSS\"/>"
+		fi
+		if [ -n "$TimInLineCSS" ]
+		then echo "<style type=\"text/css\" media=\"all\">"
+		   cat $TimInLineCSS 
+		   echo "</style>"
+		fi
+		echo "</header><body>"
+		cat - | markdown
+		echo "</body></html>"
+	else
+		cat - | markdown
+	fi
+}
+markdown() { cat - | sed '/^@uses/d' | gawk '
+	BEGIN {
+		env = "none";
+		text = "";
+	}
+	/^!\[.+\] *\(.+\)/ {
+		split($0, a, /\] *\(/);
+		split(a[1], b, /\[/);
+		imgtext = b[2];
+		split(a[2], b, /\)/);
+		imgaddr = b[1];
+		print "<p><img src=\"" imgaddr "\" alt=\"" imgtext "\" title=\"\" /></p>\n";
+		text = "";
+		next;
+	}
+	/\] *\(/ {
+		do {
+			na = split($0, a, /\] *\(/);
+			split(a[1], b, "[");
+			linktext = b[2];
+			nc = split(a[2], c, ")");
+			linkaddr = c[1];
+			text = text b[1] "<a href=\"" linkaddr "\">" linktext "</a>" c[2];
+			for(i = 3; i <= nc; i++)
+				text = text ")" c[i];
+			for(i = 3; i <= na; i++)
+				text = text "](" a[i];
+			$0 = text;;
+			text = "";
+		}
+		while (na > 2);
+	}
+	/`/ {
+		while (match($0, /`/) != 0) {
+			if (env == "tt") {
+				sub(/`/, "</tt>");
+				env = pcenv;
+			}
+			else {
+				sub(/`/, "<tt>");
+				pcenv = env;
+				env = "tt";
+	}   }   }
+	/\*\*/ {
+		while (match($0, /\*\*/) != 0) {
+			if (env == "emph") {
+				sub(//, "</emph>");
+				env = peenv;
+			}
+			else {
+				sub(/\*\*/, "<emph>");
+				peenv = env;
+				env = "emph";
+	}   }   }
+	/^=+[ \t]*$/ {
+		print "<h1>" text "</h1>\n";
+		text = "";
+		next;
+	}
+	/^-+[ \t]*$/ {
+		print "<h2>" text "</h2>\n";
+		text = "";
+		next;
+	}
+	/^_+[ \t]*$/ {
+		print "<h3>" text "</h3>\n";
+		text = "";
+		next;
+	}
+	/^#/ {
+		match($0, /#+/);
+		n = RLENGTH;
+		if(n > 6)
+			n = 6;
+		print "<h" n ">" substr($0, RLENGTH + 1) "</h" n ">\n";
+		next;
+	}
+	/^[ \t]*[+].*:/ {
+		if (env == "none") {
+			env = "dl";
+			print "<dl>";
+		}
+		if (text) print text "</dd>"
+		sub(/^[ \t]*[+]/,"");
+		sub(/:/,"</dt><dd>");
+		print "<dt>" $0  ;
+		text = "";
+		next;
+	}
+	/^[ \t]*[+]/ {
+		if (env == "none") {
+			env = "ul";
+			print "<ul>";
+		}
+		if (text) print text 
+		sub(/^[ \t]*[+]/,"");
+		print "<li>" $0  ;
+		text = "";
+		next;
+	}
+	/^[0-9]./ {
+		if (env == "none") {
+			env = "ol";
+			print "<ol>";
+		}
+		print "<li>" substr($0, 3) "</li>";
+		next;
+	}
+	/^[ \t]*$/ {
+		if (env != "none") {
+			if (text)
+				print text;
+			text = "";
+			print "</" env ">\n";
+			env = "none"; 
+	} }
+	/^[ \t]*$/ {
+		paraOrPre()
+		next;
+	}
+	// {
+		text = (text ? text "\n" : "" ) $0;
+	}
+	END {
+	        if (env != "none") {
+	                if (text)
+	                        print text;
+	                text = "";
+	                print "</" env ">\n";
+	                env = "none";
+	        }
+			paraOrPre()
+	        text = "";
+	}
+	function paraOrPre() {
+		if (text) {
+			if (text ~ /^[ \t]/)
+				print "<pre>" text "</pre>\n"
+			else 
+				print "<p>" text "</p>\n"
+		}
+		text = "";
+	}
+'
+}
+############################################
+debug() { cat<<EOF
+[Directories]
+	TimSrc       = [$TimSrc]
+	TimWeb       = [$TimWeb]
+	TimLog       = [$TimLog]
+	TimCode      = [$TimCode]
+
+[Options]
+	TimCSS       = [$TimCSS]
+	TimXpand     = [$TimXpand]
+	TimTitle     = [$TimTitle]
+	TimInLineCSS = [$TimInLineCSS]
+EOF
+}
+#### start up
+TimSrc=$HOME/opt/tim/src
+TimWeb=$HOME/opt/tim/html
+TimLog=$HOME/opt/tim/log
+TimCode=$HOME/opt/tim/awk
+[ -f "$HOME/.timrc" ] && . $HOME/.timrc
+
+while getopts "a:c:C:r:R:m:M:s:S:l:t:T:Xo:w:DKh" opt; do
+   	case $opt in
+		a) dir!  $OPTARG; TimCode=$OPTARG;;
+		c) file? $OPTARG; cat $OPTARG | c;;
+		C) file? $OPTARG; cat $OPTARG | c > $TimCode/$Stem.sh;;
+		r) file? $OPTARG; includes $File;;
+		R) file? $OPTARG; includes $File | sed 's/ / -f /g';;
+		m) file? $OPTARG; cat $OPTARG | m ;;
+		M) file? $OPTARG; cat $OPTARG | m > $TimWeb/$Stem.html;;
+		s) file? $OPTARG; TimInLineCSS=$OPTARG;;
+		S) TimCSS=$OPTARG;;
+		t) dir?  $OPTARG; TimSrc=$OPTARG;;
+		l) dir!  $OPTARG; TimLog=$OPTARG;;
+		w) dir!  $OPTARG; TimWeb=$OPTARG;;
+		o) file? $OPTARG; . $OPTARG;;
+		T) TimTitle="$OPTARG";;
+		X) TimXpand="1";;
+	    K) copyleft;;
+	    D) debug;;
+		h) help;;
+		*) usage;;
+  	esac
+done
+shift $((OPTIND - 1))
