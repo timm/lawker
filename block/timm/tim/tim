@@ -24,7 +24,7 @@ EOF
 credits() { cat<<-EOF
 	Credits:
 	  - Tim Menzies did most of the coding.
-	  - This code uses Jesus Galan's version of  Markdown (with some adapations).
+	  - This code uses Jesus Galan's version of Markdown (with a few modifications).
 	EOF
 }
 usage() { 
