@@ -2,7 +2,7 @@
 #/* vim: set filetype=sh : */ 
 
 version() { cat <<-EOF
-	TIM (Tim's interchange mechanism), version 1.0
+	TIM = literate programming + test suites + code library management. Version 1.0
 	Copyright 2009, Tim Menzies, GPL v3.0
 EOF
 }
@@ -20,6 +20,15 @@ copyleft() { version; echo ""; cat<<-EOF
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 EOF
+}
+credits() { cat<<-EOF
+	Credits:
+	  - Tim Menzies did most of the coding.
+	  - Jesus Galan coded the original Awk Markdown used (and adapted) here.
+	EOF
+}
+usage() { 
+	echo usage: tim [-[cCmMrRsSo] file] [-[altw] dir] [-T string] [-[DKihvx]]
 }
 help() { version;  echo ""; cat<<'EOF'
     -a dir        Output directory for exectutable awk files.
@@ -45,8 +54,9 @@ help() { version;  echo ""; cat<<'EOF'
                   in 'file' as an in-line header.
     -t dir        Directory for the 'tim' source files.
     -T string     If generating an html file, use 'string' as the title.
+    -v 			  Print version info.
     -w dir        Output directory for html files.
-    -X            When generating execitable awks, expand all source code, in-line.
+    -x            When generating execitable awks, expand all source code, in-line.
 
 Valid config file options:
 
@@ -57,13 +67,64 @@ Valid config file options:
       TimToc="If set, when generating HTML, add in a table of contents. Also set by -i."
       TimCSS="Style sheet URL. Also set by -S."
     TimTitle="Title for html pages. Also set by -T."
-    TimXpand="If set, include nested source. Also set by -X."
+    TimXpand="If set, include nested source. Also set by -x."
 TimInLineCSS="In-line style sheet file. Also set by -s."
 EOF
 }
-#### start up
-usage() { echo usage: tim -[cCmMsSo] file -[aw] dir -T string -[DKh]; }
+config() {
+	TimSrc=$HOME/opt/tim/src
+	TimWeb=$HOME/opt/tim/html
+	TimLog=$HOME/opt/tim/log
+	TimCode=$HOME/opt/tim/awk
+	[ -f "$HOME/.timrc" ] && . $HOME/.timrc # optionally, override defaults
+}
+#### startup
+opt() {
+	case $1 in
+	    # pairs of flags
+		c) file? $2; cat $2 | c;;
+		C) file? $2; cat $2 | c > $TimCode/$Stem.sh;;
+		m) file? $2; cat $2 | m ;;
+		M) file? $2; cat $2 | m > $TimWeb/$Stem.html;;
+		r) file? $2; includes $File;;
+		R) file? $2; includes $File | sed 's/ / -f /g';;
 
+		# settings of options
+		a) dir!  $2; TimCode=$2;;
+	    i) TimToc="1";;
+		l) dir!  $2; TimLog=$2;;
+		o) file? $2; . $2;;
+		s) file? $2; TimInLineCSS=$2;;
+		t) dir?  $2; TimSrc=$2;;
+		w) dir!  $2; TimWeb=$2;;
+		S) TimCSS=$2;;
+		T) TimTitle="$2";;
+		x) TimXpand="1";;
+		
+		# other
+	    v) version; echo ""; credits;;
+	    D) debug;;
+	    K) copyleft;;
+		h) help;;
+		*) usage;;
+  	esac
+}
+#### debug 
+debug() { cat<<EOF
+[Directories]
+	TimSrc       = [$TimSrc]
+	TimWeb       = [$TimWeb]
+	TimLog       = [$TimLog]
+	TimCode      = [$TimCode]
+
+[Options]
+	TimToc       = [$TimToc]
+	TimCSS       = [$TimCSS]
+	TimXpand     = [$TimXpand]
+	TimTitle     = [$TimTitle]
+	TimInLineCSS = [$TimInLineCSS]
+EOF
+}
 #### utils
 dir!()  { Dir=$1; [ ! -d "$1" ] && mkdir -p $1; }
 dir?()  { Dir=$1; [ ! -d "$1" ] && (echo "$1 is not a file."; exit 2);  }
@@ -82,7 +143,7 @@ c() {
 	dir! $TimCode
 	echo "#!`which gawk` -f "
 	local uses=`includes $File`
-	arguments $File > $TimCode/${Stem}Args.awk
+	arguments $File > $TimCode/${Stem}__args.awk
 	if 	[ -n "$TimXpand" ]
 	then 
 		(date ; copyleft) | sed 's/^/# /'
@@ -123,15 +184,14 @@ includes() {
 }
 arguments() {
 	cat $File  |
-	gawk '/^Arguments/ {next; next;FS=":"}
-	      /^[ \t]*$/   {print "function " Stem "Args() { "
-					    print "   return " String}
-                       {gsub(/[\+\*\"]/," ")
-				        if(!Sep)
-							String = "\""$0"\"" 
-						else {
-							String = String "\\\\t\"" $0 "\""  
-						}
+	gawk 'BEGIN {RS=""; FS="\n"}
+		 /^Arguments/ {In=1; next}
+          In           {gsub(/[\+\*\"]/," ")
+						gsub(/\n/,"\\n\"\n\t\"")
+						gsub(/\n/,"\\\n")
+					    print "function " Stem "__args() { "
+					    print "   return \"" $0 "\"\n}" 
+				        exit
                        }' Stem=$Stem
 }
 m() {
@@ -327,55 +387,9 @@ markdown() {
 ' Toc=$TimLog/$Stem.toc
 }
 ############################################
-debug() { cat<<EOF
-[Directories]
-	TimSrc       = [$TimSrc]
-	TimWeb       = [$TimWeb]
-	TimLog       = [$TimLog]
-	TimCode      = [$TimCode]
-
-[Options]
-	TimToc       = [$TimToc]
-	TimCSS       = [$TimCSS]
-	TimXpand     = [$TimXpand]
-	TimTitle     = [$TimTitle]
-	TimInLineCSS = [$TimInLineCSS]
-EOF
-}
 #### start up
-TimSrc=$HOME/opt/tim/src
-TimWeb=$HOME/opt/tim/html
-TimLog=$HOME/opt/tim/log
-TimCode=$HOME/opt/tim/awk
-[ -f "$HOME/.timrc" ] && . $HOME/.timrc
-
-while getopts "a:c:C:r:R:m:M:is:S:l:t:T:Xo:w:DKh" opt; do
-   	case $opt in
-	    # pairs of flags
-		c) file? $OPTARG; cat $OPTARG | c;;
-		C) file? $OPTARG; cat $OPTARG | c > $TimCode/$Stem.sh;;
-		m) file? $OPTARG; cat $OPTARG | m ;;
-		M) file? $OPTARG; cat $OPTARG | m > $TimWeb/$Stem.html;;
-		r) file? $OPTARG; includes $File;;
-		R) file? $OPTARG; includes $File | sed 's/ / -f /g';;
-
-		# settings of options
-		a) dir!  $OPTARG; TimCode=$OPTARG;;
-	    i) TimToc="1";;
-		l) dir!  $OPTARG; TimLog=$OPTARG;;
-		o) file? $OPTARG; . $OPTARG;;
-		s) file? $OPTARG; TimInLineCSS=$OPTARG;;
-		t) dir?  $OPTARG; TimSrc=$OPTARG;;
-		w) dir!  $OPTARG; TimWeb=$OPTARG;;
-		S) TimCSS=$OPTARG;;
-		T) TimTitle="$OPTARG";;
-		X) TimXpand="1";;
-		
-		# other
-	    D) debug;;
-	    K) copyleft;;
-		h) help;;
-		*) usage;;
-  	esac
+config
+while getopts "a:c:C:r:R:m:M:is:S:l:t:T:vxo:w:DKh" opt; do 
+	opt $opt  "$OPTARG"
 done
 shift $((OPTIND - 1))
