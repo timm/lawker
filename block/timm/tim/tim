@@ -30,6 +30,7 @@ help() { version;  echo ""; cat<<'EOF'
     -D            Dump some debug information.
     -h            Help.
     -K            Print copyright information.
+    -i 			  If generating html, add in a table of contents.
     -l dir        Directory for log files.
     -m file       Write, to standard output,  a 'tim' file 
                   converted to html.
@@ -53,6 +54,7 @@ Valid config file options:
       TimWeb="Directory to store the web files. Also set by -w."
       TimLog="Directory to store the log files. Also set by -l."
      TimCode="Directory to store the awk files. Also set by -a."
+      TimToc="If set, when generating HTML, add in a table of contents. Also set by -i."
       TimCSS="Style sheet URL. Also set by -S."
     TimTitle="Title for html pages. Also set by -T."
     TimXpand="If set, include nested source. Also set by -X."
@@ -77,9 +79,10 @@ file?() {
 }
 #### workers
 c() {
+	dir! $TimCode
 	echo "#!`which gawk` -f "
 	local uses=`includes $File`
-	#arguments $File > $TimSrc/${Stem}Args.awk
+	arguments $File > $TimCode/${Stem}Args.awk
 	if 	[ -n "$TimXpand" ]
 	then 
 		(date ; copyleft) | sed 's/^/# /'
@@ -118,8 +121,21 @@ includes() {
 		  } ' Base=${TimSrc} $1
 	echo " $Stem.awk"
 }
+arguments() {
+	cat $File  |
+	gawk '/^Arguments/ {next; next;FS=":"}
+	      /^[ \t]*$/   {print "function " Stem "Args() { "
+					    print "   return " String}
+                       {gsub(/[\+\*\"]/," ")
+				        if(!Sep)
+							String = "\""$0"\"" 
+						else {
+							String = String "\\\\t\"" $0 "\""  
+						}
+                       }' Stem=$Stem
+}
 m() {
-	if [ -n "$TimTitle" ]
+	if [ -n "$TimCSS" -o -n "$TimInLineCSS" ]
 	then
 		echo "<html><header><title>$TimTitle</title>"
 		if [ -n "$TimCSS" ]
@@ -132,13 +148,27 @@ m() {
 		   echo "</style>"
 		fi
 		echo "</header><body>"
-		cat - | markdown
+		cat - | body
 		echo "</body></html>"
 	else
-		cat - | markdown
+		cat - | body
 	fi
 }
-markdown() { cat - | sed '/^@uses/d' | gawk '
+body() {
+	if [ -n "$TimTitle" ]; then
+		echo "<div class=\"awktop\"><h1><join>$TimTitle</join></h1></div>"
+	fi
+	if [ -n "$TimToc" ]; then
+		echo "<div class=\"awktoc\"><h2>Contents</h2>"	
+	    [ -f "$TimLog/$Stem.toc" ] && cat "$TimLog/$Stem.toc"
+		echo "</div><div class=\"awkbody\">"
+	fi
+	cat - | markdown
+	[ -n "$TimToc" ] && echo "</div>"
+}
+markdown() { 
+  echo "" > $TimLog/$Stem.toc
+  cat - | sed '/^@uses/d' | gawk '
 	BEGIN {
 		env = "none";
 		text = "";
@@ -193,17 +223,30 @@ markdown() { cat - | sed '/^@uses/d' | gawk '
 				env = "emph";
 	}   }   }
 	/^=+[ \t]*$/ {
-		print "<h1>" text "</h1>\n";
+		Headers++
+		print "<a name=\""Headers"\"><h1>" text "</h1></a>\n";
+		print "<h1><a href=\"#"Headers"\">" text "</a></h1>" >>Toc
 		text = "";
 		next;
 	}
 	/^-+[ \t]*$/ {
-		print "<h2>" text "</h2>\n";
+		Headers++
+		print "<a name=\""Headers"\"><h2>" text "</h2></a>\n";
+		print "<h2><a href=\"#"Headers"\">" text "</a></h2>" >>Toc
 		text = "";
 		next;
 	}
 	/^_+[ \t]*$/ {
-		print "<h3>" text "</h3>\n";
+		Headers++
+		print "<a name=\""Headers"\"><h3>" text "</h3></a>\n";
+		print "<h3><a href=\"#"Headers"\">" text "</a></h3>" >>Toc
+		text = "";
+		next;
+	}	
+    /^\.+[ \t]*$/ {
+		Headers++
+		print "<a name=\""Headers"\"><h4>" text "</h4></a>\n";
+		print "<h4><a href=\"#"Headers"\">" text "</a></h4>" >>Toc
 		text = "";
 		next;
 	}
@@ -281,7 +324,7 @@ markdown() { cat - | sed '/^@uses/d' | gawk '
 		}
 		text = "";
 	}
-'
+' Toc=$TimLog/$Stem.toc
 }
 ############################################
 debug() { cat<<EOF
@@ -292,6 +335,7 @@ debug() { cat<<EOF
 	TimCode      = [$TimCode]
 
 [Options]
+	TimToc       = [$TimToc]
 	TimCSS       = [$TimCSS]
 	TimXpand     = [$TimXpand]
 	TimTitle     = [$TimTitle]
@@ -305,25 +349,31 @@ TimLog=$HOME/opt/tim/log
 TimCode=$HOME/opt/tim/awk
 [ -f "$HOME/.timrc" ] && . $HOME/.timrc
 
-while getopts "a:c:C:r:R:m:M:s:S:l:t:T:Xo:w:DKh" opt; do
+while getopts "a:c:C:r:R:m:M:is:S:l:t:T:Xo:w:DKh" opt; do
    	case $opt in
-		a) dir!  $OPTARG; TimCode=$OPTARG;;
+	    # pairs of flags
 		c) file? $OPTARG; cat $OPTARG | c;;
 		C) file? $OPTARG; cat $OPTARG | c > $TimCode/$Stem.sh;;
-		r) file? $OPTARG; includes $File;;
-		R) file? $OPTARG; includes $File | sed 's/ / -f /g';;
 		m) file? $OPTARG; cat $OPTARG | m ;;
 		M) file? $OPTARG; cat $OPTARG | m > $TimWeb/$Stem.html;;
-		s) file? $OPTARG; TimInLineCSS=$OPTARG;;
-		S) TimCSS=$OPTARG;;
-		t) dir?  $OPTARG; TimSrc=$OPTARG;;
+		r) file? $OPTARG; includes $File;;
+		R) file? $OPTARG; includes $File | sed 's/ / -f /g';;
+
+		# settings of options
+		a) dir!  $OPTARG; TimCode=$OPTARG;;
+	    i) TimToc="1";;
 		l) dir!  $OPTARG; TimLog=$OPTARG;;
-		w) dir!  $OPTARG; TimWeb=$OPTARG;;
 		o) file? $OPTARG; . $OPTARG;;
+		s) file? $OPTARG; TimInLineCSS=$OPTARG;;
+		t) dir?  $OPTARG; TimSrc=$OPTARG;;
+		w) dir!  $OPTARG; TimWeb=$OPTARG;;
+		S) TimCSS=$OPTARG;;
 		T) TimTitle="$OPTARG";;
 		X) TimXpand="1";;
-	    K) copyleft;;
+		
+		# other
 	    D) debug;;
+	    K) copyleft;;
 		h) help;;
 		*) usage;;
   	esac

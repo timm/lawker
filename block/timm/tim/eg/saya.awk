@@ -40,6 +40,11 @@ The most common usage is to just use the first two arguments; e.g.
 
 For other usages, see the examples, below.
 
+Sub-notes
+.........
+
+fred
+
 Source
 ------
 
