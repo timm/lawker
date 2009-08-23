@@ -24,7 +24,7 @@ EOF
 credits() { cat<<-EOF
 	Credits:
 	  - Tim Menzies did most of the coding.
-	  - Jesus Galan coded the original Awk Markdown used (and adapted) here.
+	  - This code uses Jesus Galan's version of  Markdown (with some adapations).
 	EOF
 }
 usage() { 
@@ -45,7 +45,8 @@ help() { version;  echo ""; cat<<'EOF'
                   converted to html.
     -M file       Write, to the awk output directory,  a 'tim' file 
                   converted to html.
-    -o file       Load the options in the config 'file'. Valid options shown below.
+    -o file       Load the options in the config 'file'. For a list of current
+                  options, and their current defaults, type 'tim -D'.
     -r file       Write, to standard output,  the files referenced by 'file'.
     -R file       Sames as -r, but add ' -f ' before each name.
     -s file       If generating an html file, include in-line the CSS 
@@ -57,26 +58,44 @@ help() { version;  echo ""; cat<<'EOF'
     -v 			  Print version info.
     -w dir        Output directory for html files.
     -x            When generating execitable awks, expand all source code, in-line.
+EOF
+}
+options() { cat<<EOF
+# TIM config options.
+# Options set in $HOME/.timrc override TIM's default options.
+# Also, options set from the TIM command line override $HOME/.timrc
 
-Valid config file options:
+# Directories:
+      TimSrc="$TimSrc"      # Directory to store the tim files. Also set by -t.
+      TimWeb="$TimWeb"      # Directory to store the web files. Also set by -w.
+      TimLog="$TimLog"      # Directory to store the log files. Also set by -l.
+     TimCode="$TimCode"     # Directory to store the awk files. Also set by -a.
+      TimTmp="$TimTmp"      # Directory for temporaties."
 
-      TimSrc="Directory to store the tim files. Also set by -t."
-      TimWeb="Directory to store the web files. Also set by -w."
-      TimLog="Directory to store the log files. Also set by -l."
-     TimCode="Directory to store the awk files. Also set by -a."
-      TimToc="If set, when generating HTML, add in a table of contents. Also set by -i."
-      TimCSS="Style sheet URL. Also set by -S."
-    TimTitle="Title for html pages. Also set by -T."
-    TimXpand="If set, include nested source. Also set by -x."
-TimInLineCSS="In-line style sheet file. Also set by -s."
+# Programs:
+        # Path to awk interpreter. 
+        Awk="$Awk"         
+        # Path to profiling version of awk interpreter.
+        Pawk="$Pawk"        
+
+# Options:
+      TimToc="$TimToc"      # If set, when generating HTML, add in a table of contents. Also set by -i.
+      TimCSS="$TimCSS"      # Style sheet URL. Also set by -S.
+    TimXpand="$TimXpand"    # If set, include nested source. Also set by -x.
+    TimTitle="$TimTitle"    # Title for html pages. Also set by -T.
+TimInLineCSS="$TimInLineCSS" # In-line style sheet file. Also set by -s.
 EOF
 }
 config() {
-	TimSrc=$HOME/opt/tim/src
-	TimWeb=$HOME/opt/tim/html
-	TimLog=$HOME/opt/tim/log
-	TimCode=$HOME/opt/tim/awk
+	Awk=${Awk:-`which gawk`}
+	TimTmp=${TimTmp:-/tmp/$USER/tim}
+	Pawk=${Pawk:-"`which pgawk` --dump-variables=$TimTmp/awkvars.out  --profile=$TimTmp/awkprof.out"}
+	TimSrc=${TimSrc:-$HOME/opt/tim/src}
+	TimWeb=${TimWeb:-$HOME/opt/tim/html}
+	TimLog=${TimLog:-$HOME/opt/tim/log}
+	TimCode=${TimCode:-$HOME/opt/tim/awk}
 	[ -f "$HOME/.timrc" ] && . $HOME/.timrc # optionally, override defaults
+	dir! $TimTmp
 }
 #### startup
 opt() {
@@ -103,27 +122,11 @@ opt() {
 		
 		# other
 	    v) version; echo ""; credits;;
-	    D) debug;;
+	    D) options;;
 	    K) copyleft;;
 		h) help;;
 		*) usage;;
   	esac
-}
-#### debug 
-debug() { cat<<EOF
-[Directories]
-	TimSrc       = [$TimSrc]
-	TimWeb       = [$TimWeb]
-	TimLog       = [$TimLog]
-	TimCode      = [$TimCode]
-
-[Options]
-	TimToc       = [$TimToc]
-	TimCSS       = [$TimCSS]
-	TimXpand     = [$TimXpand]
-	TimTitle     = [$TimTitle]
-	TimInLineCSS = [$TimInLineCSS]
-EOF
 }
 #### utils
 dir!()  { Dir=$1; [ ! -d "$1" ] && mkdir -p $1; }
@@ -389,7 +392,5 @@ markdown() {
 ############################################
 #### start up
 config
-while getopts "a:c:C:r:R:m:M:is:S:l:t:T:vxo:w:DKh" opt; do 
-	opt $opt  "$OPTARG"
-done
+while getopts "a:c:C:r:R:m:M:is:S:l:t:T:vxo:w:DKh" opt; do opt $opt "$OPTARG"; done
 shift $((OPTIND - 1))
