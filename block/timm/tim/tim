@@ -43,18 +43,18 @@ help() { version;  echo ""; cat<<'EOF'
     -D            Dump some debug information.
     -h            Help.
     -K            Print copyright information.
-    -i 			  If generating html, add in a table of contents.
+    -i            If generating html, add in a table of contents.
     -l dir        Directory for log files.
     -m file       Write, to standard output,  a '.tim' file 
                   converted to html.
     -M file       Write, to the awk output directory,  a '.tim' file 
                   converted to html.
-    -o file       Load the options in the config 'file'. For a list of current
+    -o file       Load the options in the config 'file'. For a list of
                   options, and their current defaults, type 'tim -D'.
     -r file       Write, to standard output,  the files referenced by 'file'.
     -R file       Sames as -r, but add ' -f ' before each name.
-    -s file       If generating an html file, include in-line the CSS 
-                  styles in 'file'.
+    -s file       If generating an html file, include in-line 
+                  the CSS styles in 'file'.
     -S file       If generating an html file, include a link to a CSS styles 
                   in 'file' as an in-line header.
     -t dir        Directory for the 'tim' source files.
@@ -63,6 +63,7 @@ help() { version;  echo ""; cat<<'EOF'
     -w dir        Output directory for html files.
     -x            When generating execitable awks, expand all source code, in-line.
 EOF
+# -X 0 runs all tests -X 1 runs 1, then prints out the scores
 }
 options() { cat<<EOF
 # TIM config options.
@@ -129,6 +130,7 @@ opt() {
 	    D) options;;
 	    K) copyleft;;
 		h) help;;
+		!) echo 123;;
 		*) usage;;
   	esac
 }
@@ -222,6 +224,7 @@ m() {
 	fi
 }
 body() {
+	dir! $TimLog
 	if [ -n "$TimTitle" ]; then
 		echo "<div class=\"awktop\"><h1><join>$TimTitle</join></h1></div>"
 	fi
@@ -233,9 +236,12 @@ body() {
 	cat - | markdown
 	[ -n "$TimToc" ] && echo "</div>"
 }
+used2list() {
+	gawk '/^@uses/ { gsub(/\"/,"") ;print "\t+ " $2; next} {print}'  -
+}
 markdown() { 
   echo "" > $TimLog/$Stem.toc
-  cat - | sed '/^@uses/d' | gawk '
+  cat - | used2list | gawk '
 	BEGIN {
 		env = "none";
 		text = "";
@@ -396,5 +402,5 @@ markdown() {
 ############################################
 #### start up
 config
-while getopts "a:c:C:r:R:m:M:is:S:l:t:T:vxo:w:DKh" opt; do opt $opt "$OPTARG"; done
+while getopts "a:c:C:r:R:m:M:is:S:l:t:T:vxo:w:DKh!" opt; do opt $opt "$OPTARG"; done
 shift $((OPTIND - 1))

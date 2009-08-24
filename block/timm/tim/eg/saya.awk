@@ -1,4 +1,3 @@
-@uses "saya1.awk"
 
 Saya
 ==== 
@@ -78,6 +77,11 @@ Example
 -------
 
 Able dogs
+
+See Also
+--------
+
+@uses "saya1.awk" : support routines.
 
 Author
 ------
