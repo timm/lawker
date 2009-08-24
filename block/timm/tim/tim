@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 #/* vim: set filetype=sh : */ 
 
+#XXXX add an unistall to print the directories and where to delete them. don't forget ~/.timrc.
+
 version() { cat <<-EOF
-	TIM = literate programming + test suites + code library management. Version 1.0
-	Copyright 2009, Tim Menzies, GPL v3.0
+	TIM = literate programming + test suites + code library management for Awk code. 
+	Version 0.2. Copyright 2009, Tim Menzies, GPL v3.0
 EOF
 }
 copyleft() { version; echo ""; cat<<-EOF
@@ -24,26 +26,28 @@ EOF
 credits() { cat<<-EOF
 	Credits:
 	  - Tim Menzies did most of the coding.
-	  - This code uses Jesus Galan's version of Markdown (with a few modifications).
+	  - TIM uses Jesus Galan's implementation of Markdown (with a few modifications).
 	EOF
 }
 usage() { 
 	echo usage: tim [-[cCmMrRsSo] file] [-[altw] dir] [-T string] [-[DKihvx]]
 }
 help() { version;  echo ""; cat<<'EOF'
+"TIM" is short for "Tim's interaction mechanism". Options:
+
     -a dir        Output directory for exectutable awk files.
-    -c file       Write, to standard output,  a 'tim' file 
+    -c file       Write, to standard output,  a '.tim' file 
                   converted to executable awk.
-    -C file       Write, to the awk output directory,  a 'tim' file 
+    -C file       Write, to the awk output directory,  a '.tim' file 
                   converted to executable awk.
     -D            Dump some debug information.
     -h            Help.
     -K            Print copyright information.
     -i 			  If generating html, add in a table of contents.
     -l dir        Directory for log files.
-    -m file       Write, to standard output,  a 'tim' file 
+    -m file       Write, to standard output,  a '.tim' file 
                   converted to html.
-    -M file       Write, to the awk output directory,  a 'tim' file 
+    -M file       Write, to the awk output directory,  a '.tim' file 
                   converted to html.
     -o file       Load the options in the config 'file'. For a list of current
                   options, and their current defaults, type 'tim -D'.
