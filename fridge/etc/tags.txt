@@ -74,6 +74,7 @@ doc/fastre.html				;RussC	;2009	;Jul			;|Regular Expression Matching Can Be Simp
 doc/tip/awk4db.html		;VictorA	;2009	;Jul	;Tips	;Databases	;|Using Awk for Databases
 doc/tip/random.html		;Admin	;2009	;Jul	;Tips		;|Random Numbers in Gawk
 doc/tip/superFor.html		;ArnoldR	;2009	;Mar	;Tips	;Funky	;|Super-For loops
+doc/tip/readheaders.html	;JanisP	;2009	;Aug	;Tips	;|Using field names to reference columns
 doc/tip/getline.html		;Ed	;2009	;Jan	;Tips	;Getline	;|Getline
 doc/tip/noforloops.html		;Jimh	;2009	;Jan	;Tips	;Forloop	;|Forloops
 doc/tip/moving.html			;ArnoldR	;2009	;Apr	;Tips		;|Moving Files with Awk

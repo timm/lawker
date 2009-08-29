@@ -1,0 +1,96 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+----------------------------------------------------------
+NEW AWK MASCOT
+
+- Dick L. proposes a new Awk mascot: 'AWK-eye the dwarf
+  http://awk.info/?news/awkeye
+
+----------------------------------------------------------
+UPDATES
+
+- Jesus Galan updates his MARKDOWN system.
+  http://awk.info/?dsl/markdown2
+
+----------------------------------------------------------
+NEW SECTION: Awk for Program Verification
+
+- Gerard Holzmann uses Awk for explore state machine.
+  http://awk.info/?microtracer
+
+- Mikhail Auguston (and friends) offer an Awk debugger 
+  and assertion checker.
+  http://awk.info/?bitmaps
+
+- Baker and Janowski explore runtime verification 
+  of Awk programs.
+  http://awk.info/?verifyawk
+
+----------------------------------------------------------
+NEW SECTION: Awk for Databases
+http://awk.info/?Databases
+
+- Panos I. Papadopoulos adds SQL functionality to Awk
+  http://awk.info/?tools/spawk
+
+- Erich Neuwirth uses Awk (and TEX) for Quick 
+  and Dirty Databases.
+  http://awk.info/?tools/awkfastdb
+
+- Carlo Strozzi's NoSQL system (with Awk)
+  http://awk.info/?tools/nosql
+
+- Victor Alvarado implements DB functions in standard Awk
+  http://awk.info/?tip/awk4db
+
+----------------------------------------------------------
+BITS and PIECES
+
+- Arnold Robbins releases Gawk 3.1.7,
+  http://groups.google.com/group/comp.lang.awk/browse_thread/thread/941c600d0961d7b6#
+
+- Ted Davis uses Awk to handle binary images
+  http://awk.info/?bitmaps
+
+-----------------------------------------------------------
+PAGE OF THE WEEK
+
+Google Analytics tells us that awk.info's page of the week
+is Russ Cox's description of why text matching in Awk  is
+so fast:
+
+     http://awk.info/?fastre
+
+-----------------------------------------------------------
+THAT'S (nearly) ALL FOLKS
+
+Today marks the end of 6 months of awk.info and, in
+case you have not noticed, the pace of updates has
+slowed right down.  Why? Well, I've run out of new cool
+Awk examples to post to this site.
+
+Clearly it is time for someone else to step up- someone
+else who knows of other cool Awk apps.  I'm happy to
+support anyone else who (a) knows of other examples of
+cool Awk and (b) wants to take over the site. And
+meanwhile I'll watch comp.lang.awk for any cool
+updates.
+
+So, volunteers anyone?
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
