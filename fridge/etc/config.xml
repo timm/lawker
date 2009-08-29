@@ -661,6 +661,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>RussC</what>
 	</file>
+	<file where="doc/tip/printranges.html">
+		<title>Printing ranges</title>
+		<what>Tips</what>
+		<what>Aug</what>
+		<what>2009</what>
+		<what>EdM</what>
+	</file>
 	<file where="doc/tip/awk4db.html">
 		<title>Using Awk for Databases</title>
 		<what>Databases</what>

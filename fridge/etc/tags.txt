@@ -72,6 +72,7 @@ doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
 doc/sed.html				;Admin	;2009	;Apr	;Tips ;Sed		;|Sed-clones (in Awk)
 doc/fastre.html				;RussC	;2009	;Jul			;|Regular Expression Matching Can Be Simple And Fast 
 
+doc/tip/printranges.html		;EdM	;2009	;Aug	;Tips	;|Printing ranges
 doc/tip/awk4db.html		;VictorA	;2009	;Jul	;Tips	;Databases	;|Using Awk for Databases
 doc/tip/random.html		;Admin	;2009	;Jul	;Tips		;|Random Numbers in Gawk
 doc/tip/superFor.html		;ArnoldR	;2009	;Mar	;Tips	;Funky	;|Super-For loops

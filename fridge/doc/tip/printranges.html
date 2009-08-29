@@ -1,0 +1,110 @@
+<h1><join>Print Ranges</join></h1>
+<p><em>In comp.lang.awk, Ed Morton offers advise on how to print ranges of Awk records.</em>
+
+<h2>Problem</h2>
+<p>
+Suppose you are  looking to extract a section of code from a text file based on
+ two regular expressions.
+<p>
+Say the file looks like this:
+newspaper
+magazing
+
+hiking
+hiking trails in the city
+muir hike
+black mountain hike
+summer meados hike
+end hiking
+
+phone
+cell
+skype
+</pre>
+<p> and you want to
+extract
+<pre>
+hiking trails in the city
+muir hike
+black mountain hike
+summer meados hike
+</pre>
+
+The following regular expression won't work right:
+<pre>
+awk '/hiking/,/end hiking/{print}' myfile
+</pre>
+since that returns some spurious information.
+
+<p>
+What do do?
+
+<h2>Solution</h2>
+<p>
+Personally, I rarely if ever use
+<pre>
+/start/,/end/
+</pre>
+<p>
+as I'm never immediately sure what it'd output for input such as:
+<pre>
+start
+a
+start
+b
+end
+c
+end
+</pre>
+<p>and whenever you want to do something just slightly different with the
+selection you need to change the script a lot.
+<p>
+Not being sure of the semantics is probably a catch 22 since I rarely
+use it but the benefit of using that syntax vs spelling it out:
+<pre>
+/start/{f=1} f; /end/{f=0}
+</pre>
+<p>
+just doesn't really seem worthwhile, and then if you want to do
+something extra like test for some other condition over the block
+this:
+<pre>
+/start/{f=1} f&&cond; /end/{f=0}
+</pre>
+<p>
+is about as brief as:
+<pre>
+/start/,/end/{if (cond) print}
+</pre>
+<p>
+and if you want to exclude the start (or end) of the block you're
+printing then you just move the "f" test to the obvious place and you
+don't need to duplicate the condition:
+<pre>
+f; /start/{f=1} /end/{f=0}
+</pre>
+vs
+<pre>
+/start/,/end/{if (!/start/) print}
+</pre>
+<p>
+and note the different semantics now. This:
+<pre>
+f; /start/{f=1} /end/{f=0}
+</pre>
+<p>
+will exclude the line at the start of the block you're printing,
+whereas this:
+<pre>
+/start/,/end/{if (!/start/) print}
+</pre>
+<p>
+will exclude that line plus every other occurrence of "start" within
+the block which is probably not what you'd want. To simply exclude
+only the first line of the block but stay with the /start/,/end/
+approach you'd need to do something like:
+<pre>
+/start/,/end/{if (!nr++) print; if (/end/) nr=0}
+</pre>
+<p>
+(which is getting fairly obscure.)
