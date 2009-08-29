@@ -47,16 +47,17 @@ hello,world,region_name,foo,bar,xyz,dummy
 41111,22222,aspac,77777,8888888,XYZ,zzzzz
 </pre>
 <p>
-Calling <pre>
+Now, calling this command... 
+<pre>
 sh bycolname.sh world,hello
 </pre>
-would produce
+... would produce:
 <pre>
 22222,11111
 22222,21111
 22222,31111
 22222,41111
-</pre.
+</pre>
 <h2>Bugs</h2>
 <p>
 Non existing column names will expand to $0 each, which may
