@@ -1,0 +1,30 @@
+<H1><join>How to Call Awk from "C" with Libmawk</join> </H1>
+<p>
+Libmawk is a fork of mawk 1.3.3 restructured for embedding. This means the
+user gets libmawk.h and libmawk.so and can embed awk scripting language
+in any application written in C. 
+<P>
+the project can be downloaded<a href="http://repo.hu/projects/libmawk/download.html">
+here</a>.
+
+<H2> features </H2>
+<p>
+Libmawk has the following main features:
+<UL>
+	<LI> load and run multiple awk scripts independently, in parallel
+	<LI> scripts do not read stdin but a memory buffer the embedding process can fill from time to time
+	<LI> running scripts in (mostly) non-blocking manner - that is, the script will not block if the process can not provide new input
+	<LI> all these without threads or fork()
+	<LI> call awk functions from C, using vararg for smooth integration
+	<LI> call C functions from awk scripts
+	<LI> resolve existing awk variables from C - read or write variables
+</UL>
+
+
+<H2> License </H2>
+<p>
+Since mawk is licensed under the GNU GPL v2 and libmawk is a fork of
+mawk, libmawk is licensed under the GNU GPL v2 too.
+<h2>Author</h2>
+<p>
+Tibor Palinkas 

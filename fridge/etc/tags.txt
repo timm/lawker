@@ -42,6 +42,7 @@ doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
+doc/news/libmawk.html		;TiborP	;2009	;Aug	;Libmawk		;|How to call Awk form "C" with Libmawk
 doc/news/awkeye.html		;DickL	;2009	;Jul	;Mascot		;|New Awk Mascot ('AWK-eye the Dwarf)?
 doc/news/theAwkBook.html	;Admin; 2009; Mar; News			;|The Awk Book's Code
 doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
