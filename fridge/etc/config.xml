@@ -474,6 +474,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TerryB</what>
 	</file>
+	<file where="doc/news/robbinsTalks.html">
+		<title>Interview with Arnold Robbins</title>
+		<what></what>
+		<what>Aug</what>
+		<what>2009</what>
+		<what>ArnoldR</what>
+	</file>
 	<file where="doc/news/libmawk.html">
 		<title>How to call Awk form "C" with Libmawk</title>
 		<what>Libmawk</what>

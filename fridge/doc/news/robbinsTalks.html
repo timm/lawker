@@ -1,0 +1,159 @@
+<h1><join>Interview with Aharon Robbins</join></h1>
+<p>Aharon Robbins, the current Gawk maintainer, answers some questions from Tim Menzies.
+<p><em>
+Q: what is your favorite programming language (besides gawk)? and why?
+</em>
+<p>Robbins: 
+It depends for what.  A long time ago I was a big Korn shell junkie,
+although these days I would do most high level things in a mixture
+of bash and awk, with awk doing the heavy lifting.
+<p>
+For lower level things I prefer C++, although I have something of
+a love/hate relationship with the language. It's possible to write
+completely unreadable and unmaintainable code in it.  It's also possible
+to write beautiful, clear, absolutely amazing code in it.
+<p>
+I find that going back to C after working daily in C++ is hard, although
+I do it for gawk maintenance.  For new programs I would work in C++,
+not C. For something big, I'd use the Qt framework for support and
+portability.
+<p>
+I've been recently living in the C# world for my day job.  The development
+environment is very addictive, but C# hasn't seduced me away from C++.
+<p><em>
+Q:
+  The open source world is a fascinating development paradigm. I'm
+therefore very curious to know what prompted  you to write gawk?
+</em>
+<p>
+I didn't write it from scratch.  I got involved shortly after picking
+up and reading the Aho, Weinberger &amp;  Kernighan book in late 1987 when
+it came out.
+<p>
+New awk wasn't widely available. I had been involved with USENET since
+around 1983, and knew about the GNU project. I also had a strong interest
+in compilers and interpreters, so I got in touch with the GNU project
+to see if they had an awk clone and to see if I could get involved in
+upgrading it to "new" awk.
+<p>
+It turned out that they already had a volunteer, David Trueman, who was
+working on it, but he was happy to have help.  He and I worked together
+until circa 1993 or 1994 when he had to stop being involved, and I became
+the sole maintainer.
+<p>
+It was a lot of fun.  The number of emails of the "I could not get my
+work done without gawk" sort was amazing; Unix awk would often roll over
+and die on some of the data sets people were running though gawk.
+<p>
+Things really got shaken down when gawk became part of GNU/Linux
+distributions; then people were using it as the only awk, instead of
+alongside Unix awk.
+<p>
+<em>
+Q: In retrospect, what are the best/worst features of gawk?
+</em>
+<p>
+A: The best feature is the pattern/action paradigm. The implicit
+read-a-record loop is wonderful.  This is the language's data-driven
+nature, as opposed to the imperative nature of most languages.
+<p>
+Associative arrays rank second; they are quite powerful.
+<p>
+There are some warts inherited from Unix awk and left unspecified
+by POSIX.  These are relatively minor.
+<p>
+The lack of an explicit concatenation operator is an obvious one.
+<p>
+The lack of real multi-dimensional arrays is another.
+<p>
+There are features just in gawk that in retrospect seem to have been a
+waste of time, such as bringing out to the awk level the possibility to
+internationalize a program.  I don't think anyone uses that.
+<p>
+IGNORECASE was a huge pain to get right; if I'd known how long it would
+take, I wouldn't have bothered.
+<p>
+The biggest "lack" is that there isn't an easy, standard way to provide
+extensibility; there are way too many things in the C library today (and
+even yesterday) that the awk programmer just can't get to. (Like the
+chdir system call!) I hope to eventually provide some better mechanisms
+for this, but I don't know how much actual filling in I can do also.
+<p><em>
+Q:  Under what circumstances would you recommend/not recommend it?</em>
+
+<p>
+A: Gawk is good for small to medium level programs that have to process text
+and/or do simple numeric work (summing up columns, averaging, VERY simple
+statistics work).  It has a central place in traditional Unix / Linux
+shell scripting when portability is a must.
+<p>
+But I wouldn't care to try to write a military air traffic command and
+control system in gawk, for example. :-)
+<p>
+<em>Q:   Gawk has a reputation of being slow...</em>
+
+<p>A:
+"Slow" compared to what?  As far as I've
+seen, gawk is always faster than Unix awk.  Michael Brennan's mawk is
+even faster, but until recently it has been unmaintained, and it lacks
+many important, modern features.
+<p>
+Relative to C?  Of course. So what?  You have to write 5 - 10 times as
+much C as you do awk to do the same or less. (I remember one program I
+wrote in C at around 1200 lines and rewrote in under 300 lines of awk,
+and the awk was clearer and did more.)
+<p>
+Relative to perl?  It depends.  I have had emails telling me that gawk was
+faster than perl for what the users were doing.  And if not, do I care?
+Not really - perl is a write-only language, and don't get me started on
+Perl 6. :-)
+<p>
+All that said, this got me to thinking about a possible bottleneck that
+I'll be investigating in the near future.
+<p><em>
+Q: Awk also has a reputation of 
+ not being suitable for "real"
+ projects. Is that reputation deserved?
+</em>
+<p>
+A: I don't think that contention is true: it may be that scripting languages
+in general have such a reputation - Ronald Loui has written about this,
+but I don't think the contention is true for scripting languages either.
+<p>
+As is always the case, the answer is "it depends".  What is the scale
+of what you're trying to do?  Who is the customer?  When Rick Adams
+was still running UUNET, he used a suite of awk programs to do his
+accounting. That's as "real" a project as you can get: billing your
+(hundreds or thousands of) customers for their resource usage.  And he
+used gawk, since Unix awk would just roll over and die.  (Unix awk has
+gotten better as a result of the "competition", but that's a different
+story. :-)
+<p>
+<em>Q:  Are you aware of any landmark projects that use gawk?</em>
+<p>
+A:
+GNU/Linux.  :-)
+<p>
+Not really.  Gawk "just works", and that in and of itself is a testimony
+to its quality and value.
+<p><em>
+Q: Looking a decade into the future, can  you see gawk disappearing? Why (not)?</em>
+<p>
+A: I don't think so.  The bigger question is will I still be involved with it 10
+years from now?  I don't know.
+<p>
+I still have some things I'd like to see happen with it that are interesting
+and valuable and may even end up being relatively unique.  I just have to
+find the time (or some other volunteers :-) to work on them.
+
+<p>
+<em>Currently, how are you filling your time?</em>
+<p>
+A: I have a full time job as a software engineer with Intel.  I have a wife and
+four wonderful children, as well as a dog.  That's enough right there to keep
+me busy.
+<p>
+I am the series editor for the Prentice Hall Open Source Software Development
+Series which also takes some of my time.
+<p>
+And I still try to do some gawk work in between everything else!
