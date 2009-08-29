@@ -3,6 +3,7 @@
 <p><em>
 Q: what is your favorite programming language (besides gawk)? and why?
 </em>
+<ul>
 <p>Robbins: 
 It depends for what.  A long time ago I was a big Korn shell junkie,
 although these days I would do most high level things in a mixture
@@ -20,11 +21,12 @@ portability.
 <p>
 I've been recently living in the C# world for my day job.  The development
 environment is very addictive, but C# hasn't seduced me away from C++.
+</ul>
 <p><em>
 Q:
   The open source world is a fascinating development paradigm. I'm
 therefore very curious to know what prompted  you to write gawk?
-</em>
+</em><ul>
 <p>
 I didn't write it from scratch.  I got involved shortly after picking
 up and reading the Aho, Weinberger &amp;  Kernighan book in late 1987 when
@@ -48,10 +50,11 @@ and die on some of the data sets people were running though gawk.
 Things really got shaken down when gawk became part of GNU/Linux
 distributions; then people were using it as the only awk, instead of
 alongside Unix awk.
+</ul>
 <p>
 <em>
 Q: In retrospect, what are the best/worst features of gawk?
-</em>
+</em><ul>
 <p>
 A: The best feature is the pattern/action paradigm. The implicit
 read-a-record loop is wonderful.  This is the language's data-driven
@@ -78,9 +81,10 @@ extensibility; there are way too many things in the C library today (and
 even yesterday) that the awk programmer just can't get to. (Like the
 chdir system call!) I hope to eventually provide some better mechanisms
 for this, but I don't know how much actual filling in I can do also.
+</ul>
 <p><em>
 Q:  Under what circumstances would you recommend/not recommend it?</em>
-
+<ul>
 <p>
 A: Gawk is good for small to medium level programs that have to process text
 and/or do simple numeric work (summing up columns, averaging, VERY simple
@@ -89,9 +93,10 @@ shell scripting when portability is a must.
 <p>
 But I wouldn't care to try to write a military air traffic command and
 control system in gawk, for example. :-)
+</ul>
 <p>
 <em>Q:   Gawk has a reputation of being slow...</em>
-
+<ul>
 <p>A:
 "Slow" compared to what?  As far as I've
 seen, gawk is always faster than Unix awk.  Michael Brennan's mawk is
@@ -110,11 +115,13 @@ Perl 6. :-)
 <p>
 All that said, this got me to thinking about a possible bottleneck that
 I'll be investigating in the near future.
+</ul>
 <p><em>
 Q: Awk also has a reputation of 
  not being suitable for "real"
  projects. Is that reputation deserved?
 </em>
+<ul>
 <p>
 A: I don't think that contention is true: it may be that scripting languages
 in general have such a reputation - Ronald Loui has written about this,
@@ -128,16 +135,19 @@ accounting. That's as "real" a project as you can get: billing your
 used gawk, since Unix awk would just roll over and die.  (Unix awk has
 gotten better as a result of the "competition", but that's a different
 story. :-)
+</ul>
 <p>
 <em>Q:  Are you aware of any landmark projects that use gawk?</em>
-<p>
+<ul><p>
 A:
 GNU/Linux.  :-)
 <p>
 Not really.  Gawk "just works", and that in and of itself is a testimony
 to its quality and value.
+</ul>
 <p><em>
 Q: Looking a decade into the future, can  you see gawk disappearing? Why (not)?</em>
+<ul>
 <p>
 A: I don't think so.  The bigger question is will I still be involved with it 10
 years from now?  I don't know.
@@ -145,9 +155,10 @@ years from now?  I don't know.
 I still have some things I'd like to see happen with it that are interesting
 and valuable and may even end up being relatively unique.  I just have to
 find the time (or some other volunteers :-) to work on them.
-
+</ul>
 <p>
-<em>Currently, how are you filling your time?</em>
+<em>Q: Currently, how are you filling your time?</em>
+<ul>
 <p>
 A: I have a full time job as a software engineer with Intel.  I have a wife and
 four wonderful children, as well as a dog.  That's enough right there to keep
@@ -157,3 +168,4 @@ I am the series editor for the Prentice Hall Open Source Software Development
 Series which also takes some of my time.
 <p>
 And I still try to do some gawk work in between everything else!
+</ul>
