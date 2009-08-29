@@ -474,6 +474,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TerryB</what>
 	</file>
+	<file where="doc/news/libmawk.html">
+		<title>How to call Awk form "C" with Libmawk</title>
+		<what>Libmawk</what>
+		<what>Aug</what>
+		<what>2009</what>
+		<what>TiborP</what>
+	</file>
 	<file where="doc/news/awkeye.html">
 		<title>New Awk Mascot ('AWK-eye the Dwarf)?</title>
 		<what>Mascot</what>
@@ -677,6 +684,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>ArnoldR</what>
 	</file>
+	<file where="doc/tip/readheaders.html">
+		<title>Using field names to reference columns</title>
+		<what>Tips</what>
+		<what>Aug</what>
+		<what>2009</what>
+		<what>JanisP</what>
+	</file>
 	<file where="doc/tip/getline.html">
 		<title>Getline</title>
 		<what>Getline</what>
@@ -867,8 +881,17 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TedD</what>
 	</file>
+	<file where="doc/tools/spawk-in-googlecode.html">
+		<title>Spawk in GoogleCode</title>
+		<what>Databases</what>
+		<what>Spawk</what>
+		<what>Jul</what>
+		<what>2009</what>
+		<what>PanosP</what>
+	</file>
 	<file where="doc/tools/spawk.html">
 		<title>SQL Powered AWK</title>
+		<what>Spawk</what>
 		<what>Databases</what>
 		<what>Jul</what>
 		<what>2009</what>
