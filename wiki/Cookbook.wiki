@@ -4,10 +4,11 @@
 <img src="http://lawker.googlecode.com/svn/fridge/share/img/awkcookbook.jpg">
 <center>
 
-= Introduction =
+= Goals =
 
 Add your content here.
 
+= Content =
 
 = Details =
 
