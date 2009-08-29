@@ -1,5 +1,9 @@
 #summary The Awk Cookbook
 
+<center>
+<img src="http://lawker.googlecode.com/svn/fridge/share/img/awkcookbook.jpg">
+<center>
+
 = Introduction =
 
 Add your content here.
