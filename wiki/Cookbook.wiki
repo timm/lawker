@@ -1,4 +1,4 @@
 = The Awk Cookbook=
 
-http://lawker.googlecode.com/svn/fridge/share/img/awkcookbook.gif
+http://lawker.googlecode.com/svn/fridge/share/img/cookbook.gif
  
