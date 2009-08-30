@@ -1,0 +1,62 @@
+Handling Command-Line Arguments
+===============================
+
+Synposis
+--------
+
+  options(array,arraySize)
+
+Problem
+-------
+
+You need to read options, either from the command-line or from input
+passed by another function.
+
+Solution
+--------
+Run over the **input** looking for "flags"; i.e. items starting with
+an underscore.  If that flag requires an argument, read the next item.
+Else, "set" that flag; i.e. set it to "1".
+
+Code
+----
+
+Arguments start with "-" are a flag (see 1). If we can find that
+flag in our list of pre-define options (**opt**), it is  a legal flag
+(see 2). Otherwise (see 4), it is an error.  If the options  starts
+with a leading underscore character (see 3) then the next thing in
+the **input** is an argument.  If the next thing on the command line
+is not a flag, we have read one too many- in which case we need to
+step back to the last thing read (and stop reading more items from
+then **input** array).
+
+Once we've found the last command-line argument, we need to reset
+the options. To do this, we copy the input to a temporary (see 6),
+zap the array (see 7), then everything we did **not** read in steps
+(1,2,3,4,5) into the fresh input array (see 8). Finally, we return
+the number of items in new array (see 9).
+
+ function arg2options(opt) { 
+	ARGC = options(opt,ARGV, ARGC) 
+ }
+ function options(opt,input,n0,     n,key,i,j,k,tmp) {
+    for(i=1;i<=n0;i++)  {
+        key = input[i]
+        if (sub(/^[-]+/,"",key))  {     # ........................ [1]
+            if (key in opt)             # ........................ [2]
+                opt[key] = ("_" key "?" in opt) ? input[++i] : 1 # [3]
+            else bad("-"key" unknown. Try -h for help.")         # [4]
+        } else { i--; break }           # ........................ [5]
+    }
+	n=0
+    for(j=i+1;j <= n0;j++) {n++; tmp[n]=input[j]} #............... [6]
+    split("",input,"")                        #................... [7]
+    for(j=1;j<=n;j++) input[j] = tmp[j]       #................... [8]
+    return n                                  #................... [9]
+ }
+
+See Also
+--------
+
+@bad.awk 
+

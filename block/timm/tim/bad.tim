@@ -1,0 +1,9 @@
+
+ function bad(string,err) {
+	warn(string)
+	exit(err)
+ }
+ function warn(string) { 
+	print string >"/dev/stderr" 
+ }
+

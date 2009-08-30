@@ -1,0 +1,31 @@
+String to Array
+===============
+
+Synposis
+--------
+
+		s2a(string,array [,sep])
+
+Problem
+-------
+Convert a _string_ to an _array_, divided on FS.
+
+Solution
+--------
+Use the odd numbered entries as the keys and the even entries as
+the values.  Divide the _string_ on _sep_ (defaults to FS),
+
+Code
+----
+
+ function s2a(string,array,sep,   n,tmp,i) {
+	sep = sep ? sep : FS
+	n=split(string,tmp,sep)
+	for(i=1;i<=n;i +=2 )
+		array[tmp[i]]=tmp[i+1]
+ }
+
+Uses
+____
+
+@uses bad.tim
