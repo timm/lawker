@@ -124,9 +124,9 @@ opt() {
 		s) file? $2; TimInLineCSS=$2;;
 		t) dir?  $2; TimSrc=$2;;
 		w) dir!  $2; TimWeb=$2;;
-		!) run $2 | tee $TimSrc/eg/$2.want;;
-		x) run $2  ;;
-		X) runs $2 ;;
+		!) run1  $2 | tee $TimSrc/eg/$2.want;;
+		x) run   $2 ;;
+		X) runs  $2 ;;
 		S) TimCSS=$2;;
 		T) TimTitle="$2";;
 		
@@ -153,19 +153,20 @@ file?() {
 	fi
 }
 #### workers
+run1() {
+	file? $TimSrc/eg/$1
+	bash  $TimSrc/eg/$1
+}
 run() {
-	local one=$TimSrc/eg/$1
-	local got=$TimSrc/eg/$1.got
+	local got=$TimTmp/$1.got
 	local want=$TimSrc/eg/$1.want
-	file? $one
-	if [ -f "$want" ]
-	then bash $one > $got
-		 if diff -s $got $want > /dev/null
+	if   [ -f "$want" ]
+    then run1 $1 | tee $got
+		 if   diff -s $got $want > /dev/null
 		 then echo PASSED $1
 		 else echo FAILED $1
 		 fi
-	else 
-		bash $one
+	else run1 $1
 	fi
 }
 todos() {
