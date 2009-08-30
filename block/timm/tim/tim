@@ -30,7 +30,7 @@ credits() { cat<<-EOF
 	EOF
 }
 usage() { 
-	echo usage: tim [-[cCmMrRsSo] file] [-[altw] dir] [-T string] [-[DKihvx]]
+	echo usage: tim [-[cCmMrRsSo!x] file] [-[altw] dir] [-T string] [-[DKeihvX]]
 }
 help() { version;  echo ""; cat<<'EOF'
 "TIM" is short for "Tim's interaction mechanism". Options:
@@ -41,6 +41,7 @@ help() { version;  echo ""; cat<<'EOF'
     -C file       Write, to the awk output directory,  a '.tim' file 
                   converted to executable awk.
     -D            Dump some debug information.
+    -e            When generating execitable awks, expand all source code, in-line.
     -h            Help.
     -K            Print copyright information.
     -i            If generating html, add in a table of contents.
@@ -61,9 +62,10 @@ help() { version;  echo ""; cat<<'EOF'
     -T string     If generating an html file, use 'string' as the title.
     -v 			  Print version info.
     -w dir        Output directory for html files.
-    -x            When generating execitable awks, expand all source code, in-line.
+    -! N          Defines expected output for test "N" (runs -x N, catch the output to 'N.want')
+    -x N          Run test "N", print output to screen. Compare results to 'N.want', if it exists.
+    -X            Run everything that has a '.want' file.
 EOF
-# -X 0 runs all tests -X 1 runs 1, then prints out the scores
 }
 options() { cat<<EOF
 # TIM config options.
@@ -86,7 +88,7 @@ options() { cat<<EOF
 # Options:
       TimToc="$TimToc"      # If set, when generating HTML, add in a table of contents. Also set by -i.
       TimCSS="$TimCSS"      # Style sheet URL. Also set by -S.
-    TimXpand="$TimXpand"    # If set, include nested source. Also set by -x.
+    TimXpand="$TimXpand"    # If set, include nested source. Also set by -e.
     TimTitle="$TimTitle"    # Title for html pages. Also set by -T.
 TimInLineCSS="$TimInLineCSS" # In-line style sheet file. Also set by -s.
 EOF
@@ -115,15 +117,18 @@ opt() {
 
 		# settings of options
 		a) dir!  $2; TimCode=$2;;
+		e) TimXpand="1";;
 	    i) TimToc="1";;
 		l) dir!  $2; TimLog=$2;;
 		o) file? $2; . $2;;
 		s) file? $2; TimInLineCSS=$2;;
 		t) dir?  $2; TimSrc=$2;;
 		w) dir!  $2; TimWeb=$2;;
+		!) run $2 | tee $TimSrc/eg/$2.want;;
+		x) run $2  ;;
+		X) runs $2 ;;
 		S) TimCSS=$2;;
 		T) TimTitle="$2";;
-		x) TimXpand="1";;
 		
 		# other
 	    v) version; echo ""; credits;;
@@ -136,7 +141,7 @@ opt() {
 }
 #### utils
 dir!()  { Dir=$1; [ ! -d "$1" ] && mkdir -p $1; }
-dir?()  { Dir=$1; [ ! -d "$1" ] && (echo "$1 is not a file."; exit 2);  }
+dir?()  { Dir=$1; [ ! -d "$1" ] && (echo "$1 is not a directory."; exit 2);  }
 file?() { 
 	if [ -f "$1" ] 
 	then 
@@ -148,6 +153,35 @@ file?() {
 	fi
 }
 #### workers
+run() {
+	local one=$TimSrc/eg/$1
+	local got=$TimSrc/eg/$1.got
+	local want=$TimSrc/eg/$1.want
+	file? $one
+	if [ -f "$want" ]
+	then bash $one > $got
+		 if diff -s $got $want > /dev/null
+		 then echo PASSED $1
+		 else echo FAILED $1
+		 fi
+	else 
+		bash $one
+	fi
+}
+todos() {
+	cd $TimSrc/eg
+	for i in *.want; do echo ${i%.*}; done
+}
+passFails() {
+	cat - | cut -d\  -f 1 | 
+    egrep '(PASSED|FAILED)' | sort | uniq -c 
+}
+runs() {
+	for one in `(todos)`; do
+		echo $one >&2
+		run $one
+	done | passFails 
+}
 c() {
 	dir! $TimCode
 	echo "#!`which gawk` -f "
@@ -402,5 +436,5 @@ markdown() {
 ############################################
 #### start up
 config
-while getopts "a:c:C:r:R:m:M:is:S:l:t:T:vxo:w:DKh!" opt; do opt $opt "$OPTARG"; done
+while getopts "a:c:C:r:R:m:M:is:S:l:t:T:vo:w:DKh!:x:X" opt; do opt $opt "$OPTARG"; done
 shift $((OPTIND - 1))
