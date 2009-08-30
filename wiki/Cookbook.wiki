@@ -1,18 +1,4 @@
-#summary The Awk Cookbook
+= The Awk Cookbook=
 
-<center>
-<img src="http://lawker.googlecode.com/svn/fridge/share/img/awkcookbook.jpg">
-<center>
-
-= Goals =
-
-Add your content here.
-
-= Content =
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+http://lawker.googlecode.com/svn/fridge/share/img/awkcookbook.gif
+ 
