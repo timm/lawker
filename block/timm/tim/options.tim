@@ -42,10 +42,13 @@ the number of items in new array (see 9).
  function options(opt,input,n0,     n,key,i,j,k,tmp) {
     for(i=1;i<=n0;i++)  {
         key = input[i]
-        if (sub(/^[-]+/,"",key))  {     # ........................ [1]
-            if (key in opt)             # ........................ [2]
-                opt[key] = ("_" key "?" in opt) ? input[++i] : 1 # [3]
-            else bad("-"key" unknown. Try -h for help.")         # [4]
+        if (sub(/^-/,"",key))  {        # ........................ [1]
+            if (("_" key) in opt)             # ........................ [2]
+                opt[key] = input[++i] 
+			else if (key in opt)
+               	opt[key] = 1
+            else 
+				bad("-"key" unknown. Try -h for help.")         # [4]
         } else { i--; break }           # ........................ [5]
     }
 	n=0

@@ -1,0 +1,11 @@
+
+ function optionsDemoUsage() { 
+   return \
+	" -a file e.g. ~/.timrc  Read an options file.\n"\
+	" -b                     Create open buffers\n"\
+	" -c num e.g. 1          Star at column 'num'"
+ }
+
+ function optionsDemoFlags() { 
+	return "_a,~/.timrc,b,,_c,1"
+ }

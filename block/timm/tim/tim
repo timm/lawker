@@ -2,7 +2,8 @@
 #/* vim: set filetype=sh : */ 
 
 version() { cat <<-EOF
-	TIM = literate programming + test suites + code library management for Awk code. 
+	TIM = literate programming + test suites 
+	      + code library management for Awk code. 
 	Version 0.2. Copyright 2009, Tim Menzies, GPL v3.0
 EOF
 }
@@ -189,13 +190,17 @@ runs() {
 }
 c() {
 	dir! $TimCode
+	dir! $TimSrc/auto
 	local uses=`includes $File`
-	usageString $File $TimCode/__${Stem}_args.awk
+	usageString $File $TimSrc/auto/${Stem}Usage.tim
 	if 	[ -n "$TimXpand" ]
 	then 
 		dir! $TimBash
 		echo "#!`which gawk` -f "
+		local hash20="################"
+		printf "\n${hash20}${hash20}${hash20}${hash20}\n"
 		(copyleft ; date) | sed 's/^/# /'
+		printf "${hash20}${hash20}${hash20}${hash20}\n\n"
 		for file in $uses
 	    do	printf  "\n#---| $file |--------------------------\n"
 			cat $TimSrc/$file
@@ -237,13 +242,39 @@ usageString() {
 	cat $1  |
 	gawk 'BEGIN {RS=""; FS="\n"}
 		 /^Usage/ {In=1; next}
-          In           {gsub(/[\+\*\"]/," ")
+          In           {flags=usages2Defaults($0)
+                        gsub(/[\+:\"]/," ")
 						gsub(/\n/,"\\n\"\n\t\"")
 						gsub(/\n/,"\\\n")
-					    print "function " Stem "__args() { ">Out
-					    print "   return \"" $0 "\"\n}">>Out 
+					    print "\n function " Stem "Usage() { ">Out
+					    print "   return \\" >>Out
+					    print "\t\"" $0 "\"\n }">>Out 
+						print "\n function " Stem "Flags() { ">>Out
+						print "\treturn \"" flags "\"">>Out
+						print " }">>Out
 				        exit
-                       }' Stem=$Stem Out=$2
+                       }
+		function usages2Defaults(str,  lines,n,i,sep,out) {
+			split(str,lines,"\\n")
+			for(i in lines)
+				if ( lines[i] ~ ":") {
+					out = out sep usage2Default(lines[i])	
+					sep=","
+				}
+			return out
+		}
+		function  usage2Default(line,   i,n,words,prefix,default) {
+			sub(/^.*\+/  ,"",line)
+			sub(/:.*$/  ,"",line)
+			n=split(line,words,/[ \t]*/)
+			sub("-","",words[1])
+			if ( n==5 )  {
+				default = words[4]
+				prefix="_"
+			}	
+			return prefix words[1] "," default
+	    }
+        ' Stem=$Stem Out=$2
 }
 m() {
 	if [ -n "$TimCSS" -o -n "$TimInLineCSS" ]

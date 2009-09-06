@@ -51,7 +51,7 @@ Code
 	sep0  = sep0  ? sep0  : "\n"
 	b4    = b4    ? b4    : ""
 	after = after ? after : "\n"
-	eq    = eq    ? eq    : " = "
+	eq    = eq    ? eq    : "=["
 	pre   = s     ? s"["  : ""
 	post  = s     ? "]"   : ""
 	m     = asorti(a,b)
@@ -66,7 +66,7 @@ Code
 			printf("%s", c tmp[j]  )>>file
 			comma = ","
 		}
-		printf("%s", post eq val )>>file
+		printf("%s", post eq val "]"  )>>file
 		sep=sep0;
 	};
 	printf("%s",after)>>file

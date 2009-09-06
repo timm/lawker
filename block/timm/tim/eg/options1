@@ -1,11 +1,16 @@
 . ~/.timrc
+../tim -E ../optionsDemo.tim 
 
-./tim -e -C s2a.awk -C saya.awk -C options.awk
+$Pawk -f optionsDemo \
+	  --source ' BEGIN {optionsDemo()}
+                       {print NR ") " $0 i}
+               ' -a 2 -b -c 20 options1 options1
 
-$Pawk -f s2a.awk -f saya.awk -f options.awk --source ' BEGIN { 
+cat options1 |
+$Pawk -f optionsDemo \
+	  --source ' BEGIN {optionsDemo()}
+                       {print NR ") " $0 i}
+               ' -a 2 -b -c 20
 
-	s2a("_a,1,b,,_c,3",Opt)
-	arg2options(Opt)
-	saya(Opt,"opt")
 
-}' -a 2 -b -c 20
+

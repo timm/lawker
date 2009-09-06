@@ -1,0 +1,17 @@
+@uses s2a.tim
+@uses saya.tim
+@uses options.tim
+@uses auto/optionsDemoUsage.tim
+
+Usage
+-----
+
++-a file e.g. ~/.timrc :Read an options file.
++-b                    :Create open buffers
++-c num e.g. 1         :Star at column 'num'
+
+ function optionsDemo(    opt) {
+	s2a(optionsDemoFlags(),opt,",")
+    arg2options(opt)
+	saya(opt,"opt!")
+ }
