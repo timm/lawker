@@ -1,0 +1,81 @@
+<h1><join>Ethiopian Multiplication</join></h1>
+
+<p>Here is some Awk code from the <a href="http://rosettacode.org/wiki/Ethiopian_Multiplication">Rosetta Code</a>
+wiki hat  multiplyes integers using only addition, doubling, and halving.
+<h2> How?</h2>
+<ol>
+<li>
+   Take two numbers to be multiplied and write them down at the top of two columns.
+   <li> In the left-hand column repeatedly halve the last number, discarding any remainders, and write the result below the last in the same column, until you write a value of 1.
+   <li> In the right-hand column repeatedly double the last number and write the result below. stop when you add a result in the same row as where the left hand column shows 1.
+   <li> Examine the table produced and discard any row where the value in the left column is even.
+   <li> Sum the values in the right-hand column that remain to produce the result of multiplying the original two numbers together 
+</ol>
+<p>
+For example: 17 X 34
+<pre>
+       17    34
+</pre>
+Halving the first column:
+<pre>
+       17    34
+        8
+        4
+        2
+        1
+</pre>
+Doubling the second column:
+<pre>
+       17    34
+        8    68
+        4   136 
+        2   272
+        1   544
+</pre>
+Strike-out rows whose first cell is even:
+<pre>
+       17    34
+        8    -- 
+        4   --- 
+        2   --- 
+        1   544
+</pre>
+Sum the remaining numbers in the right-hand column:
+<pre>
+       17    34
+        8    -- 
+        4   --- 
+        2   --- 
+        1   544
+           ====
+            578
+</pre>
+So 17 multiplied by 34, by the Ethiopian method is 578.
+<p>
+The task is to define three functions/methods/procedures/subroutines:
+<ol>
+<li>
+    one to halve an integer,
+   <li> one to double an integer, and
+   <li> one to state if an integer is even. 
+</ol>
+<h2>Code</h2>
+<pre>
+function halve(x)  { return(int(x/2)) }
+function double(x) { return(x*2) }
+function iseven(x) { return((x%2) == 0) }
+
+function ethiopian(plier, plicand) {
+  r = 0
+  while(plier >= 1) {
+    if ( !iseven(plier) ) {
+      r += plicand
+    }
+    plier = halve(plier)
+    plicand = double(plicand)
+  }
+  return(r)
+}
+
+BEGIN { print ethiopian(17, 34) }
+</pre>
