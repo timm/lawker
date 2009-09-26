@@ -1,0 +1,13 @@
+Words used by awk++:
+
+class
+method
+prop
+property
+attr
+attribute
+elem
+element
+var
+variable
+

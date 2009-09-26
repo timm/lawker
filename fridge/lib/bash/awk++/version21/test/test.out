@@ -1,0 +1,64 @@
+#### translated by awk++ alpha 20
+
+
+function Date(this,method,p1,p2,p3,p4,p5,p6,p7,p8,p9)  { if(method == "new") {DateTime(this,method,p1,p2,p3,p4,p5,p6,p7,p8,p9); }
+
+if(method == "toString") { fmt = p1; s = p2;
+		if (fmt == "") fmt = "%Y-%m-%d"
+		return strftime(fmt, a8296[this,"val"] * 24 * 60 * 60 + 12 * 60 * 60)
+	}else if(method == "get") {
+		return a8296[this,"val"]
+	}
+else if(method == "new") { x = p1;
+		if (( x + 0 ) == x ) { # if numeric
+			a8296[this,"val"] = x
+		} else {
+			gsub("-", " ", x)
+			x = x " 00 00 00"
+			a8296[this,"val"] = int(mktime(x) / (24 * 60 * 60) + .5)
+			print "from set: " a8296[this,"val"]
+		}
+	}else if(method == "print") { fmt = p1;
+		print "Date: " __CallMethod(this,"toString",fmt, a8296[this,"val"])
+	}
+else { return (DateTime(this,method,p1,p2,p3,p4,p5,p6,p7,p8,p9) )}}
+
+function Object(this,method,p1,p2,p3,p4,p5,p6,p7,p8,p9)  {
+}
+
+
+function DateTime(this,method,p1,p2,p3,p4,p5,p6,p7,p8,p9)  {
+}
+
+BEGIN {
+	d = __ConstructObject("Date","2000-01-01")
+	print "No. of days since Epoch: " __CallMethod(d,"get")
+	print "yyy-mm-dd: " __CallMethod(d,"toString")
+	__CallMethod(d,"print") # print date as a string
+	__CallMethod(d,"delete")
+}
+
+function __CallMethod(object,method,p1,p2,p3,p4,p5,p6,p7,p8,p9, __results) {
+if(method =="delete") __DestroyObject(object);
+else if(a9525[object] == "Date") __results = Date(object,method,p1,p2,p3,p4,p5,p6,p7,p8,p9);
+else if(a9525[object] == "DateTime") __results = DateTime(object,method,p1,p2,p3,p4,p5,p6,p7,p8,p9);
+else if(a9525[object] == "Object") __results = Object(object,method,p1,p2,p3,p4,p5,p6,p7,p8,p9);
+return __results}
+function __ConstructObject(class,p1,p2,p3,p4,p5,p6,p7,p8,p9) {
+	# This function assigns an object number and stores the class of the
+	# object so that the method call function can switch to the right class
+	# function. It also calls the "new" method for object initialization.
+	# It returns the unique object number.
+	a9525[++__ObjectNumber] = class
+    __CallMethod(__ObjectNumber,"new",p1,p2,p3,p4,p5,p6,p7,p8,p9) 
+	return __ObjectNumber
+}
+function __DestroyObject(object,    i,__indices) {
+	for( i in a8296 ) {
+		split(i,__indices,SUBSEP)
+		if(__indices[1] == object)
+			delete a8296[__indices[1],__indices[2]]
+	}
+	delete a9525[object] 
+}
+

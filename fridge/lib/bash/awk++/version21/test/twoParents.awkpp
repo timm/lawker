@@ -1,0 +1,40 @@
+
+class Date : Object : DateTime {
+	# val is days since Epoch
+	property val
+	method toString(fmt,  s) {
+		if (fmt == "") fmt = "%Y-%m-%d"
+		return strftime(fmt, val * 24 * 60 * 60 + 12 * 60 * 60)
+	}
+	method get() {
+		return val
+	}
+	# x may be days since Epoch or yyyy-mm-dd
+	method new(x) {
+		if (( x + 0 ) == x ) { # if numeric
+			val = x
+		} else {
+			gsub("-", " ", x)
+			x = x " 00 00 00"
+			val = int(mktime(x) / (24 * 60 * 60) + .5)
+			print "from set: " val
+		}
+	}
+	method print(fmt) {
+		print "Date: " this.toString(fmt, val)
+	}
+}
+class Object {
+}
+
+class DateTime {
+}
+
+BEGIN {
+	d = Date.new("2000-01-01")
+	print "No. of days since Epoch: " d.get()
+	print "yyy-mm-dd: " d.toString()
+	d.print() # print date as a string
+	d.delete()
+}
+

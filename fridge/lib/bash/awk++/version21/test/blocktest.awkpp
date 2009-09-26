@@ -1,0 +1,60 @@
+BEGIN {
+var3 = "fjdaslkfjdslkjfdsjfds;"\
+	 "jfdaksjfkajfdlsa;"
+  someVar = New class1
+
+  someVar.func1(10)
+
+  print someVar.get("var1")
+  }
+
+class class2
+{
+	attribute var1;attribute var2
+	attribute var3
+
+	method func1(a) {
+	var1 = a
+	sub(/{/,"}{{",var1)  # test block select function
+	}
+
+	method func2(b)
+	{var3 = b;var2 = 5}
+
+	method get(varName) {
+		if(varName == "var1")
+			return var1
+		if(varName == "var2")
+			return var2
+		if(varName == "var3")
+			return var3
+	}
+}
+
+class class1
+{
+	attribute var1;attribute var2
+	attribute var3
+
+	method func1(a) {
+	var1 = a
+	sub(/{/,"}{{",var1)  # test block select function
+	}
+
+	method func2(b)
+	{var3 = b;var2 = 5}
+
+	method get(varName) {
+		if(varName == "var1")
+			return var1
+		if(varName == "var2")
+			return var2
+		if(varName == "var3")
+			return var3
+	}
+}
+
+function junk() {
+
+
+}

@@ -1,0 +1,12 @@
+
+Try mawk and tawk and awka and jawk.
+
+Automated test scripts (who can do one for Windows? require cygwin?)
+
+Add missing functionality 
+x - class inheritance
+x - delete() method
+x - polymorphism
+
+Simplify the code that locates string literals and regular expressions. Use Ed
+Morton's post re: split field by delimiter

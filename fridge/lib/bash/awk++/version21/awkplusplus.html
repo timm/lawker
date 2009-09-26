@@ -1,0 +1,229 @@
+#.H1 Awk++
+#.H2 Synopsis
+#.P
+#.PRE
+# gawk -f awkpp file-name-of-awk++-program
+#./PRE
+# This command is platform independent and sends the translated program to standard
+# output (stdout). See <em>Running awk++</em> for variations.
+#.P
+#.EM his is an updated revision (#21), released August 1, 2009
+# This document may be copied only as part of an awk++ distribution
+# and in unmodified form.
+#.H2 Download
+#.P
+# Download awk++.zip from
+# <a href = "http://code.google.com/p/lawker/source/browse/fridge/lib/bash/awk%2B%2B/" > LAWKER </a>
+#.H2 Description
+#
+#.P
+# Awk++ is a <em>preprocessor</em>, that is it reads in a program written in
+# the awk++ language and outputs a new program. 
+#  However, it's
+# different than <em>awka</em>. The output from the awk++ preprocessor is awk code, not C
+# or an executable program. So, some version of AWK, such as awk or gawk, has
+# to be used to run the preprocessed program. <em>awka</em> can be used, in a second step,
+# to turn the preprocessed awk++ program into an executable, if desired.
+#
+#.H3 OO in AWK++
+#.P
+# The awk++ language provides object oriented programming for AWK that includes:
+#.UL
+#.LI classes
+#.LI class properties (persistent object variables)
+#.LI methods
+#.LI inheritance, including multiple inheritance
+#./UL
+#
+#.P Awk++ adds new keywords to standard Awk:
+#.UL
+#.LI class
+#.LI method
+#.LI prop
+#.LI property
+#.LI attr
+#.LI attribute
+#.LI elem
+#.LI element
+#.LI var
+#.LI variable
+#./UL
+#
+#.H3 Syntax
+#
+#.H4 Samples:
+#
+#.PRE
+# a = class1.new[(optional parameters)] *** similar to Ruby
+# b = a.get("aProperty")
+# a.delete
+#
+# class class1 {
+# property aProperty
+# method new([optional parameters]) {
+# # put initialization stuff here
+# }
+#
+# method get(propName) {
+# if(propName = "aProperty")
+# return aProperty ### Note the use of 'return'. It behaves
+# ### exactly the same as in an AWK function.
+# }
+# }
+#./PRE
+#
+#.H4 Details
+#
+#.P To define a class (similar to C++ but no public/private):
+#.PRE
+#class class_name {.....}
+#./PRE
+#
+#.P To define a class with inheritance:
+#.PRE
+#class class_name : inherited_class_name [ : inherited_class_name...] {.....}
+#./PRE
+#
+#.P To add local/private variables (persistent variables; syntax is unique to awk++):
+#.PRE
+#class class_name {
+# attribute|attr|property|prop|element|elem|variable|var variable_name
+# ..... }
+#./PRE
+#.P
+# To help programmers who are used to other OO languages, "attribute",
+# "property", "element", and "variable", along with their 4-letter abbreviations,
+# are interchangeable.
+#.P
+# Note: these persistent variables cannot be accessed directly. The programmer
+# must define method(s) to return them, if their values are to be made available
+# to code that's outside the class.
+#
+#.P
+#To add methods
+#.PRE
+#class class_name {
+# attribute variable_name1
+#
+# method method_name(parameters) {
+# ...any awk code....
+# }
+# ..other method definitions...
+# }
+#./PRE
+#.P
+#To create an object
+#.PRE
+# object_variable = class_name.new[(optional parameters)]
+#./PRE
+#(runs the method named "new", if it exists; returns the object ID)
+#
+#
+#.P
+#To call an object method
+#.PRE
+#object_variable.method_name(parameters)
+#./PRE
+#.P
+# The dot isn't used for concatenation in awk/gawk, so it's a natural choice
+# for the separator between the object and method.
+#
+#.P
+# To reclaim the memory used by an object, use the delete method, i.e.:
+#.PRE
+#object_variable.delete
+#./PRE
+#.P
+# but don't define delete() in your classes. awk++ recognizes delete() as a special
+# method and will take care of deleting the object. Deleting objects is
+# only necessary, though, if they hold a lot of
+# data. Overhead for objects themselves is insignificant.
+#
+#.H4 Naming and behavior rules:
+#.UL
+#.LI Class names must obey the same rules as user defined function names.
+#.LI Method names must follow the same rules as AWK user defined function names.
+#.LI Class "local" variables (properties, attributes, etc.) must follow the same
+# naming rules as AWK variables.
+#.LI Objects are number variables, so they must obey number variable rules. However,
+# the values in variables holding objects should never be changed, as they are
+# simply identifiers. Performing math operations on them is meaningless.
+#./UL
+#
+#.H4 Syntax notes
+#.P
+# OO syntax goals:
+#.UL
+#.LI easy to parse and match to awk code using an awk program as the "preprocessor"
+#.LI easy to understand
+#.LI easy to remember
+#.LI easy and fast to type
+#.lI distinct from existing AWK syntax
+#./UL
+#.P
+# The OO syntax is based partly on C++, partly on Javascript, partly on Ruby and
+# partly on the book "The Object-Oriented Thought Process". It isn't lifted in
+# toto from one langauage because other languages provide features that gawk can't
+# accomplish or have syntax that is hard to parse.
+#
+#.H3 Multiple Inheritance
+#.P
+#In awk++, if a method is called that isn't in the object's class and there
+#are inherited classes (superclasses) specified, the inherited classes are called
+#in left to right order until one of them returns a value. That value
+#becomes the result of the method call.
+#This is the way awk++ resolves the
+#<em>diamond</em> problem. As a programmer, you control the sequence in which
+#superclasses are called by the left to
+#right order of the list of inherited classes in the class definition. 
+#.P
+#There are two important things to note.
+#.OL
+#.LI The search will proceed up through as many ancestors as it takes to find a matching method.
+#.LI A "match" is made when a value is returned. If a superclass has a matching
+#method that returns nothing, the search will continue. Thus, it's possible that
+#more than one method could be executed resulting in unintended
+#consequences. Be careful!
+#./OL
+#.P
+# Calls to undefined methods do nothing and return nothing, silently.
+#
+#.H2 Running awk++
+#.P
+#The command to preprocess an awk++ program looks like this:
+#.PRE
+#gawk -f awkpp file-name-of-awk++-program
+#./PRE
+or, if the "she-bang" line (line 1 in awkpp) has the right path to gawk, and awkpp is executable and in a directory in PATH,
+#.PRE
+#awkpp file-name-of-awk++-program
+#./PRE
+#To run the output program immediately,
+#.PRE
+#gawk -f awkpp -r file-name-of-awk++-program [awk options] data-files-to-be-processed
+#./PRE
+or
+#.PRE
+#awkpp -r file-name-of-awk++-program [awk options] data-files-to-be-processed
+#./PRE
+#When running an awk++ program immediately, standard input (stdin) cannot be
+#used for data. One or more data file paths must be listed on the command line.
+#
+#.H2 Bugs
+#.P
+#There is a bug in the standard AWK distributions that affects the preprocessor.
+#Additionally, the preprocessor uses the 3rd array option of the match() function.
+# So, it's best to use GAWK to run the preprocessor.
+#.P
+# On the other hand, the AWK code created by translating awk++ is intended
+# to work with all versions of AWK. If you find otherwise, please notify the
+# developer(s).
+#.H2 Copyright
+#.P
+#Copyright (c) 2008, 2009
+#Jim Hart, jhart@mail.avcnet.org
+#All rights reserved. The awk++ code is licensed under the GNU Public license (GPL) any version.
+#awk++ documentation, including this page, may be copied only in unmodified
+#form, subject to fair use guidelines.
+#.H2 Author
+#Jim Hart, jhart@mail.avcnet.org

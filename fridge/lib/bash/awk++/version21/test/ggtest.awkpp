@@ -1,0 +1,15 @@
+# test progam by Gabor Grothendieck, Dec 2008
+class accumulator {
+        attribute acc
+        method add(x) {
+                acc = acc + x
+        }
+        method show() {
+                return acc
+        }
+}
+BEGIN {
+        myacc = accumulator.new()
+        myacc.add(1)
+        print myacc.show()
+}

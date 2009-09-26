@@ -1,0 +1,215 @@
+Alpha version 21
+1 August 2009
+
+	- no longer need a shell script or batch file to launch awkpp
+	- multiple inheritance rewritten to behave like 
+	- run compiled program immediately including options and data files
+	- added configuration items at the top of the program
+
+
+Alpha version 20
+7 Jan 2008
+
+	- change back to checking for string literals and REs in variable
+	  substitution; there are obvious cases in which a programmer would test
+	  for variable names using string literals.
+
+Alpha version 19
+7 Jan 2008
+
+	- parentheses are now optional in a method call, i.e.
+	
+		someclass.new()
+
+	  can be written as
+
+	  	someclass.new
+
+	  This applies to any method call that doesn't need parameters.
+
+	- main functions are organized alphabetically
+
+Alpha version 18
+31 Dec 2008
+
+Bugs fixed:
+
+	- persistent variable names were matching part of class and method names, resulting in AWK syntax errors in the output program
+
+
+Alpha version 17
+28 Dec 2008
+
+	- inheritance completed and minimally tested; superclasses are called with method "new" when object is contructed
+	- references to compile(|d|r) in the documentation changed to preprocess(|or|ed)
+
+Bugs fixed:
+
+	- 2nd and subsequent classes weren't being processed
+	- results weren't being returned when a superclass method was called
+
+
+Alpha version 16
+28 Dec 2008
+
+	- brace matching for classes uses runawk's match_br function
+
+Alpha copy 15
+25 Dec 2008
+
+	  NOTE: the preprocessor is now dependent on a GAWK feature. However, the
+	  "preprocessd" code should still work with any AWK, provided, of course, that the
+	  programmer uses only AWK constructs and functions.
+
+	- object.delete() added
+
+	- attribute and object references in the preprocessd program are randomized
+	  so the programmer isn't tempted to access them directly
+
+	- bug fixed: 'hold' variable in methodDef() wasn't localized resulting in
+	  partially duplicated code
+
+Known problems:
+
+	- persistent variable names that match the beginning of the class name or
+	  of any of the method names result in bad preprocessor output; use a unique
+	  prefix for persistent variables until this is fixed
+
+
+Alpha copy 14
+20 Dec 2008
+
+Feature additions:
+
+	-  inheritance, i.e. 'superclasses'
+
+Cleanup:
+	- code simplified by using the 3rd parameter of 'match' in place of
+	  splits; 
+
+Alpha copy 13
+17 Dec 2008
+
+Feature additions:
+
+	-  @include support; program was reorganzied to support preprocessing
+	   included files
+
+Alpha copy 12
+15 Dec 2008
+
+Copy 12 was a work in progress moving toward 13
+
+Alpha copy 11
+15 Dec 2008
+
+	- change the constructor method to be more like other scripting languages,
+	  e.g. PERL and Ruby (recommended by G. Grothendieck)
+
+	  * the new syntax matches Ruby: ClassName.new(parameters)
+	    This is in keeping with AWK's design. The object contructor can go
+		anywhere, not just in a variable assignment statement. For example, the
+		following works:
+
+			a = somefunc(q,r,myClass.new(b,c))
+
+		The function 'somefunc' will receive an object of class 'myClass' as its
+		3rd parameter.
+
+		The constructor will call method 'new' in class 'myClass'. Note that
+		this is a change from use of the 'start' method in previous versions.
+
+		Constructing an object was moved into a function so that Class.new()
+		can be translated into just a function call, not multiple commands.
+		Thus, it can be put anywhere. Putting it anywhere means that the
+		preprocessor can't associate object creation with a variable name or other
+		unique language construct, so it can't connect method calls with a
+		class, which has to be done in order to call the right AWK function.
+		
+		So, class handling was moved to the run time program using 2
+		functions, an object constructor and a class router. The constructor
+		associates an object with a class. At preprocess time, method
+		calls are turned into calls to the class router, which is a function created by
+		the preprocessor. The call includes the object number, which the router
+		function looks up in a table to determine the class and, then, in
+		turn, calls the function that corresponds to that class.
+
+Alpha copy 10
+14 Dec 2008
+
+Added/changed features:
+
+	- add a comment containing the awk++ version number in the translated
+	  program (requested by G. Grothendieck)
+
+	- add a self-reference method call, i.e. "this.method" so a method can
+	  reference other methods in the object or recurse the current method
+	  (requested by G. Grothendieck)
+
+	- ability to preprocess and run in one step (requested by G. Grothendieck)
+		* so that this can be optional, the distribution includes a Unix shell
+		  script and a Windows batch (.bat) file (provided by G. Grothendieck) that
+		  combine preprocess and run
+
+	- name the preprocessor program without + signs to facilitate use in Windows
+	  (requested by G. Grothendieck)
+	  * will be provided as a separate link on the distribution site that
+	    points to the latest version
+
+	- allow a number of words for persistent storage syntax i.e. element, attribute,
+	  property, field, elem, attr, prop.
+
+Bug fixes:
+
+	- narrow the number regular expression to legal number formats
+	- add array references to the regular expression that identifies function parameters
+	- add positive integers to the regular expression for array indexes
+	- fix the string matching regular expression so it matches embedded quotes
+	  properly
+	- fix the parameters and attributes separator so it allows presence or
+	  absence of any amount of white space
+	
+
+
+
+Alpha copy 9
+14 Dec 2008
+
+Bug fixes:
+
+	- ignore comments
+	- handle DOS files correctly
+
+Alpha copy 8
+11 Dec 2008
+
+Currently there are no version numbers. The numbers are sequential snapshots
+of the program.
+
+Not implemented:
+
+	- inheritance
+	- polymorphism
+	- lists (implemented in J. Hart's version of AWK Web scripting language but
+	  not incorporated in awk++)
+
+Bugs fixed since first alpha release:
+
+	- method calls getting split resulting in a syntax error
+	- method calls with no parameters had a hanging comma resulting in a
+	  syntax error
+
+Changes:
+
+	- code refactored and simplified
+	- command separator (semi-colon and newline) handling centralized
+	- syntax changed: parentheses no longer required or accepted after the
+	  class name in object creation (  a = New b )
+	- small test programs added
+
+
+Contributions from the following people are gratefully acknowledged.
+
+Gabor Grothendieck - suggestions, critique, test programs and testing on Windows
+Janis Papanagnou - comments and suggestions
+Ed Morton - comments and suggestions
