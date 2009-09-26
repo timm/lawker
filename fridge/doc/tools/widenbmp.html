@@ -4,9 +4,10 @@
 <h2><font color=black>&bull;</font></a> <a href=#1>Code</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#2>Bytes2Number</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#3>RealSize</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#4>For Each Record...</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#5>END</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#4>BEGIN</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#5>For Each Record...</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>END</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#7>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <P>
@@ -63,15 +64,15 @@ function RealSize( Wide, High, Pixels,  x, y ) {
 		}
 	}	
 }
-&lt;?PRE>
-&lt;H3> BEGIN&lt;/H3>
-&lt;P>
+</PRE>
+<a name=4></a><H3> BEGIN</H3>
+<P>
  It is necessary to tell gawk to read/write the file as binary, especially under
  Windows where ^Z in files is a killer.  Setting BINMODE to 3 will also work,
  but it throws error messages.
-&lt;P>
+<P>
  Setting FS to null causes gawk to make each byte a separate field.
-&lt;P>
+<P>
  Testing indicates that, in Windows at least, it is necessary to specify RS, even though
  it would appear redundant to set it to \n - not doing so results in 0A0D being
  replaced with 0A in the output, with the loss of one byte for each occurance.
@@ -87,7 +88,7 @@ BEGIN{
 	RS = "\n"
 }
 </PRE>
-<a name=4></a><H3> For Each Record...</H3>
+<a name=5></a><H3> For Each Record...</H3>
 <P>
  Read the file into an array.  If there are multiple lines, that is, if RS appears
  in the file, insert the record separator back into the array at the end of 
@@ -98,7 +99,7 @@ BEGIN{
 	if( RT ) { Bytes[ ++ByteCount ] = RT }
 }
 </PRE>
-<a name=5></a><H3> END</H3>
+<a name=6></a><H3> END</H3>
 <P>
  Closing FILENAME here allows overwriting the original file - if that is
  desired, comment out the next line (which creates a new filename for the
@@ -197,6 +198,6 @@ END{
  by reading that array out to the file pixel by pixel.  The array cannot be
  output during processing because pixels that have already been through
  the processor can still be changed.
-<a name=6></a><H2> Author</H2>
+<a name=7></a><H2> Author</H2>
 <P> Ted Davis tdavis@mst.edu.</P>
 </div><!--- htmlbody --->

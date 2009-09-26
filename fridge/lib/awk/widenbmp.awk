@@ -53,7 +53,7 @@ function RealSize( Wide, High, Pixels,  x, y ) {
 		}
 	}	
 }
-#.?PRE
+#./PRE
 #.H3 BEGIN
 #.P
 # It is necessary to tell gawk to read/write the file as binary, especially under
