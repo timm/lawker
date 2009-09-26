@@ -1,0 +1,76 @@
+<h1><join>The Secret WHINEY_USERS Flag</join></h1>
+
+<em>Writing in comp.lang.awk, Ed Morton reveals the secret WHINY_USERS flag.</em>
+
+"Nag" asked:
+<ul>
+<p>Hi,
+
+<p>I am creating a file like...
+<pre>
+awk '{
+ ....
+ ...
+ ..
+ printf"%4s %4s\n",$1,$2 > "file1"
+
+}' input
+</pre>
+<p>
+How can I sort file1 within awk code?
+</ul>
+<p>
+Ed Morton writes: There's also the undocumented WHINY_USERS flag for GNU awk  that allows for sorted processing of
+arrays: 
+<pre>
+$ cat file
+2
+1
+4
+3
+$ gawk '{a[$0]}END{for (i in a) print i}' file
+4
+1
+2
+3
+$ WHINY_USERS=1 gawk '{a[$0]}END{for (i in a) print i}' file
+1
+2
+3
+4
+</pre>
+<h2>Execution Cost</h2
+Your editor coded up the following test for the runtime costs of <em>WHINY_USERS</em>. The following code
+is called twice (ince with, and once without setting <en>WHINY_USERS</em>:
+<pre>
+run() {
+WHINY_USERS=$1 gawk -v M=1000000 --source '
+	BEGIN { 
+		M = M ? M : 50
+		N = M
+		print N
+		while(N-- > 0) {
+			key = rand() " " rand() " " rand() " " rand() " " rand() 
+			A[key] = M - N
+		}
+		for(i in A)
+			N++
+	}' 
+}
+time run 0
+time run 1
+</pre>
+<p>And the results? No noticable reduction in runtimes with/without <em>WHINY_USERS</em>.
+<pre>
+% bash whiny.awk
+1000000
+
+real    0m17.652s
+user    0m14.619s
+sys     0m2.429s
+1000000
+
+real    0m17.590s
+user    0m14.603s
+sys     0m2.438s
+</pre>
