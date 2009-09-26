@@ -49,8 +49,7 @@ is called twice (once with, and once without setting <em>WHINY_USERS</em>):
 <pre>
 run() {
 WHINY_USERS=$1 gawk -v M=1000000 --source '
-    BEGIN { 
-        M = M ? M : 50
+BEGIN { M = M ? M : 50
         N = M
         print N
         while(N-- > 0) { # 10000 times do, build large keys
@@ -59,7 +58,7 @@ WHINY_USERS=$1 gawk -v M=1000000 --source '
         }
         for(i in A) # if WHINY_USERS=1 , print in sorted order
             N++
-    }' 
+     i }' 
 }
 time run 0
 time run 1
