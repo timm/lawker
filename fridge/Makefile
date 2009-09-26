@@ -75,7 +75,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/mastermind2.html\
     	$(Doc)/mastermind.html \
 		$(Doc)/tip/awk4db.html\
-		$(Doc)/tools/widen_bmp.html 
+		$(Doc)/tools/widenbmp.html 
 
 awkpp :  
 	cd $(Bash)/awk++ && zip -r awk++.zip *
@@ -90,7 +90,7 @@ $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk
 $(Doc)/tools/fsm.html : $(Cee)/fsm/contents/readme.html 	  ; cd $> && $(Awk2Html)
 #$(Doc)/tools/options.html : $(Awklib)/optionsDemo.awk 	  ; cd $(Awklib) && $(Awk2Html)
 
-$(Doc)/tools/widen_bmp.html : $(Awklib)/widen_bmp.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
+$(Doc)/tools/widenbmp.html : $(Awklib)/widenbmp.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/tools/xmlparse.html      : $(Awklib)/xmlparse.awk   ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/story.html      : $(Awklib)/grammar/story.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/eliza.html      : $(Awklib)/eliza.awk          ; cd $(Awklib) && $(Awk2Html)
