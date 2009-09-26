@@ -1,9 +1,18 @@
-#.H1 Widen_Bmp.awk
+#.H1 WidenBmp.awk
+#.H2 Background
+#My boss wants to put NOAA weather radar images in a looping presentation that is displayed as 720 video on the 1040 LCD TV in the atrium. He couldn't figure out how to download the various layers needed, so he gave me the task. Of course, I had a sample composite image for him in half an hour. It looked terrible on the TV: the writing came out as just a blur and the county and state lines (single pixel mostly) were essentially invisible. Obviously, I could make my own 'cities' overlay, but no tools I had would convert the 'counties' image to any usable vector format for line resizing.
+#.P
+#That afternoon, I wrote a gawk script that widens the lines in a 256 color BMP version of the image - I can convert it back to a transparent background GIF later. 
+#.P
+#That script was presented in <a href="http://awk.info/?bitmaps">awk.info July 30, 2009</a>. 
+#Since then, I kept working on it and the code below
+#is an updated and extended version
 #.P                                             
-# This script widens lines in .bmp files to make them more visible
+# The script widens lines in .bmp files to make them more visible
 # when converted to TV video images.  For the complete conversion, it
 # is also necessary to mung the line colors to get rid of interpolated
 # colors and togive some lines more contrast, but that is done elsewhere.
+#.P
 # This script is gawk specific.
 #.H2 Code
 #.H3 Bytes2Number

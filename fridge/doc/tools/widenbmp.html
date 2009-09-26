@@ -1,23 +1,32 @@
-<h1><join> Widen_Bmp.awk</join></h1>
+<h1><join> WidenBmp.awk</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
-<h2><font color=black>&bull;</font></a> <a href=#1>Code</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#2>Bytes2Number</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#3>RealSize</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#4>BEGIN</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#5>For Each Record...</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#6>END</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#7>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#1>Background</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#3>Bytes2Number</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#4>RealSize</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#5>BEGIN</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>For Each Record...</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>END</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#8>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
+<a name=1></a><H2> Background</H2>
+My boss wants to put NOAA weather radar images in a looping presentation that is displayed as 720 video on the 1040 LCD TV in the atrium. He couldn't figure out how to download the various layers needed, so he gave me the task. Of course, I had a sample composite image for him in half an hour. It looked terrible on the TV: the writing came out as just a blur and the county and state lines (single pixel mostly) were essentially invisible. Obviously, I could make my own 'cities' overlay, but no tools I had would convert the 'counties' image to any usable vector format for line resizing.
 <P>
- This script widens lines in .bmp files to make them more visible
+That afternoon, I wrote a gawk script that widens the lines in a 256 color BMP version of the image - I can convert it back to a transparent background GIF later. 
+<P>
+That script was presented in <a href="http://awk.info/?bitmaps">awk.info July 30, 2009</a>. 
+is an updated and extended version
+<P>
+ The script widens lines in .bmp files to make them more visible
  when converted to TV video images.  For the complete conversion, it
  is also necessary to mung the line colors to get rid of interpolated
  colors and togive some lines more contrast, but that is done elsewhere.
+<P>
  This script is gawk specific.
-<a name=1></a><H2> Code</H2>
-<a name=2></a><H3> Bytes2Number</H3>
+<a name=2></a><H2> Code</H2>
+<a name=3></a><H3> Bytes2Number</H3>
 <P>
  This functions converts byte strings (binary numbers) into their 
  corresponding numeric strings so that they can be processed as gawk numbers.
@@ -47,7 +56,7 @@ function Bytes2Number( String,  x, y, z, Number ) {
 	return Number	# Note that Number is a regular gawk scalar variable.
 }
 </PRE>
-<a name=3></a><H3> RealSize</H3>
+<a name=4></a><H3> RealSize</H3>
 <P>
  Uses a brute force approach to factor the image size into width and height
  numbers that actually match the real image size.  It searches around the
@@ -65,7 +74,7 @@ function RealSize( Wide, High, Pixels,  x, y ) {
 	}	
 }
 </PRE>
-<a name=4></a><H3> BEGIN</H3>
+<a name=5></a><H3> BEGIN</H3>
 <P>
  It is necessary to tell gawk to read/write the file as binary, especially under
  Windows where ^Z in files is a killer.  Setting BINMODE to 3 will also work,
@@ -88,7 +97,7 @@ BEGIN{
 	RS = "\n"
 }
 </PRE>
-<a name=5></a><H3> For Each Record...</H3>
+<a name=6></a><H3> For Each Record...</H3>
 <P>
  Read the file into an array.  If there are multiple lines, that is, if RS appears
  in the file, insert the record separator back into the array at the end of 
@@ -99,7 +108,7 @@ BEGIN{
 	if( RT ) { Bytes[ ++ByteCount ] = RT }
 }
 </PRE>
-<a name=6></a><H3> END</H3>
+<a name=7></a><H3> END</H3>
 <P>
  Closing FILENAME here allows overwriting the original file - if that is
  desired, comment out the next line (which creates a new filename for the
@@ -200,6 +209,6 @@ END{
  by reading that array out to the file pixel by pixel.  The array cannot be
  output during processing because pixels that have already been through
  the processor can still be changed.
-<a name=7></a><H2> Author</H2>
+<a name=8></a><H2> Author</H2>
 <P> Ted Davis tdavis@mst.edu.</P>
 </div><!--- htmlbody --->
