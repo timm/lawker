@@ -8,7 +8,7 @@ doc/credits.html			;Admin	;2009	;Feb	;Who	;|Credits
 doc/who/jimh.html			;Jimh	;2009	;Feb	;Who	;|Jim Hart
 doc/who/ronl.html			;Ronl	;2009	;Feb	;Who	;|Ronald Loui
 doc/who/timm.html			;Timm	;2009	;Feb	;Who	;|Tim Menzies
-doc/who/ed.html				;Ed		;2009	;Feb	;Who	;|Ed Morten
+doc/who/ed.html				;EdM		;2009	;Feb	;Who	;|Ed Morten
 doc/who/mikelangman.html	;Mikel	;2009	;Jan	;Who	;|Mike Langman
 doc/who/arnoldr.html		;ArnoldR	;2009	;Feb;Who	;|Arnold Robbins
 doc/who/steffen.html		;Steffen	;2009	;Feb ;Who	;|Steffen Schuler
@@ -78,7 +78,7 @@ doc/tip/awk4db.html		;VictorA	;2009	;Jul	;Tips	;Databases	;|Using Awk for Databa
 doc/tip/random.html		;Admin	;2009	;Jul	;Tips		;|Random Numbers in Gawk
 doc/tip/superFor.html		;ArnoldR	;2009	;Mar	;Tips	;Funky	;|Super-For loops
 doc/tip/readheaders.html	;JanisP	;2009	;Aug	;Tips	;|Using field names to reference columns
-doc/tip/getline.html		;Ed	;2009	;Jan	;Tips	;Getline	;|Getline
+doc/tip/getline.html		;EdM	;2009	;Jan	;Tips	;Getline	;|Getline
 doc/tip/noforloops.html		;Jimh	;2009	;Jan	;Tips	;Forloop	;|Forloops
 doc/tip/moving.html			;ArnoldR	;2009	;Apr	;Tips		;|Moving Files with Awk
 doc/tip/awksed.html			;ArnoldR	;2009	;Apr	;Tips ;Sed		;|Simple Stream Editor

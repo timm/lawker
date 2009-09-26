@@ -241,7 +241,7 @@ pageTracker._trackPageview();
 		<what>Who</what>
 		<what>Feb</what>
 		<what>2009</what>
-		<what>Ed</what>
+		<what>EdM</what>
 	</file>
 	<file where="doc/who/mikelangman.html">
 		<title>Mike Langman</title>
@@ -713,7 +713,7 @@ pageTracker._trackPageview();
 		<what>Tips</what>
 		<what>Jan</what>
 		<what>2009</what>
-		<what>Ed</what>
+		<what>EdM</what>
 	</file>
 	<file where="doc/tip/noforloops.html">
 		<title>Forloops</title>
