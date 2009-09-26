@@ -2,7 +2,7 @@
 
 <em>Writing in comp.lang.awk, Ed Morton reveals the secret WHINY_USERS flag.</em>
 
-"Nag" asked:
+<p>"Nag" asked:
 <ul>
 <p>Hi,
 
@@ -20,7 +20,9 @@ awk '{
 How can I sort file1 within awk code?
 </ul>
 <p>
-Ed Morton writes: There's also the undocumented WHINY_USERS flag for GNU awk  that allows for sorted processing of
+Ed Morton writes: 
+<ul>
+There's also the undocumented WHINY_USERS flag for GNU awk  that allows for sorted processing of
 arrays: 
 <pre>
 $ cat file
@@ -39,7 +41,9 @@ $ WHINY_USERS=1 gawk '{a[$0]}END{for (i in a) print i}' file
 3
 4
 </pre>
-<h2>Execution Cost</h2
+</ul>
+<h2>Execution Cost</h2>
+<p>
 Your editor coded up the following test for the runtime costs of <em>WHINY_USERS</em>. The following code
 is called twice (ince with, and once without setting <en>WHINY_USERS</em>:
 <pre>
