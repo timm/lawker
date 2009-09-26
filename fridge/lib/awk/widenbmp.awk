@@ -4,7 +4,7 @@
 #.P
 #That afternoon, I wrote a gawk script that widens the lines in a 256 color BMP version of the image - I can convert it back to a transparent background GIF later. 
 #.P
-#That script was presented in <a href="http://awk.info/?bitmaps">awk.info July 30, 2009</a>. 
+#That script was presented in <a href="http://awk.info/?bitmaps">awk.info July 30, 2009</a>.  
 #Since then, I kept working on it and the code below
 #is an updated and extended version
 #.P                                             
