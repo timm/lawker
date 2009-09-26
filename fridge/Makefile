@@ -78,7 +78,7 @@ files : $(Doc)/dsl/markdown.html \
 		$(Doc)/tools/widenbmp.html 
 
 awkpp :  
-	cd $(Bash)/awk++ && zip -r awk++.zip *
+	cd $(Bash)/awk++/version21 && zip -f awkpp21.zip 
     
 
 $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
@@ -124,7 +124,7 @@ $(Doc)/gender.html : $(Awklib)/gender.awk
 	cd $(Awklib) && $(Awk2Html)
 
 
-$(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/awk++.html;  cd $(Bash) && $(Awk2Html)
+$(Doc)/dsl/awkplusplus.html : $(Bash)/awk++/version21/awkplusplus.html;   $(Awk2Html)
 $(Doc)/dsl/uml.html : $(Bash)/uml.sh ;  cd $(Bash) && $(Awk2Html)
 
 $(Doc)/dsl/graph.html : $(Gawk)/misc/graph.awk     
