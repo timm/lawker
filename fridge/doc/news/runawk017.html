@@ -1,0 +1,102 @@
+<h1><join>New release: RUNAWK 0.17</join></h1>
+<h2>What is RUNAWK?
+</h2>
+<p>
+  RUNAWK is a small wrapper for the AWK interpreter that helps one write
+  standalone AWK scripts. Its main feature is to provide a
+  module/library system for AWK which is somewhat similar to Perl's
+  "use" command. It also allows you to select a preferred AWK
+  interpreter and to setup the environment for your scripts. RUNAWK
+  makes programming AWK easy and efficient. RUNAWK also provides many
+  useful AWK modules.
+
+<h2>Sources</h2>
+<ul>
+
+<li><a href="http://code.google.com/p/lawker/source/browse/fridge/c/runawk/">LAWKER</a>
+<li>  <a href="http://freshmeat.net/projects/runawk/"> http://freshmeat.net/projects/runawk/</a>
+<li>  <a href="http://sourceforge.net/projects/runawk/"> http://sourceforge.net/projects/runawk/</a>
+<li>  <a href="http://mova.org/~cheusov/pub/runawk/"> http://mova.org/~cheusov/pub/runawk/</a>
+</ul>
+<h2>
+Major Changes</h2>
+<p>
+ Version 0.17.0, by Aleksey Cheusov, Sat, 12 Sep 2009
+<p>
+ runawk:
+    <ul><li> ADDED: new option for runawk for #use'ing modules: -f.
+      runawk can also be used for oneliners! ;-)
+<pre>
+      runawk -f abs.awk -e 'BEGIN {print abs(-123); exit}'
+</pre>
+    <li> In a multilined code passed to runawk using option -e, spaces
+      are allowed before #directives.
+
+    <li> After inventing alt_getopt.awk module there is no reason for
+      heuristics that detects whether to add `-' to AWK arguments or
+      not. So I've removed this heuristics. Use alt_getopt.awk module
+      or other "smart" module for handling options correctly!
+</ul>
+<p>
+ alt_getopt.awk and power_getopt.awk:
+    <ul><li> FIX: for "abc:" short options specifier BSD and GNU getopt(3)
+      accept "-acb" and understand it as "-a -cb", they also accept
+      "-ac b" and also translate it to "-a -cb". Now alt_getopt.awk
+      and power_getopt.awk work the same way.
+	</ul>
+<p>
+ power_getopt.awk:
+    <ul><li> -h option doesn't print usage information, --help (and its short
+      synonym) does.
+	</ul>
+<p>
+ New modules:
+    <ul>
+	<li> shquote.awk, implementing shquote() function.<br>
+        <em>shquote(str):</em>
+<ul>
+            `shquote' transforms the string `str' by adding shell
+            escape and quoting characters to include it to the
+            system() and popen() functions as an argument, so that
+            the arguments will have the correct values after being
+            evaluated by the shell.
+</ul>
+        Inspired by NetBSD's shquote(3) from libc.
+
+    <li> runcmd.awk, implementing functions runcmd1() and xruncmd1()<br>
+        <em>runcmd1(CMD, OPTS, FILE):</em>
+<ul>
+            wrapper for function system() that runs a command CMD
+            with options OPTS and one filename FILE.  Unlike
+            system(CMD " " OPTS " " FILE) the function runcmd1()
+            handles correctly FILE and CMD containing spaces, single
+            quote, double quote, tilde etc.
+</ul>
+    <li>    <em>xruncmd1(FILE):</em>
+	<ul>
+            safe wrapper for 'runcmd(1)'.
+            awk exits with error if running command failed.
+	</ul>
+	<li>
+     isnum.awk, implementing trivial isnum() function,
+            see the source code.
+	<li>
+     alt_join.awk, implementing the following functions:<br>
+        <em>join_keys(HASH, SEP):</em>
+		<ul>
+            returns string consisting of all keys from HASH separated
+            by SEP.
+	</ul>
+        <em>join_values(HASH, SEP):</em>
+	<ul>
+            returns string consisting of all values from HASH separated
+            by SEP.
+</ul>
+        <em>join_by_numkeys (ARRAY, SEP [, START [, END]]):</em>
+	<ul>
+            returns string consisting of all values from ARRAY
+            separated by SEP. Indices from START (default: 1) to END
+            (default: +inf) are analysed. Collecting values is stopped
+            on index absent in ARRAY. 
+	</ul>
+</ul>
