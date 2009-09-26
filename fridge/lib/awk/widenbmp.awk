@@ -116,6 +116,7 @@ BEGIN{
 # growing by one pixel on each pass through the program for each free end.
 # u, v, w, and z (z has been reused) are the coordinates of the four pixels
 # surrounding the one in work (defined by x and y).	
+#.SMALL
 #.PRE
 END{
 	if( !OutFile ) OutFile = FILENAME
@@ -181,6 +182,7 @@ END{
 	}
 }
 #./PRE
+#./SMALL
 #.P
 # Note the final nested for loops in the above code.
 # After the B array has been modified, the target file can be completed
