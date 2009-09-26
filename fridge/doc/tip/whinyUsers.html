@@ -45,7 +45,7 @@ $ WHINY_USERS=1 gawk '{a[$0]}END{for (i in a) print i}' file
 <h2>Execution Cost</h2>
 <p>
 Your editor coded up the following test for the runtime costs of <em>WHINY_USERS</em>. The following code
-is called twice (ince with, and once without setting <en>WHINY_USERS</em>:
+is called twice (once with, and once without setting <em>WHINY_USERS</em>):
 <pre>
 run() {
 WHINY_USERS=$1 gawk -v M=1000000 --source '
