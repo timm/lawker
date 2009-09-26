@@ -53,11 +53,11 @@ WHINY_USERS=$1 gawk -v M=1000000 --source '
 		M = M ? M : 50
 		N = M
 		print N
-		while(N-- > 0) {
-			key = rand() " " rand() " " rand() " " rand() " " rand() 
+		while(N-- > 0) { # 10000 times do, build large keys
+			key = rand()" "rand()" "rand()" "rand()" "rand() 
 			A[key] = M - N
 		}
-		for(i in A)
+		for(i in A) # if WHINY_USERS=1 , print in sorted order
 			N++
 	}' 
 }
