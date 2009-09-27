@@ -1,0 +1,217 @@
+problem
+solution
+discussion
+see also
+
+Chapter 0: test suites
+(need some way to run the following code in a regression suite)
+hardwired set of files passed to a sub-routine. later on, auto-generate that list
+
+Chapter 1: Strings
+
+Accessing Substrings
+Replacing Substrings
+Processing a String One Character at a Time
+Reversing a String by Word or Character
+Expanding and Compressing Tabs
+Controlling Case
+Interpolating Functions and Expressions Within Strings
+Trimming Blanks from a String
+Parsing Comma-Separated Data
+Parsing Fixed-Width Delimited Data
+Taking Strings Apart
+Wrapping Text at a Certain Line Length
+Storing Binary Data in Strings
+) 1.40 2 4 1 23/23 7732 1. Building a String From Parts
+Substituting Variables Into Strings
+Converting Between Characters and Values
+Managing Whitespace
+Word-wrapping Lines of Text
+Validating an Email Address
+
+Chapter 2: Numbers
+
+Checking Whether a String Contains a Valid Number
+Comparing Floating-Point Numbers
+Rounding Floating-Point Numbers
+Operating on a Series of Integers
+Generating Random Numbers Within a Range
+Generating Biased Random Numbers
+Taking Logarithms
+Calculating Exponents
+Formatting Numbers
+Printing Correct Plurals
+Calculating Trigonometric Functions
+Doing Trigonometry in Degrees, not Radians
+Handling Very Large or Very Small Numbers
+Converting Between Bases
+Calculating Using Numbers in Bases Other Than Decimal
+
+Chapter 3: Dates and Times
+
+Finding the Current Date and Time
+Converting Time and Date Parts to an Epoch Timestamp
+Converting an Epoch Timestamp to Time and Date Parts
+Printing a Date or Time in a Specified Format
+Finding the Difference of Two Dates
+Finding the Difference of Two Dates with Julian Days
+Finding the Day in a Week, Month, Year, or the Week Number in a Year
+Validating a Date
+Parsing Dates and Times from Strings
+Adding to or Subtracting from a Date
+Calculating Time with Time Zones
+Accounting for Daylight Saving Time
+Generating a High-Precision Time
+Generating Time Ranges
+Using Non-Gregorian Calendars
+Program: Calendar
+
+Chapter 4: Arrays
+
+Specifying an Array Not Beginning at Element 0
+Storing Multiple Elements per Key in an Array
+Initializing an Array to a Range of Integers
+Iterating Through an Array
+Deleting Elements from an Array
+Changing Array Size
+Appending One Array to Another
+Turning an Array into a String
+Printing an Array with Commas
+Checking if a Key Is in an Array
+Checking if an Element Is in an Array
+Finding the Position of an Element in an Array
+Finding Elements That Pass a Certain Test
+Finding the Largest or Smallest Valued Element in an Array
+Reversing an Array
+Sorting an Array
+Sorting an Array by a Computable Field
+Sorting Multiple Arrays
+Sorting an Array Using a Method Instead of a Function
+Randomizing an Array
+Shuffling a Deck of Cards
+Removing Duplicate Elements from an Array
+Finding the Union, Intersection, or Difference of Two Arrays
+Finding All Element Combinations of an Array
+Finding All Permutations of an Array
+Program: Printing an Array in a Horizontally Columned HTML Table
+
+Hashes
+
+Introduction
+Adding an Element to a Hash
+Testing for the Presence of a Key in a Hash
+Deleting from a Hash
+Traversing a Hash
+Printing a Hash
+Retrieving from a Hash in Insertion Order
+Hashes with Multiple Values Per Key
+Inverting a Hash
+Sorting a Hash
+Merging Hashes
+Finding Common or Different Keys in Two Hashes
+Hashing References
+Presizing a Hash
+Finding the Most Common Anything
+Representing Relationships Between Data
+Program: dutree
+
+Chapter 5: Variables
+
+Avoiding == Versus = Confusion
+Establishing a Default Value
+Exchanging Values Without Using Temporary Variables
+Creating a Dynamic Variable Name
+Using Static Variables
+Sharing Variables Between Processes
+Encapsulating Complex Data Types as a String
+Dumping Variable Contents as Strings
+
+Chapter 6: Functions
+
+Accessing Function Parameters
+Setting Default Values for Function Parameters
+Passing Values by Reference
+Using Named Parameters
+Creating Functions That Take a Variable Number of Arguments
+Returning Values by Reference
+Returning More Than One Value
+Skipping Selected Return Values
+Returning Failure
+Calling Variable Functions
+Accessing a Global Variable Inside a Function
+Creating Dynamic Functions
+
+Chapter 12: XML
+
+Generating XML Manually
+Generating XML with the DOM
+Parsing XML with the DOM
+Parsing XML with SAX
+Transforming XML with XSLT
+Sending XML-RPC Requests
+Receiving XML-RPC Requests
+Sending SOAP Requests
+Receiving SOAP Requests
+Exchanging Data with WDDX
+Reading RSS Feeds
+
+Chapter 13: Regular Expressions
+
+Switching From ereg to preg
+Matching Words
+Finding the nth Occurrence of a Match
+Choosing Greedy or Nongreedy Matches
+Matching a Valid Email Address
+Finding All Lines in a File That Match a Pattern
+Capturing Text Inside HTML Tags
+Escaping Special Characters in a Regular Expression
+Reading Records with a Pattern Separator
+
+
+Chapter 18: Files
+Creating or Opening a Local File
+Creating a Temporary File
+Opening a Remote File
+Reading from Standard Input
+Reading a File into a String
+Counting Lines, Paragraphs, or Records in a File
+Processing Every Word in a File
+Reading a Particular Line in a File
+Processing a File Backward by Line or Paragraph
+Picking a Random Line from a File
+Randomizing All Lines in a File
+Processing Variable Length Text Fields
+Reading Configuration Files
+Reading from or Writing to a Specific Location in a File
+Removing the Last Line of a File
+Modifying a File in Place Without a Temporary File
+Flushing Output to a File
+Writing to Standard Output
+Writing to Many Filehandles Simultaneously
+Escaping Shell Metacharacters
+Passing Input to a Program
+Reading Standard Output from a Program
+Reading Standard Error from a Program
+Locking a File
+Reading and Writing Compressed Files
+Program: Unzip
+
+Chapter 19: Directories
+
+Getting and Setting File Timestamps
+Getting File Information
+Changing File Permissions or Ownership
+Splitting a Filename into Its Component Parts
+Deleting a File
+Copying or Moving a File
+Processing All Files in a Directory
+Getting a List of Filenames Matching a Pattern
+Processing All Files in a Directory
+Making New Directories
+Removing a Directory and Its Contents
+Program: Web Server Directory Listing
+Program: Site Search
+
+
+
+
