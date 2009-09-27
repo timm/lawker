@@ -1,3 +1,5 @@
+
+
 doc/topics.html				;Admin	;2009	;Apr	;Sitemap ;|Topics
 doc/var/toc.html		;Admin	;2009	;Apr	;Sitemap ;|Table of Contents
 doc/var/tags.html		;Admin	;2009	;Apr	;Sitemap ;|List of Tags
@@ -73,6 +75,7 @@ doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
 doc/sed.html				;Admin	;2009	;Apr	;Tips ;Sed		;|Sed-clones (in Awk)
 doc/fastre.html				;RussC	;2009	;Jul			;|Regular Expression Matching Can Be Simple And Fast 
 
+doc/tip/whinyUsers.html		;EdM	;2009	;Sept	;Tips	;|The Secret WHINY_YSERS flag
 doc/tip/printranges.html		;EdM	;2009	;Aug	;Tips	;|Printing ranges
 doc/tip/awk4db.html		;VictorA	;2009	;Jul	;Tips	;Databases	;|Using Awk for Databases
 doc/tip/random.html		;Admin	;2009	;Jul	;Tips		;|Random Numbers in Gawk
@@ -106,6 +109,7 @@ gawk/array/saya.awk			;Timm	;2009	;Apr		;Arrays	;|Print an Array
 gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 
+doc/tools/widenbmp.html            ;TedD   ;2009   ;Sept    ;Graphics       ;|Widen bitmaps, using Gawk
 doc/bitmaps.html            ;TedD   ;2009   ;Jul    ;Graphics       ;|Processing Bitmaps in Gawk
 doc/tools/spawk-in-googlecode.html		;PanosP	;2009	;Jul	;Spawk	;Databases		;|Spawk in GoogleCode
 doc/tools/spawk.html		;PanosP	;2009	;Jul	;Databases	;Spawk		;|SQL Powered AWK
@@ -166,6 +170,8 @@ doc/xgawk/outline.html     ;JurgenK	;2009    ;May    ;XML ;Xgawk ;|XML: printing
 doc/xgawk/pulling.html     ;JurgenK	;2009    ;May    ;XML ;Xgawk ;|XML: pulling out data
 doc/dumpxml.html               ;MarkB   ; 2009   ;May    ;XML        ;|XML: Display components 
 
+doc/ethiopianMultiplication.html	;Admin  ;2009 ;Sept  ;|Ethiopian Multiplication
+doc/tawks.html					;Admin  ;2009 ;Sept  ;|A Tale of Two Tawks
 doc/getxml.html					;JanW  ;2009 ;May ;XML ;|GetXML.awk
 doc/unicast.html                ;SallyF ;2009   ;Apr   ;Os  ;Papers ;|Simulations Unicast Applications
 doc/templates.html                ;JonB ;2009   ;May   ;Papers ;|Template-driven programming

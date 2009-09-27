@@ -670,6 +670,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>RussC</what>
 	</file>
+	<file where="doc/tip/whinyUsers.html">
+		<title>The Secret WHINY_YSERS flag</title>
+		<what>Tips</what>
+		<what>Sept</what>
+		<what>2009</what>
+		<what>EdM</what>
+	</file>
 	<file where="doc/tip/printranges.html">
 		<title>Printing ranges</title>
 		<what>Tips</what>
@@ -889,6 +896,13 @@ pageTracker._trackPageview();
 		<what>Feb</what>
 		<what>2009</what>
 		<what>Admin</what>
+	</file>
+	<file where="doc/tools/widenbmp.html">
+		<title>Widen bitmaps, using Gawk</title>
+		<what>Graphics</what>
+		<what>Sept</what>
+		<what>2009</what>
+		<what>TedD</what>
 	</file>
 	<file where="doc/bitmaps.html">
 		<title>Processing Bitmaps in Gawk</title>
@@ -1299,6 +1313,18 @@ pageTracker._trackPageview();
 		<what>May</what>
 		<what>2009</what>
 		<what>MarkB</what>
+	</file>
+	<file where="doc/ethiopianMultiplication.html">
+		<title>Ethiopian Multiplication</title>
+		<what>Sept</what>
+		<what>2009</what>
+		<what>Admin</what>
+	</file>
+	<file where="doc/tawks.html">
+		<title>A Tale of Two Tawks</title>
+		<what>Sept</what>
+		<what>2009</what>
+		<what>Admin</what>
 	</file>
 	<file where="doc/getxml.html">
 		<title>GetXML.awk</title>
