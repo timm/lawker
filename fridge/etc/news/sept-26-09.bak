@@ -1,0 +1,73 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+-----------------------------------------------------------
+NEWS
+
+Ed Morton contributes a Gawk reference card.
+- http://lawker.googlecode.com/svn/fridge/share/pdf/awkcard.pdf
+
+Panos Papadopoulos offers a new Awk Mascot (very scary)
+- http://awk.info/?news/awksnake
+
+Awk for Ethiopian multiplication
+- http://awk.info/?ethiopianMultiplication
+
+Ed Morton reveals all about WHINY_USERS
+- http://awk.info/?tip/whinyUsers
+
+TAWK= TinyAwk or a fast++ compiled Awk
+- http://awk.info/?tawks
+	
+-----------------------------------------------------------
+UPDATES
+
+Aleksey Cheusov releases Runawk 0.17.
+- http://awk.info/?news/runawk017
+
+Jim Hart releases Awk++ (version 21)
+- http://awk.info/?dsl/awkplusplus
+
+Ted Davis generalizes his bitmap tools.
+- http://awk.info/?tools/widenbmp
+
+-----------------------------------------------------------
+PAGE OF THE MONTH
+
+Google Analytics tells us that awk.info's pages of 
+the month is Jim Hart's OO-in-awk tool:
+
+	http://awk.info/?dsl/awkplusplus
+
+-----------------------------------------------------------
+MOST AWK-ISH CITY IN THE WORLD 
+
+The most Awk-loving city in the world is still Athens,
+Greece. Residents of that city visited awk.info more
+than anywhere else in the world.  
+
+But now they've been joined by the neighboring city
+Thessaloniki.
+
+--------
+
+Dear contributors to awk.info,
+
+Since I'm updating the site monthly, it can take up to
+4 weeks for contributions to go live.  So  keep those
+cards and letters coming in and expect to see them by
+the end of each month. 
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
