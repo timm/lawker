@@ -10,7 +10,7 @@ doc/credits.html			;Admin	;2009	;Feb	;Who	;|Credits
 doc/who/jimh.html			;Jimh	;2009	;Feb	;Who	;|Jim Hart
 doc/who/ronl.html			;Ronl	;2009	;Feb	;Who	;|Ronald Loui
 doc/who/timm.html			;Timm	;2009	;Feb	;Who	;|Tim Menzies
-doc/who/ed.html				;EdM		;2009	;Feb	;Who	;|Ed Morten
+doc/who/ed.html				;EdM		;2009	;Feb	;Who	;|Ed Morton
 doc/who/mikelangman.html	;Mikel	;2009	;Jan	;Who	;|Mike Langman
 doc/who/arnoldr.html		;ArnoldR	;2009	;Feb;Who	;|Arnold Robbins
 doc/who/steffen.html		;Steffen	;2009	;Feb ;Who	;|Steffen Schuler
