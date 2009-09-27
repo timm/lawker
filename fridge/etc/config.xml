@@ -504,6 +504,15 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
+	<file where="doc/news/runawk017.html">
+		<title>Runawk 0.17</title>
+		<what>Runawk</what>
+		<what>Project</what>
+		<what>Tools</what>
+		<what>Sept</what>
+		<what>2009</what>
+		<what>AlexC</what>
+	</file>
 	<file where="doc/news/runawk016.html">
 		<title>Runawk 0.16</title>
 		<what>Runawk</what>
@@ -512,6 +521,13 @@ pageTracker._trackPageview();
 		<what>Apr</what>
 		<what>2009</what>
 		<what>AlexC</what>
+	</file>
+	<file where="doc/news/awksnake.html">
+		<title>Awk snake</title>
+		<what>Mascot</what>
+		<what>Sept</what>
+		<what>2009</what>
+		<what>PanosP</what>
 	</file>
 	<file where="doc/news/davinci.html">
 		<title>Davinci mascot</title>
