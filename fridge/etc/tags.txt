@@ -44,8 +44,12 @@ doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
+doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Paralled Awk
+doc/tools/zipf.html		;JohnF	;2009	;Oct;	TextMining;			;|Zipf's Law
+doc/news/mawkHashing.html	;JMellander	;2009	;Oct;	Mawk;			;|Faster Hashing in Mawk
+doc/news/mawkIsFast.html	;BrendanO	;2009	;Oct;	Mawk;			;|Mawk: faster than C, C++, Java, Perl, Ruby....
 doc/news/robbinsTalks.html	;ArnoldR	;2009	;Aug;			;|Interview with Arnold Robbins
-doc/news/libmawk.html		;TiborP	;2009	;Aug	;Libmawk		;|How to call Awk form "C" with Libmawk
+doc/news/libmawk.html		;TiborP	;2009	;Aug	;Libmawk	;Mawk		;|How to call Awk form "C" with Libmawk
 doc/news/awkeye.html		;DickL	;2009	;Jul	;Mascot		;|New Awk Mascot ('AWK-eye the Dwarf)?
 doc/news/theAwkBook.html	;Admin; 2009; Mar; News			;|The Awk Book's Code
 doc/news/runawk017.html		;AlexC	;2009	;Sept	;Tools	;Project ;Runawk	;|Runawk 0.17

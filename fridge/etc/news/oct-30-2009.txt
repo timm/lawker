@@ -1,0 +1,18 @@
+Bredan O'Conner reports that, for at least one task, Mawk runs
+faster than C, C++, Java, Perl, Ruby,... 
+
+- http://awk.info/?news/mawkIsFast.html
+
+John Fry proves Zipf's Law, in two lines of Awk
+- http://awk.info/?tools/zipf
+
+J. Mellander shows how to run Mawk, 20 times faster.
+
+- http://awk.info/?news/mawkHashing.html
+
+John David Duncan describes a paralled Awk implementation.
+
+- http://awk.info/?news/paralledAwk.html
+
+XXXX ed morton: sed / awk (and update the tags file)
+

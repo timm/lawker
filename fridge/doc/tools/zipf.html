@@ -1,0 +1,92 @@
+<h1><join>Zipf's Law</join></h1>
+<p>(These notes come from John Fry's 
+<a href="http://lawker.googlecode.com/svn/fridge/share/pdf/countingWithAwk.pdf">Counting with Awk</a> lecture
+in his subject Linguistics 115: Corpus Linguistics, Fall 2007, SJSU.) 
+<p>
+Much research has reported that human writings following well-defined laws.
+For example, natural langauge text and software
+programs conform tightly to simple and regular statistical
+models. 
+For example,
+"Zipf's Laws"  states that multiplying a word's rank r by its 
+frequency f produces (roughly) a constant value C : i.e. r times f is a constant. 
+ The frequency f of a word is obtained by counting the number 
+of times it occurs in a text, and r is obtained by ranking all 
+the words by frequency (1. the ; 2. and, 3. I ; etc.) 
+
+ Example of Zipf's Law for five words in the London-Lund 
+corpus of spoken conversation: 
+<pre>
+r  X     f   = C 
+35 very  836 = 29,260 
+45 see   674 = 30,330 
+55 which 563 = 30,965 
+65 get   469 = 30,485 
+75 out   422 = 31,650 
+</pre>
+Another way of expressing Zipf's Law is 
+to say that 
+frequency is reciprocally proportional to rank. 
+For example, the 2nd-ranked word ("and") appears 
+half 
+as often 
+as the 1st-ranked word ("the"). 
+More generally, nth-ranked word appears 
+1/n 
+as often as "the" 
+<p>
+Here is a short awk program, saved as ~jfry/zipf.awk, that 
+reads in a ranked frequency list and computes r times f. 
+<pre>
+BEGIN {printf "%20s%7s%7s%10s\n", "WORD","RANK","FREQ","C"} 
+{printf "%20s%7d%7d%10d\n", $2, NR, $1, NR*$1} 
+</pre>
+<p>This program can be run with
+<pre>
+awk -f ~jfry/zipf.awk 
+</pre>
+<P>
+Testing Zipf's Law on Shakespeare :
+<pre>
+$ tr A-Z a-z < shakespeare.txt | tr -sc a-z ?\n? | sort | 
+uniq -c | sort -rn | awk -f ~jfry/zipf.awk 
+WORD RANK  FREQ      C WORD RANK  FREQ      C 
+the     1 27378  27378 s i    17  7721 131257 
+and     2 26084  52168 for    18  7655 137790 
+i       3 22538  67614 be     19  6897 131043 
+to      4 19771  79084 his    20  6859 137180 
+of      5 17481  87405 he     21  6679 140259 
+a       6 14725  88350 your   22  6657 146454 
+you     7 13826  96782 this   23  6608 151984 
+my      8 12489  99912 but    24  6277 150648 
+that    9 11318 101862 have   25  5902 147550 
+in     10 11112 111120 as     26  5749 149474 
+is     11  9319 102509 thou   27  5549 149823 
+d      12  8960 107520 him    28  5205 145740 
+not    13  8512 110656 so     29  5058 146682 
+with   14  7791 109074 will   30  5008 150240 
+me     15  7777 116655 what   31  4808 149048 
+it     16  7725 123600 thy    32  4034 129088 
+</pre>
+<p>Testing Zipf's Law on newswire 
+<pre>
+$ cd /corpora/newswire/data 
+$ zcat -r .|grep -v ?^<?|tr A-Z a-z|tr -sc a-z ?\n?|sort| 
+uniq -c|sort -rn|awk -f /home/jfry/zipf.awk 
+WORD RANK FREQ    C WORD RANK FREQ    C 
+the     1 142M 142M by     16 14M  224M 
+to      2  60M 120M he     17 13M  235M 
+of      3  60M 180M at     18 13M  244M 
+a       4  53M 214M as     19 12M  230M 
+and     5  51M 257M from   20 10M  216M 
+in      6  51M 307M be     21  9M  201M 
+s       7  28M 202M his    22  9M  205M 
+for     8  22M 178M has    23  9M  208M 
+that    9  21M 195M have   24  9M  217M 
+said   10  19M 199M but    25  8M  212M 
+on     11  19M 214M are    26  8M  218M 
+is     12  16M 200M an     27  8M  225M 
+with   13  15M 197M will   28  7M  207M 
+was    14  14M 203M i      29  7M  213M 
+it     15  14M 211M not    30  7M  217M 
+</pre>
