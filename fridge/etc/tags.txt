@@ -45,7 +45,7 @@ doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
 doc/news/awkmug.html		;Zazzle	;2009	;Oct;				;|Awk Mug
-doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Paralled Awk
+doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Parallel Awk
 doc/tools/zipf.html		;JohnF	;2009	;Oct;	TextMining;			;|Zipf's Law
 doc/news/mawkHashing.html	;JMellander	;2009	;Oct;	Mawk;			;|Faster Hashing in Mawk
 doc/news/mawkIsFast.html	;BrendanO	;2009	;Oct;	Mawk;			;|Mawk: faster than C, C++, Java, Perl, Ruby....
