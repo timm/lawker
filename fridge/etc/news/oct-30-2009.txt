@@ -1,36 +1,55 @@
-Bredan O'Conner reports that, for at least one task, Mawk runs
-faster than C, C++, Java, Perl, Ruby,... 
+Here are the recent updates to http://awk.info .
 
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+-----------------------------------------------------------
+NEWS
+
+Zazzle.com is selling their new "I love Awk" mug:
+- http://awk.info/?news/awkmug
+
+Bredan O'Conner reports that, for at least one task, Mawk 
+runs faster than C, C++, Java, Perl, Ruby,... 
 - http://awk.info/?news/mawkIsFast
 
 J. Mellander shows how to run Mawk, 20 times faster:
-
 - http://awk.info/?news/mawkHashing
 
-John Fry proves Zipf's Law, in two lines of Awk:
-
-- http://awk.info/?tools/zipf
-
-John David Duncan describes a paralled Awk implementation:
-
+John David Duncan describes a parallel Awk implementation:
 - http://awk.info/?news/parallelAwk
 
-Ed Morton simplifies sed  with awk (68 times):
+John Fry proves Zipf's Law, in two lines of Awk:
+- http://awk.info/?tools/zipf
 
+-----------------------------------------------------------
+HINTS AND TIPS
+
+Ed Morton simplifies sed  with awk (68 times):
 - http://awk.info/?tip/sedInAwk
 
-Zazzle.com is selling their new "I love Awk" mug:
+Scott McCoy shows a simple Awk-to-MySql interface.
+- http://awk.info/?tool/mysql
 
-- http://awk.info/?news/awkmug
+-----------------------------------------------------------
+SYS ADMINS TIPS
 
 Brian Jones tells all Sys Admins: Awk is your friend:
-
 - http://awk.info/?tip/sysAdminInAwk
 
 M0J0  simplifies sys log processing
-
 - http://awk.info/?tip/shortenMyPipes
 
-Scott McCoy shows a simple Awk-to-MySql interface.
+--------
 
-- http://awk.info/?tool/mysql
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute
