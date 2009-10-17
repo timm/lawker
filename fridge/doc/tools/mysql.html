@@ -2,19 +2,20 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Download</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#2>Main Functions</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#3>Support Utils</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#4>Copyright</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#3>Set Up</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#4>Main Functions</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#5>Support Utils</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#6>Copyright</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#7>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Download</H2>
 <P>
 Download from
 <a href="http://lawker.googlecode.com/svn/fridge/lib/awk/mysql.awk">LAWKER.</a>
-<PRE>
-&lt;H2> Code&lt;/H2>
-&lt;H3> Set Up&lt;/H3>
+<a name=2></a><H2> Code</H2>
+<a name=3></a><H3> Set Up</H3>
 <PRE>
 BEGIN {
     if (!mysql["path"]) {
@@ -35,7 +36,7 @@ BEGIN {
     __mysql_dequote["\\"] = "\\"
 }
 </PRE>
-<a name=2></a><H3> Main Functions</H3>
+<a name=4></a><H3> Main Functions</H3>
 <PRE>
 function mysql_db (db)      { mysql["database"] = db    }
 function mysql_path (path)  { mysql["path"]     = path  }
@@ -110,7 +111,7 @@ function mysql_cleanup (  i) {
         }
 }
 </PRE>
-<a name=3></a><H3> Support Utils</H3>
+<a name=5></a><H3> Support Utils</H3>
 <P>
  Scan a string for mysql escaped tokens and replace them with the appropriate
  character.  This is a fairly slow operation for large strings but it's
@@ -139,13 +140,13 @@ function mysql_quote (string,   result) {
     return "'" string "'"
 }
 </PRE>
-<a name=4></a><H2> Copyright</H2>
+<a name=6></a><H2> Copyright</H2>
 <P>
 "THE BEER-WARE LICENSE" (Revision 43) borrowed from FreeBSD's jail.c:
 <tag@cpan.org> wrote this file.  As long as you retain this notice you
 can do whatever you want with this stuff. If we meet some day, and you think
  this stuff is worth it, you can buy me a beer in return.   
-<a name=5></a><H2> Author</H2>
+<a name=7></a><H2> Author</H2>
 <P> Scott S. McCoy</P>
 
 </div><!--- htmlbody --->

@@ -3,7 +3,6 @@
 #.P 
 #Download from
 #.URL http://lawker.googlecode.com/svn/fridge/lib/awk/mysql.awk LAWKER.
-#.PRE
 #.H2 Code
 #.H3 Set Up
 #.PRE
