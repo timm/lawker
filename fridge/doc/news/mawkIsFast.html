@@ -26,19 +26,22 @@ And then rename items and features into sequential numbers as a sparse matrix: (
 Since it's a standardized language, many implementations exist. One of them, MAWK, is incredibly efficient. It outperforms all other languages, including statically typed compiled ones like Java and C++! It wins on both LOC and performance criteria- a rare feat indeed, transcending the usual competition of slow-but-easy scripting languages versus fast-but-hard compiled languages.
 <p>
 All the code, results, and data can be obtained at 
-<a href="http://github.com/brendano/awkspeed">github.com/brendano/awkspeed</a>. I'd love to see results for more languages. "
+<a href="http://github.com/brendano/awkspeed">github.com/brendano/awkspeed</a>. I'd love to see results for more languages. 
 </ul>
 <p>
-Editor's note: one reply to this blog entry by Eric Young optimized  Brendan's Ruby solution  and
-re-ran all the tests. Eric reported these runtimes:
+Editor's note: one reply to this blog entry, by Eric Young, 
+optimized  Brendan's Ruby solution  and
+re-ran all the tests. Eric reported the following runtimes.
+Note that they confirm Brendan's results: mawk runs faster than everything
+else.
 <pre>
-33.8s mawk
-36.3s gcc c
-51.0s java
-67.0s perl Fletch.pl
-71.7s python
-87.8s perl
-95.8s nawk
+ 33.8s mawk
+ 36.3s gcc c
+ 51.0s java
+ 67.0s perl Fletch.pl
+ 71.7s python
+ 87.8s perl
+ 95.8s nawk
 101.4s gawk
 114.0s gcc
 133.0s ruby1.9 eay.rb
@@ -46,4 +49,3 @@ re-ran all the tests. Eric reported these runtimes:
 327.6s ruby1.8
 372.9s ruby1.9
 </pre>
-<p>Note that Eric's results were the same as Brendan's: mawk beats all.
