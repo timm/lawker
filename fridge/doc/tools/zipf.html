@@ -1,7 +1,7 @@
 <h1><join>Zipf's Law</join></h1>
-<p>(These notes come from John Fry's 
+<p><em>These notes come from John Fry's 
 <a href="http://lawker.googlecode.com/svn/fridge/share/pdf/countingWithAwk.pdf">Counting with Awk</a> lecture
-in his subject Linguistics 115: Corpus Linguistics, Fall 2007, SJSU.) 
+in his subject Linguistics 115: Corpus Linguistics, Fall 2007, SJSU.</em> 
 <p>
 Much research has reported that human writings following well-defined laws.
 For example, natural langauge text and software
@@ -39,7 +39,7 @@ Here is a short awk program, saved as ~jfry/zipf.awk, that
 reads in a ranked frequency list and computes r times f. 
 <pre>
 BEGIN {printf "%20s%7s%7s%10s\n", "WORD","RANK","FREQ","C"} 
-{printf "%20s%7d%7d%10d\n", $2, NR, $1, NR*$1} 
+      {printf "%20s%7d%7d%10d\n", $2, NR, $1, NR*$1} 
 </pre>
 <p>This program can be run with
 <pre>
@@ -48,7 +48,7 @@ awk -f ~jfry/zipf.awk
 <P>
 Testing Zipf's Law on Shakespeare :
 <pre>
-$ tr A-Z a-z < shakespeare.txt | tr -sc a-z ?\n? | sort | 
+$ tr A-Z a-z &lt; shakespeare.txt | tr -sc a-z '\n' | sort | 
 uniq -c | sort -rn | awk -f ~jfry/zipf.awk 
 WORD RANK  FREQ      C WORD RANK  FREQ      C 
 the     1 27378  27378 s i    17  7721 131257 
@@ -71,8 +71,8 @@ it     16  7725 123600 thy    32  4034 129088
 <p>Testing Zipf's Law on newswire 
 <pre>
 $ cd /corpora/newswire/data 
-$ zcat -r .|grep -v ?^<?|tr A-Z a-z|tr -sc a-z ?\n?|sort| 
-uniq -c|sort -rn|awk -f /home/jfry/zipf.awk 
+$ zcat -r .|grep -v '^&lt;' | tr A-Z a-z|tr -sc a-z '\n' | sort| 
+uniq -c | sort -rn | awk -f /home/jfry/zipf.awk 
 WORD RANK FREQ    C WORD RANK FREQ    C 
 the     1 142M 142M by     16 14M  224M 
 to      2  60M 120M he     17 13M  235M 
