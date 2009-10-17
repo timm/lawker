@@ -3,21 +3,21 @@ faster than C, C++, Java, Perl, Ruby,...
 
 - http://awk.info/?news/mawkIsFast
 
-John Fry proves Zipf's Law, in two lines of Awk:
-
-- http://awk.info/?tools/zipf
-
 J. Mellander shows how to run Mawk, 20 times faster:
 
 - http://awk.info/?news/mawkHashing
 
+John Fry proves Zipf's Law, in two lines of Awk:
+
+- http://awk.info/?tools/zipf
+
 John David Duncan describes a paralled Awk implementation:
 
-- http://awk.info/?news/paralledAwk
+- http://awk.info/?news/parallelAwk
 
 Ed Morton simplifies sed  with awk (68 times):
 
-- http://awk.info/?tips/sedInAwk
+- http://awk.info/?tip/sedInAwk
 
 Zazzle.com is selling their new "I love Awk" mug:
 
