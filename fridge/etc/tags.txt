@@ -4,6 +4,7 @@ doc/topics.html				;Admin	;2009	;Apr	;Sitemap ;|Topics
 doc/var/toc.html		;Admin	;2009	;Apr	;Sitemap ;|Table of Contents
 doc/var/tags.html		;Admin	;2009	;Apr	;Sitemap ;|List of Tags
 doc/awk100.html					;Admin	;2009	;Jan	;Awk100	;|Awk100
+doc/sysadmin.html			;Admin	;2009	;Oct	;SysAdmin			;|Sys Admin tricks in Awk
 
 doc/top10.html				;Admin ;  2009; Mar	;Top10		;|Top 10 pages
 doc/credits.html			;Admin	;2009	;Feb	;Who	;|Credits
@@ -59,7 +60,6 @@ doc/news/awksnake.html		;PanosP	;2009	;Sept	;Mascot		;|Awk snake
 doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
 
 
-doc/sysadmin.html			;Admin	;2009	;Oct	;SysAdmin			;|Sys Admin tricks in Awk
 doc/wp.html					;Admin	;2009	;Apr	;Wp					;|Word-processing in Awk
 doc/interpreters.html		;Admin	;2009	;Apr			;Interpreters ;|Interpreters
 doc/aasl.html               ;HenryS ;2009 ;Apr ;Interpreters ;Awk100 ;|Parser Generator
