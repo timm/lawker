@@ -7,7 +7,8 @@ For most things administrators use awk for, it's an extremely simple language. A
 <p>
 The first thing you should know is that awk is actually a rather powerful language. Entire books have been written about its use. If you're so inclined, you can write extremely complex 1000-line scripts using awk. However, as a systems administrator (the intended audience for this article), 99% of your use of awk will consist of relatively short scripts, and one-off one-liners typed right on the command line. Here's an example of a common use of awk:
 <pre>
-[jonesy@newhotness jonesy]$ cat access_log | awk '{print $1}' | sort | uniq -c | sort -rn
+[jonesy@newhotness jonesy]$ cat access_log | 
+     awk '{print $1}' | sort | uniq -c | sort -rn
 </pre>
 <p>
 The above one-liner uses awk to slim down the amount of data coming from the web server's access log. The access log is space-delimited, and I only want to see the first field (hence "print $1"). Once I have that data, I want to sort it, then I have "uniq -c" provide a count of each occurrence for each unique value, and then I produce a reverse sort based on the numeric count provided by "uniq". The result has the number of hits in the left column, and the host in the right column, and the most frequent visitors are at the top of the list. Give it a shot! Even if you're hosted by an ISP, you should be able to access this log.
@@ -65,4 +66,8 @@ Let's translate that into English, shall we? Of course, you now know what the BE
 In conclusion
 </h2>
 <p>
-Whew! That was a mouthful. Awk has so many cool little hacks and built-in features that there has been more than one book published just on Awk. Undoubtedly, I'll utilize some of these features in future articles that involve putting together syadmin solutions using various scripts as duct tape. Until then, feel free to post some of your favorite awk one-liners here!
+Whew! That was a mouthful. Awk has so many cool little hacks and
+built-in features that there has been more than one book published
+just on Awk. Undoubtedly, I'll utilize some of these features in
+future articles that involve putting together syadmin solutions
+using various scripts as duct tape. 
