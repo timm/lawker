@@ -1224,7 +1224,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
-	<file where="doc/sysAdminInAwk.html">
+	<file where="doc/tip/sysAdminInAwk.html">
 		<title>SysAdmins: Awk is Your Friend</title>
 		<what>SysAdmin</what>
 		<what>Oct</what>

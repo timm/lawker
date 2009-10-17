@@ -156,7 +156,7 @@ doc/tools/holidays.html			;BobO  ;2009 ;June 	;Dates	;|Holiday date routines
 doc/tools/nbc.html			;Timm  ;2009 ;May 	;DataMining	;|Naive Bayes Classifier
 
 doc/os.html                     ;Admin   ;2009   ;Apr   ;Os   ;|Operating Systems and Awk
-doc/sysAdminInAwk.html          ;BrianJ   ;2009   ;Oct   ;SysAdmin   ;|SysAdmins: Awk is Your Friend
+doc/tip/sysAdminInAwk.html          ;BrianJ   ;2009   ;Oct   ;SysAdmin   ;|SysAdmins: Awk is Your Friend
 doc/xml.html					;Admin  ;2009 ;Apr ;XML ;|XML and Awk
 doc/tools/xmlparse.html					;SteveC  ;2009 ;June ;XML ;|xmlparse.awk
 
