@@ -1,0 +1,551 @@
+<h1><join>Sed in Awk</join></h1>
+<p><em>Writing in <a 
+href="http://groups.google.com/group/comp.lang.awk/msg/9e1d90e6c9c04c70"
+>comp.lang.awk</a> 
+Ed Morton ports numerous complex sed expressions to Awk:</em>
+<p>
+A comp.lang.awk author ask the question:
+<ul>
+<p>
+I have a file that has a series of lists
+<pre>
+(qqq)
+aaa 111
+bbb 222
+</pre>
+<p>
+and I want to make it look like
+<pre>
+aaa 111 (qqq)
+bbb 222 (qqq)
+</pre>
+</ul>
+<p>
+IMHO the clearest sed solution given was:
+<pre>
+sed -e '
+   /^([^)]*)/{
+      h; # remember the (qqq) part
+      d
+   }
+
+   / [1-9][0-9]*$/{
+      G; # strap the (qqq) part to the list
+      s/\n/ /
+   }
+' yourfile
+</pre> <p>
+while the awk one was:
+<pre>
+awk '/^\(/{ h=$0;next } { print $0,h }' file
+</pre>
+<p>
+As I've said repeatedly, sed is an excellent tool for simple
+substitutions on a single line. For anything else you should use awk,
+perl, etc.
+<p>
+Having said that, let's take a look at the awk equivalents for the
+posted sed examples below that are not simple substitutions on a single
+line so people can judge for themselves (i.e. quietly - this is not a
+contest and not a religious war!) which code is clearer, more
+consistent, and more obvious. When reading this, just imagine yourself
+having to figure out what the given script does in order to debug or
+enhance it or write your own similar one later.
+<p>
+Note that in awk as in shell there are many ways to solve a problem so
+I'm trying to stick to the solutions that I think would be the most
+useful to a beginner since that's who'd be reading an examples page like
+this, and without using any GNU awk extensions. Also note I didn't test
+any of this but it's all pretty basic stuff so it should mostly be right.
+<p>
+For those who know absolutely nothing about awk, I think all you need to
+know to understand the scripts below is that, like sed, it loops through
+input files evaluating conditions against the current input record (a
+line by default) and executing the actions you specify (printing the
+current input record if none specified) if those conditions are true,
+and it has the following pre-defined symbols:
+<pre>
+NR = Number or Records read so far
+NF = Number of Fields in current record
+FS = the Field Separator
+RS = the Record Separator
+BEGIN = a pattern that's only true before processing any input
+END = a pattern that's only true after processing all input.
+</pre>
+<p>
+Oh, and setting RS to the NULL string (-v RS='') tells awk to read
+paragraphs instead of lines as individual records, and setting FS to the
+NULL string (-v FS='') tells awk to treat each individual character as a
+field.
+<p>
+For more info on awk, see http://www.awk.info.
+
+<h2>Introductory Examples</h2>
+<p>Double space a file:
+<ul>
+<p>Sed:
+<pre>
+sed G
+</pre>
+<p>Awk
+<pre>
+awk '{print $0 "\n"}'
+</pre>
+</ul>
+<p>
+Double space a file which already has blank lines in it. Output file
+should contain no more than one blank line between lines of text.
+<ul>
+<p>Sed:
+<pre>
+sed '/^$/d;G'
+</pre>
+<p>Awk:
+<pre>
+awk 'NF{print $0 "\n"}'
+</pre>
+</ul>
+<p>Triple space a file
+<ul><p>Sed:<pre>
+sed 'G;G'
+</pre><p>Awk:<pre>
+awk '{print $0 "\n\n"}'
+</pre></ul>
+<p>Undo double-spacing (assumes even-numbered lines are always blank):
+<ul><p>Sed:<pre>
+sed 'n;d'
+</pre><p>Awk:<pre>
+awk 'NF'
+</pre></ul>
+<p>Insert a blank line above every line which matches "regex":
+<ul><p>Sed:<pre>
+sed '/regex/{x;p;x;}'
+</pre><p>Awk:<pre>
+awk '{print (/regex/ ? "\n" : "") $0}'
+</pre></ul><p>
+Insert a blank line below every line which matches "regex":
+<ul><p>Sed:<pre>
+sed '/regex/G'
+</pre><p>Awk:<pre>
+awk '{print $0 (/regex/ ? "\n" : "")}'
+</pre></ul><p>
+Insert a blank line above and below every line which matches "regex":
+<ul><p>Sed:<pre>
+sed '/regex/{x;p;x;G;}'
+</pre><p>Awk:<pre>
+awk '{print (/regex/ ? "\n" $0 "\n" : $0)}'
+</pre></ul>
+<h2>Numbering</h2>
+<p>
+Number each line of a file (simple left alignment). Using a tab (see
+note on '\t' at end of file) instead of space will preserve margins:
+<ul><p>Sed:<pre>
+sed = filename | sed 'N;s/\n/\t/'
+</pre><p>Awk:<pre>
+awk '{print NR "\t" $0}'
+</pre></ul><p>
+Number each line of a file (number on left, right-aligned):
+<ul><p>Sed:<pre>
+sed = filename | sed 'N; s/^/     /; s/ *\(.\{6,\}\)\n/\1  /'
+</pre><p>Awk:<pre>
+awk '{printf "%6s  %s\n",NR,$0}'
+</pre></ul><p>
+Number each line of file, but only print numbers if line is not blank:
+<ul><p>Sed:<pre>
+ed '/./=' filename | sed '/./N; s/\n/ /'
+</pre><p>Awk:<pre>
+awk 'NF{print NR "\t" $0}'
+</pre></ul><p>
+Count lines (emulates "wc -l")
+<ul><p>Sed:<pre>
+sed -n '$='
+</pre><p>Awk:<pre>
+awk 'END{print NR}'
+</pre></ul>
+<h2>Text Conversion and Substitution</h2>
+
+<p> Align all text flush right on a 79-column width:
+<ul><p>Sed:<pre>
+sed -e :a -e 's/^.\{1,78\}$/ &/;ta'  # set at 78 plus 1 space
+</pre><p>Awk:<pre>
+awk '{printf "%79s\n",$0}'
+</pre></ul><p>
+Center all text in the middle of 79-column width. In method 1,
+spaces at the beginning of the line are significant, and trailing
+spaces are appended at the end of the line. In method 2, spaces at
+the beginning of the line are discarded in centering the line, and
+no trailing spaces appear at the end of lines.
+<ul><p>Sed:<pre>
+sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'                     # method 1
+sed  -e :a -e 's/^.\{1,77\}$/ &/;ta' -e 's/\( *\)\1/\1/'  # method 2
+</pre><p>Awk:<pre>
+awk '{printf "%"int((79+length)/2)"s\n",$0}'
+</pre></ul><p>
+Reverse order of lines (emulates "tac")
+Bug/feature in sed v1.5 causes blank lines to be deleted
+<ul><p>Sed:<pre>
+sed '1!G;h;$!d'               # method 1
+sed -n '1!G;h;$p'             # method 2
+</pre><p>Awk:<pre>
+awk '{a[NR]=$0} END{for (i=NR;i>=1;i--) print a[i]}'
+</pre></ul><p>
+Reverse each character on the line (emulates "rev")
+<ul><p>Sed:<pre>
+sed '/\n/!G;s/\(.\)\(.*\n\)/&\2\1/;//D;s/.//'
+</pre><p>Awk:<pre>
+awk -v FS='' '{for (i=NF;i>=1;i--) printf "%s",$i; print ""}'
+</pre></ul><p>
+Join pairs of lines side-by-side (like "paste")
+<ul><p>Sed:<pre>
+sed '$!N;s/\n/ /'
+</pre><p>Awk:<pre>
+awk '{printf "%s%s",$0,(NR%2 ? " " : "\n")}'
+</pre></ul><p>
+If a line ends with a backslash, append the next line to it
+<ul><p>Sed:<pre>
+sed -e :a -e '/\\$/N; s/\\\n//; ta'
+</pre><p>Awk:<pre>
+awk '{printf "%s",(sub(/\\$/,"") ? $0 : $0 "\n")}'
+</pre></ul><p>
+if a line begins with an equal sign, append it to the previous line
+and replace the "=" with a single space
+<ul><p>Sed:<pre>
+sed -e :a -e '$!N;s/\n=/ /;ta' -e 'P;D'
+</pre><p>Awk:<pre>
+awk '{printf "%s%s",(sub(/^=/," ") ? "" : "\n"),$0} END{print ""}'
+</pre></ul><p>
+Add a blank line every 5 lines (after lines 5, 10, 15, 20, etc.)
+<ul><p>Sed:<pre>
+gsed '0~5G'                  # GNU sed only
+sed 'n;n;n;n;G;'             # other seds
+</pre><p>Awk:<pre>
+awk '{print $0} !(NR%5){print ""}'
+</pre></ul>
+<h2>Selective Printing of Certain Lines</h2>
+<p>Print first 10 lines of file (emulates behavior of "head")
+<ul><p>Sed:<pre>
+sed 10q
+</pre><p>Awk:<pre>
+awk '{print $0} NR==10{exit}'
+</pre></ul><p>
+Print first line of file (emulates "head -1")
+<ul><p>Sed:<pre>
+sed q
+</pre><p>Awk:<pre>
+awk 'NR==1{print $0; exit}'
+</pre></ul><p>
+Print the last 10 lines of a file (emulates "tail")
+<ul><p>Sed:<pre>
+sed -e :a -e '$q;N;11,$D;ba'
+</pre><p>Awk:<pre>
+awk '{a[NR]=$0} END{for (i=NR-10;i<=NR;i++) print a[i]}'
+</pre></ul><p>
+Print the last 2 lines of a file (emulates "tail -2")
+<ul><p>Sed:<pre>
+sed '$!N;$!D'
+</pre><p>Awk:<pre>
+awk '{a[NR]=$0} END{for (i=NR-2;i<=NR;i++) print a[i]}'
+</pre></ul><p>
+Print the last line of a file (emulates "tail -1")
+<ul><p>Sed:<pre>
+sed '$!d'                    # method 1
+sed -n '$p'                  # method 2
+</pre><p>Awk:<pre>
+awk 'END{print $0}'
+</pre></ul><p>
+Print the next-to-the-last line of a file
+<ul><p>Sed:<pre>
+sed -e '$!{h;d;}' -e x  # for 1-line files, print blank line
+sed -e '1{$q;}' -e '$!{h;d;}' -e x  # for 1-line files, print the line
+sed -e '1{$d;}' -e '$!{h;d;}' -e x  # for 1-line files, print nothing
+</pre><p>Awk:<pre>
+awk '{prev=curr; curr=$0} END{print prev}'
+</pre></ul><p>
+Print only lines which match regular expression (emulates "grep")
+<ul><p>Sed:<pre>
+sed -n '/regexp/p'           # method 1
+sed '/regexp/!d'             # method 2
+</pre><p>Awk:<pre>
+awk '/regexp/'
+</pre></ul><p>
+Print only lines which do NOT match regexp (emulates "grep -v")
+<ul><p>Sed:<pre>
+sed -n '/regexp/!p'          # method 1, corresponds to above
+sed '/regexp/d'              # method 2, simpler syntax
+</pre><p>Awk:<pre>
+awk '!/regexp/'
+</pre></ul><p>
+Print the line immediately before a regexp, but not the line
+containing the regexp
+<ul><p>Sed:<pre>
+sed -n '/regexp/{g;1!p;};h'
+</pre><p>Awk:<pre>
+awk '/regexp/{print prev} {prev=$0}'
+</pre></ul><p>
+Print the line immediately after a regexp, but not the line
+containing the regexp
+<ul><p>Sed:<pre>
+sed -n '/regexp/{n;p;}'
+</pre><p>Awk:<pre>
+awk 'found{print $0} {found=(/regexp/ ? 1 : 0)}'
+</pre></ul><p>
+Print 1 line of context before and after regexp, with line number
+indicating where the regexp occurred (similar to "grep -A1 -B1")
+<ul><p>Sed:<pre>
+sed -n -e '/regexp/{=;x;1!p;g;$!N;p;D;}' -e h
+</pre><p>Awk:<pre>
+awk 'found    {print preLine "\n" hitLine "\n" $0;   found=0}
+      /regexp/ {preLine=prev;   hitLine=NR " " $0;    found=1}
+      {prev=$0}'
+</pre></ul><p>
+Grep for AAA and BBB and CCC (in any order)
+<ul><p>Sed:<pre>
+sed '/AAA/!d; /BBB/!d; /CCC/!d'
+</pre><p>Awk:<pre>
+awk '/AAA/&&/BBB/&&/CCC/'
+</pre></ul><p>
+Grep for AAA and BBB and CCC (in that order)
+<ul><p>Sed:<pre>
+sed '/AAA.*BBB.*CCC/!d'
+</pre><p>Awk:<pre>
+awk '/AAA.*BBB.*CCC/'
+</pre></ul><p>
+Grep for AAA or BBB or CCC (emulates "egrep")
+<ul><p>Sed:<pre>
+sed -e '/AAA/b' -e '/BBB/b' -e '/CCC/b' -e d    # most seds
+gsed '/AAA\|BBB\|CCC/!d'                        # GNU sed only
+</pre><p>Awk:<pre>
+awk '/AAA|BBB|CCC/'
+</pre></ul><p>
+Print paragraph if it contains AAA (blank lines separate paragraphs).
+Sed v1.5 must insert a 'G;' after 'x;' in the next 3 scripts below
+<ul><p>Sed:<pre>
+sed -e '/./{H;$!d;}' -e 'x;/AAA/!d;'
+</pre><p>Awk:<pre>
+awk -v RS='' '/AAA/'
+</pre></ul><p>
+Print paragraph if it contains AAA and BBB and CCC (in any order)
+<ul><p>Sed:<pre>
+sed -e '/./{H;$!d;}' -e 'x;/AAA/!d;/BBB/!d;/CCC/!d'
+</pre><p>Awk:<pre>
+awk -v RS='' '/AAA/&&/BBB/&&/CCC/'
+</pre></ul><p>
+Print paragraph if it contains AAA or BBB or CCC
+<ul><p>Sed:<pre>
+sed -e '/./{H;$!d;}' -e 'x;/AAA/b' -e '/BBB/b' -e '/CCC/b' -e d
+gsed '/./{H;$!d;};x;/AAA\|BBB\|CCC/b;d'         # GNU sed only
+</pre><p>Awk:<pre>
+awk -v RS='' '/AAA|BBB|CCC/'
+</pre></ul><p>
+Print only lines of 65 characters or longer
+<ul><p>Sed:<pre>
+sed -n '/^.\{65\}/p'
+</pre><p>Awk:<pre>
+awk -v FS='' 'NF>=65'
+</pre></ul><p>
+Print only lines of less than 65 characters
+<ul><p>Sed:<pre>
+sed -n '/^.\{65\}/!p'        # method 1, corresponds to above
+sed '/^.\{65\}/d'            # method 2, simpler syntax
+</pre><p>Awk:<pre>
+awk -v FS='' 'NF<65'
+</pre></ul><p>
+Print section of file from regular expression to end of file
+<ul><p>Sed:<pre>
+sed -n '/regexp/,$p'
+</pre><p>Awk:<pre>
+awk '/regexp/{found=1} found'
+</pre></ul><p>
+Print section of file based on line numbers (lines 8-12, inclusive)
+<ul><p>Sed:<pre>
+sed -n '8,12p'               # method 1
+sed '8,12!d'                 # method 2
+</pre><p>Awk:<pre>
+awk 'NR>=8 && NR<=12'
+</pre></ul><p>
+Print line number 52
+<ul><p>Sed:<pre>
+sed -n '52p'                 # method 1
+sed '52!d'                   # method 2
+sed '52q;d'                  # method 3, efficient on large files
+</pre><p>Awk:<pre>
+awk 'NR==52{print $0; exit}'
+</pre></ul><p>
+Beginning at line 3, print every 7th line
+<ul><p>Sed:<pre>
+gsed -n '3~7p'               # GNU sed only
+sed -n '3,${p;n;n;n;n;n;n;}' # other seds
+</pre><p>Awk:<pre>
+awk '!((NR-3)%7)'
+</pre></ul><p>
+print section of file between two regular expressions (inclusive)
+<ul><p>Sed:<pre>
+sed -n '/Iowa/,/Montana/p'             # case sensitive
+</pre><p>Awk:<pre>
+awk '/Iowa/,/Montana/'
+</pre></ul><p>
+Print all lines of FileID upto 1st line containing
+<ul><p>Sed:<pre>
+sed '/string/q' FileID
+</pre><p>Awk:<pre>
+awk '{print $0} /string/{exit}'
+</pre></ul><p>
+Print all lines of FileID from 1st line containing
+until eof
+<ul><p>Sed:<pre>
+sed '/string/,$!d' FileID
+</pre><p>Awk:<pre>
+awk '/string/{found=1} found'
+</pre></ul><p>
+Print all lines of FileID from 1st line containing
+until 1st line containing   [boundries inclusive]
+<ul><p>Sed:<pre>
+sed '/string1/,$!d;/string2/q' FileID
+</pre><p>Awk:<pre>
+awk '/string1/{found=1} found{print $0} /string2/{exit}'
+</pre></ul>
+
+<h2> Selective Deletion of Certain Lines</h2>
+<p>
+Print all of file EXCEPT section between 2 regular expressions
+<ul><p>Sed:<pre>
+sed '/Iowa/,/Montana/d'
+</pre><p>Awk:<pre>
+awk '/Iowa/,/Montana/{next} {print $0}' file
+</pre></ul><p>
+Delete duplicate, consecutive lines from a file (emulates "uniq").
+First line in a set of duplicate lines is kept, rest are deleted.
+<ul><p>Sed:<pre>
+sed '$!N; /^\(.*\)\n\1$/!P; D'
+</pre><p>Awk:<pre>
+awk '$0!=prev{print $0} {prev=$0}'
+</pre></ul><p>
+Delete duplicate, nonconsecutive lines from a file. Beware not to
+overflow the buffer size of the hold space, or else use GNU sed.
+<ul><p>Sed:<pre>
+sed -n 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
+</pre><p>Awk:<pre>
+awk '!a[$0]++'
+</pre></ul><p>
+Delete all lines except duplicate lines (emulates "uniq -d").
+<ul><p>Sed:<pre>
+sed '$!N; s/^\(.*\)\n\1$/\1/; t; D'
+</pre><p>Awk:<pre>
+awk '$0==prev{print $0} {prev=$0}'      # works only on consecutive
+awk 'a[$0]++'                           # works on non-consecutive
+</pre></ul><p>
+Delete the first 10 lines of a file
+<ul><p>Sed:<pre>
+sed '1,10d'
+</pre><p>Awk:<pre>
+awk 'NR>10'
+</pre></ul><p>
+Delete the last line of a file
+<ul><p>Sed:<pre>
+sed '$d'
+</pre><p>Awk:<pre>
+awk 'NR>1{print prev} {prev=$0}'
+</pre></ul><p>
+Delete the last 2 lines of a file
+<ul><p>Sed:<pre>
+sed 'N;$!P;$!D;$d'
+</pre><p>Awk:<pre>
+awk 'NR>2{print prev[2]} {prev[2]=prev[1]; prev[1]=$0}'    # method 1
+awk '{a[NR]=$0} END{for (i=i;i<=NR-2;i++) print a[i]}'     # method 2
+awk -v num=2 'NR>num{print prev[num]}
+    {for (i=num;i>1;i--) prev[i]=prev[i-1]; prev[1]=$0}'    # method 3
+</pre></ul><p>
+Delete the last 10 lines of a file
+<ul><p>Sed:<pre>
+sed -e :a -e '$d;N;2,10ba' -e 'P;D'   # method 1
+sed -n -e :a -e '1,10!{P;N;D;};N;ba'  # method 2
+</pre><p>Awk:<pre>
+awk -v num=10 '...same as deleting last 2 method 3 above...'
+</pre></ul><p>
+Delete every 8th line
+<ul><p>Sed:<pre>
+gsed '0~8d'                           # GNU sed only
+sed 'n;n;n;n;n;n;n;d;'                # other seds
+</pre><p>Awk:<pre>
+awk 'NR%8'
+</pre></ul><p>
+Delete lines matching pattern
+<ul><p>Sed:<pre>
+sed '/pattern/d'
+</pre><p>Awk:<pre>
+awk '!/pattern/'
+</pre></ul><p>
+Delete ALL blank lines from a file (same as "grep '.' ")
+<ul><p>Sed:<pre>
+sed '/^$/d'                           # method 1
+sed '/./!d'                           # method 2
+</pre><p>Awk:<pre>
+awk '!/^$/'                             # method 1
+awk '/./'                               # method 2
+</pre></ul><p>
+Delete all CONSECUTIVE blank lines from file except the first; also
+deletes all blank lines from top and end of file (emulates "cat -s")
+<ul><p>Sed:<pre>
+sed '/./,/^$/!d'
+</pre><p>Awk:<pre>
+awk '/./,/^$/'
+</pre></ul><p>
+Delete all leading blank lines at top of file
+<ul><p>Sed:<pre>
+sed '/./,$!d'
+</pre><p>Awk:<pre>
+awk 'NF{found=1} found'
+</pre></ul><p>
+Delete all trailing blank lines at end of file
+<ul><p>Sed:<pre>
+sed -e :a -e '/^\n*$/{$d;N;ba' -e '}'  # works on all seds
+sed -e :a -e '/^\n*$/N;/\n$/ba'        # ditto, except for gsed 3.02.*
+</pre><p>Awk:<pre>
+awk '{a[NR]=$0} NF{nbNr=NR} END{for (i=1;i<=nbNr;i++) print a[i]}'
+</pre></ul><p>
+Delete the last line of each paragraph
+<ul><p>Sed:<pre>
+sed -n '/^$/{p;h;};/./{x;/./p;}'
+</pre><p>Awk:<pre>
+awk -v FS='\n' -v RS='' '{for (i=1;i<=NF;i++) print $i; print ""}'
+</pre></ul>
+
+<h2>Special Applications</h2>
+<p>Get Usenet/e-mail message header
+<ul><p>Sed:<pre>
+sed '/^$/q'        # deletes everything after first blank line
+</pre><p>Awk:<pre>
+awk '/^$/{exit}'
+</pre></ul><p>
+Get Usenet/e-mail message body
+<ul><p>Sed:<pre>
+sed '1,/^$/d'              # deletes everything up to first blank line
+</pre><p>Awk:<pre>
+awk 'found{print $0} /^$/{found=1}'
+</pre></ul><p>
+Get Subject header, but remove initial "Subject: " portion
+<ul><p>Sed:<pre>
+sed '/^Subject: */!d; s///;q'
+</pre><p>Awk:<pre>
+awk 'sub(/Subject: */,"")'
+</pre></ul><p>
+Parse out the address proper. Pulls out the e-mail address by itself
+from the 1-line return address header (see preceding script)
+<ul><p>Sed:<pre>
+sed 's/ *(.*)//; s/>.*//; s/.*[:<] *//'
+</pre><p>Awk:<pre>
+awk '{sub(/ *\(.*\)/,""); sub(/>.*/,""); sub(/.*[:<] */,""); print $0}'
+</pre></ul><p>
+Add a leading angle bracket and space to each line (quote a message)
+<ul><p>Sed:<pre>
+sed 's/^/> /'
+</pre><p>Awk:<pre>
+awk '{print "> " $0}'
+</pre></ul><p>
+Delete leading angle bracket & space from each line (unquote
+a message)
+<ul><p>Sed:<pre>
+sed 's/^> //'
+</pre><p>Awk:<pre>
+awk '{sub(/> /,""); print $0}'
+</pre></ul>

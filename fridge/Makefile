@@ -40,6 +40,7 @@ taglist :
 	echo "</table></center>" 
 
 files : $(Doc)/dsl/markdown.html \
+	    $(Doc)/tools/mysql.html \
 	    $(Doc)/tools/nbc.html \
 	    $(Doc)/tools/awkwords.html \
 	    $(Doc)/tools/correlate.html \
@@ -86,6 +87,7 @@ $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 
 $(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
+$(Doc)/tools/mysql.html : $(Awklib)/mysql.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/fsm.html : $(Cee)/fsm/contents/readme.html 	  ; cd $> && $(Awk2Html)
 #$(Doc)/tools/options.html : $(Awklib)/optionsDemo.awk 	  ; cd $(Awklib) && $(Awk2Html)

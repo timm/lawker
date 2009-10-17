@@ -26,7 +26,7 @@ doc/awk4ai.html				;Ronl	;2009	;Jan	;WhyAwk	;Misc	;Papers ;Top10	;|Awk for AI
 doc/praise.html				;Ronl	;2009	;Apr	 ;WhyAwk ;Papers	;Misc;	Top10	;|In praise of scripting
 doc/history.html			;Timm	;2009	;Jan	;Misc	;|History
 doc/whygawk.html			;Timm	;2009	;Jan 	;WhyAwk	;Misc	;|Why Gawk?
-doc/awksys.html				;HenryS ;2009 ;Apr	;WhyAwk ;Papers ;|Awk for system programming
+doc/awksys.html				;HenryS ;2009 ;Apr	;WhyAwk ;Papers ;SysAdmin ;|Awk for system programming
 doc/verify.html				;Admin  ;2009  ;Jul    ;Verification  ;|Verification 
 doc/databases.html				;Admin  ;2009  ;Jul    ;Databases  ;|Databases 
 doc/games.html				;Admin  ;2009  ;Apr    ;Games  ;|Awk Games 
@@ -44,6 +44,7 @@ doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
+doc/news/awkmug.html		;Zazzle	;2009	;Oct;				;|Awk Mug
 doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Paralled Awk
 doc/tools/zipf.html		;JohnF	;2009	;Oct;	TextMining;			;|Zipf's Law
 doc/news/mawkHashing.html	;JMellander	;2009	;Oct;	Mawk;			;|Faster Hashing in Mawk
@@ -79,6 +80,8 @@ doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk
 doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
 
 doc/sed.html				;Admin	;2009	;Apr	;Tips ;Sed		;|Sed-clones (in Awk)
+doc/tip/shortedMyPipes.html			;M0J0	;2009	;Oct	;SysAdmin	 		;|Shorten my pipes
+doc/tip/sedInAwk.html			;EdM	;2009	;Oct	;Tips ;Sed		;|Sed in Awk
 doc/fastre.html				;RussC	;2009	;Jul			;|Regular Expression Matching Can Be Simple And Fast 
 
 doc/tip/whinyUsers.html		;EdM	;2009	;Sept	;Tips	;|The Secret WHINY_YSERS flag
@@ -128,6 +131,7 @@ doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;Stats	;|Correlation between nu
 doc/music.html			;Admin	;2009	;June	;Tools	;Music; 	;|Music tools and Awk
 
 doc/project.html			;Admin	;2009	;Mar	;Tools	;Project	;|Project Tools
+doc/tools/mysql.html			;ScotS	;2009	;Oct	 ;Databases	;|MySql
 doc/tools/nosql.html			;CarloS	;2009	;Jul	 ;Databases	;|NoSQL
 doc/tools/plait.html			;StephenJ	;2009	;June	;Tools	;Music; ;Awk100	;|Playing music
 doc/tools/humdrum.html			;DavidH	;2009	;June	;Tools	;Music; 	;|Music analysis workbench
@@ -152,6 +156,7 @@ doc/tools/holidays.html			;BobO  ;2009 ;June 	;Dates	;|Holiday date routines
 doc/tools/nbc.html			;Timm  ;2009 ;May 	;DataMining	;|Naive Bayes Classifier
 
 doc/os.html                     ;Admin   ;2009   ;Apr   ;Os   ;|Operating Systems and Awk
+doc/sysAdminInAwk.html          ;BrianJ   ;2009   ;Oct   ;SysAdmin   ;|SysAdmins: Awk is Your Friend
 doc/xml.html					;Admin  ;2009 ;Apr ;XML ;|XML and Awk
 doc/tools/xmlparse.html					;SteveC  ;2009 ;June ;XML ;|xmlparse.awk
 

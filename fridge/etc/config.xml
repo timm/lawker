@@ -352,6 +352,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/awksys.html">
 		<title>Awk for system programming</title>
+		<what>SysAdmin</what>
 		<what>Papers</what>
 		<what>WhyAwk</what>
 		<what>Apr</what>
@@ -476,6 +477,44 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TerryB</what>
 	</file>
+	<file where="doc/news/awkmug.html">
+		<title>Awk Mug</title>
+		<what></what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>Zazzle</what>
+	</file>
+	<file where="doc/news/parallelAwk.html">
+		<title>Paralled Awk</title>
+		<what></what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>JohnD</what>
+	</file>
+	<file where="doc/tools/zipf.html">
+		<title>Zipf's Law</title>
+		<what></what>
+		<what>TextMining</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>JohnF</what>
+	</file>
+	<file where="doc/news/mawkHashing.html">
+		<title>Faster Hashing in Mawk</title>
+		<what></what>
+		<what>Mawk</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>JMellander</what>
+	</file>
+	<file where="doc/news/mawkIsFast.html">
+		<title>Mawk: faster than C, C++, Java, Perl, Ruby....</title>
+		<what></what>
+		<what>Mawk</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>BrendanO</what>
+	</file>
 	<file where="doc/news/robbinsTalks.html">
 		<title>Interview with Arnold Robbins</title>
 		<what></what>
@@ -485,6 +524,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/news/libmawk.html">
 		<title>How to call Awk form "C" with Libmawk</title>
+		<what>Mawk</what>
 		<what>Libmawk</what>
 		<what>Aug</what>
 		<what>2009</what>
@@ -679,6 +719,21 @@ pageTracker._trackPageview();
 		<what>Apr</what>
 		<what>2009</what>
 		<what>Admin</what>
+	</file>
+	<file where="doc/tip/shortedMyPipes.html">
+		<title>Shorten my pipes</title>
+		<what>SysAdmin</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>M0J0</what>
+	</file>
+	<file where="doc/tip/sedInAwk.html">
+		<title>Sed in Awk</title>
+		<what>Sed</what>
+		<what>Tips</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>EdM</what>
 	</file>
 	<file where="doc/fastre.html">
 		<title>Regular Expression Matching Can Be Simple And Fast</title>
@@ -999,6 +1054,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
+	<file where="doc/tools/mysql.html">
+		<title>MySql</title>
+		<what>Databases</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>ScotS</what>
+	</file>
 	<file where="doc/tools/nosql.html">
 		<title>NoSQL</title>
 		<what>Databases</what>
@@ -1161,6 +1223,13 @@ pageTracker._trackPageview();
 		<what>Apr</what>
 		<what>2009</what>
 		<what>Admin</what>
+	</file>
+	<file where="doc/sysAdminInAwk.html">
+		<title>SysAdmins: Awk is Your Friend</title>
+		<what>SysAdmin</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>BrianJ</what>
 	</file>
 	<file where="doc/xml.html">
 		<title>XML and Awk</title>
