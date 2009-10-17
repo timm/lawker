@@ -4,7 +4,7 @@
 <p>
 I was lurking around on twitter during my lunch hour (yes, even freelancers need a lunch hour), and @bitprophet tweeted thusly:
 <ul>
-    Get syslog-owned log names from syslog.conf: 
+    <em>Get syslog-owned log names from syslog.conf: </em>
 <pre>grep -v "^#" syslog.conf | 
 awk "{print $2}" | egrep -v "^(\*|\|)" | 
 sed "/^$/ d" | sed "s/^-//"
@@ -13,8 +13,9 @@ sed "/^$/ d" | sed "s/^-//"
 <p>
 Followed by this:
 <ul><p>
-    (Interested to see if anyone can shorten my previous tweet's command line, 
+    <em>Interested to see if anyone can shorten my previous tweet's command line, 
 outside of using 'cut' instead of the awk bit.)
+</em>
 </ul>
 <p>
 I happen to love puzzles like this, and my lunch was almost immediately followed by a long, boring conference call.
@@ -23,14 +24,15 @@ I happen to love puzzles like this, and my lunch was almost immediately followed
 </pre
 <ul>
 <p>
-    Find non-commented lines, grab the second space-delimited field, 
+    <em>Find non-commented lines, grab the second space-delimited field, 
 then filter out the ones that start with "*" or "|", then delete any blank lines, and strip any leading "-" from the result.
+</em>
 </ul>
 <p>
 My brain usually attempts to think of the English version of the solution *first*, and then try to emulate that in the code/command I write. So, the issue here is we want to find file paths (and apparently sockets are ok, too, as "@" is a valid leading character in the initial definition of the problem). If it's a file path, we want to see it in a form that would be suitable for passing it to something like "ls -l", which means leading symbols like "-" and "|" should be omitted.
 <p>
 In a syslog.conf file, the main meat is the area where you specify the warning levels, and the file you want messages at that warning level sent to (this is a simplistic explanation, but good enough to understand the solution I came up with). The file is also littered with comments. Here's the file on my Mac:
-<tiny><pre>
+<small><pre>
 *.err;kern.*;auth.notice;authpriv,remoteauth,install.none;mail.crit        /dev/console
 *.notice;authpriv,remoteauth,ftp,install.none;kern.debug;mail.crit    /var/log/system.log
 
@@ -54,11 +56,12 @@ local1.*                        /var/log/ipfw.log
 stuff.*                            -/boo
 things.*                        |/var/log
 *.emerg                            *
-</pre></tiny>
+</pre></small>
 <p>So, in English, my brain parses the problem like this:
-<ul><p>
+<ul><p><em>
     Skip blank lines, commented lines, and lines where the file name is "*", and give me everything else, but strip off characters "-" and 
 "|" before sending it to the screen.
+</em>
 </ul>
 <p>
 And here's my awk one-liner for doing that:
