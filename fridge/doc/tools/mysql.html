@@ -27,9 +27,7 @@ BEGIN {
     if (!mysql["tempfile_command"]) {
         mysql["tempfile_command"] = "mktemp /tmp/__mysql.awk.XXXXXX"
     }
-
     mysql["resource_id"] = 1
-
     __mysql_dequote["r"]  = "\r"
     __mysql_dequote["n"]  = "\n"
     __mysql_dequote["t"]  = "\t"
