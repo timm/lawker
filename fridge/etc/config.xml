@@ -576,6 +576,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>VenkatesanS</what>
 	</file>
+	<file where="doc/sysadmin.html">
+		<title>Sys Admin tricks in Awk</title>
+		<what>SysAdmin</what>
+		<what>Oct</what>
+		<what>2009</what>
+		<what>Admin</what>
+	</file>
 	<file where="doc/wp.html">
 		<title>Word-processing in Awk</title>
 		<what>Wp</what>

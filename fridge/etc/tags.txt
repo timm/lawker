@@ -59,6 +59,7 @@ doc/news/awksnake.html		;PanosP	;2009	;Sept	;Mascot		;|Awk snake
 doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
 
 
+doc/sysadmin.html			;Admin	;2009	;Oct	;SysAdmin			;|Sys Admin tricks in Awk
 doc/wp.html					;Admin	;2009	;Apr	;Wp					;|Word-processing in Awk
 doc/interpreters.html		;Admin	;2009	;Apr			;Interpreters ;|Interpreters
 doc/aasl.html               ;HenryS ;2009 ;Apr ;Interpreters ;Awk100 ;|Parser Generator
