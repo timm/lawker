@@ -720,7 +720,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
-	<file where="doc/tip/shortedMyPipes.html">
+	<file where="doc/tip/shortenMyPipes.html">
 		<title>Shorten my pipes</title>
 		<what>SysAdmin</what>
 		<what>Oct</what>
