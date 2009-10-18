@@ -30,6 +30,31 @@ For some of these applications, runtime is actually greater than
 development time; nonetheless, a language for rapid prototyping is
 a handy tool to have around.
 
+<p>Example: Calculating Pi</p>
+<pre>
+# pi.awk: approximate pi by integrating f(x) = 4/(1+x^2)
+# n = number of intervals to calculate 
+#
+# e.g.: mpiexec -n 4 mpawk -v n=10000 -f pi.awk 
+
+BEGIN {
+    h = 1/n
+    for(i = RANK+1 ; i <= n ; i += SIZE) {
+        x = h * (i - 0.5)
+        sum +=  4 / (1 + x^2)
+    }
+    pi = reduce(sum(h * sum))
+    if(!RANK) printf("n=%d, pi is %1.20f\n",n,pi)
+}
+</pre>
+<p>
+pi.awk requires about 20% as many lines of code as its equivalents in C or Fortran; 
+being computationally intensive, it runs about 100 times slower. The output is printed by the process with RANK = 0 and looks like this:
+<pre>
+sh% mpiexec -n 4 mpawk -v n=100000 -f pi.awk
+n=100000, pi is 3.14159265359811668006
+</pre>
+
 <h2>Status</h2>
 <p>
 The latest beta release of Parallel Awk is version 0.8. In this release, any Awk expression (including numbers, strings, and arrays) can be sent from one process to another using the functions send and recv. The comm_split() function, an interface to MPI_Comm_split, allows the creation of intra-communicators, while a companion function comm_set() is used to set the default MPI communicator implicitly used for all other MPI operations. Supported collective operations include reduce(), which can be applied to both numeric and string expressions, and barrier(). A function called assign() is used to divide the lines of input among the set of processes, as can a hash() function that is applied to array keys or other strings. 
