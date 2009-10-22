@@ -48,8 +48,8 @@ BEGIN {
 }
 </pre>
 <p>
-pi.awk requires about 20% as many lines of code as its equivalents in C or Fortran; 
-being computationally intensive, it runs about 100 times slower. The output is printed by the process with RANK = 0 and looks like this:
+pi.awk requires about 20% as many lines of code as its equivalents in C or Fortran.
+The output is printed by the process with RANK = 0 and looks like this:
 <pre>
 sh% mpiexec -n 4 mpawk -v n=100000 -f pi.awk
 n=100000, pi is 3.14159265359811668006
