@@ -10,7 +10,7 @@ NEWS
 Zazzle.com is selling their new "I love Awk" mug:
 - http://awk.info/?news/awkmug
 
-Bredan O'Conner reports that, for at least one task, Mawk 
+Brendan O'Conner reports that, for at least one task, Mawk 
 runs faster than C, C++, Java, Perl, Ruby,... 
 - http://awk.info/?news/mawkIsFast
 
@@ -30,7 +30,7 @@ Ed Morton simplifies sed  with awk (68 times):
 - http://awk.info/?tip/sedInAwk
 
 Scott McCoy shows a simple Awk-to-MySql interface.
-- http://awk.info/?tool/mysql
+- http://awk.info/?tools/mysql
 
 -----------------------------------------------------------
 SYS ADMINS TIPS
@@ -40,6 +40,24 @@ Brian Jones tells all Sys Admins: Awk is your friend:
 
 M0J0  simplifies sys log processing
 - http://awk.info/?tip/shortenMyPipes
+
+-----------------------------------------------------------
+PAGE OF THE MONTH
+
+Google Analytics reports that our page of the month is
+ 
+           http://awk.info/?tools/fsm
+
+This is Wm Miller's finite state machine generator,
+Fsm.awk is an awk script designed to read a finite
+state machine (fsm) specification and produce C files
+which implement that fsm.  The chief benefit of using
+fsm.awk is that it is easy to read, consistent state
+machine specifications and reuse of existing, and
+tested code.  Multiple tables and multiple users are
+happily accommodated. Fsm.awk  provides an easy avenue
+to generalization and consistency where fsms are
+required.
 
 --------
 
