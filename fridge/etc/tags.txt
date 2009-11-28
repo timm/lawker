@@ -45,6 +45,8 @@ doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
+doc/news/popular.html		;Admin	;2009	;Now;				;|A MySql Client
+doc/news/awkbot.html		;ScottS	;2009	;Now;				;|A MySql Client
 doc/news/awkmug.html		;Zazzle	;2009	;Oct;				;|Awk Mug
 doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Parallel Awk
 doc/tools/zipf.html		;JohnF	;2009	;Oct;	TextMining;			;|Zipf's Law
@@ -85,6 +87,7 @@ doc/tip/shortenMyPipes.html			;M0J0	;2009	;Oct	;SysAdmin	 		;|Shorten my pipes
 doc/tip/sedInAwk.html			;EdM	;2009	;Oct	;Tips ;Sed		;|Sed in Awk
 doc/fastre.html				;RussC	;2009	;Jul			;|Regular Expression Matching Can Be Simple And Fast 
 
+doc/news/news/whinyfix.html		;HermannP	;2009	;Now; ;Errata		;|Errata: WHINY_USERS slows down Awk
 doc/tip/whinyUsers.html		;EdM	;2009	;Sept	;Tips	;|The Secret WHINY_YSERS flag
 doc/tip/printranges.html		;EdM	;2009	;Aug	;Tips	;|Printing ranges
 doc/tip/awk4db.html		;VictorA	;2009	;Jul	;Tips	;Databases	;|Using Awk for Databases
@@ -132,7 +135,7 @@ doc/tools/correlate.html	;TimS	;2009	;May	;Tools	;Stats	;|Correlation between nu
 doc/music.html			;Admin	;2009	;June	;Tools	;Music; 	;|Music tools and Awk
 
 doc/project.html			;Admin	;2009	;Mar	;Tools	;Project	;|Project Tools
-doc/tools/mysql.html			;ScotS	;2009	;Oct	 ;Databases	;|MySql
+doc/tools/mysql.html			;ScottS	;2009	;Oct	 ;Databases	;|MySql
 doc/tools/nosql.html			;CarloS	;2009	;Jul	 ;Databases	;|NoSQL
 doc/tools/plait.html			;StephenJ	;2009	;June	;Tools	;Music; ;Awk100	;|Playing music
 doc/tools/humdrum.html			;DavidH	;2009	;June	;Tools	;Music; 	;|Music analysis workbench
