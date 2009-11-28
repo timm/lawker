@@ -387,6 +387,13 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
+	<file where="doc/game.html">
+		<title>An Awk Dungeon Adventure Game</title>
+		<what>Games</what>
+		<what>Nov</what>
+		<what>2009</what>
+		<what>PPuri</what>
+	</file>
 	<file where="doc/story.html">
 		<title>Writing SciFi</title>
 		<what>Games</what>
@@ -485,7 +492,7 @@ pageTracker._trackPageview();
 		<what>TerryB</what>
 	</file>
 	<file where="doc/news/popular.html">
-		<title>A MySql Client</title>
+		<title>Awk.info Gaining Popularity</title>
 		<what></what>
 		<what>Now</what>
 		<what>2009</what>
@@ -994,6 +1001,27 @@ pageTracker._trackPageview();
 		<what>Arrays</what>
 		<what>Function</what>
 		<what>Feb</what>
+		<what>2009</what>
+		<what>Admin</what>
+	</file>
+	<file where="doc/tools/sorting.html">
+		<title>Sorting</title>
+		<what>Tools</what>
+		<what>Nov</what>
+		<what>2009</what>
+		<what>EdM</what>
+	</file>
+	<file where="doc/tools/levenshtein.html">
+		<title>Columnate</title>
+		<what>Tools</what>
+		<what>Nov</what>
+		<what>2009</what>
+		<what>PierreG</what>
+	</file>
+	<file where="doc/tools/columnate.html">
+		<title>Columnate</title>
+		<what>Tools</what>
+		<what>Nov</what>
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
