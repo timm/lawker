@@ -177,7 +177,7 @@ doc/awk100/013awklinux.html		;YungC	;2009;Apr	;Os ;Papers ;Awk100	;Top10	;|Awk-L
 doc/awk100/spell.html			;ArnoldR ;Spell ;NelsonB ;2009 ;Mar ;Awk100; Top10	;|spell.awk
 doc/tools/spellcheck.html			;GregoryG ;Spell	;2009 ;Nov	;|spellcheck.awk
 doc/awk100/009yawk.html			;WolfganZ	;2009;Feb	;Awk100	;Yawk	;|Yawk
-doc/awk100/008awklisp.html		;DairusB	;2009	;Feb	 ;Awk100	;AwkLisp	;|Awklisp
+doc/awk100/008awklisp.html		;DariusB	;2009	;Feb	 ;Awk100	;AwkLisp	;|Awklisp
 doc/awk100/007name.html			;BillP	;2009	;Feb	;Awk100	;Name	;|Tex-to-bilingual Dictionary
 doc/awk100/006boris.html		;Ronl	;2009	;Feb	;Awk100	;Boris; Top10	;|Fast Clustering
 doc/awk100/005getYouTube.html	;PeterK	;2009	;Jan	;Awk100	;WWW	;|Get YouTube Vids
