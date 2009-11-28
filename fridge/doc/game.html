@@ -2,31 +2,35 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#2>Comments</a></h2>
-<h2><font color=black>&bull;</font></a> <a href=#3>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>About</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Comments</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
 <P>
-<PRE> gawk -f game.awk</PRE>
-&lt;H2> Download&lt;/H2>
-&lt;P>
+<PRE>
+ gawk -f game.awk
+</PRE>
+<a name=2></a><H2> Download</H2>
+<P>
 Download from
-&lt;a href="http://lawker.googlecode.com/svn/fridge/lib/awk/game.awk">LAWKER.&lt;/a>
-&lt;H2> About&lt;/H2>
-&lt;P>
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/game.awk">LAWKER.</a>
+<a name=3></a><H2> About</H2>
+<P>
 I wrote a small text-adventure game in awk - just to stretch the perception of
 awk, and show that it can be used as a programming language.
-&lt;P>
+<P>
  This game is small, but gives a taste of the fantasy adventure games of the
  80's - like Zork from Infocom.
-&lt;P>
+<P>
  In this adventure, you are in a cave complex, and need to find the hidden gold
  to win.  The adventure lets you move around, search, pick up objects, and use
  them.  It uses a menu - not free-form entries.
-&lt;P>
+<P>
  Here is the awk code:
-&lt;SMALL>
+<SMALL>
 <PRE>
 function intro() {
 	print
@@ -163,7 +167,7 @@ function niche() {
 BEGIN { intro(); cave() }
 </PRE>
 </SMALL>
-<a name=2></a><h2> Comments</h2>
+<a name=4></a><h2> Comments</h2>
 <P>
 This is one of the longest awk programs that I have written.  Notice that it is
 function-driven.  I have created functions to give the introduction, and the
@@ -177,7 +181,7 @@ sword) and is either 0 (off) or 1 (on), depending if you have the object.
 <P>
 Each function will print descriptions and gve options, depending on the setting
 of these boolean variables.
-<a name=3></a><H2> Author</H2>
+<a name=5></a><H2> Author</H2>
 <P>
 Praveen Puri has been a programmer and full-time trader. He is the author
     of 

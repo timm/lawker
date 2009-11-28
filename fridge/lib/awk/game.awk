@@ -1,7 +1,9 @@
 #.H1 An Awk Dungeon Adventure Game
 #.H2 Synopsis
 #.P
-#.PRE gawk -f game.awk
+#.PRE 
+# gawk -f game.awk
+#./PRE
 #.H2 Download
 #.P 
 #Download from
