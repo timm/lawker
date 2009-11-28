@@ -88,7 +88,7 @@ of arrays, functions, and string vs numeric comparisons in awk.
 <PRE>
  in:  inArr["foo"]="b"; inArr["bar"]="a"; inArr["xyz"]="b"
       outArr[] is empty
-&lt;>
+
  out: inArr["foo"]="b"; inArr["bar"]="a"; inArr["xyz"]="b"
       outArr[1]="bar"; outArr[2]="foo"; outArr[3]="xyz"
 </PRE>
@@ -133,6 +133,7 @@ function genSort(sortAlg,sortType,inArr,outArr,fldNum,fldSep,           \
 }
 </PRE>
 <a name=7></a><H3> Main Loop</H3>
+<P>
 { inArr[NR]=$0 }
 <a name=8></a><H3> Output</H3>
 <PRE>
