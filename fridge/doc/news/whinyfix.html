@@ -1,0 +1,13 @@
+<h1><join>Errata: WHINY_USERS slows down Awk</join></h1>
+
+<p>
+   On Nov 30'09, Hermann Peifer found and fixed bug in an older version of the test code at the end of 
+<a href="http://awk.info/?tip/whinyUsers">http://awk.info/?tip/whinyUsers </a>.
+<p>
+With the older, incorrect, version it was reported that keeping all Awk arrays sorted had very little impact on performance.
+<p>
+With Hermann's fix, we can now show that sorting slows down processing by 
+15% (at least, for the example explored on that page.)
+
+<p>
+Thanks to Hermann for that correction.

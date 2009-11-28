@@ -1,6 +1,10 @@
 <h1><join>The Secret WHINY_USERS Flag</join></h1>
 
-<em>Writing in comp.lang.awk, Ed Morton reveals the secret WHINY_USERS flag.</em>
+<p>
+<em>(Editor's note: On Nov 30'09, Hermann Peifer found and fixed bug in an older version of the test code at the end of this file.)
+</em>
+<p>
+Writing in comp.lang.awk, Ed Morton reveals the secret WHINY_USERS flag.
 
 <p>"Nag" asked:
 <ul>
@@ -47,33 +51,48 @@ $ WHINY_USERS=1 gawk '{a[$0]}END{for (i in a) print i}' file
 Your editor coded up the following test for the runtime costs of <em>WHINY_USERS</em>. The following code
 is called twice (once with, and once without setting <em>WHINY_USERS</em>):
 <pre>
-run() {
-WHINY_USERS=$1 gawk -v M=1000000 --source '
-BEGIN { M = M ? M : 50
-        N = M
-        print N
-        while(N-- > 0) { # 10000 times do, build large keys
-            key = rand()" "rand()" "rand()" "rand()" "rand() 
-            A[key] = M - N
-        }
-        for(i in A) # if WHINY_USERS=1 , print in sorted order
-            N++
-     i }' 
+runWhin() {
+WHINY_USERS=1 gawk -v M=1000000 --source '
+        BEGIN { 
+                M = M ? M : 50
+                N = M
+                print N
+                while(N-- > 0) {
+                        key = rand()" "rand()" "rand()" "rand()" "rand() 
+                        A[key] = M - N
+                }
+                for(i in A)
+                        N++
+        }' 
 }
-time run 0
-time run 1
+runNoWhin() {
+gawk -v M=1000000 --source '
+        BEGIN { 
+                M = M ? M : 50
+                N = M
+                print N
+                while(N-- > 0) {
+                        key = rand()" "rand()" "rand()" "rand()" "rand() 
+                        A[key] = M - N
+                }
+                for(i in A)
+                        N++
+        }' 
+}
+time runWhin
+time runNoWhin
 </pre>
-<p>And the results? No noticable reduction in runtimes with/without <em>WHINY_USERS</em>.
+<p>And the results? Sorted added 15% to runtimes:
 <pre>
-% bash whiny.awk
+% bash whiny.sh
 1000000
 
-real    0m17.652s
-user    0m14.619s
-sys     0m2.429s
+real    0m18.897s
+user    0m15.826s
+sys     0m2.445s
 1000000
 
-real    0m17.590s
-user    0m14.603s
-sys     0m2.438s
+real    0m16.345s
+user    0m13.469s
+sys     0m2.435s
 </pre>
