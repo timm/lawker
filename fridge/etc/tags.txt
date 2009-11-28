@@ -124,7 +124,7 @@ gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 
 doc/sorting.html            ;EdM   ;2009   ;Nov    ;Tools       ;|Sorting
-doc/tools/levenshtein.html            ;PierreG   ;2009   ;Nov    ;Tools       ;|Columnate
+doc/tools/levenshtein.html  ;PierreG   ;2009   ;Nov    ;Tools       ;|levenshtein.awk
 doc/tools/columnate.html            ;Admin   ;2009   ;Nov    ;Tools       ;|Columnate
 doc/tools/widenbmp.html            ;TedD   ;2009   ;Sept    ;Graphics       ;|Widen bitmaps, using Gawk
 doc/bitmaps.html            ;TedD   ;2009   ;Jul    ;Graphics       ;|Processing Bitmaps in Gawk

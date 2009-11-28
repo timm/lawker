@@ -1012,7 +1012,7 @@ pageTracker._trackPageview();
 		<what>EdM</what>
 	</file>
 	<file where="doc/tools/levenshtein.html">
-		<title>Columnate</title>
+		<title>levenshtein.awk</title>
 		<what>Tools</what>
 		<what>Nov</what>
 		<what>2009</what>
