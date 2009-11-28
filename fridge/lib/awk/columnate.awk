@@ -1,8 +1,8 @@
 #.H1 Columnate
 #.H2 Synopsis
 #.PRE 
-#e.g.
-#gawk -F: -f columnate.awk /etc/passwrd
+##e.g.
+#gawk -F: -f columnate.awk /etc/passwd
 #./PRE
 #.H2 Download
 #Download from

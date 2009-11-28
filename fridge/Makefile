@@ -80,7 +80,8 @@ files : $(Doc)/dsl/markdown.html \
 		$(Doc)/game.html \
 		$(Doc)/sorting.html \
 		$(Doc)/tools/columnate.html\
-		$(Doc)/tools/levenshtein.html
+		$(Doc)/tools/levenshtein.html\
+		$(Doc)/news/popular.html
 
 awkpp :  
 	cd $(Bash)/awk++/version21 && zip -f awkpp21.zip 
