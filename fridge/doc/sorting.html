@@ -8,8 +8,7 @@
 <h3><font color=black>&bull;</font></a> <a href=#5>keySort</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#6>genSort</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#7>Main Loop</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#8>Output</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#9>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#8>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Download</H2>
@@ -134,8 +133,8 @@ function genSort(sortAlg,sortType,inArr,outArr,fldNum,fldSep,           \
 </PRE>
 <a name=7></a><H3> Main Loop</H3>
 <P>
-{ inArr[NR]=$0 }
-<a name=8></a><H3> Output</H3>
+<PRE> { inArr[NR]=$0 }</PRE>
+&lt;H3> Output&lt;/H3>
 <PRE>
 END {
   numElts = genSort(sortAlg,sortType,inArr,outArr,fldNum,FS)
@@ -144,6 +143,6 @@ END {
   }
 }
 </PRE>
-<a name=9></a><H2> Author</H2>
+<a name=8></a><H2> Author</H2>
 <P> Ed Morton</P>
 </div><!--- htmlbody --->
