@@ -123,7 +123,7 @@ gawk/array/saya.awk			;Timm	;2009	;Apr		;Arrays	;|Print an Array
 gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 
-doc/tools/sorting.html            ;EdM   ;2009   ;Nov    ;Tools       ;|Sorting
+doc/sorting.html            ;EdM   ;2009   ;Nov    ;Tools       ;|Sorting
 doc/tools/levenshtein.html            ;PierreG   ;2009   ;Nov    ;Tools       ;|Columnate
 doc/tools/columnate.html            ;Admin   ;2009   ;Nov    ;Tools       ;|Columnate
 doc/tools/widenbmp.html            ;TedD   ;2009   ;Sept    ;Graphics       ;|Widen bitmaps, using Gawk

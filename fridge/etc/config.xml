@@ -1004,7 +1004,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
-	<file where="doc/tools/sorting.html">
+	<file where="doc/sorting.html">
 		<title>Sorting</title>
 		<what>Tools</what>
 		<what>Nov</what>
