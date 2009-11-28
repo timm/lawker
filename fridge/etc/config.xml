@@ -1360,7 +1360,16 @@ pageTracker._trackPageview();
 		<what>Mar</what>
 		<what>2009</what>
 		<what>NelsonB</what>
+		<what>Spell</what>
 		<what>ArnoldR</what>
+	</file>
+	<file where="doc/tools/spellcheck.html">
+		<title>spellcheck.awk</title>
+		<what>Top10</what>
+		<what>Nov</what>
+		<what>2009</what>
+		<what>Spell</what>
+		<what>GregoryG</what>
 	</file>
 	<file where="doc/awk100/009yawk.html">
 		<title>Yawk</title>
