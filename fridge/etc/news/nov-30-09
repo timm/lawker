@@ -5,18 +5,32 @@ http://tinyurl.com/rss4awk. To contribute to awk.info,
 see http://awk.info/?contribute .)
 
 -----------------------------------------------------------
-NEWS
+TOOLS
 
-sorting
+Ed Morton sorts everything out:
+- http://awk.info/?sorting
 
 levensthein
+http://awk.info/?tools/levenshtein
 
 columnate
+http://awk.info/?tools/columnate
 
 game
+http://awk.info/?game
 
 -----------------------------------------------------------
 HINTS AND TIPS
+
+popular
+http://awk.info/?news/popular
+
+awkbot
+http://awk.info/?news/awkbot
+
+whinyisers
+http://awk.info/?news/whinyfix
+
 
 -----------------------------------------------------------
 SYS ADMINS TIPS
@@ -27,18 +41,10 @@ PAGE OF THE MONTH
 
 Google Analytics reports that our page of the month is
  
-           http://awk.info/?sedinawk
+	http://awk.info/?doc/tip/sedInAwk.html
 
-This is Wm Miller's finite state machine generator,
-Fsm.awk is an awk script designed to read a finite
-state machine (fsm) specification and produce C files
-which implement that fsm.  The chief benefit of using
-fsm.awk is that it is easy to read, consistent state
-machine specifications and reuse of existing, and
-tested code.  Multiple tables and multiple users are
-happily accommodated. Fsm.awk  provides an easy avenue
-to generalization and consistency where fsms are
-required.
+Ed Morton runs us through 70 examples where a little
+Awk stands in for a lot of Sed.
 
 --------
 
