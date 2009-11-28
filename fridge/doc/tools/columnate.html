@@ -1,0 +1,41 @@
+<h1><join> Columnate</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>About</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#5>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<a name=1></a><H2> Synopsis</H2>
+<PRE>
+e.g.
+gawk -F: -f columnate.awk /etc/passwrd
+</PRE>
+<a name=2></a><H2> Download</H2>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/columnate.awk">LAWKER.</a>
+<a name=3></a><H2> About</H2>
+This script columnates the input file, so that columns line up like in the GNU column(1) command. Its output is like that of column -t. First, awk reads the whole file, keeps track of the maximum width of each field, and saves all the lines/records. At the END, the lines are printed in columnated format. If your terminal is not too narrow, you'll get a handsome display of the file.
+<a name=4></a><H2> Code</H2>
+<PRE>
+{   line[NR] = $0    # saves the line
+    for (f=1; f&lt;=NF; f++) {
+        len = length($f)
+        if (len>max[f])
+            max[f] = len }  # an array of maximum field widths
+}
+END {
+    for(nr=1; nr&lt;=NR; nr++) {
+        nf = split(line[nr], fields)
+        for (f=1; f&lt;nf; f++)
+            printf "%-*s", max[f]+2, fields[f]
+        print fields[f] }     # the last field need not be padded
+}
+</PRE>
+<a name=5></a><H2> Author</H2>
+<P>
+ h-67-101-152-180.nycmny83.dynamic.covad.net
+
+</div><!--- htmlbody --->

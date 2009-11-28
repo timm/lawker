@@ -76,7 +76,11 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/mastermind2.html\
     	$(Doc)/mastermind.html \
 		$(Doc)/tip/awk4db.html\
-		$(Doc)/tools/widenbmp.html 
+		$(Doc)/tools/widenbmp.html \
+		$(Doc)/game.html \
+		$(Doc)/sorting.html \
+		$(Doc)/tools/columnate.html\
+		$(Doc)/tools/levenshtein.html
 
 awkpp :  
 	cd $(Bash)/awk++/version21 && zip -f awkpp21.zip 
@@ -95,6 +99,12 @@ $(Doc)/tools/fsm.html : $(Cee)/fsm/contents/readme.html 	  ; cd $> && $(Awk2Html
 $(Doc)/tools/widenbmp.html : $(Awklib)/widenbmp.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/tools/xmlparse.html      : $(Awklib)/xmlparse.awk   ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/story.html      : $(Awklib)/grammar/story.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
+
+$(Doc)/game.html      : $(Awklib)/game.awk          ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/sorting.html      : $(Awklib)/sorting.awk          ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/columnate.html      : $(Awklib)/columnate.awk          ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/levenshtein.html      : $(Awklib)/levenshtein.awk          ; cd $(Awklib) && $(Awk2Html)
+
 $(Doc)/eliza.html      : $(Awklib)/eliza.awk          ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/mastermind2.html : $(Awklib)/mastermind2.awk   ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/mastermind.html : $(Awklib)/mastermind.awk     ; cd $(Awklib) && $(Awk2Html)
