@@ -2,12 +2,13 @@
 #.H2 Synopsis
 #.PRE gawk -f game.awk
 #.H2 Download
-#.P Download from
-#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/game.awk LAWKER.
+#.P 
+#Download from
+#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/game.awk LAWKER
 #.H2 About
 #.P
-# I wrote a small text-adventure game in awk - just to stretch the perception of
-# awk, and show that it can be used as a programming language.
+#I wrote a small text-adventure game in awk - just to stretch the perception of
+#awk, and show that it can be used as a programming language.
 #.P
 # This game is small, but gives a taste of the fantasy adventure games of the
 # 80's - like Zork from Infocom.
