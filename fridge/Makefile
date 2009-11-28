@@ -81,7 +81,8 @@ files : $(Doc)/dsl/markdown.html \
 		$(Doc)/sorting.html \
 		$(Doc)/tools/columnate.html\
 		$(Doc)/tools/levenshtein.html\
-		$(Doc)/news/popular.html
+		$(Doc)/news/popular.html\
+		$(Doc)/news/awkbot.html
 
 awkpp :  
 	cd $(Bash)/awk++/version21 && zip -f awkpp21.zip 
