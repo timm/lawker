@@ -7,34 +7,29 @@ see http://awk.info/?contribute .)
 -----------------------------------------------------------
 TOOLS
 
-Ed Morton sorts everything out:
+Praveen Puri offers a Zork-clone, in Awk.
+- http://awk.info/?game
+
+Ed Morton sorts out everything (using Awk):
 - http://awk.info/?sorting
 
-levensthein
-http://awk.info/?tools/levenshtein
+Is this the smartest (smallest) formatter ever written?
+- http://awk.info/?tools/columnate
 
-columnate
-http://awk.info/?tools/columnate
+Pierre Gaston calculates the edit distance between strings.
+- http://awk.info/?tools/levenshtein
 
-game
-http://awk.info/?game
-
------------------------------------------------------------
-HINTS AND TIPS
-
-popular
-http://awk.info/?news/popular
-
-awkbot
-http://awk.info/?news/awkbot
-
-whinyisers
-http://awk.info/?news/whinyfix
-
+Scott McCoy builds an Info Bot clone, in Awk.
+- http://awk.info/?news/awkbot
 
 -----------------------------------------------------------
-SYS ADMINS TIPS
+NEWS
 
+Awk.info now a top-20 website.
+- http://awk.info/?news/popular
+
+Hermann Peifer shows that WHINY_USERS really does slow Awk. 
+- http://awk.info/?news/whinyfix
 
 -----------------------------------------------------------
 PAGE OF THE MONTH

@@ -499,7 +499,7 @@ pageTracker._trackPageview();
 		<what>Admin</what>
 	</file>
 	<file where="doc/news/awkbot.html">
-		<title>A MySql Client</title>
+		<title>Awkbot:</title>
 		<what></what>
 		<what>Now</what>
 		<what>2009</what>
@@ -769,7 +769,7 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>RussC</what>
 	</file>
-	<file where="doc/news/news/whinyfix.html">
+	<file where="doc/news/whinyfix.html">
 		<title>Errata: WHINY_USERS slows down Awk</title>
 		<what>Errata</what>
 		<what></what>
