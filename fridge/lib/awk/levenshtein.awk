@@ -20,6 +20,7 @@
 #Here is the abovementioned streamlined implementation. There were eleven previous versions, all of which were benchmarked across gawk, mawk and busybox awk. The approaches started with a naive implementation and explored table-based, recursive (with no, single and shared memoization) and lazy models. As expected, the lazy version was incredibly fiddly and not pleasant to read or pursue. Findings will appear here later, but for now, here's the code.
 #.H2 Code
 #.H3 levdist
+#.SMALL
 #.PRE
 function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
         if (str1 == str2) {
@@ -48,6 +49,7 @@ function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
         return arr[tog, j-1]
 }
 #./PRE
+#./SMALL
 #.H3 Demo code
 #.P
 #Run demo.awk using  <em>gawk -f levenshtein.awk -f demo.awk</em>.
@@ -73,9 +75,9 @@ function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
 #.H3 Unit tests
 #.P
 #Run utests.awk using <em>gawk -f levenshtein.awk -f utests.awk</em>.
-##utests.awk
 #.SMALL
 #.PRE
+##utests.awk
 #function testlevdist(str1, str2, correctval,    testval) {
 #    testval = levdist(str1, str2)
 #    if (testval == correctval) {

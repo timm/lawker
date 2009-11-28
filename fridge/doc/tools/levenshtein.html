@@ -32,6 +32,7 @@ Gnomon (from awk.freeshell.org) is planning to write a more compact (and hopeful
 Here is the abovementioned streamlined implementation. There were eleven previous versions, all of which were benchmarked across gawk, mawk and busybox awk. The approaches started with a naive implementation and explored table-based, recursive (with no, single and shared memoization) and lazy models. As expected, the lazy version was incredibly fiddly and not pleasant to read or pursue. Findings will appear here later, but for now, here's the code.
 <a name=4></a><H2> Code</H2>
 <a name=5></a><H3> levdist</H3>
+<SMALL>
 <PRE>
 function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
         if (str1 == str2) {
@@ -60,6 +61,7 @@ function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
         return arr[tog, j-1]
 }
 </PRE>
+</SMALL>
 <a name=6></a><H3> Demo code</H3>
 <P>
 Run demo.awk using  <em>gawk -f levenshtein.awk -f demo.awk</em>.
@@ -85,9 +87,9 @@ END {
 <a name=7></a><H3> Unit tests</H3>
 <P>
 Run utests.awk using <em>gawk -f levenshtein.awk -f utests.awk</em>.
-#utests.awk
 <SMALL>
 <PRE>
+#utests.awk
 function testlevdist(str1, str2, correctval,    testval) {
     testval = levdist(str1, str2)
     if (testval == correctval) {
