@@ -519,6 +519,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JohnD</what>
 	</file>
+	<file where="doc/tools/rcalc.html">
+		<title>Resistor Calculation</title>
+		<what></what>
+		<what>Engineering</what>
+		<what>Nov</what>
+		<what>2009</what>
+		<what>GrantC</what>
+	</file>
 	<file where="doc/tools/zipf.html">
 		<title>Zipf's Law</title>
 		<what></what>

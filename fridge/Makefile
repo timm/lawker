@@ -80,6 +80,7 @@ files : $(Doc)/dsl/markdown.html \
 		$(Doc)/game.html \
 		$(Doc)/sorting.html \
 		$(Doc)/tools/columnate.html\
+		$(Doc)/tools/rcalc.html\
 		$(Doc)/tools/levenshtein.html\
 		$(Doc)/news/popular.html\
 		$(Doc)/news/awkbot.html
@@ -99,6 +100,7 @@ $(Doc)/tools/fsm.html : $(Cee)/fsm/contents/readme.html 	  ; cd $> && $(Awk2Html
 #$(Doc)/tools/options.html : $(Awklib)/optionsDemo.awk 	  ; cd $(Awklib) && $(Awk2Html)
 
 $(Doc)/tools/widenbmp.html : $(Awklib)/widenbmp.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
+$(Doc)/tools/rcalc.html      : $(Awklib)/rcalc.awk   ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/tools/xmlparse.html      : $(Awklib)/xmlparse.awk   ; cd $(Awklib)/grammar && $(Awk2Html)
 $(Doc)/story.html      : $(Awklib)/grammar/story.awk  ; cd $(Awklib)/grammar && $(Awk2Html)
 
