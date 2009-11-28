@@ -1,7 +1,7 @@
 #.H1 An Awk Dungeon Adventure Game
-#.h2 Synopsis
-#.pre gawk -f game.awk
-#.h2 Download
+#.H2 Synopsis
+#.PRE gawk -f game.awk
+#.H2 Download
 #.P Download from
 #.URL http://lawker.googlecode.com/svn/fridge/lib/awk/game.awk LAWKER.
 #.H2 About
@@ -17,6 +17,7 @@
 # them.  It uses a menu - not free-form entries.
 #.P
 # Here is the awk code:
+#.SMALL
 #.PRE
 function intro() {
 	print
@@ -151,8 +152,8 @@ function niche() {
 }
  
 BEGIN { intro(); cave() }
-
 #./PRE 
+#./SMALL
 #.h2 Comments
 #.P
 #This is one of the longest awk programs that I have written.  Notice that it is
