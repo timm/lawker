@@ -46,8 +46,8 @@ doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
-doc/news/popular.html		;Admin	;2009	;Now;				;|Awk.info Gaining Popularity
-doc/news/awkbot.html		;ScottS	;2009	;Now;				;|Awkbot: 
+doc/news/popular.html		;Admin	;2009	;Nov;				;|Awk.info Gaining Popularity
+doc/news/awkbot.html		;ScottS	;2009	;Nov;				;|Awkbot: 
 doc/news/awkmug.html		;Zazzle	;2009	;Oct;				;|Awk Mug
 doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Parallel Awk
 doc/tools/rcalc.html		;GrantC	;2009	;Nov;	Engineering;			;|Resistor Calculation
@@ -90,7 +90,7 @@ doc/tip/shortenMyPipes.html			;M0J0	;2009	;Oct	;SysAdmin	 		;|Shorten my pipes
 doc/tip/sedInAwk.html			;EdM	;2009	;Oct	;Tips ;Sed		;|Sed in Awk
 doc/fastre.html				;RussC	;2009	;Jul			;|Regular Expression Matching Can Be Simple And Fast 
 
-doc/news/whinyfix.html		;HermannP	;2009	;Now; ;Errata		;|Errata: WHINY_USERS slows down Awk
+doc/news/whinyfix.html		;HermannP	;2009	;Nov; ;Errata		;|Errata: WHINY_USERS slows down Awk
 doc/tip/whinyUsers.html		;EdM	;2009	;Sept	;Tips	;|The Secret WHINY_YSERS flag
 doc/tip/printranges.html		;EdM	;2009	;Aug	;Tips	;|Printing ranges
 doc/tip/awk4db.html		;VictorA	;2009	;Jul	;Tips	;Databases	;|Using Awk for Databases

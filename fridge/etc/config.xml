@@ -494,14 +494,14 @@ pageTracker._trackPageview();
 	<file where="doc/news/popular.html">
 		<title>Awk.info Gaining Popularity</title>
 		<what></what>
-		<what>Now</what>
+		<what>Nov</what>
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
 	<file where="doc/news/awkbot.html">
 		<title>Awkbot:</title>
 		<what></what>
-		<what>Now</what>
+		<what>Nov</what>
 		<what>2009</what>
 		<what>ScottS</what>
 	</file>
@@ -790,7 +790,7 @@ pageTracker._trackPageview();
 		<title>Errata: WHINY_USERS slows down Awk</title>
 		<what>Errata</what>
 		<what></what>
-		<what>Now</what>
+		<what>Nov</what>
 		<what>2009</what>
 		<what>HermannP</what>
 	</file>

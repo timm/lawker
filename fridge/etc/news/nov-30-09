@@ -16,6 +16,9 @@ Ed Morton sorts out everything (using Awk):
 Is this the smartest (smallest) formatter ever written?
 - http://awk.info/?tools/columnate
 
+Gregory Grefenstette implements Norvig's spell checker
+- http://awk.info/?tools/spellcheck 
+
 Pierre Gaston calculates the edit distance between strings.
 - http://awk.info/?tools/levenshtein
 
