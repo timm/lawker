@@ -1365,7 +1365,6 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/tools/spellcheck.html">
 		<title>spellcheck.awk</title>
-		<what>Top10</what>
 		<what>Nov</what>
 		<what>2009</what>
 		<what>Spell</what>
