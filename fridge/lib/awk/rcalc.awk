@@ -1,7 +1,9 @@
 #.H1 rcalc
 #.H2 Synposis
+#.PRE
 ##eg
 # gawk -v target=89000 -f rcalc.awk 
+#./PRE
 #.H2 Download
 #.P 
 #Download from
@@ -21,7 +23,7 @@
 #  that will produce or come close to the desired arbitrary resistor value.
 #.H2 Example
 #.PRE
-#$ gawk -v target=89000 rcalc.awk
+#$ gawk -v target=89000 -f rcalc.awk
 #       Result         Ra      Rb  Connect    Error
 #       88800.00    82000    6800  series    -0.22%
 #       88888.89   200000  160000  parallel  -0.12%
@@ -94,6 +96,6 @@ END {
 }
 #./PRE
 #./SMALL
-##.H2 Author
+#.H2 Author
 #.P
 # Copyright (c) 2009 Grant Coady &lt;http://bugsplatter.id.au> GPLv2

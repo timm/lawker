@@ -1,0 +1,56 @@
+<h1><join>Runawk 0.18 Released</join></h1>
+<h2>Download</h2>
+<a href=" http://sourceforge.net/projects/runawk"> http://sourceforge.net/projects/runawk</a>
+<h2>About</h2>
+<p>
+ runawk is a small wrapper for the AWK interpreter that helps one
+   write standalone AWK scripts. Its main feature is to provide a
+   module/library system for AWK which is somewhat similar to Perl's
+   "use" command. It also allows you to select a preferred AWK
+   interpreter and to setup the environment for your scripts. It also
+   provides other helpful features, for example it includes
+   numerous useful of modules.
+<p>
+<h2>Major Changes IN RUNAWK-0.18.0</h2>
+<p>
+ Makefile:
+<ul>
+<li>
+    "install-dirs" target has been renamed to "installdirs" 
+
+    <li> At compile time MODULESDIR can contain a *list* of
+      colon-separated directories,
+      e.g. /usr/local/share/runawk:/usr/local/share/awk
+<li>
+     Support for multiply applied options, e.g. -vvv for increasing
+      verbosity level. If option without arguments is multiply
+      applied, getarg() function returns a number of times it was
+      applied, not just 0 or 1.
+</ul>
+<p>
+ New modules:
+<ul><li>
+     init_getopt.awk using alt_getopt.awk and used by power_getopt.awk.
+      Its goal is to initialize `long_opts' and `long_opts' variables
+      but not run `getopt' function.
+<li>
+     heapsort.awk  :  heapsort :-)
+<li>
+     quicksort.awk : quicksort :-)
+<li>
+     sort.awk      : either heapsort or quicksort,
+                      the default is heapsort.
+      Unfortunately GAWK's asort() and asorti() functions
+      do *not* satisfy my needs. Another (and more important) reason
+      is a portability.
+</ul>
+<p>
+ Improvements, clean-ups and fixes in regression tests.
+<p>
+Also,
+ runawk-0-18-0 was successfully tested on the following platforms:
+    NetBSD-5.0/x86, NetBSD-2.0/alpha, OpenBSD-4.5/x86,
+    FreeBSD-7.1/x86, FreeBSD-7.1/spark, Linux/x86 and
+    Darwin/ppc. 
+<h2>Author
+<p> Aleksey Cheusov 

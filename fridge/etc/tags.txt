@@ -58,6 +58,7 @@ doc/news/robbinsTalks.html	;ArnoldR	;2009	;Aug;			;|Interview with Arnold Robbin
 doc/news/libmawk.html		;TiborP	;2009	;Aug	;Libmawk	;Mawk		;|How to call Awk form "C" with Libmawk
 doc/news/awkeye.html		;DickL	;2009	;Jul	;Mascot		;|New Awk Mascot ('AWK-eye the Dwarf)?
 doc/news/theAwkBook.html	;Admin; 2009; Mar; News			;|The Awk Book's Code
+doc/news/runawk018.html		;AlexC	;2009	;Nov	;Tools	;Project ;Runawk	;|Runawk 0.18
 doc/news/runawk017.html		;AlexC	;2009	;Sept	;Tools	;Project ;Runawk	;|Runawk 0.17
 doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
 doc/news/awksnake.html		;PanosP	;2009	;Sept	;Mascot		;|Awk snake 

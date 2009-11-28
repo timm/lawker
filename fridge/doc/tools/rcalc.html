@@ -6,11 +6,14 @@
 <h2><font color=black>&bull;</font></a> <a href=#3>About</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#4>Example</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#5>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#6>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synposis</H2>
+<PRE>
 #eg
  gawk -v target=89000 -f rcalc.awk 
+</PRE>
 <a name=2></a><H2> Download</H2>
 <P>
 Download from
@@ -30,7 +33,7 @@ Download from
   that will produce or come close to the desired arbitrary resistor value.
 <a name=4></a><H2> Example</H2>
 <PRE>
-$ gawk -v target=89000 rcalc.awk
+$ gawk -v target=89000 -f rcalc.awk
        Result         Ra      Rb  Connect    Error
        88800.00    82000    6800  series    -0.22%
        88888.89   200000  160000  parallel  -0.12%
@@ -103,7 +106,7 @@ END {
 }
 </PRE>
 </SMALL>
-#.H2 Author
+<a name=6></a><H2> Author</H2>
 <P>
  Copyright (c) 2009 Grant Coady &lt;http://bugsplatter.id.au> GPLv2
 </div><!--- htmlbody --->
