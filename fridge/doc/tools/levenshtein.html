@@ -2,29 +2,36 @@
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
-<h3><font color=black>&bull;</font></a> <a href=#2>Demo code</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#3>Unit tests</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#4>Author</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Notes</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Code</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#5>levdist</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#6>Demo code</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#7>Unit tests</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#8>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
-<PRE> gawk -f levenshtein.awk --source 'BEGIN {print levdist("kitten", "sitting")}'</PRE>
-&lt;P> (The above code should print "3").&lt;/P>
-&lt;H2> Download&lt;/H2>
-&lt;P>
+<PRE>
+gawk -f levenshtein.awk --source 'BEGIN {
+        print levdist("kitten", "sitting")}' 
+</PRE>
+<P> (The above code should print "3").</P>
+<a name=2></a><H2> Download</H2>
+<P>
 Download from
-&lt;a href="http://lawker.googlecode.com/svn/fridge/lib/awk/levenshtein.awk">LAWKER.&lt;/a>
-&lt;H2> Notes&lt;/H2>
-&lt;P>
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/levenshtein.awk">LAWKER.</a>
+<a name=3></a><H2> Notes</H2>
+<P>
 The Levenshtein edit distance calculation is useful for comparing text strings for similarity, such as would be done with a spell checker.
-&lt;P>
+<P>
 Hi_saito (from awk.freeshell.org) has written what looks like a straightforward implementation of the reference algorithm described in the above-linked Wikipedia article. hi_saito's code is linked to rather than included outright because no licensing terms appear on the page.
-&lt;P>
+<P>
 Gnomon (from awk.freeshell.org) is planning to write a more compact (and hopefully speedier) implementation that will appear here soon. The plan is to compute and retain only those values that are necessary to calculate the edit distance, rather than calculating the entire NxM? matrix. The lazy-evaluation method, which can post substantial speed improvements, probably requires more effort and code complexity than the performance gains would be worth; still, for short strings, the lazy code could perhaps be modeled via recursion by executing from the end of the string rather than the beginning. If experiments are run, the results will also appear here.
-&lt;P>
+<P>
 Here is the abovementioned streamlined implementation. There were eleven previous versions, all of which were benchmarked across gawk, mawk and busybox awk. The approaches started with a naive implementation and explored table-based, recursive (with no, single and shared memoization) and lazy models. As expected, the lazy version was incredibly fiddly and not pleasant to read or pursue. Findings will appear here later, but for now, here's the code.
-&lt;H2> Code&lt;/H2>
-&lt;H3> levdist&lt;/H3>
+<a name=4></a><H2> Code</H2>
+<a name=5></a><H3> levdist</H3>
 <PRE>
 function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
         if (str1 == str2) {
@@ -53,11 +60,11 @@ function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
         return arr[tog, j-1]
 }
 </PRE>
-<a name=2></a><H3> Demo code</H3>
+<a name=6></a><H3> Demo code</H3>
 <P>
 Run demo.awk using  <em>gawk -f levenshtein.awk -f demo.awk</em>.
 <PRE>
-demo.awk
+#demo.awk
 BEGIN {OFS = "\t"}
 {words[NR] = $0}
 END {
@@ -75,9 +82,10 @@ END {
    print bestpair
 }
 </PRE>
-<a name=3></a><H3> Unit tests</H3>
+<a name=7></a><H3> Unit tests</H3>
 <P>
 Run utests.awk using <em>gawk -f levenshtein.awk -f utests.awk</em>.
+#utests.awk
 <SMALL>
 <PRE>
 function testlevdist(str1, str2, correctval,    testval) {
@@ -106,6 +114,6 @@ BEGIN {
 }
 </PRE>
 </SMALL>
-<a name=4></a><H2> Author</H2>
-<P> pierre.gaston &lta.t> gmail.com</P>
+<a name=8></a><H2> Author</H2>
+<P> pierre.gaston &lt;a.t> gmail.com</P>
 </div><!--- htmlbody --->

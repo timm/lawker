@@ -1,6 +1,9 @@
 #.H1 levenshtein.awk
 #.H2 Synopsis
-#.PRE gawk -f levenshtein.awk --source 'BEGIN {print levdist("kitten", "sitting")}' 
+#.PRE 
+#gawk -f levenshtein.awk --source 'BEGIN {
+#        print levdist("kitten", "sitting")}' 
+#./PRE
 #.P (The above code should print "3").
 #.H2 Download
 #.P 
@@ -49,7 +52,7 @@ function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
 #.P
 #Run demo.awk using  <em>gawk -f levenshtein.awk -f demo.awk</em>.
 #.PRE
-#demo.awk
+##demo.awk
 #BEGIN {OFS = "\t"}
 #{words[NR] = $0}
 #END {
@@ -70,6 +73,7 @@ function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
 #.H3 Unit tests
 #.P
 #Run utests.awk using <em>gawk -f levenshtein.awk -f utests.awk</em>.
+##utests.awk
 #.SMALL
 #.PRE
 #function testlevdist(str1, str2, correctval,    testval) {
@@ -99,4 +103,4 @@ function levdist(str1, str2,    l1, l2, tog, arr, i, j, a, b, c) {
 #./PRE
 #./SMALL
 #.H2 Author
-#.P pierre.gaston &lta.t> gmail.com 
+#.P pierre.gaston &lt;a.t> gmail.com 
