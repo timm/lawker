@@ -58,7 +58,8 @@ function selSort(keyArr,outArr,   swap,thisIdx,minIdx,cmpIdx,numElts) {
 <P>
 Key Sort O(n^2): made up by Ed Morton for simplicity.
 <PRE>
-function keySort(keyArr,outArr,   occArr,thisIdx,thisKey,cmpIdx,outIdx,numElts) {
+function keySort(keyArr,outArr,   \
+                occArr,thisIdx,thisKey,cmpIdx,outIdx,numElts) {
   for (thisIdx in keyArr) {
       thisKey = keyArr[thisIdx]
       outIdx=++occArr[thisKey]  # start at 1 plus num occurrences

@@ -1,10 +1,11 @@
-
+<h1><join> An Awk Dungeon Adventure Game</join></h1>
 <h2>Contents</h2>
 <div id="htmltoc">
 <h2><font color=black>&bull;</font></a> <a href=#1>Synopsis</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>Comments</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
- .H1 An Awk Dungeon Adventure Game
 <a name=1></a><h2> Synopsis</h2>
 <pre> gawk -f game.awk</pre>
 &lt;h2> Download&lt;/h2>
@@ -23,6 +24,7 @@
  them.  It uses a menu - not free-form entries.
 &lt;P>
  Here is the awk code:
+<PRE>
 function intro() {
 	print
 	print "You are a brave adventurer. You have entered a hidden"
@@ -157,24 +159,26 @@ function niche() {
  
 BEGIN { intro(); cave() }
 
- 
-&lt;h2> Comments&lt;/h2>
-&lt;P>
+</PRE>
+<a name=2></a><h2> Comments</h2>
+<P>
 This is one of the longest awk programs that I have written.  Notice that it is
 function-driven.  I have created functions to give the introduction, and the
 inventory, and I have created functions for each room. 
-&lt;P>
+<P>
 The awk program is kicked off by the BEGIN section, which runs intro() and cave() 
 to put you in the first room.
-&lt;P>
+<P>
 Each object is represented by a variable of the same name (i.e. sword for
 sword) and is either 0 (off) or 1 (on), depending if you have the object. 
-&lt;P>
+<P>
 Each function will print descriptions and gve options, depending on the setting
 of these boolean variables.
-&lt;H2> Author&lt;/H2>
-&lt;P>
+<a name=3></a><H2> Author</H2>
+<P>
 Praveen Puri has been a programmer and full-time trader. He is the author
-    of Stock Trading Riches, which teaches his simple and successful stock
+    of 
+<a href="http://www.amazon.com/Stock-Trading-Riches-Powerful-Transforms/dp/1434809870">Stock Trading Riches</a>
+ which teaches his stock
     trading system.
 </div><!--- htmlbody --->

@@ -1,4 +1,4 @@
-# .H1 An Awk Dungeon Adventure Game
+#.H1 An Awk Dungeon Adventure Game
 #.h2 Synopsis
 #.pre gawk -f game.awk
 #.h2 Download
@@ -17,6 +17,7 @@
 # them.  It uses a menu - not free-form entries.
 #.P
 # Here is the awk code:
+#.PRE
 function intro() {
 	print
 	print "You are a brave adventurer. You have entered a hidden"
@@ -151,7 +152,7 @@ function niche() {
  
 BEGIN { intro(); cave() }
 
- 
+#./PRE 
 #.h2 Comments
 #.P
 #This is one of the longest awk programs that I have written.  Notice that it is
@@ -169,5 +170,7 @@ BEGIN { intro(); cave() }
 #.H2 Author
 #.P
 #Praveen Puri has been a programmer and full-time trader. He is the author
-#    of Stock Trading Riches, which teaches his simple and successful stock
+#    of 
+#.URL http://www.amazon.com/Stock-Trading-Riches-Powerful-Transforms/dp/1434809870 Stock Trading Riches
+# which teaches his stock
 #    trading system.
