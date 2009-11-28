@@ -59,6 +59,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/dsl/graph.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html \
+    	$(Doc)/tools/spellcheck.html \
     	$(Doc)/awk100/aaa.html \
     	$(Doc)/hanoi.html \
     	$(Doc)/story.html \
@@ -124,7 +125,7 @@ $(Doc)/tools/shuffle.html   : $(Awklib)/shuffle.awk   ; cd $(Awklib) && $(Awk2Ht
 $(Doc)/tools/cryptosig.html : $(Awklib)/cryptosig.awk ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/sigs.html : $(Bash)/sigs                 ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/nbc.html : $(Bash)/nbc/contents/nbc      ; cd $(Awklib) && $(Awk2Html)
-$(Doc)/tools/spellcheck.html : $(Bash)/spellcheck.awk      ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/spellcheck.html : $(Awklib)/spellcheck.awk      ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tip/awk4db.html : $(Awklib)/awk4db/contents/readme.awk
 	 cd $(Awklib)/awk4db &&  cd contents && $(Awk2Html)
 
