@@ -1,10 +1,11 @@
 #.H1 An Awk Dungeon Adventure Game
 #.H2 Synopsis
+#.P
 #.PRE gawk -f game.awk
 #.H2 Download
 #.P 
 #Download from
-#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/game.awk LAWKER
+#.URL http://lawker.googlecode.com/svn/fridge/lib/awk/game.awk LAWKER.
 #.H2 About
 #.P
 #I wrote a small text-adventure game in awk - just to stretch the perception of
