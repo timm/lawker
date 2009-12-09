@@ -1,0 +1,1820 @@
+
+# This is a shell archive.  Remove anything before this line,
+# then unpack it by saving it in a file and typing "sh file".
+#
+# Wrapped by magna.math.utah.edu!beebe on Sat Nov 23 12:38:36 MST 1991
+# Contents:  SUM-COLUMNS SUM-USER afm-split.awk begend.awk check-if-nest.awk
+#	cm.awk comment-cpp-if-blocks.awk compsize.awk cxref.awk deinclude.awk
+#	find-formats.awk find-printf.awk fixtimes.awk ftp-dates.awk lpp.awk
+#	lpp.dat pk-to-pxl-mag.awk reverse site.awk size.awk sum-user.awk
+#	toms.awk x3.awk x4.awk x5.awk x5a.awk x6.awk
+ 
+echo x - SUM-COLUMNS
+sed 's/^@//' > "SUM-COLUMNS" <<'@//E*O*F SUM-COLUMNS//'
+#!/bin/sh
+# Sum the arg-th column in stdin.
+# [12-Dec-1990]
+awk "{sum += \$$1}
+	END {print sum}"
+
+@//E*O*F SUM-COLUMNS//
+chmod u=rwx,g=rx,o=rx SUM-COLUMNS
+ 
+echo x - SUM-USER
+sed 's/^@//' > "SUM-USER" <<'@//E*O*F SUM-USER//'
+#!/bin/sh
+# Provide subtotals by user in a disk usage listing with entries 
+# of the form
+#
+# 1152358         ./u/ma/alfeld/mail/mail.txt
+#
+# Usage:
+#	SUM-USER dir-prefix
+#
+# where dir-prefix is to be ignored (./u/ma/ in the above example).
+# [12-Dec-1990]
+nawk -f sum-user.awk PREFIX=$1
+
+@//E*O*F SUM-USER//
+chmod u=rwx,g=rx,o=rx SUM-USER
+ 
+echo x - afm-split.awk
+sed 's/^@//' > "afm-split.awk" <<'@//E*O*F afm-split.awk//'
+# /u/sy/beebe/mail/afm-split.awk, Tue Dec  4 09:23:58 1990
+# Edit by Nelson H.F. Beebe <beebe@sandy.math.utah.edu>
+# ========================================================================
+# Split an MM mail file containing messages
+#	From: Adobe PostScript File Server <ps-file-server@adobe.com>
+#	Subject: here is "AFMFiles/AmericanTypewriter-Bold  ..."
+#	...
+#	StartFontMetrics 2.0
+#	...
+#	FontName AmericanTypewriter-Bold
+#	...
+#	EndFontMetrics
+# into output files named AmericanTypewriter-Bold.afm et al.
+#
+# Usage:
+#	nawk -f afm-split.awk <mailfile
+# [04-Dec-1990]
+# ========================================================================
+BEGIN {AFM = ""}
+/^StartFontMetrics/,/^EndFontMetrics/ {
+	AFM = AFM $0 "\n";
+	if ($1 == "FontName") AFMfile = $2 ".afm";
+	if ($1 == "EndFontMetrics")
+	{
+	    printf("%s",AFM) > AFMfile;
+	    AFM = "";
+	}
+}
+
+@//E*O*F afm-split.awk//
+chmod u=r,g=r,o=r afm-split.awk
+ 
+echo x - begend.awk
+sed 's/^@//' > "begend.awk" <<'@//E*O*F begend.awk//'
+# Find LaTeX \begin{} ... \end{} sequences on stdin and indent
+# them according to nesting level (stopping on nesting errors) on
+# stdout.
+#
+# Usage:
+#	awk -f begend.awk <infile >outfile
+#
+# Candidates for substitution may be preceded on a line only by
+# whitespace.  The code can be fooled by \begin{}/\end{}
+# sequences appearing as arguments to a macro if they appear at
+# the start of a line; such lines should be manually reformatted
+# before rerunning this program.
+#
+# The verbatim environment is known to be special, and
+# indentation for it will be suppressed.
+#
+# [20-Jan-88]
+BEGIN { blanks = \
+"                                                                        ";
+	INDENT = 3;	# how many spaces to indent successive levels
+}
+
+# NB: apparent awk error--cannot reliably index arrays by 0, so we use
+#     level+1 instead of level
+
+/^[ \t]*\\begin\{[a-zA-Z]+\}/ { 
+#	print $1; 
+	processed = 1;
+	k1 = index($0,"{");
+	k2 = index($0,"}");
+	lno[level+1] = NR;
+	name[level+1] = substr($0,k1+1,k2-k1-1);
+	if (name[level+1] == "verbatim")
+		printf "%s\n",substr($0,k1-6);
+	else
+		printf "%s%s\n",substr(blanks,1,INDENT*level),substr($0,k1-6);
+#	printf"\t\t\tname[%d] = <%s>\n",level,name[level+1];
+	level++;	
+}
+
+/^[ \t]*\\end{[a-zA-Z]+}/ { 
+#	print $0; 
+	processed = 1;
+	k1 = index($0,"{");
+	k2 = index($0,"}");
+	end_text = substr($0,k1+1,k2-k1-1);
+	if (--level < 0)
+	{
+		printf "Unmatched \\end{%s} at line %d\n",end_text,NR > "/dev/tty";
+		exit(1);
+	}
+	if (name[level+1] != end_text)
+	{
+#	printf"\t\t\tname[%d] = <%s>\n",level,name[level+1];
+	printf "Unbalanced environments:\n\t%s at line %d\n\t%s at line %d\n",\
+		name[level+1],lno[level+1],end_text,NR > "/dev/tty";
+		exit(1);
+	}
+	if (name[level+1] == "verbatim")
+		printf "%s\n",substr($0,k1-4);
+	else
+		printf "%s%s\n",substr(blanks,1,INDENT*level),substr($0,k1-4);
+}
+
+{
+	if (!processed)
+	    print $0;
+	processed = 0;
+}
+@//E*O*F begend.awk//
+chmod u=rw,g=r,o=r begend.awk
+ 
+echo x - check-if-nest.awk
+sed 's/^@//' > "check-if-nest.awk" <<'@//E*O*F check-if-nest.awk//'
+# /u/sy/beebe/awk/check-if-nest.awk, Wed May 31 16:37:10 1989
+# Edit by Nelson H.F. Beebe <beebe@plot79.utah.edu>
+# ========================================================================
+# Check #if...#endif nesting in C code on stdin.  No output means
+# correct nesting.  Otherwise, the line and line number of unbalanced
+# #if or #endif lines are output.
+#
+# Usage:
+#	nawk -f check-if-nest.awk <infile
+#
+# [01-Jun-89]
+# ========================================================================
+
+/^[ \t]*#[ \t]*if/    {
+	++level;
+	iftext[level] = $0;		# save #if line
+	line_number[level] = NR;	# and its line number
+	next;
+    }
+
+/^[ \t]*#[ \t]*endif/    {
+	if (level < 1)
+	    print "Line " NR ":\tExtra   \t" $0;
+	else
+	    --level;
+	next;
+    }
+
+END {
+    for (k = 1 ; k <= level; ++k)
+	print "Line " line_number[k] ":\tUnclosed\t" iftext[k];
+    }
+
+@//E*O*F check-if-nest.awk//
+chmod u=rw,g=rw,o=r check-if-nest.awk
+ 
+echo x - cm.awk
+sed 's/^@//' > "cm.awk" <<'@//E*O*F cm.awk//'
+BEGIN {	for (k = -6; k < 10; ++k)
+	{
+		m = k + 0.5;
+		printf "case \" %d \": set res=180; set magstep=%d; breaksw;\n",
+			int(0.5+180*(1.2^k)),
+			k;
+		printf "case \" %d \": set res=180; set magstep=%.1f; breaksw;\n",
+			int(0.5+180*(1.2^m)),
+			m;
+
+		printf "case \" %d \": set res=240; set magstep=%d; breaksw;\n",
+			int(0.5+240*(1.2^k)),
+			k;
+		printf "case \" %d \": set res=240; set magstep=%.1f; breaksw;\n",
+			int(0.5+240*(1.2^m)),
+			m;
+
+		printf "case \" %d \": set res=300; set magstep=%.1f; breaksw;\n",
+			int(0.5+300*(1.2^m)),
+			m;
+		printf "case \" %d \": set res=300; set magstep=%d; breaksw;\n",
+			int(0.5+300*(1.2^k)),
+			k;
+	}
+}
+@//E*O*F cm.awk//
+chmod u=rw,g=r,o=r cm.awk
+ 
+echo x - comment-cpp-if-blocks.awk
+sed 's/^@//' > "comment-cpp-if-blocks.awk" <<'@//E*O*F comment-cpp-if-blocks.awk//'
+# ========================================================================
+# To enhance readability of C code containing many preprocessor
+# conditionals, change input code
+#
+#	#if condition arbitrary
+#	#elif condition
+#	#else arbitrary
+#	#endif arbitrary
+#
+# to output code
+#
+#	#if if-condition arbitrary
+#	#elif elif-condition
+#	#else /* NOT (if-condition | elif-condition | ...) */
+#	#endif /* if-condition */
+#
+# WARNING: If input statements are continued onto more than one line,
+# processing will not be correct.
+#
+# Usage:
+#	nawk -f comment-cpp-if-blocks.awk <infile >outfile
+#
+# [01-Jun-89]
+# ========================================================================
+
+/^[ \t]*#[ \t]*if/    {
+	++level;
+	gsub(/^[ \t]*#[ \t]*/,"#",$0);	# drop leading whitespace
+	print $0;
+	$0 = uncomment($0);
+	iftext[level] = $0;		# save #if line
+	gsub(/^[ \t]*#[ \t]*if[a-z]*[ \t]*/,"",$0);
+	condition[level] = $0;
+	line_number[level] = NR;	# and its line number
+	next;
+    }
+
+/^[ \t]*#[ \t]*elif/    {
+	gsub(/^[ \t]*#[ \t]*/,"#",$0);	# drop leading whitespace
+	print $0;
+	$0 = uncomment($0);
+	gsub(/^[ \t]*#[ \t]*elif[ \t]*/,"",$0);
+	condition[level] = condition[level] " OR " $0;
+	next;
+    }
+
+/^[ \t]*#[ \t]*else/    {
+        condition[level] = normalize(condition[level]);
+	if (condition[level] ~ /^(.*)$/) # already parenthesized
+	    print "#else  /* NOT " condition[level] " */";
+	else if (index(condition[level]," ") > 0) # simple expression
+	    print "#else  /* NOT (" condition[level] ") */";
+	else			# complex expression
+	    print "#else  /* NOT " condition[level] " */";
+	next;
+    }
+
+/^[ \t]*#[ \t]*endif/    {
+	if (level < 1)
+	    print "???Line " NR ":\tExtra   \t" $0;
+	else
+	{
+	    condition[level] = normalize(condition[level]);
+	    if (condition[level] ~ /^(.*)$/) # already parenthesized
+	        print "#endif /* " condition[level] " */";
+	    else if (index(condition[level]," ") > 0) # simple expression
+	        print "#endif /* (" condition[level] ") */";
+	    else			# complex expression
+	        print "#endif /* " condition[level] " */";
+	    --level;
+	}
+	next;
+    }
+
+/.*/ {
+	print $0;
+    }
+
+
+# Finally, check for unclosed #if statements
+END {
+    for (k = 1 ; k <= level; ++k)
+	print "???Line " line_number[k] ":\tUnclosed\t" iftext[k];
+    }
+
+function normalize (s, t)
+{
+    t = s;
+    gsub(/^[ \t]+/,"",t);	# strip leading whitespace
+    gsub(/[ \t]+$/,"",t);	# strip trailing whitespace
+    gsub(/[ \t]+/," ",t);	# shorten remaining whitespace
+    return (t);
+}
+
+function uncomment(s, t, cb,ce)
+{
+    t = s;
+
+#   I don't know why this regular expression substitution doesn't work
+#   gsub(/\/\*[^\*]*(\*[^\/]*)[^\*]*\*\//," ",t);
+#   so do it manually, sigh...
+
+    for (cb = index(t,"/*"); cb > 0; cb = index(t,"/*"))
+    {
+	ce = index(substr(t,cb),"*/") + cb - 1;
+	if (ce < 0)
+	{
+	    print "???Line " NR ": unclosed comment";
+	    return (t);
+	}
+	t = substr(t,1,cb-1) substr(t,ce+2);
+    }
+
+#   printf ("\n\n%%%%%%%s\n%%%%%%%s\n\n",s,t);
+    return (t);
+}
+@//E*O*F comment-cpp-if-blocks.awk//
+chmod u=rw,g=rw,o=r comment-cpp-if-blocks.awk
+ 
+echo x - compsize.awk
+sed 's/^@//' > "compsize.awk" <<'@//E*O*F compsize.awk//'
+# /u/sy/beebe/src/awk/compsize.awk, Fri Mar  9 10:12:20 1990
+# Edit by Nelson H.F. Beebe <beebe@plot79.math.utah.edu>
+# ========================================================================
+# Compare binary sizes on Sun 3, Sun 386i, and Sun4 systems.
+# Usage:
+#	on each Sun, do "ls -1s >~/`arch`
+#	nawk -f compsize.awk sun3 sun386 sun4 | sort >report-file
+# [09-Mar-1990]
+# ========================================================================
+BEGIN {}
+{
+	if ($1 == "total")
+	    next;
+	if (FILENAME == "sun3")
+		sun3[$2] = $1;
+	else if (FILENAME == "sun386")
+		sun386[$2] = $1;
+	else if (FILENAME == "sun4")
+		sun4[$2] = $1;
+}
+END   {
+    printf("*1 Comparison of Disk Space Usage (accounting in blocks)\n\n")
+    "date" | getline date;
+    printf("*2 %s\n",date);
+    printf("*3 Totals based only on files which exist in all 3 architectures\n");
+    printf(     "*4\t\t\t                   ------ratio------\n");
+    printf("Program\t\t\t Sun3 Sun386 Sun4  Sun3 Sun386 Sun4\n");
+    for (program in sun3)
+    {
+	printf("%-20s\t%5d %5d %5d %5.2f %5.2f %5.2f\n",
+	    program,
+	    sun3[program],sun386[program],sun4[program],
+	    sun3[program]/sun3[program],
+	    sun386[program]/sun3[program],
+	    sun4[program]/sun3[program]);
+	if (sun3[program] && sun386[program] && sun4[program])
+	{
+	    total_sun3 += sun3[program];
+	    total_sun386 += sun386[program];
+	    total_sun4 += sun4[program];
+	}
+    }
+    printf("%-20s\t%5d %5d %5d %5.2f %5.2f %5.2f\n",
+	"|Total|",total_sun3,total_sun386,total_sun4,
+	total_sun3/total_sun3, total_sun386/total_sun3, total_sun4/total_sun3);
+}
+@//E*O*F compsize.awk//
+chmod u=rw,g=rw,o=r compsize.awk
+ 
+echo x - cxref.awk
+sed 's/^@//' > "cxref.awk" <<'@//E*O*F cxref.awk//'
+# Make a "nm"-style cross-reference table which can be later
+# converted into neat tabular form.
+#
+# Usage:
+#	cxref filelist | awk -f cxref.awk | sort -u | >foo.nm
+#
+# Sun OS 3.3 cxref listings look like
+#
+#dvijep.c:
+#	
+#	SYMBOL		FILE			FUNCTION   LINE
+#	
+#	#undef		./machdefs.h		--	    382  404  406  413  427  432  436  441  446  466
+#			./main.h		--	    17  45  67  78
+#	ABS()
+#			./fixpos.h		--	    24
+#			./gendefs.h		--	   *16
+#			./movedown.h		--	    27
+#			./moveover.h		--	    30
+#			./option.h		--	    123
+#			dvijep.c		--	    554
+# etc..
+#
+# We want to extract from this a file with entries
+#	name<tab>xref
+#
+# We ignore lines with only one field (eliminating the filename lines),
+# and reuse the previous name if the first field is empty.  We 
+# eliminate leading "./" in filenames, and discard lines for which
+# name == 'SYMBOL', or which have an absolute pathname in xref (we
+# don't want to cross-reference names defined in /usr/include/*.h),
+# or which have only digits or asterisks in xref (line numbers).
+# [18-Jul-87]
+BEGIN {name = "";}
+{
+    if (substr($0,1,1) != "	")
+    {
+	name = $1;
+	xref = $2;
+    }
+    else
+	xref = $1;
+    if ((name == "SYMBOL") && (xref == "FILE"))
+	next;
+    else if (substr(xref,1,1) == "/")
+	next;
+    else if (xref != "")
+    {
+	if (substr(xref,1,2) == "./")
+	    xref = substr(xref,3)
+	if (xref !~ /[0-9*]/)
+	    printf "%s\t%s\n",name,xref;
+    }
+}
+@//E*O*F cxref.awk//
+chmod u=rw,g=r,o=r cxref.awk
+ 
+echo x - deinclude.awk
+sed 's/^@//' > "deinclude.awk" <<'@//E*O*F deinclude.awk//'
+# deinclude - replace #include "f" by contents of file f
+
+/^#include "/ {
+#	gsub(/".*$/,"\"",$2)
+	gsub(/"/,"",$2)
+	print $2 >"/dev/tty"
+	while (getline x <$2 > 0)
+		print x
+	close $2
+	next
+}
+{ print }
+@//E*O*F deinclude.awk//
+chmod u=rw,g=r,o=r deinclude.awk
+ 
+echo x - find-formats.awk
+sed 's/^@//' > "find-formats.awk" <<'@//E*O*F find-formats.awk//'
+# /u/sy/beebe/awk/find-formats.awk, Fri Jun  2 13:20:40 1989
+# Edit by Nelson H.F. Beebe <beebe@plot79.utah.edu>
+# ========================================================================
+# Find Fortran FORMAT statements in the input files and
+# print them on stdout.
+# Usage:
+#	nawk -f find-formats.awk filelist >outfile
+# [02-Jun-89]
+# ========================================================================
+
+/^[ \t]*[0-9]+[ \t]*[Ff][Oo][Rr][Mm][Aa][Tt]/     {
+	$0 = substr($0,1,72);	# discard sequence field
+	gsub(/[ \t]+$/,"",$0);	# trim trailing space
+	print FILENAME ":\t" $0 ;
+	while (substr($0,length($0),1) != ")")
+	{
+	    getline;
+	    $0 = substr($0,1,72);	# discard sequence field
+	    gsub(/[ \t]+$/,"",$0);	# trim trailing space
+	    print FILENAME ":\t" $0 ;	    
+	}
+    }
+/./ {
+	next;
+    }
+@//E*O*F find-formats.awk//
+chmod u=rw,g=rw,o=r find-formats.awk
+ 
+echo x - find-printf.awk
+sed 's/^@//' > "find-printf.awk" <<'@//E*O*F find-printf.awk//'
+# /u/sy/beebe/awk/find-printf.awk, Fri Jun  2 13:20:40 1989
+# Edit by Nelson H.F. Beebe <beebe@plot79.utah.edu>
+# ========================================================================
+# Find C printf statements in the input files identified by a particular
+# pattern, and print them on stdout, one complete statement per line.
+# Usage:
+#	nawk -f find-printf.awk filelist >outfile
+# [25-Jan-1990]
+# ========================================================================
+
+/printf\(/     {
+	gsub(/[ \t]+$/,"",$0);	# trim trailing space
+	printf("%s:\t%s",FILENAME,$0);
+	while (index($0,");") == 0)
+	{
+	    getline;
+	    gsub(/[ \t]+$/,"",$0);	# trim trailing space
+	    printf("%s",$0);
+	}
+	printf("\n");
+    }
+/./ {
+	next;
+    }
+@//E*O*F find-printf.awk//
+chmod u=rw,g=rw,o=r find-printf.awk
+ 
+echo x - fixtimes.awk
+sed 's/^@//' > "fixtimes.awk" <<'@//E*O*F fixtimes.awk//'
+# settime.awk [09-Jan-88]
+# Nawk program to take 'ls -l' listing on stdin and create script on stdout
+# to set file times to match.  This is useful after an FTP transfer from 
+# a remote machine.
+BEGIN {
+    "date" | getline date;
+    split(date,d," ");
+    cmonth = (index("JanFebMarAprMayJunJulAugSepOctNovDec",d[2]) + 2)/3;
+    cday = d[3];
+    cyear = d[6];
+}
+
+
+{
+    if (NF == 8)
+    {
+	k = index("JanFebMarAprMayJunJulAugSepOctNovDec",$5);
+	if (k > 0)
+	{
+	    month = (k + 2)/3;
+	    day = $6;
+	    if (index($7,":") > 0) # have hh:mm
+	    {
+		if (month > cmonth)
+		    year = cyear - 1;
+		else
+		    year = cyear;
+	        printf "/usr/5bin/touch -c %02d%02d%s%s%02d %s\n",
+	    	    month,day,substr($7,1,2),substr($7,4,2),year-1900,$8;
+	    }
+	    else # have 19yy
+	        printf "/usr/5bin/touch -c %02d%02d0001%02d %s\n",
+	    	    month,day,$7-1900,$8;
+	}
+    }
+}
+@//E*O*F fixtimes.awk//
+chmod u=rw,g=r,o=r fixtimes.awk
+ 
+echo x - ftp-dates.awk
+sed 's/^@//' > "ftp-dates.awk" <<'@//E*O*F ftp-dates.awk//'
+# /u/sy/beebe/bin/ftp-dates.awk, Mon Jan 15 14:04:13 1990
+# Edit by Nelson H.F. Beebe <beebe@plot79.math.utah.edu>
+# ========================================================================
+# 
+# Read a 00tdir.lst file retrieved from TOPS-20, and for each file
+# listed that is found in the current directory, output a command to set
+# the file modification time to match the TOPS-20 master copy.  This
+# script needs the AT&T System V version of touch; the Berkeley version
+# lacks the capability to set time stamps.
+#
+# Usage:
+#	awk -f ftp-dates.awk <00tdir.lst >foo.sh
+#	source foo.sh
+#
+# Typical input 00tdir.lst file:
+#
+#    PS:<ANONYMOUS>
+#  00README.TXT.51;P525252    6 13650(7)   15-Jan-90 13:59:05 BEEBE     
+#  00NEWS.TXT.4;P777752       1 693(7)     15-Jan-90 13:17:21 BEEBE     
+# ...
+#  TEX-FROM-WORD-PROCESSOR-FORMATS.TXT.3;P777752
+# 			    2 3212(7)    28-Dec-89 09:37:03 BEEBE     
+# 
+#  Total of 659 pages in 36 files
+# 
+# [15-Jan-1990]
+# ========================================================================
+BEGIN {}
+{
+    if (substr($0,1,3) == "   ") 	# ignore directory name line
+	next;
+    if (substr($0,1,9) == " Total of")	# ignore summary line
+	next;
+
+    filename = $1;
+    if (NF == 1)			# continued line
+    {
+	getline;
+	filedate = $3;			# dd-mon-yy
+	filetime = $4;			# hh:mm:ss
+    }
+    else				# normal line
+    {
+	filedate = $4;			# dd-mon-yy
+	filetime = $5;			# hh:mm:ss
+    }    
+
+    if (NF < 5)				# discard unrecognized lines
+	next;
+
+    filename = substr(filename,1,index(filename,";")-1); 
+					# discard protection field
+    for (k = length(filename); k > 0; --k) # find .extension
+    {
+	if (substr(filename,k,1) == ".")
+	    break;
+    }
+    if (substr(filename,k-1,1) == ".")
+	--k;				# discard null extension
+    filename = substr(filename,1,k-1);	# discard .extension
+
+    for (k = 1; k <= length(filename); ++k) # convert to lower case
+    {
+	n = index("ABCDEFGHIJKLMNOPQRSTUVWXYZ",substr(filename,k,1));
+	if (n > 0)
+	    filename = substr(filename,1,k-1) \
+		substr("abcdefghijklmnopqrstuvwxyz",n,1) substr(filename,k+1);
+    }
+    
+    if (length(filedate) < 9)
+	filedate = "0" filedate;	# convert d-mon-yy to dd-mon-yy
+
+    # output /usr/5bin/touch -c -m MMDDhhmmyy filename
+
+    printf("/usr/5bin/touch -c -m '%02d%02d%02d%02d%02d' '%s'\n",\
+	1 + index("JanFebMarAprMayJunJulAugSepOctNovDec",substr(filedate,4,3))/3,\
+	substr(filedate,1,2),\
+	substr(filetime,1,2),\
+	substr(filetime,4,2),\
+	substr(filedate,8,2),\
+	filename);
+}
+END   {}
+@//E*O*F ftp-dates.awk//
+chmod u=rw,g=rw,o=r ftp-dates.awk
+ 
+echo x - lpp.awk
+sed 's/^@//' > "lpp.awk" <<'@//E*O*F lpp.awk//'
+# /u/sy/beebe/awk/lpp.awk, Sat May 27 10:28:02 1989
+# Edit by Nelson H.F. Beebe <beebe@plot79.utah.edu>
+# ========================================================================
+# LPP: A simple language preprocessor supporting conditional
+# compilation syntax for selecting parts of input files to be or not be
+# output.  The preprocessor statements recognized are:
+#
+#	#define VAR VALUE
+#	#elif VAR
+#	#elifdef VAR
+#	#error message
+#	#else
+#	#elseif VAR
+#	#elseifdef VAR
+#	#endif
+#	#if VAR
+#	#if INTEGERVALUE
+#	#ifdef VAR
+#	#ifndef VAR
+#	#undef VAR
+#	#warning message
+#
+# These must occur at the beginning of a line, except that the initial
+# sharp may optionally be preceded by whitespace.
+#
+# An omitted VALUE in "#define VAR" is equivalent to "#define VAR 1".
+# An undefined name always has the value 0.
+#
+# Successive redefinitions of VAR silently replace previous values.
+#
+# #error writes the message to the terminal and causes an immediate exit.
+#
+# #waring writes the message to the terminal and execution continues.
+#
+# This version does not support expressions in place of VAR or VALUE.
+#
+# Usage:
+#	nawk -f lpp.awk [+Dvar] [+Uvar] [+Llanguage] file(s)
+#
+# Private options are preceded by +, because nawk doesn't pass any
+# that begin with -.
+#
+# +Dvar is equivalent to an input line "#define var 1".
+# +Dvar=value is equivalent to an input line "#define var value".
+#
+# +Uvar is equivalent to an input line "#undef var".
+#
+# +Llanguage selects a comment syntax; language may be:
+#	AWK, C, C++, F66, F77, FORTRAN, FTN, LISP, MAKE, NONE, PASCAL,
+#	PL1, RATFOR, or SF3.
+#
+# With +LNONE, preprocessor statements are not output as comments; this
+# is the default if no +L switch is given.
+#
+# [27-May-89]
+# ========================================================================
+BEGIN {
+    if_level = 0;		# count of open #if, #ifdef, #ifndef statements
+    prt_level = 1;		# print level of #if ... #endif nesting
+    printable[prt_level] = 1;	# outer level always printable
+    comment_begin = "";		# default language is NONE
+    comment_end = "";
+
+    for (k = 1; k < ARGC; ++k)
+    {
+	if (ARGV[k] ~ /\+L.*/)
+	{
+	    language = substr(ARGV[k],3);
+	    if ((language == "C") || (language == "PL1"))
+	    {
+		comment_begin = "/* ";
+		comment_end = " */";
+	    }
+	    else if (language == "C++")
+	    {
+		comment_begin = "// ";
+		comment_end = "";
+	    }
+	    else if (language == "LISP")
+	    {
+		comment_begin = ";;; ";
+		comment_end = "";
+	    }
+	    else if (language == "PASCAL")
+	    {
+		comment_begin = "{ ";
+		comment_end = " }";
+	    }
+	    else if (language == "NONE")
+	    {
+		comment_begin = "";
+		comment_end = "";
+	    }
+	    else if ((language == "AWK") ||
+		     (language == "MAKE") ||
+		     (language == "RATFOR"))
+	    {
+		comment_begin = "# ";
+		comment_end = "";
+	    }
+	    else if ((language == "F77") ||
+		     (language == "FTN") ||
+		     (language == "FORTRAN"))
+	    {
+		comment_begin = "* ";
+		comment_end = "";
+	    }
+	    else if ((language == "F66") || (language == "SF3"))
+	    {
+		comment_begin = "C ";
+		comment_end = "";
+	    }
+	    else
+	    {
+		print "??? ERROR: Unrecognized language type: " ARGV[k] > "/dev/tty";
+		exit(1);
+	    }
+	    ARGV[k] = "";	# remove arg so it is not used as a filename
+	}
+	else if (ARGV[k] ~ /\+D.*/)
+	{
+	    n = index(ARGV[k],"=");
+	    if (n == 0)		# have +DVAR
+	    {
+		value[substr(ARGV[k],3)] = 1;
+		defined[substr(ARGV[k],3)] = 1;
+	    }
+	    else		# have +DVAR=value
+	    {
+		value[substr(ARGV[k],3,n-3)] = substr(ARGV[k],n+1);
+		defined[substr(ARGV[k],3,n-3)] = 1;
+	    }
+	    ARGV[k] = "";	# remove arg so it is not used as a filename
+	}
+	else if (ARGV[k] ~ /\+U.*/)
+	{
+	    defined[substr(ARGV[k],3)] = 0;
+	    ARGV[k] = "";	# remove arg so it is not used as a filename
+	}
+    }				# end for (k...)
+    for (k = 1; k < ARGC; ++k)
+    {
+	if (ARGV[k] != "")
+	    break;
+    }
+    if (k == ARGC)		# no file names, so force stdin
+	ARGV[ARGC++] = "-";
+}
+
+/^[ \t]*#define/	{
+    if (printable[prt_level])
+    {
+	value[$2] = ($3 == "") ? 1 : $3;
+	defined[$2] = 1;
+	if (comment_begin != "")
+	    print comment_begin $0 comment_end;
+    }
+    next;
+}				# defined[] is used as a symbol table
+
+/^[ \t]*#undef/	{
+    if (printable[prt_level])
+    {
+	defined[$2] = 0;
+	if (comment_begin != "")
+	    print comment_begin $0 comment_end;
+    }
+    next;
+}
+
+/^[ \t]*#if[^a-zA-Z0-9]/	{
+    ++if_level;
+    ++prt_level;
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 comment_end;
+    val = ($2 ~ /^[-+]*[0-9]+$/) ? $2 : value[$2];
+    printable[prt_level] = printable[prt_level-1] && (val != 0);
+    condition[prt_level] = "NON-ZERO " $2;
+    branch_printed[prt_level] = printable[prt_level];
+    next;
+}
+
+/^[ \t]*#ifdef[^a-zA-Z0-9]/	{
+    ++if_level;
+    ++prt_level;
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 comment_end;
+    printable[prt_level] = printable[prt_level-1] && defined[$2];
+    condition[prt_level] = "DEFINED " $2;
+    branch_printed[prt_level] = printable[prt_level];
+    next;
+}
+
+/^[ \t]*#ifndef/	{
+    ++if_level;
+    ++prt_level;
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 comment_end;
+    printable[prt_level] = printable[prt_level-1] && !defined[$2];
+    condition[prt_level] = "NOT DEFINED " $2;
+    branch_printed[prt_level] = printable[prt_level];
+    next;
+}
+
+/^[ \t]*#(elseif|elif)[^a-zA-Z0-9]/	{
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 comment_end;
+    printable[prt_level] = printable[prt_level-1] && (value[$2] != 0) &&
+	!branch_printed[prt_level];
+    condition[prt_level] = "NON-ZERO " $2;
+    if (printable[prt_level])
+	branch_printed[prt_level] = 1;
+    next;
+}
+
+/^[ \t]*#(elseifdef|elifdef)[^a-zA-Z0-9]/	{
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 comment_end;
+    printable[prt_level] = printable[prt_level-1] && defined[$2] &&
+	!branch_printed[prt_level];
+    condition[prt_level] = "DEFINED " $2;
+    if (printable[prt_level])
+	branch_printed[prt_level] = 1;
+    next;
+}
+
+/^[ \t]*#else/	{
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 " [NOT " condition[prt_level] "]" comment_end;
+    if (if_level > 0)
+	printable[prt_level] = printable[prt_level-1] &&
+	    !branch_printed[prt_level]; #
+    else
+	print "??? ERROR: #else is not inside #if...#endif ???";
+    next;
+}
+
+/^[ \t]*#endif/	{
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 " [" condition[prt_level] "]" comment_end;
+    if (if_level > 0)
+    {
+	--if_level;
+	--prt_level;
+    }
+    else
+	print "??? ERROR: #endif is missing preceding matching #if ???";
+    next;
+}
+
+/^[ \t]*#error/	{
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 " [" condition[prt_level] "]" comment_end;
+    if (printable[prt_level])
+    {
+	print $0 > "/dev/tty";
+	exit(1);
+    }
+    next;
+}
+
+/^[ \t]*#warning/	{
+    if (printable[prt_level-1] && (comment_begin != ""))
+	print comment_begin $0 " [" condition[prt_level] "]" comment_end;
+    if (printable[prt_level])
+	print $0 > "/dev/tty";
+    next;
+}
+
+{			# catch all for lines that do not match patterns above
+    if (printable[prt_level])
+	print $0;		# copy lines to output stream
+    if (prt_level <= 0)
+	print "??? INTERNAL ERROR: print level lost ???";
+}
+@//E*O*F lpp.awk//
+chmod u=rw,g=rw,o=r lpp.awk
+ 
+echo x - lpp.dat
+sed 's/^@//' > "lpp.dat" <<'@//E*O*F lpp.dat//'
+This is a simple test file for lpp.awk.  Run with options +DFOO,
++DBAR, +DMUNG, and again with assignments of these to 0 and 1.
+
+#ifdef    FOO
+FOO is defined
+#else
+FOO is NOT defined
+#endif
+
+	#ifdef    FOO
+		indented: FOO is defined
+	#else
+		indented: FOO is NOT defined
+	#endif
+
+#if    FOO
+	indented: FOO is non-zero
+#elseif BAR
+	indented: FOO is zero and BAR is non-zero
+#elif MUNG
+	indented: FOO and BAR are zero, MUNG is non-zero
+#else
+	indented: FOO, BAR, MUNG are all zero
+#endif
+
+	#if    FOO
+		indented: FOO is non-zero
+	#elseif BAR
+		indented: FOO is zero, BAR is non-zero
+	#elif MUNG
+		indented: FOO and BAR are zero, MUNG is non-zero
+	#else
+		indented: FOO, BAR, MUNG are all zero
+	#endif
+
+Undefining FOO
+#undef FOO
+#undef FOO
+
+#ifdef    FOO
+ERROR: FOO is still defined
+#else
+FOO is NOT defined
+#endif
+
+#ifdef    BAR
+BAR is defined
+#else
+BAR is NOT defined
+#endif
+
+Defining FOO to 1
+#define FOO 1
+#if FOO
+OKAY
+#else
+!! ERROR
+#endif
+
+#ifdef FOO
+OKAY
+#else
+!! ERROR
+#endif
+
+#ifndef FOO
+!! ERROR
+#else
+OKAY
+#endif
+
+defining BAR to 0
+#define BAR 0
+#if BAR
+!! ERROR
+#else
+OKAY
+#endif
+
+#ifdef BAR
+OKAY
+#else
+!! ERROR
+#endif
+
+#ifndef BAR
+!! ERROR
+#else
+OKAY
+#endif
+
+#if 0
+#else
+@//E*O*F lpp.dat//
+chmod u=rw,g=rw,o=r lpp.dat
+ 
+echo x - pk-to-pxl-mag.awk
+sed 's/^@//' > "pk-to-pxl-mag.awk" <<'@//E*O*F pk-to-pxl-mag.awk//'
+# /u/sy/beebe/pk-to-pxl-mag.awk, Wed Aug 15 10:12:04 1990
+# Edit by Nelson H.F. Beebe <beebe@plot79.math.utah.edu>
+# ========================================================================
+# Convert a list of TeX font file names ending in nnnpk or nnngf
+# to a sorted list of magnifications suitable for the DVI FONTMAGS
+# list:
+# Usage:
+#	ls -lR /usr/local/lib/tex/fonts/*pk | nawk -f pk-to-pxl-mag.awk
+# [15-Aug-1990]
+# ========================================================================
+BEGIN {}
+
+$0 ~ /(gf)$|(GF)$|(pk)$|(PK)$/ {
+	n = split($0,f,".");
+	dpi = f[n];
+	gsub(/[A-Za-z]/,"",dpi);
+	mag = 5 * dpi;
+	while (int((mag + 3)/5) < dpi)
+	    mag++;
+	magtable[mag] = mag;
+    }
+END   {
+    for (k in magtable)
+	print magtable[k] | "sort +0n";
+}
+@//E*O*F pk-to-pxl-mag.awk//
+chmod u=rw,g=rw,o=r pk-to-pxl-mag.awk
+ 
+echo x - reverse
+sed 's/^@//' > "reverse" <<'@//E*O*F reverse//'
+#!/bin/sh
+# Filter stdin to stdout, reversing pages
+# (e.g. for some laser printers)
+# [08-Apr-1991]
+awk 'BEGIN { RS = "\f"; }
+           { page[++npage] = $0 }
+     END   { for ( ; npage > 0; --npage)
+                 printf("%s\f", page[npage]);
+           }'
+@//E*O*F reverse//
+chmod u=rwx,g=rx,o=rx reverse
+ 
+echo x - site.awk
+sed 's/^@//' > "site.awk" <<'@//E*O*F site.awk//'
+# /u/sy/beebe/site.awk, Mon Oct 14 17:14:44 1991
+# Edit by Nelson H. F. Beebe <beebe@magna.math.utah.edu>
+# ========================================================================
+# Extract macro definitions from Web2C site.h file and make a sed script
+# to update manual pages.  Note that the LAST definition of each macro
+# is the one used.
+#
+# Usage:
+#	nawk -f site.awk <../site.h >sedscript
+#
+# [14-Oct-1991]
+# ========================================================================
+/^#define/ {
+    		name = $2;
+
+		# Handle "#define FOO /* no value */" lines 
+		if ($3 != "/*")
+	    		value = $3;
+		else
+			value = "";
+
+		while (substr($0,length($0)) == "\\")
+		{
+		    getline;
+		    value = value "\\n" $0;
+		}
+		if (substr(value,length(value)) == "\"")
+		    value = substr(value,1,length(value)-1);
+		if (substr(value,1,1) == "\"")
+		    value = substr(value,2);
+		macro[name] = value;
+}
+END   {
+	for (name in macro)
+		printf("s;@%s@;%s;g\n",name,macro[name]) | \
+		"sort | nawk '{gsub(/\\\\n/,\"\\n\"); print $0}" ;
+}
+@//E*O*F site.awk//
+chmod u=rw,g=r,o=r site.awk
+ 
+echo x - size.awk
+sed 's/^@//' > "size.awk" <<'@//E*O*F size.awk//'
+# /u/sy/beebe/size.awk, Wed Sep  4 15:28:11 1991
+# Edit by Nelson H.F. Beebe <beebe@solitude.math.utah.edu>
+# ========================================================================
+# Make a table of cap heights for Computer Modern fonts
+# Usage:
+#
+# [04-Sep-1991]
+# ========================================================================
+BEGIN {
+    printf("%-15s %10s %10s %10s %10s %10s\n",
+	   "Font File", "Font Size", "CapHt", "CapHt",
+	   "Size/CapHt", "CapHt/Size");
+}
+
+
+/font_size/ { k = index($0,"font_size")+9;
+	      m = index($0,"pt#;");
+	      if (m == 0) m = index($0,"Pt#;");
+	      if (m == 0) m = index($0,"PT#;");
+	      size = substr($0,k,m-k);
+#	      print "DEBUG: [" $0 "] -> size = " size;
+	  }
+
+/cap_height#:=/ { k = index($0,"cap_height#:=")+13;
+		  m = index($0,"pt#;");
+		  if (substr($0,k,m-k) !~ /^[0-9]+\/[0-9]+$/) continue;
+		  if (m == 0) m = index($0,"Pt#;");
+		  if (m == 0) m = index($0,"PT#;");
+		  if (m == 0) continue; # ignore this font
+		  cap_height = substr($0,k,m-k);
+		  split(cap_height,t,"/");
+		  if (t[1] == 0) t[1] = -999;
+		  if (t[2] == 0) t[2] = -999;
+		  if (size == 0) size = -999;
+#		  print "DEBUG: cap_height = " cap_height ;
+		  printf("%-15s %10s %10s %10.2f %10.2f %10.2f\n",
+			 FILENAME,size,cap_height,t[1]/t[2],size/(t[1]/t[2]),
+			 (t[1]/t[2])/size);
+		  nf++;
+		  a += size/(t[1]/t[2]);
+		  b += (t[1]/t[2])/size;
+	      }
+
+END {
+printf("%-15s %10s %10s %10s %10.2f %10.2f\n",
+	   "Average", "", "", "", a/nf, b/nf);
+}
+@//E*O*F size.awk//
+chmod u=rw,g=r,o=r size.awk
+ 
+echo x - sum-user.awk
+sed 's/^@//' > "sum-user.awk" <<'@//E*O*F sum-user.awk//'
+# /u/sy/beebe/sum-user.awk, Wed Dec 12 09:26:36 1990
+# Edit by Nelson H.F. Beebe <beebe@shemp.math.utah.edu>
+# Provide subtotals by user in a disk usage listing with entries
+# of the form
+#
+# 1152358         ./u/ma/alfeld/mail/mail.txt
+#
+# Usage:
+#	awk -f sum-user.awk PREFIX=./u/ma/ <infile >outfile
+#
+# [12-Dec-1990]
+
+	{
+		user = $2;
+		gsub(PREFIX,"",user);
+#	gsub(/..u.ma./,"",user);
+		k = index(user,"/");
+		if (k > 0) user = substr(user,1,k-1);
+		total[user] += $1;
+	}
+
+END	{
+		for (user in total)
+			printf("%10d\t%s\n",total[user],user) \
+			| "sort +0nr -1";
+	}
+@//E*O*F sum-user.awk//
+chmod u=rw,g=r,o=r sum-user.awk
+ 
+echo x - toms.awk
+sed 's/^@//' > "toms.awk" <<'@//E*O*F toms.awk//'
+# /u/sy/beebe/tex/bib/toms.awk, Tue May  8 15:41:24 1990
+# Edit by Nelson H.F. Beebe <beebe@plot79.math.utah.edu>
+# ========================================================================
+# Convert toms.hlp to toms.bib.  There are a few Remark: fields that
+# need to be edited subsequently; they refer to other TOMS articles, while 
+# toms.hlp has only algorithms entered.
+#
+# Usage:
+#	gawk -f toms.awk <toms.hlp >toms.bib
+#
+# [08-May-1990]
+# ========================================================================
+BEGIN {}
+
+/^Volume /	{
+	    volume = int(index("0   I  II III IV   V  VI VIIVIII  IX   X  XI",$2)/4);
+	    next;
+	}
+
+$1 ~ /^Issue$/	{
+	    issue = substr($2,1,1);
+	    month = tolower(substr($2,3,3));
+	    year = substr($0,index($0,",")+1);
+	    gsub(/ /,"",year);
+	    next;
+	}
+
+$1 ~ /^Algorithm$/ {
+	    Algorithm();
+	    next;
+	}
+
+$1 ~ /^Author:/ {
+	    Author();
+	    next;
+	}
+
+$1 ~ /^Title:/ {
+	    Title();
+	    next;
+	}
+
+$1 ~ /^Remark:/ {
+    	    Remark();
+	    next;
+	}
+
+/^.*/	{			# ignore everything else
+	}
+
+
+function Algorithm()
+{
+    algorithm = $2;
+    gsub(/#/,"",algorithm);
+    pages = $3;
+    gsub(/[()]/,"",pages);
+    gsub(/-/,"--",pages);
+}
+
+
+
+function Author()
+{
+    remark = "";
+    author = substr($0,index($0,":")+1);
+    gsub(/\&/," and ",author);
+    gsub(/,[ ]*and/," and ", author);
+    gsub(/,/," and ", author);
+    gsub(/and and/,"and", author);
+    gsub(/^[ ]+/,"",author);
+    gsub(/\./,". ",author); # spaces between initials
+    gsub(/[ ]+/," ",author); # collapse multiple blanks
+    getline;
+    while (substr($0,1,15) ~ /^[ ]*$/)
+    {
+	author = author " " $0;
+	getline;
+    }
+    if ($1 ~ /^Title:/)
+	Title();
+}
+
+
+function Remark()
+{
+    remark = substr($0,index($0,":")+1);
+    gsub(/^[ ]+/,"",remark);
+    getline;
+    while (substr($0,1,15) ~ /^[ ]*$/)
+    {
+	remark = remark " " $0;
+	getline;
+    }
+    gsub(/#/, "No. ",remark);
+    gsub(/[ ]+/," ",remark);
+    gsub(/ $/,"",remark);
+    gsub(/\./,". ",remark); # spaces between initials
+    if ($1 ~ /^Algorithm/)
+	Algorithm();
+}
+
+
+function Title()
+{
+    title = "Algorithm " algorithm ":  " substr($0,index($0,":")+1);
+    gsub(/^[ ]+/,"",title);
+    getline;
+    while ($0 !~ /^[ ]*$/)
+    {
+	if ($1 ~ /^Remark:/)
+	{
+	    Remark();
+	    break;
+	}
+	else
+	{
+	    title = title " " $0;
+	    getline;
+	}
+    }
+
+
+			# remove strings like (A493.V1I2.RPOLY)
+    gsub(/\(A[0-9]+\.V[0-9]+I[0-9]+\.[^)]+\)/,"",title);
+
+    gsub(/\&/," and ",title);
+    gsub(/[ ]+/," ",title);
+    n = split(author,names," ");
+    for (k = 1; k <= n; ++k)
+	if (length(names[k]) > 2)
+	    break;
+#    printf("@Article{%s:toms-v%sp%sy%s,\n",
+#	names[k],volume,substr(pages,1,index(pages,"-")-1),year);
+    printf("@Article{%s:toms-alg%s,\n",names[k],algorithm);
+    printf("  author = 	\"%s\",\n",author);
+    printf("  title = 	\"%s\",\n",wrap(title));
+    printf("  journal = 	TOMS,\n");
+    printf("  year = 	\"%s\",\n",year);
+    printf("  volume = 	\"%s\",\n",volume);
+    printf("  number = 	\"%s\",\n",issue);
+    printf("  pages = 	\"%s\",\n",pages);
+    printf("  month = 	%s,\n",month);
+    if (remark)
+    {
+	printf("  note = 	\"%s\",\n",wrap("See remark in: " remark));
+    }
+    printf("}\n\n");
+}
+
+function wrap(text)
+{
+    n = split(text,names," ");
+    wrapped_text = "";
+    width = 17;
+    for (k = 1; k <= n; ++k)
+    {
+	if (names[k] ~ /[A-Z][A-Z]+/)
+	    names[k] = "{" names[k] "}";
+	width += length(names[k]) + ((k < n) ? 1 : 0);
+	if (width > 72)
+	{
+	    width = 17 + length(names[k]);
+	    wrapped_text = wrapped_text "\n\t\t";
+	}
+	wrapped_text = wrapped_text names[k] ((k < n) ? " " : "");
+    }
+    gsub(/,}/,"},",wrapped_text);
+    gsub(/:}/,"}:",wrapped_text);
+    return (wrapped_text);
+}
+@//E*O*F toms.awk//
+chmod u=rw,g=rw,o=r toms.awk
+ 
+echo x - x3.awk
+sed 's/^@//' > "x3.awk" <<'@//E*O*F x3.awk//'
+# Convert a sorted file containing name pairs "caller:refersto", one per
+# line, to a LIBREF-like output table.  There are 3 entries per line, allowing
+# 15 chars/entry.
+# [19-Aug-86]
+BEGIN {
+    FS = ":";
+    nref = 0;
+    caller = "";
+    print "********************************************************************";
+    print "*     ..Name..    *  ...Refers To...                               *";
+    print "********************************************************************";
+    print "*                 *                                                *";
+}
+
+{
+    if (($1 != caller) && (caller != ""))
+    {
+	if (length(caller) > 15)
+	    the_caller =  substr(caller,1,15);
+	else
+	    the_caller = caller;
+        printf "* %-15s->",the_caller;
+        nref3 = 3*int((nref + 2)/3);
+
+        for (k = nref; k < nref3; ++k)
+            refs[k] = " ";
+        nref = nref3;
+        for (k = 0; k < nref; )
+        {
+            printf " %-15s",refs[k];
+            ++k;
+            if ((k % 3) == 0)
+            {
+                printf "*\n";
+                if (k < nref)
+                {
+                    printf "*                 *";
+                }
+            }
+        }
+        nref = 0;
+        print "*                 *                                                *";
+    }
+    caller = $1;
+    if (length($2) > 15)
+	$2 = substr($2,1,15);
+    refs[nref] = $2;
+    nref++;	# awk treats refs[nref++] as refs[++nref], sigh...
+
+}
+
+END {
+    printf "* %-15s->",caller;
+    nref3 = 3*int((nref + 2)/3);
+    for (k = nref; k < nref3; ++k)
+        refs[k] = " ";
+    nref = nref3;
+    for (k = 0; k < nref; )
+    {
+        printf " %-15s",refs[k];
+        ++k;
+        if ((k % 3) == 0)
+        {
+            printf "*\n";
+            if (k < nref)
+            {
+                printf "*                 *";
+            }
+        }
+    }
+    nref = 0;
+    print "*                 *                                                *";
+    print "********************************************************************";
+}
+@//E*O*F x3.awk//
+chmod u=rw,g=r,o=r x3.awk
+ 
+echo x - x4.awk
+sed 's/^@//' > "x4.awk" <<'@//E*O*F x4.awk//'
+# Convert a sorted file containing name pairs "callee:caller", one per
+# line, to a LIBREF-like output table.  There are 3 entries per line, allowing
+# 15 chars/entry.
+# [19-Aug-86]
+BEGIN {
+    FS = ":";
+    nref = 0;
+    callee = "";
+    print "********************************************************************";
+    print "*     ..Name..    *  ...Referenced By...                           *";
+    print "********************************************************************";
+    print "*                 *                                                *";
+}
+
+{
+    if (($1 != callee) && (callee != ""))
+    {
+	if (length(callee) > 15)
+	    the_callee =  substr(callee,1,15);
+	else
+	    the_callee = callee;
+        printf "* %-15s<-",the_callee;
+        nref3 = 3*int((nref + 2)/3);
+
+        for (k = nref; k < nref3; ++k)
+            refby[k] = " ";
+        nref = nref3;
+        for (k = 0; k < nref; )
+        {
+            printf " %-15s",refby[k];
+            ++k;
+            if ((k % 3) == 0)
+            {
+                printf "*\n";
+                if (k < nref)
+                {
+                    printf "*                 *";
+                }
+            }
+        }
+        nref = 0;
+        print "*                 *                                                *";
+    }
+    callee = $1;
+    if (length($2) > 15)
+	$2 = substr($2,1,15);
+    refby[nref] = $2;
+    nref++;	# awk treats refby[nref++] as refby[++nref], sigh...
+
+}
+
+END {
+    printf "* %-15s<-",callee;
+    nref3 = 3*int((nref + 2)/3);
+    for (k = nref; k < nref3; ++k)
+        refby[k] = " ";
+    nref = nref3;
+    for (k = 0; k < nref; )
+    {
+        printf " %-15s",refby[k];
+        ++k;
+        if ((k % 3) == 0)
+        {
+            printf "*\n";
+            if (k < nref)
+            {
+                printf "*                 *";
+            }
+        }
+    }
+    nref = 0;
+    print "*                 *                                                *";
+    print "********************************************************************";
+}
+@//E*O*F x4.awk//
+chmod u=rw,g=r,o=r x4.awk
+ 
+echo x - x5.awk
+sed 's/^@//' > "x5.awk" <<'@//E*O*F x5.awk//'
+# <BEEBE.TEX.DVI.NEW>X5.AWK.2,  9-Sep-86 12:59:52, Edit by BEEBE
+# Convert a CXREF output  file containing name entries  of one of  three
+# forms
+#
+# initial entry:
+#	callee<TAB>caller<TAB>linerefs
+#
+# subsequent entry for same callee:
+#	<TAB><TAB><TAB>anothercaller<TAB>linerefs
+#
+# subsequent entry for same caller with additional linerefs
+#	<TAB><TAB><TAB><TAB>morelinerefs
+#
+# to a LIBREF-like output table.  There  are 3 entries per output  line,
+# allowing 15 chars/entry.  The line references are discarded.
+# [09-Sep-86]
+BEGIN {
+    FS = "\t";
+    nref = 0;
+    callee = "";
+    print "********************************************************************";
+    print "*     ..Name..    *  ...Referenced By...                           *";
+    print "********************************************************************";
+    print "*                 *                                                *";
+}
+
+{
+    if (($1 != "") && ($1 != callee) && (callee != ""))
+    {
+	if (length(callee) > 15)
+	    the_callee =  substr(callee,1,15);
+	else
+	    the_callee = callee;
+        printf "* %-15s<-",the_callee;
+        nref3 = 3*int((nref + 2)/3);
+
+        for (k = nref; k < nref3; ++k)
+            refby[k] = " ";
+        nref = nref3;
+        for (k = 0; k < nref; )
+        {
+            printf " %-15s",refby[k];
+            ++k;
+            if ((k % 3) == 0)
+            {
+                printf "*\n";
+                if (k < nref)
+                {
+                    printf "*                 *";
+                }
+            }
+        }
+        nref = 0;
+        print "*                 *                                                *";
+    }
+    if ($1 != "")
+	callee = $1;	# first type--initial entry for new callee
+    if ($2 == "")
+	$2 = $4;	# second type--same callee, different caller
+    if ($2 != "")	# not third type
+    {
+	if (length($2) > 15)
+	    $2 = substr($2,1,15);
+
+#	printf "[%s] [%s] [%s] [%s]\n",callee,$1,$2,$4 >"x5.err";
+
+	refby[nref] = $2;
+	nref++;	# awk treats refby[nref++] as refby[++nref], sigh...
+    }
+}
+
+END {
+    if (length(callee) > 15)
+	the_callee =  substr(callee,1,15);
+    else
+	the_callee = callee;
+    printf "* %-15s<-",the_callee;
+    nref3 = 3*int((nref + 2)/3);
+    for (k = nref; k < nref3; ++k)
+        refby[k] = " ";
+    nref = nref3;
+    for (k = 0; k < nref; )
+    {
+        printf " %-15s",refby[k];
+        ++k;
+        if ((k % 3) == 0)
+        {
+            printf "*\n";
+            if (k < nref)
+            {
+                printf "*                 *";
+            }
+        }
+    }
+    nref = 0;
+    print "*                 *                                                *";
+    print "********************************************************************";
+}
+@//E*O*F x5.awk//
+chmod u=rw,g=r,o=r x5.awk
+ 
+echo x - x5a.awk
+sed 's/^@//' > "x5a.awk" <<'@//E*O*F x5a.awk//'
+# Convert a sorted file containing name pairs "caller:refersto", one per
+# line, to a LIBREF-like output table.  There are 4 entries per line, allowing
+# 15 chars/entry.
+# [20-Jul-87]
+BEGIN {
+    FS = "\t";
+    nref = 0;
+    caller = "";
+    print "*********************************************************************";
+    print "*     ..Name..         *  ...Refers To...                           *";
+    print "*********************************************************************";
+    print "*                      *                                            *";
+}
+
+{
+    if (($1 != caller) && (caller != ""))
+    {
+	if (length(caller) > 20)
+	    the_caller =  substr(caller,1,20);
+	else
+	    the_caller = caller;
+        printf "* %-20s->",the_caller;
+        nref4 = 4*int((nref + 3)/4);
+
+        for (k = nref; k < nref4; ++k)
+            refs[k] = " ";
+        nref = nref4;
+        for (k = 0; k < nref; )
+        {
+            printf " %-10s",refs[k];
+            ++k;
+            if ((k % 4) == 0)
+            {
+                printf "*\n";
+                if (k < nref)
+                {
+                    printf "*                      *";
+                }
+            }
+        }
+        nref = 0;
+        print "*                      *                                            *";
+    }
+    caller = $1;
+    if (length($2) > 10)
+	$2 = substr($2,1,10);
+    refs[nref] = $2;
+    nref++;	# awk treats refs[nref++] as refs[++nref], sigh...
+
+}
+
+END {
+    printf "* %-20s->",caller;
+    nref4 = 4*int((nref + 3)/4);
+    for (k = nref; k < nref4; ++k)
+        refs[k] = " ";
+    nref = nref4;
+    for (k = 0; k < nref; )
+    {
+        printf " %-10s",refs[k];
+        ++k;
+        if ((k % 4) == 0)
+        {
+            printf "*\n";
+            if (k < nref)
+            {
+                printf "*                      *";
+            }
+        }
+    }
+    nref = 0;
+    print "*                      *                                            *";
+    print "*********************************************************************";
+}
+@//E*O*F x5a.awk//
+chmod u=rw,g=r,o=r x5a.awk
+ 
+echo x - x6.awk
+sed 's/^@//' > "x6.awk" <<'@//E*O*F x6.awk//'
+# <BEEBE.TEX.DVI.NEW>X6.AWK.5,  9-Sep-86 14:01:46, Edit by BEEBE
+# Convert a CXREF output  file containing name entries  of one of  three
+# forms
+#
+# initial entry:
+#	callee<TAB>caller<TAB>linerefs
+#
+# subsequent entry for same callee:
+#	<TAB><TAB><TAB>anothercaller<TAB>linerefs
+#
+# subsequent entry for same caller with additional linerefs
+#	<TAB><TAB><TAB><TAB>morelinerefs
+#
+# to a LIBREF-like output table.  There  are 4 entries per output  line,
+# allowing 10 chars/entry.  The line references are discarded.
+#
+# The first two lines output by CXREF are a page header which should  be
+# deleted before this awk program is  run, and the last line contains  a
+# lone CTL-L which should also be removed.
+# [09-Sep-86]
+BEGIN {
+    FS = "\t";
+    nref = 0;
+    callee = "";
+    print "*********************************************************************";
+    print "*     ..Name..         *  ...Referenced By...                       *";
+    print "*********************************************************************";
+    print "*                      *                                            *";
+}
+
+{
+    if (($1 != "") && ($1 != callee) && (callee != ""))
+    {
+	if (length(callee) > 20)
+	    the_callee =  substr(callee,1,20);
+	else
+	    the_callee = callee;
+        printf "* %-20s<-",the_callee;
+        nref4 = 4*int((nref + 3)/4);
+
+        for (k = nref; k < nref4; ++k)
+            refby[k] = " ";
+        nref = nref4;
+        for (k = 0; k < nref; )
+        {
+            printf " %-10s",refby[k];
+            ++k;
+            if ((k % 4) == 0)
+            {
+                printf "*\n";
+                if (k < nref)
+                {
+                    printf "*                      *";
+                }
+            }
+        }
+        nref = 0;
+        print "*                      *                                            *";
+    }
+    if ($1 != "")
+	callee = $1;	# first type--initial entry for new callee
+    if ($2 == "")
+	$2 = $4;	# second type--same callee, different caller
+    if ($2 != "")	# not third type
+    {
+	if (length($2) > 10)
+	    $2 = substr($2,1,10);
+	refby[nref] = $2;
+	nref++;	# awk treats refby[nref++] as refby[++nref], sigh...
+    }
+}
+
+END {
+    if (length(callee) > 20)
+	the_callee =  substr(callee,1,20);
+    else
+	the_callee = callee;
+    printf "* %-20s<-",the_callee;
+    nref4 = 4*int((nref + 3)/4);
+    for (k = nref; k < nref4; ++k)
+        refby[k] = " ";
+    nref = nref4;
+    for (k = 0; k < nref; )
+    {
+        printf " %-10s",refby[k];
+        ++k;
+        if ((k % 4) == 0)
+        {
+            printf "*\n";
+            if (k < nref)
+            {
+                printf "*                      *";
+            }
+        }
+    }
+    nref = 0;
+    print "*                      *                                            *";
+    print "*********************************************************************";
+}
+@//E*O*F x6.awk//
+chmod u=rw,g=r,o=r x6.awk
+ 
+exit 0
