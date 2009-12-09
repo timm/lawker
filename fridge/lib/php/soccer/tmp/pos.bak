@@ -1,17 +1,17 @@
-A green 153 595 100 
-B green 181 200 100 
-C green 183 15 100 
-D green 101 451 100 
-E green 209 459 100 
-F green 173 31 100 
-a red 150 5 100 
-G green 176 106 100 
-b red 275 0 100 
-c red 280 82 100 
-d red 58 26 100 
-0 black 182 23 100  static3 last:182:23
-e red 173 25 70 
-f red 83 127 100 
-g red 146 73 100 
+A green 150 595 100 
+B green 268 209 98 
+C green 194 221 90 
+D green 103 244 100 
+E green 253 297 94 
+F green 197 249 100 
+a red 157 5 100 
+G green 300 204 100 
+b red 216 313 100 
+c red 201 249 100 
+d red 127 164 97 
+0 black 206 340 100  static0 last:206:340
+e red 189 139 100 
+f red 125 600 100 
+g red 208 398 100 
 f1 red 150 20
 f2 green 150 580
