@@ -21,14 +21,13 @@
 #.P
 #On the plus side:
 #.UL
-#.LI The code is very short.
+#.LI The code is very short (11 lines!).
 #.LI The code's functionality is very easy to modify. If the third argument is a string, it is passed to a UNIX <em>sort</em> command. This command supports a <a href="http://www.freebsd.org/cgi/man.cgi?query=sort&apropos=0&sektion=0&manpath=FreeBSD+8.0-RELEASE&format=html">very large list</a> of control options.
 #./UL
 #.P
 #On the negative side:
 #.UL
-#.LI This code is operating system dependent. It only workds on Mac, UNIX, LINUX, and Windoze
-#(with Cygwin installed).
+#.LI This code is operating system dependent. It only workds on Mac, UNIX, LINUX, and Windoze (with Cygwin installed).
 #.LI When this code runs, it forks a sub-process. So it may be slower to run than the
 #other methods documneted in comp.lang.awk and awk.info.
 #./UL
@@ -96,19 +95,19 @@ function odemo(  a,b,i,n) {
 #fruit[ apple ]  =        [ 3 ]
 #./PRE
 #.H3 Main driver
+#.P The code is short, yes?
 #.PRE
 function o(a, str,control,   i) {
-   if (control ~ /^[0-9]/) {
+   if (control ~ /^[0-9]/) 
       for(i=1;i<=control;i++)
-         print str "[ " i " ]\t=\t [ " a[i] " ]";
-   } else  {
+         print str "[ " i " ]\t=\t [ " a[i] " ]"
+  else  {
       com = control ? control : " -n -k 2" 
       com = "sort " com  " #" rand(); # ensure com is unique
       for(i in a)
          print str "[ " i " ]\t=\t [ " a[i] " ]" | com;
       close(com);
-	}
-}
+}}
 #./PRE
 #.H2 Author
 #.P

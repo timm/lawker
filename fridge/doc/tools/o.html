@@ -32,14 +32,13 @@ good, I wondered if a little shell scripting would simplify the task.
 <P>
 On the plus side:
 <UL>
-<LI> The code is very short.</LI>
+<LI> The code is very short (11 lines!).</LI>
 <LI> The code's functionality is very easy to modify. If the third argument is a string, it is passed to a UNIX <em>sort</em> command. This command supports a <a href="http://www.freebsd.org/cgi/man.cgi?query=sort&apropos=0&sektion=0&manpath=FreeBSD+8.0-RELEASE&format=html">very large list</a> of control options.</LI>
 </UL>
 <P>
 On the negative side:
 <UL>
-<LI> This code is operating system dependent. It only workds on Mac, UNIX, LINUX, and Windoze</LI>
-(with Cygwin installed).
+<LI> This code is operating system dependent. It only workds on Mac, UNIX, LINUX, and Windoze (with Cygwin installed).</LI>
 <LI> When this code runs, it forks a sub-process. So it may be slower to run than the</LI>
 other methods documneted in comp.lang.awk and awk.info.
 </UL>
@@ -107,19 +106,19 @@ fruit[ banana ] =        [ 2 ]
 fruit[ apple ]  =        [ 3 ]
 </PRE>
 <a name=6></a><H3> Main driver</H3>
+<P> The code is short, yes?</P>
 <PRE>
 function o(a, str,control,   i) {
-   if (control ~ /^[0-9]/) {
+   if (control ~ /^[0-9]/) 
       for(i=1;i&lt;=control;i++)
-         print str "[ " i " ]\t=\t [ " a[i] " ]";
-   } else  {
+         print str "[ " i " ]\t=\t [ " a[i] " ]"
+  else  {
       com = control ? control : " -n -k 2" 
       com = "sort " com  " #" rand(); # ensure com is unique
       for(i in a)
          print str "[ " i " ]\t=\t [ " a[i] " ]" | com;
       close(com);
-	}
-}
+}}
 </PRE>
 <a name=7></a><H2> Author</H2>
 <P>
