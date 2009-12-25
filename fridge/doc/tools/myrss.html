@@ -9,8 +9,9 @@
 <h2><font color=black>&bull;</font></a> <a href=#6>Code</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#7>Top-Level Drive</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#8>Main workder</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#9>Formatting Functions</a></h3>
-<h2><font color=black>&bull;</font></a> <a href=#10>Author</a></h2>
+<h3><font color=black>&bull;</font></a> <a href=#9>Helper Functions</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#10>Formatting Functions</a></h3>
+<h2><font color=black>&bull;</font></a> <a href=#11>Author</a></h2>
 </div><!--- htmltoc --->
 <div id="htmlbody">
 <a name=1></a><H2> Synopsis</H2>
@@ -71,7 +72,7 @@ from 0.9 seconds to 0.88 seconds. This is very fast considering that just wgetti
    print "&lt;/ul>"
  '}
 </PRE>
-/SMALL
+</SMALL>
 <P>
 This generaetes the following list from the AWK.INFO rss feed
 <UL>
@@ -107,16 +108,16 @@ function myrss1(feed,max,  between,  n,all,sep,out,date,url,txt,seen) {
     }}
   return out;
 }
-&lt;/RE>
-&lt;H3> Helper Functions&lt;/H3>
-&lt;P>
-&lt;EM> slurp&lt;/EM>
+</PRE>
+<a name=9></a><H3> Helper Functions</H3>
+<P>
+<EM> slurp</EM>
  reads an entire file into an array.
 <PRE>
 function slurp(com,sep,all) { slurp0(com); return split($0,all,sep)     }
 function slurp0(com)        { RS=""; FS="\n"; com | getline; close(com) }
 </PRE>
-<a name=9></a><H3> Formatting Functions</H3>
+<a name=10></a><H3> Formatting Functions</H3>
 <P>
 Most of the formatting control is isolated in the following functions.
 Change these to change the appearance of the feeds.
@@ -126,7 +127,7 @@ function myText(str)            { sub(/&lt;.*/,"",str); return str }
 function myUrl(str)             { sub(/&lt;.*/,"",str);    return str }
 function myReport(url,date,txt) { return "&lt;a href=\"" url "\">" date "&lt;/a>" txt}
 </PRE>
-<a name=10></a><H2> Author</H2>
+<a name=11></a><H2> Author</H2>
 <P>
 Tim Menzies
 </div><!--- htmlbody --->

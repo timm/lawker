@@ -57,7 +57,7 @@
 #   print "</ul>"
 # '}
 #./PRE
-#/SMALL
+#./SMALL
 #.P
 #This generaetes the following list from the AWK.INFO rss feed
 #.UL
@@ -93,7 +93,7 @@ function myrss1(feed,max,  between,  n,all,sep,out,date,url,txt,seen) {
     }}
   return out;
 }
-#./RE
+#./PRE
 #.H3 Helper Functions
 #.P
 #.EM slurp
