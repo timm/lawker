@@ -125,7 +125,7 @@ Change these to change the appearance of the feeds.
 function myDate(str, tmp)  { split(str,tmp," "); return tmp[3] " " tmp[2]} 
 function myText(str)            { sub(/&lt;.*/,"",str); return str }
 function myUrl(str)             { sub(/&lt;.*/,"",str);    return str }
-function myReport(url,date,txt) { return "&lt;a href=\"" url "\">" date "&lt;/a>" txt}
+function myReport(url,dat,txt) { return "&lt;a href=\""url"\">"dat"&lt;/a>" txt}
 </PRE>
 <a name=11></a><H2> Author</H2>
 <P>

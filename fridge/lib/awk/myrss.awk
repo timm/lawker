@@ -110,7 +110,7 @@ function slurp0(com)        { RS=""; FS="\n"; com | getline; close(com) }
 function myDate(str, tmp)  { split(str,tmp," "); return tmp[3] " " tmp[2]} 
 function myText(str)            { sub(/&lt;.*/,"",str); return str }
 function myUrl(str)             { sub(/<.*/,"",str);    return str }
-function myReport(url,date,txt) { return "<a href=\"" url "\">" date "</a>" txt}
+function myReport(url,dat,txt) { return "<a href=\""url"\">"dat"</a>" txt}
 #./PRE
 #.H2 Author
 #.P
