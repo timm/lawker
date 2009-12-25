@@ -519,6 +519,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JohnD</what>
 	</file>
+	<file where="doc/tools/myrss.html">
+		<title>Reading RSS feeds</title>
+		<what></what>
+		<what>Rss</what>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>TimM</what>
+	</file>
 	<file where="doc/tools/rcalc.html">
 		<title>Resistor Calculation</title>
 		<what></what>

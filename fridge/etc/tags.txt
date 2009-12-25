@@ -50,6 +50,7 @@ doc/news/popular.html		;Admin	;2009	;Nov;				;|Awk.info Gaining Popularity
 doc/news/awkbot.html		;ScottS	;2009	;Nov;				;|Awkbot: 
 doc/news/awkmug.html		;Zazzle	;2009	;Oct;				;|Awk Mug
 doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Parallel Awk
+doc/tools/myrss.html		;TimM	;2009	;Dec;	Rss;			;|Reading RSS feeds
 doc/tools/rcalc.html		;GrantC	;2009	;Nov;	Engineering;			;|Resistor Calculation
 doc/tools/zipf.html		;JohnF	;2009	;Oct;	TextMining;			;|Zipf's Law
 doc/news/mawkHashing.html	;JMellander	;2009	;Oct;	Mawk;			;|Faster Hashing in Mawk

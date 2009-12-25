@@ -67,6 +67,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/readminds.html\
     	$(Doc)/s2a.html\
 		$(Doc)/tools/shuffle.html\
+		$(Doc)/tools/myrss.html\
     	$(Doc)/spam.html\
     	$(Doc)/dumpxml.html\
     	$(Doc)/getxml.html\
@@ -95,6 +96,7 @@ $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 
 $(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
+$(Doc)/tools/myrss.html : $(Awklib)/myrss.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/mysql.html : $(Awklib)/mysql.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/fsm.html : $(Cee)/fsm/contents/readme.html 	  ; cd $> && $(Awk2Html)
