@@ -23,26 +23,26 @@ Download from
 <a name=3></a><H2> About</H2>
 <P>
  The function
-<TT> myrss("rss;url;N")</TT>
+<EM> myrss("rss;url;N")</EM>
  returns the first 
-<TT> N</TT>
+<EM> N</EM>
  items from an rss feed found in
-<TT> url.</TT>
+<EM> url.</EM>
 <P>
  The functional optionally accepts a 
-<TT> between</TT>
+<EM> between</EM>
  string that is printed between each item.
 <P>
 The code is designed to be customized. Quirks in the RSS stream, or quirks in the formatting are handled by a set
 of seperate 
-<TT> my</TT>
+<EM> my</EM>
  functions that be quickly altered to return the desired strings.
 <a name=4></a><H2> Notes</H2>
 <P>
 The code uses a 
-<TT> slurp</TT>
+<EM> slurp</EM>
 function that reads the entire stream as one string using
-<TT> wget</TT>
+<EM> wget</EM>
 then splits it into an array on the &lt; character.
 <P>
 After a few simplifications, the approach turns out  to be very fast. For example, using
@@ -56,7 +56,7 @@ wget -O tmpfile; cat tmpfile
 <P>
 Also, version one of this code split the RSS feed using
 the disjunction
-<TT> [<>].</TT>
+<EM> [<>].</EM>
 This proved to be much slower  than just slurping in splitting on "\n" then subsequently splitting
 on "&lt;". 
 <P>
@@ -109,7 +109,7 @@ function myrss1(feed,max,  between,  n,all,sep,out,date,url,txt,seen) {
 &lt;/RE>
 &lt;H3> Helper Functions&lt;/H3>
 &lt;P>
-&lt;TT> slurp&lt;/TT>
+&lt;EM> slurp&lt;/EM>
  reads an entire file into an array.
 <PRE>
 function slurp(com,sep,all) { slurp0(com); return split($0,all,sep)     }
