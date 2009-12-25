@@ -28,7 +28,7 @@
 #On the negative side:
 #.UL
 #.LI This code is operating system dependent. It only workds on Mac, UNIX, LINUX, and Windoze (with Cygwin installed).
-#.LI When this code runs, it forks a sub-process. So it may be slower to run than the
+#.LI When this code runs, it forks a sub-process. So it may be a little slower to run than the
 #other methods documneted in comp.lang.awk and awk.info.
 #./UL
 #.P

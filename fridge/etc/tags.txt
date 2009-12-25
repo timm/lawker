@@ -42,15 +42,14 @@ doc/mastermind.html			;Ysa	;2009	;Apr	;TenLiners  ;Games			;|Mastermind
 doc/mastermind2.html			;SteveL	;2009	;May	 ;Games			;|Mastermind (again)
 doc/checkers.html			;AaronH	;2009	;May	 ;Games			;|Checkers
 doc/tictactoe.html			;AaronH	;2009	;May	 ;Games			;|Tic-tac-toe
-doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners  			;|Quicksort
-doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners  			;|Quicksort2
+doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners	;Sorting 			;|Quicksort
+doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners 	;Sorting			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
 doc/news/popular.html		;Admin	;2009	;Nov;				;|Awk.info Gaining Popularity
 doc/news/awkbot.html		;ScottS	;2009	;Nov;				;|Awkbot: 
 doc/news/awkmug.html		;Zazzle	;2009	;Oct;				;|Awk Mug
 doc/news/parallelAwk.html		;JohnD	;2009	;Oct;				;|Parallel Awk
-doc/tools/o.html		;TimM	;2009	;Dec;	Sorting;			;|Sorting Arrays Via the Shell
 doc/tools/myrss.html		;TimM	;2009	;Dec;	Rss;			;|Reading RSS feeds
 doc/tools/rcalc.html		;GrantC	;2009	;Nov;	Engineering;			;|Resistor Calculation
 doc/tools/zipf.html		;JohnF	;2009	;Oct;	TextMining;			;|Zipf's Law
@@ -127,7 +126,8 @@ gawk/array/saya.awk			;Timm	;2009	;Apr		;Arrays	;|Print an Array
 gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 
-doc/sorting.html            ;EdM   ;2009   ;Nov    ;Tools       ;|Sorting
+doc/sorting.html            ;EdM   ;2009   ;Nov    ;Tools      ;Sorting	 ;|Sorting
+doc/tools/o.html		;TimM	;2009	;Dec;	Sorting;			;|Sorting Arrays Via the Shell
 doc/tools/levenshtein.html  ;PierreG   ;2009   ;Nov    ;Tools       ;|levenshtein.awk
 doc/tools/columnate.html            ;Admin   ;2009   ;Nov    ;Tools       ;|Columnate
 doc/tools/widenbmp.html            ;TedD   ;2009   ;Sept    ;Graphics       ;|Widen bitmaps, using Gawk

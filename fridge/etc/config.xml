@@ -473,6 +473,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/quicksort.html">
 		<title>Quicksort</title>
+		<what>Sorting</what>
 		<what>TenLiners</what>
 		<what>Apr</what>
 		<what>2009</what>
@@ -480,6 +481,7 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/quicksort2.html">
 		<title>Quicksort2</title>
+		<what>Sorting</what>
 		<what>TenLiners</what>
 		<what>Apr</what>
 		<what>2009</what>
@@ -518,14 +520,6 @@ pageTracker._trackPageview();
 		<what>Oct</what>
 		<what>2009</what>
 		<what>JohnD</what>
-	</file>
-	<file where="doc/tools/o.html">
-		<title>Sorting Arrays Via the Shell</title>
-		<what></what>
-		<what>Sorting</what>
-		<what>Dec</what>
-		<what>2009</what>
-		<what>TimM</what>
 	</file>
 	<file where="doc/tools/myrss.html">
 		<title>Reading RSS feeds</title>
@@ -1039,10 +1033,19 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/sorting.html">
 		<title>Sorting</title>
+		<what>Sorting</what>
 		<what>Tools</what>
 		<what>Nov</what>
 		<what>2009</what>
 		<what>EdM</what>
+	</file>
+	<file where="doc/tools/o.html">
+		<title>Sorting Arrays Via the Shell</title>
+		<what></what>
+		<what>Sorting</what>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>TimM</what>
 	</file>
 	<file where="doc/tools/levenshtein.html">
 		<title>levenshtein.awk</title>
