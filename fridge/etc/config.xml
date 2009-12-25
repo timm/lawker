@@ -519,6 +519,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JohnD</what>
 	</file>
+	<file where="doc/tools/o.html">
+		<title>Sorting Arrays Via the Shell</title>
+		<what></what>
+		<what>Sorting</what>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>TimM</what>
+	</file>
 	<file where="doc/tools/myrss.html">
 		<title>Reading RSS feeds</title>
 		<what></what>

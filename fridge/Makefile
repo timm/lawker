@@ -81,6 +81,7 @@ files : $(Doc)/dsl/markdown.html \
 		$(Doc)/tools/widenbmp.html \
 		$(Doc)/game.html \
 		$(Doc)/sorting.html \
+		$(Doc)/tools/o.html\
 		$(Doc)/tools/columnate.html\
 		$(Doc)/tools/rcalc.html\
 		$(Doc)/tools/levenshtein.html\
@@ -96,6 +97,7 @@ $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 
 $(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
+$(Doc)/tools/o.html : $(Awklib)/o.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/myrss.html : $(Awklib)/myrss.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/mysql.html : $(Awklib)/mysql.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)

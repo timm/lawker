@@ -15,9 +15,13 @@
 # items from an rss feed found in
 #.EM url.
 #.P
+# This code is a nice example of the brevity of Awk. I've used many PHP and Perl-based
+# RSS readers and this code is by far the  simplest, the shortest, and the easiest to modify.
+#.P
 # The functional optionally accepts a 
 #.EM between
-# string that is printed between each item.
+# string that is printed between each item. The following example prints a "&lt;li>"
+#between each RSS item; i.e. it converts a text string into an HTML list.
 #.P
 #The code is designed to be customized. Quirks in the RSS stream, or quirks in the formatting are handled by a set
 #of separate 
