@@ -11,7 +11,7 @@
 #.H2 Download
 #Download from
 #.URL http://lawker.googlecode.com/svn/fridge/lib/awk/o.awk LAWKER.
-#.H2
+#.H2 Notes
 #.P
 #Much has been written in <a 
 #href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/989d048946536fea#">
