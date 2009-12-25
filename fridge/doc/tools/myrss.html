@@ -8,7 +8,7 @@
 <h2><font color=black>&bull;</font></a> <a href=#5>Example</a></h2>
 <h2><font color=black>&bull;</font></a> <a href=#6>Code</a></h2>
 <h3><font color=black>&bull;</font></a> <a href=#7>Top-Level Drive</a></h3>
-<h3><font color=black>&bull;</font></a> <a href=#8>Main workder</a></h3>
+<h3><font color=black>&bull;</font></a> <a href=#8>Main Worker</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#9>Helper Functions</a></h3>
 <h3><font color=black>&bull;</font></a> <a href=#10>Formatting Functions</a></h3>
 <h2><font color=black>&bull;</font></a> <a href=#11>Author</a></h2>
@@ -35,7 +35,7 @@ Download from
  string that is printed between each item.
 <P>
 The code is designed to be customized. Quirks in the RSS stream, or quirks in the formatting are handled by a set
-of seperate 
+of separate 
 <EM> my</EM>
  functions that be quickly altered to return the desired strings.
 <a name=4></a><H2> Notes</H2>
@@ -74,7 +74,7 @@ from 0.9 seconds to 0.88 seconds. This is very fast considering that just wgetti
 </PRE>
 </SMALL>
 <P>
-This generaetes the following list from the AWK.INFO rss feed
+This generates the following list from the AWK.INFO rss feed
 <UL>
 <LI> <a href="http://lawker.blogspot.com/2009/12/awkinfo-now-top-20-website.html">Dec 02</a> Awk.info now a top-20 website.</LI>
 <LI> <a href="http://lawker.blogspot.com/2009/12/zork-in-awk.html">Dec 02</a> Praveen Puri offers a Zork-clone, in Awk.</LI>
@@ -90,7 +90,7 @@ function myrss(rss, between, tmp) {
   return myrss1(tmp[2],tmp[3],between);
 }
 </PRE>
-<a name=8></a><H3> Main workder</H3>
+<a name=8></a><H3> Main Worker</H3>
 <PRE>
 function myrss1(feed,max,  between,  n,all,sep,out,date,url,txt,seen) {
   n = slurp("wget -q -O - http://" feed,">",all);

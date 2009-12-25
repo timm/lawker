@@ -20,7 +20,7 @@
 # string that is printed between each item.
 #.P
 #The code is designed to be customized. Quirks in the RSS stream, or quirks in the formatting are handled by a set
-#of seperate 
+#of separate 
 #.EM my
 # functions that be quickly altered to return the desired strings.
 #.H2 Notes
@@ -59,7 +59,7 @@
 #./PRE
 #./SMALL
 #.P
-#This generaetes the following list from the AWK.INFO rss feed
+#This generates the following list from the AWK.INFO rss feed
 #.UL
 #.LI <a href="http://lawker.blogspot.com/2009/12/awkinfo-now-top-20-website.html">Dec 02</a> Awk.info now a top-20 website.
 #.LI <a href="http://lawker.blogspot.com/2009/12/zork-in-awk.html">Dec 02</a> Praveen Puri offers a Zork-clone, in Awk.
@@ -75,7 +75,7 @@ function myrss(rss, between, tmp) {
   return myrss1(tmp[2],tmp[3],between);
 }
 #./PRE
-#.H3 Main workder
+#.H3 Main Worker
 #.PRE
 function myrss1(feed,max,  between,  n,all,sep,out,date,url,txt,seen) {
   n = slurp("wget -q -O - http://" feed,">",all);
