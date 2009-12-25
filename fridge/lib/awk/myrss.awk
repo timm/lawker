@@ -50,12 +50,11 @@
 #from 0.9 seconds to 0.88 seconds. This is very fast considering that just wgetting the RSS feed  takes 0.08 seconds.
 #.H2 Example
 #.PRE 
-# % gawk -f myrss.awk \
-#      --source ' BEGIN {
-#       print "<ul>"
-#       print myrss("rss;lawker.blogspot.com/feeds/posts/default?alt=rss;5","<li>\n")
-#       print "</ul>"
-#     '}
+# % gawk -f myrss.awk --source 'BEGIN {
+#   print "<ul>"
+#   print myrss("rss;lawker.blogspot.com/feeds/posts/default?alt=rss;5","<li>\n")
+#   print "</ul>"
+# '}
 #./PRE
 #.P
 #This generaetes the following list from the AWK.INFO rss feed

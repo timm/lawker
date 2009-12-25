@@ -64,12 +64,11 @@ The above two optimizations changed the runtimes for the following example
 from 0.9 seconds to 0.88 seconds. This is very fast considering that just wgetting the RSS feed  takes 0.08 seconds.
 <a name=5></a><H2> Example</H2>
 <PRE>
- % gawk -f myrss.awk \
-      --source ' BEGIN {
-       print "&lt;ul>"
-       print myrss("rss;lawker.blogspot.com/feeds/posts/default?alt=rss;5","&lt;li>\n")
-       print "&lt;/ul>"
-     '}
+ % gawk -f myrss.awk --source 'BEGIN {
+   print "&lt;ul>"
+   print myrss("rss;lawker.blogspot.com/feeds/posts/default?alt=rss;5","&lt;li>\n")
+   print "&lt;/ul>"
+ '}
 </PRE>
 <P>
 This generaetes the following list from the AWK.INFO rss feed
