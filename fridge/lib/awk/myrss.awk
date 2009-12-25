@@ -49,6 +49,7 @@
 #The above two optimizations changed the runtimes for the following example 
 #from 0.9 seconds to 0.88 seconds. This is very fast considering that just wgetting the RSS feed  takes 0.08 seconds.
 #.H2 Example
+#.SMALL
 #.PRE 
 # % gawk -f myrss.awk --source 'BEGIN {
 #   print "<ul>"
@@ -56,14 +57,15 @@
 #   print "</ul>"
 # '}
 #./PRE
+#/SMALL
 #.P
 #This generaetes the following list from the AWK.INFO rss feed
 #.UL
-#.LI <a href="http://lawker.blogspot.com/2009/12/awkinfo-now-top-20-website.html">Dec 02</a>Awk.info now a top-20 website.
-#.LI <a href="http://lawker.blogspot.com/2009/12/zork-in-awk.html">Dec 02</a>Praveen Puri offers a Zork-clone, in Awk.
-#.LI <a href="http://lawker.blogspot.com/2009/12/sorting-in-awk.html">Dec 01</a>Ed Morton sorts out everything (using Awk)
-#.LI <a href="http://lawker.blogspot.com/2009/12/smallest-formatter-ever.html">Dec 01</a>Is this the smartest (smallest) formatter ever written?
-#.LI <a href="http://lawker.blogspot.com/2009/11/norvigs-spell-checker-in-awk.html">Nov 30</a>Gregory Grefenstette implements Norvig's spell checker.
+#.LI <a href="http://lawker.blogspot.com/2009/12/awkinfo-now-top-20-website.html">Dec 02</a> Awk.info now a top-20 website.
+#.LI <a href="http://lawker.blogspot.com/2009/12/zork-in-awk.html">Dec 02</a> Praveen Puri offers a Zork-clone, in Awk.
+#.LI <a href="http://lawker.blogspot.com/2009/12/sorting-in-awk.html">Dec 01</a> Ed Morton sorts out everything (using Awk)
+#.LI <a href="http://lawker.blogspot.com/2009/12/smallest-formatter-ever.html">Dec 01</a> Is this the smartest (smallest) formatter ever written?
+#.LI <a href="http://lawker.blogspot.com/2009/11/norvigs-spell-checker-in-awk.html">Nov 30</a> Gregory Grefenstette implements Norvig's spell checker.
 #./UL
 #.H2 Code
 #.H3 Top-Level Drive
