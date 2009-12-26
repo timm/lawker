@@ -10,40 +10,44 @@ TOOLS
 Tim Menzies offers a (very) simple RSS reader.
 - http://awk.info/?tools/rss
 
-Debbie Forbes codes a succinct array soter (very flexible).
+Debbie Forbes quickly sorts arrays.
 - http://awk.info/?tools/o
+
+Peter Ivanyi and Roman Putanowicz generated Latex doco
+from program comments.
+- http://awk.info/?tools/adoc
 
 -----------------------------------------------------------
 NEWS
 
 -----------------------------------------------------------
-PAGE(S) OF THE YEAR
+PAGE(S) OF THE 2009
 
-Top 10 pages (with most time on pages):
-
-1) http://awk.info/?doc/tools/holidays.html
-http://awk.info/?doc/tools/fsm.html
-http://awk.info/?doc/tools/xmlparse.html
-http://awk.info/?tip/sedInAwk
-http://awk.info/?tip/getline
-http://awk.info/?tip/sysAdminInAwk
-http://awk.info/?tools/runawk
-http://awk.info/?doc/bfc.html
-http://awk.info/?tip/whinyUsers
-
-Top 10 pages (with most views):
-
-http://awk.info/?index
-http://awk.info/?Learn
-http://awk.info/?awk100
-http://awk.info/?samples
-http://awk.info/?awk1line
-http://awk.info/?doc/tools/nbc.html
-http://awk.info/?tip/sedInAwk
-http://awk.info/?Top10
-http://awk.info/?sorting
-http://awk.info/?OneLiners
-
+The top-ten longest-read pages (measured in seconds):
+  
+   1) http://awk.info/?tools/holidays
+   2) http://awk.info/?tools/fsm
+   3) http://awk.info/?tools/xmlparse
+   4) http://awk.info/?tip/sedInAwk
+   6) http://awk.info/?tip/getline
+   7) http://awk.info/?tip/sysAdminInAwk
+   8) http://awk.info/?tools/runawk
+   9) http://awk.info/?bfc
+  10) http://awk.info/?tip/whinyUsers
+  
+The top ten most-visited pages:
+  
+   1) http://awk.info/?index
+   2) http://awk.info/?Learn
+   3) http://awk.info/?awk100
+   4) http://awk.info/?samples
+   5) http://awk.info/?awk1line
+   6) http://awk.info/?tools/nbc
+   7) http://awk.info/?tip/sedInAwk
+   8) http://awk.info/?Top10
+   9) http://awk.info/?sorting
+  10) http://awk.info/?OneLiners
+  
 --------
 
 Have a nice new decade!
