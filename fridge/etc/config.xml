@@ -518,6 +518,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>DanN</what>
 	</file>
+	<file where="doc/tools/server.html">
+		<title>A Web Server in Awk</title>
+		<what></what>
+		<what>Web</what>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>MichealS</what>
+	</file>
 	<file where="doc/tools/myrss.html">
 		<title>Reading RSS feeds</title>
 		<what></what>

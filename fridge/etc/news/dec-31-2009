@@ -5,6 +5,20 @@ http://tinyurl.com/rss4awk. To contribute to awk.info,
 see http://awk.info/?contribute .)
 
 -----------------------------------------------------------
+NEWS
+
+Arnold Robbins asks this community to comment on 
+different methods to implement file inclusion in Gawk.
+- http://awk.info/poll/
+
+Wim van Blitterswijk announces XMLgawk for Windows.
+- http://awk.info/?news/xgawk4windows  
+
+Arnold Robbins annouces the roadmap for the
+next planned updates to Gawk.
+- http://www.skeeve.com/gawk_roadmap.html
+
+-----------------------------------------------------------
 TOOLS
 
 Tim Menzies offers a (very) simple RSS reader.
@@ -23,9 +37,6 @@ Dan Nielsen's shows us how to draw Sierpinski Triangles.
 Ed Morton and Kenny McCormack show us Awk's 
 equivalent to VI's "J" command.
 - http://awk.info/?j
-
------------------------------------------------------------
-NEWS
 
 -----------------------------------------------------------
 PAGE(S) OF THE 2009
