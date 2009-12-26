@@ -1,0 +1,983 @@
+#!/bin/bash
+#
+# Version 1.0
+# 
+# Changes : removes the new line character from the end of cooked strings
+#           EXAMPLE section is always verbatim, using verbatim package
+#/****m*
+#* NAME
+#*   adoC
+#* DESCRIPTION
+#*   This is a documenting system written in awk. 
+#*   The system can be used with almost any programming language.
+#*   It tries to provide an easy to use format which does not cluter
+#*   the source code itself and do not demand too much cooperation
+#*   from the programmer. The initial idea is taken from the project
+#*   ROBODoc.
+#*   
+#*   Every documentation block appears as a comment in the source code
+#*   Comments start with a "/****_*" signature and
+#*   end with "******/" signature. The signature should be the
+#*   last character set in the line, nothing should be after them, but
+#*   they do not have to be at the beginning of the line. The underline
+#*   character in the starting signature is actually one of the following
+#*   characters: "f" for functions, "m" for modules, "s" for structures,
+#*   "v" for variables, "t" for types, "d" for macros, "e" for enums and
+#*   "o" for other features of the program which should be documented.
+#*   From the above list it can be seen, that this documenting system
+#*   was mainly designed for the C language. All lines between the signatures
+#*   should have a star ("*") character somewhere at the beginning of the line.
+#*   It does not have to be the first character, but the first word (character
+#*   set which does not contain white spaces) in the line should contain the 
+#*   star character in it. For example in a shell script the "\#*" word is 
+#*   acceptable. In this way indentation is also allowed.
+#*   
+#*   The documentation block is divided into sections by keywords. The available
+#*   keywords are:
+#*   \begin{itemize}
+#*     \item NAME \
+#*     \item SYNOPSIS \
+#*     \item DESCRIPTION \
+#*     \item ARGUMENTS \
+#*     \item MEMBERS \
+#*     \item RETURN VALUE \
+#*     \item NOTES \
+#*     \item WARNINGS \
+#*     \item EXAMPLE \
+#*     \item COPYRIGHT \
+#*     \item SEE ALSO \
+#*     \item IGNORE \
+#*   \end{itemize}
+#*   When one of these words appears as the last word in a line then and 
+#*   only then it is recognised as a keyword. In all other cases it is just 
+#*   a word to print. Different documented program features require 
+#*   different keywords to be specified. All documentation block should 
+#*   have a DESCRIPTION section. They should also have a NAME section except 
+#*   the module documentation in which case it can be omitted. The 
+#*   documentation of a function also requires an ARGUMENTS section and the 
+#*   program will issue a warning message if no RETURN VALUE section is 
+#*   specified. The SYNOPSIS section can be given by the user or 
+#*   automatically derived. In the case of the automatic generation of a 
+#*   SYNOPSIS section the program reads the source code after the 
+#*   documentation block and takes all text until a "\{" character
+#*   is encountered. This means, that if your programming language uses a 
+#*   different convention for functions, you have to specify the SYNOPSIS 
+#*   section explicitly. On the other hand SYNOPSIS can be used only with 
+#*   functions. For structures and typedefs the MEMBERS section should be 
+#*   specified otherwise the program prints a warning message. The IGNORE 
+#*   section is never printed. The definition order of the keywords can be
+#*   random, but they will be printed in the order as they are listed 
+#*   above. On the other hand keywords cannot be repeated in one 
+#*   documentation block.
+#*
+#*   The program writes the resulting document to the standard output. The
+#*   format of the document is a Latex source. This means, that anything after
+#*   the keywords in a documentation block will be interpreted by Latex at a 
+#*   later stage, therefore not all characters are acceptable. In short the 
+#*   following characters cannot be used freely, only in special 
+#*   circumstances: "\$\&\verb+\+\#". On the other hand if you know Latex
+#*   you can use Latex formatting in the text.
+#*
+#*   Large part of the awk script is Latex independent. The other part of 
+#*   the program can be replaced easily. The main formatting of the document 
+#*   is done by Latex, but it should not be too difficult to write an HTML 
+#*   version of this program. Currently it is not done, since a marvellous 
+#*   Latex2HTML program exists.
+#*
+#*   The script has two modes. In the default mode the documentation is 
+#*   written per file, while in the second mode all source code features, 
+#*   like functions, variabled, macros, etc. are collected under separate 
+#*   sections. In both modes the program writes the index and the table of
+#*   contents as well.
+#*
+#*   There are three major pattern+action pairs in the awk program. The first
+#*   pattern recognizes the starting sequence and the action part of it 
+#*   determines the type of the documentation block. The second pattern 
+#*   allows the collection of all text in the documentation block. The text 
+#*   under each keyword is collected into a separate variable. The text is
+#*   preserved in the format as the user typed it in, except the initial
+#*   comment marker (the first word containing the * character) and one
+#*   white space. When the third
+#*   pattern recognizes the end of the documentation block the action part of
+#*   it carries out a syntax checking and prints the sections for Latex.
+#*
+#* COPYRIGHT
+#*   Peter Ivanyi and Roman Putanowicz, 2001 \\
+#*   For license see \texttt{LICENSE} file.
+#* NOTES
+#*   The name of the program was suggested by Jelle Muylle. This documentation
+#*   was prepared by adoC itself.
+#* EXAMPLE
+#* /****f*  
+#* * NAME  
+#* *   my_function 
+#* * DESCRIPTION  
+#* *   This function is described here. The synopsis is automatically 
+#* *   generated
+#* * ARGUMENTS  
+#* *   arg1 - First argument
+#* *   arg2 - Second argument
+#* * RETURN VALUE  
+#* *   None.
+#* ******/  
+#* void my_function(int arg1,
+#*                  double arg2) {
+#******/
+
+
+usage()
+{
+echo "--------------------------------" >&2
+echo "Usage: adoc [options] files_to_parse" >&2
+echo "Options:" >&2
+echo "    -f        one file per section" >&2
+echo "    -s        sorted per function, variable, etc..." >&2
+echo "    -t title  specify title" >&2
+echo "    --        end of arguments" >&2
+}
+
+# check the arguments 
+if [ $# -eq 0 ]; then
+  usage
+  exit 1
+fi
+
+# parse arguments
+sorted=0
+for i in $*; do
+  case $i in
+    -f) sorted=0;shift;;
+    -s) sorted=1;shift;;
+    -t) title=$2; shift 2;;
+    --) shift; break;;
+    *) break;;
+  esac
+done
+
+# check the file arguments 
+if [ $# -eq 0 ]; then
+  echo "No file is specified for parsing/documenting" >&2
+  usage
+  exit 1
+fi
+
+# print the files which will be processed
+for i in $*; do
+  echo $i >&2
+done
+
+# check that the file exist
+if [ -e adoc.awk ]; then
+  echo "adoc.awk file exist, please rename or delete it" >&2
+  exit 1
+fi
+
+# remove the file upon exit
+trap 'rm -f adoc.awk; exit' 0 1 2 3 15
+
+##############################################################################
+### The processing awk script
+##############################################################################
+# quoting the EOF is important because in that case it prints out everything
+# as it is, otherwise the shell substitutes the names like $0
+
+
+cat > adoc.awk << "EOF"
+#/****f*
+#* NAME
+#*   printargs
+#* DESCRIPTION
+#*   This function to formats the body of the ARGUMENTS.
+#*   It searches for the "-" character in the text and
+#*   if it finds one then the whole text section will be formatted
+#*   as described below. If there is no "-" character in the text
+#*   then the text is outputed without any formatting.
+#*
+#*   The word before the "-" character is the name of the argument 
+#*   and the section after the "-" character is the description of it.
+#*   They are put into a table where the argument is outputed in bold style
+#*   and the description is typeset on the right hand side.
+#*   Technically the "-" character is replaced by the "\&" character and
+#*   two backslash characters with a new line character are added 
+#*   to the word before the name of the argument, aa(k-2).
+#* ARGUMENTS
+#*   str - all text describing the arguments
+#* RETURN VALUE
+#*   None.
+#* NOTES
+#*   Current implementation is ugly, it should be done with "gsub" and
+#*   regular expressions.
+#******/
+function printargs(str)
+{
+
+  n = split(str, aa, " ")
+
+  init = 0
+  max = 0
+  for(k=1;k<=n;k++)
+  {
+    if(aa[k] == "-")
+    {
+      aa[k] = "& -- &"
+      if(max < length(aa[k-1])) max=length(aa[k-1])
+      if(init)
+        aa[k-2] = aa[k-2] "\\\\\n"
+      init = 1
+      aa[k-1] = "\\textbf{"aa[k-1]"}"
+    }
+  }
+
+
+  if(init)
+  {
+    mm = "mmm"
+    for(k=1;k<=max;k++) mm = mm "m"
+    print "\\settowidth{\\arglength}{"mm"}"
+
+    print "\\begin{tabular}{r @{\\hspace{1ex}} c @{\\hspace{1ex}} p{\\textwidth-\\arglength}}"
+    for(k=1;k<=n;k++)
+    {
+      if(aa[k] != "")
+        printf ("%s ", cook_str(aa[k]))
+    }
+    print "\\end{tabular}"
+  }
+  else
+  {
+    print cook_str(str)
+  }
+
+}
+
+
+#/****f*
+#* NAME
+#*   cook_str
+#* DESCRIPTION
+#*   This function searches the given text for the underline character
+#*   and replaces it with the "\verb+\+e2Under{}" macro. This macro
+#*   is able to differentiate between mathematics and normal mode in
+#*   Latex therefore it puts the backslash character before the underline
+#*   character in normal mode and leaves it untouched in mathematics
+#*   mode.
+#* ARGUMENTS
+#*   str - The text which should be checked for the underline
+#*         character.
+#* RETURN VALUE
+#*   Returns the modified text.
+#* SEE ALSO
+#*   \verb+\+e2Under{} macro
+#******/
+function cook_str(str)
+{
+  gsub(/_/, "\\e2Under{}", str)
+  gsub(/\n$/, "", str)
+  return str
+}
+
+
+#/****f*
+#* NAME
+#*   print_header_begin
+#* DESCRIPTION
+#*   This function prints the starting formatting sequences for a documented
+#*   section. When the type of the documentation block is not 
+#*   variable "v" a new page is started in the output document. 
+#*   In the mode when all documented sections are grouped this function 
+#*   prints the head of the group as well, but only once, for the very 
+#*   first time.
+#* ARGUMENTS
+#*   str - The name of the documentation block which was given in the 
+#*         NAME section.
+#* RETURN VALUE
+#*   None.
+#******/
+function print_header_begin(str)
+{
+#  if(!(type == "v" && outype != ""))
+#    print "\\newpage"
+  if(outype != "" && typehead == 0)
+  {
+    print "\\newpage"
+    print "\\section{"indexname[type]"}"
+    typehead++
+  }
+
+  print "\\begin{e2Section}{"str"}"
+}
+
+
+#/****f*
+#* NAME
+#*   print_header_end
+#* DESCRIPTION
+#*   This function prints the ending formatting sequences for a documented
+#*   section.
+#* ARGUMENTS
+#*   None.
+#* RETURN VALUE
+#*   None.
+#* SEE ALSO
+#*   print_header_begin
+#******/
+function print_header_end()
+{
+  print "\\end{e2Section}"
+}
+
+
+#/****f*
+#* NAME
+#*   print_item_begin
+#* DESCRIPTION
+#*   This function prints the starting formatting sequences for a section in
+#*   a documentation block. In Latex the formatting sequences are environments
+#*   which have the same names as the keywords, except that the spaces are removed
+#*   from the keywords if there is any.
+#* ARGUMENTS
+#*   str - The keyword for which the formatting sequence is printted.
+#* RETURN VALUE
+#*   None.
+#******/
+function print_item_begin(str)
+{
+  ii=str
+  gsub(/ /, "", ii)
+  print "\\begin{e2"ii"}{"str"}"
+}
+
+
+#/****f*
+#* NAME
+#*   print_item_end
+#* DESCRIPTION
+#*   This function prints the ending formatting sequences for a section in
+#*   a documentation block. 
+#* ARGUMENTS
+#*   str   - The keyword for which the formatting sequence is printted
+#* RETURN VALUE
+#*   None.
+#* SEE ALSO
+#*   print_item_begin
+#******/
+function print_item_end(str)
+{
+  ii=str
+  gsub(/ /, "", ii)
+  print "\\end{e2"ii"}"
+}
+
+
+#/****f*
+#* NAME
+#*   print_file_section
+#* DESCRIPTION
+#*   This function is used when the source code is documented on a per file
+#*   basis. It starts a new page for every file and prints the name of the
+#*   file as a header.
+#* ARGUMENTS
+#*   str - The name of the file
+#* RETURN VALUE
+#*   None.
+#******/
+function print_file_section(str)
+{
+  print "\\newpage"
+  print "\\section{"cook_str(str)" file}"
+}
+
+
+#/****f*
+#* NAME
+#*   print_index
+#* DESCRIPTION
+#*   This function prints a Latex index. The documentation blocks indexed
+#*   by their type and by the file which contains it.
+#* ARGUMENTS
+#*   itype   - The name of the type of the documentation block, for example
+#*             "function", "macros". The currently documented program 
+#*             feature will appear under this section in the index.
+#*   name    - The name of the program feature given in the NAME section.
+#* RETURN VALUE
+#*   None.
+#******/
+function print_index(itype, name)
+{
+  "basename " FILENAME | getline stripped_name
+  print "\\index{Sorted!"itype"!"name"}"
+  print cook_str("\\index{Files!"stripped_name"!"name"}")
+  alpha = match(name,/ [eE]2\\e2Under\{\}| [eE]2_| [eE]2/)+RLENGTH
+  if(RLENGTH == 0) { alpha = match(name, /[^ ]/)+RLENGTH }
+  print "\\index{Alphabetical!"toupper(substr(name,alpha,1))"!"name"}"
+}
+
+
+#/****f*
+#* NAME
+#*   print_label
+#* DESCRIPTION
+#*   This function prints a Latex label.
+#* ARGUMENTS
+#*   ltype   - The name of the type of the documentation block.
+#*   name    - The name of the program feature given in the NAME section.
+#* RETURN VALUE
+#*   None.
+#* NOTES
+#*   Not used at the moment.
+#******/
+function print_label(ltype, name)
+{
+  llabel=name
+  gsub(/\~/, " ", llabel)
+  print "\\label{"ltype":"llabel"}"
+
+#  print "\\label{"ltype":"name"}"
+}
+
+
+###############################################
+### !!!!! NO LATEX related part below !!!!! ###
+###############################################
+
+#/****f*
+#* NAME
+#*   untilchar
+#* DESCRIPTION
+#*   This function searches the text after a documentation block for a
+#*   specified character and returns all text between the current position
+#*   and the found character.
+#* ARGUMENTS
+#*   uc   - The character which the function is looking for.
+#* RETURN VALUE
+#*   Returns the text until the specified character.
+#******/
+function untilchar(uc)
+{
+  ss=""
+  do
+  {
+    getline
+    f = match($0,uc)
+    if(f)
+    {
+      ss = ss substr($0, 1, RSTART-1)
+      break;
+    }
+    else
+      ss = ss $0 "\n"
+  }
+  while(1)
+
+  return ss
+}
+
+
+#/****f*
+#* NAME
+#*   BEGIN
+#* DESCRIPTION
+#*   awk executes this function first, before any other part of the program.
+#*   This part initialises the most important global variables. 
+#* ARGUMENTS
+#*   None.
+#* RETURN VALUE
+#*   None.
+#******/
+BEGIN {
+
+  #/****v*
+  #* NAME
+  #*   indexname
+  #* DESCRIPTION
+  #*   This variable specifies the name of the different
+  #*   program features which can be documented with adoC. 
+  #*   By default these are: "Functions", "Structures", "Variables",
+  #*   "Typedefs", "Macros", "Enums", "Modules" and "Other".
+  #******/
+  indexname["f"] = "Functions"
+  indexname["s"] = "Structures"
+  indexname["v"] = "Variables"
+  indexname["t"] = "Typedefs"
+  indexname["d"] = "Macros"
+  indexname["e"] = "Enums"
+  indexname["m"] = "Modules"
+  indexname["o"] = "Other"
+
+  refname        = 1
+  refsynopsis    = 2
+  refdescription = 3
+  refarguments   = 4
+  refmembers     = 5
+  refreturnvalue = 6
+  refnotes       = 7
+  refwarnings    = 8
+  refexample     = 9
+  refcopyright   = 10
+  refseealso     = 11
+  refignore      = 12
+
+  #/****v*
+  #* NAME
+  #*   itemname
+  #* DESCRIPTION
+  #*   This array holds the name of the sections in a documantation block.
+  #******/
+  itemname[refname]        = "NAME"
+  itemname[refsynopsis]    = "SYNOPSIS"
+  itemname[refdescription] = "DESCRIPTION"
+  itemname[refarguments]   = "ARGUMENTS"
+  itemname[refmembers]     = "MEMBERS"
+  itemname[refreturnvalue] = "RETURN VALUE"
+  itemname[refnotes]       = "NOTES"
+  itemname[refwarnings]    = "WARNINGS"
+  itemname[refexample]     = "EXAMPLE"
+  itemname[refcopyright]   = "COPYRIGHT"
+  itemname[refseealso]     = "SEE ALSO"
+  itemname[refignore]      = "IGNORE"
+
+  #/****v*
+  #* NAME
+  #*   outype
+  #* DESCRIPTION
+  #*   This variable specifies the type of output. When its value is an
+  #*   empty string the documentation blocks are outputed per file. When
+  #*   its value is one of the type characters ("f", "m", "v", etc.)
+  #*   then only those documentation blocks are outputed which corresponds
+  #*   to the specified type.
+  #******/
+
+#  outype = "f"
+
+  # to output the header only once per type
+  typehead = 0
+
+}
+
+
+FNR == 1 { 
+  if(outype == "")
+  {
+    print_file_section(FILENAME)
+  }
+}
+
+
+######################################
+### beginning of a comment section ###
+######################################
+#/****f*
+#* NAME
+#*   "find_start_sequence"
+#* SYNOPSIS
+#*   /\/\*\*\*\*[fsvtedmo]\*$/
+#* DESCRIPTION
+#*   This pattern recognizes the beginning of a documentation block only 
+#*   when it appears at the end of a line.
+#*   It switches the "proc" variable, determines the type of the
+#*   documentation block, stores it in "type" and deletes the storage
+#*   array "store".
+#* ARGUMENTS
+#*   None.
+#* RETURN VALUE
+#*   None.
+#******/
+/\/\*\*\*\*[fsvtedmo]\*$/ { 
+  proc = 1; 
+  # extract the type of comment
+  #############################
+  match($RT, /\/\*\*\*\*/)
+  type=substr($RT, RSTART+RLENGTH, 1)
+
+  ### clear the storage array
+  ###########################
+  for(i in store)
+    delete store[i]
+
+  getline 
+}
+
+
+##################################
+### end of the comment section ###
+##################################
+#/****f*
+#* NAME
+#*   "find_end_sequence"
+#* SYNOPSIS
+#*   proc == 1 && /\*\*\*\*\*\*\/$/
+#* DESCRIPTION
+#*   This pattern recognizes the end of a documentation block when it appears
+#*   at the end of the line and when the "proc" variable is set.
+#*   It switches the "proc" variable off, carries out a syntax checking,
+#*   and prints the stored sections of the current documentation block.
+#* ARGUMENTS
+#*   None.
+#* RETURN VALUE
+#*   None.
+#******/
+proc == 1 && /\*\*\*\*\*\*\/$/ { 
+  proc = 0 
+
+  if(type == outype || outype == "")
+  {
+
+# only for debugging
+####################
+#    for(i in store)
+#    {
+#      print i > "/dev/stderr"
+#      print store[i] > "/dev/stderr"
+#    }
+
+    ### syntax checking
+    ###################
+    # NAME should be specified 
+    if(type != "m" && store[refname] == "")
+    { 
+      print "ERROR:",FILENAME,"NAME field should be specified above line", FNR > "/dev/stderr"
+      exit 1
+    }
+#    if(type != "m" && split(store[refname], aa, " ") != 1)
+#    {
+#      print "ERROR: NAME can have only one field at line ",FNR > "/dev/stderr"
+#      print "Current value =",store[refname] > "/dev/stderr"
+#      exit(1)
+#    }
+    # DESCRIPTION should be always given
+    if(store[refdescription] == "")
+    {
+      print "ERROR:",FILENAME,"DESCRIPTION field is not specified above line", FNR > "/dev/stderr"
+      exit 1
+    }
+
+    # for functions
+    if(type == "f")
+    {
+      # ARGUMENTS should be given
+      if(store[refarguments] == "")
+      {
+        print "ERROR:",FILENAME,"ARGUMENTS field should be specified for funciotn", store[refname] > "/dev/stderr"
+        exit 1
+      }
+      # supplied SYNOPSIS is used
+      if(store[refsynopsis] != "")
+        print "WARNING: SYNOPSIS is supplied by user for function", store[refname] > "/dev/stderr"
+      # RETURN VALUE is not given
+      if(store[refreturnvalue] == "")
+        print "WARNING: RETURN VALUE is not specified for function", store[refname] > "/dev/stderr"
+    }
+    # structure or typedef
+    if(   (store[refmembers] == "") \
+       && ((type == "s")  || (type == "t")) )
+      print "WARNING: MEMBERS is not specified for structure", store[refname] > "/dev/stderr"
+
+#    if(type != "f" && store[refsynopsis] != "")
+#    {
+#      print "ERROR: SYNOPSIS should be used only with functions, not for",\
+#            indexname[type],"called", store[refname] > "/dev/stderr"
+#      exit 1
+#    }
+
+    ### print out the actual text
+    #############################
+    print_header_begin(cook_str(store[refname]))
+
+    for(i=1;i<=11;i++)
+    {
+      if(store[i] != "" || type == "f" && i == refsynopsis)
+      {
+        ### before style
+        ################
+        print_item_begin(itemname[i])
+
+        # if SYNOPSIS is not supplied it is generated 
+        if(type == "f" && i == refsynopsis && store[i] == "")
+        {
+#          print cook_str(untilchar("{"))
+           print untilchar("{")
+        }
+        # SYNOPSIS is supplied, no string cooking
+        else if(i == refsynopsis)
+        {
+          print store[i]
+        }
+        # format the ARGUMENTS and MEMBERS output
+        else if(i == refarguments || i == refmembers)
+        {
+          printargs(store[i])
+        }
+        # examples are verbatim
+        else if(i == refexample)
+        {
+          print store[i]
+        }
+        else
+        {
+          print cook_str(store[i])
+        }
+
+        ### end style
+        #############
+        print_item_end(itemname[i])
+
+        ### indexing by name
+        ####################
+        if(i == refname)
+        {
+          print_index(indexname[type], cook_str(store[i]))
+          print_label(indexname[type], store[i])
+        }
+      }
+    }
+
+    print_header_end()
+  }
+
+}
+
+
+###############################
+### process the comment section
+###############################
+#/****f*
+#* NAME
+#*   "process_doc_block"
+#* DESCRIPTION
+#*   This action is executed, when the "proc" variable is true. It means,
+#*   that the program should process the lines as either keywords or text
+#*   which belongs to the keyword. The text is stored per section in the
+#*   "store" array.
+#* ARGUMENTS
+#*   None.
+#* RETURN VALUE
+#*   None.
+#******/
+proc == 1 {
+  ### check that the commenting section is closed properly
+  ########################################################
+  if( $0 ~ /\*\// && checkforc)
+  { 
+    print "ERROR:",FILENAME,"Unfinished documentation block at line", FNR > "/dev/stderr"
+    exit 1
+  }
+  if($1 !~ /*/)
+  {
+    print "ERROR:",FILENAME,"No comment marker at line", FNR > "/dev/stderr"
+    exit(1);
+  }
+
+  ### only if it is the right type
+  ################################
+  if(type == outype || outype == "")
+  {
+    itemfound = 0
+    for(i in itemname)
+    {
+      f = match($0, itemname[i] "$")
+      if(f)
+      {
+        if(store[i] != "")
+        {
+          print "ERROR:",FILENAME,"keyword is repeated at line", FNR > "/dev/stderr"
+          exit 1
+        }
+        ### current item type
+        #####################
+        curitem = i
+        itemfound = 1
+        break
+      }
+    }
+    if(itemfound == 0)
+    {
+       # removes the initial part of the comment line
+       # At the beginning of the line there can be any number of white space
+       # or no white space at all. Then it is followed by no or some non-white
+       # space character. Here there must ba a star in the word. It is
+       # followed again by no or some white space character. Finally there
+       # must be either a white space character or nothing.
+       # And this found part is removed from the line
+       sub(/^[ \t]*[^ \t]*\*[^ \t]*[ \t]?/, "", $0)
+       store[curitem] = store[curitem] $0 "\n"
+
+       # this is for debugging, but do not preserve the spaces in the text
+#      for(i=2;i<=NF;i++)
+#      {
+#        store[curitem] = store[curitem] $i" "
+#      }
+#      store[curitem] = store[curitem] "\n"
+    }
+  }
+}
+
+#/****f*
+#* NAME
+#*   END
+#* DESCRIPTION
+#*   awk executes this function last, after any other part of the program.
+#*   At the moment it only checks that all documentation blocks has been 
+#*   closed properly.
+#* ARGUMENTS
+#*   None.
+#* RETURN VALUE
+#*   None.
+#******/
+END {
+  if(proc == 1)
+  {
+    print "ERROR:",FILENAME,"End of file reached, documentation block was not closed !" > "/dev/stderr"
+    exit 1
+  }
+}
+EOF
+
+##############################################################################
+### end of awk script
+##############################################################################
+
+
+#############################
+### beginning of the document
+#############################
+cat <<EOF
+\documentclass[10pt]{refart}
+\usepackage{makeidx}
+\usepackage{calc}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{color}
+\settextfraction{.8}
+\definecolor{mygray}{gray}{.8}
+\sloppy
+\makeindex
+
+\newlength{\sectionindent}
+\setlength{\sectionindent}{1cm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Do not remove.
+% This macro provides the proper handling of the underline character
+% in normal and math mode.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\e2Under{\ifmmode_\else \_\fi}
+
+\newenvironment{Ipar}[1][1cm]%
+{\begin{list}{}{%
+  \setlength{\leftmargin}{#1}}
+  \item[]}
+{\end{list}}
+
+\newenvironment{e2NAME}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}
+ \em }
+{}
+
+\newenvironment{e2SYNOPSIS}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}
+%\rmProgram
+\small
+\verbatim}
+{\endverbatim}
+
+\newenvironment{e2DESCRIPTION}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+\newenvironment{e2ARGUMENTS}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+\newenvironment{e2MEMBERS}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+
+\newenvironment{e2RETURNVALUE}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+\newenvironment{e2NOTES}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+\newenvironment{e2WARNINGS}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+\newenvironment{e2EXAMPLE}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}
+\small
+\verbatim}
+{\endverbatim}
+
+\newenvironment{e2COPYRIGHT}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+\newenvironment{e2SEEALSO}[1]%
+{\subsubsection*{\hspace*{\sectionindent}\normalsize{#1}}}
+{}
+
+
+\newenvironment{e2Section}[1]%
+{ \subsection[#1]{\colorbox{mygray}{\large{#1}}}}
+{}
+
+\begin{document}
+\newlength{\arglength}
+% \rmProgram
+% \ProgramSurround
+EOF
+
+###################################
+### title printing if any specified 
+###################################
+if [ "x${title}" != "x" ]; then
+awk -v t=$title 'BEGIN{
+gsub(/_/, "\\e2Under{}", t)
+print "\\title{"t"\\footnote{Generated by adoC, awk documenting C, \\today}}"
+print "\\maketitle"
+}'
+
+#  echo "\\title{${title}\\footnote{Generated by adoC, awk documenting C, \\today}}"
+#  echo "\\maketitle"
+fi
+
+###############################
+### table of contents and index
+###############################
+cat << EOF
+\tableofcontents
+\printindex
+EOF
+
+#####################
+### actual processing
+#####################
+if [ $sorted -eq 1  ]; then
+  awk -v outype="m" -f adoc.awk $*
+  if [ $? -eq 1 ]; then
+    exit
+  fi
+  awk -v outype="d" -f adoc.awk $* 
+  awk -v outype="e" -f adoc.awk $* 
+  awk -v outype="t" -f adoc.awk $* 
+  awk -v outype="s" -f adoc.awk $* 
+  awk -v outype="v" -f adoc.awk $* 
+  awk -v outype="f" -f adoc.awk $* 
+  awk -v outype="o" -f adoc.awk $* 
+else
+  awk -f adoc.awk $*
+fi
+
+#######################
+### end of the document
+#######################
+cat << EOF
+\end{document}
+EOF
+
+
+
+

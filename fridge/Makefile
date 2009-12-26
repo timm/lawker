@@ -86,12 +86,15 @@ files : $(Doc)/dsl/markdown.html \
 		$(Doc)/tools/rcalc.html\
 		$(Doc)/tools/levenshtein.html\
 		$(Doc)/news/popular.html\
-		$(Doc)/news/awkbot.html
+		$(Doc)/news/awkbot.html\
+		$(Doc)/tools/adoc.html
 
 awkpp :  
 	cd $(Bash)/awk++/version21 && zip -f awkpp21.zip 
     
 
+$(Doc)/tools/adoc.html  :  $(Bash)/adoc/contents/adoc.html
+	cp $< $@
 $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 	cp $< $@
 

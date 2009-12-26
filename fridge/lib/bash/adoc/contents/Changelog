@@ -1,0 +1,6 @@
+1.1
+- documentclass has changed to "refart"
+- name of object can contain tilda, "~" for space
+- directory name is stripped off the specified filename
+- modified label and index printing, more intelligent
+- argument width calculation is fixed

@@ -1,0 +1,88 @@
+
+                           Convert Comments to Latex
+
+   This is adoC, version 1.1. Generates Latex files from source code
+   comments.
+
+Download
+
+   Download from [1]LAWKER or [2]http://www.sect.mce.hw.ac.uk
+
+Synopsis
+
+   Usage: adoc [options] files_to_parse
+
+   Options:
+
+   -f
+          one file per section
+
+   -s
+          sorted per function, variable, etc...
+
+   -t title
+          specify title
+
+   --
+          end of arguments
+
+About
+
+   adoC is a source code documenting system written in awk and shell
+   script. It produces documentation in LaTeX format which resembles the
+   Unix man pages. The documentation is generated from comment sections
+   in the source code. The comment sections are marked by two special
+   character sequences and internally divided into sub- parts by
+   keywords. The system can be used with almost any kind of programming
+   language.
+
+   The idea is based on ROBODoc
+   [3]http://www.xs4all.nl/~rfsber/Robo/robodoc.html
+
+Requirements
+
+   The system requires a working gawk and LaTeX installation. For the
+   LaTeX document the "refart.sty" style should be installed.
+
+Example
+
+   adoC is documented by [4]itself .
+
+   For the detailed documentation about the system and its implementation
+   execute the following:
+        adoc -s -t "adoc" adoc > doc.tex
+
+   For the detailed documentation about the system and its implementation
+   execute the following:
+        $ adoc -s -t "adoc" adoc > doc.tex
+        $ latex doc
+        $ makeindex doc
+        $ latex doc
+        $ makeindex doc
+        $ latex doc
+        $ latex doc
+        $ dvips doc
+
+   The created documentation can be downloaded in Postscript format from
+   [5]here.
+
+Reporting Bugs
+
+   In case of bug reports, suggestions, criticism e-mail
+   peteri@carme.sect.mce.hw.ac.uk
+
+LICENSE
+
+   GPL v2.0. Share and enjoy.
+
+Author
+
+   Peter Ivanyi and Roman Putanowicz
+
+References
+
+   1. http://lawker.googlecode.com/svn/fridge/lib/bash/adoc/contents.zip
+   2. http://www.sect.mce.hw.ac.uk/
+   3. http://www.xs4all.nl/~rfsber/Robo/robodoc.html
+   4. http://lawker.googlecode.com/svn/fridge/lib/bash/adoc/contents/doc.ppdf
+   5. http://lawker.googlecode.com/svn/fridge/lib/bash/adoc/contents/doc.ppdf
