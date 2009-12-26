@@ -1,6 +1,30 @@
-# WST.AWK - W Sierpinski's triangle
-# syntax: GAWK -f WST.AWK [-v X=anychar] iterations
-# example: GAWK -f WST.AWK 2
+#.H1 Waclaw Sierpinski's Triangle
+#.H2 Synopsis
+#.PRE
+#gawk -f  wst.awk [-v X=anychar] iterations
+#./PRE
+#.H2 Example
+#.PRE
+# gawk -f wst.awk  -v X=* 2
+#               *
+#              * *
+#             *   *
+#            * * * *
+#           *       *
+#          * *     * *
+#         *   *   *   *
+#        * * * * * * * *
+#       *               *
+#      * *             * *
+#     *   *           *   *
+#    * * * *         * * * *
+#   *       *       *       *
+#  * *     * *     * *     * *
+# *   *   *   *   *   *   *   *
+#* * * * * * * * * * * * * * * *
+#./PRE
+#.H2 Code
+#.PRE
 BEGIN {
     n = ARGV[1] + 0 # iterations
     if (n !~ /^[0-9]+$/) { exit(1) }
@@ -22,3 +46,7 @@ BEGIN {
     }
     exit(0)
 }
+#./PRE
+#.H2 Author
+#.P
+#Dan Nielsen

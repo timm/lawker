@@ -508,10 +508,15 @@ pageTracker._trackPageview();
 	</file>
 	<file where="doc/news/parallelAwk.html">
 		<title>Parallel Awk</title>
-		<what></what>
 		<what>Oct</what>
 		<what>2009</what>
 		<what>JohnD</what>
+	</file>
+	<file where="doc/wst.html">
+		<title>Waclaw Sierpinski's Triangle</title>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>DanN</what>
 	</file>
 	<file where="doc/tools/myrss.html">
 		<title>Reading RSS feeds</title>
