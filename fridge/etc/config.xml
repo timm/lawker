@@ -1374,6 +1374,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>JurgenK</what>
 	</file>
+	<file where="doc/news/xgawk4windows.html">
+		<title>Xgawk for Windows</title>
+		<what>Xgawk</what>
+		<what>XML</what>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>WimVB</what>
+	</file>
 	<file where="doc/awk100/015soccer.html">
 		<title>Soccer</title>
 		<what>Games</what>

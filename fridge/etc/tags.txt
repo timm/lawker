@@ -177,6 +177,7 @@ doc/tools/xmlparse.html					;SteveC  ;2009 ;June ;XML ;|xmlparse.awk
 
 doc/jawk.html		;Dab  ;2009 ;May ;Awk100	;|Jawk = Java + Awk
 doc/awk100/017xmlgawk.html		;JurgenK  ;2009 ;Apr ;Awk100 ;XML ;Xgawk ;|XMLgawk
+doc/news/xgawk4windows.html		;WimVB  ;2009 ;Dec ;XML ;Xgawk ;|Xgawk for Windows
 doc/awk100/015soccer.html		;Ronl	;2009;Apr	;Awk100 ;Games		;|Soccer
 doc/awk100/013awklinux.html		;YungC	;2009;Apr	;Os ;Papers ;Awk100	;Top10	;|Awk-Linux
 doc/awk100/spell.html			;ArnoldR ;Spell ;NelsonB ;2009 ;Mar ;Awk100; Top10	;|spell.awk
