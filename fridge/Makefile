@@ -57,6 +57,7 @@ files : $(Doc)/dsl/markdown.html \
 	    $(Doc)/dsl/ooc.html \
 	    $(Doc)/dsl/uml.html \
 	    $(Doc)/dsl/graph.html \
+	    $(Doc)/wst.html \
 	    $(Doc)/gender.html \
     	$(Doc)/awk100/spell.html \
     	$(Doc)/tools/spellcheck.html \
@@ -145,6 +146,8 @@ $(Doc)/awk100/spell.html : $(Awklib)/spell.awk
 $(Doc)/awk100/aaa.html : $(Bash)/aaa/contents/aaa.html
 	cp $< $@
 
+$(Doc)/wst.html : $(Awklib)/wst.awk
+	cd $(Awklib) && $(Awk2Html)
 $(Doc)/gender.html : $(Awklib)/gender.awk
 	cd $(Awklib) && $(Awk2Html)
 
