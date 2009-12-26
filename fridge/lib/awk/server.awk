@@ -16,13 +16,14 @@
 #./OL
 #.P
 #This code is
-# based on the examples located at: 
-# <a href="http://www.gnu.org/software/gawk/manual/gawkinet/gawkinet.html">http://www.gnu.org/software/gawk/manual/gawkinet/gawkinet.html</a>
+# based on the examples located at the 
+# <a href="http://www.gnu.org/software/gawk/manual/gawkinet/gawkinet.html">TCP/IP Internetworking With `gawk'</a> manual
 #and is licensed under 
 # <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPL 3.0</a>. For
 # updates to thos code, see
 #<a href="http://topcat.hypermart.net/index.html">http://topcat.hypermart.net/index.html</a>.
 #.H2 Code
+#.H3 Set up
 #.SMALL
 #.PRE
 BEGIN { 
@@ -46,7 +47,7 @@ BEGIN {
   close(host)     # close client connection 
   host |& getline # wait for new client request 
   } 
-# server terminated... 
+  # server terminated... 
   doc = Bye() 
   len = length(doc) + length(ORS) 
   print "HTTP/1.0", status, reason |& host 
@@ -56,7 +57,9 @@ BEGIN {
   print ORS doc                    |& host 
   close(host) 
 } 
-
+#./PRE
+#.H3 HTML Menu
+#.PRE
 function Setup() { 
   tmp = "<html>\
   <head><title>Simple gawk server</title></head>\
@@ -69,7 +72,9 @@ function Setup() {
   </html>" 
   return tmp 
 } 
-
+#./PRE
+#.H3 Saying Good-bye
+#.PRE
 function Bye() { 
   tmp = "<html>\
   <head><title>Simple gawk server</title></head>\
@@ -77,7 +82,9 @@ function Bye() {
   </html>" 
   return tmp 
 } 
-
+#./PRE
+#.H3 Running Applications
+#.PRE
 function RunApp(app) { 
   if (app == "xterm")  {system("xterm&"); return} 
   if (app == "xcalc" ) {system("xcalc&"); return} 
