@@ -1103,6 +1103,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TedD</what>
 	</file>
+	<file where="doc/news/sqawk4suse.html">
+		<title>Spawk for SuSE Linux</title>
+		<what>Databases</what>
+		<what>Spawk</what>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>PanosP</what>
+	</file>
 	<file where="doc/tools/spawk-in-googlecode.html">
 		<title>Spawk in GoogleCode</title>
 		<what>Databases</what>

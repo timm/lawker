@@ -21,7 +21,11 @@ next planned updates to Gawk.
 -----------------------------------------------------------
 TOOLS
 
-Tim Menzies offers a (very) simple RSS reader.
+Michael Sanders implements a web server, in very few lines,
+using Gawk.
+- http://awk.info/?tools/server
+
+Tim Menzies offers an ultra-simple RSS reader.
 - http://awk.info/?tools/rss
 
 Debbie Forbes quickly sorts arrays.
