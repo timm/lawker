@@ -14,9 +14,12 @@ different methods to implement file inclusion in Gawk.
 Wim van Blitterswijk announces XMLgawk for Windows.
 - http://awk.info/?news/xgawk4windows  
 
-Arnold Robbins annouces the roadmap for the
+Arnold Robbins announces the roadmap for the
 next planned updates to Gawk.
 - http://www.skeeve.com/gawk_roadmap.html
+
+Panos Papadopoulos ports SPAWK to SuSE Linux.
+- http://awk.info/?news/spawk4suse
 
 -----------------------------------------------------------
 TOOLS
@@ -26,12 +29,12 @@ using Gawk.
 - http://awk.info/?tools/server
 
 Tim Menzies offers an ultra-simple RSS reader.
-- http://awk.info/?tools/rss
+- http://awk.info/?tools/myrss
 
 Debbie Forbes quickly sorts arrays.
 - http://awk.info/?tools/o
 
-Peter Ivanyi and Roman Putanowicz generated Latex doco
+Peter Ivanyi and Roman Putanowicz generate Latex doco
 from program comments.
 - http://awk.info/?tools/adoc
 
