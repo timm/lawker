@@ -1043,6 +1043,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>EdM</what>
 	</file>
+	<file where="doc/j.html">
+		<title>Awk's Equivalent to VI's J</title>
+		<what></what>
+		<what>Dec</what>
+		<what>2009</what>
+		<what>KennyM</what>
+		<what>EdM</what>
+	</file>
 	<file where="doc/tools/o.html">
 		<title>Sorting Arrays Via the Shell</title>
 		<what></what>

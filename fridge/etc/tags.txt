@@ -128,6 +128,7 @@ gawk/array/join.awk			;ArnoldR	;2009	;Feb	;Function	;Arrays	;Timm	;|join.awk
 gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 
 doc/sorting.html            ;EdM   ;2009   ;Nov    ;Tools      ;Sorting	 ;|Sorting
+doc/j.html		;EdM	;KennyM		;2009	;Dec;				;|Awk's Equivalent to VI's J
 doc/tools/o.html		;DebbieF	;2009	;Dec;	Sorting;			;|Sorting Arrays Via the Shell
 doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners 	;Sorting			;|Quicksort2
 doc/tools/levenshtein.html  ;PierreG   ;2009   ;Nov    ;Tools       ;|levenshtein.awk

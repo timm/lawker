@@ -17,36 +17,40 @@ Peter Ivanyi and Roman Putanowicz generated Latex doco
 from program comments.
 - http://awk.info/?tools/adoc
 
+Dan Nielsen's shows us how to draw Sierpinski Triangles.
+- http://awk.info/?wst
+
 -----------------------------------------------------------
 NEWS
 
 -----------------------------------------------------------
 PAGE(S) OF THE 2009
 
-The top-ten longest-read pages (measured in seconds):
+Awk.info's top-ten longest-read pages (measured in secs):
   
    1) http://awk.info/?tools/holidays
    2) http://awk.info/?tools/fsm
    3) http://awk.info/?tools/xmlparse
    4) http://awk.info/?tip/sedInAwk
-   6) http://awk.info/?tip/getline
-   7) http://awk.info/?tip/sysAdminInAwk
-   8) http://awk.info/?tools/runawk
-   9) http://awk.info/?bfc
-  10) http://awk.info/?tip/whinyUsers
+   5) http://awk.info/?tip/getline
+   6) http://awk.info/?tip/sysAdminInAwk
+   7) http://awk.info/?tools/runawk
+   8) http://awk.info/?bfc
+   9) http://awk.info/?tip/whinyUsers
+  10) http://awk.info/?getxml
   
-The top ten most-visited pages:
+Awk.info's top-ten visited pages:
   
-   1) http://awk.info/?index
-   2) http://awk.info/?Learn
-   3) http://awk.info/?awk100
-   4) http://awk.info/?samples
-   5) http://awk.info/?awk1line
-   6) http://awk.info/?tools/nbc
-   7) http://awk.info/?tip/sedInAwk
-   8) http://awk.info/?Top10
-   9) http://awk.info/?sorting
-  10) http://awk.info/?OneLiners
+   1) http://awk.info/?Learn
+   2) http://awk.info/?awk100
+   3) http://awk.info/?samples
+   4) http://awk.info/?awk1line
+   5) http://awk.info/?tools/nbc
+   6) http://awk.info/?tip/sedInAwk
+   7) http://awk.info/?Top10
+   8) http://awk.info/?sorting
+   9) http://awk.info/?OneLiners
+  10) http://awk.info/?advocacy
   
 --------
 
