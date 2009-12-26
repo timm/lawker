@@ -43,7 +43,6 @@ doc/mastermind2.html			;SteveL	;2009	;May	 ;Games			;|Mastermind (again)
 doc/checkers.html			;AaronH	;2009	;May	 ;Games			;|Checkers
 doc/tictactoe.html			;AaronH	;2009	;May	 ;Games			;|Tic-tac-toe
 doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners	;Sorting 			;|Quicksort
-doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners 	;Sorting			;|Quicksort2
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
 doc/news/popular.html		;Admin	;2009	;Nov;				;|Awk.info Gaining Popularity
@@ -128,6 +127,7 @@ gawk/array/array.awk		;Admin	;2009	;Feb	;Function	;Arrays	;|array.awk
 
 doc/sorting.html            ;EdM   ;2009   ;Nov    ;Tools      ;Sorting	 ;|Sorting
 doc/tools/o.html		;TimM	;2009	;Dec;	Sorting;			;|Sorting Arrays Via the Shell
+doc/quicksort2.html			;Awk	;2009	;Apr	;TenLiners 	;Sorting			;|Quicksort2
 doc/tools/levenshtein.html  ;PierreG   ;2009   ;Nov    ;Tools       ;|levenshtein.awk
 doc/tools/columnate.html            ;Admin   ;2009   ;Nov    ;Tools       ;|Columnate
 doc/tools/widenbmp.html            ;TedD   ;2009   ;Sept    ;Graphics       ;|Widen bitmaps, using Gawk

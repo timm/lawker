@@ -479,14 +479,6 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Ysa</what>
 	</file>
-	<file where="doc/quicksort2.html">
-		<title>Quicksort2</title>
-		<what>Sorting</what>
-		<what>TenLiners</what>
-		<what>Apr</what>
-		<what>2009</what>
-		<what>Awk</what>
-	</file>
 	<file where="doc/qtawk.html">
 		<title>QTawk</title>
 		<what>May</what>
@@ -1046,6 +1038,14 @@ pageTracker._trackPageview();
 		<what>Dec</what>
 		<what>2009</what>
 		<what>TimM</what>
+	</file>
+	<file where="doc/quicksort2.html">
+		<title>Quicksort2</title>
+		<what>Sorting</what>
+		<what>TenLiners</what>
+		<what>Apr</what>
+		<what>2009</what>
+		<what>Awk</what>
 	</file>
 	<file where="doc/tools/levenshtein.html">
 		<title>levenshtein.awk</title>

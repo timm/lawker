@@ -38,13 +38,18 @@ On the plus side:
 <P>
 On the negative side:
 <UL>
-<LI> This code is operating system dependent. It only workds on Mac, UNIX, LINUX, and Windoze (with Cygwin installed).</LI>
+<LI> This code is operating system dependent. It only words on Mac, UNIX, LINUX, and Windoze (with Cygwin installed).</LI>
 <LI> When this code runs, it forks a sub-process. So it may be a little slower to run than the</LI>
-other methods documneted in comp.lang.awk and awk.info.
+other methods documented in comp.lang.awk and awk.info.
 </UL>
 <P>
 All that said, I use this code all the time- it is very useful during debugging to dump
 the contents of the internal structures in my Awk code.
+<P>
+By the way, if you want to see an even shorter sort routine (that  uses a platform 
+independent shell programming
+trick), check out
+<a href="http://awk.info/?doc/quicksort2.html">David Long</a>'s amazing quicksort.
 <a name=4></a><H2> Code</H2>
 <a name=5></a><H3> Example</H3>
 <P> Input:</P>
