@@ -1,0 +1,79 @@
+<h1><join>Convert Comments to Latex </join></h1>
+
+<p>This is adoC, version 1.1. Generates Latex files from 
+source code comments.
+
+<h2>Download</h2>
+<p>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/adoc/contents.zip">LAWKER</a> or
+<a href="http://www.sect.mce.hw.ac.uk">
+http://www.sect.mce.hw.ac.uk</a>
+
+<h2>Synopsis</h2>
+<p>
+Usage: adoc [options] files_to_parse
+<p>
+Options:
+<dl>
+<dt>
+    -f  <dd>      one file per section
+<dt>    -s <dd>       sorted per function, variable, etc...
+<dt>    -t title <dd> specify title
+<dt>    --     <dd>   end of arguments
+	</dl>
+
+
+<h2>About</h2>
+<p>
+adoC is a source code documenting system written in awk and shell
+script. It produces documentation in LaTeX format which resembles
+the Unix man pages. The documentation is generated from comment
+sections in the source code. The comment sections are marked by
+two special character sequences and internally divided into sub-
+parts by keywords. The system can be used with almost any kind of 
+programming language. 
+<p>
+The idea is based on ROBODoc
+<a href="http://www.xs4all.nl/~rfsber/Robo/robodoc.html">
+http://www.xs4all.nl/~rfsber/Robo/robodoc.html</a>
+
+<h2>Requirements</h2>
+<p>
+
+The system requires a working gawk and LaTeX installation. For the
+LaTeX document the "refart.sty" style should be installed.
+
+<h2>	Example</h2>
+<p>
+	adoC is documented by 
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/adoc/contents/doc.ppdf">itself</a> .
+<p>
+	For the detailed documentation about the system and its implementation 
+	execute the following:
+<pre>
+	adoc -s -t "adoc" adoc > doc.tex
+</pre>
+For the detailed documentation about the system and its implementation execute the following:
+<pre>
+	$ adoc -s -t "adoc" adoc > doc.tex
+	$ latex doc
+	$ makeindex doc
+	$ latex doc
+	$ makeindex doc
+	$ latex doc
+	$ latex doc
+	$ dvips doc
+</pre>
+The created documentation can be downloaded in Postscript format from 
+<a href="http://lawker.googlecode.com/svn/fridge/lib/bash/adoc/contents/doc.ppdf">here</a>.
+<h2>Reporting Bugs</h2>
+In case of bug reports, suggestions, criticism e-mail 
+peteri@carme.sect.mce.hw.ac.uk
+
+<h2>LICENSE</h2>
+<p>
+GPL v2.0. Share and enjoy.
+
+<h2>Author</h2>
+Peter Ivanyi and Roman Putanowicz
