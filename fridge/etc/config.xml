@@ -73,6 +73,7 @@ Implementations<br>
 &nbsp;&raquo;&nbsp; <a href="http://www.gnu.org/software/gawk/">Gawk</a> (widely used)<br> 
 &nbsp;&raquo;&nbsp; <a href="http://freshmeat.net/projects/mawk/">Mawk</a> <br>
 &nbsp;&raquo;&nbsp; <a href="http://home.vrweb.de/~juergen.kahrs/gawk/XML/">Xgawk</a> (gawk + xml + ...)<br>
+&nbsp;&raquo;&nbsp; <a href="?Spawk">Spawk</a> (SQL + awk)<br>
 &nbsp;&raquo;&nbsp; <a href="http://awk.info/?jawk">Jawk</a> (Awk in Java JVM)<br>
 &nbsp;&raquo;&nbsp; <a href="?qtawk">QTawk</a> (extensions to gawk)<br>
 &nbsp;&raquo;&nbsp; <a href="?tools/runawk">Runawk</a> (a runtime tool)<br>
