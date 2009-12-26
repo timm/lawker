@@ -1,0 +1,100 @@
+<h1><join> A Web Server in Awk</join></h1>
+<h2>Contents</h2>
+<div id="htmltoc">
+<h2><font color=black>&bull;</font></a> <a href=#1>Download</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#2>About</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#3>Code</a></h2>
+<h2><font color=black>&bull;</font></a> <a href=#4>Author</a></h2>
+</div><!--- htmltoc --->
+<div id="htmlbody">
+<P>
+ Server.awk - a simple, single user, web server built with gawk.
+<a name=1></a><H2> Download</H2>
+<P>
+Download from
+<a href="http://lawker.googlecode.com/svn/fridge/lib/awk/server.awk">LAWKER.</a>
+<a name=2></a><H2> About</H2>
+<P>
+This code
+ creates an html menu of local applications which you can season to taste.
+ The usage requires two steps... 
+<OL>
+<LI> run: 'gawk -f server.awk'</LI>
+<LI> open browser at: http://localhost:8080</LI>
+</OL>
+<P>
+This code is
+ based on the examples located at: 
+ <a href="http://www.gnu.org/software/gawk/manual/gawkinet/gawkinet.html">http://www.gnu.org/software/gawk/manual/gawkinet/gawkinet.html</a>
+and is licensed under 
+ <a href="http://www.gnu.org/licenses/gpl-3.0-standalone.html">GPL 3.0</a>. For
+ updates to thos code, see
+<a href="http://topcat.hypermart.net/index.html">http://topcat.hypermart.net/index.html</a>.
+<a name=3></a><H2> Code</H2>
+<SMALL>
+<PRE>
+BEGIN { 
+  x        = 1                         # script exits if x &lt; 1 
+  port     = 8080                      # port number 
+  host     = "/inet/tcp/" port "/0/0"  # host string 
+  url      = "http://localhost:" port  # server url 
+  status   = 200                       # 200 == OK 
+  reason   = "OK"                      # server response 
+  RS = ORS = "\r\n"                    # header line terminators 
+  doc      = Setup()                   # html document 
+  len      = length(doc) + length(ORS) # length of document 
+  while (x) { 
+  if ($1 == "GET") RunApp(substr($2, 2)) 
+  if (! x) break   
+  print "HTTP/1.0", status, reason |& host 
+  print "Connection: Close"        |& host 
+  print "Pragma: no-cache"         |& host 
+  print "Content-length:", len     |& host 
+  print ORS doc                    |& host 
+  close(host)     # close client connection 
+  host |& getline # wait for new client request 
+  } 
+ server terminated... 
+  doc = Bye() 
+  len = length(doc) + length(ORS) 
+  print "HTTP/1.0", status, reason |& host 
+  print "Connection: Close"        |& host 
+  print "Pragma: no-cache"         |& host 
+  print "Content-length:", len     |& host 
+  print ORS doc                    |& host 
+  close(host) 
+} 
+
+function Setup() { 
+  tmp = "&lt;html>\
+  &lt;head>&lt;title>Simple gawk server&lt;/title>&lt;/head>\
+  &lt;body>\
+  &lt;p>&lt;a href=" url "/xterm>xterm&lt;/a>\
+  &lt;p>&lt;a href=" url "/xcalc>xcalc&lt;/a>\
+  &lt;p>&lt;a href=" url "/xload>xload&lt;/a>\
+  &lt;p>&lt;a href=" url "/exit>terminate script&lt;/a>\
+  &lt;/body>\
+  &lt;/html>" 
+  return tmp 
+} 
+
+function Bye() { 
+  tmp = "&lt;html>\
+  &lt;head>&lt;title>Simple gawk server&lt;/title>&lt;/head>\
+  &lt;body>&lt;p>Script Terminated...&lt;/body>\
+  &lt;/html>" 
+  return tmp 
+} 
+
+function RunApp(app) { 
+  if (app == "xterm")  {system("xterm&"); return} 
+  if (app == "xcalc" ) {system("xcalc&"); return} 
+  if (app == "xload" ) {system("xload&"); return} 
+  if (app == "exit")   {x = 0} 
+}
+</PRE>
+</SMALL>
+<a name=4></a><H2> Author</H2>
+<P>
+Michael Sanders
+</div><!--- htmlbody --->

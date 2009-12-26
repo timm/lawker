@@ -80,6 +80,7 @@ files : $(Doc)/dsl/markdown.html \
     	$(Doc)/mastermind.html \
 		$(Doc)/tip/awk4db.html\
 		$(Doc)/tools/widenbmp.html \
+		$(Doc)/tools/server.html \
 		$(Doc)/game.html \
 		$(Doc)/sorting.html \
 		$(Doc)/tools/o.html\
@@ -102,6 +103,7 @@ $(Doc)/dsl/ooc.html  :  $(Bash)/ooc/ooc.html
 $(Doc)/spam.html       		: $(Ksh)/spam.ksh             ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/dumpxml.html    		: $(Ksh)/dumpxml.ksh          ; cd $(Ksh) && $(Awk2Html)
 $(Doc)/tools/o.html : $(Awklib)/o.awk 	  ; cd $(Awklib) && $(Awk2Html)
+$(Doc)/tools/server.html : $(Awklib)/server.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/myrss.html : $(Awklib)/myrss.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/mysql.html : $(Awklib)/mysql.awk 	  ; cd $(Awklib) && $(Awk2Html)
 $(Doc)/tools/correlate.html : $(Awklib)/correlate.awk 	  ; cd $(Awklib) && $(Awk2Html)
