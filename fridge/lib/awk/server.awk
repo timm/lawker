@@ -37,15 +37,15 @@ BEGIN {
   doc      = Setup()                   # html document 
   len      = length(doc) + length(ORS) # length of document 
   while (x) { 
-  if ($1 == "GET") RunApp(substr($2, 2)) 
-  if (! x) break   
-  print "HTTP/1.0", status, reason |& host 
-  print "Connection: Close"        |& host 
-  print "Pragma: no-cache"         |& host 
-  print "Content-length:", len     |& host 
-  print ORS doc                    |& host 
-  close(host)     # close client connection 
-  host |& getline # wait for new client request 
+     if ($1 == "GET") RunApp(substr($2, 2)) 
+     if (! x) break   
+     print "HTTP/1.0", status, reason |& host 
+     print "Connection: Close"        |& host 
+     print "Pragma: no-cache"         |& host 
+     print "Content-length:", len     |& host 
+     print ORS doc                    |& host 
+     close(host)     # close client connection 
+     host |& getline # wait for new client request 
   } 
   # server terminated... 
   doc = Bye() 
