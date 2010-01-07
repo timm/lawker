@@ -153,7 +153,7 @@ Online doc<br>
     <string id="htxml"></string>
 	<string id="comment"> <![CDATA[/^#/]]> 
 	<string id="discuss"> <![CDATA[ 
-	<div id="comment"></div><script type="text/javascript" src="http://disqus.com/forums/awkinfo/embed.js"></script><noscript><a href="http://disqus.com/forums/awkinfo/?url=ref">View the discussion thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+	<div  id="comment"></div><script type="text/javascript" src="http://disqus.com/forums/awkinfo/embed.js"></script><noscript><a href="http://disqus.com/forums/awkinfo/?url=ref">View the discussion thread.</a></noscript><a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
 			]]>
 	</string>
     <string id="googleAnalyticsTrackingCode"><![CDATA[
