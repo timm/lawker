@@ -149,10 +149,10 @@ Online doc<br>
     <string id="join"><![CDATA[/<join>(.*)<\/join>/]]></string> 
     <string id="delimiter">``</string>
     <string id="lisp"><![CDATA[/(^\#\||\|\#|^;)/]]> </string>
-    <string id="awk"> <![CDATA[/^#/]]> </string>
+    <string id="awk"><![CDATA[/^#/]]> </string>
     <string id="htxml"></string>
-	<string id="comment"> <![CDATA[/^#/]]> 
-	 <string id="googleAnalyticsTrackingCode"><![CDATA[
+
+    <string id="googleAnalyticsTrackingCode"><![CDATA[
 
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
