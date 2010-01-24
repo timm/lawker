@@ -1,0 +1,47 @@
+<h1><join>Awk's Equivalent to VI's J</join></h1>
+<p>Editor's note: A <a 
+href="http://groups.google.com/group/comp.lang.awk/browse_thread/thread/4af5b8ffc7bcad45/685667c8813c15b5#685667c8813c15b5">recent discussion</a>
+in comp.lang.awk demonstrated a very cute, and very succinct, awk trick.
+<p>Neil Harris wanted to clean up this output:
+<pre>
+host1name.com 
+10.10.10.1 
+host2name.com 
+10.10.10.2 
+host3name.com 
+10.10.10.3 
+</pre>
+<p>
+He was using an uppercase J in vi to manually move the hostname's 
+IP address up onto the same line as it's hostname. 
+But he wanted to automate the task with awk.
+<p>Kenny McCormack offered:
+<pre>
+ORS=NR%2?" ":"\n" 
+</pre>  	
+<p>
+(Yes, that is the whole program.)
+<p>
+Ed Morton offered a more elegant version:
+<pre>
+ORS=NR%2?FS:RS 
+</pre>
+<p>
+Finally, Kenny McCormack commented:
+<em><ul>
+<li>
+I'm 98% sure that I personally invented the basic idea (ORS=... as the 
+pattern, with no action - i.e., default action).  
+<li>Ed's enhancement was 
+using FS and RS instead of hardcoding space and newline.  It's nice for 
+two reasons: 
+<ol>
+<li>
+   Saves a few golf strokes 
+   <li> Is more "portable" (or "logical", if you look at it that way) in 
+        that if FS and RS had been assigned non-default values, they 
+        would be used. 
+</ol>
+<li>
+Also, as he says, it is a very instructive 14 characters of AWK code. 
+</ul></em>
