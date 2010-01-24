@@ -1,0 +1,1162 @@
+     1	|   From: tim@menzies.us
+     2	|   Newsgroups: comp.lang.awk,comp.unix.shell,comp.answers,news.answers 
+     3	|   Followup-To: poster 
+     4	|   Subject: Awk FAQ v2.0 
+     5	|   Summary: FAQ (Frequently Asked Questions) about the awk programming language
+     6	|   Last-modified: 2010-Jan-20
+     7	|   Version: 2.0
+     8	|   URL: http://awk.info/faq.txt
+     9	|   Archive-name:  http://awk.info/faq.txt
+    10	|   
+    11	|   Frequently Asked Questions == FAQ
+    12	|   
+    13	|   The FAQ list for comp.lang.awk can be found on the Internet:
+    14	|     <http://awk.info/faq.txt>
+    15	|     <http://www.faqs.org/faqs/computer-lang/awk/faq/>
+    16	|   
+    17	|   ========================================================================
+    18	|   
+    19	|   Contents:
+    20	|   
+    21	|      1. Disclaimer
+    22	|      2. Spam
+    23	|      3. Can you answer my awk question?
+    24	|      4. How can I add a FAQ and its answer to the FAQ list?
+    25	|      5. What is awk?
+    26	|      6. What well-maintained awk-compatible languages are there?
+    27	|         6.1 nawk
+    28	|         6.2 gawk
+    29	|         6.3 mawk
+    30	|         6.4 xgawk
+    31	|         6.5 sqawk
+    32	|         6.6 jawk
+    33	|         6.7 runawk
+    34	|         6.8 older version
+    35	|      7. Where can I buy awk?
+    36	|      8. Where can I get awk for free?  For what platforms?
+    37	|         8.1 OS/X
+    38	|         8.2 Windows
+    39	|         8.3 LINUX
+    40	|      9. Why would anyone use awk instead of language XYZ?
+    41	|     10. How can I learn awk?
+    42	|     11. What are some other awk resources?
+    43	|         11.1. The awk community portal.
+    44	|         11.2. Short tutorials for newcomers.
+    45	|         11.3. Longer Tutorials.
+    46	|         11.4. Arnold Robbins' collection  
+    47	|     12. How do I report a bug in gawk?
+    48	|     13. How can I access shell or environment variables in an awk script?
+    49	|         13.0 Shells
+    50	|         13.1 Environment variables in general
+    51	|         13.2 Unix Shell Quoting
+    52	|         13.3 ENVIRON and "env"|getline
+    53	|         13.4 exporting environment variables back to the parent process
+    54	|     14. How does awk deal with multiple files?
+    55	|         14.0 Version warning
+    56	|         14.1 How can awk test for the existence of a file?
+    57	|         14.2 How can I get awk to read multiple files?
+    58	|         14.3 How can I tell from which file my input is coming?
+    59	|         14.4 How can I get awk to open multiple files (selected at runtime)?
+    60	|         14.5 How can I treat the first file specially?
+    61	|         14.6 How can I explicitly pass in a filename to treat specially?
+    62	|     15. How many elements were created by split()?
+    63	|     16. How can I split a string into characters?
+    64	|     17. How do I have dynamic-width printf strings, like C?
+    65	|     18. Why doesn't "\\$" behave like /\\$/ ?  Why don't parentheses match?
+    66	|     19. What is awk's exit code?
+    67	|     20. How can I get awk to be case-insensitive?
+    68	|         20.1. use tolower()
+    69	|         20.2. use IGNORECASE=1
+    70	|     21. How can I force a numeric/non-numeric comparison?
+    71	|     22. Why does { FS=":"; print $1 } not split the first record?
+    72	|     23. Did ^ and $ and . change in gawk?
+    73	|     24. Why doesn't awk 'begin {...}' work?
+    74	|     25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
+    75	|     26. How do I take advantage of gawk's networking support?
+    76	|     98. Miscellaneous
+    77	|     99. Credits
+    78	|   
+    79	|   ========================================================================
+    80	|   
+    81	|   1. Disclaimer
+    82	|   
+    83	|   Read at your own risk.  The current, previous, or original authors
+    84	|   make no claim as to fitness for any purpose or absence of any errors,
+    85	|   and offer no warranty.  Do not eat.
+    86	|   
+    87	|   ========================================================================
+    88	|   
+    89	|   2. Spam
+    90	|   
+    91	|   You wouldn't believe how much spam I get to this address.
+    92	|   
+    93	|   ========================================================================
+    94	|   
+    95	|   3. Can you answer my awk question?
+    96	|   
+    97	|   Probably not.  Please don't mail it to me.
+    98	|   
+    99	|   Read the FAQ, and the materials pointed to by it, and if you can't find
+   100	|   an answer there, by all means post to the newsgroup.
+   101	|   
+   102	|   If you need help posting, see <http://groups.google.com/> among others.
+   103	|   
+   104	|   A FAQ list is intended to reduce traffic on a newsgroup, not eliminate it.
+   105	|   
+   106	|   ========================================================================
+   107	|   
+   108	|   4. How can I add a FAQ and its answer to the FAQ list?
+   109	|   
+   110	|   Mail BOTH of them to me.  Then I can add them to the FAQ and it should
+   111	|   help people who have that same question later, as well as everyone who
+   112	|   reads the group, because they won't see it asked and answered so often.
+   113	|   
+   114	|   I do not work on this FAQ every day, but I will try to get updates
+   115	|   incorporated in a timely manner (say, monthly).
+   116	|   
+   117	|   Of course, don't mail me my entire FAQ!  I already have a copy!  There
+   118	|   are copies available all over the web that I could use if I lost mine!
+   119	|   I pay for my access; don't you?
+   120	|     
+   121	|   ========================================================================
+   122	|   
+   123	|   5. What is awk?
+   124	|   
+   125	|   Awk is a stable, cross platform computer language named for its
+   126	|   authors Alfred Aho, Peter Weinberger & Brian Kernighan. They write:
+   127	|   "Awk is a convenient and expressive programming language that can
+   128	|   be applied to a wide variety of computing and data-manipulation
+   129	|   tasks".
+   130	|   
+   131	|     Alfred V. Aho
+   132	|     Brian W. Kernighan
+   133	|     Peter J. Weinberger
+   134	|   
+   135	|   In Classic Shell Scripting, Arnold Robbins & Nelson Beebe confess
+   136	|   their Awk bias: "We like it. A lot. The simplicity and power of Awk
+   137	|   often make it just the right tool for the job."
+   138	|   
+   139	|   Besides the Bourne shell, Awk is the only other scripting language
+   140	|   available in the standard Unix environment. Implementations of AWK
+   141	|   exist as installed software for almost all other operating systems.
+   142	|   
+   143	|   ========================================================================
+   144	|   
+   145	|   6. What well-maintained awk-compatible languages are there?
+   146	|   
+   147	|     6.1 nawk
+   148	|       "The one true awk", old.
+   149	|       Interpreter.
+   150	|       See http://www.cs.princeton.edu/~bwk/btl.mirror/awk.tar.gz
+   151	|   
+   152	|     6.2 gawk
+   153	|       From the GNU project.
+   154	|       Widely used.
+   155	|       Interpreter.
+   156	|       See http://www.gnu.org/software/gawk/
+   157	|   
+   158	|     6.3 mawk
+   159	|   	Mike's Awk  (from Michael Brennan).
+   160	|   	For some code, runs very fast.
+   161	|       Interpreter
+   162	|   	See http://freshmeat.net/projects/mawk/
+   163	|   
+   164	|     6.4 xgawk
+   165	|       Gawk + XML + ...
+   166	|       Interpreter
+   167	|       See http://home.vrweb.de/~juergen.kahrs/gawk/XML/.
+   168	|   
+   169	|     6.5 sqawk
+   170	|       Gawk + SQL
+   171	|   	Interpreter
+   172	|   	See http://code.google.com/p/spawk/.
+   173	|   
+   174	|     6.6 jawk
+   175	|   	Awk in the JAVA virtual machine
+   176	|   	Interpreter.
+   177	|   	See http://jawk.sourceforge.net/.
+   178	|   
+   179	|     6.7 runawk
+   180	|       A wrapper for the AWK interpreter, providing modules 
+   181	|   	See http://sourceforge.net/projects/runawk/files/runawk/.
+   182	|   
+   183	|     6.8 Older versions, may not be currently supported, translates to "C".
+   184	|   	 * awk2c
+   185	|        * awka
+   186	|   
+   187	|   ========================================================================
+   188	|   
+   189	|   7. Where can I buy awk?
+   190	|   
+   191	|   AFAIK, all current AWK versions are open source; i.e. free.
+   192	|   
+   193	|   ========================================================================
+   194	|   
+   195	|   8. Where can I get awk for free?  For what platforms?
+   196	|   
+   197	|   AFAIK, all current AWK versions are open source; i.e. free.
+   198	|   
+   199	|   AWK runs on many platforms and can be downloaded and installed from
+   200	|   many package management systems; e.g.
+   201	|   
+   202	|     8.1. OS/X
+   203	|          From FINK: http://www.finkproject.org/
+   204	|          From darwin ports: http://darwinports.com/
+   205	|     8.2. Windows
+   206	|   	   From GnuWin32: http://gnuwin32.sourceforge.net/
+   207	|   	   From Cygwin: http://www.cygwin.com/
+   208	|     8.3.  LINUX:
+   209	|   	   From apt-get: from e.g. the Synaptic package manager.
+   210	|   
+   211	|   ========================================================================
+   212	|   
+   213	|   9. Why would anyone use awk instead of language XYZ?
+   214	|   
+   215	|   Awk is a simple and elegant pattern scanning and processing language.
+   216	|   Awk is also the most portable scripting language in existence.
+   217	|   But why use it rather than Perl (or PHP or Ruby or...):
+   218	|   
+   219	|     - Awk is simpler (especially important if deciding which to learn
+   220	|       first);
+   221	|     - Awk syntax is far more regular (another advantage for the
+   222	|       beginner, even without considering syntax-highlighting editors);
+   223	|     - You may already know Awk well enough for the task at hand;
+   224	|     - You may have only Awk installed;
+   225	|     - Awk can be smaller, thus much quicker to execute for small programs.
+   226	|   
+   227	|   Tom Christiansen wrote in Message-ID: <3766d75e@cs.colorado.edu>
+   228	|     > Awk is a venerable, powerful, elegant, and simple tool that everyone
+   229	|     > should know.  (Languages like) Perl are a superset and child of awk, 
+   230	|     > but has much more power that comes at expense of sacrificing some 
+   231	|     > of that simplicity.
+   232	|   
+   233	|   Carlo Strozzi writes:
+   234	|   
+   235	|     (Other languages like Perl is) a good programming language for writing
+   236	|     self-contained programs, but pre-compilation and long start-up time
+   237	|     are worth paying only if once the program has loaded it can do
+   238	|     everything in one go. This contrasts sharply with the Operator-stream
+   239	|     Paradigm, where operators are chained together in pipelines of two,
+   240	|     three or more programs. The overhead associated with initializing
+   241	|     (say) Perl at every stage of the pipeline makes pipelining
+   242	|     inefficient. A better way of manipulating structured ASCII files is to
+   243	|     use the AWK programming language, which is much smaller, more
+   244	|     specialized for this task, and is very fast at startup.
+   245	|   
+   246	|   ========================================================================
+   247	|   
+   248	|   10. How can I learn awk?
+   249	|   
+   250	|     English Book:
+   251	|   
+   252	|         _The AWK Programming Language_, by Aho, Kernighan and Weinberger,
+   253	|         who invented the language.  Published by Addison-Wesley.  Lots of
+   254	|         good material in not a lot of space.  Out of date, with regard to 
+   255	|         POSIX awk.
+   256	|   
+   257	|         ISBN 0-201-07981-X
+   258	|   
+   259	|         Source code: 
+   260	|         <http://lawker.googlecode.com/svn/fridge/lib/awk/theAwkBook/>
+   261	|   
+   262	|     English Book:
+   263	|   
+   264	|         _Effective Awk Programming_, by Arnold Robbins
+   265	|         published by O'Reilly and Associates.
+   266	|   
+   267	|         ISBN 0-596-00070-7 (third edition)
+   268	|   
+   269	|         <http://www.oreilly.com/catalog/awkprog3/>
+   270	|         <http://www.gnu.org/manual/gawk>
+   271	|   
+   272	|         Errata:
+   273	|   		<http://oreilly.com/catalog/awkprog3/errata/>
+   274	|   
+   275	|         We recommends buying the book instead of trying to print it
+   276	|         all out, for three reasons:
+   277	|   
+   278	|           1. It's probably cheaper than using your own toner and paper.
+   279	|   
+   280	|           2. Some money goes back to help further development, both to
+   281	|              Arnold Robbins (only if you buy from ORA) and the Free
+   282	|              Software Foundation (if you buy from either ORA or the FSF).
+   283	|   
+   284	|           3. It helps convince publishers that we _like_ having full
+   285	|              documentation available on-line (e.g., for searching), but
+   286	|              will still pay for a compact, bound copy.
+   287	|   
+   288	|     English reference card:
+   289	|   
+   290	|         <http://lawker.googlecode.com/svn/fridge/share/pdf/awkcard.pdf>
+   291	|   
+   292	|     English Book:
+   293	|   
+   294	|         second edition:
+   295	|   
+   296	|         _Sed & Awk_, by Dale Dougherty & Arnold Robbins, published
+   297	|         by O'Reilly and Associates.
+   298	|   
+   299	|         ISBN 1-56592-225-5 (second edition)
+   300	|   
+   301	|         _sed & awk_ describes two text manipulation programs that are
+   302	|         mainstays of the UNIX programmer's toolbox.  This new edition
+   303	|         covers the sed and awk programs as they are now mandated by
+   304	|         the POSIX standard and includes discussion of the GNU versions
+   305	|         of these programs.
+   306	|   
+   307	|         <http://www.ora.com/catalog/sed2/>
+   308	|   
+   309	|         An errata for the second edition of Sed & Awk is at
+   310	|   
+   311	|         <http://oreilly.com/catalog/sed2/errata/>
+   312	|   
+   313	|     English Book:
+   314	|   
+   315	|         _Classic Shell Scripting)_ by Arnold Robbins and Nelson Beebe
+   316	|         published by O'Reilly and Associates.
+   317	|      
+   318	|         ISBN 5-9600-595-4
+   319	|   
+   320	|         Contains an (excellent) short introduction to Gawk, as well
+   321	|         as numerous other UNIX shell languages that can be combined
+   322	|         to quickly build applications.
+   323	|   
+   324	|         <http://oreilly.com/catalog/9780596005955/>
+   325	|   
+   326	|         An errata for this book is at
+   327	|   
+   328	|         <http://oreilly.com/catalog/errata.csp?isbn=9780596005955>
+   329	|   
+   330	|     English Book:
+   331	|   
+   332	|         _Mastering Regular Expressions_, by Jeffrey E.F. Friedl, published
+   333	|         by O'Reilly and Associates.  (the `Hip Owls Book')
+   334	|   
+   335	|         ``... you will learn how to use regular expressions to
+   336	|         solve problems and get the most out of tools that provide
+   337	|         them.  Not only that, but much more:  this book is about
+   338	|         _mastering_ regular expressions.''
+   339	|   
+   340	|         <http://www.ora.com/catalog/regex/>
+   341	|   
+   342	|         errata, additions, change log available at the author's home page
+   343	|         <http://public.yahoo.com/~jfriedl/regex/>
+   344	|   
+   345	|         ISBN 1-56592-257-3
+   346	|   
+   347	|     Deutsch Book:
+   348	|   
+   349	|         Friedl's _Mastering Regular Expressions_.
+   350	|   
+   351	|         <http://www.oreilly.de/catalog/regexger/index.html>
+   352	|   
+   353	|     Japanese Book:
+   354	|   
+   355	|        _Grep,Sed,Awk_ by Akihiro Miyoshi
+   356	|        ISBN  4-87966-794-3
+   357	|        June 1998 264 pages
+   358	|        Shuwa System Manual & Reference Series
+   359	|        <http://www.shuwasystem.co.jp/books/wwwsrch/cgi-bin/content/794/index.htm>
+   360	|        Serves both as a tutorial and a manual. Divided quite evenly into three
+   361	|        parts. Regular expressions explored in detail in grep section.
+   362	|   
+   363	|     English Booklet:
+   364	|   
+   365	|       TCP/IP Internetworking With Gawk
+   366	|       ISBN 1-882114-93-0
+   367	|       <http://home.vr-web.de/Juergen.Kahrs/gawk/gawkinet.html>
+   368	|   
+   369	|       An abridged form is included in O'Reilly's Effective Awk Programming 3e
+   370	|   
+   371	|       A short worked example of this code is at http://awk.info/?tools/server.
+   372	|   
+   373	|   ==========================================================================
+   374	|   
+   375	|   11. What are some other awk resources?
+   376	|   
+   377	|     11.1. The awk community portal: a large collection of awk tips and trips.
+   378	|        <http://awk.info>
+   379	|   
+   380	|     11.2. Short tutorials for newcomers.  Sorted by newbie-ness 
+   381	|        (so best to start at the top):
+   382	|        
+   383	|        Eric Wendelin: Awk is a beautiful tool
+   384	|        <http://eriwen.com/tools/awk-is-a-beautiful-tool/>
+   385	|        
+   386	|        Tim Sherwood: AWK: The Duct Tape of Computer Science Research (slides)
+   387	|        <http://lawker.googlecode.com/svn/fridge/share/pdf/gawk-tutorial.pdf>
+   388	|        
+   389	|        Ronald Loui: Samples of Gawk
+   390	|        <http://awk.info/?samples>
+   391	|        
+   392	|        Andrew Ross: Getting started with awk
+   393	|        <http://doc.ddart.net/shell/awk/>
+   394	|        
+   395	|        Tim Menzies: Four Keys to Gawk
+   396	|        <http://awk.info/?keys2awk>
+   397	|        
+   398	|        Peteris Krumins: 10 Awk Tips, Tricks and Pitfalls
+   399	|        <http://www.catonmat.net/blog/ten-awk-tips-tricks-and-pitfalls/>
+   400	|        
+   401	|        Paul Jakma: Awk programmers' FAQ
+   402	|        <http://hibernia.jakma.org/~paul/awk-faq.html>
+   403	|        
+   404	|        Ed Morton (and friends): Use (and Abuse) of Getline
+   405	|        <http://awk.info/?tip/getline>
+   406	|        
+   407	|     11.3. Longer Tutorials
+   408	|        
+   409	|        The following list is sorted by the number of times this material 
+   410	|        is tagged at delicious.com (most tagged at top):
+   411	|        
+   412	|        Greg Goebel: An Awk Primer
+   413	|        <http://www.vectorsite.net/tsawk.html>
+   414	|        
+   415	|        Bruce Barnett: Awk - A Tutorial and Introduction
+   416	|        <http://www.grymoire.com/Unix/Awk.html>
+   417	|        
+   418	|        Arnold Robbins: The GNU Awk User's Guide
+   419	|        <http://www.gnu.org/software/gawk/manual/gawk.html>
+   420	|        
+   421	|        Emmett Dulaney: AWK: The Linux Administrators' Wisdom Kit
+   422	|        <http://www.oracle.com/technology/pub/articles/dulaney_awk.html>
+   423	|     
+   424	|     11.4. Arnold Robbins' collection
+   425	|   
+   426	|         <ftp://ftp.freefriends.org/arnold/Awkstuff/>
+   427	|   
+   428	|         > A collection of awk related stuff that I'm starting and willing
+   429	|         > to maintain.  Currently includes Henry Spencer's awf and aaa
+   430	|         > programs, Brian Kernighan's chem, and Nelson Beebe's awkpretty,
+   431	|         > and some smaller items.
+   432	|   
+   433	|   ========================================================================
+   434	|   
+   435	|   12. How do I report a bug in gawk?
+   436	|   
+   437	|   This is described in great detail in the gawk documentation.  In brief:
+   438	|   
+   439	|      1. Make sure what you've discovered is really a bug by checking
+   440	|         the documentation and, if possible, comparing with nawk and mawk.
+   441	|   
+   442	|      2. Cut down the program and data to as small as possible a test
+   443	|         case that will illustrate the bug.
+   444	|   
+   445	|      3. Optionally post to comp.lang.awk; this allows others to confirm
+   446	|         or deny the behavior, and its incorrectness (or lack thereof).
+   447	|   
+   448	|      4. Send mail to <mailto:bug-gawk@gnu.org>.  This automatically sends
+   449	|         a copy to Arnold Robbins.  Do not JUST post in comp.lang.awk;
+   450	|         Arnold's readership there is sporadic, and of course any Usenet
+   451	|         article can be missed, killed, or dropped.
+   452	|   
+   453	|   ========================================================================
+   454	|   
+   455	|   13. How can I access shell or environment variables in an awk script?
+   456	|   
+   457	|   13.0 Shells
+   458	|   
+   459	|   The examples using quoting are intended for use with any standard
+   460	|   (sh-compatible-quoting) Unix shell.  As with all complex quoting,
+   461	|   all these examples become much easier to work with (or under DOS
+   462	|   and MS-Windows, less impossible) when put in a file and invoked with
+   463	|   `awk -f filename.awk' instead.
+   464	|   
+   465	|   Non-sh-compatible shells will require different quoting.  If you're
+   466	|   not even using Unix (or a ported Unix shell), just ignore the whole
+   467	|   section on quoting.
+   468	|   
+   469	|   13.1 Environment variables in general
+   470	|   
+   471	|   Answer 1:  on Unix, use "alternate quoting", e.g.
+   472	|   
+   473	|           awk -F: '$1 ~ /'"$USER"'/ {print $5}' /etc/passwd
+   474	|                   ^^^^^^^^*******^^^^^^^^^^^^^^
+   475	|   
+   476	|           any standard Unix shell will send the underlined part as one
+   477	|           long argument (with embedded spaces) to awk, for instance:
+   478	|   
+   479	|           $1 ~ /bwk/ {print $5}
+   480	|   
+   481	|           Note that there may not be any spaces between the quoted
+   482	|           parts.  Otherwise, you wouldn't end up a single, long script
+   483	|           argument, because Unix shells break arguments on spaces
+   484	|           (unless they are `escaped' with `\', or in '' or "", as the
+   485	|           above example shows).
+   486	|   
+   487	|   Answer 2:  RTFM to see if and how your awk supports variable definitions
+   488	|              on the command line, e.g.,
+   489	|   
+   490	|           awk -F: -v name="$USER" '$1 ~ name {print $5}' /etc/passwd
+   491	|   
+   492	|   Answer 3:  RTFM if your awk can access environment vars.  Then perhaps
+   493	|   
+   494	|           awk -F: '$1 ~ ENVIRON["USER"] {print $5}' /etc/passwd
+   495	|   
+   496	|           Always remember for your /bin/sh scripts that it's easy to put
+   497	|           things into the environment for a single command run:
+   498	|   
+   499	|           name=felix age=56 awk '... ENVIRON["name"] .....'
+   500	|   
+   501	|           this also works with ksh and some other shells.
+   502	|   
+   503	|   The first approach is extremely portable, but doesn't work with
+   504	|   awk "-f" script files.  In that case, it's better to use a shell
+   505	|   script and stretch a long awk command argument in '...' across
+   506	|   multiple lines if need be.
+   507	|   
+   508	|   Also note: /bin/csh requires a \ before an embedded newline, /bin/sh not.
+   509	|   
+   510	|   13.2 Unix Shell Quoting
+   511	|   
+   512	|   Quoting can be such a headache for the novice, in shell programming,
+   513	|   and especially in awk.
+   514	|   
+   515	|   Tim Maher offered his <http://www.consultix-inc.com/quoting.txt>.
+   516	|   
+   517	|   This approach is probably the best, and easiest to understand and
+   518	|   maintain, for most purposes:  (the '@@' is quoted to ensure the
+   519	|   shell will copy verbatim, not interpreting environment variable
+   520	|   substitutions etc.)
+   521	|   
+   522	|       cat <<'@@' > /tmp/never$$.awk
+   523	|       { print "Never say can't." }
+   524	|       @@
+   525	|       awk -f /tmp/never$$.awk; rm /tmp/never$$.awk
+   526	|   
+   527	|   If you enjoy testing your shell's quoting behavior frequently, you
+   528	|   could try these:
+   529	|   
+   530	|       (see below for a verbose explanation of the first one, with 7 quotes)
+   531	|   
+   532	|       awk 'BEGIN { q="'"'"'";print "Never say can"q"t."; exit }'
+   533	|       nawk -v q="'" 'BEGIN { print "Never say can"q"t."; exit }'
+   534	|       awk 'BEGIN { q=sprintf("%c",39); print "Never say can"q"t."; exit }'
+   535	|       awk 'BEGIN { q=sprintf("%c",39); print "Never say \"can"q"t.\""; exit }'
+   536	|   
+   537	|   However, you would also have to know why you could not use this:
+   538	|   
+   539	|       awk 'BEGIN { q="\'"; print "Never say \"can"q"t.\""; exit }'
+   540	|   
+   541	|   Explanation of the 7-quote example:
+   542	|   
+   543	|   Note that it is quoted three different ways:
+   544	|   
+   545	|       awk 'BEGIN { q="'
+   546	|                        "'"
+   547	|                           '";print "Never say can"q"t."; exit }'
+   548	|   
+   549	|   and that argument comes out as the single string (with embedded spaces)
+   550	|   
+   551	|       BEGIN { q="'";print "Never say can"q"t."; exit }
+   552	|   
+   553	|   which is the same as
+   554	|   
+   555	|       BEGIN { q="'"; print "Never say can" q "t."; exit }
+   556	|                             ^^^^^^^^^^^^^  ^  ^^
+   557	|                             |           |  |  ||
+   558	|                             |           |  |  ||
+   559	|                             vvvvvvvvvvvvv  |  ||
+   560	|                             Never say can  v  ||
+   561	|                                            '  vv
+   562	|                                               t.
+   563	|   
+   564	|   which, quite possibly with too much effort to be worth it, gets you
+   565	|   
+   566	|                             Never say can't.
+   567	|   
+   568	|   13.3 ENVIRON[] and "env"|getline
+   569	|   
+   570	|      Modern versions of awk (gawk, mawk, Bell Labs awk, any POSIX
+   571	|      awk) all provide an array named ENVIRON.  The array is indexed by
+   572	|      environment variable name; the value is that variable's value.
+   573	|      For instance, ENVIRON["HOME"] might be "/home/chris".  To print
+   574	|      out all the names and values, use a simple loop:
+   575	|   
+   576	|           for (i in ENVIRON)
+   577	|                   printf("ENVIRON['%s'] = '%s'\n", i, ENVIRON[i])
+   578	|   
+   579	|      What if my awk doesn't have ENVIRON[]?
+   580	|   
+   581	|      Short answer, get a better awk.  There are many freely available
+   582	|      versions.
+   583	|   
+   584	|      Longer answer, on Unix you can use a pipe from the `env' or
+   585	|      `printenv' commands, but this is less pretty, and may be a
+   586	|      problem if the values contain newlines:
+   587	|   
+   588	|           # test this on your system before you depend on it!
+   589	|           while ( ("env" | getline line) >0 )
+   590	|           {
+   591	|                   varname=line
+   592	|                   varvalue=line
+   593	|                   sub(/=.*$/,"",varname)
+   594	|                   sub(/^[^=]*=/,"",varvalue)
+   595	|                   print "var [" varname "]='" varvalue "'"
+   596	|           }
+   597	|   
+   598	|   13.4 exporting environment variables back to the parent process
+   599	|   
+   600	|      How can I put values into the environment of the program that
+   601	|      called my awk program?
+   602	|   
+   603	|      Short answer, you can't.  Unix ain't Plan 9, and you can't tweak
+   604	|      the parent's address space.
+   605	|   
+   606	|      (DOS isn't even Unix, so it lets any program overwrite any memory
+   607	|      location, including the parent's environment space.  But the
+   608	|      details are [obviously] going to be fairly icky.  Avoid.)
+   609	|   
+   610	|      Longer answer, write the results in a form the shell can parse
+   611	|      to a temporary file, and have the shell "source" the file after
+   612	|      running the awk program:
+   613	|   
+   614	|           awk 'BEGIN { printf("NEWVAR='%s'\n", somevalue) }' > /tmp/awk.$$
+   615	|           . /tmp/awk.$$        # sh/ksh/bash/pdksh/zsh etc
+   616	|           rm /tmp/awk.$$
+   617	|   
+   618	|      With many shells, you can use `eval', but this is also cumbersome:
+   619	|   
+   620	|           eval `awk 'BEGIN { print "NEWVAR=" somevalue }'`
+   621	|   
+   622	|      Csh syntax and more robust use of quotation marks are left as
+   623	|      exercises for the reader.
+   624	|   
+   625	|   ========================================================================
+   626	|   
+   627	|   14. How does awk deal with multiple files?
+   628	|   
+   629	|     14.0 Version warning
+   630	|   
+   631	|       some of these techniques will require non-ancient versions of awk.
+   632	|   
+   633	|     14.1 How can awk test for the existence of a file?
+   634	|   
+   635	|       the most portable way is to simply try and read from the file.
+   636	|   
+   637	|           function exists(file,        dummy, ret)
+   638	|           {
+   639	|                   ret=0;
+   640	|                   if ( (getline dummy < file) >=0 )
+   641	|                   {
+   642	|                           # file exists (possibly empty) and can be read
+   643	|                           ret = 1;
+   644	|                           close(file);
+   645	|                   }
+   646	|                   return ret;
+   647	|           }
+   648	|   
+   649	|   [ I've read reports that earlier versions of mawk would write to stderr
+   650	|   as well as getline returning <0 -- is this still true? ]
+   651	|   
+   652	|           on Unix, you can probably use the `test' utility
+   653	|   
+   654	|           if (system("test -r " file) == 0)
+   655	|               # file is readable
+   656	|           else
+   657	|               # file is not readable
+   658	|   
+   659	|     14.2 How can I get awk to read multiple files?
+   660	|   
+   661	|       it's automatic (under Unix at least) -- use something like:
+   662	|   
+   663	|       awk '/^#include/ {print $2}' *.c *.h
+   664	|   
+   665	|     14.3 How can I tell from which file my input is coming?
+   666	|   
+   667	|       use the built-in variable FILENAME:
+   668	|   
+   669	|       awk '/^#include/ {print FILENAME,$2}' *.c *.h
+   670	|   
+   671	|     14.4 How can I get awk to open multiple files (selected at runtime)?
+   672	|   
+   673	|       use `getline', `close', and `print EXPR > FILENAME', like:
+   674	|   
+   675	|       # assumes input file has at least 1 line, output file writeable
+   676	|       function double(infilename,outfilename,    aline)
+   677	|       {
+   678	|         while ( (getline aline < infilename) >0 )
+   679	|           print(aline aline) > outfilename;
+   680	|         close(infilename);
+   681	|         close(outilename);
+   682	|       }
+   683	|   
+   684	|     14.5 How can I treat the first file specially?
+   685	|   
+   686	|       use FILENAME, thusly:
+   687	|   
+   688	|       BEGIN { rulesfile="" }
+   689	|       rulesfile == "" { rulesfile = FILENAME; }
+   690	|       FILENAME == rulesfile { build_rule($0); }
+   691	|       FILENAME != rulesfile { apply_rule($0); }
+   692	|   
+   693	|       Example:  
+   694	|   
+   695	|       Suppose you have a text-line "database" and you want to make some
+   696	|       batch changes to it, by replacing some old lines with new lines.
+   697	|    
+   698	|       BEGIN { rulesfile="" }
+   699	|       rulesfile == "" { rulesfile = FILENAME; }
+   700	|       rulesfile == FILENAME { replace[$1] = $0; }
+   701	|       rulesfile != FILENAME \
+   702	|       { 
+   703	|               if ($1 in replace) 
+   704	|                       print replace[$1];
+   705	|               else
+   706	|                       print;
+   707	|       }
+   708	|   
+   709	|       another way, using ARGV:
+   710	|   
+   711	|       (FILENAME == ARGV[1]) { replace[$1] = $0; next }
+   712	|       ($1 in replace) { print replace[$1]; next }
+   713	|       { print }
+   714	|   
+   715	|     14.6 How can I explicitly pass in a filename to treat specially?
+   716	|   
+   717	|       use `-v rulesfile=filename' like you would any other variable,
+   718	|       and then use a `getline' loop (and `close') in your BEGIN
+   719	|       statement.
+   720	|   
+   721	|       BEGIN \
+   722	|       {
+   723	|         if (rulesfile=="")
+   724	|         {
+   725	|           print "must use -v rulesfile=filename";
+   726	|           exit(1);
+   727	|         }
+   728	|         while ( (getline < rulesfile) >0 )
+   729	|           replace[$1]=$0;
+   730	|         close(rulesfile);
+   731	|       }
+   732	|   
+   733	|       {
+   734	|         if ($1 in replace)
+   735	|           print replace[$1];
+   736	|         else
+   737	|           print;
+   738	|       }
+   739	|   
+   740	|   ========================================================================
+   741	|   
+   742	|   15. How many elements were created by split()?
+   743	|   
+   744	|      when I do a split on a field, e.g.,
+   745	|    
+   746	|           split($1,x,"string")
+   747	|    
+   748	|      how can i find out how many elements x has (I mean other than
+   749	|      testing for null string or doing a `for (n in x)' test)?
+   750	|   
+   751	|   split() is a function; use its return value:
+   752	|   
+   753	|           n = split($1, x, "string")
+   754	|   
+   755	|   ========================================================================
+   756	|   
+   757	|   16. How can I split a string into characters?
+   758	|   
+   759	|   In portable POSIX awk, the only way to do this is to use substr to pull
+   760	|   out each character, one by one.  This is painful.  However, gawk, mawk,
+   761	|   and the newest version of the Bell Labs awk all allow you to set
+   762	|   FS = "" and use "" as the third argument of split.
+   763	|   
+   764	|   So, split("chars",anarray,"") results in the array anarray containing
+   765	|   5 elements -- "c", "h", "a", "r", "s".
+   766	|   
+   767	|   If you don't have any ^As in your string, you could try:
+   768	|   
+   769	|           string=$0;
+   770	|           gsub(".", "&\001", string)
+   771	|           n=split(string, anarray, "\001")
+   772	|           for (i=1;i<=n;i++)
+   773	|               print "character " i "is '" anarray[i] "'";
+   774	|   
+   775	|   ========================================================================
+   776	|   
+   777	|   17. How do I have dynamic-width printf strings, like C?
+   778	|   
+   779	|   With modern awks, you can just do it like you would in C (though the
+   780	|   justification is less clear; C doesn't have the trivial in-line string
+   781	|   concatenation that awk does), like so:
+   782	|   
+   783	|           maxlen=0
+   784	|   
+   785	|           for (i in arr)
+   786	|             if (maxlen<length(arr[i]))
+   787	|               maxlen=length(arr[i])
+   788	|   
+   789	|           for (i in arr)
+   790	|             printf("%-*s %s\n",maxlen,arr[i],i)
+   791	|   
+   792	|   With old awks, just do it like you would do if you didn't know about %*
+   793	|   (this would be much more painful to do in C), like so:
+   794	|   
+   795	|           maxlen=0
+   796	|   
+   797	|           for (i in arr)
+   798	|             if (maxlen<length(arr[i]))
+   799	|               maxlen=length(arr[i])
+   800	|   
+   801	|           printfstring="%-" maxlen "s %s\n";
+   802	|           for (i in arr)
+   803	|             printf(printfstring,arr[i],i)
+   804	|   
+   805	|   ========================================================================
+   806	|   
+   807	|   18. Why doesn't "\\$" behave like /\\$/ ?  Why don't parentheses match?
+   808	|   
+   809	|   Because "\\$" is a string and /\\$/ is not; in strings, some of the
+   810	|   escape characters get eaten up (like \" to escape a double-quote within
+   811	|   the string).
+   812	|   
+   813	|   /\\$/ => regular expression:  literal backslash at end-of-expression
+   814	|   
+   815	|   "\\$" => string: \$ => regular expression:  literal dollar sign
+   816	|   
+   817	|   to get behavior like the first case in a string, use "\\\\$" .
+   818	|   
+   819	|   there are other, less obvious characters which need the same attention;
+   820	|   under-quoting or over-quoting should be avoided:
+   821	|   
+   822	|   parentheses are special for alternation:
+   823	|   
+   824	|   /\(test\)/ => 6 characters `(test)'
+   825	|   "\(test\)" => /(test)/ => 4 characters `test' (with unused grouping)
+   826	|   
+   827	|   an example of trying to match some diagonal compass directions:
+   828	|   
+   829	|   /(N|S)(E|W)/ => `NE' or `NW' or `SE' or `SW' (correct)
+   830	|   "(N|S)(E|W)" => /(N|S)(E|W)/ (correct)
+   831	|   "\(N|S\)\(E|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
+   832	|   "\(N\|S\)\(E\|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
+   833	|   
+   834	|   expressions that look similar but behave totally differently:
+   835	|   
+   836	|   /\(N|S\)\(E|W\)/ => `(N' or `S)(E' or `W)'
+   837	|   /\(N\|S\)\(E\|W\)/ => `(N|S)(E|W)' only
+   838	|   
+   839	|   There is also confusion regarding different forms of special characters;
+   840	|   POSIX requires that `\052' be treated as any other `*', even though it
+   841	|   is written with 4 bytes instead of 1.  In compatibility mode, gawk will
+   842	|   treat it as though it were escaped , namely `\*'.
+   843	|   
+   844	|   ========================================================================
+   845	|   
+   846	|   19. What is awk's exit code?
+   847	|   
+   848	|   Normally, the `exit' command exits with a value of zero.
+   849	|   
+   850	|   You can supply an optional numeric value to the `exit' command to
+   851	|   make it exit with a value:
+   852	|   
+   853	|       if (whatever)
+   854	|           exit 12;
+   855	|   
+   856	|   If you have an END block, control first transfers there.  Within
+   857	|   the END block, an `exit' command exits immediately; if you had
+   858	|   previously supplied a value, that value is used.  But, if you
+   859	|   give a new value to `exit' within the END block, the new value is
+   860	|   used.  This is documented in the GNU Awk User's Guide (gawk.texi).
+   861	|   
+   862	|   If you have an END block you want to be able to skip sometimes,
+   863	|   you may have to do something like this:
+   864	|   
+   865	|   BEGIN \
+   866	|   {
+   867	|     exitcode=0;
+   868	|     ...
+   869	|   }
+   870	|   
+   871	|   # normal rules processing...
+   872	|   {
+   873	|     ...
+   874	|     if (fatal)
+   875	|     {
+   876	|       exitcode=12;
+   877	|       exit(exitcode);
+   878	|     }
+   879	|     ...
+   880	|   }
+   881	|   
+   882	|   END {
+   883	|     if (exitcode!=0)
+   884	|       exit(exitcode);
+   885	|     ...
+   886	|   }
+   887	|   
+   888	|   ========================================================================
+   889	|   
+   890	|   20. How can I get awk to be case-insensitive?
+   891	|   
+   892	|     20.1. use tolower()
+   893	|       - portable
+   894	|       - must be explicitly used for each comparison
+   895	|   
+   896	|       instead of:
+   897	|         if (avar=="a" || avar=="A") { ... }
+   898	|       use:
+   899	|         if (tolower(avar)=="a") { ... }
+   900	|   
+   901	|       or at the beginning of your code, add a line like
+   902	|         { for (i=0;i<=NF;i++) $i=tolower($i) }
+   903	|         { $0=tolower($0); }   # modern awks will rebuild $1..$NF also
+   904	|   
+   905	|     20.2. use IGNORECASE=1;
+   906	|       - gawk only
+   907	|       - used for all comparisons, regex comparisons, index() function
+   908	|       - not used for array indexing
+   909	|   
+   910	|   ========================================================================
+   911	|   
+   912	|   21. How can I force a numeric/non-numeric comparison?
+   913	|   
+   914	|   These are the canonical, work-in-all-versions snippets.  there are
+   915	|   many others, most longer, some shorter (but possibly less portable).
+   916	|   
+   917	|   To compare two variables as numbers ONLY, use
+   918	|     if (0+var1 == 0+var2)
+   919	|   
+   920	|   To compare two variables as non-numeric strings ONLY, use
+   921	|     if ("" var1 == "" var2)
+   922	|   
+   923	|   ========================================================================
+   924	|   
+   925	|   22. Why does { FS=":"; print $1 } not split the first record?
+   926	|   
+   927	|   Basically, you should set FS before it may be called upon to split $0
+   928	|   into fields.  Once awk encounters a `{', it is probably too late.
+   929	|   
+   930	|   Some awk implementations set the fields at the beginning of the
+   931	|   block, and don't re-parse just because you changed FS.  To get
+   932	|   the desired behavior, you must set FS _before_ reading in a line.
+   933	|   
+   934	|   e.g.,
+   935	|     BEGIN { FS=":" }
+   936	|     { print $1 }
+   937	|   
+   938	|   e.g.,
+   939	|     awk -F: '{ print $1 }'
+   940	|   
+   941	|   If you run code like this
+   942	|     { FS=":"; print $1 }
+   943	|   
+   944	|   On this data:
+   945	|     first:second:third but not last:fourth
+   946	|     First:Second:Third But Not Last:Fourth
+   947	|     FIRST:SECOND:THIRD BUT NOT LAST:FOURTH
+   948	|   
+   949	|   You may get either
+   950	|     this:       or this:
+   951	|     ----        -------
+   952	|     first       first:second:third
+   953	|     First       First
+   954	|     FIRST       FIRST
+   955	|   
+   956	|   Perhaps more surprisingly, code like
+   957	|     { FS=":"; }
+   958	|     { print $1; }
+   959	|   
+   960	|   will also behave in the same way.
+   961	|   
+   962	|   ========================================================================
+   963	|   
+   964	|   23. Did ^ and $ and . change in gawk?
+   965	|   
+   966	|   Yes.  early versions cared about \n (newlines) and treated them
+   967	|   specially.  version 3.* and later are more POSIX-compliant here.
+   968	|   
+   969	|   ========================================================================
+   970	|   
+   971	|   24. Why doesn't awk 'begin {...}' work?
+   972	|   
+   973	|   It needs to be `BEGIN' (i.e., it's case-sensitive).
+   974	|   
+   975	|   ========================================================================
+   976	|   
+   977	|   25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
+   978	|   
+   979	|   You'd expect `6 -22', but you get `6-22'.  It's because the `" " -22'
+   980	|   is grouped first, as a subtraction instead of a concatenation, resulting
+   981	|   in the numeric value `-22'; then it is concatenated with `6', giving the
+   982	|   string `6-22'.  Gentle application of parentheses will avoid this.
+   983	|   
+   984	|   ========================================================================
+   985	|   
+   986	|   26. How do I take advantage of gawk's networking support?
+   987	|   
+   988	|   (Contribution from Michael Sanders: see http://awk.info/?tools/server).
+   989	|   
+   990	|   This code creates an html menu of local applications which you can
+   991	|   season to taste. The usage requires two steps...
+   992	|   
+   993	|       1) run: 'gawk -f server.awk'
+   994	|       2) open browser at: http://localhost:8080
+   995	|       
+   996	|   This code is based on the examples located at the TCP/IP Internetworking
+   997	|   With `gawk' manual and is licensed under GPL 3.0. For updates to
+   998	|   those code, see http://topcat.hypermart.net/index.html.
+   999	|   
+  1000	|       BEGIN { 
+  1001	|         x        = 1                         # script exits if x < 1 
+  1002	|         port     = 8080                      # port number 
+  1003	|         host     = "/inet/tcp/" port "/0/0"  # host string 
+  1004	|         url      = "http://localhost:" port  # server url 
+  1005	|         status   = 200                       # 200 == OK 
+  1006	|         reason   = "OK"                      # server response 
+  1007	|         RS = ORS = "\r\n"                    # header line terminators 
+  1008	|         doc      = Setup()                   # html document 
+  1009	|         len      = length(doc) + length(ORS) # length of document 
+  1010	|         while (x) { 
+  1011	|            if ($1 == "GET") RunApp(substr($2, 2)) 
+  1012	|            if (! x) break   
+  1013	|            print "HTTP/1.0", status, reason |& host 
+  1014	|            print "Connection: Close"        |& host 
+  1015	|            print "Pragma: no-cache"         |& host 
+  1016	|            print "Content-length:", len     |& host 
+  1017	|            print ORS doc                    |& host 
+  1018	|            close(host)     # close client connection 
+  1019	|            host |& getline # wait for new client request 
+  1020	|         } 
+  1021	|         # server terminated... 
+  1022	|         doc = Bye() 
+  1023	|         len = length(doc) + length(ORS) 
+  1024	|         print "HTTP/1.0", status, reason |& host 
+  1025	|         print "Connection: Close"        |& host 
+  1026	|         print "Pragma: no-cache"         |& host 
+  1027	|         print "Content-length:", len     |& host 
+  1028	|         print ORS doc                    |& host 
+  1029	|         close(host) 
+  1030	|       } 
+  1031	|       
+  1032	|       #HTML Menu
+  1033	|       function Setup() { 
+  1034	|         tmp = "<html>\
+  1035	|         <head><title>Simple gawk server</title></head>\
+  1036	|         <body>\
+  1037	|         <p><a href=" url "/xterm>xterm</a>\
+  1038	|         <p><a href=" url "/xcalc>xcalc</a>\
+  1039	|         <p><a href=" url "/xload>xload</a>\
+  1040	|         <p><a href=" url "/exit>terminate script</a>\
+  1041	|         </body>\
+  1042	|         </html>" 
+  1043	|         return tmp 
+  1044	|       } 
+  1045	|       
+  1046	|       #Saying Good-bye
+  1047	|       function Bye() { 
+  1048	|         tmp = "<html>\
+  1049	|         <head><title>Simple gawk server</title></head>\
+  1050	|         <body><p>Script Terminated...</body>\
+  1051	|         </html>" 
+  1052	|         return tmp 
+  1053	|       } 
+  1054	|       
+  1055	|       #Running Applications
+  1056	|       function RunApp(app) { 
+  1057	|         if (app == "xterm")  {system("xterm&"); return} 
+  1058	|         if (app == "xcalc" ) {system("xcalc&"); return} 
+  1059	|         if (app == "xload" ) {system("xload&"); return} 
+  1060	|         if (app == "exit")   {x = 0} 
+  1061	|       }
+  1062	|   
+  1063	|   ========================================================================
+  1064	|   
+  1065	|   98. Miscellaneous
+  1066	|   
+  1067	|   ========================================================================
+  1068	|   
+  1069	|   99. Credits
+  1070	|   
+  1071	|   I most of the information in this FAQ has been be supplied by people
+  1072	|   other than myself -- it just works better that way.  The newsgroup
+  1073	|   readers have a LOT more awk experience than I ever will (unless I
+  1074	|   multiply myself by a few thousand, which is not legal with today's
+  1075	|   tax laws).
+  1076	|   
+  1077	|   The following people have contributed to the well-being of the FAQ: 
+  1078	|   
+  1079	|   New testament (from 2010):
+  1080	|     mss [at] dev.null (Michael Sanders)
+  1081	|     tim [at] menzies.us (Tim Menzies)
+  1082	|   
+  1083	|   Old testament (up until 2002):
+  1084	|     russell_schulz at locutus.ofb.org (Russell Schultz) <=== maintainer
+  1085	|   
+  1086	|     Alex.Schoenmakers [at] lhs.be
+  1087	|     David.Billinghurst [at] riotinto.com (David Billinghurst)
+  1088	|     Ferran.Jorba [at] uab.es (Ferran Jorba)
+  1089	|     Juergen.Kahrs [at] t-online.de
+  1090	|     Kalle.Tuulos [at] nmp.nokia.com (Kalle Tuulos)
+  1091	|     SimonN [at] draeger.com (Nicole Simon)
+  1092	|     afu [at] wta.att.ne.jp
+  1093	|     allen [at] gateway.grumman.com (John L. Allen)
+  1094	|     amnonc [at] mercury.co.il (Amnon Cohen)
+  1095	|     andrew_sumner [at] bigfoot.com (Andrew Sumner)
+  1096	|     arnold [at] skeeve.com (Arnold D. Robbins)
+  1097	|     art [at] pove.com (Art Povelones)
+  1098	|     bmarcum [at] iglou.com (Bill Marcum)
+  1099	|     boffi [at] rachele.stru.polimi.it (giacomo boffi)
+  1100	|     bps03z [at] email.mot.com (Peter Saffrey)
+  1101	|     brennan [at] whidbey.com (Michael D. Brennan)
+  1102	|     churchyh [at] ccwf.cc.utexas.edu (Henry Churchyard)
+  1103	|     db21 [at] ih4ess.ih.lucent.com (David Beyerl)
+  1104	|     dmckeon [at] swcp.com (Denis McKeon)
+  1105	|     dmeier.esperanto [at] gmx.de (Detlef Meier)
+  1106	|     dzubera [at] CS.ColoState.EDU (Zube)
+  1107	|     edgar.j.ramirez [at] lmco.com (Edgar J. Ramirez)
+  1108	|     eia018 [at] comp.lancs.ac.uk (Dr Andrew Wilson)
+  1109	|     epement [at] ripco.com (Eric Pement)
+  1110	|     gavin [at] wraith.u-net.com (Gavin Wraith)
+  1111	|     hankedr [at] mail.auburn.edu (Darrel Hankerson)
+  1112	|     hastinga [at] tarim.dialogic.com (Austin Hastings)
+  1113	|     heiner.steven [at] nexgo.de (Heiner Steven)
+  1114	|     hstein [at] airmail.net (Harry Stein)
+  1115	|     j-korsv [at] online.no (Jon-Egil Korsvold)
+  1116	|     jari.aalto [at] ntc.nokia.com (Jari Aalto)
+  1117	|     jblaine [at] shore.net (Jeff Blaine)
+  1118	|     jerabek [at] rm6208.gud.siemens.co.at (Martin Jerabek)
+  1119	|     jesusmc [at] scripps.edu (Jesus M. Castagnetto)
+  1120	|     jidanni [at] kimo.com.tw (Dan Jacobson)
+  1121	|     jlaiho [at] ichaos.nullnet.fi (Juha Laiho)
+  1122	|     jland [at] worldnet.att.net (Jim Land)
+  1123	|     jmccann [at] WOLFENET.com (James McCann)
+  1124	|     joe [at] plaguesplace.dyndns.org
+  1125	|     johnd [at] mozart.inet.co.th (John DeHaven)
+  1126	|     kahrs [at] iSenseIt.de (Juergen Kahrs)
+  1127	|     konrad [at] netcom.com (Konrad Hambrick)
+  1128	|     lehalle [at] earthling.net (Charles-Albert Lehalle)
+  1129	|     lothar [at] u-aizu.ac.jp (Lothar M. Schmitt)
+  1130	|     mark [at] ispc001.demon.co.uk (Mark Katz)
+  1131	|     markus [at] biewer.com (Markus B. Biewer)
+  1132	|     monty [at] primenet.com (Jim Monty)
+  1133	|     morrisl [at] scn.org (Larry D. Morris)
+  1134	|     neel [at] gnu.org
+  1135	|     neil_mahoney [at] il.us.swissbank.com (Neil Mahoney)
+  1136	|     neitzel [at] gaertner.de (Martin Neitzel)
+  1137	|     peter.tillier [at] btinternet.com (Peter S Tillier)
+  1138	|     pez68 [at] netscape.net (Peter Stromberg)
+  1139	|     phil [at] bolthole.com (Philip Brown)
+  1140	|     pholzleitner [at] unido.org (Peter HOLZLEITNER)
+  1141	|     pierre [at] mail.asianet.it (Gianni Rondinini)
+  1142	|     pjf [at] osiris.cs.uoguelph.ca (Peter Jaspers-Fayer)
+  1143	|     pjfarley [at] banet.net (Peter J. Farley III)
+  1144	|     ptjm [at] interlog.com (Patrick TJ McPhee)
+  1145	|     rms [at] friko.onet.pl (Rafal Sulejman)
+  1146	|     robin.moffatt [at] ntlworld.com (Robin Moffatt)
+  1147	|     rwab1 [at] cl.cam.ac.uk (Ralph Becket)
+  1148	|     saguyami [at] post.tau.ac.il (Shay)
+  1149	|     thobe [at] lafn.org (Glenn Thobe) 
+  1150	|     thull [at] ocston.org (Tom Hull)
+  1151	|     tim [at] consultix-inc.com (Tim Maher/CONSULTIX)
+  1152	|     vincent [at] delau.nl (Vincent de Lau)
+  1153	|     vjpnreddy [at] hotmail.com (Jaya Reddy)
+  1154	|     walkerj [at] compuserve.com (James G. Walker)
+  1155	|     walter [at] wbriscoe.demon.co.uk (Walter Briscoe)
+  1156	|     yuli.barcohen [at] telrad.co.il (Yuli Barcohen)
+  1157	|   
+  1158	|   Thanks.
+  1159	|   
+  1160	|   ========================================================================
+  1161	|   
+  1162	|   thus endeth the awk FAQ.
