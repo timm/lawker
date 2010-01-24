@@ -1,1162 +1,1191 @@
-|   From: tim@menzies.us
-|   Newsgroups: comp.lang.awk,comp.unix.shell,comp.answers,news.answers 
-|   Followup-To: poster 
-|   Subject: Awk FAQ v2.0 
-|   Summary: FAQ (Frequently Asked Questions) about the awk programming language
-|   Last-modified: 2010-Jan-20
-|   Version: 2.0
-|   URL: http://awk.info/faq.txt
-|   Archive-name:  http://awk.info/faq.txt
-|   
-|   Frequently Asked Questions == FAQ
-|   
-|   The FAQ list for comp.lang.awk can be found on the Internet:
-|     <http://awk.info/faq.txt>
-|     <http://www.faqs.org/faqs/computer-lang/awk/faq/>
-|   
-|   ========================================================================
-|   
-|   Contents:
-|   
-|      1. Disclaimer
-|      2. Spam
-|      3. Can you answer my awk question?
-|      4. How can I add a FAQ and its answer to the FAQ list?
-|      5. What is awk?
-|      6. What well-maintained awk-compatible languages are there?
-|         6.1 nawk
-|         6.2 gawk
-|         6.3 mawk
-|         6.4 xgawk
-|         6.5 sqawk
-|         6.6 jawk
-|         6.7 runawk
-|         6.8 older version
-|      7. Where can I buy awk?
-|      8. Where can I get awk for free?  For what platforms?
-|         8.1 OS/X
-|         8.2 Windows
-|         8.3 LINUX
-|      9. Why would anyone use awk instead of language XYZ?
-|     10. How can I learn awk?
-|     11. What are some other awk resources?
-|         11.1. The awk community portal.
-|         11.2. Short tutorials for newcomers.
-|         11.3. Longer Tutorials.
-|         11.4. Arnold Robbins' collection  
-|     12. How do I report a bug in gawk?
-|     13. How can I access shell or environment variables in an awk script?
-|         13.0 Shells
-|         13.1 Environment variables in general
-|         13.2 Unix Shell Quoting
-|         13.3 ENVIRON and "env"|getline
-|         13.4 exporting environment variables back to the parent process
-|     14. How does awk deal with multiple files?
-|         14.0 Version warning
-|         14.1 How can awk test for the existence of a file?
-|         14.2 How can I get awk to read multiple files?
-|         14.3 How can I tell from which file my input is coming?
-|         14.4 How can I get awk to open multiple files (selected at runtime)?
-|         14.5 How can I treat the first file specially?
-|         14.6 How can I explicitly pass in a filename to treat specially?
-|     15. How many elements were created by split()?
-|     16. How can I split a string into characters?
-|     17. How do I have dynamic-width printf strings, like C?
-|     18. Why doesn't "\\$" behave like /\\$/ ?  Why don't parentheses match?
-|     19. What is awk's exit code?
-|     20. How can I get awk to be case-insensitive?
-|         20.1. use tolower()
-|         20.2. use IGNORECASE=1
-|     21. How can I force a numeric/non-numeric comparison?
-|     22. Why does { FS=":"; print $1 } not split the first record?
-|     23. Did ^ and $ and . change in gawk?
-|     24. Why doesn't awk 'begin {...}' work?
-|     25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
-|     26. How do I take advantage of gawk's networking support?
-|     98. Miscellaneous
-|     99. Credits
-|   
-|   ========================================================================
-|   
-|   1. Disclaimer
-|   
-|   Read at your own risk.  The current, previous, or original authors
-|   make no claim as to fitness for any purpose or absence of any errors,
-|   and offer no warranty.  Do not eat.
-|   
-|   ========================================================================
-|   
-|   2. Spam
-|   
-|   You wouldn't believe how much spam I get to this address.
-|   
-|   ========================================================================
-|   
-|   3. Can you answer my awk question?
-|   
-|   Probably not.  Please don't mail it to me.
-|   
-|   Read the FAQ, and the materials pointed to by it, and if you can't find
-|   an answer there, by all means post to the newsgroup.
-|   
-|   If you need help posting, see <http://groups.google.com/> among others.
-|   
-|   A FAQ list is intended to reduce traffic on a newsgroup, not eliminate it.
-|   
-|   ========================================================================
-|   
-|   4. How can I add a FAQ and its answer to the FAQ list?
-|   
-|   Mail BOTH of them to me.  Then I can add them to the FAQ and it should
-|   help people who have that same question later, as well as everyone who
-|   reads the group, because they won't see it asked and answered so often.
-|   
-|   I do not work on this FAQ every day, but I will try to get updates
-|   incorporated in a timely manner (say, monthly).
-|   
-|   Of course, don't mail me my entire FAQ!  I already have a copy!  There
-|   are copies available all over the web that I could use if I lost mine!
-|   I pay for my access; don't you?
-|     
-|   ========================================================================
-|   
-|   5. What is awk?
-|   
-|   Awk is a stable, cross platform computer language named for its
-|   authors Alfred Aho, Peter Weinberger & Brian Kernighan. They write:
-|   "Awk is a convenient and expressive programming language that can
-|   be applied to a wide variety of computing and data-manipulation
-|   tasks".
-|   
-|     Alfred V. Aho
-|     Brian W. Kernighan
-|     Peter J. Weinberger
-|   
-|   In Classic Shell Scripting, Arnold Robbins & Nelson Beebe confess
-|   their Awk bias: "We like it. A lot. The simplicity and power of Awk
-|   often make it just the right tool for the job."
-|   
-|   Besides the Bourne shell, Awk is the only other scripting language
-|   available in the standard Unix environment. Implementations of AWK
-|   exist as installed software for almost all other operating systems.
-|   
-|   ========================================================================
-|   
-|   6. What well-maintained awk-compatible languages are there?
-|   
-|     6.1 nawk
-|       "The one true awk", old.
-|       Interpreter.
-|       See http://www.cs.princeton.edu/~bwk/btl.mirror/awk.tar.gz
-|   
-|     6.2 gawk
-|       From the GNU project.
-|       Widely used.
-|       Interpreter.
-|       See http://www.gnu.org/software/gawk/
-|   
-|     6.3 mawk
-|   	Mike's Awk  (from Michael Brennan).
-|   	For some code, runs very fast.
-|       Interpreter
-|   	See http://freshmeat.net/projects/mawk/
-|   
-|     6.4 xgawk
-|       Gawk + XML + ...
-|       Interpreter
-|       See http://home.vrweb.de/~juergen.kahrs/gawk/XML/.
-|   
-|     6.5 sqawk
-|       Gawk + SQL
-|   	Interpreter
-|   	See http://code.google.com/p/spawk/.
-|   
-|     6.6 jawk
-|   	Awk in the JAVA virtual machine
-|   	Interpreter.
-|   	See http://jawk.sourceforge.net/.
-|   
-|     6.7 runawk
-|       A wrapper for the AWK interpreter, providing modules 
-|   	See http://sourceforge.net/projects/runawk/files/runawk/.
-|   
-|     6.8 Older versions, may not be currently supported, translates to "C".
-|   	 * awk2c
-|        * awka
-|   
-|   ========================================================================
-|   
-|   7. Where can I buy awk?
-|   
-|   AFAIK, all current AWK versions are open source; i.e. free.
-|   
-|   ========================================================================
-|   
-|   8. Where can I get awk for free?  For what platforms?
-|   
-|   AFAIK, all current AWK versions are open source; i.e. free.
-|   
-|   AWK runs on many platforms and can be downloaded and installed from
-|   many package management systems; e.g.
-|   
-|     8.1. OS/X
-|          From FINK: http://www.finkproject.org/
-|          From darwin ports: http://darwinports.com/
-|     8.2. Windows
-|   	   From GnuWin32: http://gnuwin32.sourceforge.net/
-|   	   From Cygwin: http://www.cygwin.com/
-|     8.3.  LINUX:
-|   	   From apt-get: from e.g. the Synaptic package manager.
-|   
-|   ========================================================================
-|   
-|   9. Why would anyone use awk instead of language XYZ?
-|   
-|   Awk is a simple and elegant pattern scanning and processing language.
-|   Awk is also the most portable scripting language in existence.
-|   But why use it rather than Perl (or PHP or Ruby or...):
-|   
-|     - Awk is simpler (especially important if deciding which to learn
-|       first);
-|     - Awk syntax is far more regular (another advantage for the
-|       beginner, even without considering syntax-highlighting editors);
-|     - You may already know Awk well enough for the task at hand;
-|     - You may have only Awk installed;
-|     - Awk can be smaller, thus much quicker to execute for small programs.
-|   
-|   Tom Christiansen wrote in Message-ID: <3766d75e@cs.colorado.edu>
-|     > Awk is a venerable, powerful, elegant, and simple tool that everyone
-|     > should know.  (Languages like) Perl are a superset and child of awk, 
-|     > but has much more power that comes at expense of sacrificing some 
-|     > of that simplicity.
-|   
-|   Carlo Strozzi writes:
-|   
-|     (Other languages like Perl is) a good programming language for writing
-|     self-contained programs, but pre-compilation and long start-up time
-|     are worth paying only if once the program has loaded it can do
-|     everything in one go. This contrasts sharply with the Operator-stream
-|     Paradigm, where operators are chained together in pipelines of two,
-|     three or more programs. The overhead associated with initializing
-|     (say) Perl at every stage of the pipeline makes pipelining
-|     inefficient. A better way of manipulating structured ASCII files is to
-|     use the AWK programming language, which is much smaller, more
-|     specialized for this task, and is very fast at startup.
-|   
-|   ========================================================================
-|   
-|   10. How can I learn awk?
-|   
-|     English Book:
-|   
-|         _The AWK Programming Language_, by Aho, Kernighan and Weinberger,
-|         who invented the language.  Published by Addison-Wesley.  Lots of
-|         good material in not a lot of space.  Out of date, with regard to 
-|         POSIX awk.
-|   
-|         ISBN 0-201-07981-X
-|   
-|         Source code: 
-|         <http://lawker.googlecode.com/svn/fridge/lib/awk/theAwkBook/>
-|   
-|     English Book:
-|   
-|         _Effective Awk Programming_, by Arnold Robbins
-|         published by O'Reilly and Associates.
-|   
-|         ISBN 0-596-00070-7 (third edition)
-|   
-|         <http://www.oreilly.com/catalog/awkprog3/>
-|         <http://www.gnu.org/manual/gawk>
-|   
-|         Errata:
-|   		<http://oreilly.com/catalog/awkprog3/errata/>
-|   
-|         We recommends buying the book instead of trying to print it
-|         all out, for three reasons:
-|   
-|           1. It's probably cheaper than using your own toner and paper.
-|   
-|           2. Some money goes back to help further development, both to
-|              Arnold Robbins (only if you buy from ORA) and the Free
-|              Software Foundation (if you buy from either ORA or the FSF).
-|   
-|           3. It helps convince publishers that we _like_ having full
-|              documentation available on-line (e.g., for searching), but
-|              will still pay for a compact, bound copy.
-|   
-|     English reference card:
-|   
-|         <http://lawker.googlecode.com/svn/fridge/share/pdf/awkcard.pdf>
-|   
-|     English Book:
-|   
-|         second edition:
-|   
-|         _Sed & Awk_, by Dale Dougherty & Arnold Robbins, published
-|         by O'Reilly and Associates.
-|   
-|         ISBN 1-56592-225-5 (second edition)
-|   
-|         _sed & awk_ describes two text manipulation programs that are
-|         mainstays of the UNIX programmer's toolbox.  This new edition
-|         covers the sed and awk programs as they are now mandated by
-|         the POSIX standard and includes discussion of the GNU versions
-|         of these programs.
-|   
-|         <http://www.ora.com/catalog/sed2/>
-|   
-|         An errata for the second edition of Sed & Awk is at
-|   
-|         <http://oreilly.com/catalog/sed2/errata/>
-|   
-|     English Book:
-|   
-|         _Classic Shell Scripting)_ by Arnold Robbins and Nelson Beebe
-|         published by O'Reilly and Associates.
-|      
-|         ISBN 5-9600-595-4
-|   
-|         Contains an (excellent) short introduction to Gawk, as well
-|         as numerous other UNIX shell languages that can be combined
-|         to quickly build applications.
-|   
-|         <http://oreilly.com/catalog/9780596005955/>
-|   
-|         An errata for this book is at
-|   
-|         <http://oreilly.com/catalog/errata.csp?isbn=9780596005955>
-|   
-|     English Book:
-|   
-|         _Mastering Regular Expressions_, by Jeffrey E.F. Friedl, published
-|         by O'Reilly and Associates.  (the `Hip Owls Book')
-|   
-|         ``... you will learn how to use regular expressions to
-|         solve problems and get the most out of tools that provide
-|         them.  Not only that, but much more:  this book is about
-|         _mastering_ regular expressions.''
-|   
-|         <http://www.ora.com/catalog/regex/>
-|   
-|         errata, additions, change log available at the author's home page
-|         <http://public.yahoo.com/~jfriedl/regex/>
-|   
-|         ISBN 1-56592-257-3
-|   
-|     Deutsch Book:
-|   
-|         Friedl's _Mastering Regular Expressions_.
-|   
-|         <http://www.oreilly.de/catalog/regexger/index.html>
-|   
-|     Japanese Book:
-|   
-|        _Grep,Sed,Awk_ by Akihiro Miyoshi
-|        ISBN  4-87966-794-3
-|        June 1998 264 pages
-|        Shuwa System Manual & Reference Series
-|        <http://www.shuwasystem.co.jp/books/wwwsrch/cgi-bin/content/794/index.htm>
-|        Serves both as a tutorial and a manual. Divided quite evenly into three
-|        parts. Regular expressions explored in detail in grep section.
-|   
-|     English Booklet:
-|   
-|       TCP/IP Internetworking With Gawk
-|       ISBN 1-882114-93-0
-|       <http://home.vr-web.de/Juergen.Kahrs/gawk/gawkinet.html>
-|   
-|       An abridged form is included in O'Reilly's Effective Awk Programming 3e
-|   
-|       A short worked example of this code is at http://awk.info/?tools/server.
-|   
-|   ==========================================================================
-|   
-|   11. What are some other awk resources?
-|   
-|     11.1. The awk community portal: a large collection of awk tips and trips.
-|        <http://awk.info>
-|   
-|     11.2. Short tutorials for newcomers.  Sorted by newbie-ness 
-|        (so best to start at the top):
-|        
-|        Eric Wendelin: Awk is a beautiful tool
-|        <http://eriwen.com/tools/awk-is-a-beautiful-tool/>
-|        
-|        Tim Sherwood: AWK: The Duct Tape of Computer Science Research (slides)
-|        <http://lawker.googlecode.com/svn/fridge/share/pdf/gawk-tutorial.pdf>
-|        
-|        Ronald Loui: Samples of Gawk
-|        <http://awk.info/?samples>
-|        
-|        Andrew Ross: Getting started with awk
-|        <http://doc.ddart.net/shell/awk/>
-|        
-|        Tim Menzies: Four Keys to Gawk
-|        <http://awk.info/?keys2awk>
-|        
-|        Peteris Krumins: 10 Awk Tips, Tricks and Pitfalls
-|        <http://www.catonmat.net/blog/ten-awk-tips-tricks-and-pitfalls/>
-|        
-|        Paul Jakma: Awk programmers' FAQ
-|        <http://hibernia.jakma.org/~paul/awk-faq.html>
-|        
-|        Ed Morton (and friends): Use (and Abuse) of Getline
-|        <http://awk.info/?tip/getline>
-|        
-|     11.3. Longer Tutorials
-|        
-|        The following list is sorted by the number of times this material 
-|        is tagged at delicious.com (most tagged at top):
-|        
-|        Greg Goebel: An Awk Primer
-|        <http://www.vectorsite.net/tsawk.html>
-|        
-|        Bruce Barnett: Awk - A Tutorial and Introduction
-|        <http://www.grymoire.com/Unix/Awk.html>
-|        
-|        Arnold Robbins: The GNU Awk User's Guide
-|        <http://www.gnu.org/software/gawk/manual/gawk.html>
-|        
-|        Emmett Dulaney: AWK: The Linux Administrators' Wisdom Kit
-|        <http://www.oracle.com/technology/pub/articles/dulaney_awk.html>
-|     
-|     11.4. Arnold Robbins' collection
-|   
-|         <ftp://ftp.freefriends.org/arnold/Awkstuff/>
-|   
-|         > A collection of awk related stuff that I'm starting and willing
-|         > to maintain.  Currently includes Henry Spencer's awf and aaa
-|         > programs, Brian Kernighan's chem, and Nelson Beebe's awkpretty,
-|         > and some smaller items.
-|   
-|   ========================================================================
-|   
-|   12. How do I report a bug in gawk?
-|   
-|   This is described in great detail in the gawk documentation.  In brief:
-|   
-|      1. Make sure what you've discovered is really a bug by checking
-|         the documentation and, if possible, comparing with nawk and mawk.
-|   
-|      2. Cut down the program and data to as small as possible a test
-|         case that will illustrate the bug.
-|   
-|      3. Optionally post to comp.lang.awk; this allows others to confirm
-|         or deny the behavior, and its incorrectness (or lack thereof).
-|   
-|      4. Send mail to <mailto:bug-gawk@gnu.org>.  This automatically sends
-|         a copy to Arnold Robbins.  Do not JUST post in comp.lang.awk;
-|         Arnold's readership there is sporadic, and of course any Usenet
-|         article can be missed, killed, or dropped.
-|   
-|   ========================================================================
-|   
-|   13. How can I access shell or environment variables in an awk script?
-|   
-|   13.0 Shells
-|   
-|   The examples using quoting are intended for use with any standard
-|   (sh-compatible-quoting) Unix shell.  As with all complex quoting,
-|   all these examples become much easier to work with (or under DOS
-|   and MS-Windows, less impossible) when put in a file and invoked with
-|   `awk -f filename.awk' instead.
-|   
-|   Non-sh-compatible shells will require different quoting.  If you're
-|   not even using Unix (or a ported Unix shell), just ignore the whole
-|   section on quoting.
-|   
-|   13.1 Environment variables in general
-|   
-|   Answer 1:  on Unix, use "alternate quoting", e.g.
-|   
-|           awk -F: '$1 ~ /'"$USER"'/ {print $5}' /etc/passwd
-|                   ^^^^^^^^*******^^^^^^^^^^^^^^
-|   
-|           any standard Unix shell will send the underlined part as one
-|           long argument (with embedded spaces) to awk, for instance:
-|   
-|           $1 ~ /bwk/ {print $5}
-|   
-|           Note that there may not be any spaces between the quoted
-|           parts.  Otherwise, you wouldn't end up a single, long script
-|           argument, because Unix shells break arguments on spaces
-|           (unless they are `escaped' with `\', or in '' or "", as the
-|           above example shows).
-|   
-|   Answer 2:  RTFM to see if and how your awk supports variable definitions
-|              on the command line, e.g.,
-|   
-|           awk -F: -v name="$USER" '$1 ~ name {print $5}' /etc/passwd
-|   
-|   Answer 3:  RTFM if your awk can access environment vars.  Then perhaps
-|   
-|           awk -F: '$1 ~ ENVIRON["USER"] {print $5}' /etc/passwd
-|   
-|           Always remember for your /bin/sh scripts that it's easy to put
-|           things into the environment for a single command run:
-|   
-|           name=felix age=56 awk '... ENVIRON["name"] .....'
-|   
-|           this also works with ksh and some other shells.
-|   
-|   The first approach is extremely portable, but doesn't work with
-|   awk "-f" script files.  In that case, it's better to use a shell
-|   script and stretch a long awk command argument in '...' across
-|   multiple lines if need be.
-|   
-|   Also note: /bin/csh requires a \ before an embedded newline, /bin/sh not.
-|   
-|   13.2 Unix Shell Quoting
-|   
-|   Quoting can be such a headache for the novice, in shell programming,
-|   and especially in awk.
-|   
-|   Tim Maher offered his <http://www.consultix-inc.com/quoting.txt>.
-|   
-|   This approach is probably the best, and easiest to understand and
-|   maintain, for most purposes:  (the '@@' is quoted to ensure the
-|   shell will copy verbatim, not interpreting environment variable
-|   substitutions etc.)
-|   
-|       cat <<'@@' > /tmp/never$$.awk
-|       { print "Never say can't." }
-|       @@
-|       awk -f /tmp/never$$.awk; rm /tmp/never$$.awk
-|   
-|   If you enjoy testing your shell's quoting behavior frequently, you
-|   could try these:
-|   
-|       (see below for a verbose explanation of the first one, with 7 quotes)
-|   
-|       awk 'BEGIN { q="'"'"'";print "Never say can"q"t."; exit }'
-|       nawk -v q="'" 'BEGIN { print "Never say can"q"t."; exit }'
-|       awk 'BEGIN { q=sprintf("%c",39); print "Never say can"q"t."; exit }'
-|       awk 'BEGIN { q=sprintf("%c",39); print "Never say \"can"q"t.\""; exit }'
-|   
-|   However, you would also have to know why you could not use this:
-|   
-|       awk 'BEGIN { q="\'"; print "Never say \"can"q"t.\""; exit }'
-|   
-|   Explanation of the 7-quote example:
-|   
-|   Note that it is quoted three different ways:
-|   
-|       awk 'BEGIN { q="'
-|                        "'"
-|                           '";print "Never say can"q"t."; exit }'
-|   
-|   and that argument comes out as the single string (with embedded spaces)
-|   
-|       BEGIN { q="'";print "Never say can"q"t."; exit }
-|   
-|   which is the same as
-|   
-|       BEGIN { q="'"; print "Never say can" q "t."; exit }
-|                             ^^^^^^^^^^^^^  ^  ^^
-|                             |           |  |  ||
-|                             |           |  |  ||
-|                             vvvvvvvvvvvvv  |  ||
-|                             Never say can  v  ||
-|                                            '  vv
-|                                               t.
-|   
-|   which, quite possibly with too much effort to be worth it, gets you
-|   
-|                             Never say can't.
-|   
-|   13.3 ENVIRON[] and "env"|getline
-|   
-|      Modern versions of awk (gawk, mawk, Bell Labs awk, any POSIX
-|      awk) all provide an array named ENVIRON.  The array is indexed by
-|      environment variable name; the value is that variable's value.
-|      For instance, ENVIRON["HOME"] might be "/home/chris".  To print
-|      out all the names and values, use a simple loop:
-|   
-|           for (i in ENVIRON)
-|                   printf("ENVIRON['%s'] = '%s'\n", i, ENVIRON[i])
-|   
-|      What if my awk doesn't have ENVIRON[]?
-|   
-|      Short answer, get a better awk.  There are many freely available
-|      versions.
-|   
-|      Longer answer, on Unix you can use a pipe from the `env' or
-|      `printenv' commands, but this is less pretty, and may be a
-|      problem if the values contain newlines:
-|   
-|           # test this on your system before you depend on it!
-|           while ( ("env" | getline line) >0 )
-|           {
-|                   varname=line
-|                   varvalue=line
-|                   sub(/=.*$/,"",varname)
-|                   sub(/^[^=]*=/,"",varvalue)
-|                   print "var [" varname "]='" varvalue "'"
-|           }
-|   
-|   13.4 exporting environment variables back to the parent process
-|   
-|      How can I put values into the environment of the program that
-|      called my awk program?
-|   
-|      Short answer, you can't.  Unix ain't Plan 9, and you can't tweak
-|      the parent's address space.
-|   
-|      (DOS isn't even Unix, so it lets any program overwrite any memory
-|      location, including the parent's environment space.  But the
-|      details are [obviously] going to be fairly icky.  Avoid.)
-|   
-|      Longer answer, write the results in a form the shell can parse
-|      to a temporary file, and have the shell "source" the file after
-|      running the awk program:
-|   
-|           awk 'BEGIN { printf("NEWVAR='%s'\n", somevalue) }' > /tmp/awk.$$
-|           . /tmp/awk.$$        # sh/ksh/bash/pdksh/zsh etc
-|           rm /tmp/awk.$$
-|   
-|      With many shells, you can use `eval', but this is also cumbersome:
-|   
-|           eval `awk 'BEGIN { print "NEWVAR=" somevalue }'`
-|   
-|      Csh syntax and more robust use of quotation marks are left as
-|      exercises for the reader.
-|   
-|   ========================================================================
-|   
-|   14. How does awk deal with multiple files?
-|   
-|     14.0 Version warning
-|   
-|       some of these techniques will require non-ancient versions of awk.
-|   
-|     14.1 How can awk test for the existence of a file?
-|   
-|       the most portable way is to simply try and read from the file.
-|   
-|           function exists(file,        dummy, ret)
-|           {
-|                   ret=0;
-|                   if ( (getline dummy < file) >=0 )
-|                   {
-|                           # file exists (possibly empty) and can be read
-|                           ret = 1;
-|                           close(file);
-|                   }
-|                   return ret;
-|           }
-|   
-|   [ I've read reports that earlier versions of mawk would write to stderr
-|   as well as getline returning <0 -- is this still true? ]
-|   
-|           on Unix, you can probably use the `test' utility
-|   
-|           if (system("test -r " file) == 0)
-|               # file is readable
-|           else
-|               # file is not readable
-|   
-|     14.2 How can I get awk to read multiple files?
-|   
-|       it's automatic (under Unix at least) -- use something like:
-|   
-|       awk '/^#include/ {print $2}' *.c *.h
-|   
-|     14.3 How can I tell from which file my input is coming?
-|   
-|       use the built-in variable FILENAME:
-|   
-|       awk '/^#include/ {print FILENAME,$2}' *.c *.h
-|   
-|     14.4 How can I get awk to open multiple files (selected at runtime)?
-|   
-|       use `getline', `close', and `print EXPR > FILENAME', like:
-|   
-|       # assumes input file has at least 1 line, output file writeable
-|       function double(infilename,outfilename,    aline)
-|       {
-|         while ( (getline aline < infilename) >0 )
-|           print(aline aline) > outfilename;
-|         close(infilename);
-|         close(outilename);
-|       }
-|   
-|     14.5 How can I treat the first file specially?
-|   
-|       use FILENAME, thusly:
-|   
-|       BEGIN { rulesfile="" }
-|       rulesfile == "" { rulesfile = FILENAME; }
-|       FILENAME == rulesfile { build_rule($0); }
-|       FILENAME != rulesfile { apply_rule($0); }
-|   
-|       Example:  
-|   
-|       Suppose you have a text-line "database" and you want to make some
-|       batch changes to it, by replacing some old lines with new lines.
-|    
-|       BEGIN { rulesfile="" }
-|       rulesfile == "" { rulesfile = FILENAME; }
-|       rulesfile == FILENAME { replace[$1] = $0; }
-|       rulesfile != FILENAME \
-|       { 
-|               if ($1 in replace) 
-|                       print replace[$1];
-|               else
-|                       print;
-|       }
-|   
-|       another way, using ARGV:
-|   
-|       (FILENAME == ARGV[1]) { replace[$1] = $0; next }
-|       ($1 in replace) { print replace[$1]; next }
-|       { print }
-|   
-|     14.6 How can I explicitly pass in a filename to treat specially?
-|   
-|       use `-v rulesfile=filename' like you would any other variable,
-|       and then use a `getline' loop (and `close') in your BEGIN
-|       statement.
-|   
-|       BEGIN \
-|       {
-|         if (rulesfile=="")
-|         {
-|           print "must use -v rulesfile=filename";
-|           exit(1);
-|         }
-|         while ( (getline < rulesfile) >0 )
-|           replace[$1]=$0;
-|         close(rulesfile);
-|       }
-|   
-|       {
-|         if ($1 in replace)
-|           print replace[$1];
-|         else
-|           print;
-|       }
-|   
-|   ========================================================================
-|   
-|   15. How many elements were created by split()?
-|   
-|      when I do a split on a field, e.g.,
-|    
-|           split($1,x,"string")
-|    
-|      how can i find out how many elements x has (I mean other than
-|      testing for null string or doing a `for (n in x)' test)?
-|   
-|   split() is a function; use its return value:
-|   
-|           n = split($1, x, "string")
-|   
-|   ========================================================================
-|   
-|   16. How can I split a string into characters?
-|   
-|   In portable POSIX awk, the only way to do this is to use substr to pull
-|   out each character, one by one.  This is painful.  However, gawk, mawk,
-|   and the newest version of the Bell Labs awk all allow you to set
-|   FS = "" and use "" as the third argument of split.
-|   
-|   So, split("chars",anarray,"") results in the array anarray containing
-|   5 elements -- "c", "h", "a", "r", "s".
-|   
-|   If you don't have any ^As in your string, you could try:
-|   
-|           string=$0;
-|           gsub(".", "&\001", string)
-|           n=split(string, anarray, "\001")
-|           for (i=1;i<=n;i++)
-|               print "character " i "is '" anarray[i] "'";
-|   
-|   ========================================================================
-|   
-|   17. How do I have dynamic-width printf strings, like C?
-|   
-|   With modern awks, you can just do it like you would in C (though the
-|   justification is less clear; C doesn't have the trivial in-line string
-|   concatenation that awk does), like so:
-|   
-|           maxlen=0
-|   
-|           for (i in arr)
-|             if (maxlen<length(arr[i]))
-|               maxlen=length(arr[i])
-|   
-|           for (i in arr)
-|             printf("%-*s %s\n",maxlen,arr[i],i)
-|   
-|   With old awks, just do it like you would do if you didn't know about %*
-|   (this would be much more painful to do in C), like so:
-|   
-|           maxlen=0
-|   
-|           for (i in arr)
-|             if (maxlen<length(arr[i]))
-|               maxlen=length(arr[i])
-|   
-|           printfstring="%-" maxlen "s %s\n";
-|           for (i in arr)
-|             printf(printfstring,arr[i],i)
-|   
-|   ========================================================================
-|   
-|   18. Why doesn't "\\$" behave like /\\$/ ?  Why don't parentheses match?
-|   
-|   Because "\\$" is a string and /\\$/ is not; in strings, some of the
-|   escape characters get eaten up (like \" to escape a double-quote within
-|   the string).
-|   
-|   /\\$/ => regular expression:  literal backslash at end-of-expression
-|   
-|   "\\$" => string: \$ => regular expression:  literal dollar sign
-|   
-|   to get behavior like the first case in a string, use "\\\\$" .
-|   
-|   there are other, less obvious characters which need the same attention;
-|   under-quoting or over-quoting should be avoided:
-|   
-|   parentheses are special for alternation:
-|   
-|   /\(test\)/ => 6 characters `(test)'
-|   "\(test\)" => /(test)/ => 4 characters `test' (with unused grouping)
-|   
-|   an example of trying to match some diagonal compass directions:
-|   
-|   /(N|S)(E|W)/ => `NE' or `NW' or `SE' or `SW' (correct)
-|   "(N|S)(E|W)" => /(N|S)(E|W)/ (correct)
-|   "\(N|S\)\(E|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
-|   "\(N\|S\)\(E\|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
-|   
-|   expressions that look similar but behave totally differently:
-|   
-|   /\(N|S\)\(E|W\)/ => `(N' or `S)(E' or `W)'
-|   /\(N\|S\)\(E\|W\)/ => `(N|S)(E|W)' only
-|   
-|   There is also confusion regarding different forms of special characters;
-|   POSIX requires that `\052' be treated as any other `*', even though it
-|   is written with 4 bytes instead of 1.  In compatibility mode, gawk will
-|   treat it as though it were escaped , namely `\*'.
-|   
-|   ========================================================================
-|   
-|   19. What is awk's exit code?
-|   
-|   Normally, the `exit' command exits with a value of zero.
-|   
-|   You can supply an optional numeric value to the `exit' command to
-|   make it exit with a value:
-|   
-|       if (whatever)
-|           exit 12;
-|   
-|   If you have an END block, control first transfers there.  Within
-|   the END block, an `exit' command exits immediately; if you had
-|   previously supplied a value, that value is used.  But, if you
-|   give a new value to `exit' within the END block, the new value is
-|   used.  This is documented in the GNU Awk User's Guide (gawk.texi).
-|   
-|   If you have an END block you want to be able to skip sometimes,
-|   you may have to do something like this:
-|   
-|   BEGIN \
-|   {
-|     exitcode=0;
-|     ...
-|   }
-|   
-|   # normal rules processing...
-|   {
-|     ...
-|     if (fatal)
-|     {
-|       exitcode=12;
-|       exit(exitcode);
-|     }
-|     ...
-|   }
-|   
-|   END {
-|     if (exitcode!=0)
-|       exit(exitcode);
-|     ...
-|   }
-|   
-|   ========================================================================
-|   
-|   20. How can I get awk to be case-insensitive?
-|   
-|     20.1. use tolower()
-|       - portable
-|       - must be explicitly used for each comparison
-|   
-|       instead of:
-|         if (avar=="a" || avar=="A") { ... }
-|       use:
-|         if (tolower(avar)=="a") { ... }
-|   
-|       or at the beginning of your code, add a line like
-|         { for (i=0;i<=NF;i++) $i=tolower($i) }
-|         { $0=tolower($0); }   # modern awks will rebuild $1..$NF also
-|   
-|     20.2. use IGNORECASE=1;
-|       - gawk only
-|       - used for all comparisons, regex comparisons, index() function
-|       - not used for array indexing
-|   
-|   ========================================================================
-|   
-|   21. How can I force a numeric/non-numeric comparison?
-|   
-|   These are the canonical, work-in-all-versions snippets.  there are
-|   many others, most longer, some shorter (but possibly less portable).
-|   
-|   To compare two variables as numbers ONLY, use
-|     if (0+var1 == 0+var2)
-|   
-|   To compare two variables as non-numeric strings ONLY, use
-|     if ("" var1 == "" var2)
-|   
-|   ========================================================================
-|   
-|   22. Why does { FS=":"; print $1 } not split the first record?
-|   
-|   Basically, you should set FS before it may be called upon to split $0
-|   into fields.  Once awk encounters a `{', it is probably too late.
-|   
-|   Some awk implementations set the fields at the beginning of the
-|   block, and don't re-parse just because you changed FS.  To get
-|   the desired behavior, you must set FS _before_ reading in a line.
-|   
-|   e.g.,
-|     BEGIN { FS=":" }
-|     { print $1 }
-|   
-|   e.g.,
-|     awk -F: '{ print $1 }'
-|   
-|   If you run code like this
-|     { FS=":"; print $1 }
-|   
-|   On this data:
-|     first:second:third but not last:fourth
-|     First:Second:Third But Not Last:Fourth
-|     FIRST:SECOND:THIRD BUT NOT LAST:FOURTH
-|   
-|   You may get either
-|     this:       or this:
-|     ----        -------
-|     first       first:second:third
-|     First       First
-|     FIRST       FIRST
-|   
-|   Perhaps more surprisingly, code like
-|     { FS=":"; }
-|     { print $1; }
-|   
-|   will also behave in the same way.
-|   
-|   ========================================================================
-|   
-|   23. Did ^ and $ and . change in gawk?
-|   
-|   Yes.  early versions cared about \n (newlines) and treated them
-|   specially.  version 3.* and later are more POSIX-compliant here.
-|   
-|   ========================================================================
-|   
-|   24. Why doesn't awk 'begin {...}' work?
-|   
-|   It needs to be `BEGIN' (i.e., it's case-sensitive).
-|   
-|   ========================================================================
-|   
-|   25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
-|   
-|   You'd expect `6 -22', but you get `6-22'.  It's because the `" " -22'
-|   is grouped first, as a subtraction instead of a concatenation, resulting
-|   in the numeric value `-22'; then it is concatenated with `6', giving the
-|   string `6-22'.  Gentle application of parentheses will avoid this.
-|   
-|   ========================================================================
-|   
-|   26. How do I take advantage of gawk's networking support?
-|   
-|   (Contribution from Michael Sanders: see http://awk.info/?tools/server).
-|   
-|   This code creates an html menu of local applications which you can
-|   season to taste. The usage requires two steps...
-|   
-|       1) run: 'gawk -f server.awk'
-|       2) open browser at: http://localhost:8080
-|       
-|   This code is based on the examples located at the TCP/IP Internetworking
-|   With `gawk' manual and is licensed under GPL 3.0. For updates to
-|   those code, see http://topcat.hypermart.net/index.html.
-|   
-|       BEGIN { 
-|         x        = 1                         # script exits if x < 1 
-|         port     = 8080                      # port number 
-|         host     = "/inet/tcp/" port "/0/0"  # host string 
-|         url      = "http://localhost:" port  # server url 
-|         status   = 200                       # 200 == OK 
-|         reason   = "OK"                      # server response 
-|         RS = ORS = "\r\n"                    # header line terminators 
-|         doc      = Setup()                   # html document 
-|         len      = length(doc) + length(ORS) # length of document 
-|         while (x) { 
-|            if ($1 == "GET") RunApp(substr($2, 2)) 
-|            if (! x) break   
-|            print "HTTP/1.0", status, reason |& host 
-|            print "Connection: Close"        |& host 
-|            print "Pragma: no-cache"         |& host 
-|            print "Content-length:", len     |& host 
-|            print ORS doc                    |& host 
-|            close(host)     # close client connection 
-|            host |& getline # wait for new client request 
-|         } 
-|         # server terminated... 
-|         doc = Bye() 
-|         len = length(doc) + length(ORS) 
-|         print "HTTP/1.0", status, reason |& host 
-|         print "Connection: Close"        |& host 
-|         print "Pragma: no-cache"         |& host 
-|         print "Content-length:", len     |& host 
-|         print ORS doc                    |& host 
-|         close(host) 
-|       } 
-|       
-|       #HTML Menu
-|       function Setup() { 
-|         tmp = "<html>\
-|         <head><title>Simple gawk server</title></head>\
-|         <body>\
-|         <p><a href=" url "/xterm>xterm</a>\
-|         <p><a href=" url "/xcalc>xcalc</a>\
-|         <p><a href=" url "/xload>xload</a>\
-|         <p><a href=" url "/exit>terminate script</a>\
-|         </body>\
-|         </html>" 
-|         return tmp 
-|       } 
-|       
-|       #Saying Good-bye
-|       function Bye() { 
-|         tmp = "<html>\
-|         <head><title>Simple gawk server</title></head>\
-|         <body><p>Script Terminated...</body>\
-|         </html>" 
-|         return tmp 
-|       } 
-|       
-|       #Running Applications
-|       function RunApp(app) { 
-|         if (app == "xterm")  {system("xterm&"); return} 
-|         if (app == "xcalc" ) {system("xcalc&"); return} 
-|         if (app == "xload" ) {system("xload&"); return} 
-|         if (app == "exit")   {x = 0} 
-|       }
-|   
-|   ========================================================================
-|   
-|   98. Miscellaneous
-|   
-|   ========================================================================
-|   
-|   99. Credits
-|   
-|   I most of the information in this FAQ has been be supplied by people
-|   other than myself -- it just works better that way.  The newsgroup
-|   readers have a LOT more awk experience than I ever will (unless I
-|   multiply myself by a few thousand, which is not legal with today's
-|   tax laws).
-|   
-|   The following people have contributed to the well-being of the FAQ: 
-|   
-|   New testament (from 2010):
-|     mss [at] dev.null (Michael Sanders)
-|     tim [at] menzies.us (Tim Menzies)
-|   
-|   Old testament (up until 2002):
-|     russell_schulz at locutus.ofb.org (Russell Schultz) <=== maintainer
-|   
-|     Alex.Schoenmakers [at] lhs.be
-|     David.Billinghurst [at] riotinto.com (David Billinghurst)
-|     Ferran.Jorba [at] uab.es (Ferran Jorba)
-|     Juergen.Kahrs [at] t-online.de
-|     Kalle.Tuulos [at] nmp.nokia.com (Kalle Tuulos)
-|     SimonN [at] draeger.com (Nicole Simon)
-|     afu [at] wta.att.ne.jp
-|     allen [at] gateway.grumman.com (John L. Allen)
-|     amnonc [at] mercury.co.il (Amnon Cohen)
-|     andrew_sumner [at] bigfoot.com (Andrew Sumner)
-|     arnold [at] skeeve.com (Arnold D. Robbins)
-|     art [at] pove.com (Art Povelones)
-|     bmarcum [at] iglou.com (Bill Marcum)
-|     boffi [at] rachele.stru.polimi.it (giacomo boffi)
-|     bps03z [at] email.mot.com (Peter Saffrey)
-|     brennan [at] whidbey.com (Michael D. Brennan)
-|     churchyh [at] ccwf.cc.utexas.edu (Henry Churchyard)
-|     db21 [at] ih4ess.ih.lucent.com (David Beyerl)
-|     dmckeon [at] swcp.com (Denis McKeon)
-|     dmeier.esperanto [at] gmx.de (Detlef Meier)
-|     dzubera [at] CS.ColoState.EDU (Zube)
-|     edgar.j.ramirez [at] lmco.com (Edgar J. Ramirez)
-|     eia018 [at] comp.lancs.ac.uk (Dr Andrew Wilson)
-|     epement [at] ripco.com (Eric Pement)
-|     gavin [at] wraith.u-net.com (Gavin Wraith)
-|     hankedr [at] mail.auburn.edu (Darrel Hankerson)
-|     hastinga [at] tarim.dialogic.com (Austin Hastings)
-|     heiner.steven [at] nexgo.de (Heiner Steven)
-|     hstein [at] airmail.net (Harry Stein)
-|     j-korsv [at] online.no (Jon-Egil Korsvold)
-|     jari.aalto [at] ntc.nokia.com (Jari Aalto)
-|     jblaine [at] shore.net (Jeff Blaine)
-|     jerabek [at] rm6208.gud.siemens.co.at (Martin Jerabek)
-|     jesusmc [at] scripps.edu (Jesus M. Castagnetto)
-|     jidanni [at] kimo.com.tw (Dan Jacobson)
-|     jlaiho [at] ichaos.nullnet.fi (Juha Laiho)
-|     jland [at] worldnet.att.net (Jim Land)
-|     jmccann [at] WOLFENET.com (James McCann)
-|     joe [at] plaguesplace.dyndns.org
-|     johnd [at] mozart.inet.co.th (John DeHaven)
-|     kahrs [at] iSenseIt.de (Juergen Kahrs)
-|     konrad [at] netcom.com (Konrad Hambrick)
-|     lehalle [at] earthling.net (Charles-Albert Lehalle)
-|     lothar [at] u-aizu.ac.jp (Lothar M. Schmitt)
-|     mark [at] ispc001.demon.co.uk (Mark Katz)
-|     markus [at] biewer.com (Markus B. Biewer)
-|     monty [at] primenet.com (Jim Monty)
-|     morrisl [at] scn.org (Larry D. Morris)
-|     neel [at] gnu.org
-|     neil_mahoney [at] il.us.swissbank.com (Neil Mahoney)
-|     neitzel [at] gaertner.de (Martin Neitzel)
-|     peter.tillier [at] btinternet.com (Peter S Tillier)
-|     pez68 [at] netscape.net (Peter Stromberg)
-|     phil [at] bolthole.com (Philip Brown)
-|     pholzleitner [at] unido.org (Peter HOLZLEITNER)
-|     pierre [at] mail.asianet.it (Gianni Rondinini)
-|     pjf [at] osiris.cs.uoguelph.ca (Peter Jaspers-Fayer)
-|     pjfarley [at] banet.net (Peter J. Farley III)
-|     ptjm [at] interlog.com (Patrick TJ McPhee)
-|     rms [at] friko.onet.pl (Rafal Sulejman)
-|     robin.moffatt [at] ntlworld.com (Robin Moffatt)
-|     rwab1 [at] cl.cam.ac.uk (Ralph Becket)
-|     saguyami [at] post.tau.ac.il (Shay)
-|     thobe [at] lafn.org (Glenn Thobe) 
-|     thull [at] ocston.org (Tom Hull)
-|     tim [at] consultix-inc.com (Tim Maher/CONSULTIX)
-|     vincent [at] delau.nl (Vincent de Lau)
-|     vjpnreddy [at] hotmail.com (Jaya Reddy)
-|     walkerj [at] compuserve.com (James G. Walker)
-|     walter [at] wbriscoe.demon.co.uk (Walter Briscoe)
-|     yuli.barcohen [at] telrad.co.il (Yuli Barcohen)
-|   
-|   Thanks.
-|   
-|   ========================================================================
-|   
-|   thus endeth the awk FAQ.
+From: tim@menzies.us
+Newsgroups: comp.lang.awk,comp.unix.shell,comp.answers,news.answers 
+Followup-To: poster 
+Subject: Awk FAQ v2.0 
+Summary: FAQ (Frequently Asked Questions) about the awk programming language
+Last-modified: 2010-Jan-20
+Version: 2.0
+URL: http://awk.info/faq.txt
+Archive-name:  http://awk.info/faq.txt
+
+Frequently Asked Questions == FAQ
+
+The FAQ list for comp.lang.awk can be found on the Internet:
+  <http://awk.info/faq.txt>
+  <http://www.faqs.org/faqs/computer-lang/awk/faq/>
+
+========================================================================
+
+Contents:
+
+   1. Disclaimer
+   2. Spam
+   3. Can you answer my awk question?
+   4. How can I add a FAQ and its answer to the FAQ list?
+   5. What is awk?
+   6. What well-maintained awk-compatible languages are there?
+      6.1 nawk
+      6.2 gawk
+      6.3 mawk
+      6.4 xgawk
+      6.5 sqawk
+      6.6 jawk
+      6.7 runawk
+      6.8 older version
+   7. Where can I buy awk?
+   8. Where can I get awk for free?  For what platforms?
+      8.1 OS/X
+      8.2 Windows
+      8.3 LINUX
+   9. Why would anyone use awk instead of language XYZ?
+  10. How can I learn awk?
+  11. What are some other awk resources?
+      11.1. The awk community portal.
+      11.2. Short tutorials for newcomers.
+      11.3. Longer Tutorials.
+      11.4. Arnold Robbins' collection  
+  12. How do I report a bug in gawk?
+  13. How can I access shell or environment variables in an awk script?
+  14. How does awk deal with multiple files?
+      14.0 Version warning
+      14.1 How can awk test for the existence of a file?
+      14.2 How can I get awk to read multiple files?
+      14.3 How can I tell from which file my input is coming?
+      14.4 How can I get awk to open multiple files (selected at runtime)?
+      14.5 How can I treat the first file specially?
+      14.6 How can I explicitly pass in a filename to treat specially?
+  15. How many elements were created by split()?
+  16. How can I split a string into characters?
+  17. How do I have dynamic-width printf strings, like C?
+  18. Why doesn't "\\$" behave like /\\$/ ?  Why don't parentheses match?
+  19. What is awk's exit code?
+  20. How can I get awk to be case-insensitive?
+      20.1. use tolower()
+      20.2. use IGNORECASE=1
+  21. How can I force a numeric/non-numeric comparison?
+  22. Why does { FS=":"; print $1 } not split the first record?
+  23. Did ^ and $ and . change in gawk?
+  24. Why doesn't awk 'begin {...}' work?
+  25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
+  26. How do I take advantage of gawk's networking support?
+  98. Miscellaneous
+  99. Credits
+
+========================================================================
+
+1. Disclaimer
+
+Read at your own risk.  The current, previous, or original authors
+make no claim as to fitness for any purpose or absence of any errors,
+and offer no warranty.  Do not eat.
+
+========================================================================
+
+2. Spam
+
+You wouldn't believe how much spam I get to this address.
+
+========================================================================
+
+3. Can you answer my awk question?
+
+Probably not.  Please don't mail it to me.
+
+Read the FAQ, and the materials pointed to by it, and if you can't find
+an answer there, by all means post to the newsgroup.
+
+If you need help posting, see <http://groups.google.com/> among others.
+
+A FAQ list is intended to reduce traffic on a newsgroup, not eliminate it.
+
+========================================================================
+
+4. How can I add a FAQ and its answer to the FAQ list?
+
+Mail BOTH of them to me.  Then I can add them to the FAQ and it should
+help people who have that same question later, as well as everyone who
+reads the group, because they won't see it asked and answered so often.
+
+I do not work on this FAQ every day, but I will try to get updates
+incorporated in a timely manner (say, monthly).
+
+Of course, don't mail me my entire FAQ!  I already have a copy!  There
+are copies available all over the web that I could use if I lost mine!
+I pay for my access; don't you?
+  
+========================================================================
+
+5. What is awk?
+
+Awk is a stable, cross platform computer language named for its
+authors Alfred Aho, Peter Weinberger & Brian Kernighan. They write:
+"Awk is a convenient and expressive programming language that can
+be applied to a wide variety of computing and data-manipulation
+tasks".
+
+  Alfred V. Aho
+  Brian W. Kernighan
+  Peter J. Weinberger
+
+In Classic Shell Scripting, Arnold Robbins & Nelson Beebe confess
+their Awk bias: "We like it. A lot. The simplicity and power of Awk
+often make it just the right tool for the job."
+
+Besides the Bourne shell, Awk is the only other scripting language
+available in the standard Unix environment. Implementations of AWK
+exist as installed software for almost all other operating systems.
+
+========================================================================
+
+6. What well-maintained awk-compatible languages are there?
+
+  6.1 nawk
+    "The one true awk", old.
+    Interpreter.
+    See http://www.cs.princeton.edu/~bwk/btl.mirror/awk.tar.gz
+
+  6.2 gawk
+    From the GNU project.
+    Widely used.
+    Interpreter.
+    See http://www.gnu.org/software/gawk/
+
+  6.3 mawk
+	Mike's Awk  (from Michael Brennan).
+	For some code, runs very fast.
+    Interpreter
+	See http://freshmeat.net/projects/mawk/
+
+  6.4 xgawk
+    Gawk + XML + ...
+    Interpreter
+    See http://home.vrweb.de/~juergen.kahrs/gawk/XML/.
+
+  6.5 sqawk
+    Gawk + SQL
+	Interpreter
+	See http://code.google.com/p/spawk/.
+
+  6.6 jawk
+	Awk in the JAVA virtual machine
+	Interpreter.
+	See http://jawk.sourceforge.net/.
+
+  6.7 runawk
+    A wrapper for the AWK interpreter, providing modules 
+	See http://sourceforge.net/projects/runawk/files/runawk/.
+
+  6.8 Older versions, may not be currently supported, translates to "C".
+	 * awk2c
+     * awka
+
+========================================================================
+
+7. Where can I buy awk?
+
+AFAIK, all current AWK versions are open source; i.e. free.
+
+========================================================================
+
+8. Where can I get awk for free?  For what platforms?
+
+AFAIK, all current AWK versions are open source; i.e. free.
+
+AWK runs on many platforms and can be downloaded and installed from
+many package management systems; e.g.
+
+  8.1. OS/X
+       From FINK: http://www.finkproject.org/
+       From darwin ports: http://darwinports.com/
+  8.2. Windows
+	   From GnuWin32: http://gnuwin32.sourceforge.net/
+	   From Cygwin: http://www.cygwin.com/
+  8.3.  LINUX:
+	   From apt-get: from e.g. the Synaptic package manager.
+
+========================================================================
+
+9. Why would anyone use awk instead of language XYZ?
+
+Awk is a simple and elegant pattern scanning and processing language.
+Awk is also the most portable scripting language in existence.
+But why use it rather than Perl (or PHP or Ruby or...):
+
+  - Awk is simpler (especially important if deciding which to learn
+    first);
+  - Awk syntax is far more regular (another advantage for the
+    beginner, even without considering syntax-highlighting editors);
+  - You may already know Awk well enough for the task at hand;
+  - You may have only Awk installed;
+  - Awk can be smaller, thus much quicker to execute for small programs.
+
+Tom Christiansen wrote in Message-ID: <3766d75e@cs.colorado.edu>
+  > Awk is a venerable, powerful, elegant, and simple tool that everyone
+  > should know.  (Languages like) Perl are a superset and child of awk, 
+  > but has much more power that comes at expense of sacrificing some 
+  > of that simplicity.
+
+Carlo Strozzi writes:
+
+  (Other languages like Perl is) a good programming language for writing
+  self-contained programs, but pre-compilation and long start-up time
+  are worth paying only if once the program has loaded it can do
+  everything in one go. This contrasts sharply with the Operator-stream
+  Paradigm, where operators are chained together in pipelines of two,
+  three or more programs. The overhead associated with initializing
+  (say) Perl at every stage of the pipeline makes pipelining
+  inefficient. A better way of manipulating structured ASCII files is to
+  use the AWK programming language, which is much smaller, more
+  specialized for this task, and is very fast at startup.
+
+========================================================================
+
+10. How can I learn awk?
+
+  English Book:
+
+      _The AWK Programming Language_, by Aho, Kernighan and Weinberger,
+      who invented the language.  Published by Addison-Wesley.  Lots of
+      good material in not a lot of space.  Out of date, with regard to 
+      POSIX awk.
+
+      ISBN 0-201-07981-X
+
+      Source code: 
+      <http://lawker.googlecode.com/svn/fridge/lib/awk/theAwkBook/>
+
+  English Book:
+
+      _Effective Awk Programming_, by Arnold Robbins
+      published by O'Reilly and Associates.
+
+      ISBN 0-596-00070-7 (third edition)
+
+      <http://www.oreilly.com/catalog/awkprog3/>
+      <http://www.gnu.org/manual/gawk>
+
+      Errata:
+		<http://oreilly.com/catalog/awkprog3/errata/>
+
+      We recommends buying the book instead of trying to print it
+      all out, for three reasons:
+
+        1. It's probably cheaper than using your own toner and paper.
+
+        2. Some money goes back to help further development, both to
+           Arnold Robbins (only if you buy from ORA) and the Free
+           Software Foundation (if you buy from either ORA or the FSF).
+
+        3. It helps convince publishers that we _like_ having full
+           documentation available on-line (e.g., for searching), but
+           will still pay for a compact, bound copy.
+
+  English reference card:
+
+      <http://lawker.googlecode.com/svn/fridge/share/pdf/awkcard.pdf>
+
+  English Book:
+
+      second edition:
+
+      _Sed & Awk_, by Dale Dougherty & Arnold Robbins, published
+      by O'Reilly and Associates.
+
+      ISBN 1-56592-225-5 (second edition)
+
+      _sed & awk_ describes two text manipulation programs that are
+      mainstays of the UNIX programmer's toolbox.  This new edition
+      covers the sed and awk programs as they are now mandated by
+      the POSIX standard and includes discussion of the GNU versions
+      of these programs.
+
+      <http://www.ora.com/catalog/sed2/>
+
+      An errata for the second edition of Sed & Awk is at
+
+      <http://oreilly.com/catalog/sed2/errata/>
+
+  English Book:
+
+      _Classic Shell Scripting)_ by Arnold Robbins and Nelson Beebe
+      published by O'Reilly and Associates.
+   
+      ISBN 5-9600-595-4
+
+      Contains an (excellent) short introduction to Gawk, as well
+      as numerous other UNIX shell languages that can be combined
+      to quickly build applications.
+
+      <http://oreilly.com/catalog/9780596005955/>
+
+      An errata for this book is at
+
+      <http://oreilly.com/catalog/errata.csp?isbn=9780596005955>
+
+  English Book:
+
+      _Mastering Regular Expressions_, by Jeffrey E.F. Friedl, published
+      by O'Reilly and Associates.  (the `Hip Owls Book')
+
+      ``... you will learn how to use regular expressions to
+      solve problems and get the most out of tools that provide
+      them.  Not only that, but much more:  this book is about
+      _mastering_ regular expressions.''
+
+      <http://www.ora.com/catalog/regex/>
+
+      errata, additions, change log available at the author's home page
+      <http://public.yahoo.com/~jfriedl/regex/>
+
+      ISBN 1-56592-257-3
+
+  Deutsch Book:
+
+      Friedl's _Mastering Regular Expressions_.
+
+      <http://www.oreilly.de/catalog/regexger/index.html>
+
+  Japanese Book:
+
+     _Grep,Sed,Awk_ by Akihiro Miyoshi
+     ISBN  4-87966-794-3
+     June 1998 264 pages
+     Shuwa System Manual & Reference Series
+     <http://www.shuwasystem.co.jp/books/wwwsrch/cgi-bin/content/794/index.htm>
+     Serves both as a tutorial and a manual. Divided quite evenly into three
+     parts. Regular expressions explored in detail in grep section.
+
+  English Booklet:
+
+    TCP/IP Internetworking With Gawk
+    ISBN 1-882114-93-0
+    <http://home.vr-web.de/Juergen.Kahrs/gawk/gawkinet.html>
+
+    An abridged form is included in O'Reilly's Effective Awk Programming 3e
+
+    A short worked example of this code is at http://awk.info/?tools/server.
+
+==========================================================================
+
+11. What are some other awk resources?
+
+  11.1. The awk community portal: a large collection of awk tips and trips.
+     <http://awk.info>
+
+  11.2. Short tutorials for newcomers.  Sorted by newbie-ness 
+     (so best to start at the top):
+     
+     Eric Wendelin: Awk is a beautiful tool
+     <http://eriwen.com/tools/awk-is-a-beautiful-tool/>
+     
+     Tim Sherwood: AWK: The Duct Tape of Computer Science Research (slides)
+     <http://lawker.googlecode.com/svn/fridge/share/pdf/gawk-tutorial.pdf>
+     
+     Ronald Loui: Samples of Gawk
+     <http://awk.info/?samples>
+     
+     Andrew Ross: Getting started with awk
+     <http://doc.ddart.net/shell/awk/>
+     
+     Tim Menzies: Four Keys to Gawk
+     <http://awk.info/?keys2awk>
+     
+     Peteris Krumins: 10 Awk Tips, Tricks and Pitfalls
+     <http://www.catonmat.net/blog/ten-awk-tips-tricks-and-pitfalls/>
+     
+     Paul Jakma: Awk programmers' FAQ
+     <http://hibernia.jakma.org/~paul/awk-faq.html>
+     
+     Ed Morton (and friends): Use (and Abuse) of Getline
+     <http://awk.info/?tip/getline>
+     
+  11.3. Longer Tutorials
+     
+     The following list is sorted by the number of times this material 
+     is tagged at delicious.com (most tagged at top):
+     
+     Greg Goebel: An Awk Primer
+     <http://www.vectorsite.net/tsawk.html>
+     
+     Bruce Barnett: Awk - A Tutorial and Introduction
+     <http://www.grymoire.com/Unix/Awk.html>
+     
+     Arnold Robbins: The GNU Awk User's Guide
+     <http://www.gnu.org/software/gawk/manual/gawk.html>
+     
+     Emmett Dulaney: AWK: The Linux Administrators' Wisdom Kit
+     <http://www.oracle.com/technology/pub/articles/dulaney_awk.html>
+  
+  11.4. Arnold Robbins' collection
+
+      <ftp://ftp.freefriends.org/arnold/Awkstuff/>
+
+      > A collection of awk related stuff that I'm starting and willing
+      > to maintain.  Currently includes Henry Spencer's awf and aaa
+      > programs, Brian Kernighan's chem, and Nelson Beebe's awkpretty,
+      > and some smaller items.
+
+========================================================================
+
+12. How do I report a bug in gawk?
+
+This is described in great detail in the gawk documentation.  In brief:
+
+   1. Make sure what you've discovered is really a bug by checking
+      the documentation and, if possible, comparing with nawk and mawk.
+
+   2. Cut down the program and data to as small as possible a test
+      case that will illustrate the bug.
+
+   3. Optionally post to comp.lang.awk; this allows others to confirm
+      or deny the behavior, and its incorrectness (or lack thereof).
+
+   4. Send mail to <mailto:bug-gawk@gnu.org>.  This automatically sends
+      a copy to Arnold Robbins.  Do not JUST post in comp.lang.awk;
+      Arnold's readership there is sporadic, and of course any Usenet
+      article can be missed, killed, or dropped.
+
+========================================================================
+
+13. How can I access shell or environment variables in an awk script?
+
+   Short answer = either of these, where "svar" is a shell variable
+   and "avar" is an awk variable:
+
+        awk -v avar="$svar" '... avar ...' file
+        awk 'BEGIN{avar=ARGV[1];ARGV[1]=""}... avar ...' "$svar" file
+
+   depending on your requirements for handling backslashes and
+   handling ARGV[] if it contains a null string (see below for details).
+
+   Long answer = There are several ways of passing the values of
+   shell variables to awk scripts depending on which version of awk
+   (and to a much lesser extent which OS) you're using. For this
+   discussion, we'll consider the following 4 awk versions:
+
+   oawk (old awk, /usr/bin/awk and /usr/bin/oawk on Solaris)
+   nawk (new awk, /usr/bin/nawk on Solaris)
+   sawk (non-standard name for /usr/xpg4/bin/awk on Solaris)
+   gawk (GNU awk, downloaded from http://www.gnu.org/software/gawk)
+
+   If you wanted to find all lines in a given file that match text
+   stored in a shell variable "svar" then you could use one of the
+   following:
+
+   a) awk -v avar="$svar" '$0 == avar' file
+   b) awk -vavar="$svar" '$0 == avar' file
+   c) awk '$0 == avar' avar="$svar" file
+   d) awk 'BEGIN{avar=ARGV[1];ARGV[1]=""}$0 == avar' "$svar" file
+   e) awk 'BEGIN{avar=ARGV[1];ARGC--}$0 == avar' "$svar" file
+   f) svar="$svar" awk 'BEGIN{avar=ENVIRON["svar"]}$0 == avar' file
+   g) awk '$0 == '"$svar"'' file
+
+   The following list shows which version is supported by which
+   awk on Solaris (which should also apply to most other OSs):
+
+        oawk = c, g
+        nawk = a, c, d, f, g
+        sawk = a, c, d, f, g
+        gawk = a, b, c, d, f, g
+
+   Notes:
+
+   1) Old awk only works with forms "c" and "g", both of which have
+      problems.
+
+   2) GNU awk is the only one that works with form "b" (no space
+      between "-v" and "var="). Since gawk also supports form "a",
+      as do all the other new awks, you should avoid form "b" for
+      portability between newer awks.
+
+   3) In form "c", ARGV[1] is still getting populated, but
+      because it contains an equals sign (=), awk changes it's normal
+      behavior of assuming that arguments are file names and now instead
+      assumes this is a variable assignment so you don't need to clear
+      ARGV[1] as in form "d".
+
+   4) In light of "3)" above, this raises the interesting question of
+      how to pass awk a file name that contains an equals sign - the
+      answer is to do one of the following:
+
+       i) Specify a path, e.g. for a file named "abc=def" in the
+          current directory, you'd use:
+
+                awk '...' ./abc=def
+
+          Note that that won't work with older versions of gawk or with
+          sawk.
+
+      ii) Redirect the input from a file so it's opend by the shell
+          rather than awk having to parse the file name as an argument
+          and then open it:
+
+                awk '...' < abc=def
+
+          Note that you will not have access to the file name in the
+          FILENAME variable in this case.
+
+   5) An alternative to setting ARGV[1]="" in form "d" is to delete
+      that array entry, e.g.:
+
+        awk 'BEGIN{avar=ARGV[1];delete ARGV[1]}$0 == avar' "$svar" file
+
+      This is slightly misleading, however since although ARGV[1]
+      does get deleted in the BEGIN section and remains deleted
+      for any files that preceed the deleted variable assignment,
+      the ARGV[] entry is recreated by awk when it gets to that
+      argument during file processing, so in the case above when
+      parsing "file", ARGV[1] would actually exist with a null
+      string value just like if you'd done ARGV[1]="". Given that
+      it's misleading and introduces inconsistency of ARGV[]
+      settings between files based on command-line order, it is
+      not recommended.
+
+   6) An alternative to setting svar="$svar" on the command line
+      prior to invoking awk in form "f" is to export svar first,
+      e.g.:
+
+        export svar
+        awk 'BEGIN{avar=ENVIRON["svar"]}$0 == avar' file
+
+      Since this forces you to export variables that you wouldn't
+      normally export and so risk interfering with the environment
+      of other commands invoked from your shell, it is not recommended.
+
+   7) When you use form "d", you end up with a null string in
+      ARGV[1], so if at the end of your program you want to print
+      out all the file names then instead of doing:
+
+        END{for (i in ARGV) print ARGV[i]}
+
+      you need to check for a null string before printing. or
+      store FILENAMEs in a different array during processing.
+      Note that the above loop as written would also print the
+      script name stored in ARGV[0].
+
+   8) When you use form "a", "b", or "c", the awk variable
+      assignment gets processed during awks lexical analaysis
+      stage (i.e. when the internal awk program gets built) and
+      any backslashes present in the shell variable may get
+      expanded so, for example, if svar contains "hi\there"
+      then avar could contain "hi<tab>there" with a literal tab
+      character. This behavior depends on the awk version as
+      follows:
+
+      oawk: does not print a warning and sets avar="hi\there"
+      sawk: does not print a warning and sets avar="hi<tab>here"
+      nawk: does not print a warning and sets avar="hi<tab>here"
+      gawk: does not print a warning and sets avar="hi<tab>here"
+
+      If the backslash preceeds a character that has no
+      special meaning to awk then the backslash may be discarded
+      with or without a warning, e.g. if svar contained "hi\john"
+      then the backslash preceeds "j" and "\j" has no special
+      meaning so the various new awks each would behave differently
+      as follows:
+
+      oawk: does not print a warning and sets avar="hi\john"
+      sawk: does not print a warning and sets avar="hi\john"
+      nawk: does not print a warning and sets avar="hijohn"
+      gawk: prints a warning and sets avar="hijohn"
+
+   9) None of the awk versions discussed here work with form "e" but
+      it is included above as there are older (i.e. pre-POSIX) versions
+      of awk that will treat form "d" as if it's intended to access a
+      file named "" so you instead need to use form "e". If you find
+      yourself with that or any other version of "old awk", you need
+      to get a new awk to avoid future headaches and they will not be
+      discussed further here.
+
+   So, the forms accepted by all 3 newer awks under discussion (nawk,
+   sawk, and gawk) are a, c, d, f, and g. The main differences between
+   each of these forms is as follows:
+
+      |-------|-------|----------|-----------|-----------|--------|
+      | BEGIN | files | requires |  accepts  |  expands  |  null  |
+      | avail |  set  |  access  | backslash | backslash | ARGV[] |
+      |-------|-------|----------|-----------|-----------|--------|
+   a) |   y   |  all  |     n    |     n     |     y     |   n    |
+   c) |   n   |  sub  |     n    |     n     |     y     |   n    |
+   d) |   y   |  all  |     n    |     n     |     n     |   y    |
+   f) |   y   |  all  |     y    |     n     |     n     |   n    |
+   g) |   y   |  all  |     n    |     y     |    n/a    |   n    |
+      |-------|-------|----------|-----------|-----------|--------|
+
+   where the columns mean:
+
+   BEGIN avail = y: variable IS available in the BEGIN section
+   BEGIN avail = n: variable is NOT available in the BEGIN section
+
+   files set = all: variable is set for ALL files regardless of
+                command-line order.
+   files set = sub: variable is ONLY set for those files subsequent
+                to the definition of the variable on the command line
+
+   requires access = y: variable DOES need to be exported or set on
+                the command line
+   requires access = n: shell variable does NOT need to be exported
+                or set on the command line
+
+   accepts backslash = y: variable CAN contain a backslash without
+                causing awk to fail with a syntax error
+   accepts backslash = n: variable can NOT contain a backslash without
+                causing awk to fail with a syntax error
+
+   expands backslash = y: if the variable contains a backslash, it IS
+                expanded before execution begins
+   expands backslash = n: if the variable contains a backslash, it is
+                NOT expanded before execution begins
+
+   null ARGV[] = y: you DO end up with a null entry in the ARGV[]
+        array
+   null ARGV[] = n: you do NOT end up with a null entry in the ARGV[]
+        array
+
+   For most applications, form "a" and "d" provide the most intuitive
+   functionality. The only functional differences between the 2 are:
+
+   1) Whether or not backslashes get expanded on variable assignment.
+   2) Whether or not ARGV[] ends up containing a null string.
+
+   so which one you choose to use depends on your requirements for
+   these 2 situations.
+
+========================================================================
+
+14. How does awk deal with multiple files?
+
+  14.0 Version warning
+
+    some of these techniques will require non-ancient versions of awk.
+
+  14.1 How can awk test for the existence of a file?
+
+    the most portable way is to simply try and read from the file.
+
+        function exists(file,        dummy, ret)
+        {
+                ret=0;
+                if ( (getline dummy < file) >=0 )
+                {
+                        # file exists (possibly empty) and can be read
+                        ret = 1;
+                        close(file);
+                }
+                return ret;
+        }
+
+[ I've read reports that earlier versions of mawk would write to stderr
+as well as getline returning <0 -- is this still true? ]
+
+        on Unix, you can probably use the `test' utility
+
+        if (system("test -r " file) == 0)
+            # file is readable
+        else
+            # file is not readable
+
+  14.2 How can I get awk to read multiple files?
+
+    it's automatic (under Unix at least) -- use something like:
+
+    awk '/^#include/ {print $2}' *.c *.h
+
+  14.3 How can I tell from which file my input is coming?
+
+    use the built-in variable FILENAME:
+
+    awk '/^#include/ {print FILENAME,$2}' *.c *.h
+
+  14.4 How can I get awk to open multiple files (selected at runtime)?
+
+    use `getline', `close', and `print EXPR > FILENAME', like:
+
+    # assumes input file has at least 1 line, output file writeable
+    function double(infilename,outfilename,    aline)
+    {
+      while ( (getline aline < infilename) >0 )
+        print(aline aline) > outfilename;
+      close(infilename);
+      close(outilename);
+    }
+
+  14.5 How can I treat the first file specially?
+
+    use FILENAME, thusly:
+
+    BEGIN { rulesfile="" }
+    rulesfile == "" { rulesfile = FILENAME; }
+    FILENAME == rulesfile { build_rule($0); }
+    FILENAME != rulesfile { apply_rule($0); }
+
+    Example:  
+
+    Suppose you have a text-line "database" and you want to make some
+    batch changes to it, by replacing some old lines with new lines.
+ 
+    BEGIN { rulesfile="" }
+    rulesfile == "" { rulesfile = FILENAME; }
+    rulesfile == FILENAME { replace[$1] = $0; }
+    rulesfile != FILENAME \
+    { 
+            if ($1 in replace) 
+                    print replace[$1];
+            else
+                    print;
+    }
+
+    another way, using ARGV:
+
+    (FILENAME == ARGV[1]) { replace[$1] = $0; next }
+    ($1 in replace) { print replace[$1]; next }
+    { print }
+
+  14.6 How can I explicitly pass in a filename to treat specially?
+
+    use `-v rulesfile=filename' like you would any other variable,
+    and then use a `getline' loop (and `close') in your BEGIN
+    statement.
+
+    BEGIN \
+    {
+      if (rulesfile=="")
+      {
+        print "must use -v rulesfile=filename";
+        exit(1);
+      }
+      while ( (getline < rulesfile) >0 )
+        replace[$1]=$0;
+      close(rulesfile);
+    }
+
+    {
+      if ($1 in replace)
+        print replace[$1];
+      else
+        print;
+    }
+
+========================================================================
+
+15. How many elements were created by split()?
+
+   when I do a split on a field, e.g.,
+ 
+        split($1,x,"string")
+ 
+   how can i find out how many elements x has (I mean other than
+   testing for null string or doing a `for (n in x)' test)?
+
+split() is a function; use its return value:
+
+        n = split($1, x, "string")
+
+========================================================================
+
+16. How can I split a string into characters?
+
+In portable POSIX awk, the only way to do this is to use substr to pull
+out each character, one by one.  This is painful.  However, gawk, mawk,
+and the newest version of the Bell Labs awk all allow you to set
+FS = "" and use "" as the third argument of split.
+
+So, split("chars",anarray,"") results in the array anarray containing
+5 elements -- "c", "h", "a", "r", "s".
+
+If you don't have any ^As in your string, you could try:
+
+        string=$0;
+        gsub(".", "&\001", string)
+        n=split(string, anarray, "\001")
+        for (i=1;i<=n;i++)
+            print "character " i "is '" anarray[i] "'";
+
+========================================================================
+
+17. How do I have dynamic-width printf strings, like C?
+
+With modern awks, you can just do it like you would in C (though the
+justification is less clear; C doesn't have the trivial in-line string
+concatenation that awk does), like so:
+
+        maxlen=0
+
+        for (i in arr)
+          if (maxlen<length(arr[i]))
+            maxlen=length(arr[i])
+
+        for (i in arr)
+          printf("%-*s %s\n",maxlen,arr[i],i)
+
+With old awks, just do it like you would do if you didn't know about %*
+(this would be much more painful to do in C), like so:
+
+        maxlen=0
+
+        for (i in arr)
+          if (maxlen<length(arr[i]))
+            maxlen=length(arr[i])
+
+        printfstring="%-" maxlen "s %s\n";
+        for (i in arr)
+          printf(printfstring,arr[i],i)
+
+========================================================================
+
+18. Why doesn't "\\$" behave like /\\$/ ?  Why don't parentheses match?
+
+Because "\\$" is a string and /\\$/ is not; in strings, some of the
+escape characters get eaten up (like \" to escape a double-quote within
+the string).
+
+/\\$/ => regular expression:  literal backslash at end-of-expression
+
+"\\$" => string: \$ => regular expression:  literal dollar sign
+
+to get behavior like the first case in a string, use "\\\\$" .
+
+there are other, less obvious characters which need the same attention;
+under-quoting or over-quoting should be avoided:
+
+parentheses are special for alternation:
+
+/\(test\)/ => 6 characters `(test)'
+"\(test\)" => /(test)/ => 4 characters `test' (with unused grouping)
+
+an example of trying to match some diagonal compass directions:
+
+/(N|S)(E|W)/ => `NE' or `NW' or `SE' or `SW' (correct)
+"(N|S)(E|W)" => /(N|S)(E|W)/ (correct)
+"\(N|S\)\(E|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
+"\(N\|S\)\(E\|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
+
+expressions that look similar but behave totally differently:
+
+/\(N|S\)\(E|W\)/ => `(N' or `S)(E' or `W)'
+/\(N\|S\)\(E\|W\)/ => `(N|S)(E|W)' only
+
+There is also confusion regarding different forms of special characters;
+POSIX requires that `\052' be treated as any other `*', even though it
+is written with 4 bytes instead of 1.  In compatibility mode, gawk will
+treat it as though it were escaped , namely `\*'.
+
+========================================================================
+
+19. What is awk's exit code?
+
+Normally, the `exit' command exits with a value of zero.
+
+You can supply an optional numeric value to the `exit' command to
+make it exit with a value:
+
+    if (whatever)
+        exit 12;
+
+If you have an END block, control first transfers there.  Within
+the END block, an `exit' command exits immediately; if you had
+previously supplied a value, that value is used.  But, if you
+give a new value to `exit' within the END block, the new value is
+used.  This is documented in the GNU Awk User's Guide (gawk.texi).
+
+If you have an END block you want to be able to skip sometimes,
+you may have to do something like this:
+
+BEGIN \
+{
+  exitcode=0;
+  ...
+}
+
+# normal rules processing...
+{
+  ...
+  if (fatal)
+  {
+    exitcode=12;
+    exit(exitcode);
+  }
+  ...
+}
+
+END {
+  if (exitcode!=0)
+    exit(exitcode);
+  ...
+}
+
+========================================================================
+
+20. How can I get awk to be case-insensitive?
+
+  20.1. use tolower()
+    - portable
+    - must be explicitly used for each comparison
+
+    instead of:
+      if (avar=="a" || avar=="A") { ... }
+    use:
+      if (tolower(avar)=="a") { ... }
+
+    or at the beginning of your code, add a line like
+      { for (i=0;i<=NF;i++) $i=tolower($i) }
+      { $0=tolower($0); }   # modern awks will rebuild $1..$NF also
+
+  20.2. use IGNORECASE=1;
+    - gawk only
+    - used for all comparisons, regex comparisons, index() function
+    - not used for array indexing
+
+========================================================================
+
+21. How can I force a numeric/non-numeric comparison?
+
+These are the canonical, work-in-all-versions snippets.  there are
+many others, most longer, some shorter (but possibly less portable).
+
+To compare two variables as numbers ONLY, use
+  if (0+var1 == 0+var2)
+
+To compare two variables as non-numeric strings ONLY, use
+  if ("" var1 == "" var2)
+
+========================================================================
+
+22. Why does { FS=":"; print $1 } not split the first record?
+
+Basically, you should set FS before it may be called upon to split $0
+into fields.  Once awk encounters a `{', it is probably too late.
+
+Some awk implementations set the fields at the beginning of the
+block, and don't re-parse just because you changed FS.  To get
+the desired behavior, you must set FS _before_ reading in a line.
+
+e.g.,
+  BEGIN { FS=":" }
+  { print $1 }
+
+e.g.,
+  awk -F: '{ print $1 }'
+
+If you run code like this
+  { FS=":"; print $1 }
+
+On this data:
+  first:second:third but not last:fourth
+  First:Second:Third But Not Last:Fourth
+  FIRST:SECOND:THIRD BUT NOT LAST:FOURTH
+
+You may get either
+  this:       or this:
+  ----        -------
+  first       first:second:third
+  First       First
+  FIRST       FIRST
+
+Perhaps more surprisingly, code like
+  { FS=":"; }
+  { print $1; }
+
+will also behave in the same way.
+
+========================================================================
+
+23. Did ^ and $ and . change in gawk?
+
+Yes.  early versions cared about \n (newlines) and treated them
+specially.  version 3.* and later are more POSIX-compliant here.
+
+========================================================================
+
+24. Why doesn't awk 'begin {...}' work?
+
+It needs to be `BEGIN' (i.e., it's case-sensitive).
+
+========================================================================
+
+25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
+
+You'd expect `6 -22', but you get `6-22'.  It's because the `" " -22'
+is grouped first, as a subtraction instead of a concatenation, resulting
+in the numeric value `-22'; then it is concatenated with `6', giving the
+string `6-22'.  Gentle application of parentheses will avoid this.
+
+========================================================================
+
+26. How do I take advantage of gawk's networking support?
+
+(Contribution from Michael Sanders: see http://awk.info/?tools/server).
+
+This code creates an html menu of local applications which you can
+season to taste. The usage requires two steps...
+
+    1) run: 'gawk -f server.awk'
+    2) open browser at: http://localhost:8080
+    
+This code is based on the examples located at the TCP/IP Internetworking
+With `gawk' manual and is licensed under GPL 3.0. For updates to
+those code, see http://topcat.hypermart.net/index.html.
+
+    BEGIN { 
+      x        = 1                         # script exits if x < 1 
+      port     = 8080                      # port number 
+      host     = "/inet/tcp/" port "/0/0"  # host string 
+      url      = "http://localhost:" port  # server url 
+      status   = 200                       # 200 == OK 
+      reason   = "OK"                      # server response 
+      RS = ORS = "\r\n"                    # header line terminators 
+      doc      = Setup()                   # html document 
+      len      = length(doc) + length(ORS) # length of document 
+      while (x) { 
+         if ($1 == "GET") RunApp(substr($2, 2)) 
+         if (! x) break   
+         print "HTTP/1.0", status, reason |& host 
+         print "Connection: Close"        |& host 
+         print "Pragma: no-cache"         |& host 
+         print "Content-length:", len     |& host 
+         print ORS doc                    |& host 
+         close(host)     # close client connection 
+         host |& getline # wait for new client request 
+      } 
+      # server terminated... 
+      doc = Bye() 
+      len = length(doc) + length(ORS) 
+      print "HTTP/1.0", status, reason |& host 
+      print "Connection: Close"        |& host 
+      print "Pragma: no-cache"         |& host 
+      print "Content-length:", len     |& host 
+      print ORS doc                    |& host 
+      close(host) 
+    } 
+    
+    #HTML Menu
+    function Setup() { 
+      tmp = "<html>\
+      <head><title>Simple gawk server</title></head>\
+      <body>\
+      <p><a href=" url "/xterm>xterm</a>\
+      <p><a href=" url "/xcalc>xcalc</a>\
+      <p><a href=" url "/xload>xload</a>\
+      <p><a href=" url "/exit>terminate script</a>\
+      </body>\
+      </html>" 
+      return tmp 
+    } 
+    
+    #Saying Good-bye
+    function Bye() { 
+      tmp = "<html>\
+      <head><title>Simple gawk server</title></head>\
+      <body><p>Script Terminated...</body>\
+      </html>" 
+      return tmp 
+    } 
+    
+    #Running Applications
+    function RunApp(app) { 
+      if (app == "xterm")  {system("xterm&"); return} 
+      if (app == "xcalc" ) {system("xcalc&"); return} 
+      if (app == "xload" ) {system("xload&"); return} 
+      if (app == "exit")   {x = 0} 
+    }
+
+========================================================================
+
+98. Miscellaneous
+
+========================================================================
+
+99. Credits
+
+I most of the information in this FAQ has been be supplied by people
+other than myself -- it just works better that way.  The newsgroup
+readers have a LOT more awk experience than I ever will (unless I
+multiply myself by a few thousand, which is not legal with today's
+tax laws).
+
+The following people have contributed to the well-being of the FAQ: 
+
+New testament (from 2010):
+  mss [at] dev.null (Michael Sanders)
+  tim [at] menzies.us (Tim Menzies)
+
+Old testament (up until 2002):
+  russell_schulz at locutus.ofb.org (Russell Schultz) <=== maintainer
+
+  Alex.Schoenmakers [at] lhs.be
+  David.Billinghurst [at] riotinto.com (David Billinghurst)
+  Ferran.Jorba [at] uab.es (Ferran Jorba)
+  Juergen.Kahrs [at] t-online.de
+  Kalle.Tuulos [at] nmp.nokia.com (Kalle Tuulos)
+  SimonN [at] draeger.com (Nicole Simon)
+  afu [at] wta.att.ne.jp
+  allen [at] gateway.grumman.com (John L. Allen)
+  amnonc [at] mercury.co.il (Amnon Cohen)
+  andrew_sumner [at] bigfoot.com (Andrew Sumner)
+  arnold [at] skeeve.com (Arnold D. Robbins)
+  art [at] pove.com (Art Povelones)
+  bmarcum [at] iglou.com (Bill Marcum)
+  boffi [at] rachele.stru.polimi.it (giacomo boffi)
+  bps03z [at] email.mot.com (Peter Saffrey)
+  brennan [at] whidbey.com (Michael D. Brennan)
+  churchyh [at] ccwf.cc.utexas.edu (Henry Churchyard)
+  db21 [at] ih4ess.ih.lucent.com (David Beyerl)
+  dmckeon [at] swcp.com (Denis McKeon)
+  dmeier.esperanto [at] gmx.de (Detlef Meier)
+  dzubera [at] CS.ColoState.EDU (Zube)
+  edgar.j.ramirez [at] lmco.com (Edgar J. Ramirez)
+  eia018 [at] comp.lancs.ac.uk (Dr Andrew Wilson)
+  epement [at] ripco.com (Eric Pement)
+  gavin [at] wraith.u-net.com (Gavin Wraith)
+  hankedr [at] mail.auburn.edu (Darrel Hankerson)
+  hastinga [at] tarim.dialogic.com (Austin Hastings)
+  heiner.steven [at] nexgo.de (Heiner Steven)
+  hstein [at] airmail.net (Harry Stein)
+  j-korsv [at] online.no (Jon-Egil Korsvold)
+  jari.aalto [at] ntc.nokia.com (Jari Aalto)
+  jblaine [at] shore.net (Jeff Blaine)
+  jerabek [at] rm6208.gud.siemens.co.at (Martin Jerabek)
+  jesusmc [at] scripps.edu (Jesus M. Castagnetto)
+  jidanni [at] kimo.com.tw (Dan Jacobson)
+  jlaiho [at] ichaos.nullnet.fi (Juha Laiho)
+  jland [at] worldnet.att.net (Jim Land)
+  jmccann [at] WOLFENET.com (James McCann)
+  joe [at] plaguesplace.dyndns.org
+  johnd [at] mozart.inet.co.th (John DeHaven)
+  kahrs [at] iSenseIt.de (Juergen Kahrs)
+  konrad [at] netcom.com (Konrad Hambrick)
+  lehalle [at] earthling.net (Charles-Albert Lehalle)
+  lothar [at] u-aizu.ac.jp (Lothar M. Schmitt)
+  mark [at] ispc001.demon.co.uk (Mark Katz)
+  markus [at] biewer.com (Markus B. Biewer)
+  monty [at] primenet.com (Jim Monty)
+  morrisl [at] scn.org (Larry D. Morris)
+  neel [at] gnu.org
+  neil_mahoney [at] il.us.swissbank.com (Neil Mahoney)
+  neitzel [at] gaertner.de (Martin Neitzel)
+  peter.tillier [at] btinternet.com (Peter S Tillier)
+  pez68 [at] netscape.net (Peter Stromberg)
+  phil [at] bolthole.com (Philip Brown)
+  pholzleitner [at] unido.org (Peter HOLZLEITNER)
+  pierre [at] mail.asianet.it (Gianni Rondinini)
+  pjf [at] osiris.cs.uoguelph.ca (Peter Jaspers-Fayer)
+  pjfarley [at] banet.net (Peter J. Farley III)
+  ptjm [at] interlog.com (Patrick TJ McPhee)
+  rms [at] friko.onet.pl (Rafal Sulejman)
+  robin.moffatt [at] ntlworld.com (Robin Moffatt)
+  rwab1 [at] cl.cam.ac.uk (Ralph Becket)
+  saguyami [at] post.tau.ac.il (Shay)
+  thobe [at] lafn.org (Glenn Thobe) 
+  thull [at] ocston.org (Tom Hull)
+  tim [at] consultix-inc.com (Tim Maher/CONSULTIX)
+  vincent [at] delau.nl (Vincent de Lau)
+  vjpnreddy [at] hotmail.com (Jaya Reddy)
+  walkerj [at] compuserve.com (James G. Walker)
+  walter [at] wbriscoe.demon.co.uk (Walter Briscoe)
+  yuli.barcohen [at] telrad.co.il (Yuli Barcohen)
+
+Thanks.
+
+========================================================================
+
+thus endeth the awk FAQ.
