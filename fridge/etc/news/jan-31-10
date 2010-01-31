@@ -35,7 +35,7 @@ Michael Sanders shows how to quickly build an AWK GUI for
 windows.
   - http://awk.info/?tools/winwsh
 
-Hyung-Hwan Chung offers QSE, an embeddable Awk Interpreter.
+Hyung-Hwan Chung offers QSE, an embedable Awk Interpreter.
   - http://awk.info/?tools/qse
 
 Grant Coady implements network monitoring, in Awk.
