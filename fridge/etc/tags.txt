@@ -95,7 +95,7 @@ doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk
 doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
 
 
-tip/bigstring.html 			;MartinC	;2010	;Jan	;|300 million characters (in an Awk string)
+tip/bigstring.html	;MartinC	;2010	;Jan	;|300 million characters (in an Awk string)
 doc/sed.html				;Admin	;2009	;Apr	;Tips ;Sed		;|Sed-clones (in Awk)
 doc/tip/shortenMyPipes.html			;M0J0	;2009	;Oct	;SysAdmin	 		;|Shorten my pipes
 doc/tip/sedInAwk.html			;EdM	;2009	;Oct	;Tips ;Sed		;|Sed in Awk
