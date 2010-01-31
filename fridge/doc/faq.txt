@@ -47,7 +47,6 @@ Contents:
   12. How do I report a bug in gawk?
   13. How can I access shell or environment variables in an awk script?
   14. How does awk deal with multiple files?
-      14.0 Version warning
       14.1 How can awk test for the existence of a file?
       14.2 How can I get awk to read multiple files?
       14.3 How can I tell from which file my input is coming?
@@ -307,7 +306,7 @@ Carlo Strozzi writes:
 
   English Book:
 
-      _Classic Shell Scripting)_ by Arnold Robbins and Nelson Beebe
+      _Classic Shell Scripting_ by Arnold Robbins and Nelson Beebe
       published by O'Reilly and Associates.
    
       ISBN 5-9600-595-4
@@ -655,9 +654,8 @@ This is described in great detail in the gawk documentation.  In brief:
 
 14. How does awk deal with multiple files?
 
-  14.0 Version warning
-
-    some of these techniques will require non-ancient versions of awk.
+  Warning: some of these techniques will require 
+  non-ancient versions of awk.
 
   14.1 How can awk test for the existence of a file?
 
@@ -805,9 +803,9 @@ If you don't have any ^As in your string, you could try:
 
 17. How do I have dynamic-width printf strings, like C?
 
-With modern awks, you can just do it like you would in C (though the
-justification is less clear; C doesn't have the trivial in-line string
-concatenation that awk does), like so:
+  With modern awks, you can just do it like you would in C (though the
+  justification is less clear; C doesn't have the trivial in-line string
+  concatenation that awk does), like so:
 
         maxlen=0
 
@@ -818,8 +816,8 @@ concatenation that awk does), like so:
         for (i in arr)
           printf("%-*s %s\n",maxlen,arr[i],i)
 
-With old awks, just do it like you would do if you didn't know about %*
-(this would be much more painful to do in C), like so:
+  With old awks, just do it like you would do if you didn't know about %*
+  (this would be much more painful to do in C), like so:
 
         maxlen=0
 
@@ -835,85 +833,85 @@ With old awks, just do it like you would do if you didn't know about %*
 
 18. Why doesn't "\\$" behave like /\\$/ ?  Why don't parentheses match?
 
-Because "\\$" is a string and /\\$/ is not; in strings, some of the
-escape characters get eaten up (like \" to escape a double-quote within
-the string).
-
-/\\$/ => regular expression:  literal backslash at end-of-expression
-
-"\\$" => string: \$ => regular expression:  literal dollar sign
-
-to get behavior like the first case in a string, use "\\\\$" .
-
-there are other, less obvious characters which need the same attention;
-under-quoting or over-quoting should be avoided:
-
-parentheses are special for alternation:
-
-/\(test\)/ => 6 characters `(test)'
-"\(test\)" => /(test)/ => 4 characters `test' (with unused grouping)
-
-an example of trying to match some diagonal compass directions:
-
-/(N|S)(E|W)/ => `NE' or `NW' or `SE' or `SW' (correct)
-"(N|S)(E|W)" => /(N|S)(E|W)/ (correct)
-"\(N|S\)\(E|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
-"\(N\|S\)\(E\|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
-
-expressions that look similar but behave totally differently:
-
-/\(N|S\)\(E|W\)/ => `(N' or `S)(E' or `W)'
-/\(N\|S\)\(E\|W\)/ => `(N|S)(E|W)' only
-
-There is also confusion regarding different forms of special characters;
-POSIX requires that `\052' be treated as any other `*', even though it
-is written with 4 bytes instead of 1.  In compatibility mode, gawk will
-treat it as though it were escaped , namely `\*'.
-
+  Because "\\$" is a string and /\\$/ is not; in strings, some of the
+  escape characters get eaten up (like \" to escape a double-quote within
+  the string).
+  
+  /\\$/ => regular expression:  literal backslash at end-of-expression
+  
+  "\\$" => string: \$ => regular expression:  literal dollar sign
+  
+  to get behavior like the first case in a string, use "\\\\$" .
+  
+  there are other, less obvious characters which need the same attention;
+  under-quoting or over-quoting should be avoided:
+  
+  parentheses are special for alternation:
+  
+  /\(test\)/ => 6 characters `(test)'
+  "\(test\)" => /(test)/ => 4 characters `test' (with unused grouping)
+  
+  an example of trying to match some diagonal compass directions:
+  
+  /(N|S)(E|W)/ => `NE' or `NW' or `SE' or `SW' (correct)
+  "(N|S)(E|W)" => /(N|S)(E|W)/ (correct)
+  "\(N|S\)\(E|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
+  "\(N\|S\)\(E\|W\)" => /(N|S)(E|W)/ (correct) (NOTE:  all \ had no effect)
+  
+  expressions that look similar but behave totally differently:
+  
+  /\(N|S\)\(E|W\)/ => `(N' or `S)(E' or `W)'
+  /\(N\|S\)\(E\|W\)/ => `(N|S)(E|W)' only
+  
+  There is also confusion regarding different forms of special characters;
+  POSIX requires that `\052' be treated as any other `*', even though it
+  is written with 4 bytes instead of 1.  In compatibility mode, gawk will
+  treat it as though it were escaped , namely `\*'.
+  
 ========================================================================
 
 19. What is awk's exit code?
 
-Normally, the `exit' command exits with a value of zero.
-
-You can supply an optional numeric value to the `exit' command to
-make it exit with a value:
-
-    if (whatever)
-        exit 12;
-
-If you have an END block, control first transfers there.  Within
-the END block, an `exit' command exits immediately; if you had
-previously supplied a value, that value is used.  But, if you
-give a new value to `exit' within the END block, the new value is
-used.  This is documented in the GNU Awk User's Guide (gawk.texi).
-
-If you have an END block you want to be able to skip sometimes,
-you may have to do something like this:
-
-BEGIN \
-{
-  exitcode=0;
-  ...
-}
-
-# normal rules processing...
-{
-  ...
-  if (fatal)
+  Normally, the `exit' command exits with a value of zero.
+  
+  You can supply an optional numeric value to the `exit' command to
+  make it exit with a value:
+  
+      if (whatever)
+          exit 12;
+  
+  If you have an END block, control first transfers there.  Within
+  the END block, an `exit' command exits immediately; if you had
+  previously supplied a value, that value is used.  But, if you
+  give a new value to `exit' within the END block, the new value is
+  used.  This is documented in the GNU Awk User's Guide (gawk.texi).
+  
+  If you have an END block you want to be able to skip sometimes,
+  you may have to do something like this:
+  
+  BEGIN \
   {
-    exitcode=12;
-    exit(exitcode);
+    exitcode=0;
+    ...
   }
-  ...
-}
-
-END {
-  if (exitcode!=0)
-    exit(exitcode);
-  ...
-}
-
+  
+  # normal rules processing...
+  {
+    ...
+    if (fatal)
+    {
+      exitcode=12;
+      exit(exitcode);
+    }
+    ...
+  }
+  
+  END {
+    if (exitcode!=0)
+      exit(exitcode);
+    ...
+  }
+  
 ========================================================================
 
 20. How can I get awk to be case-insensitive?
@@ -939,155 +937,152 @@ END {
 ========================================================================
 
 21. How can I force a numeric/non-numeric comparison?
-
-These are the canonical, work-in-all-versions snippets.  there are
-many others, most longer, some shorter (but possibly less portable).
-
-To compare two variables as numbers ONLY, use
-  if (0+var1 == 0+var2)
-
-To compare two variables as non-numeric strings ONLY, use
-  if ("" var1 == "" var2)
-
+  
+  These are the canonical, work-in-all-versions snippets.  there are
+  many others, most longer, some shorter (but possibly less portable).
+  
+  To compare two variables as numbers ONLY, use
+    if (0+var1 == 0+var2)
+  
+  To compare two variables as non-numeric strings ONLY, use
+    if ("" var1 == "" var2)
+  
 ========================================================================
 
 22. Why does { FS=":"; print $1 } not split the first record?
-
-Basically, you should set FS before it may be called upon to split $0
-into fields.  Once awk encounters a `{', it is probably too late.
-
-Some awk implementations set the fields at the beginning of the
-block, and don't re-parse just because you changed FS.  To get
-the desired behavior, you must set FS _before_ reading in a line.
-
-e.g.,
-  BEGIN { FS=":" }
-  { print $1 }
-
-e.g.,
-  awk -F: '{ print $1 }'
-
-If you run code like this
-  { FS=":"; print $1 }
-
-On this data:
-  first:second:third but not last:fourth
-  First:Second:Third But Not Last:Fourth
-  FIRST:SECOND:THIRD BUT NOT LAST:FOURTH
-
-You may get either
-  this:       or this:
-  ----        -------
-  first       first:second:third
-  First       First
-  FIRST       FIRST
-
-Perhaps more surprisingly, code like
-  { FS=":"; }
-  { print $1; }
-
-will also behave in the same way.
-
+  
+  Basically, you should set FS before it may be called upon to split $0
+  into fields.  Once awk encounters a `{', it is probably too late.
+  
+  Some awk implementations set the fields at the beginning of the
+  block, and don't re-parse just because you changed FS.  To get
+  the desired behavior, you must set FS _before_ reading in a line.
+  
+  e.g.,
+    BEGIN { FS=":" }
+    { print $1 }
+  
+  e.g.,
+    awk -F: '{ print $1 }'
+  
+  If you run code like this
+    { FS=":"; print $1 }
+  
+  On this data:
+    first:second:third but not last:fourth
+    First:Second:Third But Not Last:Fourth
+    FIRST:SECOND:THIRD BUT NOT LAST:FOURTH
+  
+  You may get either
+    this:       or this:
+    ----        -------
+    first       first:second:third
+    First       First
+    FIRST       FIRST
+  
+  Perhaps more surprisingly, code like
+    { FS=":"; }
+    { print $1; }
+  
+  will also behave in the same way.
+  
 ========================================================================
 
 23. Did ^ and $ and . change in gawk?
-
-Yes.  early versions cared about \n (newlines) and treated them
-specially.  version 3.* and later are more POSIX-compliant here.
-
+  
+  Yes.  early versions cared about \n (newlines) and treated them
+  specially.  version 3.* and later are more POSIX-compliant here.
+  
 ========================================================================
 
 24. Why doesn't awk 'begin {...}' work?
-
-It needs to be `BEGIN' (i.e., it's case-sensitive).
-
+  
+  It needs to be `BEGIN' (i.e., it's case-sensitive).
+  
 ========================================================================
 
 25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
-
-You'd expect `6 -22', but you get `6-22'.  It's because the `" " -22'
-is grouped first, as a subtraction instead of a concatenation, resulting
-in the numeric value `-22'; then it is concatenated with `6', giving the
-string `6-22'.  Gentle application of parentheses will avoid this.
-
+  
+  You'd expect `6 -22', but you get `6-22'.  It's because the `" " -22'
+  is grouped first, as a subtraction instead of a concatenation, resulting
+  in the numeric value `-22'; then it is concatenated with `6', giving the
+  string `6-22'.  Gentle application of parentheses will avoid this.
+  
 ========================================================================
 
 26. How do I take advantage of gawk's networking support?
+  
+  (Contribution from Michael Sanders: see http://awk.info/?tools/server).
+  
+  This code creates an html menu of local applications which you can
+  season to taste. The usage requires two steps...
+  
+      1) run: 'gawk -f server.awk'
+      2) open browser at: http://localhost:8080
+      
+  This code is based on the examples located at the TCP/IP Internetworking
+  With `gawk' manual and is licensed under GPL 3.0. For updates to
+  those code, see http://topcat.hypermart.net/index.html.
+  
+  BEGIN {
+      x        = 1                        # script exits if x < 1
+      port     = 8080                     # port number
+      host     = "/inet/tcp/" port "/0/0" # host string
+      url      = "http://localhost:" port # server url
+      RS = ORS = "\r\n"                   # header line terminators
+      doc      = Setup()                  # html document
+      while (x) {
+        if ($1 == "GET") RunApp(substr($2, 2))
+        if (! x) break
+        Message(doc)
+        host |& getline # wait for new client request
+      }
+      Message(Bye())    # server terminated...
+  }
 
-(Contribution from Michael Sanders: see http://awk.info/?tools/server).
+  #Server Message
+  function Message(txt) {
+     status = 200                       # 200 == OK
+     reason = "OK"                      # server response
+     len    = length(txt) + length(ORS) # length of document
+     print "HTTP/1.0", status, reason |& host
+     print "Connection: Close"        |& host
+     print "Pragma: no-cache"         |& host
+     print "Content-length:", len     |& host
+     print ORS txt                    |& host
+     close(host)
+  }
 
-This code creates an html menu of local applications which you can
-season to taste. The usage requires two steps...
+  #HTML Menu
+  function Setup() {
+     tmp = "<html>\
+     <head><title>Simple gawk server</title></head>\
+     <body>\
+     <p><a href=" url "/xterm>xterm</a>\
+     <p><a href=" url "/xcalc>xcalc</a>\
+     <p><a href=" url "/xload>xload</a>\
+     <p><a href=" url "/exit>terminate script</a>\
+     </body>\
+     </html>"
+     return tmp
+  }
 
-    1) run: 'gawk -f server.awk'
-    2) open browser at: http://localhost:8080
-    
-This code is based on the examples located at the TCP/IP Internetworking
-With `gawk' manual and is licensed under GPL 3.0. For updates to
-those code, see http://topcat.hypermart.net/index.html.
+  #Saying Good-bye
+  function Bye() {
+     tmp = "<html>\
+     <head><title>Simple gawk server</title></head>\
+     <body><p>Script Terminated...</body>\
+     </html>"
+     return tmp
+  }
 
-    BEGIN { 
-      x        = 1                         # script exits if x < 1 
-      port     = 8080                      # port number 
-      host     = "/inet/tcp/" port "/0/0"  # host string 
-      url      = "http://localhost:" port  # server url 
-      status   = 200                       # 200 == OK 
-      reason   = "OK"                      # server response 
-      RS = ORS = "\r\n"                    # header line terminators 
-      doc      = Setup()                   # html document 
-      len      = length(doc) + length(ORS) # length of document 
-      while (x) { 
-         if ($1 == "GET") RunApp(substr($2, 2)) 
-         if (! x) break   
-         print "HTTP/1.0", status, reason |& host 
-         print "Connection: Close"        |& host 
-         print "Pragma: no-cache"         |& host 
-         print "Content-length:", len     |& host 
-         print ORS doc                    |& host 
-         close(host)     # close client connection 
-         host |& getline # wait for new client request 
-      } 
-      # server terminated... 
-      doc = Bye() 
-      len = length(doc) + length(ORS) 
-      print "HTTP/1.0", status, reason |& host 
-      print "Connection: Close"        |& host 
-      print "Pragma: no-cache"         |& host 
-      print "Content-length:", len     |& host 
-      print ORS doc                    |& host 
-      close(host) 
-    } 
-    
-    #HTML Menu
-    function Setup() { 
-      tmp = "<html>\
-      <head><title>Simple gawk server</title></head>\
-      <body>\
-      <p><a href=" url "/xterm>xterm</a>\
-      <p><a href=" url "/xcalc>xcalc</a>\
-      <p><a href=" url "/xload>xload</a>\
-      <p><a href=" url "/exit>terminate script</a>\
-      </body>\
-      </html>" 
-      return tmp 
-    } 
-    
-    #Saying Good-bye
-    function Bye() { 
-      tmp = "<html>\
-      <head><title>Simple gawk server</title></head>\
-      <body><p>Script Terminated...</body>\
-      </html>" 
-      return tmp 
-    } 
-    
-    #Running Applications
-    function RunApp(app) { 
-      if (app == "xterm")  {system("xterm&"); return} 
-      if (app == "xcalc" ) {system("xcalc&"); return} 
-      if (app == "xload" ) {system("xload&"); return} 
-      if (app == "exit")   {x = 0} 
-    }
+  #Running Applications
+  function RunApp(app) {
+     if (app == "exit")       {x = 0}
+     else if (app == "xterm") {system("xterm&")}
+     else if (app == "xcalc") {system("xcalc&")}
+     else if (app == "xload") {system("xload&")}
+  }
 
 ========================================================================
 
@@ -1097,94 +1092,97 @@ those code, see http://topcat.hypermart.net/index.html.
 
 99. Credits
 
-I most of the information in this FAQ has been be supplied by people
-other than myself -- it just works better that way.  The newsgroup
-readers have a LOT more awk experience than I ever will (unless I
-multiply myself by a few thousand, which is not legal with today's
-tax laws).
+  I most of the information in this FAQ has been be supplied by people
+  other than myself -- it just works better that way.  The newsgroup
+  readers have a LOT more awk experience than I ever will (unless I
+  multiply myself by a few thousand, which is not legal with today's
+  tax laws).
+  
+  The following people have contributed to the well-being of the FAQ: 
+  
+  New testament (from 2010):
+    tim [at] menzies.us (Tim Menzies) <== maintainer
+    
+    g_r_a_n_t_ [at] bugsplatter.id.au
+    mike [at] topcat.hypermart.net (Michael Sanders)
+    mss [at] dev.null (Michael Sanders)
 
-The following people have contributed to the well-being of the FAQ: 
+  Old testament (up until 2002):
+    awkfaq at locutus.ofB.ORG (Russell Schulz) <== maintainer
+  
+    Alex.Schoenmakers [at] lhs.be
+    David.Billinghurst [at] riotinto.com (David Billinghurst)
+    Ferran.Jorba [at] uab.es (Ferran Jorba)
+    Juergen.Kahrs [at] t-online.de
+    Kalle.Tuulos [at] nmp.nokia.com (Kalle Tuulos)
+    SimonN [at] draeger.com (Nicole Simon)
+    afu [at] wta.att.ne.jp
+    allen [at] gateway.grumman.com (John L. Allen)
+    amnonc [at] mercury.co.il (Amnon Cohen)
+    andrew_sumner [at] bigfoot.com (Andrew Sumner)
+    arnold [at] skeeve.com (Arnold D. Robbins)
+    art [at] pove.com (Art Povelones)
+    bmarcum [at] iglou.com (Bill Marcum)
+    boffi [at] rachele.stru.polimi.it (giacomo boffi)
+    bps03z [at] email.mot.com (Peter Saffrey)
+    brennan [at] whidbey.com (Michael D. Brennan)
+    churchyh [at] ccwf.cc.utexas.edu (Henry Churchyard)
+    db21 [at] ih4ess.ih.lucent.com (David Beyerl)
+    dmckeon [at] swcp.com (Denis McKeon)
+    dmeier.esperanto [at] gmx.de (Detlef Meier)
+    dzubera [at] CS.ColoState.EDU (Zube)
+    edgar.j.ramirez [at] lmco.com (Edgar J. Ramirez)
+    eia018 [at] comp.lancs.ac.uk (Dr Andrew Wilson)
+    epement [at] ripco.com (Eric Pement)
+    gavin [at] wraith.u-net.com (Gavin Wraith)
+    hankedr [at] mail.auburn.edu (Darrel Hankerson)
+    hastinga [at] tarim.dialogic.com (Austin Hastings)
+    heiner.steven [at] nexgo.de (Heiner Steven)
+    hstein [at] airmail.net (Harry Stein)
+    j-korsv [at] online.no (Jon-Egil Korsvold)
+    jari.aalto [at] ntc.nokia.com (Jari Aalto)
+    jblaine [at] shore.net (Jeff Blaine)
+    jerabek [at] rm6208.gud.siemens.co.at (Martin Jerabek)
+    jesusmc [at] scripps.edu (Jesus M. Castagnetto)
+    jidanni [at] kimo.com.tw (Dan Jacobson)
+    jlaiho [at] ichaos.nullnet.fi (Juha Laiho)
+    jland [at] worldnet.att.net (Jim Land)
+    jmccann [at] WOLFENET.com (James McCann)
+    joe [at] plaguesplace.dyndns.org
+    johnd [at] mozart.inet.co.th (John DeHaven)
+    kahrs [at] iSenseIt.de (Juergen Kahrs)
+    konrad [at] netcom.com (Konrad Hambrick)
+    lehalle [at] earthling.net (Charles-Albert Lehalle)
+    lothar [at] u-aizu.ac.jp (Lothar M. Schmitt)
+    mark [at] ispc001.demon.co.uk (Mark Katz)
+    markus [at] biewer.com (Markus B. Biewer)
+    monty [at] primenet.com (Jim Monty)
+    morrisl [at] scn.org (Larry D. Morris)
+    neel [at] gnu.org
+    neil_mahoney [at] il.us.swissbank.com (Neil Mahoney)
+    neitzel [at] gaertner.de (Martin Neitzel)
+    peter.tillier [at] btinternet.com (Peter S Tillier)
+    pez68 [at] netscape.net (Peter Stromberg)
+    phil [at] bolthole.com (Philip Brown)
+    pholzleitner [at] unido.org (Peter HOLZLEITNER)
+    pierre [at] mail.asianet.it (Gianni Rondinini)
+    pjf [at] osiris.cs.uoguelph.ca (Peter Jaspers-Fayer)
+    pjfarley [at] banet.net (Peter J. Farley III)
+    ptjm [at] interlog.com (Patrick TJ McPhee)
+    rms [at] friko.onet.pl (Rafal Sulejman)
+    robin.moffatt [at] ntlworld.com (Robin Moffatt)
+    rwab1 [at] cl.cam.ac.uk (Ralph Becket)
+    saguyami [at] post.tau.ac.il (Shay)
+    thobe [at] lafn.org (Glenn Thobe) 
+    thull [at] ocston.org (Tom Hull)
+    tim [at] consultix-inc.com (Tim Maher/CONSULTIX)
+    vincent [at] delau.nl (Vincent de Lau)
+    vjpnreddy [at] hotmail.com (Jaya Reddy)
+    walkerj [at] compuserve.com (James G. Walker)
+    walter [at] wbriscoe.demon.co.uk (Walter Briscoe)
+    yuli.barcohen [at] telrad.co.il (Yuli Barcohen)
 
-New testament (from 2010):
-  mss [at] dev.null (Michael Sanders)
-  tim [at] menzies.us (Tim Menzies)
-
-Old testament (up until 2002):
-  russell_schulz at locutus.ofb.org (Russell Schultz) <=== maintainer
-
-  Alex.Schoenmakers [at] lhs.be
-  David.Billinghurst [at] riotinto.com (David Billinghurst)
-  Ferran.Jorba [at] uab.es (Ferran Jorba)
-  Juergen.Kahrs [at] t-online.de
-  Kalle.Tuulos [at] nmp.nokia.com (Kalle Tuulos)
-  SimonN [at] draeger.com (Nicole Simon)
-  afu [at] wta.att.ne.jp
-  allen [at] gateway.grumman.com (John L. Allen)
-  amnonc [at] mercury.co.il (Amnon Cohen)
-  andrew_sumner [at] bigfoot.com (Andrew Sumner)
-  arnold [at] skeeve.com (Arnold D. Robbins)
-  art [at] pove.com (Art Povelones)
-  bmarcum [at] iglou.com (Bill Marcum)
-  boffi [at] rachele.stru.polimi.it (giacomo boffi)
-  bps03z [at] email.mot.com (Peter Saffrey)
-  brennan [at] whidbey.com (Michael D. Brennan)
-  churchyh [at] ccwf.cc.utexas.edu (Henry Churchyard)
-  db21 [at] ih4ess.ih.lucent.com (David Beyerl)
-  dmckeon [at] swcp.com (Denis McKeon)
-  dmeier.esperanto [at] gmx.de (Detlef Meier)
-  dzubera [at] CS.ColoState.EDU (Zube)
-  edgar.j.ramirez [at] lmco.com (Edgar J. Ramirez)
-  eia018 [at] comp.lancs.ac.uk (Dr Andrew Wilson)
-  epement [at] ripco.com (Eric Pement)
-  gavin [at] wraith.u-net.com (Gavin Wraith)
-  hankedr [at] mail.auburn.edu (Darrel Hankerson)
-  hastinga [at] tarim.dialogic.com (Austin Hastings)
-  heiner.steven [at] nexgo.de (Heiner Steven)
-  hstein [at] airmail.net (Harry Stein)
-  j-korsv [at] online.no (Jon-Egil Korsvold)
-  jari.aalto [at] ntc.nokia.com (Jari Aalto)
-  jblaine [at] shore.net (Jeff Blaine)
-  jerabek [at] rm6208.gud.siemens.co.at (Martin Jerabek)
-  jesusmc [at] scripps.edu (Jesus M. Castagnetto)
-  jidanni [at] kimo.com.tw (Dan Jacobson)
-  jlaiho [at] ichaos.nullnet.fi (Juha Laiho)
-  jland [at] worldnet.att.net (Jim Land)
-  jmccann [at] WOLFENET.com (James McCann)
-  joe [at] plaguesplace.dyndns.org
-  johnd [at] mozart.inet.co.th (John DeHaven)
-  kahrs [at] iSenseIt.de (Juergen Kahrs)
-  konrad [at] netcom.com (Konrad Hambrick)
-  lehalle [at] earthling.net (Charles-Albert Lehalle)
-  lothar [at] u-aizu.ac.jp (Lothar M. Schmitt)
-  mark [at] ispc001.demon.co.uk (Mark Katz)
-  markus [at] biewer.com (Markus B. Biewer)
-  monty [at] primenet.com (Jim Monty)
-  morrisl [at] scn.org (Larry D. Morris)
-  neel [at] gnu.org
-  neil_mahoney [at] il.us.swissbank.com (Neil Mahoney)
-  neitzel [at] gaertner.de (Martin Neitzel)
-  peter.tillier [at] btinternet.com (Peter S Tillier)
-  pez68 [at] netscape.net (Peter Stromberg)
-  phil [at] bolthole.com (Philip Brown)
-  pholzleitner [at] unido.org (Peter HOLZLEITNER)
-  pierre [at] mail.asianet.it (Gianni Rondinini)
-  pjf [at] osiris.cs.uoguelph.ca (Peter Jaspers-Fayer)
-  pjfarley [at] banet.net (Peter J. Farley III)
-  ptjm [at] interlog.com (Patrick TJ McPhee)
-  rms [at] friko.onet.pl (Rafal Sulejman)
-  robin.moffatt [at] ntlworld.com (Robin Moffatt)
-  rwab1 [at] cl.cam.ac.uk (Ralph Becket)
-  saguyami [at] post.tau.ac.il (Shay)
-  thobe [at] lafn.org (Glenn Thobe) 
-  thull [at] ocston.org (Tom Hull)
-  tim [at] consultix-inc.com (Tim Maher/CONSULTIX)
-  vincent [at] delau.nl (Vincent de Lau)
-  vjpnreddy [at] hotmail.com (Jaya Reddy)
-  walkerj [at] compuserve.com (James G. Walker)
-  walter [at] wbriscoe.demon.co.uk (Walter Briscoe)
-  yuli.barcohen [at] telrad.co.il (Yuli Barcohen)
-
-Thanks.
+  Thanks.
 
 ========================================================================
 

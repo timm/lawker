@@ -486,23 +486,43 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TerryB</what>
 	</file>
+	<file where="doc/news/japanesemascot.html">
+		<title>New mascot</title>
+		<what>Mascot</what>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>HiroS</what>
+	</file>
+	<file where="doc/news/runawk019.html">
+		<title>Runawk 0.19</title>
+		<what>Runawk</what>
+		<what>Project</what>
+		<what>Tools</what>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>AlexC</what>
+	</file>
+	<file where="doc/android.html">
+		<title>Awk on Android</title>
+		<what>Android</what>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>MartinC</what>
+	</file>
 	<file where="doc/news/popular.html">
 		<title>Awk.info Gaining Popularity</title>
-		<what></what>
 		<what>Nov</what>
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
 	<file where="doc/news/awkbot.html">
 		<title>Awkbot:</title>
-		<what></what>
 		<what>Nov</what>
 		<what>2009</what>
 		<what>ScottS</what>
 	</file>
 	<file where="doc/news/awkmug.html">
 		<title>Awk Mug</title>
-		<what></what>
 		<what>Oct</what>
 		<what>2009</what>
 		<what>Zazzle</what>
@@ -518,6 +538,32 @@ pageTracker._trackPageview();
 		<what>Dec</what>
 		<what>2009</what>
 		<what>DanN</what>
+	</file>
+	<file where="doc/tools/rot13.html">
+		<title>Rot13 in Awk</title>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>MichealS</what>
+	</file>
+	<file where="doc/tools/netdraw.html">
+		<title>Network monitoring in Awk</title>
+		<what>Os</what>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>GrantC</what>
+	</file>
+	<file where="doc/tools/qse.html">
+		<title>QSE: an embeddable Awk Interpreter</title>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>HyungC</what>
+	</file>
+	<file where="doc/tools/winwsh.html">
+		<title>Simple Awk GUIs in Windows</title>
+		<what>GUI</what>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>MichaelS</what>
 	</file>
 	<file where="doc/tools/server.html">
 		<title>A Web Server in Awk</title>
@@ -779,6 +825,12 @@ pageTracker._trackPageview();
 		<what>Mar</what>
 		<what>2009</what>
 		<what>Timm</what>
+	</file>
+	<file where="tip/bigstring">
+		<title>300 million characters (in an Awk string)</title>
+		<what>Jan</what>
+		<what>2010</what>
+		<what>MartinC</what>
 	</file>
 	<file where="doc/sed.html">
 		<title>Sed-clones (in Awk)</title>

@@ -45,11 +45,18 @@ doc/tictactoe.html			;AaronH	;2009	;May	 ;Games			;|Tic-tac-toe
 doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners	;Sorting 			;|Quicksort
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
-doc/news/popular.html		;Admin	;2009	;Nov;				;|Awk.info Gaining Popularity
-doc/news/awkbot.html		;ScottS	;2009	;Nov;				;|Awkbot: 
-doc/news/awkmug.html		;Zazzle	;2009	;Oct;				;|Awk Mug
-doc/news/parallelAwk.html	;JohnD	;2009	;Oct				;|Parallel Awk
-doc/wst.html       		; DanN	;2009	;Dec				;|Waclaw Sierpinski's Triangle
+doc/news/japanesemascot.html	;HiroS	;2010	;Jan				;Mascot	;|New mascot
+doc/news/runawk019.html		;AlexC	;2010	;Jan	;Tools	;Project ;Runawk	;|Runawk 0.19
+doc/android.html 		;MartinC	;2010	;Jan	;Android	;|Awk on Android
+doc/news/popular.html		;Admin	;2009	;Nov	;|Awk.info Gaining Popularity
+doc/news/awkbot.html		;ScottS	;2009	;Nov	;|Awkbot: 
+doc/news/awkmug.html		;Zazzle	;2009	;Oct	;|Awk Mug
+doc/news/parallelAwk.html	;JohnD	;2009	;Oct	;|Parallel Awk
+doc/wst.html       		; DanN	;2009	;Dec	;|Waclaw Sierpinski's Triangle
+doc/tools/rot13.html		;MichealS	;2010	;Jan	 ;|Rot13 in Awk
+doc/tools/netdraw.html		;GrantC	;2010	;Jan	;Os	 ;|Network monitoring in Awk
+doc/tools/qse.html		;HyungC	;2010	;Jan	;|QSE: an embeddable Awk Interpreter
+doc/tools/winwsh.html		;MichaelS	;2010	;Jan	 ;GUI		;|Simple Awk GUIs in Windows
 doc/tools/server.html		;MichealS	;2009	;Dec;	Web;			;|A Web Server in Awk
 doc/tools/myrss.html		;TimM	;2009	;Dec;	Rss;			;|Reading RSS feeds
 doc/tools/rcalc.html		;GrantC	;2009	;Nov;	Engineering;			;|Resistor Calculation
@@ -65,7 +72,6 @@ doc/news/runawk017.html		;AlexC	;2009	;Sept	;Tools	;Project ;Runawk	;|Runawk 0.1
 doc/news/runawk016.html		;AlexC	;2009	;Apr	;Tools	;Project ;Runawk	;|Runawk 0.16
 doc/news/awksnake.html		;PanosP	;2009	;Sept	;Mascot		;|Awk snake 
 doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot 
-
 
 doc/wp.html					;Admin	;2009	;Apr	;Wp					;|Word-processing in Awk
 doc/interpreters.html		;Admin	;2009	;Apr			;Interpreters ;|Interpreters
@@ -88,6 +94,8 @@ doc/awkastar.html			;DavidL	;2009	;Apr	;Interpreters		;|Building Interpreters wi
 doc/funky.html				;Timm	;2009	;Mar	;Funky	;|Functional Gawk 
 doc/funcChallenge.html		;Timm	;2009	;Mar	;Funky	;|Functional Challenge
 
+
+tip/bigstring 			;MartinC	;2010	;Jan	;|300 million characters (in an Awk string)
 doc/sed.html				;Admin	;2009	;Apr	;Tips ;Sed		;|Sed-clones (in Awk)
 doc/tip/shortenMyPipes.html			;M0J0	;2009	;Oct	;SysAdmin	 		;|Shorten my pipes
 doc/tip/sedInAwk.html			;EdM	;2009	;Oct	;Tips ;Sed		;|Sed in Awk
