@@ -1,0 +1,67 @@
+<h1><join>AWK GUIs for Windows</join></h1>
+<p>
+Here's a  dirt simple method of sprucing up your
+AWK output under Windows.
+<p>
+Requires Windows, and the WSH scripting host, both
+of which are native to any modern Windows installation.
+<p>
+To use this method, follow these three steps:
+<ol>
+<li>
+Save a script like the following   to an  file with an extension of 'HTA'
+eg - 'example.hta' (HTA meaning 'HyperText Application'
+is a proprietary format for Internet Explorer).
+<li>
+Edit the line shown below containing 'program.awk datafile'
+and replace with your AWK program file, and your datafile.
+<li>
+Double click your HTA file to run it.
+</ul>
+<h2>Example</h2>
+<p>
+This example will capture the output of your AWK program
+and render that output dynamically to an HTML stream
+within a graphical window.
+<pre>
+&lt;html>
+	&lt;head>
+		&lt;title>My application&lt;/title>
+
+		&lt;hta:application
+		id="MyApp"
+		applicationName="My application"
+		border="thick"
+		borderStyle="normal"
+		caption="yes"
+		contextMenu="yes"
+		icon=""
+		innerBorder="no"
+		maximizeButton="yes"
+		minimizeButton="yes"
+		navigable="yes"
+		scroll="yes"
+		scrollFlat="no"
+		selection="yes"
+		showInTaskBar="yes"
+		singleInstance="yes"
+		sysMenu="yes"
+		version="1.0"
+		windowState="normal"
+	&lt;/head>
+
+	&lt;body>
+		&lt;script type="text/vbscript">
+			Set WshShell = CreateObject("Wscript.shell")
+			Set objExec= WshShell.Exec("%comspec% /c gawk -f program.awk
+			datafile")
+			output = objExec.StdOut.ReadAll
+			document.write("&lt;pre>" & output & "&lt;/pre>")
+			&lt;/script>
+
+		&lt;/body>
+	&lt;/html>
+</pre>
+<h2>Author</h2>
+<p>Michael Sanders:
+	<a href="http://topcat.hypermart.net">http://topcat.hypermart.net</a>.

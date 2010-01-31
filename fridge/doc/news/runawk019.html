@@ -1,0 +1,37 @@
+<h1><join>Runawk 0.18 Released</join></h1>
+<h2>Download</h2>
+<a href=" http://sourceforge.net/projects/runawk"> http://sourceforge.net/projects/runawk</a>
+<h2>About</h2>
+<p>
+ runawk is a small wrapper for the AWK interpreter that helps one
+   write standalone AWK scripts. Its main feature is to provide a
+   module/library system for AWK which is somewhat similar to Perl's
+   "use" command. It also allows you to select a preferred AWK
+   interpreter and to setup the environment for your scripts. It also
+   provides other helpful features, for example it includes
+   numerous useful of modules.
+<p>
+<h2>Major Changes IN RUNAWK-0.19.0</h2>
+<ul>
+<li>
+ fix in runawk.c: \n was missed in "running '%s' failed: %s" error 
+ <lo>
+ message.  The problem was seen on ancient (12 years old) HP-UX 
+<li>
+  fix in teets/test.mk: "diff -u" is not portable (SunOS, HP-UX), 
+<li>
+  DIFF_PROG variable is introduced to fix the problem 
+<li>
+  fix in modules/power_getopt.awk: after printing help message we 
+<li>
+  should exit immediately not running END section, s/exit/exitnow/ 
+<li>
+  new function heapsort_values in heapsort.awk module 
+<li>
+  new function quicksort_values in quicksort.awk module 
+<li>
+  new function sort_values in sort.awk module 
+</ul>
+
+<h2>Author</h2>
+<p> Aleksey Cheusov 

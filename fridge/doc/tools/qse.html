@@ -1,0 +1,168 @@
+<h1><join>QSE: an Embeddable Awk Interpreter</join></h1>
+
+<p>
+Hyung-Hwan Chung offers QSE, an embeddable Awk.
+
+<h2>Download</h2>
+<p>
+ See <a href="http://code.google.com/p/qse/">QSE</a>.
+
+
+<h2>About QSE</h2>
+<p>
+QSE is a code library that implements various Unix utilities in an
+embeddable
+form and provides a set of APIs to embed them into an application. 
+The
+APIs
+have been designed to be flexible enough to access various aspects of
+an embedding  application and an embedded object from each other. 
+<p>
+By
+ embedding
+     a Unix utility into an application, a developer is relieved of
+problems
+caused by interacting with external programs and can have tighter
+control
+   over it. Currently the library contains the following utilities:
+<ul>
+<li> AWK Interpreter
+<li>CUT Text Cutter
+<li>SED Stream Editor
+</ul>
+<p>
+QSEAWK is an embeddable AWK interpreter and is a part of the QSE
+library.
+The interpreter implements the language described in the book
+    the <a href="http://code.google.com/p/qse/">AWK Proramming Language</a>,
+	 with some extensions. Its design focuses on building a flexible and robust
+ embedding API with minimal platform dependency. An embedding
+application
+  is capable of:
+<ul>
+<li>adding new global variables and functions.
+<li>getting and set the value of a global variable.
+<li>calling a function with or without parameters and getting its return value.
+<li> customizing I/O handlers for file, pipe, console I/O.
+<li>creating multiple interpreters independent of each other.
+<li>running a single script with different I/O streams independently.
+<li> changing language features by setting options.
+<li> and more
+</ul>
+<h2>But Why QSE?</h2>
+
+<p> An advantage of embedding a scripting
+language into an application is that you can extend an application by
+changing scripts instead of recompiling the whole application. 
+As
+an AWK lover, I was a bit disappointed that I could not find any
+embedded implementations of the AWK programming language that I could
+squeeze into my applications. 
+
+<p>QSE is designed to embedded Awk into other applications, rather
+than being used as a standalone tool (though it is not impossible). 
+Why did
+I choose AWK as an embedded language? Simple. Both I and my clients
+liked it and were too lazy to learn a new scripting language.
+
+<p>
+     Also, an embedded solution is a better solution that calling an
+     external AWK interpreter:
+<ul>
+<Li>
+There is the
+extra overhead of forking an external process.
+<lI>
+There was an
+absense of any AWK interpreters on the target platform
+<li>
+I found
+version issues of an AWK interpreter.
+<li>
+I an  unable to extend the interpreter itself.  (e.g. adding an
+						 application specific builtin function like hash_passwor).
+</ul>
+<p>
+     Hence, my conclusion was to implement an embeddable awk interpreter myself.
+
+<h2>Exanple</h2>
+
+<p>
+One of the applications I wrote implements password change policy in
+an AWK script.
+The application calls the
+"is_password_acceptable" function with the password entered by a user,
+before having accepted the user-entered password. It checks its return
+value and determines to accept the password. 
+<p>
+Of course, the engine is
+prearranged with global variables PASSWD_HISTORY_SIZE, and
+PASSWORD_HISTORY_FILE, and a buitin function hash_password() using
+flexiable QSEAWK API functions upon application start-up.
+<p>
+For example, here is  the sample AWK function below.
+<pre>
+function is_password_acceptable(passwd)
+{
+    # check the password length
+    if (length(passwd) &lt; 8) return 0;
+    # check if the password is composed of alphabets or digits only
+    if (passwd ~ /^([[:alpha:]]+|[[:digit:]]+)$/) 
+	return 0;
+    if (PASSWD_HISTORY_SIZE > 0)
+    {
+	hashed = hash_passwd(passwd);
+	# check if the password is found in the history file
+	while ((getline entry &lt; PASSWD_HISTORY_FILE) > 0)
+	{
+	    if (hashed == entry)
+	    {
+		# an entry is found in the history.
+		# reject the password
+		close (PASSWD_HISTORY_FILE);
+		return 0;
+	    }
+	}
+	close (PASSWD_HISTORY_FILE);
+    }
+    return 1;
+}
+</pre>
+<p>
+The C application's password policy function is roughly shown below
+also. Note that this application utilized the embedded QSEAWK
+interprerter in an event(password change)-driven way, not entering the
+BEGIN, pattern-action blocks, END loops.
+<pre>
+int is_password_acceptable (qse_awk_rtx_t* rtx, const char* passwd)
+{
+    qse_awk_val_t* ret, * arg[1];
+    qse_bool_t ok;
+    
+    ... abbreviated ...
+    
+    /* transform a character string to an AWK value */
+    arg[0] = qse_awk_rtx_makestrval0 (rtx, passwd);
+    
+    ... abbreviated ...
+    
+    /* increment the reference counter of arg[0] */
+    qse_awk_rtx_refupval (rtx, arg[0]);
+    /* call "is_password_acceptable" */
+    ret = qse_awk_rtx_call (rtx, "is_password_acceptable", arg, 1);
+    /* decrement the reference counter of arg[0] */
+    qse_awk_rtx_refdownval (rtx, arg[0]);
+    
+    ... abbreviated ...
+    
+    /* get the boolean value from the return value */
+    ok = qse_awk_rtx_valtobool (awk_rtx, ret);
+    /* decrement the reference counter of the return value */
+    qse_awk_rtx_refdownval (rtx, ret);
+    /* accept or reject? */
+    return ok? 0: -1;
+}
+</pre>
+After all, I managed to get rid of any needs to recompile the whole
+application and redeploy it whenever a client asks for password policy
+change.

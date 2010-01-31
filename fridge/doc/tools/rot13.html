@@ -1,0 +1,31 @@
+<h1><join>Rot-13 in Awk</join></h1>
+
+<p>
+The following  ROT13  is
+a slight modifcation of the example found at
+<a href="http://www.miranda.org/~jkominek/rot13/awk/">http://www.miranda.org/~jkominek/rot13/awk/</a>.
+
+<pre>
+#!/bin/awk -f 
+BEGIN { 
+  from = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm0987654321" 
+  to   = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" 
+  for (i = 1; i &lt;= length(from); i++) { 
+      letter[substr(from, i, 1)] = substr(to, i, 1) 
+  } 
+} 
+{ 
+  for (i = 1; i &lt;= length($0); i++) { 
+      char = substr($0, i, 1) 
+      if (match(char, "[a-zA-Z]|[0-9]") != 0) { 
+	  printf("%c", letter[char]) 
+      } else { 
+	  printf("%c", char) 
+      } 
+  } 
+  printf("\n") 
+} 
+</pre>
+<h2>Author</h2>
+<p>
+Michael Sanders.
