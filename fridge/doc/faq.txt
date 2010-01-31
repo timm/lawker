@@ -1022,7 +1022,7 @@ If you don't have any ^As in your string, you could try:
       
   This code is based on the examples located at the TCP/IP Internetworking
   With `gawk' manual and is licensed under GPL 3.0. For updates to
-  those code, see http://topcat.hypermart.net/index.html.
+  this code, see http://topcat.hypermart.net/index.html.
   
   BEGIN {
       x        = 1                        # script exits if x < 1
@@ -1105,7 +1105,6 @@ If you don't have any ^As in your string, you could try:
     
     g_r_a_n_t_ [at] bugsplatter.id.au
     mike [at] topcat.hypermart.net (Michael Sanders)
-    mss [at] dev.null (Michael Sanders)
 
   Old testament (up until 2002):
     awkfaq at locutus.ofB.ORG (Russell Schulz) <== maintainer
