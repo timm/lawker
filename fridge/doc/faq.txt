@@ -1105,6 +1105,7 @@ If you don't have any ^As in your string, you could try:
     
     g_r_a_n_t_ [at] bugsplatter.id.au
     mike [at] topcat.hypermart.net (Michael Sanders)
+	mortonspam [at] gmail.com (Ed Morton)
 
   Old testament (up until 2002):
     awkfaq at locutus.ofB.ORG (Russell Schulz) <== maintainer

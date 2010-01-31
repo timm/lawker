@@ -1105,84 +1105,85 @@
   1105	|       
   1106	|       g_r_a_n_t_ [at] bugsplatter.id.au
   1107	|       mike [at] topcat.hypermart.net (Michael Sanders)
-  1108	|   
-  1109	|     Old testament (up until 2002):
-  1110	|       awkfaq at locutus.ofB.ORG (Russell Schulz) <== maintainer
-  1111	|     
-  1112	|       Alex.Schoenmakers [at] lhs.be
-  1113	|       David.Billinghurst [at] riotinto.com (David Billinghurst)
-  1114	|       Ferran.Jorba [at] uab.es (Ferran Jorba)
-  1115	|       Juergen.Kahrs [at] t-online.de
-  1116	|       Kalle.Tuulos [at] nmp.nokia.com (Kalle Tuulos)
-  1117	|       SimonN [at] draeger.com (Nicole Simon)
-  1118	|       afu [at] wta.att.ne.jp
-  1119	|       allen [at] gateway.grumman.com (John L. Allen)
-  1120	|       amnonc [at] mercury.co.il (Amnon Cohen)
-  1121	|       andrew_sumner [at] bigfoot.com (Andrew Sumner)
-  1122	|       arnold [at] skeeve.com (Arnold D. Robbins)
-  1123	|       art [at] pove.com (Art Povelones)
-  1124	|       bmarcum [at] iglou.com (Bill Marcum)
-  1125	|       boffi [at] rachele.stru.polimi.it (giacomo boffi)
-  1126	|       bps03z [at] email.mot.com (Peter Saffrey)
-  1127	|       brennan [at] whidbey.com (Michael D. Brennan)
-  1128	|       churchyh [at] ccwf.cc.utexas.edu (Henry Churchyard)
-  1129	|       db21 [at] ih4ess.ih.lucent.com (David Beyerl)
-  1130	|       dmckeon [at] swcp.com (Denis McKeon)
-  1131	|       dmeier.esperanto [at] gmx.de (Detlef Meier)
-  1132	|       dzubera [at] CS.ColoState.EDU (Zube)
-  1133	|       edgar.j.ramirez [at] lmco.com (Edgar J. Ramirez)
-  1134	|       eia018 [at] comp.lancs.ac.uk (Dr Andrew Wilson)
-  1135	|       epement [at] ripco.com (Eric Pement)
-  1136	|       gavin [at] wraith.u-net.com (Gavin Wraith)
-  1137	|       hankedr [at] mail.auburn.edu (Darrel Hankerson)
-  1138	|       hastinga [at] tarim.dialogic.com (Austin Hastings)
-  1139	|       heiner.steven [at] nexgo.de (Heiner Steven)
-  1140	|       hstein [at] airmail.net (Harry Stein)
-  1141	|       j-korsv [at] online.no (Jon-Egil Korsvold)
-  1142	|       jari.aalto [at] ntc.nokia.com (Jari Aalto)
-  1143	|       jblaine [at] shore.net (Jeff Blaine)
-  1144	|       jerabek [at] rm6208.gud.siemens.co.at (Martin Jerabek)
-  1145	|       jesusmc [at] scripps.edu (Jesus M. Castagnetto)
-  1146	|       jidanni [at] kimo.com.tw (Dan Jacobson)
-  1147	|       jlaiho [at] ichaos.nullnet.fi (Juha Laiho)
-  1148	|       jland [at] worldnet.att.net (Jim Land)
-  1149	|       jmccann [at] WOLFENET.com (James McCann)
-  1150	|       joe [at] plaguesplace.dyndns.org
-  1151	|       johnd [at] mozart.inet.co.th (John DeHaven)
-  1152	|       kahrs [at] iSenseIt.de (Juergen Kahrs)
-  1153	|       konrad [at] netcom.com (Konrad Hambrick)
-  1154	|       lehalle [at] earthling.net (Charles-Albert Lehalle)
-  1155	|       lothar [at] u-aizu.ac.jp (Lothar M. Schmitt)
-  1156	|       mark [at] ispc001.demon.co.uk (Mark Katz)
-  1157	|       markus [at] biewer.com (Markus B. Biewer)
-  1158	|       monty [at] primenet.com (Jim Monty)
-  1159	|       morrisl [at] scn.org (Larry D. Morris)
-  1160	|       neel [at] gnu.org
-  1161	|       neil_mahoney [at] il.us.swissbank.com (Neil Mahoney)
-  1162	|       neitzel [at] gaertner.de (Martin Neitzel)
-  1163	|       peter.tillier [at] btinternet.com (Peter S Tillier)
-  1164	|       pez68 [at] netscape.net (Peter Stromberg)
-  1165	|       phil [at] bolthole.com (Philip Brown)
-  1166	|       pholzleitner [at] unido.org (Peter HOLZLEITNER)
-  1167	|       pierre [at] mail.asianet.it (Gianni Rondinini)
-  1168	|       pjf [at] osiris.cs.uoguelph.ca (Peter Jaspers-Fayer)
-  1169	|       pjfarley [at] banet.net (Peter J. Farley III)
-  1170	|       ptjm [at] interlog.com (Patrick TJ McPhee)
-  1171	|       rms [at] friko.onet.pl (Rafal Sulejman)
-  1172	|       robin.moffatt [at] ntlworld.com (Robin Moffatt)
-  1173	|       rwab1 [at] cl.cam.ac.uk (Ralph Becket)
-  1174	|       saguyami [at] post.tau.ac.il (Shay)
-  1175	|       thobe [at] lafn.org (Glenn Thobe) 
-  1176	|       thull [at] ocston.org (Tom Hull)
-  1177	|       tim [at] consultix-inc.com (Tim Maher/CONSULTIX)
-  1178	|       vincent [at] delau.nl (Vincent de Lau)
-  1179	|       vjpnreddy [at] hotmail.com (Jaya Reddy)
-  1180	|       walkerj [at] compuserve.com (James G. Walker)
-  1181	|       walter [at] wbriscoe.demon.co.uk (Walter Briscoe)
-  1182	|       yuli.barcohen [at] telrad.co.il (Yuli Barcohen)
-  1183	|   
-  1184	|     Thanks.
-  1185	|   
-  1186	|   ========================================================================
-  1187	|   
-  1188	|   thus endeth the awk FAQ.
+  1108	|   	mortonspam [at] gmail.com (Ed Morton)
+  1109	|   
+  1110	|     Old testament (up until 2002):
+  1111	|       awkfaq at locutus.ofB.ORG (Russell Schulz) <== maintainer
+  1112	|     
+  1113	|       Alex.Schoenmakers [at] lhs.be
+  1114	|       David.Billinghurst [at] riotinto.com (David Billinghurst)
+  1115	|       Ferran.Jorba [at] uab.es (Ferran Jorba)
+  1116	|       Juergen.Kahrs [at] t-online.de
+  1117	|       Kalle.Tuulos [at] nmp.nokia.com (Kalle Tuulos)
+  1118	|       SimonN [at] draeger.com (Nicole Simon)
+  1119	|       afu [at] wta.att.ne.jp
+  1120	|       allen [at] gateway.grumman.com (John L. Allen)
+  1121	|       amnonc [at] mercury.co.il (Amnon Cohen)
+  1122	|       andrew_sumner [at] bigfoot.com (Andrew Sumner)
+  1123	|       arnold [at] skeeve.com (Arnold D. Robbins)
+  1124	|       art [at] pove.com (Art Povelones)
+  1125	|       bmarcum [at] iglou.com (Bill Marcum)
+  1126	|       boffi [at] rachele.stru.polimi.it (giacomo boffi)
+  1127	|       bps03z [at] email.mot.com (Peter Saffrey)
+  1128	|       brennan [at] whidbey.com (Michael D. Brennan)
+  1129	|       churchyh [at] ccwf.cc.utexas.edu (Henry Churchyard)
+  1130	|       db21 [at] ih4ess.ih.lucent.com (David Beyerl)
+  1131	|       dmckeon [at] swcp.com (Denis McKeon)
+  1132	|       dmeier.esperanto [at] gmx.de (Detlef Meier)
+  1133	|       dzubera [at] CS.ColoState.EDU (Zube)
+  1134	|       edgar.j.ramirez [at] lmco.com (Edgar J. Ramirez)
+  1135	|       eia018 [at] comp.lancs.ac.uk (Dr Andrew Wilson)
+  1136	|       epement [at] ripco.com (Eric Pement)
+  1137	|       gavin [at] wraith.u-net.com (Gavin Wraith)
+  1138	|       hankedr [at] mail.auburn.edu (Darrel Hankerson)
+  1139	|       hastinga [at] tarim.dialogic.com (Austin Hastings)
+  1140	|       heiner.steven [at] nexgo.de (Heiner Steven)
+  1141	|       hstein [at] airmail.net (Harry Stein)
+  1142	|       j-korsv [at] online.no (Jon-Egil Korsvold)
+  1143	|       jari.aalto [at] ntc.nokia.com (Jari Aalto)
+  1144	|       jblaine [at] shore.net (Jeff Blaine)
+  1145	|       jerabek [at] rm6208.gud.siemens.co.at (Martin Jerabek)
+  1146	|       jesusmc [at] scripps.edu (Jesus M. Castagnetto)
+  1147	|       jidanni [at] kimo.com.tw (Dan Jacobson)
+  1148	|       jlaiho [at] ichaos.nullnet.fi (Juha Laiho)
+  1149	|       jland [at] worldnet.att.net (Jim Land)
+  1150	|       jmccann [at] WOLFENET.com (James McCann)
+  1151	|       joe [at] plaguesplace.dyndns.org
+  1152	|       johnd [at] mozart.inet.co.th (John DeHaven)
+  1153	|       kahrs [at] iSenseIt.de (Juergen Kahrs)
+  1154	|       konrad [at] netcom.com (Konrad Hambrick)
+  1155	|       lehalle [at] earthling.net (Charles-Albert Lehalle)
+  1156	|       lothar [at] u-aizu.ac.jp (Lothar M. Schmitt)
+  1157	|       mark [at] ispc001.demon.co.uk (Mark Katz)
+  1158	|       markus [at] biewer.com (Markus B. Biewer)
+  1159	|       monty [at] primenet.com (Jim Monty)
+  1160	|       morrisl [at] scn.org (Larry D. Morris)
+  1161	|       neel [at] gnu.org
+  1162	|       neil_mahoney [at] il.us.swissbank.com (Neil Mahoney)
+  1163	|       neitzel [at] gaertner.de (Martin Neitzel)
+  1164	|       peter.tillier [at] btinternet.com (Peter S Tillier)
+  1165	|       pez68 [at] netscape.net (Peter Stromberg)
+  1166	|       phil [at] bolthole.com (Philip Brown)
+  1167	|       pholzleitner [at] unido.org (Peter HOLZLEITNER)
+  1168	|       pierre [at] mail.asianet.it (Gianni Rondinini)
+  1169	|       pjf [at] osiris.cs.uoguelph.ca (Peter Jaspers-Fayer)
+  1170	|       pjfarley [at] banet.net (Peter J. Farley III)
+  1171	|       ptjm [at] interlog.com (Patrick TJ McPhee)
+  1172	|       rms [at] friko.onet.pl (Rafal Sulejman)
+  1173	|       robin.moffatt [at] ntlworld.com (Robin Moffatt)
+  1174	|       rwab1 [at] cl.cam.ac.uk (Ralph Becket)
+  1175	|       saguyami [at] post.tau.ac.il (Shay)
+  1176	|       thobe [at] lafn.org (Glenn Thobe) 
+  1177	|       thull [at] ocston.org (Tom Hull)
+  1178	|       tim [at] consultix-inc.com (Tim Maher/CONSULTIX)
+  1179	|       vincent [at] delau.nl (Vincent de Lau)
+  1180	|       vjpnreddy [at] hotmail.com (Jaya Reddy)
+  1181	|       walkerj [at] compuserve.com (James G. Walker)
+  1182	|       walter [at] wbriscoe.demon.co.uk (Walter Briscoe)
+  1183	|       yuli.barcohen [at] telrad.co.il (Yuli Barcohen)
+  1184	|   
+  1185	|     Thanks.
+  1186	|   
+  1187	|   ========================================================================
+  1188	|   
+  1189	|   thus endeth the awk FAQ.
