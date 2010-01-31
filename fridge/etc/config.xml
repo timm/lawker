@@ -502,7 +502,7 @@ pageTracker._trackPageview();
 		<what>2010</what>
 		<what>AlexC</what>
 	</file>
-	<file where="doc/android.html">
+	<file where="doc/news/android.html">
 		<title>Awk on Android</title>
 		<what>Android</what>
 		<what>Jan</what>

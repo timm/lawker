@@ -47,7 +47,7 @@ doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
 doc/news/japanesemascot.html	;HiroS	;2010	;Jan				;Mascot	;|New mascot
 doc/news/runawk019.html		;AlexC	;2010	;Jan	;Tools	;Project ;Runawk	;|Runawk 0.19
-doc/android.html 		;MartinC	;2010	;Jan	;Android	;|Awk on Android
+doc/news/android.html 		;MartinC	;2010	;Jan	;Android	;|Awk on Android
 doc/news/popular.html		;Admin	;2009	;Nov	;|Awk.info Gaining Popularity
 doc/news/awkbot.html		;ScottS	;2009	;Nov	;|Awkbot: 
 doc/news/awkmug.html		;Zazzle	;2009	;Oct	;|Awk Mug
