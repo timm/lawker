@@ -17,7 +17,7 @@ Edit the line shown below containing 'program.awk datafile'
 and replace with your AWK program file, and your datafile.
 <li>
 Double click your HTA file to run it.
-</ul>
+</ol>
 <h2>Example</h2>
 <p>
 This example will capture the output of your AWK program
@@ -25,42 +25,42 @@ and render that output dynamically to an HTML stream
 within a graphical window.
 <pre>
 &lt;html>
-	&lt;head>
-		&lt;title>My application&lt;/title>
+   &lt;head>
+      &lt;title>My application&lt;/title>
 
-		&lt;hta:application
-		id="MyApp"
-		applicationName="My application"
-		border="thick"
-		borderStyle="normal"
-		caption="yes"
-		contextMenu="yes"
-		icon=""
-		innerBorder="no"
-		maximizeButton="yes"
-		minimizeButton="yes"
-		navigable="yes"
-		scroll="yes"
-		scrollFlat="no"
-		selection="yes"
-		showInTaskBar="yes"
-		singleInstance="yes"
-		sysMenu="yes"
-		version="1.0"
-		windowState="normal"
-	&lt;/head>
+      &lt;hta:application
+      id="MyApp"
+      applicationName="My application"
+      border="thick"
+      borderStyle="normal"
+      caption="yes"
+      contextMenu="yes"
+      icon=""
+      innerBorder="no"
+      maximizeButton="yes"
+      minimizeButton="yes"
+      navigable="yes"
+      scroll="yes"
+      scrollFlat="no"
+      selection="yes"
+      showInTaskBar="yes"
+      singleInstance="yes"
+      sysMenu="yes"
+      version="1.0"
+      windowState="normal"
+   &lt;/head>
 
-	&lt;body>
-		&lt;script type="text/vbscript">
-			Set WshShell = CreateObject("Wscript.shell")
-			Set objExec= WshShell.Exec("%comspec% /c gawk -f program.awk
-			datafile")
-			output = objExec.StdOut.ReadAll
-			document.write("&lt;pre>" & output & "&lt;/pre>")
-			&lt;/script>
+   &lt;body>
+      &lt;script type="text/vbscript">
+         Set WshShell = CreateObject("Wscript.shell")
+         Set objExec= WshShell.Exec("%comspec% /c gawk -f program.awk
+         datafile")
+         output = objExec.StdOut.ReadAll
+         document.write("&lt;pre>" & output & "&lt;/pre>")
+         &lt;/script>
 
-		&lt;/body>
-	&lt;/html>
+      &lt;/body>
+   &lt;/html>
 </pre>
 <h2>Author</h2>
 <p>Michael Sanders:
