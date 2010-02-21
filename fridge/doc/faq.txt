@@ -783,7 +783,7 @@ as well as getline returning <0 -- is this still true? ]
    how can i find out how many elements x has (I mean other than
    testing for null string or doing a `for (n in x)' test)?
 
-split() is a function; use its return value:
+   split() is a function; use its return value:
 
         n = split($1, x, "string")
 
@@ -791,22 +791,22 @@ split() is a function; use its return value:
 
 16. How can I split a string into characters?
 
-In portable POSIX awk, the only way to do this is to use substr to pull
-out each character, one by one.  This is painful.  However, gawk, mawk,
-and the newest version of the Bell Labs awk all allow you to set
-FS = "" and use "" as the third argument of split.
-
-So, split("chars",anarray,"") results in the array anarray containing
-5 elements -- "c", "h", "a", "r", "s".
-
-If you don't have any ^As in your string, you could try:
-
-        string=$0;
-        gsub(".", "&\001", string)
-        n=split(string, anarray, "\001")
-        for (i=1;i<=n;i++)
-            print "character " i "is '" anarray[i] "'";
-
+  In portable POSIX awk, the only way to do this is to use substr to pull
+  out each character, one by one.  This is painful.  However, gawk, mawk,
+  and the newest version of the Bell Labs awk all allow you to set
+  FS = "" and use "" as the third argument of split.
+  
+  So, split("chars",anarray,"") results in the array anarray containing
+  5 elements -- "c", "h", "a", "r", "s".
+  
+  If you don't have any ^As in your string, you could try:
+  
+          string=$0;
+          gsub(".", "&\001", string)
+          n=split(string, anarray, "\001")
+          for (i=1;i<=n;i++)
+              print "character " i "is '" anarray[i] "'";
+  
 ========================================================================
 
 17. How do I have dynamic-width printf strings, like C?
