@@ -63,10 +63,17 @@ Contents:
       20.2. use IGNORECASE=1
   21. How can I force a numeric/non-numeric comparison?
   22. Why does { FS=":"; print $1 } not split the first record?
-  23. Did ^ and $ and . change in gawk?
-  24. Why doesn't awk 'begin {...}' work?
-  25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
-  26. How do I take advantage of gawk's networking support?
+  23. Why doesn't awk 'begin {...}' work?
+  24. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
+  25. How do I take advantage of gawk's networking support?
+  26. How do I delete all fields up to field N, preserving input formatting?
+  27. How do I extract the string that matches a RE?
+  28. How do I substitute matched REs in *sub()?
+  29. How do I write changes back to the original file?
+  30. How do I convert a string to an array?
+  31. How do I convert and diff 2 date/time values?
+  32. How do I select a range of records?
+  33. How do I remove text between 2 tags?
   98. Miscellaneous
   99. Credits
 
@@ -91,7 +98,8 @@ You wouldn't believe how much spam I get to this address.
 Probably not.  Please don't mail it to me.
 
 Read the FAQ, and the materials pointed to by it, and if you can't find
-an answer there, by all means post to the newsgroup.
+an answer there, by all means post to the newsgroup (see
+http://groups.google.com/group/comp.lang.awk).
 
 If you need help posting, see <http://groups.google.com/> among others.
 
@@ -116,7 +124,7 @@ I pay for my access; don't you?
 
 5. What is awk?
 
-Awk is a stable, cross platform computer language named for its
+Awk is a stable cross platform computer language named for its
 authors Alfred Aho, Peter Weinberger & Brian Kernighan. They write:
 "Awk is a convenient and expressive programming language that can
 be applied to a wide variety of computing and data-manipulation
@@ -134,12 +142,21 @@ Besides the Bourne shell, Awk is the only other scripting language
 available in the standard Unix environment. Implementations of AWK
 exist as installed software for almost all other operating systems.
 
+AWK is a superb language for testing algorithms and applications
+with some complexity, especially where the problem can be broken
+into chunks which can streamed as part of a pipe. It's an ideal
+tool for augmenting the features of shell programming as it is
+ubiquitous; found in some form on almost all Unix/Linux/BSD systems.
+Many problems dealing with text, log lines or symbol tables are
+handily solved or at the very least prototyped with awk along with
+the other tools found on Unix/Linux systems.
+
 ========================================================================
 
 6. What well-maintained awk-compatible languages are there?
 
   6.1 nawk
-    "The one true awk", old.
+    "The one true awk" (the original Bell Labs AWK).
     Interpreter.
     See http://www.cs.princeton.edu/~bwk/btl.mirror/awk.tar.gz
 
@@ -175,20 +192,20 @@ exist as installed software for almost all other operating systems.
 	See http://sourceforge.net/projects/runawk/files/runawk/.
 
   6.8 Older versions, may not be currently supported, translates to "C".
-	 * awk2c
      * awka
 
 ========================================================================
 
 7. Where can I buy awk?
 
-AFAIK, all current AWK versions are open source; i.e. free.
+MKS sells their version of AWK, or at least as part of their toolkit.
+See http://www.mks.com
 
 ========================================================================
 
 8. Where can I get awk for free?  For what platforms?
 
-AFAIK, all current AWK versions are open source; i.e. free.
+Most current AWK versions are open source; i.e. free.
 
 AWK runs on many platforms and can be downloaded and installed from
 many package management systems; e.g.
@@ -266,7 +283,7 @@ Carlo Strozzi writes:
       Errata:
 		<http://oreilly.com/catalog/awkprog3/errata/>
 
-      We recommends buying the book instead of trying to print it
+      We recommend buying the book instead of trying to print it
       all out, for three reasons:
 
         1. It's probably cheaper than using your own toner and paper.
@@ -293,7 +310,7 @@ Carlo Strozzi writes:
       ISBN 1-56592-225-5 (second edition)
 
       _sed & awk_ describes two text manipulation programs that are
-      mainstays of the UNIX programmer's toolbox.  This new edition
+      mainstays of the UNIX programmer's toolbox.  The last edition
       covers the sed and awk programs as they are now mandated by
       the POSIX standard and includes discussion of the GNU versions
       of these programs.
@@ -324,14 +341,14 @@ Carlo Strozzi writes:
   English Book:
 
       _Mastering Regular Expressions_, by Jeffrey E.F. Friedl, published
-      by O'Reilly and Associates.  (the `Hip Owls Book')
+      by O'Reilly and Associates. 3rd edition. (the `Hip Owls Book')
 
       ``... you will learn how to use regular expressions to
       solve problems and get the most out of tools that provide
       them.  Not only that, but much more:  this book is about
       _mastering_ regular expressions.''
 
-      <http://www.ora.com/catalog/regex/>
+      < http://oreilly.com/catalog/9780596528126/>
 
       errata, additions, change log available at the author's home page
       <http://public.yahoo.com/~jfriedl/regex/>
@@ -414,15 +431,6 @@ Carlo Strozzi writes:
      
      Emmett Dulaney: AWK: The Linux Administrators' Wisdom Kit
      <http://www.oracle.com/technology/pub/articles/dulaney_awk.html>
-  
-  11.4. Arnold Robbins' collection
-
-      <ftp://ftp.freefriends.org/arnold/Awkstuff/>
-
-      > A collection of awk related stuff that I'm starting and willing
-      > to maintain.  Currently includes Henry Spencer's awf and aaa
-      > programs, Brian Kernighan's chem, and Nelson Beebe's awkpretty,
-      > and some smaller items.
 
 ========================================================================
 
@@ -872,7 +880,8 @@ If you don't have any ^As in your string, you could try:
 
 19. What is awk's exit code?
 
-  Normally, the `exit' command exits with a value of zero.
+  With no exit command, awk exits with a zero value, unless there 
+  were problems closing input/output files.  
   
   You can supply an optional numeric value to the `exit' command to
   make it exit with a value:
@@ -916,7 +925,7 @@ If you don't have any ^As in your string, you could try:
 
 20. How can I get awk to be case-insensitive?
 
-  20.1. use tolower()
+  20.1. use tolower() or tolower()
     - portable
     - must be explicitly used for each comparison
 
@@ -988,20 +997,13 @@ If you don't have any ^As in your string, you could try:
   
 ========================================================================
 
-23. Did ^ and $ and . change in gawk?
-  
-  Yes.  early versions cared about \n (newlines) and treated them
-  specially.  version 3.* and later are more POSIX-compliant here.
-  
-========================================================================
-
-24. Why doesn't awk 'begin {...}' work?
+23. Why doesn't awk 'begin {...}' work?
   
   It needs to be `BEGIN' (i.e., it's case-sensitive).
   
 ========================================================================
 
-25. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
+24. Why does awk 'BEGIN { print 6 " " -22 }' lose the space?
   
   You'd expect `6 -22', but you get `6-22'.  It's because the `" " -22'
   is grouped first, as a subtraction instead of a concatenation, resulting
@@ -1010,7 +1012,7 @@ If you don't have any ^As in your string, you could try:
   
 ========================================================================
 
-26. How do I take advantage of gawk's networking support?
+25. How do I take advantage of gawk's networking support?
   
   (Contribution from Michael Sanders: see http://awk.info/?tools/server).
   
@@ -1086,6 +1088,178 @@ If you don't have any ^As in your string, you could try:
 
 ========================================================================
 
+26. How do I delete all fields up to field N, preserving input formatting?
+
+  With a POSIX awk:
+    awk 'sub(/^[[:space:]]*([^[:space:]]*[[:space:]]*){N}/,"")'
+
+  With GNU awk:
+    gawk --re-interval 'sub(/^[[:space:]]*([^[:space:]]*[[:space:]]*){N}/,"")'
+
+  The number "N" within the "{...}" is the number of initial fields to delete.
+
+  Note that "gensub()" is not available with "--posix" but it is available
+  with "--re-interval" so if you need to use an interval expression (e.g.
+  {1,} or {8} or {2,4}) with gensub() then you must use --re-interval
+  rather than --posix so --re-interval is generally the preferred method.
+  
+
+========================================================================
+
+27. How do I extract the string that matches a RE?
+
+  awk -v re='a|b' '
+
+  function extract(str,regexp) {
+     RMATCH = (match(str,regexp) ? substr(str,RSTART,RLENGTH) : "")
+     return RSTART
+  }
+
+  extract($0,re) { print RMATCH }
+  '
+
+========================================================================
+
+28. How do I substitute matched REs in *sub().
+
+  $ echo "abcbd" | awk 'sub(/b/,"|&|")'
+  a|b|cbd
+  $ echo "abcbd" | awk 'gsub(/b/,"|&|")'
+  a|b|c|b|d
+  $ echo "abcbd" | gawk '$0=gensub(/b/,"|&|","")'
+  a|b|cbd
+  $ echo "abcbd" | gawk '$0=gensub(/b/,"|&|","g")'
+  a|b|c|b|d
+  $ echo "abcbd" | gawk '$0=gensub(/(b)/,"|\\1|","")'
+  a|b|cbd
+  $ echo "abcbd" | gawk '$0=gensub(/(b)/,"|\\1|","g")'
+  a|b|c|b|d
+  $ echo "abcbd" | gawk '$0=gensub(/(b)(c)/,"|\\2\\1|","g")'
+  a|cb|bd
+  
+========================================================================
+
+29. How do I write changes back to the original file?
+
+  awk '
+  function saveRec(rec)    { _File[++_Fnr] = rec }
+  
+  function printFile(   fnr) {
+     if (_PrevFilename != "") {
+        close(_PrevFilename)        # just in case this is called in END
+        printf "" > _PrevFilename   # make sure later close() succeeds
+        for (fnr=1; fnr<=_Fnr; fnr++)
+            print _File[fnr] > _PrevFilename
+        close(_PrevFilename)
+     }
+     _Fnr = 0
+     _PrevFilename = FILENAME
+  }
+  
+  FNR==1 { printFile() }
+  { ... do stuff with $0...; saveRec( $0 ) }
+  END { printFile() }
+  ' file1 file2 ...
+  
+========================================================================
+
+30. How do I convert a string to an array?
+  
+  To convert a string to an array indexed by each word's position
+  in the string:
+
+  awk 'BEGIN{str="abc def";c=split(str,arr);
+             for (i=1;i<=c;i++) 
+                    print arr[i]}'
+  
+  To convert a string to an array indexed by each word:
+  
+  awk 'BEGIN{str="abc def";c=split(str,tmp);
+             for (i=1;i<=c;i++)
+                    arr[tmp[i]]++;
+             delete tmp;
+             for (w in arr) 
+                    print w}'
+  
+========================================================================
+
+31. How do I convert and diff 2 date/time values?
+
+  This will print the number of seconds between 2 date/time values
+  given in some non-standard format: gawk-only solution:
+
+  function cvttime(t,     a) {
+         split(t,a,"[/:]")
+         match("JanFebMarAprMayJunJulAugSepOctNovDec",a[2])
+         a[2] = sprintf("%02d",(RSTART+2)/3)
+         return( mktime(a[3]" "a[2]" "a[1]" "a[4]" "a[5]" "a[6]) )
+  }
+  BEGIN{
+        t1="01/Dec/2005:00:04:42"
+        t2="01/Dec/2005:17:14:12"
+        print cvttime(t2) - cvttime(t1)
+  }
+  
+
+========================================================================
+
+32. How do I select a range of records?
+
+  The following idioms describe how to select a range of records given
+  a specific pattern to match:
+  
+  a) Print all records from some pattern:
+  
+     awk '/pattern/{f=1}f' file
+  
+  b) Print all records after some pattern:
+  
+     awk 'f;/pattern/{f=1}' file
+  
+  c) Print the Nth record after some pattern:
+  
+     awk 'c&&!--c;/pattern/{c=N}' file
+  
+  d) Print every record except the Nth record after some pattern:
+  
+     awk 'c&&!--c{next}/pattern/{c=N}1' file
+  
+  e) Print the N records after some pattern:
+  
+     awk 'c&&c--;/pattern/{c=N}' file
+  
+  f) Print every record except the N records after some pattern:
+  
+     awk 'c&&c--{next}/pattern/{c=N}1' file
+  
+  g) Print the N records from some pattern:
+  
+     awk '/pattern/{c=N}c&&c--' file
+  
+  I changed the variable name from "f" for "found" to "c" for "count"
+  where appropriate as that's more expressive of what the variable
+  actually IS.
+
+========================================================================
+
+33. How do I remove text between 2 tags?
+
+  POSIX: a 2-pass approach to turn all the searched-for patterns
+  into a single char (control-B in this case for no particular
+  reason) first and then use that as the RS (since an RS that's an
+  RE is gawk-only):
+
+     awk '{$1=$1}1' FS='(begin|end)' OFS=^B file | awk 'NR%2' RS=^B
+     ORS=
+
+  where the opening and closing tags are "begin" and "end" respecitvely.
+
+  The gawk equivalent is to directly uses an RE for the RS:
+
+     gawk -v RS='(begin|end)' -v ORS= 'NR%2'
+
+========================================================================
+
 98. Miscellaneous
 
 ========================================================================
@@ -1103,6 +1277,7 @@ If you don't have any ^As in your string, you could try:
   New testament (from 2010):
     tim [at] menzies.us (Tim Menzies) <== maintainer
     
+    arnold [at] skeeve.com (Arnold Robbins)
     g_r_a_n_t_ [at] bugsplatter.id.au
     mike [at] topcat.hypermart.net (Michael Sanders)
 	mortonspam [at] gmail.com (Ed Morton)
