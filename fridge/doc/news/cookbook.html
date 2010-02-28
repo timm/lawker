@@ -1,0 +1,240 @@
+<h1><join>Awk CookBook Project</join></h1>
+
+<p><em>Tim Menzies writes...</em>
+
+<p>Anyone interested in colloberating on an Awk CookBook?  That we get published with (say) O'Reilly?
+
+<p>After browsing the
+excellent entries from the
+PHP cookbook by 
+David Sklar and Adam Trachtenberg, I think the following topics look relevant.
+
+<p>But what other topics are useful/ simple/ practical/ etc?
+
+<p>I propose the following timetable:
+<ul>
+<li>March 2010: 
+	<ul>
+	<li>Revise the following list of headings (making comments using the comment system, below);
+	<li>Identify possible authors
+	<ul>
+<li>April 2010:
+	<ul>
+	<li>Every author writes 5 new entries (call them "yellow")
+	</ul>
+<li>May 2010:
+	<ul>
+	<li>Every author reviews 5 entries for other authors, to lable them "green" (ok to go) or "red" (needs more work).
+(call them "yellow")
+	<li>Every author writes 5 new entries (call them "yellow")
+	</ul>
+<li>Repeat the above, till done.
+</ul>
+<p>So, according to that timetable, the first step is for everyone to jump in and propose topics. Looking forward to your input!
+
+<pre>
+     1	= Strings =
+     2	
+     3	 * Accessing Substrings
+     4	 * Replacing Substrings
+     5	 * Processing a String One Character at a Time
+     6	 * Reversing a String by Word or Character
+     7	 * Expanding and Compressing Tabs
+     8	 * Controlling Case
+     9	 * Interpolating Functions and Expressions Within Strings
+    10	 * Trimming Blanks from a String
+    11	 * Parsing Comma-Separated Data
+    12	 * Parsing Fixed-Width Delimited Data
+    13	 * Taking Strings Apart
+    14	 * Wrapping Text at a Certain Line Length
+    15	 * Storing Binary Data in Strings
+    16	 * Building a String From Parts
+    17	 * Substituting Variables Into Strings
+    18	 * Converting Between Characters and Values
+    19	 * Managing Whitespace
+    20	 * Word-wrapping Lines of Text
+    21	 * Validating an Email Address
+    22	
+    23	= Numbers =
+    24	
+    25	 * Checking Whether a String Contains a Valid Number
+    26	 * Comparing Floating-Point Numbers
+    27	 * Rounding Floating-Point Numbers
+    28	 * Operating on a Series of Integers
+    29	 * Generating Random Numbers Within a Range
+    30	 * Generating Biased Random Numbers
+    31	 * Taking Logarithms
+    32	 * Calculating Exponents
+    33	 * Formatting Numbers
+    34	 * Printing Correct Plurals
+    35	 * Calculating Trigonometric Functions
+    36	 * Doing Trigonometry in Degrees, not Radians
+    37	 * Handling Very Large or Very Small Numbers
+    38	 * Converting Between Bases
+    39	 * Calculating Using Numbers in Bases Other Than Decimal
+    40	
+    41	= Dates and Times =
+    42	
+    43	 * Finding the Current Date and Time
+    44	 * Converting Time and Date Parts to an Epoch Timestamp
+    45	 * Converting an Epoch Timestamp to Time and Date Parts
+    46	 * Printing a Date or Time in a Specified Format
+    47	 * Finding the Difference of Two Dates
+    48	 * Finding the Difference of Two Dates with Julian Days
+    49	 * Finding the Day in a Week, Month, Year, or the Week Number in a Year
+    50	 * Validating a Date
+    51	 * Parsing Dates and Times from Strings
+    52	 * Adding to or Subtracting from a Date
+    53	 * Calculating Time with Time Zones
+    54	 * Accounting for Daylight Saving Time
+    55	 * Generating a High-Precision Time
+    56	 * Generating Time Ranges
+    57	 * Using Non-Gregorian Calendars
+    58	 * Program: Calendar
+    59	
+    60	= Arrays =
+    61	
+    62	 * Specifying an Array Not Beginning at Element 0
+    63	 * Storing Multiple Elements per Key in an Array
+    64	 * Initializing an Array to a Range of Integers
+    65	 * Iterating Through an Array
+    66	 * Deleting Elements from an Array
+    67	 * Changing Array Size
+    68	 * Appending One Array to Another
+    69	 * Turning an Array into a String
+    70	 * Printing an Array with Commas 
+    71	 * Checking if a Key Is in an Array
+    72	 * Checking if an Element Is in an Array
+    73	 * Finding the Position of an Element in an Array
+    74	 * Finding Elements That Pass a Certain Test
+    75	 * Finding the Largest or Smallest Valued Element in an Array
+    76	 * Reversing an Array
+    77	 * Sorting an Array
+    78	 * Sorting an Array by a Computable Field
+    79	 * Sorting Multiple Arrays
+    80	 * Sorting an Array Using a Method Instead of a Function
+    81	 * Randomizing an Array
+    82	 * Shuffling a Deck of Cards
+    83	 * Removing Duplicate Elements from an Array
+    84	 * Finding the Union, Intersection, or Difference of Two Arrays
+    85	 * Finding All Element Combinations of an Array
+    86	 * Finding All Permutations of an Array
+    87	 * Program: Printing an Array in a Horizontally Columned HTML Table
+    88	
+    89	= Hashes =
+    90	
+    91	 * Introduction
+    92	 * Adding an Element to a Hash
+    93	 * Testing for the Presence of a Key in a Hash
+    94	 * Deleting from a Hash
+    95	 * Traversing a Hash
+    96	 * Printing a Hash
+    97	 * Retrieving from a Hash in Insertion Order 
+    98	 * Hashes with Multiple Values Per Key
+    99	 * Inverting a Hash
+   100	 * Sorting a Hash
+   101	 * Merging Hashes
+   102	 * Finding Common or Different Keys in Two Hashes
+   103	 * Hashing References
+   104	 * Presizing a Hash
+   105	 * Finding the Most Common Anything
+   106	 * Representing Relationships Between Data
+   107	 * Program: dutree
+   108	
+   109	= Variables =
+   110	
+   111	 * Avoiding == Versus = Confusion
+   112	 * Establishing a Default Value
+   113	 * Exchanging Values Without Using Temporary Variables
+   114	 * Creating a Dynamic Variable Name
+   115	 * Using Static Variables
+   116	 * Sharing Variables Between Processes
+   117	 * Encapsulating Complex Data Types as a String
+   118	 * Dumping Variable Contents as Strings
+   119	
+   120	= Functions =
+   121	
+   122	 * Accessing Function Parameters
+   123	 * Setting Default Values for Function Parameters
+   124	 * Passing Values by Reference
+   125	 * Using Named Parameters
+   126	 * Creating Functions That Take a Variable Number of Arguments
+   127	 * Returning Values by Reference
+   128	 * Returning More Than One Value
+   129	 * Skipping Selected Return Values
+   130	 * Returning Failure
+   131	 * Calling Variable Functions
+   132	 * Accessing a Global Variable Inside a Function
+   133	 * Creating Dynamic Functions
+   134	
+   135	= XML =
+   136	
+   137	 * Generating XML Manually
+   138	 * Generating XML with the DOM
+   139	 * Parsing XML with the DOM
+   140	 * Parsing XML with SAX
+   141	 * Transforming XML with XSLT
+   142	 * Sending XML-RPC Requests
+   143	 * Receiving XML-RPC Requests
+   144	 * Sending SOAP Requests
+   145	 * Receiving SOAP Requests
+   146	 * Exchanging Data with WDDX
+   147	 * Reading RSS Feeds
+   148	
+   149	= Regular Expressions =
+   150	
+   151	 * Switching From ereg to preg
+   152	 * Matching Words
+   153	 * Finding the nth Occurrence of a Match
+   154	 * Choosing Greedy or Nongreedy Matches
+   155	 * Matching a Valid Email Address
+   156	 * Finding All Lines in a File That Match a Pattern
+   157	 * Capturing Text Inside HTML Tags
+   158	 * Escaping Special Characters in a Regular Expression
+   159	 * Reading Records with a Pattern Separator
+   160	
+   161	
+   162	= Files =
+   163	 * Creating or Opening a Local File
+   164	 * Creating a Temporary File
+   165	 * Opening a Remote File
+   166	 * Reading from Standard Input
+   167	 * Reading a File into a String
+   168	 * Counting Lines, Paragraphs, or Records in a File
+   169	 * Processing Every Word in a File
+   170	 * Reading a Particular Line in a File
+   171	 * Processing a File Backward by Line or Paragraph
+   172	 * Picking a Random Line from a File
+   173	 * Randomizing All Lines in a File
+   174	 * Processing Variable Length Text Fields
+   175	 * Reading Configuration Files
+   176	 * Reading from or Writing to a Specific Location in a File
+   177	 * Removing the Last Line of a File
+   178	 * Modifying a File in Place Without a Temporary File
+   179	 * Flushing Output to a File
+   180	 * Writing to Standard Output
+   181	 * Writing to Many Filehandles Simultaneously
+   182	 * Escaping Shell Metacharacters
+   183	 * Passing Input to a Program
+   184	 * Reading Standard Output from a Program
+   185	 * Reading Standard Error from a Program
+   186	 * Locking a File
+   187	 * Reading and Writing Compressed Files
+   188	 * Program: Unzip
+   189	
+   190	= Directories =
+   191	
+   192	 * Getting and Setting File Timestamps
+   193	 * Getting File Information
+   194	 * Changing File Permissions or Ownership
+   195	 * Splitting a Filename into Its Component Parts
+   196	 * Deleting a File
+   197	 * Copying or Moving a File
+   198	 * Processing All Files in a Directory
+   199	 * Getting a List of Filenames Matching a Pattern
+   200	 * Processing All Files in a Directory
+   201	 * Making New Directories
+   202	 * Removing a Directory and Its Contents
+   203	 * Program: Web Server Directory Listing
+   204	 * Program: Site Search
+</pre>

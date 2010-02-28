@@ -486,6 +486,12 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>TerryB</what>
 	</file>
+	<file where="doc/news/cookbook.html">
+		<what>Awk Cookbook Project</what>
+		<what>Feb</what>
+		<what>2010</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/news/debugger.html">
 		<title>New AWK debugger</title>
 		<what>Feb</what>
