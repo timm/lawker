@@ -1,10 +1,10 @@
 From: tim@menzies.us
 Newsgroups: comp.lang.awk,comp.unix.shell,comp.answers,news.answers 
 Followup-To: poster 
-Subject: Awk FAQ v2.0 
+Subject: Awk FAQ v2.001 
 Summary: FAQ (Frequently Asked Questions) about the awk programming language
 Last-modified: 2010-Jan-20
-Version: 2.0
+Version: 2.001
 URL: http://awk.info/faq.txt
 Archive-name:  http://awk.info/faq.txt
 
@@ -43,7 +43,6 @@ Contents:
       11.1. The awk community portal.
       11.2. Short tutorials for newcomers.
       11.3. Longer Tutorials.
-      11.4. Arnold Robbins' collection  
   12. How do I report a bug in gawk?
   13. How can I access shell or environment variables in an awk script?
   14. How does awk deal with multiple files?
