@@ -1,0 +1,89 @@
+<h1><join>New Awk Debugger</join></h1>
+<p><em>Arnold Robbins writes in Feb 2010..</em>
+<p>
+I am pleased to announce the availability of a test version of gawk. 
+This version uses a byte-code execution engine, and most importantly, 
+it includes a debugger that works at the level of awk statements! The 
+distribution is available at 
+        <a href="http://www.skeeve.com/gawk/gawk-3.1.7-bc-d.tar.gz">http://www.skeeve.com/gawk/gawk-3.1.7-bc-d.tar.gz</a>.
+<p>
+This version is the same as 3.1.7, but with a new execution engine and 
+a debugging version of gawk named, rather imaginatively, "dgawk". 
+There is a story here.  Circa 2003, a gentleman by the name of Jon Haque 
+developed the byte-code execution engine and debugger, in the context 
+of a development gawk version, somewhere between 3.1.3 and 3.1.4. 
+<p>I never integrated the changes as they were massive and I was busy, 
+and I wasn't able to review them. 
+<p>The changes languished, and Jon disappeared. 
+<p>Last fall, Stephen Davies, one of my portability team members, agreed to 
+take on the task of bringing the code into the present.  With modest help 
+from me, he succeeded.  We then went through additional work to get this 
+version portable to some of the more esoteric systems that gawk supports 
+(64 bit Linux, z/OS and VMS). 
+<p>I thought it was ready for release at the end of December, until another 
+one of my testers found a severe memory leak in the byte code version. 
+It was a bear to track down, and once again Stephen came through. 
+The debugger uses the readline library, and it is purposely similar 
+to GDB.  There is only minimal documentation on the debugger; I'd love 
+to have someone volunteer to write a chapter for the gawk manual that 
+explains it fully. 
+
+<h2>Example</h2>
+<small>
+<pre>
+./dgawk -f ../share/awk/round.awk 
+dgawk> help
+backtrace      backtrace [N] 
+break          break [[filename:]N|function] 
+clear          clear [[filename :]N|function] 
+continue       continue [COUNT] - continue program being debugged.
+delete         delete [breakpoints] [range] 
+disable        disable [breakpoints] [range] 
+display        display var - print value of variable
+down           down [N] - move N frames down the stack.
+dump           dump [filename] - dump bytecode.
+enable         enable [once|del] [breakpoints] [range] 
+finish         finish - execute until selected stack frame returns.
+frame          frame [N] - select and print stack frame number N.
+help           help - print list of commands.
+ignore         ignore N COUNT - set ignore-count of breakpoint
+info           info topic 
+list           list [-|+|[filename:]lineno|function|range] 
+next           next [COUNT] - step program
+nexti          nexti [COUNT] - step one instruction
+print          print var [var] - print value of a variable
+quit           quit - exit debugger.
+return         return [value] 
+run            run - start executing program.
+set            set var = value - assign value to a scalar
+step           step [COUNT] - step program
+stepi          stepi [COUNT] - step one instruction
+tbreak         tbreak [[filename:]N|function] 
+trace          trace on|off - print instruction
+undisplay      undisplay [N] - remove variable(s)
+until          until [[filename:]N|function] 
+unwatch        unwatch [N] - remove variable(s) from watch list.
+up             up [N] - move N frames up the stack.
+watch          watch var - set a watchpoint for a variable.
+</pre></small>
+<p>Here is the debugger printing a function definition:
+<small>
+	<pre>
+dgawk> list
+1       # round.awk --- do normal rounding
+2       #
+3       # Arnold Robbins, arnold@skeeve.com, Public Domain
+4       # August, 1996
+5
+6       function round(x,   ival, aval, fraction)
+7       {
+8          ival = int(x)    # integer part, int() truncates
+9
+10         # see if fractional part
+11         if (ival == x)   # no fraction
+12            return ival   # ensure no decimals
+13
+14         if (x &lt; 0) {
+15            aval = -x     # absolute value
+</pre>
+</small>
