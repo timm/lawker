@@ -487,7 +487,8 @@ pageTracker._trackPageview();
 		<what>TerryB</what>
 	</file>
 	<file where="doc/news/cookbook.html">
-		<what>Awk Cookbook Project</what>
+		<title>Awk Cookbook Project</title>
+		<what>Cookbook</what>
 		<what>Feb</what>
 		<what>2010</what>
 		<what>Timm</what>
