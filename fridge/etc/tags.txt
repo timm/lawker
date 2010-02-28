@@ -75,6 +75,7 @@ doc/news/davinci.html		;VenkatesanS	;2009	;Apr	;Mascot		;|Davinci mascot
 
 doc/wp.html					;Admin	;2009	;Apr	;Wp					;|Word-processing in Awk
 doc/interpreters.html		;Admin	;2009	;Apr			;Interpreters ;|Interpreters
+doc/023vitamna.html         ;Pjanouch ;2010 ;Feb ;Irc ;Awk100 ;|IRC agent in AWK
 doc/aasl.html               ;HenryS ;2009 ;Apr ;Interpreters ;Awk100 ;|Parser Generator
 doc/bfc.html                ;SteveJ	;2009	;May	;Interpreters	;|Brainfuck to C 
 

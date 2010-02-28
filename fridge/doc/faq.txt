@@ -11,8 +11,7 @@ Archive-name:  http://awk.info/faq.txt
 Frequently Asked Questions == FAQ
 
 The FAQ list for comp.lang.awk can be found on the Internet:
-  <http://awk.info/faq.txt>
-  <http://www.faqs.org/faqs/computer-lang/awk/faq/>
+  <http://lawker.googlecode.com/svn/fridge/doc/faq.txt>
 
 ===============================================================
 
@@ -436,6 +435,9 @@ Carlo Strozzi writes:
      
      Ed Morton (and friends): Use (and Abuse) of Getline
      <http://awk.info/?tip/getline>
+        Note: Ed's text shows that getline is more
+        complicated that it first appears. In short,
+        getline should not be used by beginners. 
      
   11.3. Longer Tutorials
      
@@ -602,7 +604,7 @@ In brief:
 
       you need to check for a null string before printing.
       or store FILENAMEs in a different array during
-      processing.  Note that the above loop as written would
+      processing.  Note that the above loop as written could
       also print the script name stored in ARGV[0].
 
    8) When you use form "a", "b", or "c", the awk variable
@@ -760,36 +762,11 @@ still true? ]
     }
 
   14.5 How can I treat the first file specially?
+   
+       For the first file read, the FNR is the
+       same as NR. Hemce...
 
-    use FILENAME, thusly:
-
-    BEGIN { rulesfile="" }
-    rulesfile == "" { rulesfile = FILENAME; }
-    FILENAME == rulesfile { build_rule($0); }
-    FILENAME != rulesfile { apply_rule($0); }
-
-    Example:  
-
-    Suppose you have a text-line "database" and you want to
-    make some batch changes to it, by replacing some old
-    lines with new lines.
-
-    BEGIN { rulesfile="" }
-    rulesfile == "" { rulesfile = FILENAME; }
-    rulesfile == FILENAME { replace[$1] = $0; }
-    rulesfile != FILENAME \
-    { 
-            if ($1 in replace) 
-                    print replace[$1];
-            else
-                    print;
-    }
-
-    another way, using ARGV:
-
-    (FILENAME == ARGV[1]) { replace[$1] = $0; next }
-    ($1 in replace) { print replace[$1]; next }
-    { print }
+       FNR == NR { stuff }
 
   14.6 How can I explicitly pass in a filename 
        to treat specially?

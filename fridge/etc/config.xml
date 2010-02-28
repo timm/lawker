@@ -697,6 +697,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
+	<file where="doc/023vitamna.html">
+		<title>IRC agent in AWK</title>
+		<what>Awk100</what>
+		<what>Irc</what>
+		<what>Feb</what>
+		<what>2010</what>
+		<what>Pjanouch</what>
+	</file>
 	<file where="doc/aasl.html">
 		<title>Parser Generator</title>
 		<what>Awk100</what>
