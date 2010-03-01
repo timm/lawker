@@ -47,22 +47,24 @@ TINY TIM is controlled by the following <tt>index.cgi</tt> file.
 To select a theme, comment out all but <em>one</em> of the last lines (using the "#" character).
 For a screen-shots of the current themes, see below.
 </p> 
+<small>
 <pre>
- #!/bin/bash
+#!/bin/bash
  
- [ -n "$1" ] && export QUERY_STRING="$1"
+[ -n "$1" ] && export QUERY_STRING="$1"
  
- tinytim() {
-	cat content/* themes/$1/theme.txt |
-	gawk -f lib/tinytim.awk |
-	sed 's/^&lt;pre>/&lt;script type="syntaxhighlighter" class="brush: cpp">&lt;![CDATA[/' |
-	sed 's/^&lt;\/pre>/&lt;\/script>/'
- } 
+tinytim() {
+  cat content/* themes/$1/theme.txt |
+  gawk -f lib/tinytim.awk |
+  sed 's/^&lt;pre>/&lt;script type="syntaxhighlighter" class="brush: cpp">&lt;![CDATA[/' |
+  sed 's/^&lt;\/pre>/&lt;\/script>/'
+} 
   
  #tinytim auklet
  #tinytim trendygreen
  tinytim wink
 </pre>
+</small>
 <p> 
 Notes:
 </p> 
