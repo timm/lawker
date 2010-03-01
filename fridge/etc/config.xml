@@ -718,7 +718,14 @@ pageTracker._trackPageview();
 		<what>2009</what>
 		<what>Admin</what>
 	</file>
-	<file where="doc/023vitamna.html">
+	<file where="doc/awk100/patentMatrix.html">
+		<title>Patent search for genes or proteins</title>
+		<what>Awk100</what>
+		<what>Feb</what>
+		<what>2010</what>
+		<what>ALahm</what>
+	</file>
+	<file where="doc/awk100/023vitamna.html">
 		<title>IRC agent in AWK</title>
 		<what>Awk100</what>
 		<what>Irc</what>
