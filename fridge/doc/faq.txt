@@ -1,12 +1,12 @@
 From: tim@menzies.us
 Newsgroups: comp.lang.awk,comp.unix.shell,comp.answers,news.answers 
 Followup-To: poster 
-Subject: Awk FAQ v2.002 
+Subject: Awk FAQ v2.003 
+Version: 2.003
 Summary: FAQ (Frequently Asked Questions) about the awk programming language
-Last-modified: 2010-Feb-28
-Version: 2.002
-URL: http://awk.info/faq.txt
-Archive-name:  http://awk.info/faq.txt
+Last-modified: 2010-Mar-1
+URL: http://lawker.googlecode.com/svn/fridge/doc/faq.txt
+Archive-name:  http://lawker.googlecode.com/svn/fridge/doc/faq.txt
 
 Frequently Asked Questions == FAQ
 
@@ -85,6 +85,7 @@ Contents:
 
 0. Change history
 
+Mar 1,  2010: fixing minor typos
 Feb 28, 2010: lines reformatted to kill wordwrap.
 Feb 20, 2010: AWK FAQ (version 2) released.
 
