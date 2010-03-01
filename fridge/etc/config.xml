@@ -725,13 +725,13 @@ pageTracker._trackPageview();
 		<what>2010</what>
 		<what>ALahm</what>
 	</file>
-	<file where="doc/awk100/023vitamna.html">
+	<file where="doc/awk100/023vitamina.html">
 		<title>IRC agent in AWK</title>
 		<what>Awk100</what>
 		<what>Irc</what>
 		<what>Feb</what>
 		<what>2010</what>
-		<what>Pjanouch</what>
+		<what>PremyslJ</what>
 	</file>
 	<file where="doc/aasl.html">
 		<title>Parser Generator</title>
