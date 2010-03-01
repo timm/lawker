@@ -506,6 +506,14 @@ pageTracker._trackPageview();
 		<what>2010</what>
 		<what>HiroS</what>
 	</file>
+	<file where="doc/tools/tinytim.html">
+		<title>The TinyTim Content Management System</title>
+		<what>CMS</what>
+		<what>Tools</what>
+		<what>Mar</what>
+		<what>2010</what>
+		<what>Timm</what>
+	</file>
 	<file where="doc/news/runawk019.html">
 		<title>Runawk 0.19</title>
 		<what>Runawk</what>

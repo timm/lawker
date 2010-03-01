@@ -48,6 +48,7 @@ doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 doc/news/cookbook.html	;Timm	;2010	;Feb	;Cookbook ;|Awk Cookbook Project
 doc/news/debugger.html	;ArnoldR	;2010	;Feb				;|New AWK debugger
 doc/news/japanesemascot.html	;HiroS	;2010	;Jan				;Mascot	;|New mascot
+doc/tools/tinytim.html		;Timm	;2010	;Mar	;Tools	;CMS  	;|The TinyTim Content Management System
 doc/news/runawk019.html		;AlexC	;2010	;Jan	;Tools	;Project ;Runawk	;|Runawk 0.19
 doc/news/android.html 		;MartinC	;2010	;Jan	;Android	;|Awk on Android
 doc/news/popular.html		;Admin	;2009	;Nov	;|Awk.info Gaining Popularity
