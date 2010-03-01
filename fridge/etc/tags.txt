@@ -236,3 +236,4 @@ doc/eng.html		;Admin	;2009	;June	;Engineering	;|Awk for Engineering
 doc/chem.html		;EisaA	;2009	;June	;Engineering	;|Awk for Chemical Engineers
 doc/mecheng.html		;DavidL	;2009	;June	;Engineering	;|Awk for Mechanical Engineers
 
+doc/tools/xmonthly.html 	;MichaelS	;Mar	;2010;	;GUI	;|Xmonth: Gawk+X-windows GUI
