@@ -44,7 +44,8 @@ Contents:
       11.2. Short tutorials for newcomers.
       11.3. Longer Tutorials.
   12. How do I report a bug in gawk?
-  13. How can I access shell or environment variables in an awk script?
+  13. How can I access shell or environment variables 
+      in an awk script?
   14. How does awk deal with multiple files?
       14.1 How can awk test for the existence of a file?
       14.2 How can I get awk to read multiple files?
@@ -570,7 +571,8 @@ In brief:
    5) An alternative to setting ARGV[1]="" in form "d" is to
       delete that array entry, e.g.:
 
-        awk 'BEGIN{avar=ARGV[1];delete ARGV[1]}$0 == avar' "$svar" file
+        awk 'BEGIN{avar=ARGV[1];
+             delete ARGV[1]}$0 == avar' "$svar" file
 
       This is slightly misleading, however since although
       ARGV[1] does get deleted in the BEGIN section and
@@ -1328,7 +1330,7 @@ still true? ]
     arnold [at] skeeve.com (Arnold Robbins) 
     g_r_a_n_t_ [at] bugsplatter.id.au 
     mike [at] topcat.hypermart.net (Michael Sanders)
-	mortonspam [at] gmail.com (Ed Morton)
+    mortonspam [at] gmail.com (Ed Morton)
     triflemenot [at] beewyz.com (Trifle Menot)
 
   Version One (up until 2002):
