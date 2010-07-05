@@ -1,0 +1,33 @@
+Here are the recent updates to http://awk.info .
+
+(For all updates to awk.info, subscribe to
+http://tinyurl.com/rss4awk. To contribute to awk.info,
+see http://awk.info/?contribute .)
+
+-----------------------------------------------------------
+NEWS
+
+Aharon Robbins announces a pre-release Gawk 3.1.8:
+- http://awk.info/?news/gawk318
+
+
+-----------------------------------------------------------
+UPDATES
+
+
+-----------------------------------------------------------
+PAGE OF THE MONTH
+
+
+--------
+
+Enjoy!
+:-)
+
+Tim Menzies
+
+p.s. Awk.info wants to show to the world your great awk
+code.  If you want to improve the above, or you have
+other code you are particularly proud of (which you can
+share), please see http://awk.info/?awk100 or
+http://awk.info/?contribute

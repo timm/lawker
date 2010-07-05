@@ -45,7 +45,7 @@ doc/tictactoe.html			;AaronH	;2009	;May	 ;Games			;|Tic-tac-toe
 doc/quicksort.html			;Ysa	;2009	;Apr	;TenLiners	;Sorting 			;|Quicksort
 doc/qtawk.html			;TerryB	;2009	;May	  			;|QTawk
 
-doc/news/cookbook.html	;Timm	;2010	;Feb	;Cookbook ;|Awk Cookbook Project
+doc/news/cookbook.html	;Timm	;2010	;Feb	;Cookbook ;|Gawk 3.1.8: ready (nearly)
 doc/news/debugger.html	;ArnoldR	;2010	;Feb				;|New AWK debugger
 doc/news/japanesemascot.html	;HiroS	;2010	;Jan				;Mascot	;|New mascot
 doc/tools/tinytim.html		;Timm	;2010	;Mar	;Tools	;CMS  	;|The TinyTim Content Management System
