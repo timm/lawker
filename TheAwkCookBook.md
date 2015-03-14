@@ -1,0 +1,1 @@
+![http://lawker.googlecode.com/svn/fridge/share/img/cookbook.gif](http://lawker.googlecode.com/svn/fridge/share/img/cookbook.gif)
